@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "study-in-czechia-dev",
+      "runtimeExecutable": "E:\\NODE\\npm.cmd",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    }
+  ]
+}
