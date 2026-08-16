@@ -2,32 +2,24 @@
 
 import React, { useState } from "react";
 import { useTranslation } from "@/i18n/context";
-import { CheckCircle, AlertCircle } from "lucide-react";
+import { CONTACT_EMAIL } from "@/config/contact";
+import { CheckCircle } from "lucide-react";
 
 export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success">("idle");
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!message.trim()) return;
-    setStatus("sending");
-    try {
-      const res = await fetch("/api/university-corrections", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ universityId: uniId, email: email || null, message: message.trim() }),
-      });
-      if (!res.ok) throw new Error("failed");
-      setStatus("success");
-      setEmail("");
-      setMessage("");
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
-    }
+    const subject = encodeURIComponent(`Correction for university: ${uniId}`);
+    const body = encodeURIComponent(`University ID: ${uniId}\nFrom: ${email || "anonymous"}\n\n${message.trim()}`);
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    setTimeout(() => setStatus("success"), 500);
+    setEmail("");
+    setMessage("");
   }
 
   return (
@@ -55,21 +47,14 @@ export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
       <div className="mt-3 flex items-center gap-3">
         <button
           type="submit"
-          disabled={status === "sending"}
-          className="px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-white text-sm font-medium transition-colors disabled:opacity-60"
+          className="px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-white text-sm font-medium transition-colors"
         >
-          {status === "sending" ? t.university.correctionSubmitting : t.university.correctionSubmit}
+          {t.university.correctionSubmit}
         </button>
         {status === "success" && (
           <span className="flex items-center gap-1.5 text-sm text-success">
             <CheckCircle className="w-4 h-4" />
             {t.university.correctionSuccess}
-          </span>
-        )}
-        {status === "error" && (
-          <span className="flex items-center gap-1.5 text-sm text-amber">
-            <AlertCircle className="w-4 h-4" />
-            {t.university.correctionError}
           </span>
         )}
       </div>

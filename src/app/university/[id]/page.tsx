@@ -12,6 +12,10 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
+export function generateStaticParams() {
+  return universities.map((u) => ({ id: u.id }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const uni = universities.find((u) => u.id === id);
