@@ -11,14 +11,12 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar />
-      <div className="pt-16">
-        <Suspense fallback={<div />}>
-          <SearchClient />
-        </Suspense>
-      </div>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <SearchClient />
+      </Suspense>
       <Footer />
-    </>
+    </div>
   );
 }

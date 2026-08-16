@@ -2,6 +2,7 @@
 
 import { type ReactNode } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type GlassCardProps = {
@@ -32,21 +33,43 @@ export function GlassCard({
     },
   };
 
+  const classes = cn(
+    "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6",
+    (href || onClick) && "cursor-pointer",
+    "transition-colors shadow-sm",
+    className
+  );
+
+  const inner = <div className="relative z-10">{children}</div>;
+
+  const isInternal = href && href.startsWith("/");
+
+  if (isInternal) {
+    return (
+      <motion.div
+        className={classes}
+        whileHover={hoverVariants[hoverEffect]}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <Link href={href} className="absolute inset-0 z-20" aria-hidden="true" tabIndex={-1} />
+        {inner}
+      </motion.div>
+    );
+  }
+
   const Component = href ? motion.a : motion.div;
 
   return (
     <Component
       href={href}
+      target={href ? "_blank" : undefined}
+      rel={href ? "noreferrer" : undefined}
       onClick={onClick}
-      className={cn(
-        "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6 cursor-pointer",
-        "transition-colors shadow-sm",
-        className
-      )}
+      className={classes}
       whileHover={hoverVariants[hoverEffect]}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <div className="relative z-10">{children}</div>
+      {inner}
     </Component>
   );
 }

@@ -19,12 +19,16 @@ export default function Page() {
   const fields = unique(universities.flatMap((u) => u.fields)).sort();
 
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar />
-      <div className="pt-16">
-        <UniversityListClient initialList={universities} initialQ={""} cities={cities} fields={fields} />
+      <div className="pt-24 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">Universities</h1>
+          <p className="text-text-secondary">Browse and filter Czech universities by city, field, or name.</p>
+        </div>
       </div>
+      <UniversityListClient initialList={universities} initialQ={""} cities={cities} fields={fields} />
       <Footer />
-    </>
+    </div>
   );
 }
