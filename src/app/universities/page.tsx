@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import React from "react";
 import UniversityListClient from "./UniversityListClient";
 import { universities } from "@/data/universities";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
-type Props = {
-  searchParams?: { q?: string } | Promise<{ q?: string }>;
+export const metadata: Metadata = {
+  title: "Universities",
+  description: "Browse all Czech universities — filter by city, field of study, and sort by name or founding year.",
 };
 
 function unique<T>(arr: T[]) {
@@ -11,10 +15,16 @@ function unique<T>(arr: T[]) {
 }
 
 export default function Page() {
-  // Render fully static: perform no server-side access to `searchParams`.
-  // All filtering/searching is handled client-side in `UniversityListClient`.
   const cities = unique(universities.map((u) => u.city)).sort();
   const fields = unique(universities.flatMap((u) => u.fields)).sort();
 
-  return <UniversityListClient initialList={universities} initialQ={""} cities={cities} fields={fields} />;
+  return (
+    <>
+      <Navbar />
+      <div className="pt-16">
+        <UniversityListClient initialList={universities} initialQ={""} cities={cities} fields={fields} />
+      </div>
+      <Footer />
+    </>
+  );
 }

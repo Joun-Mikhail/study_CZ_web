@@ -155,12 +155,12 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { key: "universities", icon: Users, value: t.glance.stats.universities },
-            { key: "programs", icon: BarChart3, value: t.glance.stats.programs },
-            { key: "students", icon: Users, value: t.glance.stats.students },
-            { key: "cost", icon: BarChart3, value: t.glance.stats.cost },
-            { key: "safety", icon: ShieldAlert, value: t.glance.stats.safety },
-            { key: "location", icon: Compass, value: t.glance.stats.location },
+            { key: "universities" as const, icon: Users, value: t.glance.stats.universities },
+            { key: "programs" as const, icon: BarChart3, value: t.glance.stats.programs },
+            { key: "students" as const, icon: Users, value: t.glance.stats.students },
+            { key: "cost" as const, icon: BarChart3, value: t.glance.stats.cost },
+            { key: "safety" as const, icon: ShieldAlert, value: t.glance.stats.safety },
+            { key: "location" as const, icon: Compass, value: t.glance.stats.location },
           ].map((s, i) => (
             <motion.div
               key={s.key}
@@ -174,7 +174,7 @@ export default function Home() {
                     <s.icon className="w-6 h-6 text-amber" />
                   </div>
                   <div>
-                    <div className="text-sm text-text-secondary">{s.key}</div>
+                    <div className="text-sm text-text-secondary">{t.glance.labels[s.key]}</div>
                     <div className="text-lg font-semibold text-text-primary">{s.value}</div>
                   </div>
                 </div>

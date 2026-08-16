@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-midnight: #0f172a;
@@ -34,10 +34,19 @@
   --foreground: #0f172a;
   --color-midnight: #f8fafc;
   --color-midnight-light: #f1f5f9;
+  --color-midnight-lighter: #e2e8f0;
   --color-amber: #b45309;
-  --color-border-subtle: rgba(15, 23, 42, 0.06);
+  --color-amber-hover: #92400e;
+  --color-amber-light: #d97706;
+  --color-surface: #f1f5f9;
+  --color-surface-hover: #e2e8f0;
+  --color-border-subtle: rgba(15, 23, 42, 0.1);
+  --color-border-accent: rgba(180, 83, 9, 0.3);
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-success: #16a34a;
+  --color-info: #2563eb;
 }
 
 /* Dark theme explicit selector (matches current defaults) */
@@ -68,6 +77,26 @@ body {
 [dir="rtl"] body,
 [dir="rtl"] * {
   font-family: var(--font-arabic);
+}
+
+:root {
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --chart-axis: rgba(255, 255, 255, 0.1);
+  --chart-tick: #94a3b8;
+  --chart-label: #f8fafc;
+  --chart-tooltip-bg: #1e293b;
+  --chart-tooltip-border: rgba(255, 255, 255, 0.1);
+  --chart-cursor: rgba(245, 158, 11, 0.06);
+}
+
+[data-theme="light"] {
+  --chart-grid: rgba(15, 23, 42, 0.08);
+  --chart-axis: rgba(15, 23, 42, 0.15);
+  --chart-tick: #475569;
+  --chart-label: #0f172a;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: rgba(15, 23, 42, 0.12);
+  --chart-cursor: rgba(180, 83, 9, 0.08);
 }
 
 ::selection {

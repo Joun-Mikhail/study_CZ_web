@@ -2,10 +2,12 @@
 
 import React from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslation } from "@/i18n/context";
 import { universities } from "@/data/universities";
 import Link from "next/link";
 
 export default function SearchClient() {
+  const { locale } = useTranslation();
   const params = useSearchParams();
   const q = (params?.get("q") || "").trim().toLowerCase();
 
@@ -32,12 +34,12 @@ export default function SearchClient() {
       ) : (
         <ul className="grid gap-4">
           {results.map((u) => (
-            <li key={u.id} className="p-4 rounded-lg border border-border-subtle bg-midnight/5">
+            <li key={u.id} className="p-4 rounded-lg border border-border-subtle bg-white/5">
               <Link href={`/university/${u.id}`} className="text-lg font-semibold text-text-primary hover:underline">
                 {u.name}
               </Link>
               <div className="text-sm text-text-secondary mt-1">{u.city} — {u.fields.join(", ")}</div>
-              <p className="mt-2 text-text-muted text-sm">{u.blurb.en}</p>
+              <p className="mt-2 text-text-muted text-sm">{u.blurb[locale] || u.blurb.en}</p>
             </li>
           ))}
         </ul>

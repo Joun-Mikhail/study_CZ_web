@@ -21,11 +21,11 @@ export function GlassCard({
 }: GlassCardProps) {
   const hoverVariants = {
     glow: {
-      boxShadow: "0 0 40px rgba(245, 158, 11, 0.15), 0 8px 32px rgba(0,0,0,0.3)",
+      boxShadow: "0 0 40px rgba(245, 158, 11, 0.15), 0 8px 32px rgba(0,0,0,0.12)",
     },
     lift: {
       y: -6,
-      boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+      boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
     },
     border: {
       borderColor: "rgba(245, 158, 11, 0.5)",
@@ -40,16 +40,12 @@ export function GlassCard({
       onClick={onClick}
       className={cn(
         "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6 cursor-pointer",
-        "transition-colors",
+        "transition-colors shadow-sm",
         className
       )}
-      initial={{
-        boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
-      }}
       whileHover={hoverVariants[hoverEffect]}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
       <div className="relative z-10">{children}</div>
     </Component>
   );

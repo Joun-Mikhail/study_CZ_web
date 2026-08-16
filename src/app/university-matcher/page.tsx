@@ -8,7 +8,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { universities, type University } from "@/data/universities";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, MapPin, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Sparkles, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
@@ -198,7 +198,7 @@ export default function MatcherPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.08, duration: 0.4 }}
                       >
-                        <GlassCard hoverEffect="glow">
+                        <GlassCard hoverEffect="glow" href={`/university/${uni.id}`}>
                           <div className="flex items-start justify-between gap-4 mb-2">
                             <h3 className="font-semibold text-text-primary">{uni.name}</h3>
                             <span className="shrink-0 inline-flex items-center gap-1 text-xs text-text-muted">
@@ -221,6 +221,10 @@ export default function MatcherPage() {
                                 {f}
                               </span>
                             ))}
+                            <span className="ml-auto inline-flex items-center gap-1 text-amber">
+                              <ExternalLink className="w-3 h-3" />
+                              {locale === "ar" ? "التفاصيل" : "Details"}
+                            </span>
                           </div>
                         </GlassCard>
                       </motion.div>

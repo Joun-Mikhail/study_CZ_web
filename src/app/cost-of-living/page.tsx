@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -19,6 +19,41 @@ import {
 import { cn } from "@/lib/utils";
 import { Info, Briefcase, Calculator } from "lucide-react";
 import { cityGuides } from "@/data/city-guides";
+
+function useChartColors() {
+  const [colors, setColors] = useState({
+    grid: "rgba(255,255,255,0.06)",
+    axis: "rgba(255,255,255,0.1)",
+    tick: "#94a3b8",
+    label: "#f8fafc",
+    tooltipBg: "#1e293b",
+    tooltipBorder: "rgba(255,255,255,0.1)",
+    cursor: "rgba(245,158,11,0.06)",
+    bar: "#f59e0b",
+  });
+
+  useEffect(() => {
+    function read() {
+      const s = getComputedStyle(document.documentElement);
+      setColors({
+        grid: s.getPropertyValue("--chart-grid").trim() || colors.grid,
+        axis: s.getPropertyValue("--chart-axis").trim() || colors.axis,
+        tick: s.getPropertyValue("--chart-tick").trim() || colors.tick,
+        label: s.getPropertyValue("--chart-label").trim() || colors.label,
+        tooltipBg: s.getPropertyValue("--chart-tooltip-bg").trim() || colors.tooltipBg,
+        tooltipBorder: s.getPropertyValue("--chart-tooltip-border").trim() || colors.tooltipBorder,
+        cursor: s.getPropertyValue("--chart-cursor").trim() || colors.cursor,
+        bar: s.getPropertyValue("--color-amber")?.trim() || "#f59e0b",
+      });
+    }
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return colors;
+}
 
 function formatCzk(n: number) {
   return new Intl.NumberFormat("en-US").format(Math.round(n)) + " CZK";
@@ -46,6 +81,7 @@ export default function CostOfLivingPage() {
     [city, locale]
   );
 
+  const chartColors = useChartColors();
   const [totalMin, totalMax] = totalRange(city);
   const monthlyEarnings = hoursPerWeek * hourlyWage * WEEKS_PER_MONTH;
   const shortfall = totalMin - monthlyEarnings;
@@ -92,32 +128,32 @@ export default function CostOfLivingPage() {
               <div className="h-[340px] w-full" dir="ltr">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" horizontal={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} horizontal={false} />
                     <XAxis
                       type="number"
-                      tick={{ fill: "#94a3b8", fontSize: 12 }}
-                      axisLine={{ stroke: "rgba(255,255,255,0.1)" }}
+                      tick={{ fill: chartColors.tick, fontSize: 12 }}
+                      axisLine={{ stroke: chartColors.axis }}
                       tickLine={false}
                     />
                     <YAxis
                       type="category"
                       dataKey="name"
                       width={150}
-                      tick={{ fill: "#f8fafc", fontSize: 12 }}
+                      tick={{ fill: chartColors.label, fontSize: 12 }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <Tooltip
-                      cursor={{ fill: "rgba(245,158,11,0.06)" }}
+                      cursor={{ fill: chartColors.cursor }}
                       contentStyle={{
-                        background: "#1e293b",
-                        border: "1px solid rgba(255,255,255,0.1)",
+                        background: chartColors.tooltipBg,
+                        border: `1px solid ${chartColors.tooltipBorder}`,
                         borderRadius: 12,
-                        color: "#f8fafc",
+                        color: chartColors.label,
                       }}
                       formatter={(value) => [formatCzk(Number(value)), "avg / month"]}
                     />
-                    <Bar dataKey="avg" fill="#f59e0b" radius={[0, 8, 8, 0]} barSize={22} />
+                    <Bar dataKey="avg" fill={chartColors.bar} radius={[0, 8, 8, 0]} barSize={22} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
