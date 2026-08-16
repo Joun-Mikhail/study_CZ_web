@@ -8,7 +8,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { universities, type University } from "@/data/universities";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, MapPin, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Sparkles, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
@@ -21,8 +21,8 @@ const budgetRanges: Record<Exclude<BudgetBucket, "any">, [number, number]> = {
 const budgetLabels: { key: BudgetBucket; en: string; ar: string }[] = [
   { key: "low", en: "Up to €3,000 / year", ar: "لحد 3,000 يورو في السنة" },
   { key: "mid", en: "€3,000 – €8,000 / year", ar: "3,000 – 8,000 يورو في السنة" },
-  { key: "high", en: "€8,000+ / year", ar: "أكتر من 8,000 يورو في السنة" },
-  { key: "any", en: "No limit / not sure yet", ar: "مفيش حد أقصى / مش متأكد لسه" },
+  { key: "high", en: "€8,000+ / year", ar: "أكثر من 8,000 يورو في السنة" },
+  { key: "any", en: "No limit / not sure yet", ar: "لا حد أقصى / غير متأكد بعد" },
 ];
 
 const languageLabels: { key: "English" | "Czech" | "any"; en: string; ar: string }[] = [
@@ -116,7 +116,7 @@ export default function MatcherPage() {
     <div className="relative min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
             {t.matcher.title}
@@ -198,7 +198,7 @@ export default function MatcherPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.08, duration: 0.4 }}
                       >
-                        <GlassCard hoverEffect="glow">
+                        <GlassCard hoverEffect="glow" href={`/university/${uni.id}`}>
                           <div className="flex items-start justify-between gap-4 mb-2">
                             <h3 className="font-semibold text-text-primary">{uni.name}</h3>
                             <span className="shrink-0 inline-flex items-center gap-1 text-xs text-text-muted">
@@ -221,6 +221,10 @@ export default function MatcherPage() {
                                 {f}
                               </span>
                             ))}
+                            <span className="ml-auto inline-flex items-center gap-1 text-amber">
+                              <ExternalLink className="w-3 h-3" />
+                              {locale === "ar" ? "التفاصيل" : "Details"}
+                            </span>
                           </div>
                         </GlassCard>
                       </motion.div>
@@ -246,7 +250,7 @@ export default function MatcherPage() {
             )}
           </AnimatePresence>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

@@ -2,6 +2,7 @@
 
 import { type ReactNode } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type GlassCardProps = {
@@ -21,36 +22,54 @@ export function GlassCard({
 }: GlassCardProps) {
   const hoverVariants = {
     glow: {
-      boxShadow: "0 0 40px rgba(245, 158, 11, 0.15), 0 8px 32px rgba(0,0,0,0.3)",
+      boxShadow: "0 0 40px rgba(245, 158, 11, 0.15), 0 8px 32px rgba(0,0,0,0.12)",
     },
     lift: {
       y: -6,
-      boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+      boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
     },
     border: {
       borderColor: "rgba(245, 158, 11, 0.5)",
     },
   };
 
+  const classes = cn(
+    "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6",
+    (href || onClick) && "cursor-pointer",
+    "transition-colors shadow-sm",
+    className
+  );
+
+  const inner = <div className="relative z-10">{children}</div>;
+
+  const isInternal = href && href.startsWith("/");
+
+  if (isInternal) {
+    return (
+      <motion.div
+        className={classes}
+        whileHover={hoverVariants[hoverEffect]}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <Link href={href} className="absolute inset-0 z-20" aria-hidden="true" tabIndex={-1} />
+        {inner}
+      </motion.div>
+    );
+  }
+
   const Component = href ? motion.a : motion.div;
 
   return (
     <Component
       href={href}
+      target={href ? "_blank" : undefined}
+      rel={href ? "noreferrer" : undefined}
       onClick={onClick}
-      className={cn(
-        "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6 cursor-pointer",
-        "transition-colors",
-        className
-      )}
-      initial={{
-        boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
-      }}
+      className={classes}
       whileHover={hoverVariants[hoverEffect]}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
-      <div className="relative z-10">{children}</div>
+      {inner}
     </Component>
   );
 }

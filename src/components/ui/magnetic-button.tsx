@@ -2,6 +2,7 @@
 
 import { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type MagneticButtonProps = {
@@ -54,22 +55,51 @@ export function MagneticButton({
   };
 
   const classes = cn(baseStyles, variants[variant], sizes[size], className);
+  const motionProps = {
+    onMouseMove: handleMouse,
+    onMouseLeave: reset,
+    animate: { x: position.x, y: position.y },
+    transition: { type: "spring" as const, stiffness: 150, damping: 15, mass: 0.1 },
+    whileTap: { scale: 0.97 },
+  };
 
-  const MotionTag = href ? motion.a : motion.button;
+  const isInternal = href && href.startsWith("/");
+  const isExternal = href && !isInternal;
+
+  if (isInternal) {
+    return (
+      <motion.div {...motionProps} className="inline-flex">
+        <Link ref={ref as any} href={href} onClick={onClick} className={classes}>
+          {children}
+        </Link>
+      </motion.div>
+    );
+  }
+
+  if (isExternal) {
+    return (
+      <motion.a
+        ref={ref as any}
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onClick={onClick}
+        className={classes}
+        {...motionProps}
+      >
+        {children}
+      </motion.a>
+    );
+  }
 
   return (
-    <MotionTag
+    <motion.button
       ref={ref as any}
-      href={href}
       onClick={onClick}
       className={classes}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      whileTap={{ scale: 0.97 }}
+      {...motionProps}
     >
       {children}
-    </MotionTag>
+    </motion.button>
   );
 }

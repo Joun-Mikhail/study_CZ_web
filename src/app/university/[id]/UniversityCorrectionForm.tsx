@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslation } from "@/i18n/context";
+import { CheckCircle, AlertCircle } from "lucide-react";
 
 export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
   const { t } = useTranslation();
@@ -30,37 +31,47 @@ export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6">
-      <h4 className="text-sm font-medium mb-2">{t.university.correctionTitle}</h4>
+    <form onSubmit={handleSubmit} className="mt-6 pt-6 border-t border-border-subtle">
+      <h4 className="text-sm font-semibold text-text-primary mb-3">{t.university.correctionTitle}</h4>
 
-      <label className="text-xs text-text-secondary">{t.university.correctionEmailLabel} (optional)</label>
+      <label className="block text-xs text-text-secondary mb-1">{t.university.correctionEmailLabel} (optional)</label>
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
         placeholder="you@example.com"
-        className="w-full mt-1 mb-3 px-3 py-2 border rounded-md"
+        className="w-full mb-3 px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
       />
 
-      <label className="text-xs text-text-secondary">{t.university.correctionPlaceholderLabel}</label>
+      <label className="block text-xs text-text-secondary mb-1">{t.university.correctionPlaceholderLabel}</label>
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         rows={4}
         placeholder={t.university.correctionPlaceholder}
-        className="w-full mt-1 px-3 py-2 border rounded-md"
+        className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors resize-none"
       />
 
-      <div className="mt-3">
+      <div className="mt-3 flex items-center gap-3">
         <button
           type="submit"
           disabled={status === "sending"}
-          className="px-4 py-2 bg-amber text-black rounded-md font-medium disabled:opacity-60"
+          className="px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-white text-sm font-medium transition-colors disabled:opacity-60"
         >
           {status === "sending" ? t.university.correctionSubmitting : t.university.correctionSubmit}
         </button>
-        {status === "success" && <span className="ml-3 text-sm text-success">{t.university.correctionSuccess}</span>}
-        {status === "error" && <span className="ml-3 text-sm text-amber">{t.university.correctionError}</span>}
+        {status === "success" && (
+          <span className="flex items-center gap-1.5 text-sm text-success">
+            <CheckCircle className="w-4 h-4" />
+            {t.university.correctionSuccess}
+          </span>
+        )}
+        {status === "error" && (
+          <span className="flex items-center gap-1.5 text-sm text-amber">
+            <AlertCircle className="w-4 h-4" />
+            {t.university.correctionError}
+          </span>
+        )}
       </div>
     </form>
   );

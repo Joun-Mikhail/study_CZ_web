@@ -65,7 +65,7 @@ export default function QaPage() {
     <div className="relative min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
             {t.qa.title}
@@ -122,7 +122,7 @@ export default function QaPage() {
             ))
           )}
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

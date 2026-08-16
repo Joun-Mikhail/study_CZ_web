@@ -54,6 +54,7 @@ export default function Home() {
   return (
     <div className="relative">
       <Navbar />
+      <main id="main-content">
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -69,7 +70,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-amber animate-pulse" />
-            {locale === "en" ? "10,500+ students helped" : "ساعدنا أكتر من 10,500 طالب"}
+            {locale === "en" ? "10,500+ students helped" : "ساعدنا أكثر من 10,500 طالب"}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -174,7 +175,7 @@ export default function Home() {
                     <s.icon className="w-6 h-6 text-amber" />
                   </div>
                   <div>
-                    <div className="text-sm text-text-secondary">{s.key}</div>
+                    <div className="text-sm text-text-secondary">{t.glance.labels[s.key as keyof typeof t.glance.labels]}</div>
                     <div className="text-lg font-semibold text-text-primary">{s.value}</div>
                   </div>
                 </div>
@@ -207,6 +208,7 @@ export default function Home() {
           </div>
         </GlassCard>
       </section>
+      </main>
 
       <Footer />
     </div>

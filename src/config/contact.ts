@@ -1,9 +1,10 @@
+export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
+
 export const WHATSAPP_URL = "https://wa.me/420703982237";
 
 export const INSTAPAY_HANDLE = "+201282244587";
 
-// TODO: replace with the real Facebook group URL.
-export const FACEBOOK_GROUP_URL = "https://facebook.com/groups/REPLACE_ME";
+export const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/351187011113360";
 
 export const PRICING = {
   courseCzk: 1999,

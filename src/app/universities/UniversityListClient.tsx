@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
+import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import Link from "next/link";
 
@@ -24,6 +25,8 @@ export default function UniversityListClient({
   cities: string[];
   fields: string[];
 }) {
+  const { locale } = useTranslation();
+  const isAr = locale === "ar";
   const [q, setQ] = useState(initialQ || "");
   const [city, setCity] = useState<string>("");
   const [field, setField] = useState<string>("");
@@ -31,7 +34,6 @@ export default function UniversityListClient({
   const [page, setPage] = useState(1);
   const perPage = 9;
 
-  // Sync initial filters from URL if present (deep-linking)
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -42,24 +44,20 @@ export default function UniversityListClient({
       if (cityParam && cityParam !== city) setCity(cityParam);
       if (fieldParam && fieldParam !== field) setField(fieldParam);
     } catch (e) {
-      // ignore on SSR or malformed URL
+      // ignore
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Keep URL in sync with `q`, `city`, `field` (replaceState)
   useEffect(() => {
     try {
       const url = new URL(window.location.href);
       if (q) url.searchParams.set("q", q);
       else url.searchParams.delete("q");
-
       if (city) url.searchParams.set("city", city);
       else url.searchParams.delete("city");
-
       if (field) url.searchParams.set("field", field);
       else url.searchParams.delete("field");
-
       window.history.replaceState({}, "", url.toString());
     } catch (e) {
       // ignore
@@ -100,56 +98,80 @@ export default function UniversityListClient({
           <input
             value={q}
             onChange={(e) => { setQ(e.target.value); setPage(1); }}
-            placeholder="Search by name, city, field..."
-            className="input rounded-md px-3 py-2 border"
+            placeholder={isAr ? "ابحث بالاسم، المدينة، التخصص..." : "Search by name, city, field..."}
+            className="rounded-lg px-3 py-2 border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50"
           />
         </div>
 
         <div className="flex items-center gap-3">
-          <select value={city} onChange={(e) => { setCity(e.target.value); setPage(1); }} className="select px-2 py-2 border rounded-md">
-            <option value="">All cities</option>
+          <select value={city} onChange={(e) => { setCity(e.target.value); setPage(1); }} className="px-3 py-2 rounded-lg border border-border-subtle bg-transparent text-text-secondary text-sm">
+            <option value="">{isAr ? "كل المدن" : "All cities"}</option>
             {cities.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
 
-          <select value={field} onChange={(e) => { setField(e.target.value); setPage(1); }} className="select px-2 py-2 border rounded-md">
-            <option value="">All fields</option>
+          <select value={field} onChange={(e) => { setField(e.target.value); setPage(1); }} className="px-3 py-2 rounded-lg border border-border-subtle bg-transparent text-text-secondary text-sm">
+            <option value="">{isAr ? "كل التخصصات" : "All fields"}</option>
             {fields.map((f) => (
               <option key={f} value={f}>{f}</option>
             ))}
           </select>
 
-          <select value={sort} onChange={(e) => setSort(e.target.value as any)} className="select px-2 py-2 border rounded-md">
-            <option value="name">Sort: Name</option>
-            <option value="founded">Sort: Founded (new→old)</option>
+          <select value={sort} onChange={(e) => setSort(e.target.value as any)} className="px-3 py-2 rounded-lg border border-border-subtle bg-transparent text-text-secondary text-sm">
+            <option value="name">{isAr ? "ترتيب: الاسم" : "Sort: Name"}</option>
+            <option value="founded">{isAr ? "ترتيب: سنة التأسيس" : "Sort: Founded"}</option>
           </select>
         </div>
       </div>
 
-      <p className="text-text-muted mb-4">{total} universities</p>
+      <p className="text-text-muted mb-4">
+        {total} {isAr ? "جامعة" : "universities"}
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {pageItems.map((u) => (
           <Link key={u.id} href={`/university/${u.id}`} className="no-underline">
-            <GlassCard className="p-4">
-              <h2 className="text-lg font-semibold">{u.name}</h2>
+            <GlassCard hoverEffect="lift" className="p-4 h-full">
+              <h2 className="text-lg font-semibold text-text-primary">{u.name}</h2>
               <div className="text-sm text-text-secondary mt-1">{u.city} {u.founded ? `— ${u.founded}` : ""}</div>
-              <p className="mt-2 text-text-muted text-sm">{u.blurb?.en}</p>
-              <div className="mt-3 text-xs text-text-secondary">Fields: {u.fields.join(", ")}</div>
+              <p className="mt-2 text-text-muted text-sm line-clamp-3">{u.blurb?.[locale] || u.blurb?.en}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {u.fields.slice(0, 4).map((f) => (
+                  <span key={f} className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-xs border border-border-subtle">{f}</span>
+                ))}
+                {u.fields.length > 4 && (
+                  <span className="px-2 py-0.5 text-xs text-text-muted">+{u.fields.length - 4}</span>
+                )}
+              </div>
             </GlassCard>
           </Link>
         ))}
       </div>
 
-      <div className="flex items-center justify-between mt-6">
-        <div>
-          <button disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="btn px-3 py-1 mr-2 disabled:opacity-50 border rounded-md">Prev</button>
-          <button disabled={page >= pages} onClick={() => setPage((p) => Math.min(pages, p + 1))} className="btn px-3 py-1 border rounded-md disabled:opacity-50">Next</button>
+      {pages > 1 && (
+        <div className="flex items-center justify-between mt-8">
+          <div className="flex gap-2">
+            <button
+              disabled={page <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className="px-4 py-2 disabled:opacity-40 border border-border-subtle rounded-xl text-sm text-text-secondary hover:text-text-primary hover:border-amber/30 transition-colors"
+            >
+              {isAr ? "السابق" : "Previous"}
+            </button>
+            <button
+              disabled={page >= pages}
+              onClick={() => setPage((p) => Math.min(pages, p + 1))}
+              className="px-4 py-2 border border-border-subtle rounded-xl text-sm text-text-secondary hover:text-text-primary hover:border-amber/30 disabled:opacity-40 transition-colors"
+            >
+              {isAr ? "التالي" : "Next"}
+            </button>
+          </div>
+          <div className="text-sm text-text-muted">
+            {isAr ? `صفحة ${page} من ${pages}` : `Page ${page} of ${pages}`}
+          </div>
         </div>
-        <div className="text-sm text-text-muted">Page {page} / {pages}</div>
-      </div>
+      )}
     </main>
   );
 }
-

@@ -19,7 +19,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "2. Choose your language of instruction", ar: "٢. اختار لغة الدراسة" },
     body: {
       en: "For most students this will be English. Don't get too excited about studying in Czech for free — Czech is genuinely difficult and typically takes about two years of dedicated study before you're ready to study a full degree in it.",
-      ar: "للأغلبية هتكون إنجليزي. متتحمسش قوي لفكرة إنك تدرس بالتشيكي ببلاش — التشيكي صعب فعلًا وبياخد حوالي سنتين تفرغ كامل عشان تبقى جاهز تدرس بيه.",
+      ar: "للأغلبية هتكون إنجليزي. متتحمسش قوي لفكرة إنك تدرس بالتشيكي ببلاش — التشيكي صعب فعلًا وبياخد حوالي سنتين تفرغ كمل عشان تبقى جاهز تدرس بيه.",
     },
   },
   {
@@ -43,7 +43,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "5. Research universities offering English-taught programs", ar: "٥. دوّر على جامعات بتقدم برامج بالإنجليزي" },
     body: {
       en: "This is one of the most tedious steps. Compare tuition across a shortlist of universities for your major, and check each program's entrance requirements before committing. Universities have charged anywhere from about €1,000 to €2,000/year for the same major — it's worth comparing.",
-      ar: "دي من أكتر الخطوات المتعبة. قارن الرسوم بين شورت ليست من الجامعات لنفس التخصص، وراجع شروط القبول لكل برنامج قبل ما تلتزم. لقيت فروق فعلية بين 1,000 و2,000 يورو في السنة لنفس التخصص في جامعات مختلفة — يستاهل تقارن.",
+      ar: "هذه من أكثر الخطوات المرهقة. قارن الرسوم بين قائمة مختصرة من الجامعات لنفس التخصص، وراجع شروط القبول لكل برنامج قبل الالتزام. وجدنا فروقًا فعلية بين 1,000 و2,000 يورو في السنة لنفس التخصص في جامعات مختلفة — من المفيد المقارنة.",
     },
     tip: {
       en: "Confirm the entrance exam is available online before applying — you likely won't get a visa to travel just to sit an exam.",
@@ -55,7 +55,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "6. Prepare your bank account", ar: "٦. جهّز الحساب البنكي" },
     body: {
       en: "The embassy's published minimum is around 115,810 CZK, held in a current (not savings) account in your name for at least 6 months before your interview. If you're under 21 and can't open your own account, deposit it in a parent's account with a bank signature verification or notarized affidavit (~0.5% of the amount as a fee).",
-      ar: "الحد الأدنى المعلن من السفارة حوالي 115,810 كرونة، في حساب جاري (مش توفير) بأسمك لمدة 6 أشهر على الأقل قبل المقابلة. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، حطهم في حساب والدك/والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (حوالي 0.5% من المبلغ كرسوم).",
+      ar: "الحد الأدنى المعلن من السفارة حوالي 115,810 كرونة تشيكية، في حساب جاري (مش توفير) بأسمك لمدة 6 أشهر على الأقل قبل المقابلة. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، حطهم في حساب والدك/والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (حوالي 0.5% من المبلغ كرسوم).",
     },
   },
   {
@@ -63,7 +63,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "7. Gather your Egyptian documents", ar: "٧. جهّز أوراقك من مصر" },
     body: {
       en: "You'll need: a valid national ID, your graduation certificate (or enrollment certificate if still studying), three colored passport photos on a white background, your military service status, and your transcript for the last four years. Get a passport from your local police station if you don't already have one.",
-      ar: "هتحتاج: بطاقة رقم قومي سارية، شهادة التخرج (أو إثبات القيد لو لسه بتدرس)، تلات صور شخصية ملونة بخلفية بيضاء، الموقف من التجنيد، وبيان درجات آخر أربع سنين. لو مفيش معاك جواز سفر، طلعه من قسم الشرطة اللي انت تابع ليه.",
+      ar: "ستحتاج: بطاقة هوية سارية، شهادة التخرج (أو إثبات القيد إذا كنت لا تزال تدرس)، ثلاث صور شخصية ملونة بخلفية بيضاء، حالة التجنيد، وبيان درجات آخر أربع سنوات. إذا لم يكن معك جواز سفر، قدّمه من مكتب الشرطة التابع لمنطقتك.",
     },
   },
   {
@@ -79,7 +79,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "9. Get a criminal record check", ar: "٩. استخرج فيش وتشبيه" },
     body: {
       en: "Visit your nearest police station for a criminal record extract confirming you have no charges against you.",
-      ar: "روح أقرب نقطة شرطة واعمل كشف جنائي (فيش وتشبيه) يثبت إنه مفيش عليك أحكام.",
+      ar: "اذهب إلى أقرب مركز شرطة واحصل على كشف جنائي يثبت عدم وجود أحكم قضائية عليك.",
     },
   },
   {
@@ -87,7 +87,7 @@ export const guideSteps: GuideStep[] = [
     title: { en: "10. Apply to universities and sit the entrance exams", ar: "١٠. قدّم للجامعات وادخل امتحانات القبول" },
     body: {
       en: "Applications typically open in January and close by around March — apply as early as possible in that window, since missing it can mean waiting a full extra year. Exams are usually in May or June. Prepare thoroughly and wait for results.",
-      ar: "التقديم غالبًا بيفتح في يناير ويقفل حوالي شهر مارس — قدّم بدري قد ما تقدر لأن لو فاتك الموعد ممكن تستنى سنة كاملة تانية. الامتحانات غالبًا في مايو أو يونيو. ذاكر كويس واستنى النتيجة.",
+      ar: "التقديم غالبًا بيفتح في يناير ويقفل حوالي شهر مارس — قدّم بدري قد ما تقدر لأن لو فاتك الموعد ممكن تستنى سنة كملة تانية. الامتحانات غالبًا في مايو أو يونيو. ذاكر كويس واستنى النتيجة.",
     },
   },
   {

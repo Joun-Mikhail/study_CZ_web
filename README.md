@@ -67,4 +67,16 @@ netlify deploy --prod
 Notes:
 - Netlify will run `npm run build` and use `@netlify/plugin-nextjs`. You can also connect your GitHub repo in the Netlify dashboard for continuous deploys.
 - If you prefer Vercel, run `vercel --prod` after `vercel login`.
+
+## CI deploy (GitHub Actions)
+
+This repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds on push to `main` and will deploy to Netlify and/or Vercel when the corresponding repository secrets are set.
+
+Set these repository secrets in GitHub Settings → Secrets → Actions:
+
+- `NETLIFY_AUTH_TOKEN` — your Netlify personal access token
+- `NETLIFY_SITE_ID` — the Netlify site ID to deploy to
+- `VERCEL_TOKEN` — your Vercel token (for Vercel deploys)
+
+The workflow will only run the provider job when the necessary secrets are present.
 If you prefer another host (Netlify, Azure Static Web Apps, etc.), follow the provider's Next.js deployment guide instead.
