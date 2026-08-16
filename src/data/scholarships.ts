@@ -69,7 +69,7 @@ export const scholarships: Scholarship[] = [
     },
     coverage: {
       en: "Mobility grants for study or traineeship periods, sometimes full scholarships for Erasmus Mundus joint programmes covering tuition and living costs.",
-      ar: "منح للتنقل خلال فترات الدراسة أو التدريب، وفي بعض برامج إيراسموس مونديوس بتكون منح كاملة بتغطي الرسوم ومصاريف المعيشة.",
+      ar: "منح للتنقل خلال فترات الدراسة أو التدريب، وفي بعض برامج إيراسموس مونديوس بتكون منح كملة بتغطي الرسوم ومصاريف المعيشة.",
     },
     deadline: {
       en: "Deadlines published annually by each participating consortium or university.",
@@ -88,7 +88,7 @@ export const scholarships: Scholarship[] = [
     },
     coverage: {
       en: "Ranges from partial fee waivers to full tuition coverage for top-ranked applicants; check each university's scholarship page for details.",
-      ar: "من خصم جزئي للرسوم لحد إعفاء كامل للمتفوقين — شوف صفحة المنح في كل جامعة للتفاصيل.",
+      ar: "من خصم جزئي للرسوم لحد إعفاء كمل للمتفوقين — شوف صفحة المنح في كل جامعة للتفاصيل.",
     },
     deadline: {
       en: "Deadlines and application procedures are set by each university.",

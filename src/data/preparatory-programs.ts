@@ -75,7 +75,7 @@ export const universityPrograms: PrepProgram[] = [
     city: "Brno",
     language: "czech",
     programs: [
-      { name: { en: "One-Year Intensive Czech Course", ar: "دورة تشيكي مكثفة لسنة كاملة" }, intensity: "20 hr/week", duration: "670 hours (620 in-person + 50 e-learning)", priceCzk: null, priceEur: 3990 },
+      { name: { en: "One-Year Intensive Czech Course", ar: "دورة تشيكي مكثفة لسنة كملة" }, intensity: "20 hr/week", duration: "670 hours (620 in-person + 50 e-learning)", priceCzk: null, priceEur: 3990 },
     ],
     contact: { email: "intensiveczech@cjv.muni.cz", phone: "+420 549 493 530" },
     website: { url: "https://www.cjv.muni.cz/en/courses/one-year-intensive-course-czech-2026", label: "cjv.muni.cz" },
@@ -112,7 +112,7 @@ export const universityPrograms: PrepProgram[] = [
     city: "Prague",
     language: "czech",
     programs: [
-      { name: { en: "One-Year Czech Course", ar: "دورة تشيكي لسنة كاملة" }, duration: "1 year", priceCzk: 109000, priceEur: 4350 },
+      { name: { en: "One-Year Czech Course", ar: "دورة تشيكي لسنة كملة" }, duration: "1 year", priceCzk: 109000, priceEur: 4350 },
       { name: { en: "Summer Course", ar: "دورة صيفية" }, duration: "3 weeks", priceCzk: null, priceEur: 400 },
     ],
     contact: { email: "kurzy-ceskyjazyk@vse.cz" },
@@ -126,7 +126,7 @@ export const universityPrograms: PrepProgram[] = [
     language: "czech",
     programs: [
       { name: { en: "Half-Year (1 Semester)", ar: "نصف سنة (فصل واحد)" }, duration: "1 semester", priceCzk: 70000, priceEur: 2800 },
-      { name: { en: "One Year (2 Semesters)", ar: "سنة كاملة (فصلين)" }, duration: "2 semesters", priceCzk: 130000, priceEur: 5200 },
+      { name: { en: "One Year (2 Semesters)", ar: "سنة كملة (فصلين)" }, duration: "2 semesters", priceCzk: 130000, priceEur: 5200 },
       { name: { en: "Two Years (4 Semesters)", ar: "سنتين (4 فصول)" }, duration: "4 semesters", priceCzk: 230000, priceEur: 9200 },
     ],
     contact: { email: "ujp@ujp.zcu.cz" },
@@ -164,7 +164,7 @@ export const privatePrograms: PrepProgram[] = [
     language: "czech",
     isPrivate: true,
     programs: [
-      { name: { en: "One-Year Preparatory", ar: "تحضيري لسنة كاملة" }, priceNote: "Contact PEC" },
+      { name: { en: "One-Year Preparatory", ar: "تحضيري لسنة كملة" }, priceNote: "Contact PEC" },
     ],
     contact: { email: "" },
     website: { url: "#", label: "Prague Education Center" },

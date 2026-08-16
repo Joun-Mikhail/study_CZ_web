@@ -21,8 +21,8 @@ const budgetRanges: Record<Exclude<BudgetBucket, "any">, [number, number]> = {
 const budgetLabels: { key: BudgetBucket; en: string; ar: string }[] = [
   { key: "low", en: "Up to €3,000 / year", ar: "لحد 3,000 يورو في السنة" },
   { key: "mid", en: "€3,000 – €8,000 / year", ar: "3,000 – 8,000 يورو في السنة" },
-  { key: "high", en: "€8,000+ / year", ar: "أكتر من 8,000 يورو في السنة" },
-  { key: "any", en: "No limit / not sure yet", ar: "مفيش حد أقصى / مش متأكد لسه" },
+  { key: "high", en: "€8,000+ / year", ar: "أكثر من 8,000 يورو في السنة" },
+  { key: "any", en: "No limit / not sure yet", ar: "لا حد أقصى / غير متأكد بعد" },
 ];
 
 const languageLabels: { key: "English" | "Czech" | "any"; en: string; ar: string }[] = [

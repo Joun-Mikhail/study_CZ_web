@@ -13,6 +13,7 @@ import {
   Lightbulb, MapPin, Filter, Building2, Languages,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/i18n/translations";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
 
@@ -434,7 +435,7 @@ function ProgramCard({
   isPrivate,
 }: {
   prog: (typeof universityPrograms)[number];
-  locale: string;
+  locale: Locale;
   t: any;
   isPrivate?: boolean;
 }) {

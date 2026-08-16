@@ -165,7 +165,7 @@ export default function ContactPage() {
                   onClick={resetForm}
                   className="mt-4 px-4 py-2 rounded-xl border border-border-subtle text-sm text-text-secondary hover:text-text-primary transition-colors"
                 >
-                  Send another message
+                  {t.contact.sendAnother}
                 </button>
               </div>
             ) : formState === "error" ? (
@@ -176,7 +176,7 @@ export default function ContactPage() {
                   onClick={() => setFormState("idle")}
                   className="mt-4 px-4 py-2 rounded-xl border border-border-subtle text-sm text-text-secondary hover:text-text-primary transition-colors"
                 >
-                  Try again
+                  {t.contact.tryAgain}
                 </button>
               </div>
             ) : (

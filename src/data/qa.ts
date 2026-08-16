@@ -33,7 +33,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Contacting the embassy directly usually won't help — your file is now with the Czech Ministry of the Interior, not the embassy, and they'll only respond once a decision is made. You can ask your university to add you to \"student mode\" if that's possible, which can speed things along, or ask the university to follow up with the ministry directly. Delays of 90–120 days after the embassy interview are common and normal as long as you're still within 90 days of your study start date.",
-      ar: "أي محاولة تتواصل مع السفارة مالهاش لازمة لأن ورقك دلوقتي في وزارة الداخلية التشيكية مش معاهم، وهيردوا لما يوصلهم الرد. تقدر تطلب من جامعتك تضيفك على الـ student mode لو ممكن، وده هيسرع الأمور، أو تطلب من الجامعة تتواصل مع الوزارة مباشرة. التأخير لـ90 أو 120 يوم بعد مقابلة السفارة حاجة طبيعية جدًا طالما معداش 90 يوم على معاد بداية دراستك.",
+      ar: "أي محاولة تتواصل مع السفارة مالهاش لازمة لأن ورقك الآن في وزارة الداخلية التشيكية مش معاهم، وهيردوا لما يوصلهم الرد. تقدر تطلب من جامعتك تضيفك على الـ student mode لو ممكن، وده هيسرع الأمور، أو تطلب من الجامعة تتواصل مع الوزارة مباشرة. التأخير لـ90 أو 120 يوم بعد مقابلة السفارة حاجة طبيعية جدًا طالما معداش 90 يوم على معاد بداية دراستك.",
     },
   },
   {
@@ -77,7 +77,7 @@ export const qaEntries: QaEntry[] = [
     category: "visa",
     q: {
       en: "How long is the tourist travel permit valid, and can it be reused?",
-      ar: "تصريح السفر السياحة مدته كام، وينفع أستخدمه أكتر من مرة؟",
+      ar: "تصريح السفر السياحة مدته كم، وينفع أستخدمه أكثر من مرة؟",
     },
     a: {
       en: "As of the latest update, the travel permit is valid for only 15 days from the date it's issued, and it can be used only once.",
@@ -93,7 +93,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "A long-term visa lets you stay in the Czech Republic for more than 90 days, valid for up to one year, for a single entry. A long-term residence permit is a plastic biometric card issued after you're already in the country (typically after a long-term visa), valid up to 2 years, and lets you re-enter freely for the same purpose.",
-      ar: "التأشيرة طويلة المدى تخليك تقيم في التشيك أكتر من 90 يوم، وصالحة لمدة سنة كحد أقصى، ولدخول واحد بس. تصريح الإقامة طويل المدى بطاقة بيومترية بتتصدر وانت موجود بالفعل في البلد (عادة بعد التأشيرة طويلة المدى)، وصالحة لحد سنتين، وبتسمحلك بالدخول والخروج بحرية لنفس الغرض.",
+      ar: "التأشيرة طويلة المدى تخليك تقيم في التشيك أكثر من 90 يوم، وصالحة لمدة سنة كحد أقصى، ولدخول واحد بس. تصريح الإقامة طويل المدى بطاقة بيومترية بتتصدر وانت موجود بالفعل في البلد (عادة بعد التأشيرة طويلة المدى)، وصالحة لحد سنتين، وبتسمحلك بالدخول والخروج بحرية لنفس الغرض.",
     },
   },
 
@@ -145,7 +145,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Into Czech: proof of sufficient financial means (bank statement), criminal record extract from your home country and any country you lived in continuously for 6+ months in the last 3 years, proof of health requirements (medical certificate), and your educational certificates from the last 4 years. Into English: credit-hours documentation, bachelor's-eligibility certificate, and any correspondence with the university. If you're studying in Czech, translate everything into Czech instead.",
-      ar: "بالتشيكي: إثبات المصادر المالية الكافية (كشف الحساب)، مستخرج من سجل السوابق من بلدك وأي بلد أقمت فيه بصورة مستمرة أكتر من 6 أشهر خلال آخر 3 سنين، إثبات استيفاء الشروط الصحية (شهادة طبية)، وشهاداتك الدراسية لآخر 4 سنين. بالإنجليزي: مستند عدد الساعات الدراسية، شهادة أهلية للبكالوريوس، وأي مراسلات مع الجامعة. لو هتدرس بالتشيكي، ترجم كل حاجة تشيكي بدل الإنجليزي.",
+      ar: "بالتشيكي: إثبات المصادر المالية الكافية (كشف الحساب)، مستخرج من سجل السوابق من بلدك وأي بلد أقمت فيه بصورة مستمرة أكثر من 6 أشهر خلال آخر 3 سنين، إثبات استيفاء الشروط الصحية (شهادة طبية)، وشهاداتك الدراسية لآخر 4 سنين. بالإنجليزي: مستند عدد الساعات الدراسية، شهادة أهلية للبكالوريوس، وأي مراسلات مع الجامعة. لو هتدرس بالتشيكي، ترجم كل حاجة تشيكي بدل الإنجليزي.",
     },
   },
   {
@@ -183,7 +183,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "The published minimum on the embassy's official site is around 115,810 CZK. This must sit in a current (checking) account — not a certificate of deposit or savings certificate — for at least 6 months before your interview, and cover accommodation, food, insurance, travel, and other living costs. If you're under 21 and can't open an account in your own name, you can deposit it in a parent's account with a bank signature verification or a notarized affidavit (usually ~0.5% of the amount as a fee). Always check the embassy's official page for the current figure — it changes with the exchange rate.",
-      ar: "الحد الأدنى المعلن على موقع السفارة الرسمي حوالي 115,810 كرونة. لازم يكون المبلغ في حساب جاري — مش شهادات أو ودايع — لمدة 6 أشهر على الأقل قبل المقابلة، ويغطي السكن والأكل والتأمين والسفر ومصاريف الحياة التانية. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، تقدر تحطهم في حساب والدك أو والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (بتدفع عادة حوالي 0.5% من قيمة المبلغ كرسوم). دايمًا تابع الصفحة الرسمية للسفارة عشان الرقم بيتغير مع سعر الصرف.",
+      ar: "الحد الأدنى المعلن على موقع السفارة الرسمي حوالي 115,810 كرونة تشيكية. لازم يكون المبلغ في حساب جاري — مش شهادات أو ودايع — لمدة 6 أشهر على الأقل قبل المقابلة، ويغطي السكن والأكل والتأمين والسفر ومصاريف الحياة التانية. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، تقدر تحطهم في حساب والدك أو والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (بتدفع عادة حوالي 0.5% من قيمة المبلغ كرسوم). دايمًا تابع الصفحة الرسمية للسفارة عشان الرقم بيتغير مع سعر الصرف.",
     },
   },
 
@@ -197,7 +197,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "No, it's not mandatory at all. If you already know Czech and have studied the admission subjects yourself, you can take the entrance exam directly. But be realistic: learning the language well enough typically takes about two years of dedicated study, and language courses cost roughly €5,000/year.",
-      ar: "لا، مش إجبارية أبدًا. لو عندك تشيكي ومذاكر مواد القبول بنفسك، تقدر تمتحن مباشرة. بس لازم تكون واقعي: تعلم اللغة كويس بياخد حوالي سنتين تفرغ كامل، وتكلفة كورسات اللغة حوالي 5,000 يورو في السنة.",
+      ar: "لا، مش إجبارية أبدًا. لو عندك تشيكي ومذاكر مواد القبول بنفسك، تقدر تمتحن مباشرة. بس لازم تكون واقعي: تعلم اللغة كويس بياخد حوالي سنتين تفرغ كمل، وتكلفة كورسات اللغة حوالي 5,000 يورو في السنة.",
     },
   },
   {
@@ -269,11 +269,11 @@ export const qaEntries: QaEntry[] = [
     category: "university",
     q: {
       en: "How many English-taught programmes are available?",
-      ar: "كام برنامج بيتدرّس بالإنجليزي؟",
+      ar: "كم برنامج بيتدرّس بالإنجليزي؟",
     },
     a: {
       en: "There are over 400 Bachelor's and Master's programmes taught fully in English across 60+ Czech universities — the exact number grows each year as universities add international offerings.",
-      ar: "في أكتر من 400 برنامج بكالوريوس وماجستير مُدرَّس بالكامل بالإنجليزي عبر أكتر من 60 جامعة تشيكية — والرقم ده بيزيد كل سنة مع إضافة برامج دولية جديدة.",
+      ar: "في أكثر من 400 برنامج بكالوريوس وماجستير يُدرَّس بالكمل باللغة الإنجليزية عبر أكثر من 60 جامعة تشيكية — ويزداد هذا العدد سنويًا مع إضافة برامج دولية جديدة.",
     },
   },
 
@@ -299,7 +299,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Applications are made online through the ISKAM system, or in person at the Central Accommodation Office. If your faculty has no space available, look into other dormitory buildings or check apartment rental groups on Facebook and sites like Sreality.",
-      ar: "التقديم بيكون أونلاين عن طريق نظام ISKAM، أو شخصيًا في مكتب Central Accommodation. لو كليتك مفيهاش مكان، دوّر على مباني سكن تانية أو جروبات تأجير الشقق على فيسبوك ومواقع زي Sreality.",
+      ar: "التقديم يتم عبر الإنترنت من خلال نظام ISKAM، أو شخصيًا في مكتب Central Accommodation. إذا لم تتوفر سكن في كليتك، ابحث عن مباني سكن بديلة أو مجموعات تأجير الشقق على فيسبوك ومواقع مثل Sreality.",
     },
   },
 
@@ -313,7 +313,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Tuition (English-taught programs): 15,000–250,000 CZK/year, depending on program and university (Czech-taught programs are free). Health insurance: 13,000–19,000 CZK/year. Accommodation deposit: 5,000–15,000 CZK. Dorm rent: 4,500–6,500 CZK/month (shared room); private rentals start around 8,000 CZK/month. Food: from 2,500 CZK/month. Mobile top-up: from 300 CZK/month. Laundry: 40–70 CZK/load. Transport (student discount): 140–200 CZK/month.",
-      ar: "الرسوم الدراسية (بالإنجليزي): من 15,000 لـ250,000 كرونة في السنة حسب البرنامج والجامعة (البرامج بالتشيكي مجانية). التأمين الصحي: 13,000–19,000 كرونة في السنة. تأمين السكن: 5,000–15,000 كرونة. إيجار السكن الجامعي: 4,500–6,500 كرونة شهريًا (غرفة مشتركة)؛ الإيجار الخاص من 8,000 كرونة شهريًا. الأكل: من 2,500 كرونة شهريًا. شحن الموبايل: من 300 كرونة شهريًا. الغسيل: 40–70 كرونة للمرة. المواصلات (خصم طالب): 140–200 كرونة شهريًا.",
+      ar: "الرسوم الدراسية (بالإنجليزي): من 15,000 لـ250,000 كرونة تشيكية في السنة حسب البرنامج والجامعة (البرامج بالتشيكي مجانية). التأمين الصحي: 13,000–19,000 كرونة تشيكية في السنة. تأمين السكن: 5,000–15,000 كرونة تشيكية. إيجار السكن الجامعي: 4,500–6,500 كرونة تشيكية شهريًا (غرفة مشتركة)؛ الإيجار الخاص من 8,000 كرونة تشيكية شهريًا. الأكل: من 2,500 كرونة تشيكية شهريًا. شحن الموبايل: من 300 كرونة تشيكية شهريًا. الغسيل: 40–70 كرونة تشيكية للمرة. المواصلات (خصم طالب): 140–200 كرونة تشيكية شهريًا.",
     },
   },
   {
@@ -325,7 +325,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Legally, you can work up to 20 hours/week during the academic term (as much as you like during breaks) — going slightly over during term isn't usually scrutinized closely. Entry-level wages (e.g. restaurant work) start around 120–180 CZK/hour. Master's-level work in your field pays according to industry — check sites like Indeed or Salary Explorer. English alone can get you work, but Czech usually unlocks better pay and more options.",
-      ar: "قانونيًا، تقدر تشتغل لحد 20 ساعة أسبوعيًا وقت الترم (وقد ما تحب في الإجازات) — الزيادة البسيطة وقت الترم مش بتتراقب بشدة. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة في الساعة. الشغل في تخصصك بعد الماجستير بيدفع حسب المجال — راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
+      ar: "قانونيًا، تقدر تشتغل لحد 20 ساعة أسبوعيًا وقت الترم (وقد ما تحب في الإجازات) — الزيادة البسيطة وقت الترم مش بتتراقب بشدة. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بعد الماجستير بيدفع حسب المجال — راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
     },
   },
 
@@ -365,7 +365,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Keep the originals of everything you had authenticated and translated — your passport, provisional university acceptance letter, translated and legalized education certificates (last 4 years), criminal record extract, bank statement, health certificate, passport-size photos, and your Czech visa/residence permit sticker itself. Also worth bringing: a copy of your accommodation contract, proof of health insurance, and enough cash for your first few days before you sort out a local bank account. Keep digital scans of everything as backup, and don't pack these documents in checked luggage — carry them with you.",
-      ar: "احتفظ بأصل كل حاجة وثقتها وترجمتها — جواز السفر، خطاب القبول المبدئي، الشهادات الدراسية (آخر 4 سنين) مترجمة وموثقة، الفيش والتشبيه، كشف الحساب البنكي، الشهادة الصحية، صور شخصية، وطبعًا ملصق الفيزا أو تصريح الإقامة نفسه. كمان يفضل تجيب نسخة من عقد السكن، إثبات التأمين الصحي، وفلوس كاش تكفيك أول كام يوم لحد ما تفتح حساب بنكي هناك. احتفظ بنسخ سكانر من كل حاجة كباك أب، ولا تحط الأوراق دي في الشنطة اللي بتتسجل في الطيران — خليها معاك في شنطة اليد.",
+      ar: "احتفظ بأصل كل حاجة وثقتها وترجمتها — جواز السفر، خطاب القبول المبدئي، الشهادات الدراسية (آخر 4 سنين) مترجمة وموثقة، الفيش والتشبيه، كشف الحساب البنكي، الشهادة الصحية، صور شخصية، وطبعًا ملصق الفيزا أو تصريح الإقامة نفسه. كمان يفضل تجيب نسخة من عقد السكن، إثبات التأمين الصحي، وفلوس كاش تكفيك أول كم يوم لحد ما تفتح حساب بنكي هناك. احتفظ بنسخ سكانر من كل حاجة كباك أب، ولا تحط الأوراق دي في الشنطة اللي بتتسجل في الطيران — خليها معاك في شنطة اليد.",
     },
   },
 ];

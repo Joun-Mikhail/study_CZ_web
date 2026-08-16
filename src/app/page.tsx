@@ -54,6 +54,7 @@ export default function Home() {
   return (
     <div className="relative">
       <Navbar />
+      <div id="main-content" />
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -69,7 +70,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-amber animate-pulse" />
-            {locale === "en" ? "10,500+ students helped" : "ساعدنا أكتر من 10,500 طالب"}
+            {locale === "en" ? "10,500+ students helped" : "ساعدنا أكثر من 10,500 طالب"}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -155,12 +156,12 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { key: "universities" as const, icon: Users, value: t.glance.stats.universities },
-            { key: "programs" as const, icon: BarChart3, value: t.glance.stats.programs },
-            { key: "students" as const, icon: Users, value: t.glance.stats.students },
-            { key: "cost" as const, icon: BarChart3, value: t.glance.stats.cost },
-            { key: "safety" as const, icon: ShieldAlert, value: t.glance.stats.safety },
-            { key: "location" as const, icon: Compass, value: t.glance.stats.location },
+            { key: "universities", icon: Users, value: t.glance.stats.universities },
+            { key: "programs", icon: BarChart3, value: t.glance.stats.programs },
+            { key: "students", icon: Users, value: t.glance.stats.students },
+            { key: "cost", icon: BarChart3, value: t.glance.stats.cost },
+            { key: "safety", icon: ShieldAlert, value: t.glance.stats.safety },
+            { key: "location", icon: Compass, value: t.glance.stats.location },
           ].map((s, i) => (
             <motion.div
               key={s.key}
@@ -174,7 +175,7 @@ export default function Home() {
                     <s.icon className="w-6 h-6 text-amber" />
                   </div>
                   <div>
-                    <div className="text-sm text-text-secondary">{t.glance.labels[s.key]}</div>
+                    <div className="text-sm text-text-secondary">{t.glance.labels[s.key as keyof typeof t.glance.labels]}</div>
                     <div className="text-lg font-semibold text-text-primary">{s.value}</div>
                   </div>
                 </div>

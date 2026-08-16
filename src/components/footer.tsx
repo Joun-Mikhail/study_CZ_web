@@ -25,6 +25,7 @@ export function Footer() {
               <li><Link href="/universities" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.universities}</Link></li>
               <li><Link href="/university-matcher" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.matcher}</Link></li>
               <li><Link href="/scholarships" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.scholarships}</Link></li>
+              <li><Link href="/preparatory-year" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.prep}</Link></li>
             </ul>
           </div>
 
@@ -66,7 +67,9 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border-subtle pt-6 text-center">
-          <p className="text-xs text-text-muted">{t.footer.rights}</p>
+          <p className="text-xs text-text-muted">
+            © {new Date().getFullYear()} study.czechia — {t.footer.rights}
+          </p>
         </div>
       </div>
     </footer>

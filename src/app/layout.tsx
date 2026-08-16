@@ -51,10 +51,7 @@ export const metadata: Metadata = {
       "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students.",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
   },
   robots: {
     index: true,
@@ -89,6 +86,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-midnight text-text-primary">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-amber focus:text-white focus:text-sm focus:font-medium">
+          Skip to content
+        </a>
         <TranslationProvider>
           {children}
         </TranslationProvider>

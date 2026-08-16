@@ -109,6 +109,8 @@ export const translations = {
       responseTime: "Typical response time",
       responseEmail: "Within 48 hours",
       responseWhatsapp: "Within a few hours",
+      sendAnother: "Send another message",
+      tryAgain: "Try again",
     },
     founder: {
       badge: "Who's behind this",
@@ -444,6 +446,8 @@ export const translations = {
       responseTime: "وقت الرد المعتاد",
       responseEmail: "خلال 48 ساعة",
       responseWhatsapp: "خلال ساعات قليلة",
+      sendAnother: "أرسل رسالة تانية",
+      tryAgain: "حاول تاني",
     },
     founder: {
       badge: "مين ورا الموقع ده",

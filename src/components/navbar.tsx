@@ -24,7 +24,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-midnight/80 backdrop-blur-xl">
+    <nav aria-label="Main navigation" className="fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-midnight/80 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold tracking-tight text-text-primary">
           study<span className="text-[#d42127]">.</span><span className="text-[#d42127]">czechia</span>
@@ -36,13 +36,15 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <form action="/search" method="get" className="ml-2 flex items-center gap-2">
+          <form action="/search" method="get" role="search" className="ml-2 flex items-center gap-2">
             <input
               name="q"
-              placeholder="Search universities"
+              placeholder={locale === "ar" ? "ابحث عن الجامعات..." : "Search universities..."}
               className="px-3 py-1.5 rounded-lg bg-transparent border border-border-subtle text-sm text-text-secondary placeholder:text-text-muted focus:outline-none"
             />
-            <button className="px-2 py-1 rounded-lg bg-amber hover:bg-amber-hover text-white text-sm">Search</button>
+            <button className="px-2 py-1 rounded-lg bg-amber hover:bg-amber-hover text-white text-sm">
+              {locale === "ar" ? "بحث" : "Search"}
+            </button>
           </form>
         </div>
 
@@ -81,7 +83,7 @@ export function Navbar() {
             className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
-              <form action="/search" method="get" className="flex items-center gap-2 mb-3 px-1">
+              <form action="/search" method="get" role="search" className="flex items-center gap-2 mb-3 px-1">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input

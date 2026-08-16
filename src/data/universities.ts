@@ -103,7 +103,7 @@ export const universities: University[] = [
     degreeLevels: ["Bachelor", "Master"],
     blurb: {
       en: "120+ years of technical excellence with strong industry ties in Brno.",
-      ar: "أكتر من 120 سنة تميز تقني وعلاقات قوية مع الصناعة في برنو.",
+      ar: "أكثر من 120 سنة من التميز التقني وعلاقات قوية مع الصناعة في برنو.",
     },
   },
   {
@@ -129,7 +129,7 @@ export const universities: University[] = [
     degreeLevels: ["Bachelor", "Master"],
     blurb: {
       en: "Established 1573 — over 450 years of tradition in a picturesque, affordable university city.",
-      ar: "تأسست 1573، أكتر من 450 سنة تقاليد أكاديمية في مدينة جميلة واقتصادية.",
+      ar: "تأسست عام 1573، أكثر من 450 سنة من التقاليد الأكاديمية في مدينة جميلة واقتصادية.",
     },
   },
   {
