@@ -43,12 +43,14 @@ export const metadata: Metadata = {
     siteName: "Study in Czechia",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Study in Czechia" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in Czechia",
     description:
       "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students.",
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: { url: "/favicon.svg", type: "image/svg+xml" },
