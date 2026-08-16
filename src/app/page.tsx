@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <div className="relative">
       <Navbar />
-      <div id="main-content" />
+      <main id="main-content">
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -208,6 +208,7 @@ export default function Home() {
           </div>
         </GlassCard>
       </section>
+      </main>
 
       <Footer />
     </div>

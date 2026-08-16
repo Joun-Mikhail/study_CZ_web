@@ -90,7 +90,7 @@ export default function CostOfLivingPage() {
     <div className="relative min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
             {t.cost.title}
@@ -151,7 +151,7 @@ export default function CostOfLivingPage() {
                         borderRadius: 12,
                         color: chartColors.label,
                       }}
-                      formatter={(value) => [formatCzk(Number(value)), "avg / month"]}
+                      formatter={(value) => [formatCzk(Number(value)), locale === "ar" ? "متوسط / شهر" : "avg / month"]}
                     />
                     <Bar dataKey="avg" fill={chartColors.bar} radius={[0, 8, 8, 0]} barSize={22} />
                   </BarChart>
@@ -298,7 +298,7 @@ export default function CostOfLivingPage() {
             </div>
           </GlassCard>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

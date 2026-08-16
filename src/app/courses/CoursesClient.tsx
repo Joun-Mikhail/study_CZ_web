@@ -28,7 +28,7 @@ export default function CoursesClient() {
     <div className="relative min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -151,7 +151,7 @@ export default function CoursesClient() {
             </GlassCard>
           </div>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

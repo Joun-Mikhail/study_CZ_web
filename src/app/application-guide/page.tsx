@@ -37,7 +37,7 @@ export default function ApplicationGuidePage() {
     <div className="relative min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.guide.title}</h1>
           <p className="text-text-secondary leading-relaxed">{t.guide.subtitle}</p>
@@ -108,7 +108,7 @@ export default function ApplicationGuidePage() {
             </GlassCard>
           </div>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

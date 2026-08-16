@@ -10,7 +10,7 @@ import { Mail, MessageCircle, Users, Clock, Send, CheckCircle, AlertCircle } fro
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [formState, setFormState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -64,7 +64,7 @@ export default function ContactPage() {
       desc: t.contact.facebookDesc,
       cta: t.contact.facebookCta,
       href: FACEBOOK_GROUP_URL,
-      detail: "10,500+ members",
+      detail: locale === "ar" ? "+10,500 عضو" : "10,500+ members",
       color: "text-[#1877F2]",
       bgColor: "bg-[#1877F2]/10",
       external: true,
@@ -75,7 +75,7 @@ export default function ContactPage() {
     <div className="min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -243,7 +243,7 @@ export default function ContactPage() {
             )}
           </GlassCard>
         </motion.div>
-      </section>
+      </main>
 
       <Footer />
     </div>
