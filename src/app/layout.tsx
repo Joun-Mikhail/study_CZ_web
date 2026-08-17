@@ -15,7 +15,7 @@ const tajawal = Tajawal({
   weight: ["400", "500", "700"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.netlify.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: {

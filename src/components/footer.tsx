@@ -5,7 +5,7 @@ import { useTranslation } from "@/i18n/context";
 import { CONTACT_EMAIL, WHATSAPP_URL, FACEBOOK_GROUP_URL } from "@/config/contact";
 
 export function Footer() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <footer className="border-t border-border-subtle mt-24">
@@ -36,6 +36,7 @@ export function Footer() {
               <li><Link href="/application-guide" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.guide}</Link></li>
               <li><Link href="/qa" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.qa}</Link></li>
               <li><Link href="/services" className="text-text-secondary hover:text-text-primary transition-colors">{t.nav.services}</Link></li>
+              <li><Link href="/eligibility" className="text-text-secondary hover:text-text-primary transition-colors">{locale === "ar" ? "تقييم الأهلية" : "Eligibility Check"}</Link></li>
             </ul>
           </div>
 

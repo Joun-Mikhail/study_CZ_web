@@ -2,10 +2,38 @@ import type { Metadata } from "next";
 import CoursesClient from "./CoursesClient";
 
 export const metadata: Metadata = {
-  title: "Czech Language Course",
-  description: "Learn Czech online with structured lessons designed for international students preparing to study in the Czech Republic.",
+  title: "Your First 90 Days in Czechia",
+  description: "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here. €49, lifetime access.",
+};
+
+const courseJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: "Your First 90 Days in Czechia",
+  description: "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here.",
+  provider: {
+    "@type": "Organization",
+    name: "Study in Czechia",
+    url: "https://studyczechia.com",
+  },
+  offers: {
+    "@type": "Offer",
+    price: "49",
+    priceCurrency: "EUR",
+    availability: "https://schema.org/InStock",
+  },
+  inLanguage: "ar",
+  courseMode: "online",
 };
 
 export default function Page() {
-  return <CoursesClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+      />
+      <CoursesClient />
+    </>
+  );
 }

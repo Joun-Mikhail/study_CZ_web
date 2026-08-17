@@ -4,7 +4,7 @@ export const translations = {
   en: {
     nav: {
       home: "Home",
-      courses: "Czech Course",
+      courses: "First 90 Days",
       costOfLiving: "Cost of Living",
       matcher: "University Matcher",
       universities: "Universities",
@@ -43,8 +43,8 @@ export const translations = {
     },
     bento: {
       courses: {
-        title: "A1 Czech Course",
-        description: "Learn Czech in Arabic — video lessons, live support, and a community that speaks your language.",
+        title: "Your First 90 Days in Czechia",
+        description: "Everything you need for your first 3 months — from landing at the airport to feeling at home. €49.",
       },
       cost: {
         title: "Cost of Living",
@@ -57,6 +57,14 @@ export const translations = {
       qa: {
         title: "Knowledge Base",
         description: "Travel permits, visa steps, housing, embassy interviews — answers from real students.",
+      },
+      services: {
+        title: "Personal Guidance",
+        description: "Document review, embassy prep, post-arrival support — from someone who lives in Czechia.",
+      },
+      eligibility: {
+        title: "Am I Eligible?",
+        description: "Free 5-minute assessment — check your documents, finances, and timeline before you apply.",
       },
     },
     university: {
@@ -112,6 +120,15 @@ export const translations = {
       sendAnother: "Send another message",
       tryAgain: "Try again",
     },
+    whyCzechia: {
+      title: "Why Study in Czechia?",
+      reasons: [
+        { title: "Tuition-Free in Czech", desc: "Public universities charge zero tuition for programmes taught in Czech. Learn the language in a prep year and study for free." },
+        { title: "Affordable Living", desc: "Rent, food, and transport cost a fraction of Western Europe. Students live well on EUR 500-800/month outside Prague." },
+        { title: "EU-Recognized Degrees", desc: "Czech diplomas are recognized across the EU and beyond. Graduate and work anywhere in Europe with no extra validation." },
+        { title: "Heart of Europe", desc: "Fly to Berlin, Vienna, or Budapest in under 2 hours. Weekend trips across Europe become a normal part of student life." },
+      ],
+    },
     founder: {
       badge: "Who's behind this",
       title: "Built by a student who's been through it",
@@ -128,7 +145,7 @@ export const translations = {
       tipLabel: "Pro tip",
       ctaTitle: "Overwhelmed by the paperwork?",
       ctaSubtitle: "Let our team review your documents before you submit anything — catch mistakes before the embassy does.",
-      ctaButton: "Book a Document Review — 500 CZK",
+      ctaButton: "Book a Document Review — €25",
     },
     services: {
       title: "Personal Services",
@@ -136,21 +153,21 @@ export const translations = {
       tiers: [
         {
           title: "Quick Consultation",
-          price: "300 CZK",
+          price: "€15",
           desc: "A focused 30-minute call to answer your specific questions about universities, visas, or documents.",
           features: ["30-minute video or voice call", "Ask anything specific to your situation", "Follow-up notes after the call"],
           cta: "Book a call",
         },
         {
           title: "Document Review",
-          price: "500 CZK",
+          price: "€25",
           desc: "Send us your documents before you submit them — we check for mistakes that commonly cause delays or rejections.",
           features: ["Full document checklist review", "Written feedback on what to fix", "One round of follow-up questions"],
           cta: "Book a review",
         },
         {
           title: "Full Application Assistance",
-          price: "€700",
+          price: "€350",
           desc: "End-to-end support from choosing a university through visa approval — for students who want a guide the whole way.",
           features: ["University & program selection", "Document prep & translation guidance", "Visa application support", "Embassy interview prep"],
           cta: "Get started",
@@ -245,7 +262,7 @@ export const translations = {
       noResults: "No exact matches — try widening your budget or city.",
       ctaTitle: "Want a second opinion before you apply?",
       ctaSubtitle: "Book a paid application review — a real student checks your shortlist and documents before you submit anything.",
-      ctaButton: "Book a 300 CZK application review",
+      ctaButton: "Book a €25 document review",
     },
     qa: {
       title: "Knowledge Base",
@@ -341,7 +358,7 @@ export const translations = {
   ar: {
     nav: {
       home: "الرئيسية",
-      courses: "كورس تشيكي",
+      courses: "أول 90 يوم",
       costOfLiving: "تكاليف المعيشة",
       matcher: "اختيار الجامعة",
       universities: "الجامعات",
@@ -380,8 +397,8 @@ export const translations = {
     },
     bento: {
       courses: {
-        title: "كورس تشيكي A1",
-        description: "تعلم التشيكي بالعربي — دروس فيديو ودعم مباشر ومجتمع يتكلم لغتك.",
+        title: "أول 90 يوم في التشيك",
+        description: "كل اللي محتاجه لأول 3 شهور — من النزول في المطار لحد ما تحس إنك في بيتك. 49€.",
       },
       cost: {
         title: "تكاليف المعيشة",
@@ -394,6 +411,14 @@ export const translations = {
       qa: {
         title: "قاعدة المعرفة",
         description: "تصاريح السفر، خطوات الفيزا، السكن، مقابلة السفارة — إجابات من طلاب حقيقيين.",
+      },
+      services: {
+        title: "إرشاد شخصي",
+        description: "مراجعة أوراق، تجهيز مقابلة سفارة، دعم بعد الوصول — من شخص عايش في التشيك.",
+      },
+      eligibility: {
+        title: "هل أنا مؤهل؟",
+        description: "تقييم مجاني في 5 دقايق — راجع أوراقك ومالك وجدولك قبل ما تقدم.",
       },
     },
     university: {
@@ -449,6 +474,15 @@ export const translations = {
       sendAnother: "أرسل رسالة تانية",
       tryAgain: "حاول تاني",
     },
+    whyCzechia: {
+      title: "ليه الدراسة في التشيك؟",
+      reasons: [
+        { title: "مجانية بالتشيكي", desc: "الجامعات الحكومية ما بتاخدش رسوم على البرامج بالتشيكي. اتعلم اللغة في سنة تحضيرية وادرس ببلاش." },
+        { title: "معيشة رخيصة", desc: "الإيجار والأكل والمواصلات بجزء صغير من غرب أوروبا. الطلاب بيعيشوا كويس بـ 500-800 يورو/شهر برا براغ." },
+        { title: "شهادات معترف بيها في أوروبا", desc: "الشهادات التشيكية معترف بيها في كل الاتحاد الأوروبي وأكتر. اتخرج واشتغل في أي مكان في أوروبا." },
+        { title: "قلب أوروبا", desc: "سافر لبرلين أو فيينا أو بودابست في أقل من ساعتين. الرحلات لأوروبا بتبقى جزء عادي من حياة الطالب." },
+      ],
+    },
     founder: {
       badge: "مين ورا الموقع ده",
       title: "من طالب عدّى التجربة دي بنفسه",
@@ -465,7 +499,7 @@ export const translations = {
       tipLabel: "نصيحة",
       ctaTitle: "حاسس إن الأوراق كتير عليك؟",
       ctaSubtitle: "خلّي فريقنا يراجع أوراقك قبل ما تقدمها — امسك الأخطاء قبل ما السفارة تمسكها.",
-      ctaButton: "احجز مراجعة أوراق — ٥٠٠ كرونة",
+      ctaButton: "احجز مراجعة أوراق — €25",
     },
     services: {
       title: "خدمات شخصية",
@@ -473,21 +507,21 @@ export const translations = {
       tiers: [
         {
           title: "استشارة سريعة",
-          price: "٣٠٠ كرونة",
+          price: "€15",
           desc: "مكالمة ٣٠ دقيقة تجاوب فيها على أسئلتك المحددة عن الجامعات أو الفيزا أو الأوراق.",
           features: ["مكالمة فيديو أو صوت ٣٠ دقيقة", "اسأل عن أي حاجة تخص وضعك تحديدًا", "ملاحظات مكتوبة بعد المكالمة"],
           cta: "احجز مكالمة",
         },
         {
           title: "مراجعة الأوراق",
-          price: "٥٠٠ كرونة",
+          price: "€25",
           desc: "ابعتلنا أوراقك قبل ما تقدمها — بنراجع الأخطاء الشائعة اللي بتسبب تأخير أو رفض.",
           features: ["مراجعة كاملة لقائمة الأوراق", "ملاحظات مكتوبة على اللي محتاج تعديل", "جولة أسئلة متابعة"],
           cta: "احجز مراجعة",
         },
         {
           title: "مساعدة كاملة في التقديم",
-          price: "٧٠٠ يورو",
+          price: "€350",
           desc: "دعم كامل من اختيار الجامعة لحد الموافقة على الفيزا — لطلاب عايزين حد يمشي معاهم الطريق كله.",
           features: ["اختيار الجامعة والتخصص", "دعم تجهيز الأوراق والترجمة", "دعم تقديم الفيزا", "تجهيز لمقابلة السفارة"],
           cta: "ابدأ دلوقتي",

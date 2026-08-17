@@ -7,6 +7,7 @@ import { TextReveal } from "@/components/ui/text-reveal";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   GraduationCap,
   BarChart3,
@@ -14,6 +15,12 @@ import {
   MessageCircleQuestion,
   ShieldAlert,
   Users,
+  Briefcase,
+  ClipboardCheck,
+  BookOpen,
+  Banknote,
+  Award,
+  Plane,
 } from "lucide-react";
 import { FACEBOOK_GROUP_URL } from "@/config/contact";
 
@@ -48,6 +55,20 @@ export default function Home() {
       href: "/qa",
       hoverEffect: "glow" as const,
       accent: "from-purple-500/20 to-purple-500/5",
+    },
+    {
+      key: "services" as const,
+      icon: Briefcase,
+      href: "/services",
+      hoverEffect: "border" as const,
+      accent: "from-amber/20 to-amber/5",
+    },
+    {
+      key: "eligibility" as const,
+      icon: ClipboardCheck,
+      href: "/eligibility",
+      hoverEffect: "lift" as const,
+      accent: "from-success/20 to-success/5",
     },
   ];
 
@@ -105,7 +126,7 @@ export default function Home() {
 
       {/* Bento Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {bentoItems.map((item, index) => {
             const Icon = item.icon;
             const content = t.bento[item.key];
@@ -142,7 +163,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Scam warning banner */}
+      {/* Why Study in Czechia */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-xl font-semibold text-text-primary mb-6"
+        >
+          {t.whyCzechia.title}
+        </motion.h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { icon: BookOpen, ...t.whyCzechia.reasons[0] },
+            { icon: Banknote, ...t.whyCzechia.reasons[1] },
+            { icon: Award, ...t.whyCzechia.reasons[2] },
+            { icon: Plane, ...t.whyCzechia.reasons[3] },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
+            >
+              <GlassCard hoverEffect="border" className="h-full">
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-amber" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-text-primary mb-1">{item.title}</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* Czechia at a Glance */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div
@@ -185,18 +244,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="flex items-start gap-3 rounded-2xl border border-amber/25 bg-amber/[0.06] px-5 py-4">
-          <ShieldAlert className="w-5 h-5 text-amber shrink-0 mt-0.5" />
-          <p className="text-sm text-text-secondary leading-relaxed">{t.scam.text}</p>
-        </div>
-      </section>
 
       {/* About the founder */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center">
-          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0">
-            <Users className="w-9 h-9 text-amber" />
+          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden">
+            <Image
+              src="/images/john.jpg"
+              alt="Joun"
+              width={80}
+              height={80}
+              className="object-cover w-full h-full"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
+              }}
+            />
           </div>
           <div>
             <span className="inline-block text-xs font-medium text-amber mb-2">{t.founder.badge}</span>

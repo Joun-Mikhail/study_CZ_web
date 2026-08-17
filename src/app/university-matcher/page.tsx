@@ -232,6 +232,23 @@ export default function MatcherPage() {
                   </div>
                 )}
 
+                <GlassCard hoverEffect="border" className="text-center mb-4" href="/eligibility">
+                  <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-5 h-5 text-amber" />
+                  </div>
+                  <h3 className="font-semibold text-text-primary mb-1">
+                    {locale === "ar" ? "هل أنت مؤهل؟" : "Am I Eligible?"}
+                  </h3>
+                  <p className="text-sm text-text-secondary mb-3">
+                    {locale === "ar"
+                      ? "خد تقييم مجاني في 5 دقايق — أوراق، مالية، جدول زمني."
+                      : "Take a free 5-minute assessment — documents, finances, timeline."}
+                  </p>
+                  <span className="text-sm font-medium text-amber">
+                    {locale === "ar" ? "ابدأ التقييم →" : "Start Assessment →"}
+                  </span>
+                </GlassCard>
+
                 <GlassCard hoverEffect="glow" className="text-center mb-6">
                   <Sparkles className="w-6 h-6 text-amber mx-auto mb-3" />
                   <h3 className="font-semibold text-text-primary mb-1">{t.matcher.ctaTitle}</h3>
