@@ -24,5 +24,9 @@ export const PAYMENT_LINKS = {
   interviewPrep: "https://buy.stripe.com/7sYcN4a9catw9s787BfnO03",
   course: "https://buy.stripe.com/eVqcN42GK1X0fQvgE7fnO04",
   fullPackageStep1: "https://buy.stripe.com/dRaEWbdg314cEj4VpfnO05",
+};
+
+// Step 2 link — sent privately to students at the visa stage only. Never render on the site.
+export const PRIVATE_PAYMENT_LINKS = {
   fullPackageStep2: "https://buy.stripe.com/eVqfZgdlodFI7jZcnRfnO06",
 };

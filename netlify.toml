@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+[[redirects]]
+  from = "https://studyczechia.netlify.app/*"
+  to = "https://studyczechia.com/:splat"
+  status = 301
+  force = true

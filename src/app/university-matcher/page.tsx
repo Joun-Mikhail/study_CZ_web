@@ -237,16 +237,21 @@ export default function MatcherPage() {
                     <Sparkles className="w-5 h-5 text-amber" />
                   </div>
                   <h3 className="font-semibold text-text-primary mb-1">
-                    {locale === "ar" ? "هل أنت مؤهل؟" : "Am I Eligible?"}
+                    {locale === "ar"
+                      ? "لقيت جامعتك؟ يلا نشوف لو جاهز تقدم."
+                      : "Found your match? Let's check if you're ready to apply."}
                   </h3>
                   <p className="text-sm text-text-secondary mb-3">
                     {locale === "ar"
-                      ? "خد تقييم مجاني في 5 دقايق — أوراق، مالية، جدول زمني."
-                      : "Take a free 5-minute assessment — documents, finances, timeline."}
+                      ? "خد تقييم أهلية في دقيقتين عشان تشوف لو درجاتك وأوراقك وجدولك الزمني جاهزين."
+                      : "Take a 2-minute eligibility check to see if your grades, documents, and timeline are on track."}
                   </p>
                   <span className="text-sm font-medium text-amber">
-                    {locale === "ar" ? "ابدأ التقييم →" : "Start Assessment →"}
+                    {locale === "ar" ? "تحقق من أهليتي — مجاني →" : "Check My Eligibility -- Free →"}
                   </span>
+                  <p className="text-xs text-text-muted mt-1">
+                    {locale === "ar" ? "من غير تسجيل. من غير سبام. بس وضوح." : "No signup needed. No spam. Just clarity."}
+                  </p>
                 </GlassCard>
 
                 <GlassCard hoverEffect="glow" className="text-center mb-6">

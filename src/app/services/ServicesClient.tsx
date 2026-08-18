@@ -24,6 +24,7 @@ import {
   ChevronDown,
   Users,
   Globe,
+  Shield,
   ShieldAlert,
   Star,
   Award,
@@ -42,7 +43,7 @@ const services = [
     icon: Phone,
     triggerIcon: Lightbulb,
     price: "€15",
-    priceSub: "",
+    priceSub: "(≈ 375 Kc)",
     paymentLink: PAYMENT_LINKS.consultation,
     featured: false,
   },
@@ -51,7 +52,7 @@ const services = [
     icon: FileSearch,
     triggerIcon: AlertTriangle,
     price: "€25",
-    priceSub: "",
+    priceSub: "(≈ 625 Kc)",
     paymentLink: PAYMENT_LINKS.documentReview,
     featured: false,
   },
@@ -60,8 +61,8 @@ const services = [
     icon: Mic,
     triggerIcon: Target,
     price: "€39",
-    priceSub: "",
-    paymentLink: PAYMENT_LINKS.interviewPrep,
+    priceSub: "(≈ 975 Kc)",
+    paymentLink: "/interview-prep",
     featured: false,
   },
   {
@@ -69,7 +70,7 @@ const services = [
     icon: MapPin,
     triggerIcon: Home,
     price: "€29",
-    priceSub: "",
+    priceSub: "(≈ 725 Kc)",
     paymentLink: PAYMENT_LINKS.arrivalSupport,
     featured: false,
   },
@@ -78,7 +79,7 @@ const services = [
     icon: Rocket,
     triggerIcon: Lightbulb,
     price: "€350",
-    priceSub: "",
+    priceSub: "(payable in 2 steps: €150 + €200)",
     paymentLink: PAYMENT_LINKS.fullPackageStep1,
     featured: true,
   },
@@ -219,6 +220,19 @@ export default function ServicesClient() {
                 {t.freeTier.cta}
               </MagneticButton>
             </div>
+          </motion.div>
+        </section>
+
+        {/* Price anchor block */}
+        <section className="max-w-2xl mx-auto mb-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-sm text-text-secondary"
+          >
+            <p className="font-semibold text-text-primary mb-1">{t.priceAnchor.bold}</p>
+            <p>{t.priceAnchor.sub}</p>
           </motion.div>
         </section>
 
@@ -391,6 +405,14 @@ export default function ServicesClient() {
                 </AnimatePresence>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Security notice */}
+        <section className="max-w-2xl mx-auto mb-12">
+          <div className="flex items-start gap-3 px-5 py-4 rounded-xl border border-border-subtle bg-surface/40 text-sm text-text-muted">
+            <Shield className="w-5 h-5 shrink-0 mt-0.5 text-text-muted" />
+            <p>{t.securityNotice}</p>
           </div>
         </section>
 
@@ -568,7 +590,7 @@ const en = {
       ],
       triggerLine:
         "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
-      cta: "Book a Call — €12",
+      cta: "Book a Call — €15",
       postButton: "🔒 Secure payment via Stripe · Full refund if the call doesn't happen",
     },
     documentReview: {
@@ -576,7 +598,7 @@ const en = {
       fearTrigger:
         "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
       description:
-        "You send me everything you're planning to submit — university application, visa documents, translations, bank statements, all of it. I go through every page like the embassy officer will, and I tell you exactly what's wrong, what's missing, and what will get flagged. This is the single most cost-effective thing you can do. A €20 review can save you from a rejection that costs you an entire semester.",
+        "You send me everything you're planning to submit — university application, visa documents, translations, bank statements, all of it. I go through every page like the embassy officer will, and I tell you exactly what's wrong, what's missing, and what will get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
       included: [
         "Full review of your complete document package",
         "Detailed written report: what's correct, what needs fixing, what's missing",
@@ -586,7 +608,7 @@ const en = {
       ],
       triggerLine:
         "The embassy doesn't tell you what's wrong — they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
-      cta: "Get My Documents Reviewed — €20",
+      cta: "Get My Documents Reviewed — €25",
       postButton: "🔒 Secure payment via Stripe · Send documents via WhatsApp or email",
     },
     interviewPrep: {
@@ -604,8 +626,8 @@ const en = {
       ],
       triggerLine:
         "Last year, a student was rejected because he couldn't explain his study plan clearly. His grades were perfect. His documents were perfect. He just wasn't ready for question 6.",
-      cta: "Prepare for My Interview — €35",
-      postButton: "🔒 Secure payment via Stripe · Session scheduled within 48 hours of booking",
+      cta: "See How It Works →",
+      postButton: "",
     },
     arrivalSupport: {
       title: "Landed in Czechia? I've Got You.",
@@ -624,7 +646,7 @@ const en = {
       ],
       triggerLine:
         "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
-      cta: "Get My Arrival Plan — €25",
+      cta: "Get My Arrival Plan — €29",
       postButton: "🔒 Secure payment via Stripe",
     },
     fullPackage: {
@@ -669,7 +691,7 @@ const en = {
   },
   comparison: {
     title: "Why Students Choose Us Over Traditional Agencies",
-    agencyHeader: "Local Agency",
+    agencyHeader: "Typical Agency",
     usHeader: "Study in Czechia",
     rows: [
       { label: "Where they're based", agency: "In your country — never been to Czechia", us: "In Brno, Czech Republic — living here now" },
@@ -723,6 +745,12 @@ const en = {
       },
     ],
   },
+  priceAnchor: {
+    bold: "Most agencies charge $800-$3,000 for application support.",
+    sub: "Mine is €350, paid in two steps. Not because it's less work — because I'm one student who lives here, not an office with overheads in four cities.",
+  },
+  securityNotice:
+    "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
   finalCta: {
     title: "Not sure where to start?",
     subtitle:
@@ -783,13 +811,13 @@ const ar: typeof en = {
         "48 ساعة متابعة على واتساب لأسئلة سريعة",
       ],
       triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
-      cta: "احجز مكالمة — 12€",
+      cta: "احجز مكالمة — 15€",
       postButton: "🔒 دفع آمن عبر Stripe · استرداد كامل لو المكالمة ماتمتش",
     },
     documentReview: {
       title: "مراجعة الأوراق — قبل ما تقدم",
       fearTrigger: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
-      description: "ابعتلي كل حاجة ناوي تقدمها — طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ 20€ ممكن تنقذك من رفض بيكلفك فصل كامل.",
+      description: "ابعتلي كل حاجة ناوي تقدمها — طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ 25€ ممكن تنقذك من رفض بيكلفك فصل كامل.",
       included: [
         "مراجعة كاملة لكل الأوراق",
         "تقرير مكتوب مفصل: الصحيح، اللي محتاج تعديل، الناقص",
@@ -798,7 +826,7 @@ const ar: typeof en = {
         "جولة متابعة: صلح المشاكل، ابعت تاني، بأكدلك إن كله تمام",
       ],
       triggerLine: 'السفارة مش بتقولك إيه الغلط — بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
-      cta: "راجع أوراقي — 20€",
+      cta: "راجع أوراقي — 25€",
       postButton: "🔒 دفع آمن عبر Stripe · ابعت الأوراق على واتساب أو إيميل",
     },
     interviewPrep: {
@@ -814,8 +842,8 @@ const ar: typeof en = {
         "دعم واتساب لحد موعد مقابلتك",
       ],
       triggerLine: "السنة اللي فاتت، طالب اترفض عشان ماعرفش يشرح خطته الدراسية بوضوح. درجاته كانت ممتازة. أوراقه كانت كاملة. بس ماكانش جاهز للسؤال رقم 6.",
-      cta: "جهز لمقابلتي — 35€",
-      postButton: "🔒 دفع آمن عبر Stripe · الجلسة خلال 48 ساعة من الحجز",
+      cta: "شوف التفاصيل →",
+      postButton: "",
     },
     arrivalSupport: {
       title: "وصلت التشيك؟ أنا معاك.",
@@ -831,7 +859,7 @@ const ar: typeof en = {
         "14 يوم دعم واتساب — اسأل أي حاجة، في أي وقت",
       ],
       triggerLine: "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
-      cta: "احصل على خطة وصولي — 25€",
+      cta: "احصل على خطة وصولي — 29€",
       postButton: "🔒 دفع آمن عبر Stripe",
     },
     fullPackage: {
@@ -872,7 +900,7 @@ const ar: typeof en = {
   },
   comparison: {
     title: "ليه الطلاب بيختارونا عن المكاتب التقليدية",
-    agencyHeader: "مكتب محلي",
+    agencyHeader: "وكالة عادية",
     usHeader: "Study in Czechia",
     rows: [
       { label: "مكانهم", agency: "في بلدك — عمرهم ماراحوا التشيك", us: "في برنو، التشيك — ساكن هنا دلوقتي" },
@@ -904,6 +932,12 @@ const ar: typeof en = {
       { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة — محدش يقدر، وأي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
     ],
   },
+  priceAnchor: {
+    bold: "اغلب الوكالات بتاخد $800-$3,000 على دعم التقديم.",
+    sub: "عندي €350، على خطوتين. مش عشان الشغل اقل — عشان انا طالب عايش هنا، مش مكتب بمصاريف في 4 مدن.",
+  },
+  securityNotice:
+    "احنا عمرنا ما بنطلب دفع من خلال ارقام واتساب غير رسمية او رسائل بتدعي انها مننا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
   finalCta: {
     title: "مش متأكد تبدأ منين؟",
     subtitle: "راسلني على واتساب. قولي وضعك. هقولك بصراحة لو محتاج خدمة مدفوعة ولا الأدلة المجانية كفاية.",

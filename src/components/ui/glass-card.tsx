@@ -11,6 +11,7 @@ type GlassCardProps = {
   hoverEffect?: "glow" | "lift" | "border";
   href?: string;
   onClick?: () => void;
+  ariaLabel?: string;
 };
 
 export function GlassCard({
@@ -19,6 +20,7 @@ export function GlassCard({
   hoverEffect = "glow",
   href,
   onClick,
+  ariaLabel,
 }: GlassCardProps) {
   const hoverVariants = {
     glow: {
@@ -51,7 +53,7 @@ export function GlassCard({
         whileHover={hoverVariants[hoverEffect]}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
-        <Link href={href} className="absolute inset-0 z-20" aria-hidden="true" tabIndex={-1} />
+        <Link href={href} className="absolute inset-0 z-20" aria-label={ariaLabel} tabIndex={ariaLabel ? undefined : -1} aria-hidden={ariaLabel ? undefined : true} />
         {inner}
       </motion.div>
     );

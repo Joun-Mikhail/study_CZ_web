@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Study in Czechia",
   },
   description:
-    "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
+    "Free guides, university matching, and cost-of-living tools plus personal services — document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
   keywords: [
     "study in czechia",
     "study in czech republic",
@@ -38,22 +38,25 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Study in Czechia — Your Trusted Bridge to Czech University Life",
     description:
-      "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
+      "Free guides, university matching, and cost-of-living tools plus personal services — document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
     url: SITE_URL,
     siteName: "Study in Czechia",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Study in Czechia" }],
+    images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study in Czechia" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in Czechia",
     description:
       "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students.",
-    images: ["/og-image.jpg"],
+    images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: {
     icon: { url: "/favicon.svg", type: "image/svg+xml" },
+  },
+  alternates: {
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -71,6 +74,9 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" className={`${geistSans.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
       <head>
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/`} />
+        <link rel="alternate" hrefLang="ar" href={`${SITE_URL}/`} />
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("theme");if(t){document.documentElement.dataset.theme=t}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme:light)").matches){document.documentElement.dataset.theme="light"}}catch(e){}})()` }} />
         <script
           type="application/ld+json"

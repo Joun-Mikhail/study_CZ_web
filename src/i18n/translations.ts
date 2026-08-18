@@ -44,7 +44,7 @@ export const translations = {
     bento: {
       courses: {
         title: "Your First 90 Days in Czechia",
-        description: "Everything you need for your first 3 months — from landing at the airport to feeling at home. €49.",
+        description: "Language, culture, and integration — taught in Arabic by a student who lives here. Far more than a language course.",
       },
       cost: {
         title: "Cost of Living",
@@ -398,7 +398,7 @@ export const translations = {
     bento: {
       courses: {
         title: "أول 90 يوم في التشيك",
-        description: "كل اللي محتاجه لأول 3 شهور — من النزول في المطار لحد ما تحس إنك في بيتك. 49€.",
+        description: "لغة، ثقافة، واندماج — بالعربي من طالب عايش هنا. أكتر بكتير من كورس لغة.",
       },
       cost: {
         title: "تكاليف المعيشة",

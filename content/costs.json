@@ -1,0 +1,26 @@
+{
+  "lastVerified": "",
+  "currency": "CZK",
+  "tuition": {
+    "czechTaughtPublic": { "min": null, "max": null, "note": "" },
+    "englishTaughtPublic": { "min": null, "max": null, "note": "" },
+    "private": { "min": null, "max": null, "note": "" }
+  },
+  "applicationFees": { "min": null, "max": null },
+  "documentCosts": [
+    { "country": "", "apostille": null, "translation": null, "note": "" }
+  ],
+  "visaFee": null,
+  "financialProofRequired": null,
+  "insurance": { "min": null, "max": null },
+  "livingCosts": [
+    {
+      "city": "",
+      "dormMonthly": null,
+      "privateRentMonthly": null,
+      "foodMonthly": null,
+      "transportMonthly": null,
+      "totalMonthly": null
+    }
+  ]
+}

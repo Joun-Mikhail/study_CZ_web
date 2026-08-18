@@ -6,8 +6,9 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   User,
   GraduationCap,
@@ -21,49 +22,64 @@ import {
   ArrowRight,
   MessageCircle,
   RotateCcw,
-  ClipboardCheck,
+  ChevronDown,
+  ChevronUp,
+  BookOpen,
+  Briefcase,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Status = "pass" | "warning" | "fail" | null;
+type Status = "pass" | "warning" | "fail";
 
 interface FormData {
-  nationality: string;
-  age: string;
-  studyLevel: string;
+  firstName: string;
+  country: string;
+  whatsapp: string;
+  email: string;
+  highestEducation: string;
   gpa: string;
-  hasHighSchoolDiploma: string;
-  hasTranscript: string;
-  hasPassport: string;
-  passportExpiry: string;
-  hasBirthCertificate: string;
-  bankBalance: string;
-  canShowFunding: string;
-  hasHealthInsurance: string;
-  targetSemester: string;
-  monthsUntilDeadline: string;
-  czechLanguage: string;
-  englishLevel: string;
+  targetLevel: string;
+  apostille: string;
+  translation: string;
+  passportValid: string;
+  proofOfFunds: string;
+  fundingSource: string;
+  startWhen: string;
+  appliedBefore: string;
+  englishCert: string;
+  czechPrep: string;
 }
 
 const initial: FormData = {
-  nationality: "",
-  age: "",
-  studyLevel: "",
+  firstName: "",
+  country: "",
+  whatsapp: "",
+  email: "",
+  highestEducation: "",
   gpa: "",
-  hasHighSchoolDiploma: "yes",
-  hasTranscript: "yes",
-  hasPassport: "yes",
-  passportExpiry: "",
-  hasBirthCertificate: "yes",
-  bankBalance: "",
-  canShowFunding: "yes",
-  hasHealthInsurance: "no",
-  targetSemester: "",
-  monthsUntilDeadline: "",
-  czechLanguage: "none",
-  englishLevel: "",
+  targetLevel: "",
+  apostille: "",
+  translation: "",
+  passportValid: "",
+  proofOfFunds: "",
+  fundingSource: "",
+  startWhen: "",
+  appliedBefore: "",
+  englishCert: "",
+  czechPrep: "",
 };
+
+const COUNTRIES = [
+  "Egypt", "Jordan", "Iraq", "Syria", "Lebanon", "Libya",
+  "Algeria", "Morocco", "Tunisia", "Palestine", "Sudan",
+  "Other Arab country", "Other",
+];
+
+const COUNTRIES_AR = [
+  "مصر", "الأردن", "العراق", "سوريا", "لبنان", "ليبيا",
+  "الجزائر", "المغرب", "تونس", "فلسطين", "السودان",
+  "دولة عربية أخرى", "أخرى",
+];
 
 export default function EligibilityClient() {
   const { locale } = useTranslation();
@@ -155,11 +171,11 @@ export default function EligibilityClient() {
                 <h2 className="text-lg font-semibold text-text-primary mb-5">
                   {stepDefs[step].title}
                 </h2>
-                {step === 0 && <Step0 form={form} set={set} t={t} />}
-                {step === 1 && <Step1 form={form} set={set} t={t} />}
-                {step === 2 && <Step2 form={form} set={set} t={t} />}
-                {step === 3 && <Step3 form={form} set={set} t={t} />}
-                {step === 4 && <Step4 form={form} set={set} t={t} />}
+                {step === 0 && <StepBasics form={form} set={set} t={t} locale={locale} />}
+                {step === 1 && <StepAcademics form={form} set={set} t={t} />}
+                {step === 2 && <StepDocuments form={form} set={set} t={t} />}
+                {step === 3 && <StepFinances form={form} set={set} t={t} />}
+                {step === 4 && <StepTimeline form={form} set={set} t={t} />}
               </GlassCard>
 
               <div className="flex items-center justify-between mt-6">
@@ -188,16 +204,21 @@ export default function EligibilityClient() {
   );
 }
 
-// ── Step components ──────────────────────────────────────────────────────────
+// ── Shared form components ──────────────────────────────────────────────────
 
 interface StepProps {
   form: FormData;
   set: (k: keyof FormData, v: string) => void;
   t: typeof en;
+  locale?: string;
 }
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return <label className="block text-sm font-medium text-text-primary mb-1.5">{children}</label>;
+}
+
+function FieldHelper({ children }: { children: React.ReactNode }) {
+  return <p className="text-xs text-text-muted mt-1">{children}</p>;
 }
 
 function Input({
@@ -219,6 +240,31 @@ function Input({
       placeholder={placeholder}
       className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
     />
+  );
+}
+
+function Select({
+  value,
+  onChange,
+  options,
+  placeholder,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  placeholder?: string;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors appearance-none"
+    >
+      {placeholder && <option value="">{placeholder}</option>}
+      {options.map((o) => (
+        <option key={o.value} value={o.value}>{o.label}</option>
+      ))}
+    </select>
   );
 }
 
@@ -251,22 +297,64 @@ function RadioGroup({
   );
 }
 
-function Step0({ form, set, t }: StepProps) {
+// ── Step components ──────────────────────────────────────────────────────────
+
+function StepBasics({ form, set, t, locale }: StepProps) {
+  const countries = locale === "ar" ? COUNTRIES_AR : COUNTRIES;
   return (
     <div className="space-y-4">
       <div>
-        <FieldLabel>{t.fields.nationality}</FieldLabel>
-        <Input value={form.nationality} onChange={(v) => set("nationality", v)} placeholder={t.placeholders.nationality} />
+        <FieldLabel>{t.fields.firstName}</FieldLabel>
+        <Input value={form.firstName} onChange={(v) => set("firstName", v)} placeholder={t.placeholders.firstName} />
       </div>
       <div>
-        <FieldLabel>{t.fields.age}</FieldLabel>
-        <Input value={form.age} onChange={(v) => set("age", v)} type="number" placeholder="18" />
+        <FieldLabel>{t.fields.country}</FieldLabel>
+        <Select
+          value={form.country}
+          onChange={(v) => set("country", v)}
+          placeholder={t.placeholders.country}
+          options={countries.map((c, i) => ({ value: COUNTRIES[i], label: c }))}
+        />
       </div>
       <div>
-        <FieldLabel>{t.fields.studyLevel}</FieldLabel>
+        <FieldLabel>{t.fields.whatsapp}</FieldLabel>
+        <Input value={form.whatsapp} onChange={(v) => set("whatsapp", v)} placeholder="+20 1xx xxx xxxx" type="tel" />
+        <FieldHelper>{t.helpers.whatsapp}</FieldHelper>
+      </div>
+      <div>
+        <FieldLabel>{t.fields.email}</FieldLabel>
+        <Input value={form.email} onChange={(v) => set("email", v)} placeholder="you@example.com" type="email" />
+        <FieldHelper>{t.helpers.email}</FieldHelper>
+      </div>
+    </div>
+  );
+}
+
+function StepAcademics({ form, set, t }: StepProps) {
+  return (
+    <div className="space-y-4">
+      <div>
+        <FieldLabel>{t.fields.highestEducation}</FieldLabel>
         <RadioGroup
-          value={form.studyLevel}
-          onChange={(v) => set("studyLevel", v)}
+          value={form.highestEducation}
+          onChange={(v) => set("highestEducation", v)}
+          options={[
+            { value: "highschool", label: t.options.highschool },
+            { value: "bachelor", label: t.options.bachelor },
+            { value: "master", label: t.options.master },
+          ]}
+        />
+      </div>
+      <div>
+        <FieldLabel>{t.fields.gpa}</FieldLabel>
+        <Input value={form.gpa} onChange={(v) => set("gpa", v)} placeholder={t.placeholders.gpa} />
+        <FieldHelper>{t.helpers.gpa}</FieldHelper>
+      </div>
+      <div>
+        <FieldLabel>{t.fields.targetLevel}</FieldLabel>
+        <RadioGroup
+          value={form.targetLevel}
+          onChange={(v) => set("targetLevel", v)}
           options={[
             { value: "bachelor", label: t.options.bachelor },
             { value: "master", label: t.options.master },
@@ -278,33 +366,43 @@ function Step0({ form, set, t }: StepProps) {
   );
 }
 
-function Step1({ form, set, t }: StepProps) {
+function StepDocuments({ form, set, t }: StepProps) {
   return (
     <div className="space-y-4">
       <div>
-        <FieldLabel>{t.fields.gpa}</FieldLabel>
-        <Input value={form.gpa} onChange={(v) => set("gpa", v)} placeholder="3.0 / 4.0" />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.hasHighSchoolDiploma}</FieldLabel>
+        <FieldLabel>{t.fields.apostille}</FieldLabel>
         <RadioGroup
-          value={form.hasHighSchoolDiploma}
-          onChange={(v) => set("hasHighSchoolDiploma", v)}
+          value={form.apostille}
+          onChange={(v) => set("apostille", v)}
           options={[
             { value: "yes", label: t.options.yes },
             { value: "no", label: t.options.no },
-            { value: "pending", label: t.options.pending },
+            { value: "unknown", label: t.options.dontKnow },
           ]}
         />
       </div>
       <div>
-        <FieldLabel>{t.fields.hasTranscript}</FieldLabel>
+        <FieldLabel>{t.fields.translation}</FieldLabel>
         <RadioGroup
-          value={form.hasTranscript}
-          onChange={(v) => set("hasTranscript", v)}
+          value={form.translation}
+          onChange={(v) => set("translation", v)}
+          options={[
+            { value: "english", label: t.options.translatedEn },
+            { value: "czech", label: t.options.translatedCs },
+            { value: "no", label: t.options.no },
+            { value: "unsure", label: t.options.notSure },
+          ]}
+        />
+      </div>
+      <div>
+        <FieldLabel>{t.fields.passportValid}</FieldLabel>
+        <RadioGroup
+          value={form.passportValid}
+          onChange={(v) => set("passportValid", v)}
           options={[
             { value: "yes", label: t.options.yes },
             { value: "no", label: t.options.no },
+            { value: "expiring", label: t.options.expiringSoon },
           ]}
         />
       </div>
@@ -312,34 +410,31 @@ function Step1({ form, set, t }: StepProps) {
   );
 }
 
-function Step2({ form, set, t }: StepProps) {
+function StepFinances({ form, set, t }: StepProps) {
   return (
     <div className="space-y-4">
       <div>
-        <FieldLabel>{t.fields.hasPassport}</FieldLabel>
+        <FieldLabel>{t.fields.proofOfFunds}</FieldLabel>
         <RadioGroup
-          value={form.hasPassport}
-          onChange={(v) => set("hasPassport", v)}
+          value={form.proofOfFunds}
+          onChange={(v) => set("proofOfFunds", v)}
           options={[
-            { value: "yes", label: t.options.yes },
-            { value: "no", label: t.options.no },
+            { value: "available", label: t.options.availableNow },
+            { value: "canArrange", label: t.options.canArrange },
+            { value: "no", label: t.options.noOrUnsure },
           ]}
         />
       </div>
-      {form.hasPassport === "yes" && (
-        <div>
-          <FieldLabel>{t.fields.passportExpiry}</FieldLabel>
-          <Input value={form.passportExpiry} onChange={(v) => set("passportExpiry", v)} type="date" />
-        </div>
-      )}
       <div>
-        <FieldLabel>{t.fields.hasBirthCertificate}</FieldLabel>
+        <FieldLabel>{t.fields.fundingSource}</FieldLabel>
         <RadioGroup
-          value={form.hasBirthCertificate}
-          onChange={(v) => set("hasBirthCertificate", v)}
+          value={form.fundingSource}
+          onChange={(v) => set("fundingSource", v)}
           options={[
-            { value: "yes", label: t.options.yes },
-            { value: "no", label: t.options.no },
+            { value: "family", label: t.options.family },
+            { value: "savings", label: t.options.savings },
+            { value: "scholarship", label: t.options.scholarship },
+            { value: "work", label: t.options.workStudy },
           ]}
         />
       </div>
@@ -347,92 +442,55 @@ function Step2({ form, set, t }: StepProps) {
   );
 }
 
-function Step3({ form, set, t }: StepProps) {
+function StepTimeline({ form, set, t }: StepProps) {
   return (
     <div className="space-y-4">
       <div>
-        <FieldLabel>{t.fields.bankBalance}</FieldLabel>
-        <Input
-          value={form.bankBalance}
-          onChange={(v) => set("bankBalance", v)}
-          type="number"
-          placeholder="€5,000"
+        <FieldLabel>{t.fields.startWhen}</FieldLabel>
+        <RadioGroup
+          value={form.startWhen}
+          onChange={(v) => set("startWhen", v)}
+          options={[
+            { value: "thisSemester", label: t.options.thisSemester },
+            { value: "nextYear", label: t.options.nextYear },
+            { value: "exploring", label: t.options.exploring },
+          ]}
         />
       </div>
       <div>
-        <FieldLabel>{t.fields.canShowFunding}</FieldLabel>
+        <FieldLabel>{t.fields.appliedBefore}</FieldLabel>
         <RadioGroup
-          value={form.canShowFunding}
-          onChange={(v) => set("canShowFunding", v)}
+          value={form.appliedBefore}
+          onChange={(v) => set("appliedBefore", v)}
+          options={[
+            { value: "accepted", label: t.options.yesAccepted },
+            { value: "rejected", label: t.options.yesRejected },
+            { value: "no", label: t.options.firstTime },
+          ]}
+        />
+      </div>
+      <div>
+        <FieldLabel>{t.fields.englishCert}</FieldLabel>
+        <RadioGroup
+          value={form.englishCert}
+          onChange={(v) => set("englishCert", v)}
           options={[
             { value: "yes", label: t.options.yes },
-            { value: "no", label: t.options.no },
-            { value: "partial", label: t.options.partial },
+            { value: "plan", label: t.options.planToTake },
+            { value: "notRequired", label: t.options.notRequired },
+            { value: "unsure", label: t.options.notSure },
           ]}
         />
       </div>
       <div>
-        <FieldLabel>{t.fields.hasHealthInsurance}</FieldLabel>
+        <FieldLabel>{t.fields.czechPrep}</FieldLabel>
         <RadioGroup
-          value={form.hasHealthInsurance}
-          onChange={(v) => set("hasHealthInsurance", v)}
+          value={form.czechPrep}
+          onChange={(v) => set("czechPrep", v)}
           options={[
-            { value: "yes", label: t.options.yes },
-            { value: "no", label: t.options.no },
-          ]}
-        />
-      </div>
-    </div>
-  );
-}
-
-function Step4({ form, set, t }: StepProps) {
-  return (
-    <div className="space-y-4">
-      <div>
-        <FieldLabel>{t.fields.targetSemester}</FieldLabel>
-        <RadioGroup
-          value={form.targetSemester}
-          onChange={(v) => set("targetSemester", v)}
-          options={[
-            { value: "winter2026", label: t.options.winter2026 },
-            { value: "summer2027", label: t.options.summer2027 },
-            { value: "winter2027", label: t.options.winter2027 },
-            { value: "later", label: t.options.later },
-          ]}
-        />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.monthsUntilDeadline}</FieldLabel>
-        <Input
-          value={form.monthsUntilDeadline}
-          onChange={(v) => set("monthsUntilDeadline", v)}
-          type="number"
-          placeholder="6"
-        />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.englishLevel}</FieldLabel>
-        <RadioGroup
-          value={form.englishLevel}
-          onChange={(v) => set("englishLevel", v)}
-          options={[
-            { value: "b2+", label: "B2+" },
-            { value: "b1", label: "B1" },
-            { value: "below", label: t.options.belowB1 },
-            { value: "none", label: t.options.noEnglish },
-          ]}
-        />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.czechLanguage}</FieldLabel>
-        <RadioGroup
-          value={form.czechLanguage}
-          onChange={(v) => set("czechLanguage", v)}
-          options={[
-            { value: "b1+", label: "B1+" },
-            { value: "a1a2", label: "A1-A2" },
-            { value: "none", label: t.options.noCzech },
+            { value: "course", label: t.options.courseTaken },
+            { value: "selfStudy", label: t.options.selfStudy },
+            { value: "none", label: t.options.noneYet },
           ]}
         />
       </div>
@@ -442,72 +500,76 @@ function Step4({ form, set, t }: StepProps) {
 
 // ── Scoring ──────────────────────────────────────────────────────────────────
 
-function scoreForm(form: FormData) {
-  const categories: { key: string; status: Status; label: string; detail: string }[] = [];
+interface ScoredCategory {
+  key: string;
+  status: Status;
+  score: number;
+}
 
-  // Academics
-  const gpaNum = parseFloat(form.gpa) || 0;
-  const diplomaOk = form.hasHighSchoolDiploma === "yes";
-  const transcriptOk = form.hasTranscript === "yes";
-  if (diplomaOk && transcriptOk && gpaNum >= 2.5) {
-    categories.push({ key: "academics", status: "pass", label: "", detail: "" });
-  } else if (!diplomaOk && form.hasHighSchoolDiploma !== "pending") {
-    categories.push({ key: "academics", status: "fail", label: "", detail: "" });
+function scoreForm(form: FormData): { categories: ScoredCategory[]; pct: number; total: number } {
+  const categories: ScoredCategory[] = [];
+
+  // Academics: education completed + grade
+  const gpaText = form.gpa.replace(",", ".").replace("%", "");
+  const gpaNum = parseFloat(gpaText) || 0;
+  const hasEducation = form.highestEducation !== "";
+  if (hasEducation && gpaNum > 0 && (gpaNum >= 60 || (gpaNum < 10 && gpaNum >= 2.5))) {
+    categories.push({ key: "academics", status: "pass", score: 2 });
+  } else if (gpaNum > 0 && gpaNum < 60 && gpaNum >= 10) {
+    categories.push({ key: "academics", status: "warning", score: 1 });
+  } else if (gpaNum > 0 && gpaNum < 2.5 && gpaNum < 10) {
+    categories.push({ key: "academics", status: "warning", score: 1 });
   } else {
-    categories.push({ key: "academics", status: "warning", label: "", detail: "" });
+    categories.push({ key: "academics", status: hasEducation ? "warning" : "fail", score: hasEducation ? 1 : 0 });
   }
 
   // Documents
-  const passportOk = form.hasPassport === "yes";
-  const birthOk = form.hasBirthCertificate === "yes";
-  const allDocs = passportOk && birthOk;
-  if (allDocs) {
-    categories.push({ key: "documents", status: "pass", label: "", detail: "" });
-  } else if (!passportOk) {
-    categories.push({ key: "documents", status: "fail", label: "", detail: "" });
+  const apostilleOk = form.apostille === "yes";
+  const translationOk = form.translation === "english" || form.translation === "czech";
+  const passportOk = form.passportValid === "yes";
+  if (apostilleOk && translationOk && passportOk) {
+    categories.push({ key: "documents", status: "pass", score: 2 });
+  } else if (form.apostille === "unknown" || form.passportValid === "no") {
+    categories.push({ key: "documents", status: "fail", score: 0 });
   } else {
-    categories.push({ key: "documents", status: "warning", label: "", detail: "" });
+    categories.push({ key: "documents", status: "warning", score: 1 });
   }
 
   // Finances
-  const balance = parseFloat(form.bankBalance) || 0;
-  const fundingOk = form.canShowFunding === "yes";
-  if (balance >= 4000 && fundingOk) {
-    categories.push({ key: "finances", status: "pass", label: "", detail: "" });
-  } else if (balance < 2000 || form.canShowFunding === "no") {
-    categories.push({ key: "finances", status: "fail", label: "", detail: "" });
+  if (form.proofOfFunds === "available") {
+    categories.push({ key: "finances", status: "pass", score: 2 });
+  } else if (form.proofOfFunds === "canArrange") {
+    categories.push({ key: "finances", status: "warning", score: 1 });
   } else {
-    categories.push({ key: "finances", status: "warning", label: "", detail: "" });
+    categories.push({ key: "finances", status: "fail", score: 0 });
   }
 
   // Timeline
-  const months = parseInt(form.monthsUntilDeadline) || 0;
-  if (months >= 4) {
-    categories.push({ key: "timeline", status: "pass", label: "", detail: "" });
-  } else if (months >= 2) {
-    categories.push({ key: "timeline", status: "warning", label: "", detail: "" });
+  const nonPassCount = categories.filter((c) => c.status !== "pass").length;
+  const failCount = categories.filter((c) => c.status === "fail").length;
+  if (form.startWhen === "nextYear" || form.startWhen === "exploring") {
+    categories.push({ key: "timeline", status: "pass", score: 2 });
+  } else if (form.startWhen === "thisSemester" && failCount >= 2) {
+    categories.push({ key: "timeline", status: "fail", score: 0 });
+  } else if (form.startWhen === "thisSemester" && nonPassCount > 0) {
+    categories.push({ key: "timeline", status: "warning", score: 1 });
   } else {
-    categories.push({ key: "timeline", status: "fail", label: "", detail: "" });
+    categories.push({ key: "timeline", status: "pass", score: 2 });
   }
 
   // Language
-  const engOk = form.englishLevel === "b2+" || form.englishLevel === "b1";
-  const czOk = form.czechLanguage === "b1+" || form.czechLanguage === "a1a2";
-  if (form.englishLevel === "b2+" || form.czechLanguage === "b1+") {
-    categories.push({ key: "language", status: "pass", label: "", detail: "" });
-  } else if (engOk || czOk) {
-    categories.push({ key: "language", status: "warning", label: "", detail: "" });
+  if (form.englishCert === "yes" || form.englishCert === "notRequired") {
+    categories.push({ key: "language", status: "pass", score: 2 });
+  } else if (form.englishCert === "plan") {
+    categories.push({ key: "language", status: "warning", score: 1 });
   } else {
-    categories.push({ key: "language", status: "fail", label: "", detail: "" });
+    categories.push({ key: "language", status: "fail", score: 0 });
   }
 
-  const passCount = categories.filter((c) => c.status === "pass").length;
-  const failCount = categories.filter((c) => c.status === "fail").length;
-  const pct = Math.round((passCount / categories.length) * 100);
-  const overall: "ready" | "almost" | "notReady" =
-    failCount === 0 && passCount >= 4 ? "ready" : failCount >= 2 ? "notReady" : "almost";
+  const total = categories.reduce((sum, c) => sum + c.score, 0);
+  const pct = Math.round((total / 10) * 100);
 
-  return { categories, pct, overall };
+  return { categories, pct, total };
 }
 
 // ── Results ──────────────────────────────────────────────────────────────────
@@ -523,20 +585,17 @@ function ResultsView({
   locale: string;
   onReset: () => void;
 }) {
-  const { categories, pct, overall } = scoreForm(form);
-  const catLabels = t.resultCategories;
+  const { categories, pct, total } = scoreForm(form);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   const statusIcon = (s: Status) => {
-    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-green-400" />;
-    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-amber" />;
-    return <XCircle className="w-5 h-5 text-red-400" />;
+    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />;
+    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-amber shrink-0" />;
+    return <XCircle className="w-5 h-5 text-red-400 shrink-0" />;
   };
 
-  const overallColors = {
-    ready: "text-green-400",
-    almost: "text-amber",
-    notReady: "text-red-400",
-  };
+  const pctColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
+  const strokeColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
 
   return (
     <div className="relative min-h-screen">
@@ -579,77 +638,117 @@ function ResultsView({
                   fill="none"
                   strokeDasharray={`${(pct / 100) * 2 * Math.PI * 52} ${2 * Math.PI * 52}`}
                   strokeLinecap="round"
-                  className={overallColors[overall]}
+                  className={strokeColor}
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className={cn("text-3xl font-bold", overallColors[overall])}>{pct}%</span>
+                <span className={cn("text-3xl font-bold", pctColor)}>{pct}%</span>
                 <span className="text-xs text-text-muted">{t.readiness}</span>
               </div>
             </div>
-            <p className={cn("font-semibold mt-3", overallColors[overall])}>
-              {t.overallLabels[overall]}
-            </p>
           </motion.div>
 
-          {/* Category breakdown */}
+          {/* Category breakdown with expandable cards */}
           <div className="space-y-3 mb-8">
-            {categories.map((cat, i) => (
-              <motion.div
-                key={cat.key}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + i * 0.08 }}
-              >
-                <GlassCard className="flex items-center gap-3">
-                  {statusIcon(cat.status)}
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-text-primary">
-                      {catLabels[cat.key as keyof typeof catLabels]?.title}
-                    </p>
-                    <p className="text-xs text-text-muted">
-                      {catLabels[cat.key as keyof typeof catLabels]?.[cat.status as "pass" | "warning" | "fail"]}
-                    </p>
+            {categories.map((cat, i) => {
+              const catInfo = t.resultCategories[cat.key as keyof typeof t.resultCategories];
+              const isExpanded = expanded === cat.key;
+              const advice = cat.status !== "pass" ? catInfo?.advice?.[cat.status] : undefined;
+              return (
+                <motion.div
+                  key={cat.key}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                >
+                  <div
+                    className="rounded-2xl border border-border-subtle bg-surface/50 backdrop-blur-sm overflow-hidden"
+                  >
+                    <button
+                      onClick={() => setExpanded(isExpanded ? null : cat.key)}
+                      className="w-full flex items-center gap-3 px-4 py-3.5 text-start"
+                    >
+                      {statusIcon(cat.status)}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-text-primary">
+                          {catInfo?.title}
+                        </p>
+                        <p className="text-xs text-text-muted truncate">
+                          {catInfo?.[cat.status as keyof typeof catInfo] as string}
+                        </p>
+                      </div>
+                      {(cat.status === "warning" || cat.status === "fail") && (
+                        isExpanded
+                          ? <ChevronUp className="w-4 h-4 text-text-muted shrink-0" />
+                          : <ChevronDown className="w-4 h-4 text-text-muted shrink-0" />
+                      )}
+                    </button>
+                    {isExpanded && advice && (
+                      <div className="px-4 pb-4 border-t border-border-subtle">
+                        <p className="text-sm text-text-secondary mt-3 mb-3">{advice.detail}</p>
+                        <div className="space-y-2">
+                          <Link
+                            href={advice.freeLink}
+                            className="flex items-center gap-2 text-sm text-text-primary hover:text-amber transition-colors"
+                          >
+                            <BookOpen className="w-4 h-4 text-green-400" />
+                            {advice.freeLabel}
+                          </Link>
+                          <Link
+                            href={advice.paidLink}
+                            className="flex items-center gap-2 text-sm text-text-secondary hover:text-amber transition-colors"
+                          >
+                            <Briefcase className="w-4 h-4 text-amber" />
+                            {advice.paidLabel}
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </GlassCard>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
 
-          {/* CTA paths */}
+          {/* Three CTA paths */}
           <div className="space-y-3 mb-8">
-            {overall === "ready" && (
-              <GlassCard hoverEffect="glow" className="text-center">
-                <CheckCircle2 className="w-8 h-8 text-green-400 mx-auto mb-3" />
-                <h3 className="font-semibold text-text-primary mb-1">{t.ctaReady.title}</h3>
-                <p className="text-sm text-text-secondary mb-4">{t.ctaReady.text}</p>
-                <MagneticButton variant="primary" href="/services">
-                  {t.ctaReady.button}
-                </MagneticButton>
-              </GlassCard>
-            )}
-            {overall === "almost" && (
-              <GlassCard hoverEffect="glow" className="text-center">
-                <AlertTriangle className="w-8 h-8 text-amber mx-auto mb-3" />
-                <h3 className="font-semibold text-text-primary mb-1">{t.ctaAlmost.title}</h3>
-                <p className="text-sm text-text-secondary mb-4">{t.ctaAlmost.text}</p>
-                <MagneticButton variant="primary" href={WHATSAPP_URL}>
-                  <MessageCircle className="w-5 h-5" />
-                  {t.ctaAlmost.button}
-                </MagneticButton>
-              </GlassCard>
-            )}
-            {overall === "notReady" && (
-              <GlassCard hoverEffect="glow" className="text-center">
-                <XCircle className="w-8 h-8 text-red-400 mx-auto mb-3" />
-                <h3 className="font-semibold text-text-primary mb-1">{t.ctaNotReady.title}</h3>
-                <p className="text-sm text-text-secondary mb-4">{t.ctaNotReady.text}</p>
-                <MagneticButton variant="secondary" href={WHATSAPP_URL}>
-                  <MessageCircle className="w-5 h-5" />
-                  {t.ctaNotReady.button}
-                </MagneticButton>
-              </GlassCard>
-            )}
+            <Link
+              href="/qa"
+              className="block w-full px-5 py-3.5 rounded-2xl border border-border-subtle text-center text-sm text-text-secondary hover:text-text-primary hover:border-amber/30 transition-colors"
+            >
+              {t.ctaPaths.selfLabel}
+              <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.selfSub}</span>
+            </Link>
+            <Link
+              href="/services"
+              className="block w-full px-5 py-3.5 rounded-2xl border border-amber/30 bg-amber/5 text-center text-sm text-text-primary hover:bg-amber/10 transition-colors"
+            >
+              {t.ctaPaths.specificLabel}
+              <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.specificSub}</span>
+            </Link>
+            <a
+              href={PAYMENT_LINKS.fullPackageStep1}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full px-5 py-3.5 rounded-2xl bg-amber text-midnight text-center text-sm font-medium hover:bg-amber/90 transition-colors"
+            >
+              {t.ctaPaths.fullLabel}
+              <span className="block text-xs text-midnight/70 mt-0.5">{t.ctaPaths.fullSub}</span>
+            </a>
+          </div>
+
+          {/* WhatsApp option */}
+          <div className="text-center mb-6">
+            <p className="text-sm text-text-muted mb-2">{t.whatsappPrompt}</p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              {t.whatsappButton}
+            </a>
           </div>
 
           <div className="text-center">
@@ -669,103 +768,196 @@ function ResultsView({
 
 const en = {
   title: "Am I Eligible?",
-  subtitle: "Answer a few questions and we'll tell you where you stand — free, instant, no sign-up.",
+  subtitle: "Answer a few questions and we'll tell you where you stand -- free, instant, no sign-up.",
   steps: ["Basics", "Academics", "Documents", "Finances", "Timeline & Language"],
   back: "Back",
   next: "Next",
   seeResults: "See My Results",
   fields: {
-    nationality: "Nationality",
-    age: "Age",
-    studyLevel: "What level are you applying for?",
-    gpa: "GPA (approximate, any scale)",
-    hasHighSchoolDiploma: "Do you have your high school diploma?",
-    hasTranscript: "Do you have your official transcript?",
-    hasPassport: "Do you have a valid passport?",
-    passportExpiry: "Passport expiry date",
-    hasBirthCertificate: "Do you have your birth certificate?",
-    bankBalance: "Approximate bank balance (EUR)",
-    canShowFunding: "Can you show proof of funding for at least one year?",
-    hasHealthInsurance: "Do you already have health insurance for Czechia?",
-    targetSemester: "Which semester are you targeting?",
-    monthsUntilDeadline: "How many months until your deadline?",
-    englishLevel: "English proficiency level",
-    czechLanguage: "Czech language level",
+    firstName: "First name",
+    country: "Country",
+    whatsapp: "WhatsApp number (optional)",
+    email: "Email (optional)",
+    highestEducation: "Highest completed education",
+    gpa: "Overall grade or GPA",
+    targetLevel: "Target program level",
+    apostille: "Have you apostilled your diploma/transcripts?",
+    translation: "Have you had documents officially translated?",
+    passportValid: "Valid passport, expiring more than 18 months from now?",
+    proofOfFunds: "Can you show proof of roughly EUR 5,500/year in a bank account?",
+    fundingSource: "How are you funding your studies?",
+    startWhen: "When do you want to start?",
+    appliedBefore: "Applied to a Czech university before?",
+    englishCert: "English certificate",
+    czechPrep: "Czech language preparation",
   },
   placeholders: {
-    nationality: "e.g. Egyptian, Jordanian, Iraqi...",
+    firstName: "Your first name",
+    country: "Select your country...",
+    gpa: "e.g. 85%, 3.2 GPA",
+  },
+  helpers: {
+    whatsapp: "So we can send your results if you want",
+    email: "For your eligibility report",
+    gpa: "Approximate is fine -- e.g. 85%, 3.2 GPA",
   },
   options: {
     yes: "Yes",
     no: "No",
-    pending: "Pending",
-    partial: "Partially",
+    dontKnow: "I don't know what that means",
+    notSure: "Not sure",
+    translatedEn: "Yes, English",
+    translatedCs: "Yes, Czech",
+    expiringSoon: "Expiring soon",
+    availableNow: "Yes, available now",
+    canArrange: "I can arrange it",
+    noOrUnsure: "No / not sure",
+    family: "Family support",
+    savings: "Savings",
+    scholarship: "Scholarship",
+    workStudy: "Work + study",
+    notSureYet: "Not sure yet",
+    thisSemester: "This coming semester",
+    nextYear: "Next academic year",
+    exploring: "Exploring, no rush",
+    yesAccepted: "Yes, accepted",
+    yesRejected: "Yes, rejected",
+    firstTime: "No, first time",
+    planToTake: "Plan to take one",
+    notRequired: "Not required",
+    courseTaken: "Course taken",
+    selfStudy: "Some self-study",
+    noneYet: "None yet",
+    highschool: "High school",
     bachelor: "Bachelor's",
     master: "Master's",
     phd: "PhD",
-    winter2026: "Winter 2026",
-    summer2027: "Summer 2027",
-    winter2027: "Winter 2027",
-    later: "Later / Not sure",
-    belowB1: "Below B1",
-    noEnglish: "No English",
-    noCzech: "No Czech",
   },
   resultsTitle: "Your Eligibility Assessment",
   resultsSubtitle: "Here's where you stand based on what you told us.",
   readiness: "readiness",
-  overallLabels: {
-    ready: "You're Ready to Apply!",
-    almost: "Almost There — A Few Things to Fix",
-    notReady: "Not Ready Yet — But You Can Get There",
-  },
   resultCategories: {
     academics: {
       title: "Academic Background",
-      pass: "Your grades and documents look good for admission.",
-      warning: "Some academic items need attention — pending diploma or lower GPA.",
-      fail: "Missing diploma or transcript may block your application.",
+      pass: "Your grades and education meet admission requirements.",
+      warning: "Grade may limit program options -- consider preparatory year.",
+      fail: "Missing education details may block your application.",
+      advice: {
+        warning: {
+          detail: "A lower GPA does not disqualify you, but it narrows your university choices. A preparatory year can strengthen your profile significantly.",
+          freeLink: "/preparatory-year",
+          freeLabel: "Read the free Preparatory Year guide",
+          paidLink: "/services",
+          paidLabel: "Or get a consultation -- EUR 15",
+        },
+        fail: {
+          detail: "Without confirming your education level and grades, universities cannot assess your application. Gather your transcripts and diploma first.",
+          freeLink: "/application-guide",
+          freeLabel: "Read the free Application Guide",
+          paidLink: "/services",
+          paidLabel: "Or get your documents reviewed -- EUR 25",
+        },
+      },
     },
     documents: {
       title: "Required Documents",
       pass: "All essential documents are ready.",
-      warning: "Some documents are missing — you can still fix this in time.",
-      fail: "You're missing critical documents (passport). Get this sorted first.",
+      warning: "Some documents still need attention -- you can fix this in time.",
+      fail: "Critical document gaps could block your application.",
+      advice: {
+        warning: {
+          detail: "Missing apostille or translation can delay your application by weeks. In Egypt, apostille requires legalization from the Ministry of Foreign Affairs and then the Czech embassy -- typically 4-8 weeks.",
+          freeLink: "/application-guide",
+          freeLabel: "Read our free apostille and document guide",
+          paidLink: "/services",
+          paidLabel: "Or get your full document package reviewed -- EUR 25",
+        },
+        fail: {
+          detail: "The embassy does not tell you what is wrong -- they just say \"rejected.\" You will not know which document killed your application unless someone checks before you submit.",
+          freeLink: "/application-guide",
+          freeLabel: "Read the free Application Guide",
+          paidLink: "/services",
+          paidLabel: "Or get your full document package reviewed -- EUR 25",
+        },
+      },
     },
     finances: {
       title: "Financial Readiness",
       pass: "Your finances look sufficient for a student visa.",
-      warning: "Your bank balance is borderline — consider showing more funding proof.",
-      fail: "Insufficient funds or no proof of funding. This will likely cause a visa rejection.",
+      warning: "You say you can arrange funds -- start now, it takes time.",
+      fail: "Insufficient funds or no proof. This will likely cause a visa rejection.",
+      advice: {
+        warning: {
+          detail: "The Czech embassy requires bank statements showing approximately EUR 5,500 per year. Start gathering this proof now -- last-minute transfers raise red flags.",
+          freeLink: "/cost-of-living",
+          freeLabel: "Use the free Cost of Living Calculator",
+          paidLink: "/services",
+          paidLabel: "Or book a consultation -- EUR 15",
+        },
+        fail: {
+          detail: "Without proof of financial support, your visa will almost certainly be rejected. This is one of the most common reasons for denial.",
+          freeLink: "/cost-of-living",
+          freeLabel: "Use the free Cost of Living Calculator",
+          paidLink: "/services",
+          paidLabel: "Or book a consultation -- EUR 15",
+        },
+      },
     },
     timeline: {
       title: "Timeline",
       pass: "You have enough time to prepare a strong application.",
-      warning: "Tight timeline — start now and don't wait on anything.",
-      fail: "Very little time left. You may need to target the next semester.",
+      warning: "Tight timeline -- start immediately and do not wait on anything.",
+      fail: "Very little time left. You may need to target the next intake.",
+      advice: {
+        warning: {
+          detail: "Rushing an application leads to mistakes. Apostille alone can take 4-8 weeks. If any of your documents are not ready, start today.",
+          freeLink: "/application-guide",
+          freeLabel: "Read the step-by-step Application Guide",
+          paidLink: "/services",
+          paidLabel: "Or get full application assistance -- EUR 150 to start",
+        },
+        fail: {
+          detail: "With this timeline and outstanding gaps, applying this semester risks a rejection that goes on your record. Targeting the next intake gives you time to build a strong application.",
+          freeLink: "/application-guide",
+          freeLabel: "Read the free Application Guide",
+          paidLink: "/services",
+          paidLabel: "Or let me plan your timeline -- EUR 15 consultation",
+        },
+      },
     },
     language: {
       title: "Language Proficiency",
-      pass: "Your language level qualifies you for programs.",
-      warning: "Your level may limit program choices. Consider taking a test.",
-      fail: "You'll need to improve your language skills or take a preparatory year.",
+      pass: "Your language qualifications look good.",
+      warning: "Plan to get certified -- some programs require proof.",
+      fail: "Unclear language status could limit your options.",
+      advice: {
+        warning: {
+          detail: "Most English-taught programs require IELTS 5.5-6.5 or equivalent. Book your test soon -- slots fill up and results take weeks.",
+          freeLink: "/qa",
+          freeLabel: "Check language requirements in the Q&A",
+          paidLink: "/services",
+          paidLabel: "Or book a consultation -- EUR 15",
+        },
+        fail: {
+          detail: "Without knowing whether you need a language certificate, you risk applying to programs you are not eligible for. Check requirements for your target program.",
+          freeLink: "/qa",
+          freeLabel: "Check language requirements in the Q&A",
+          paidLink: "/services",
+          paidLabel: "Or book a consultation -- EUR 15",
+        },
+      },
     },
   },
-  ctaReady: {
-    title: "You're in Great Shape",
-    text: "Your profile is strong. The next step is making sure your documents and application are perfect — that's where I can help.",
-    button: "See Services →",
+  ctaPaths: {
+    selfLabel: "I'll handle it myself",
+    selfSub: "Great -- use our free guides and the Facebook community.",
+    specificLabel: "I need help with specific things",
+    specificSub: "Book just the services you need.",
+    fullLabel: "I want someone to guide me through everything -- Start with EUR 150",
+    fullSub: "I'll build your complete plan.",
   },
-  ctaAlmost: {
-    title: "You're Close — Let's Fix the Gaps",
-    text: "A few things need attention, but nothing that can't be fixed. Message me and I'll tell you exactly what to do.",
-    button: "Ask Me on WhatsApp",
-  },
-  ctaNotReady: {
-    title: "Let's Build a Plan",
-    text: "You're not ready to apply right now, but with the right plan, you can be ready for the next intake. I can help you figure out the steps.",
-    button: "Let's Talk on WhatsApp",
-  },
+  whatsappPrompt: "Not sure? Send me your results on WhatsApp and I'll tell you honestly what you need.",
+  whatsappButton: "Message me on WhatsApp",
   startOver: "Start Over",
 };
 
@@ -773,102 +965,195 @@ const en = {
 
 const ar: typeof en = {
   title: "هل أنا مؤهل؟",
-  subtitle: "جاوب على كام سؤال وهنقولك وضعك — مجاني، فوري، من غير تسجيل.",
+  subtitle: "جاوب على كام سؤال وهنقولك وضعك -- مجاني، فوري، من غير تسجيل.",
   steps: ["الأساسيات", "الأكاديمي", "الأوراق", "المالية", "الوقت واللغة"],
   back: "رجوع",
   next: "التالي",
   seeResults: "شوف نتيجتي",
   fields: {
-    nationality: "الجنسية",
-    age: "العمر",
-    studyLevel: "أنت بتقدم على أي مستوى؟",
-    gpa: "المعدل التراكمي (تقريبي)",
-    hasHighSchoolDiploma: "عندك شهادة الثانوية؟",
-    hasTranscript: "عندك كشف الدرجات الرسمي؟",
-    hasPassport: "عندك جواز سفر ساري؟",
-    passportExpiry: "تاريخ انتهاء الجواز",
-    hasBirthCertificate: "عندك شهادة الميلاد؟",
-    bankBalance: "رصيد البنك التقريبي (يورو)",
-    canShowFunding: "تقدر تثبت تمويل لسنة على الأقل؟",
-    hasHealthInsurance: "عندك تأمين صحي للتشيك؟",
-    targetSemester: "أي فصل دراسي مستهدف؟",
-    monthsUntilDeadline: "كام شهر قبل الموعد النهائي؟",
-    englishLevel: "مستوى الإنجليزي",
-    czechLanguage: "مستوى التشيكي",
+    firstName: "الاسم الأول",
+    country: "البلد",
+    whatsapp: "رقم واتساب (اختياري)",
+    email: "البريد الإلكتروني (اختياري)",
+    highestEducation: "أعلى مؤهل حصلت عليه",
+    gpa: "المعدل التراكمي أو الدرجة",
+    targetLevel: "المستوى المستهدف",
+    apostille: "هل عملت أبوستيل لشهادتك وكشف الدرجات؟",
+    translation: "هل ترجمت أوراقك ترجمة رسمية؟",
+    passportValid: "جواز سفر ساري لأكثر من 18 شهر؟",
+    proofOfFunds: "تقدر تثبت وجود حوالي 5,500 يورو/سنة في حسابك البنكي؟",
+    fundingSource: "إزاي هتموّل دراستك؟",
+    startWhen: "عايز تبدأ امتى؟",
+    appliedBefore: "قدمت على جامعة تشيكية قبل كده؟",
+    englishCert: "شهادة إنجليزي",
+    czechPrep: "تحضير اللغة التشيكية",
   },
   placeholders: {
-    nationality: "مثلًا: مصري، أردني، عراقي...",
+    firstName: "اسمك الأول",
+    country: "اختر بلدك...",
+    gpa: "مثلا: 85%، 3.2",
+  },
+  helpers: {
+    whatsapp: "عشان نبعتلك النتيجة لو حبيت",
+    email: "لتقرير الأهلية بتاعك",
+    gpa: "تقريبي كفاية -- مثلا 85%، 3.2",
   },
   options: {
     yes: "أيوه",
     no: "لا",
-    pending: "قريبًا",
-    partial: "جزئيًا",
+    dontKnow: "مش عارف يعني إيه ده",
+    notSure: "مش متأكد",
+    translatedEn: "أيوه، إنجليزي",
+    translatedCs: "أيوه، تشيكي",
+    expiringSoon: "قرب يخلص",
+    availableNow: "أيوه، متاح دلوقتي",
+    canArrange: "أقدر أرتبه",
+    noOrUnsure: "لا / مش متأكد",
+    family: "دعم عائلي",
+    savings: "مدخرات",
+    scholarship: "منحة",
+    workStudy: "شغل + دراسة",
+    notSureYet: "مش متأكد لسه",
+    thisSemester: "الفصل الجاي",
+    nextYear: "السنة الدراسية الجاية",
+    exploring: "بستكشف، مش مستعجل",
+    yesAccepted: "أيوه، اتقبلت",
+    yesRejected: "أيوه، اترفضت",
+    firstTime: "لا، أول مرة",
+    planToTake: "ناوي أمتحن",
+    notRequired: "مش مطلوبة",
+    courseTaken: "خدت كورس",
+    selfStudy: "شوية دراسة ذاتية",
+    noneYet: "لسه مبدأتش",
+    highschool: "ثانوية عامة",
     bachelor: "بكالوريوس",
     master: "ماجستير",
     phd: "دكتوراه",
-    winter2026: "شتاء 2026",
-    summer2027: "صيف 2027",
-    winter2027: "شتاء 2027",
-    later: "بعدين / مش متأكد",
-    belowB1: "أقل من B1",
-    noEnglish: "مفيش إنجليزي",
-    noCzech: "مفيش تشيكي",
   },
   resultsTitle: "تقييم أهليتك",
   resultsSubtitle: "ده وضعك حسب اللي قولتهولنا.",
   readiness: "جاهزية",
-  overallLabels: {
-    ready: "أنت جاهز تقدم!",
-    almost: "قربت — كام حاجة محتاجة تتظبط",
-    notReady: "لسه مش جاهز — بس تقدر توصل",
-  },
   resultCategories: {
     academics: {
       title: "الخلفية الأكاديمية",
-      pass: "درجاتك وأوراقك كويسة للقبول.",
-      warning: "بعض الحاجات الأكاديمية محتاجة انتباه — شهادة معلقة أو معدل أقل.",
-      fail: "شهادة أو كشف درجات ناقص ممكن يوقف طلبك.",
+      pass: "درجاتك وتعليمك بيستوفوا شروط القبول.",
+      warning: "المعدل ممكن يحد من اختياراتك -- فكر في سنة تحضيرية.",
+      fail: "تفاصيل التعليم الناقصة ممكن توقف طلبك.",
+      advice: {
+        warning: {
+          detail: "معدل أقل مش بيشيلك، بس بيقلل اختياراتك. السنة التحضيرية ممكن تقوي ملفك بشكل كبير.",
+          freeLink: "/preparatory-year",
+          freeLabel: "اقرأ دليل السنة التحضيرية المجاني",
+          paidLink: "/services",
+          paidLabel: "أو احجز استشارة -- 15 يورو",
+        },
+        fail: {
+          detail: "من غير ما تأكد مستواك التعليمي ودرجاتك، الجامعات مش هتقدر تقيّم طلبك. جمّع كشف الدرجات والشهادة الأول.",
+          freeLink: "/application-guide",
+          freeLabel: "اقرأ دليل التقديم المجاني",
+          paidLink: "/services",
+          paidLabel: "أو خلي أوراقك تتراجع -- 25 يورو",
+        },
+      },
     },
     documents: {
       title: "الأوراق المطلوبة",
       pass: "كل الأوراق الأساسية جاهزة.",
-      warning: "بعض الأوراق ناقصة — لسه تقدر تلحق.",
-      fail: "ناقصك أوراق حرجة (جواز السفر). لازم تظبط ده الأول.",
+      warning: "بعض الأوراق لسه محتاجة انتباه -- تقدر تلحق.",
+      fail: "نواقص حرجة في الأوراق ممكن توقف طلبك.",
+      advice: {
+        warning: {
+          detail: "الأبوستيل أو الترجمة الناقصة ممكن تأخر طلبك أسابيع. في مصر، الأبوستيل محتاج تصديق من الخارجية وبعدين السفارة التشيكية -- عادة 4-8 أسابيع.",
+          freeLink: "/application-guide",
+          freeLabel: "اقرأ دليل الأبوستيل والأوراق المجاني",
+          paidLink: "/services",
+          paidLabel: "أو خلي كل أوراقك تتراجع -- 25 يورو",
+        },
+        fail: {
+          detail: "السفارة مش بتقولك إيه الغلط -- بس بتقول \"مرفوض\". مش هتعرف أي ورقة وقعتك غير لما حد يراجع قبل ما تقدم.",
+          freeLink: "/application-guide",
+          freeLabel: "اقرأ دليل التقديم المجاني",
+          paidLink: "/services",
+          paidLabel: "أو خلي كل أوراقك تتراجع -- 25 يورو",
+        },
+      },
     },
     finances: {
       title: "الجاهزية المالية",
       pass: "مواردك المالية كافية لفيزا الطالب.",
-      warning: "رصيدك على الحد — حاول تبين تمويل أكتر.",
-      fail: "رصيد غير كافي أو مفيش إثبات تمويل. ده ممكن يسبب رفض الفيزا.",
+      warning: "بتقول تقدر ترتبه -- ابدأ دلوقتي، بياخد وقت.",
+      fail: "رصيد غير كافي أو مفيش إثبات. ده غالبا هيسبب رفض الفيزا.",
+      advice: {
+        warning: {
+          detail: "السفارة التشيكية بتطلب كشوفات حساب بتوضح حوالي 5,500 يورو في السنة. ابدأ تجمع الإثبات ده دلوقتي -- التحويلات اللي في آخر لحظة بترفع علامات استفهام.",
+          freeLink: "/cost-of-living",
+          freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
+          paidLink: "/services",
+          paidLabel: "أو احجز استشارة -- 15 يورو",
+        },
+        fail: {
+          detail: "من غير إثبات دعم مالي، فيزتك هتترفض تقريبا. ده من أكتر أسباب الرفض شيوعا.",
+          freeLink: "/cost-of-living",
+          freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
+          paidLink: "/services",
+          paidLabel: "أو احجز استشارة -- 15 يورو",
+        },
+      },
     },
     timeline: {
       title: "الجدول الزمني",
       pass: "عندك وقت كافي تجهز طلب قوي.",
-      warning: "الوقت ضيق — ابدأ دلوقتي وماتستناش.",
-      fail: "فاضل وقت قليل جدًا. ممكن تحتاج تستهدف الفصل الجاي.",
+      warning: "الوقت ضيق -- ابدأ فورا وماتستناش حاجة.",
+      fail: "فاضل وقت قليل جدا. ممكن تحتاج تستهدف الدفعة الجاية.",
+      advice: {
+        warning: {
+          detail: "الاستعجال في التقديم بيجيب أخطاء. الأبوستيل لوحده ممكن ياخد 4-8 أسابيع. لو أي ورق مش جاهز، ابدأ النهارده.",
+          freeLink: "/application-guide",
+          freeLabel: "اقرأ دليل التقديم خطوة بخطوة",
+          paidLink: "/services",
+          paidLabel: "أو خد مساعدة كاملة في التقديم -- ابدأ ب 150 يورو",
+        },
+        fail: {
+          detail: "بالجدول الزمني ده والنواقص اللي عندك، التقديم الفصل ده بيخاطر برفض هيتسجل في ملفك. استهداف الدفعة الجاية هيديك وقت تبني طلب قوي.",
+          freeLink: "/application-guide",
+          freeLabel: "اقرأ دليل التقديم المجاني",
+          paidLink: "/services",
+          paidLabel: "أو خليني أخطط جدولك -- استشارة 15 يورو",
+        },
+      },
     },
     language: {
       title: "مستوى اللغة",
-      pass: "مستواك اللغوي بيأهلك للبرامج.",
-      warning: "مستواك ممكن يحد من اختياراتك. فكر تمتحن.",
-      fail: "محتاج تحسن مستواك اللغوي أو تاخد سنة تحضيرية.",
+      pass: "مؤهلاتك اللغوية كويسة.",
+      warning: "خطط تمتحن -- بعض البرامج بتطلب إثبات.",
+      fail: "وضع اللغة مش واضح وده ممكن يحد من اختياراتك.",
+      advice: {
+        warning: {
+          detail: "معظم البرامج بالإنجليزي بتطلب IELTS 5.5-6.5 أو ما يعادله. احجز امتحانك بدري -- الأماكن بتخلص والنتايج بتاخد أسابيع.",
+          freeLink: "/qa",
+          freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
+          paidLink: "/services",
+          paidLabel: "أو احجز استشارة -- 15 يورو",
+        },
+        fail: {
+          detail: "من غير ما تعرف لو محتاج شهادة لغة ولا لا، ممكن تقدم على برامج مش مؤهل ليها. تحقق من متطلبات البرنامج اللي مستهدفه.",
+          freeLink: "/qa",
+          freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
+          paidLink: "/services",
+          paidLabel: "أو احجز استشارة -- 15 يورو",
+        },
+      },
     },
   },
-  ctaReady: {
-    title: "وضعك ممتاز",
-    text: "ملفك قوي. الخطوة الجاية هي التأكد إن أوراقك وطلبك كامل — وده اللي أقدر أساعدك فيه.",
-    button: "شوف الخدمات →",
+  ctaPaths: {
+    selfLabel: "هتعمل كل حاجة بنفسي",
+    selfSub: "تمام -- استخدم الأدلة المجانية ومجتمع فيسبوك.",
+    specificLabel: "محتاج مساعدة في حاجات معينة",
+    specificSub: "احجز بس الخدمات اللي محتاجها.",
+    fullLabel: "عايز حد يمشيني في كل حاجة -- ابدأ ب 150 يورو",
+    fullSub: "هبنيلك خطة كاملة.",
   },
-  ctaAlmost: {
-    title: "قربت — يلا نظبط اللي ناقص",
-    text: "كام حاجة محتاجة انتباه، بس مفيش حاجة ماتتصلحش. راسلني وهقولك بالظبط تعمل إيه.",
-    button: "اسألني على واتساب",
-  },
-  ctaNotReady: {
-    title: "يلا نعمل خطة",
-    text: "مش جاهز تقدم دلوقتي، بس بخطة صح تقدر تكون جاهز للدفعة الجاية. أقدر أساعدك تعرف الخطوات.",
-    button: "يلا نتكلم على واتساب",
-  },
+  whatsappPrompt: "مش متأكد؟ ابعتلي نتيجتك على واتساب وهقولك بصراحة محتاج إيه.",
+  whatsappButton: "راسلني على واتساب",
   startOver: "ابدأ من الأول",
 };

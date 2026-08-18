@@ -141,6 +141,7 @@ export default function Home() {
                   hoverEffect={item.hoverEffect}
                   href={item.href}
                   className="h-full min-h-[180px] group"
+                  ariaLabel={content.title}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl`} />
                   <div className="flex items-start gap-4">
