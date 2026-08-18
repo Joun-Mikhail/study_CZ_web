@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 export const metadata: Metadata = {
   title: "Universities",
   description: "Browse all Czech universities — filter by city, field of study, and sort by name or founding year.",
+  alternates: { canonical: "/universities" },
 };
 
 function unique<T>(arr: T[]) {

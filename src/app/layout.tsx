@@ -36,10 +36,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Study in Czechia" }],
   openGraph: {
-    title: "Study in Czechia — Your Trusted Bridge to Czech University Life",
-    description:
-      "Free guides, university matching, and cost-of-living tools plus personal services — document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
-    url: SITE_URL,
     siteName: "Study in Czechia",
     locale: "en_US",
     type: "website",
@@ -47,9 +43,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Study in Czechia",
-    description:
-      "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students.",
     images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: {
@@ -58,11 +51,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  robots: process.env.CONTEXT === "production" || !process.env.CONTEXT
+    ? { index: true, follow: true, googleBot: { index: true, follow: true } }
+    : { index: false, follow: false },
   metadataBase: new URL(SITE_URL),
 };
 

@@ -1,0 +1,47 @@
+{
+  "currency": "EUR",
+  "links": {
+    "consultation": {
+      "name": "Quick Consultation",
+      "priceEur": 15,
+      "url": "https://buy.stripe.com/cNicN4958bxAfQv0F9fnO00",
+      "public": true
+    },
+    "documentReview": {
+      "name": "Document Review",
+      "priceEur": 25,
+      "url": "https://buy.stripe.com/cNi28q1CG59cbAf3RlfnO01",
+      "public": true
+    },
+    "arrivalSupport": {
+      "name": "Post-Arrival Support",
+      "priceEur": 29,
+      "url": "https://buy.stripe.com/6oUcN4814gRU1ZF9bFfnO02",
+      "public": true
+    },
+    "interviewPrep": {
+      "name": "Embassy Interview Prep",
+      "priceEur": 39,
+      "url": "https://buy.stripe.com/7sYcN4a9catw9s787BfnO03",
+      "public": true
+    },
+    "course": {
+      "name": "First 90 Days Course",
+      "priceEur": 49,
+      "url": "https://buy.stripe.com/eVqcN42GK1X0fQvgE7fnO04",
+      "public": true
+    },
+    "fullPackageStep1": {
+      "name": "Full Assistance Step 1",
+      "priceEur": 150,
+      "url": "https://buy.stripe.com/dRmaEWbdg314cEj4VpfnO05",
+      "public": true
+    },
+    "fullPackageStep2": {
+      "name": "Full Assistance Step 2",
+      "priceEur": 200,
+      "url": "https://buy.stripe.com/eVqfZgdlodFI7jZcnRfnO06",
+      "public": false
+    }
+  }
+}

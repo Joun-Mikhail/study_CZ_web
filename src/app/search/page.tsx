@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 export const metadata: Metadata = {
   title: "Search Universities",
   description: "Search Czech universities by name, city, or field of study.",
+  alternates: { canonical: "/search" },
 };
 
 export default function Page() {

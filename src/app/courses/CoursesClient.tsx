@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   PlayCircle,
   CheckCircle2,
@@ -88,7 +88,7 @@ export default function CoursesClient() {
             viewport={{ once: true }}
             className="relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
           >
-            <div className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none">&ldquo;</div>
+            <div aria-hidden="true" className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none pointer-events-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-3">{t.notTextbook.title}</h2>
             <p className="text-sm text-text-secondary leading-relaxed">{t.notTextbook.body}</p>
           </motion.div>
@@ -138,54 +138,51 @@ export default function CoursesClient() {
                       )}
                     />
                   </button>
-                  <AnimatePresence>
-                    {openModule === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 pb-4">
-                          <p className="text-xs text-text-muted mb-2">{mod.subtitle}</p>
-                          <ul className="space-y-1.5">
-                            {mod.topics.map((topic, j) => (
-                              <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
-                                <span className="text-xs">{topic}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          {mod.trigger && (
-                            <div className="mt-3 px-3 py-2 rounded-lg bg-amber/[0.04] border border-amber/15">
-                              <p className="text-xs text-text-secondary italic">{mod.trigger}</p>
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
+                  <div
+                    className={cn(
+                      "grid transition-all duration-200 ease-in-out",
+                      openModule === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     )}
-                  </AnimatePresence>
+                  >
+                    <div className="overflow-hidden">
+                      <div className="px-5 pb-4">
+                        <p className="text-xs text-text-muted mb-2">{mod.subtitle}</p>
+                        <ul className="space-y-1.5">
+                          {mod.topics.map((topic, j) => (
+                            <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+                              <span className="text-xs">{topic}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {mod.trigger && (
+                          <div className="mt-3 px-3 py-2 rounded-lg bg-amber/[0.04] border border-amber/15">
+                            <p className="text-xs text-text-secondary italic">{mod.trigger}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
           </div>
         </section>
 
-        {/* Bundle offers */}
-        <section className="max-w-4xl mx-auto mb-16">
+        {/* Choose Your Path — two cards */}
+        <section className="max-w-3xl mx-auto mb-16">
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.bundleTitle}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {t.bundles.map((b, i) => (
               <GlassCard
                 key={i}
-                hoverEffect={i === 2 ? "glow" : "border"}
+                hoverEffect={i === 1 ? "glow" : "border"}
                 className={cn(
                   "flex flex-col",
-                  i === 2 && "border-amber/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
+                  i === 1 && "border-amber/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
                 )}
               >
-                {i === 2 && (
+                {i === 1 && (
                   <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber text-midnight text-xs font-semibold mb-2 self-start">
                     {t.bestValue}
                   </span>
@@ -195,8 +192,8 @@ export default function CoursesClient() {
                 {b.save && <p className="text-xs text-green-400 mb-2">{b.save}</p>}
                 <p className="text-xs text-text-muted mb-4 flex-1">{b.desc}</p>
                 <MagneticButton
-                  variant={i === 2 ? "primary" : "secondary"}
-                  href={i === 0 ? PAYMENT_LINKS.course : i === 1 ? PAYMENT_LINKS.interviewPrep : PAYMENT_LINKS.fullPackageStep1}
+                  variant={i === 1 ? "primary" : "secondary"}
+                  href={i === 0 ? PAYMENT_LINKS.course : PAYMENT_LINKS.fullPackageStep1}
                   className="w-full"
                   size="sm"
                 >
@@ -207,17 +204,43 @@ export default function CoursesClient() {
           </div>
         </section>
 
-        {/* Free preview */}
+        {/* Free preview — Module 1 Lesson 1 outline */}
         <section id="preview" className="max-w-2xl mx-auto mb-16 scroll-mt-24">
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.previewTitle}</h2>
-          <GlassCard hoverEffect="glow" className="text-center">
-            <PlayCircle className="w-14 h-14 text-amber mx-auto mb-3" />
-            <h3 className="font-semibold text-text-primary mb-1">{t.previewLesson}</h3>
-            <p className="text-sm text-text-secondary mb-4">{t.previewDesc}</p>
-            <MagneticButton variant="secondary" href={WHATSAPP_URL}>
-              <MessageCircle className="w-4 h-4" />
-              {t.previewCta}
-            </MagneticButton>
+          <GlassCard hoverEffect="glow">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center shrink-0">
+                <PlayCircle className="w-5 h-5 text-amber" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-text-primary">{t.previewLesson}</h3>
+                <p className="text-xs text-text-muted">{t.previewSubtitle}</p>
+              </div>
+            </div>
+
+            <div className="space-y-3 mb-5">
+              <p className="text-sm text-text-secondary">{t.previewIntro}</p>
+
+              {t.previewQuestions.map((q, i) => (
+                <div key={i} className="rounded-xl border border-border-subtle bg-surface/40 p-4">
+                  <p className="text-sm font-medium text-text-primary mb-1">{q.question}</p>
+                  <p className="text-xs text-text-muted mb-2">{q.testing}</p>
+                  <p className="text-xs text-text-secondary">{q.insight}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs text-text-muted text-center mb-4">{t.previewOutro}</p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
+                {t.previewBuyCta}
+              </MagneticButton>
+              <MagneticButton variant="secondary" href={WHATSAPP_URL}>
+                <MessageCircle className="w-4 h-4" />
+                {t.previewCta}
+              </MagneticButton>
+            </div>
           </GlassCard>
         </section>
 
@@ -235,6 +258,22 @@ export default function CoursesClient() {
           </div>
         </section>
       </main>
+
+      {/* Floating WhatsApp button */}
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-6 end-6 z-50 group"
+        aria-label="WhatsApp"
+      >
+        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+          <MessageCircle className="w-7 h-7 text-white" />
+        </div>
+        <div className="absolute bottom-full end-0 mb-2 px-3 py-1.5 rounded-lg bg-surface border border-border-subtle text-xs text-text-secondary whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          {t.whatsappTooltip}
+        </div>
+      </a>
 
       <Footer />
     </div>
@@ -333,34 +372,53 @@ const en = {
       name: "Course Only",
       price: "€49",
       save: null,
-      desc: "The full course — 5 modules, 35+ lessons, lifetime access.",
+      desc: "The full course: 5 modules, 35+ lessons, lifetime access.",
       cta: "Get the Course",
-    },
-    {
-      name: "Course + Interview Prep",
-      price: "€75",
-      save: "Save €9",
-      desc: "Best for students preparing for their embassy visit. Includes a live mock interview session.",
-      cta: "Get the Bundle",
     },
     {
       name: "Full Application Package",
       price: "€350",
       save: "Course included FREE",
-      desc: "Everything you need — from zero to visa. The course, interview prep, document review, and personal guidance.",
+      desc: "Everything from zero to visa. Course included free, plus interview prep, document review, and personal guidance throughout.",
       cta: "Start My Application",
     },
   ],
   bestValue: "Best Value",
   previewTitle: "Free Preview",
   previewLesson: "Module 1, Lesson 1: What the Embassy Actually Asks",
-  previewDesc: "Video coming soon — sign up to be notified when it's ready.",
-  previewCta: "Notify Me on WhatsApp",
+  previewSubtitle: "A look at what this lesson covers",
+  previewIntro: "The embassy interview is where most students fail. Not because they are unqualified, but because they do not understand what the officer is really testing. Here are real questions from Czech embassy interviews:",
+  previewQuestions: [
+    {
+      question: "\"Why did you choose the Czech Republic?\"",
+      testing: "What the officer is testing:",
+      insight: "They want to hear a specific reason, not a generic answer. \"Good education\" is not enough. They need to believe you researched this country specifically and have a real reason to be here rather than somewhere else.",
+    },
+    {
+      question: "\"What will you study and at which university?\"",
+      testing: "What the officer is testing:",
+      insight: "They are checking whether you actually know your own study plan. They will ask follow-up questions. If you cannot name your faculty, program duration, or language of instruction, they assume someone else filled out your application.",
+    },
+    {
+      question: "\"How will you support yourself financially?\"",
+      testing: "What the officer is testing:",
+      insight: "They need to know you will not become a financial burden. They want to see proof and hear a clear plan, whether it is family support, a scholarship, or personal savings. Vague answers raise red flags.",
+    },
+    {
+      question: "\"Do you plan to return to your country after your studies?\"",
+      testing: "What the officer is testing:",
+      insight: "This is the question that catches people off guard. They are assessing immigration risk. The course teaches you how to answer honestly while demonstrating ties to your home country.",
+    },
+  ],
+  previewOutro: "The full lesson covers 12+ questions with model answers, common mistakes, and what to do if you get a question you did not prepare for.",
+  previewBuyCta: "Get the Full Course — €49",
+  previewCta: "Ask Me on WhatsApp",
   bottomCta: {
     title: "Ready to Prepare Properly?",
     primary: "Get the Course — €49",
     secondary: "Or start with the free guides →",
   },
+  whatsappTooltip: "Not sure if this is for you? Ask me — no pressure.",
 };
 
 // ─── Arabic copy ────────────────────────────────────────────────────────────
@@ -454,32 +512,51 @@ const ar: typeof en = {
       name: "الكورس لوحده",
       price: "49€",
       save: null,
-      desc: "الكورس الكامل — 5 وحدات، أكتر من 35 درس، وصول مدى الحياة.",
+      desc: "الكورس الكامل: 5 وحدات، أكتر من 35 درس، وصول مدى الحياة.",
       cta: "احصل على الكورس",
-    },
-    {
-      name: "الكورس + تجهيز المقابلة",
-      price: "75€",
-      save: "وفر 9€",
-      desc: "الأفضل للطلاب اللي بيجهزوا لمقابلة السفارة. يشمل جلسة مقابلة تجريبية حية.",
-      cta: "احصل على الباقة",
     },
     {
       name: "الباقة الكاملة",
       price: "350€",
       save: "الكورس مجانًا",
-      desc: "كل حاجة — من الصفر للفيزا. الكورس، تجهيز المقابلة، مراجعة الأوراق، وتوجيه شخصي.",
+      desc: "كل حاجة من الصفر للفيزا. الكورس مجانا، مع تجهيز المقابلة، مراجعة الأوراق، وتوجيه شخصي.",
       cta: "ابدأ طلبي",
     },
   ],
   bestValue: "الأفضل قيمة",
   previewTitle: "معاينة مجانية",
   previewLesson: "الوحدة 1، الدرس 1: السفارة بتسأل إيه بالظبط",
-  previewDesc: "الفيديو قريبًا — سجل عشان نبلغك لما يكون جاهز.",
-  previewCta: "بلغني على واتساب",
+  previewSubtitle: "نظرة على محتوى الدرس",
+  previewIntro: "مقابلة السفارة هي المكان اللي أغلب الطلاب بيفشلوا فيه. مش عشان مش مؤهلين، لكن عشان مش فاهمين الأوفيسر بيختبر إيه بالظبط. دي أسئلة حقيقية من مقابلات السفارة التشيكية:",
+  previewQuestions: [
+    {
+      question: "\"ليه اخترت التشيك؟\"",
+      testing: "الأوفيسر بيختبر إيه:",
+      insight: "عايز يسمع سبب محدد، مش إجابة عامة. \"التعليم كويس\" مش كفاية. لازم يصدق إنك بحثت عن البلد دي بالذات وعندك سبب حقيقي تكون هنا مش في مكان تاني.",
+    },
+    {
+      question: "\"هتدرس إيه وفي أنهي جامعة؟\"",
+      testing: "الأوفيسر بيختبر إيه:",
+      insight: "بيتأكد إنك فعلًا عارف خطتك الدراسية. هيسأل أسئلة متابعة. لو مش قادر تقول اسم الكلية أو مدة البرنامج أو لغة الدراسة، هيفترض إن حد تاني ملّا الطلب بدالك.",
+    },
+    {
+      question: "\"هتصرف على نفسك إزاي ماديًا؟\"",
+      testing: "الأوفيسر بيختبر إيه:",
+      insight: "محتاج يعرف إنك مش هتبقى عبء مادي. عايز يشوف إثبات ويسمع خطة واضحة، سواء دعم عائلي أو منحة أو مدخرات شخصية. الإجابات الغامضة بترفع علامات حمراء.",
+    },
+    {
+      question: "\"بتخطط ترجع بلدك بعد الدراسة؟\"",
+      testing: "الأوفيسر بيختبر إيه:",
+      insight: "ده السؤال اللي بيمسك الناس على حين غرة. بيقيّم مخاطر الهجرة. الكورس بيعلمك إزاي تجاوب بصراحة وفي نفس الوقت تثبت ارتباطك ببلدك.",
+    },
+  ],
+  previewOutro: "الدرس الكامل بيغطي أكتر من 12 سؤال مع إجابات نموذجية وأخطاء شائعة وإيه تعمل لو جالك سؤال مكنتش متحضر له.",
+  previewBuyCta: "احصل على الكورس الكامل — 49€",
+  previewCta: "اسألني على واتساب",
   bottomCta: {
     title: "جاهز تجهز صح؟",
     primary: "احصل على الكورس — 49€",
     secondary: "أو ابدأ بالأدلة المجانية →",
   },
+  whatsappTooltip: "مش متأكد إن ده ليك؟ اسألني — من غير ضغط.",
 };

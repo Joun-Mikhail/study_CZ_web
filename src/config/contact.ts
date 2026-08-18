@@ -1,3 +1,5 @@
+import stripeConfig from "../../stripe-links.json";
+
 export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
 
 export const WHATSAPP_URL = "https://wa.me/420703982237";
@@ -17,16 +19,24 @@ export const PRICING = {
   fullPackageTotal: 350,
 };
 
-export const PAYMENT_LINKS = {
-  consultation: "https://buy.stripe.com/cNicN4958bxAfQv0F9fnO00",
-  documentReview: "https://buy.stripe.com/cNi28q1CG59cbAf3RlfnO01",
-  arrivalSupport: "https://buy.stripe.com/6oUcN4814gRU1ZF9bFfnO02",
-  interviewPrep: "https://buy.stripe.com/7sYcN4a9catw9s787BfnO03",
-  course: "https://buy.stripe.com/eVqcN42GK1X0fQvgE7fnO04",
-  fullPackageStep1: "https://buy.stripe.com/dRaEWbdg314cEj4VpfnO05",
-};
+type StripeLinkKey = keyof typeof stripeConfig.links;
 
-// Step 2 link — sent privately to students at the visa stage only. Never render on the site.
-export const PRIVATE_PAYMENT_LINKS = {
-  fullPackageStep2: "https://buy.stripe.com/eVqfZgdlodFI7jZcnRfnO06",
+export function getStripeLink(key: string): string {
+  if (!(key in stripeConfig.links)) {
+    throw new Error(`Unknown Stripe link key: "${key}"`);
+  }
+  const entry = stripeConfig.links[key as StripeLinkKey];
+  if (!entry.public) {
+    throw new Error(`Stripe link "${key}" is not public and must not be rendered on the site`);
+  }
+  return entry.url;
+}
+
+export const PAYMENT_LINKS = {
+  consultation: getStripeLink("consultation"),
+  documentReview: getStripeLink("documentReview"),
+  arrivalSupport: getStripeLink("arrivalSupport"),
+  interviewPrep: getStripeLink("interviewPrep"),
+  course: getStripeLink("course"),
+  fullPackageStep1: getStripeLink("fullPackageStep1"),
 };

@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: uni.name,
     description: uni.blurb?.en || `Learn about ${uni.name} in ${uni.city}, Czech Republic.`,
+    alternates: { canonical: `/university/${id}` },
   };
 }
 

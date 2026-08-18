@@ -46,33 +46,31 @@ function DesktopDropdown({
         onClick={onToggle}
         className="flex items-center gap-1 whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
         aria-expanded={open}
+        aria-haspopup="true"
       >
         {label}
         <ChevronDown
           className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.15 }}
-            className="absolute top-full start-0 mt-2 min-w-[220px] rounded-xl border border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-xl py-1.5 z-50"
+      <div
+        className={`absolute top-full start-0 mt-2 min-w-[220px] rounded-xl border border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-xl py-1.5 z-50 transition-all duration-150 ${
+          open
+            ? "opacity-100 translate-y-0 visible"
+            : "opacity-0 -translate-y-1 invisible pointer-events-none"
+        }`}
+      >
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            tabIndex={open ? 0 : -1}
+            className="block px-4 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors whitespace-nowrap"
           >
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors whitespace-nowrap"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {item.label}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
@@ -293,69 +291,68 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95 backdrop-blur-xl"
-            >
-              <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
-                {/* Mobile search */}
-                <form action="/search" method="get" role="search" className="mb-4">
-                  <div className="relative">
-                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                    <input
-                      name="q"
-                      placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
-                    />
-                  </div>
-                </form>
-
-                {/* Grouped nav items */}
-                {Object.entries(dropdowns).map(([key, group]) => (
-                  <div key={key} className="mb-3">
-                    <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
-                      {group.label}
-                    </p>
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2.5 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                ))}
-
-                {/* Direct links */}
-                <div className="border-t border-border-subtle pt-3 mt-1">
-                  <Link
-                    href="/courses"
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2.5 rounded-lg text-sm font-medium text-text-primary hover:bg-white/5 transition-colors"
-                  >
-                    {locale === "ar" ? "الكورس" : "The Course"}
-                  </Link>
-                  <Link
-                    href="/services"
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2.5 rounded-lg text-sm font-medium text-amber hover:bg-white/5 transition-colors"
-                  >
-                    {t.nav.services}
-                  </Link>
-                </div>
+        {/* Mobile menu — always in DOM for crawlability */}
+        <div
+          className={`lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95 backdrop-blur-xl transition-all duration-250 ease-in-out ${
+            mobileOpen ? "max-h-[calc(100dvh-4rem)] opacity-100" : "max-h-0 opacity-0 invisible"
+          }`}
+          aria-hidden={!mobileOpen}
+        >
+          <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+            {/* Mobile search */}
+            <form action="/search" method="get" role="search" className="mb-4">
+              <div className="relative">
+                <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                <input
+                  name="q"
+                  placeholder={locale === "ar" ? "ابحث..." : "Search..."}
+                  tabIndex={mobileOpen ? 0 : -1}
+                  className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+                />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </form>
+
+            {/* Grouped nav items */}
+            {Object.entries(dropdowns).map(([key, group]) => (
+              <div key={key} className="mb-3">
+                <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
+                  {group.label}
+                </p>
+                {group.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    tabIndex={mobileOpen ? 0 : -1}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-3 py-2.5 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+
+            {/* Direct links */}
+            <div className="border-t border-border-subtle pt-3 mt-1">
+              <Link
+                href="/courses"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-text-primary hover:bg-white/5 transition-colors"
+              >
+                {locale === "ar" ? "الكورس" : "The Course"}
+              </Link>
+              <Link
+                href="/services"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-amber hover:bg-white/5 transition-colors"
+              >
+                {t.nav.services}
+              </Link>
+            </div>
+          </div>
+        </div>
       </nav>
 
       {/* Search overlay */}

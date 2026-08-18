@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Eligibility Assessment — Study in Czechia",
   description:
     "Check your eligibility for Czech university admission in 5 minutes. Free assessment covering academics, documents, finances, and visa timeline.",
+  alternates: { canonical: "/eligibility" },
 };
 
 export default function EligibilityPage() {

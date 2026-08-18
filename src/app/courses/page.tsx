@@ -4,6 +4,7 @@ import CoursesClient from "./CoursesClient";
 export const metadata: Metadata = {
   title: "Your First 90 Days in Czechia",
   description: "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here. €49, lifetime access.",
+  alternates: { canonical: "/courses" },
 };
 
 const courseJsonLd = {
