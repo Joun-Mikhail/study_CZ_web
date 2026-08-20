@@ -42,25 +42,24 @@ export function TextReveal({ text, className, delay = 0 }: TextRevealProps) {
   };
 
   return (
-    <>
-      <span className="sr-only">{text}</span>
-      <motion.span
-        className={cn("inline-flex flex-wrap", className)}
-        variants={container}
-        initial="hidden"
-        animate="visible"
-        aria-hidden="true"
-      >
-        {words.map((word, index) => (
-          <motion.span
-            key={index}
-            variants={child}
-            className="inline-block me-[0.3em]"
-          >
-            {word}
-          </motion.span>
-        ))}
-      </motion.span>
-    </>
+    <motion.span
+      className={cn("inline-flex flex-wrap", className)}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      role="text"
+      aria-label={text}
+    >
+      {words.map((word, index) => (
+        <motion.span
+          key={index}
+          variants={child}
+          className="inline-block me-[0.3em]"
+          aria-hidden="true"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.span>
   );
 }

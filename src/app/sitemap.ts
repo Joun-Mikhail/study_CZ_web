@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/preparatory-year",
     "/contact",
+    "/eligibility",
+    "/what-it-costs",
+    "/deadlines",
+    "/interview-prep",
+    "/questions-to-ask",
+    "/search",
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),

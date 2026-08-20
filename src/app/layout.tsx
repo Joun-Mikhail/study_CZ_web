@@ -19,12 +19,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "Study in Czechia | Your Trusted Bridge to Czech University Life",
-    template: "%s | Study in Czechia",
+    default: "studyczechia — Your Trusted Bridge to Czech University Life",
+    template: "%s | studyczechia",
   },
   description:
     "Free guides, university matching, and cost-of-living tools plus personal services — document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
   keywords: [
+    "studyczechia",
     "study in czechia",
     "study in czech republic",
     "study abroad",
@@ -72,15 +73,31 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "EducationalOrganization",
-              name: "Study in Czechia",
-              url: SITE_URL,
-              description: "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
-              areaServed: { "@type": "Country", name: "Czech Republic" },
-              inLanguage: ["en", "ar"],
-            }),
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "EducationalOrganization",
+                name: "Study in Czechia",
+                alternateName: "studyczechia",
+                url: SITE_URL,
+                description: "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
+                areaServed: { "@type": "Country", name: "Czech Republic" },
+                inLanguage: ["en", "ar"],
+                sameAs: ["https://www.facebook.com/groups/czechiastudents"],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Study in Czechia",
+                alternateName: "studyczechia",
+                url: SITE_URL,
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/search/?q={search_term_string}` },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
           }}
         />
       </head>

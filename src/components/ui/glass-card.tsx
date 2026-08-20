@@ -53,7 +53,9 @@ export function GlassCard({
         whileHover={hoverVariants[hoverEffect]}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
-        <Link href={href} className="absolute inset-0 z-20" aria-label={ariaLabel} tabIndex={ariaLabel ? undefined : -1} aria-hidden={ariaLabel ? undefined : true} />
+        <Link href={href} className="absolute inset-0 z-20">
+          <span className="sr-only">{ariaLabel}</span>
+        </Link>
         {inner}
       </motion.div>
     );
