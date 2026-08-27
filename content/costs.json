@@ -1,26 +1,45 @@
 {
-  "lastVerified": "",
+  "lastVerified": "2026-08-27",
   "currency": "CZK",
   "tuition": {
-    "czechTaughtPublic": { "min": null, "max": null, "note": "" },
-    "englishTaughtPublic": { "min": null, "max": null, "note": "" },
-    "private": { "min": null, "max": null, "note": "" }
+    "czechTaughtPublic": { "min": 0, "max": 0, "note": "Free for all nationalities when taught in Czech" },
+    "englishTaughtPublic": { "min": 60000, "max": 360000, "note": "Varies widely by university and field — medicine is at the top" },
+    "private": { "min": 30000, "max": 200000, "note": "Depends on institution and programme" }
   },
-  "applicationFees": { "min": null, "max": null },
+  "applicationFees": { "min": 500, "max": 900 },
   "documentCosts": [
-    { "country": "", "apostille": null, "translation": null, "note": "" }
+    { "country": "Egypt", "apostille": 1500, "translation": 3000, "note": "Sworn translation into Czech required" },
+    { "country": "Jordan", "apostille": 1200, "translation": 3000, "note": "Sworn translation into Czech required" },
+    { "country": "Iraq", "apostille": 1500, "translation": 3500, "note": "Document verification may take longer" },
+    { "country": "Syria", "apostille": 1500, "translation": 3500, "note": "Special procedures may apply — check with embassy" }
   ],
-  "visaFee": null,
-  "financialProofRequired": null,
-  "insurance": { "min": null, "max": null },
+  "visaFee": 2500,
+  "financialProofRequired": 115810,
+  "insurance": { "min": 12000, "max": 18000 },
   "livingCosts": [
     {
-      "city": "",
-      "dormMonthly": null,
-      "privateRentMonthly": null,
-      "foodMonthly": null,
-      "transportMonthly": null,
-      "totalMonthly": null
+      "city": "Prague",
+      "dormMonthly": 5000,
+      "privateRentMonthly": 15000,
+      "foodMonthly": 6000,
+      "transportMonthly": 550,
+      "totalMonthly": 18000
+    },
+    {
+      "city": "Brno",
+      "dormMonthly": 4000,
+      "privateRentMonthly": 11000,
+      "foodMonthly": 5000,
+      "transportMonthly": 550,
+      "totalMonthly": 14000
+    },
+    {
+      "city": "Ostrava",
+      "dormMonthly": 3500,
+      "privateRentMonthly": 9000,
+      "foodMonthly": 4500,
+      "transportMonthly": 500,
+      "totalMonthly": 12000
     }
   ]
 }

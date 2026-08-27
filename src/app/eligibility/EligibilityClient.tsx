@@ -69,18 +69,6 @@ const initial: FormData = {
   czechPrep: "",
 };
 
-const COUNTRIES = [
-  "Egypt", "Jordan", "Iraq", "Syria", "Lebanon", "Libya",
-  "Algeria", "Morocco", "Tunisia", "Palestine", "Sudan",
-  "Other Arab country", "Other",
-];
-
-const COUNTRIES_AR = [
-  "مصر", "الأردن", "العراق", "سوريا", "لبنان", "ليبيا",
-  "الجزائر", "المغرب", "تونس", "فلسطين", "السودان",
-  "دولة عربية أخرى", "أخرى",
-];
-
 export default function EligibilityClient() {
   const { locale } = useTranslation();
   const t = locale === "ar" ? ar : en;
@@ -92,11 +80,10 @@ export default function EligibilityClient() {
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const stepDefs = [
-    { title: t.steps[0], icon: User },
-    { title: t.steps[1], icon: GraduationCap },
-    { title: t.steps[2], icon: FileText },
-    { title: t.steps[3], icon: DollarSign },
-    { title: t.steps[4], icon: Clock },
+    { title: t.steps[0], icon: GraduationCap },
+    { title: t.steps[1], icon: FileText },
+    { title: t.steps[2], icon: DollarSign },
+    { title: t.steps[3], icon: Clock },
   ];
 
   const handleFinish = () => setShowResults(true);
@@ -171,11 +158,10 @@ export default function EligibilityClient() {
                 <h2 className="text-lg font-semibold text-text-primary mb-5">
                   {stepDefs[step].title}
                 </h2>
-                {step === 0 && <StepBasics form={form} set={set} t={t} locale={locale} />}
-                {step === 1 && <StepAcademics form={form} set={set} t={t} />}
-                {step === 2 && <StepDocuments form={form} set={set} t={t} />}
-                {step === 3 && <StepFinances form={form} set={set} t={t} />}
-                {step === 4 && <StepTimeline form={form} set={set} t={t} />}
+                {step === 0 && <StepAcademics form={form} set={set} t={t} />}
+                {step === 1 && <StepDocuments form={form} set={set} t={t} />}
+                {step === 2 && <StepFinances form={form} set={set} t={t} />}
+                {step === 3 && <StepTimeline form={form} set={set} t={t} />}
               </GlassCard>
 
               <div className="flex items-center justify-between mt-6">
@@ -189,10 +175,10 @@ export default function EligibilityClient() {
                 </MagneticButton>
                 <MagneticButton
                   variant="primary"
-                  onClick={() => (step === 4 ? handleFinish() : setStep((s) => s + 1))}
+                  onClick={() => (step === 3 ? handleFinish() : setStep((s) => s + 1))}
                 >
-                  {step === 4 ? t.seeResults : t.next}
-                  {step < 4 && <ArrowRight className="w-4 h-4 rtl:rotate-180" />}
+                  {step === 3 ? t.seeResults : t.next}
+                  {step < 3 && <ArrowRight className="w-4 h-4 rtl:rotate-180" />}
                 </MagneticButton>
               </div>
             </motion.div>
@@ -298,37 +284,6 @@ function RadioGroup({
 }
 
 // ── Step components ──────────────────────────────────────────────────────────
-
-function StepBasics({ form, set, t, locale }: StepProps) {
-  const countries = locale === "ar" ? COUNTRIES_AR : COUNTRIES;
-  return (
-    <div className="space-y-4">
-      <div>
-        <FieldLabel>{t.fields.firstName}</FieldLabel>
-        <Input value={form.firstName} onChange={(v) => set("firstName", v)} placeholder={t.placeholders.firstName} />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.country}</FieldLabel>
-        <Select
-          value={form.country}
-          onChange={(v) => set("country", v)}
-          placeholder={t.placeholders.country}
-          options={countries.map((c, i) => ({ value: COUNTRIES[i], label: c }))}
-        />
-      </div>
-      <div>
-        <FieldLabel>{t.fields.whatsapp}</FieldLabel>
-        <Input value={form.whatsapp} onChange={(v) => set("whatsapp", v)} placeholder="+20 1xx xxx xxxx" type="tel" />
-        <FieldHelper>{t.helpers.whatsapp}</FieldHelper>
-      </div>
-      <div>
-        <FieldLabel>{t.fields.email}</FieldLabel>
-        <Input value={form.email} onChange={(v) => set("email", v)} placeholder="you@example.com" type="email" />
-        <FieldHelper>{t.helpers.email}</FieldHelper>
-      </div>
-    </div>
-  );
-}
 
 function StepAcademics({ form, set, t }: StepProps) {
   return (
@@ -737,9 +692,10 @@ function ResultsView({
             </a>
           </div>
 
-          {/* WhatsApp option */}
-          <div className="text-center mb-6">
-            <p className="text-sm text-text-muted mb-2">{t.whatsappPrompt}</p>
+          {/* Optional contact — send report via WhatsApp */}
+          <div className="rounded-2xl border border-border-subtle bg-surface/50 p-5 mb-6">
+            <p className="text-sm font-medium text-text-primary mb-1">{t.sendReportTitle}</p>
+            <p className="text-xs text-text-muted mb-3">{t.sendReportDesc}</p>
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -769,7 +725,7 @@ function ResultsView({
 const en = {
   title: "Am I Eligible?",
   subtitle: "Answer a few questions and we'll tell you where you stand -- free, instant, no sign-up.",
-  steps: ["Basics", "Academics", "Documents", "Finances", "Timeline & Language"],
+  steps: ["Academics", "Documents", "Finances", "Timeline & Language"],
   back: "Back",
   next: "Next",
   seeResults: "See My Results",
@@ -956,7 +912,8 @@ const en = {
     fullLabel: "I want someone to guide me through everything -- Start with EUR 150",
     fullSub: "I'll build your complete plan.",
   },
-  whatsappPrompt: "Not sure? Send me your results on WhatsApp and I'll tell you honestly what you need.",
+  sendReportTitle: "Want this report sent to you?",
+  sendReportDesc: "Message us on WhatsApp and we'll discuss your results and next steps — free, no pressure.",
   whatsappButton: "Message me on WhatsApp",
   startOver: "Start Over",
 };
@@ -966,7 +923,7 @@ const en = {
 const ar: typeof en = {
   title: "هل أنا مؤهل؟",
   subtitle: "جاوب على كام سؤال وهنقولك وضعك -- مجاني، فوري، من غير تسجيل.",
-  steps: ["الأساسيات", "الأكاديمي", "الأوراق", "المالية", "الوقت واللغة"],
+  steps: ["الأكاديمي", "الأوراق", "المالية", "الوقت واللغة"],
   back: "رجوع",
   next: "التالي",
   seeResults: "شوف نتيجتي",
@@ -1153,7 +1110,8 @@ const ar: typeof en = {
     fullLabel: "عايز حد يمشيني في كل حاجة -- ابدأ ب 150 يورو",
     fullSub: "هبنيلك خطة كاملة.",
   },
-  whatsappPrompt: "مش متأكد؟ ابعتلي نتيجتك على واتساب وهقولك بصراحة محتاج إيه.",
+  sendReportTitle: "عايز التقرير ده يتبعتلك؟",
+  sendReportDesc: "راسلنا على واتساب وهنناقش نتيجتك والخطوات الجاية — مجاني، من غير ضغط.",
   whatsappButton: "راسلني على واتساب",
   startOver: "ابدأ من الأول",
 };

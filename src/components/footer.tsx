@@ -67,10 +67,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border-subtle pt-6 text-center">
+        <div className="border-t border-border-subtle pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-text-muted">
             © {new Date().getFullYear()} study.czechia — {t.footer.rights}
           </p>
+          <div className="flex items-center gap-4 text-xs">
+            <Link href="/about" className="text-text-muted hover:text-text-secondary transition-colors">
+              {locale === "ar" ? "عن المنصة" : "About"}
+            </Link>
+            <Link href="/terms" className="text-text-muted hover:text-text-secondary transition-colors">
+              {locale === "ar" ? "الشروط" : "Terms"}
+            </Link>
+            <Link href="/privacy" className="text-text-muted hover:text-text-secondary transition-colors">
+              {locale === "ar" ? "الخصوصية" : "Privacy"}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

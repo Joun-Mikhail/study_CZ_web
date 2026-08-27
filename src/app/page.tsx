@@ -91,7 +91,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-amber animate-pulse" />
-            {locale === "en" ? "10,500+ students helped" : "ساعدنا أكثر من 10,500 طالب"}
+            {locale === "en" ? "10,500+ community members" : "أكتر من 10,500 عضو في المجتمع"}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -117,7 +117,7 @@ export default function Home() {
               <Compass className="w-5 h-5" />
               {t.hero.cta}
             </MagneticButton>
-            <MagneticButton variant="secondary" size="lg" href="/qa">
+            <MagneticButton variant="secondary" size="lg" href="/eligibility">
               {t.hero.secondaryCta}
             </MagneticButton>
           </motion.div>

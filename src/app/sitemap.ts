@@ -24,6 +24,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/interview-prep",
     "/questions-to-ask",
     "/search",
+    "/about",
+    "/terms",
+    "/privacy",
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),

@@ -32,9 +32,9 @@ const t = {
     note: "Note",
     urgent: "Under 30 days",
     noDeadlines:
-      "Deadline data is being compiled from official university websites. Check back soon — this page will list every upcoming application deadline across Czech universities, sorted by date.",
-    eligibilityCta: "Not sure if you qualify? Check in 2 minutes →",
-    browseUnis: "Browse Universities →",
+      "We're building a complete deadline database from official university websites. In the meantime, check deadlines directly on each university's page — we link to all official sites in our university directory.",
+    eligibilityCta: "Check my eligibility →",
+    browseUnis: "Browse universities (with official links) →",
   },
   ar: {
     title: "مواعيد التقديم",
@@ -47,9 +47,9 @@ const t = {
     note: "ملاحظة",
     urgent: "اقل من 30 يوم",
     noDeadlines:
-      "بيانات المواعيد قيد التجميع من مواقع الجامعات الرسمية. ارجع قريب — الصفحة دي هتعرض كل مواعيد التقديم القادمة للجامعات التشيكية، مرتبة بالتاريخ.",
-    eligibilityCta: "مش متأكد لو مؤهل؟ اعرف في دقيقتين →",
-    browseUnis: "تصفح الجامعات →",
+      "بنبني قاعدة بيانات كاملة للمواعيد من المواقع الرسمية للجامعات. في الوقت الحالي، شوف المواعيد مباشرة من صفحة كل جامعة — بنربطك بكل المواقع الرسمية في دليل الجامعات.",
+    eligibilityCta: "اعرف لو مؤهل →",
+    browseUnis: "تصفح الجامعات (مع روابط رسمية) →",
   },
 };
 

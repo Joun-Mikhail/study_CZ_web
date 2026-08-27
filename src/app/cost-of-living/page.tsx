@@ -261,7 +261,7 @@ export default function CostOfLivingPage() {
                 <input
                   type="range"
                   min={0}
-                  max={20}
+                  max={30}
                   value={hoursPerWeek}
                   onChange={(e) => setHoursPerWeek(Number(e.target.value))}
                   className="w-full accent-amber"

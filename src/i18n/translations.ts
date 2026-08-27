@@ -19,8 +19,8 @@ export const translations = {
       title: "Your Trusted Bridge to Czech University Life",
       subtitle:
         "Free guides, tools, and expert support for Arabic-speaking students navigating Czech universities. Built by students, for students.",
-      cta: "Find Your University",
-      secondaryCta: "Explore Guides",
+      cta: "Find My University",
+      secondaryCta: "Check My Eligibility",
     },
     glance: {
       title: "Czechia at a Glance",
@@ -33,8 +33,8 @@ export const translations = {
         location: "Location",
       },
       stats: {
-        universities: "60+ Universities",
-        programs: "400+ English Programmes",
+        universities: "26 Public Universities",
+        programs: "1,000+ English Programmes",
         students: "50,000+ International Students",
         cost: "€500–€800/mo Average Living Cost",
         safety: "Top 30 Safest Country Globally",
@@ -234,7 +234,7 @@ export const translations = {
       tuitionRange: "Tuition (English-taught programs, per year)",
       workingTitle: "Working in the Czech Republic",
       workingPoints: [
-        "Legally, you can work up to 20 hours/week during the academic term, and as much as you like during breaks.",
+        "Students with a residence permit for the purpose of \"study\" have free access to the Czech labour market — no work-permit needed and no fixed hour limit. Verify your specific visa type, as other residence purposes may carry restrictions.",
         "Entry-level wages (restaurants, retail) start around 120–180 CZK/hour.",
         "English alone can get you work, but Czech usually unlocks better pay and more options.",
       ],
@@ -373,8 +373,8 @@ export const translations = {
       title: "جسرك الموثوق للحياة الجامعية في التشيك",
       subtitle:
         "أدلة مجانية وأدوات ودعم متخصص للطلاب العرب في الجامعات التشيكية. من الطلاب، للطلاب.",
-      cta: "اختر جامعتك",
-      secondaryCta: "استكشف الأدلة",
+      cta: "لاقي جامعتي",
+      secondaryCta: "اعرف لو مؤهل",
     },
     glance: {
       title: "نظرة سريعة على التشيك",
@@ -387,8 +387,8 @@ export const translations = {
         location: "الموقع",
       },
       stats: {
-        universities: "أكتر من 60 جامعة",
-        programs: "أكتر من 400 برنامج بالإنجليزي",
+        universities: "26 جامعة حكومية",
+        programs: "أكتر من 1,000 برنامج بالإنجليزي",
         students: "أكتر من 50,000 طالب دولي",
         cost: "500–800€ شهريًا متوسط مصاريف المعيشة",
         safety: "من الدول الآمنة عالميًا (Top 30)",
@@ -588,7 +588,7 @@ export const translations = {
       tuitionRange: "الرسوم الدراسية (بالإنجليزي، في السنة)",
       workingTitle: "الشغل في التشيك",
       workingPoints: [
-        "قانونيًا، تقدر تشتغل لحد 20 ساعة أسبوعيًا وقت الترم، وقد ما تحب وقت الإجازات.",
+        "الطلاب اللي عندهم إقامة بغرض \"دراسة\" عندهم حق الوصول الحر لسوق العمل التشيكي — مش محتاج تصريح عمل ومفيش حد ساعات ثابت. تأكد من نوع تأشيرتك لأن أغراض الإقامة التانية ممكن يكون فيها قيود.",
         "أجور المستوى المبتدئ (مطاعم، تجزئة) بتبدأ من 120–180 كرونة في الساعة.",
         "الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك أجور وفرص أحسن.",
       ],
