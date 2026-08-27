@@ -3,6 +3,7 @@ export type QaEntry = {
   category: "visa" | "documents" | "bank" | "university" | "housing" | "costs" | "embassy" | "scams" | "prep";
   q: { en: string; ar: string };
   a: { en: string; ar: string };
+  source?: { url: string; label: { en: string; ar: string } };
 };
 
 export type QaCategory = {
@@ -94,6 +95,10 @@ export const qaEntries: QaEntry[] = [
     a: {
       en: "A long-term visa lets you stay in the Czech Republic for more than 90 days, valid for up to one year, for a single entry. A long-term residence permit is a plastic biometric card issued after you're already in the country (typically after a long-term visa), valid up to 2 years, and lets you re-enter freely for the same purpose.",
       ar: "التأشيرة طويلة المدى تخليك تقيم في التشيك أكثر من 90 يوم، وصالحة لمدة سنة كحد أقصى، ولدخول واحد بس. تصريح الإقامة طويل المدى بطاقة بيومترية بتتصدر وانت موجود بالفعل في البلد (عادة بعد التأشيرة طويلة المدى)، وصالحة لحد سنتين، وبتسمحلك بالدخول والخروج بحرية لنفس الغرض.",
+    },
+    source: {
+      url: "https://www.mvcr.cz/mvcren/article/third-country-nationals-general-information.aspx",
+      label: { en: "Czech Ministry of Interior", ar: "وزارة الداخلية التشيكية" },
     },
   },
 
@@ -324,8 +329,12 @@ export const qaEntries: QaEntry[] = [
       ar: "أقدر أشتغل قد إيه قانونيًا وأنا بدرس، وهكسب قد إيه؟",
     },
     a: {
-      en: "Legally, you can work up to 20 hours/week during the academic term (as much as you like during breaks) — going slightly over during term isn't usually scrutinized closely. Entry-level wages (e.g. restaurant work) start around 120–180 CZK/hour. Master's-level work in your field pays according to industry — check sites like Indeed or Salary Explorer. English alone can get you work, but Czech usually unlocks better pay and more options.",
-      ar: "قانونيًا، تقدر تشتغل لحد 20 ساعة أسبوعيًا وقت الترم (وقد ما تحب في الإجازات) — الزيادة البسيطة وقت الترم مش بتتراقب بشدة. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بعد الماجستير بيدفع حسب المجال — راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
+      en: "Students with a residence permit for the purpose of \"study\" have free access to the Czech labour market — no work permit needed and no fixed hour limit. Verify your specific visa type, as other residence purposes may carry restrictions. Entry-level wages (e.g. restaurant work) start around 120–180 CZK/hour. Work in your field pays according to industry — check sites like Indeed or Salary Explorer. English alone can get you work, but Czech usually unlocks better pay and more options.",
+      ar: "الطلاب اللي عندهم إقامة بغرض \"دراسة\" عندهم حق الوصول الحر لسوق العمل التشيكي — مش محتاج تصريح عمل ومفيش حد ساعات ثابت. تأكد من نوع إقامتك، لأن أغراض الإقامة التانية ممكن يكون عليها قيود. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بيدفع حسب المجال — راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
+    },
+    source: {
+      url: "https://www.mvcr.cz/mvcren/article/employment-and-doing-business.aspx",
+      label: { en: "Czech Ministry of Interior", ar: "وزارة الداخلية التشيكية" },
     },
   },
 

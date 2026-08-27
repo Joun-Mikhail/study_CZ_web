@@ -23,6 +23,7 @@ import {
   Plane,
 } from "lucide-react";
 import { FACEBOOK_GROUP_URL } from "@/config/contact";
+import { VerifiedBadge } from "@/components/ui/verified-badge";
 
 export default function Home() {
   const { t, locale } = useTranslation();
@@ -212,6 +213,12 @@ export default function Home() {
           className="mb-6"
         >
           <h2 className="text-xl font-semibold text-text-primary">{t.glance.title}</h2>
+          <VerifiedBadge
+            date="2026-08-27"
+            label={locale === "ar" ? "آخر تحديث:" : "Last updated:"}
+            sourceUrl="https://www.studyin.cz/"
+            className="mt-1"
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

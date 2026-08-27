@@ -6,8 +6,9 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { qaEntries, qaCategories, type QaEntry } from "@/data/qa";
 import { motion } from "framer-motion";
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VerifiedBadge } from "@/components/ui/verified-badge";
 
 // Answer text stays permanently mounted (never conditionally rendered) so it's
 // present in the server-rendered HTML and indexable even without JS running —
@@ -36,9 +37,22 @@ function AccordionItem({ entry, locale }: { entry: QaEntry; locale: "en" | "ar" 
         transition={{ duration: 0.25, ease: "easeInOut" }}
         className="overflow-hidden"
       >
-        <p className="px-5 pb-5 text-sm text-text-secondary leading-relaxed">
-          {entry.a[locale]}
-        </p>
+        <div className="px-5 pb-5">
+          <p className="text-sm text-text-secondary leading-relaxed">
+            {entry.a[locale]}
+          </p>
+          {entry.source && (
+            <a
+              href={entry.source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-3 text-xs text-text-muted hover:text-text-secondary underline underline-offset-2"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-success" />
+              {locale === "ar" ? "المصدر:" : "Source:"} {entry.source.label[locale]}
+            </a>
+          )}
+        </div>
       </motion.div>
     </div>
   );
@@ -71,6 +85,13 @@ export default function QaPage() {
             {t.qa.title}
           </h1>
           <p className="text-text-secondary leading-relaxed">{t.qa.subtitle}</p>
+          <div className="mt-3 flex justify-center">
+            <VerifiedBadge
+              date="2026-08-27"
+              label={locale === "ar" ? "آخر مراجعة:" : "Last reviewed:"}
+              sourceUrl="https://www.mvcr.cz/mvcren/article/third-country-nationals-general-information.aspx"
+            />
+          </div>
         </div>
 
         <div className="max-w-3xl mx-auto mb-8">

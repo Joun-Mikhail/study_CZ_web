@@ -19,6 +19,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Info, Briefcase, Calculator } from "lucide-react";
 import { cityGuides } from "@/data/city-guides";
+import { VerifiedBadge } from "@/components/ui/verified-badge";
 
 function useChartColors() {
   const [colors, setColors] = useState({
@@ -96,6 +97,12 @@ export default function CostOfLivingPage() {
             {t.cost.title}
           </h1>
           <p className="text-text-secondary leading-relaxed">{t.cost.subtitle}</p>
+          <div className="mt-3 flex justify-center">
+            <VerifiedBadge
+              date="2026-08-27"
+              label={locale === "ar" ? "آخر تحديث:" : "Last updated:"}
+            />
+          </div>
         </div>
 
         {/* City tabs */}
