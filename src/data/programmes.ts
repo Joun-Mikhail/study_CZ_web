@@ -1,4 +1,4 @@
-import type { Programme } from "./types";
+import type { Programme, DeadlineStatus } from "./types";
 
 /**
  * Programme data rules (enforced by architecture, not just policy):
@@ -489,6 +489,15 @@ export function getProgrammesByUniversity(universityId: string): Programme[] {
   return programmes.filter((p) => p.universityId === universityId);
 }
 
+export function getDeadlineStatus(prog: Programme): DeadlineStatus {
+  if (prog.deadlineType === "rolling") return "rolling";
+  if (!prog.applicationDeadline) return "not-published";
+  const d = new Date(prog.applicationDeadline);
+  const now = new Date();
+  if (d.getTime() < now.getTime()) return "passed";
+  return "verified";
+}
+
 export function getUpcomingDeadlines(): (Programme & { university?: string })[] {
   const now = new Date();
   return programmes
@@ -500,30 +509,79 @@ export function getUpcomingDeadlines(): (Programme & { university?: string })[] 
     .sort((a, b) => new Date(a.applicationDeadline!).getTime() - new Date(b.applicationDeadline!).getTime());
 }
 
-export function filterProgrammes(opts: {
+export function getAllProgrammesWithStatus(): (Programme & { deadlineStatusComputed: DeadlineStatus })[] {
+  return programmes.map((p) => ({
+    ...p,
+    deadlineStatusComputed: getDeadlineStatus(p),
+  }));
+}
+
+export type ProgrammeFilterOpts = {
   field?: string;
   degree?: string;
   language?: string;
   city?: string;
   maxTuition?: number;
   entranceExam?: boolean;
+  universityId?: string;
   universityIds?: string[];
-}): Programme[] {
-  const { universitiesV2 } = require("./universities-v2");
+  universityType?: "public" | "private";
+  deadlineStatus?: DeadlineStatus;
+  search?: string;
+};
+
+export type UniLookupEntry = { id: string; city: string; type?: string; name?: string };
+
+export function filterProgrammes(
+  opts: ProgrammeFilterOpts,
+  uniLookup?: UniLookupEntry[]
+): Programme[] {
+  const searchTerm = opts.search?.trim().toLowerCase();
 
   return programmes.filter((p) => {
-    if (opts.field && !p.field.toLowerCase().includes(opts.field.toLowerCase()) && p.subfield?.toLowerCase() !== opts.field.toLowerCase()) return false;
+    if (opts.field && p.field !== opts.field && p.subfield !== opts.field) return false;
     if (opts.degree && p.degree !== opts.degree) return false;
     if (opts.language && p.language !== opts.language) return false;
     if (opts.maxTuition !== undefined && p.tuitionEurPerYear > opts.maxTuition) return false;
     if (opts.entranceExam !== undefined && p.entranceExam !== opts.entranceExam) return false;
+    if (opts.universityId && p.universityId !== opts.universityId) return false;
     if (opts.universityIds && !opts.universityIds.includes(p.universityId)) return false;
-    if (opts.city) {
-      const uni = universitiesV2.find((u: { id: string }) => u.id === p.universityId);
-      if (uni && uni.city !== opts.city) return false;
+
+    if (uniLookup) {
+      const uni = uniLookup.find((u) => u.id === p.universityId);
+      if (opts.city && uni && uni.city !== opts.city) return false;
+      if (opts.universityType && uni && uni.type !== opts.universityType) return false;
     }
+
+    if (opts.deadlineStatus) {
+      const status = getDeadlineStatus(p);
+      if (status !== opts.deadlineStatus) return false;
+    }
+
+    if (searchTerm) {
+      const uni = uniLookup?.find((u) => u.id === p.universityId);
+      const hay = [
+        p.name.en,
+        p.name.ar,
+        p.field,
+        p.subfield,
+        p.faculty,
+        p.degree,
+        uni?.name,
+        uni?.city,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!hay.includes(searchTerm)) return false;
+    }
+
     return true;
   });
+}
+
+export function getProgrammeById(id: string): Programme | undefined {
+  return programmes.find((p) => p.id === id);
 }
 
 export const PROGRAMME_FIELDS = [

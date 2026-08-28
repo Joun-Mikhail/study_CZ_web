@@ -8,6 +8,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GraduationCap, Clock } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Page() {
   const { t, locale } = useTranslation();
@@ -16,6 +17,18 @@ export default function Page() {
     <div className="min-h-screen">
       <Navbar />
       <main className="max-w-5xl mx-auto px-4 pt-28 pb-16">
+        {/* Hero banner */}
+        <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden mb-8">
+          <Image
+            src="/images/university-campus.jpg"
+            alt="University graduation celebration"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1024px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -26,8 +39,8 @@ export default function Page() {
           </h1>
           <p className="text-text-secondary max-w-2xl mx-auto leading-relaxed">
             {locale === "ar"
-              ? "اكتشف طرق المنح الشائعة ونصائح للتقديم — من طلاب عدّوا التجربة فعلًا."
-              : "Find common scholarship routes and tips for applying — from students who've been through it."}
+              ? "اكتشف طرق المنح الشائعة ونصائح للتقديم. من طلاب عدّوا التجربة فعلًا."
+              : "Find common scholarship routes and tips for applying. From students who've been through it."}
           </p>
         </motion.div>
 

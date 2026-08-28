@@ -3,7 +3,7 @@ import PrivacyClient from "./PrivacyClient";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Study Czechia handles your data — what we collect, why, and your rights.",
+  description: "How Study Czechia handles your data. What we collect, why, and your rights.",
   alternates: { canonical: "/privacy" },
 };
 

@@ -41,6 +41,9 @@ export type UniversityV2 = {
   verification: Verification;
 };
 
+export type DeadlineType = "regular" | "rolling" | "multiple-rounds";
+export type DeadlineStatus = "verified" | "not-verified" | "passed" | "rolling" | "not-published";
+
 export type Programme = {
   id: string;
   universityId: string;
@@ -55,6 +58,10 @@ export type Programme = {
   tuitionCzkPerYear?: number;
   tuitionNote?: string;
   applicationDeadline?: string;
+  applicationDeadlineRound?: string;
+  applicationOpenDate?: string;
+  deadlineType?: DeadlineType;
+  entranceExamDate?: string;
   applicationFeeEur?: number;
   entranceExam: boolean;
   entranceExamDetails?: { en: string; ar?: string };

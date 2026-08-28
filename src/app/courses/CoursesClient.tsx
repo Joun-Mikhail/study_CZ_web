@@ -8,6 +8,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   PlayCircle,
   CheckCircle2,
@@ -39,7 +40,18 @@ export default function CoursesClient() {
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative">
+        <section className="max-w-3xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl py-2">
+          {/* Background image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/prague-scenic.jpg"
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/80 to-midnight/90" />
+          </div>
           <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -286,8 +298,8 @@ const en = {
   badge: "€49 · Lifetime access",
   title: "Your First 90 Days in Czechia",
   subtitle:
-    "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here.",
-  heroCta: "Get the Course — €49",
+    "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here.",
+  heroCta: "Get the Course (€49)",
   heroSecondaryCta: "Preview Module 1 Free →",
   notTextbook: {
     title: "This is NOT a Textbook Czech Course",
@@ -300,7 +312,7 @@ const en = {
     "Downloadable cheat sheets for every lesson",
     "Audio versions for learning on the go",
     "Access to the student WhatsApp group",
-    "Lifetime access — rewatch anytime, updates included",
+    "Lifetime access, rewatch anytime, updates included",
   ],
   modulesTitle: "Course Modules",
   moduleLabel: "Module",
@@ -309,10 +321,10 @@ const en = {
       title: "Czechia Before You Arrive",
       subtitle: "Embassy interview prep + country knowledge",
       topics: [
-        "What the embassy actually asks — and the answers that work",
+        "What the embassy actually asks, and the answers that work",
         "Czech geography, politics, and culture basics (interview-ready)",
         "Understanding Czech education system vs. your country",
-        "Your study plan explanation — how to sound prepared, not scripted",
+        "Your study plan explanation: how to sound prepared, not scripted",
         "Common embassy mistakes that get people rejected",
       ],
       trigger: "The embassy will ask you what you know about Czechia. Module 1 is your answer.",
@@ -321,10 +333,10 @@ const en = {
       title: "Your First Week Survival Kit",
       subtitle: "Everything from airport to settled",
       topics: [
-        "Airport to your accommodation — step by step",
-        "Foreign police registration — what, where, when, documents",
-        "SIM card, bank account, transport pass — the first-day checklist",
-        "Your first grocery run — what to buy, where, how much",
+        "Airport to your accommodation, step by step",
+        "Foreign police registration: what, where, when, documents",
+        "SIM card, bank account, transport pass (the first-day checklist)",
+        "Your first grocery run: what to buy, where, how much",
         "Emergency Czech phrases you need immediately",
       ],
       trigger: null,
@@ -333,11 +345,11 @@ const en = {
       title: "Daily Life Conversations",
       subtitle: "Restaurant, supermarket, transport, doctor, university",
       topics: [
-        "Ordering food and drinks — real phrases, not textbook ones",
-        "Supermarket and pharmacy — reading labels, asking for help",
-        "Public transport — buying tickets, understanding announcements",
-        "At the doctor — explaining symptoms, understanding instructions",
-        "University admin — registration, ISIC card, library, exams",
+        "Ordering food and drinks with real phrases, not textbook ones",
+        "Supermarket and pharmacy: reading labels, asking for help",
+        "Public transport: buying tickets, understanding announcements",
+        "At the doctor: explaining symptoms, understanding instructions",
+        "University admin: registration, ISIC card, library, exams",
       ],
       trigger: "Your Czech roommate will try to talk to you on day one. Module 3 is your answer.",
     },
@@ -345,7 +357,7 @@ const en = {
       title: "Understanding Czech People",
       subtitle: "Culture, making friends, avoiding common mistakes",
       topics: [
-        "Why Czechs seem cold at first — and how they actually show friendship",
+        "Why Czechs seem cold at first, and how they actually show friendship",
         "Social norms that are different from Arab culture",
         "How to make Czech friends (not just international students)",
         "Common cultural misunderstandings and how to avoid them",
@@ -357,11 +369,11 @@ const en = {
       title: "Building Your Life Here",
       subtitle: "Work, money, travel, visa renewal",
       topics: [
-        "Student jobs — what's legal, where to look, what pays well",
-        "Managing your money — Czech banking, fees, sending money home",
-        "Weekend trips — cheap travel to other European countries",
-        "Visa renewal — timeline, documents, what's different the second time",
-        "Long-term planning — staying after graduation, residence permit",
+        "Student jobs: what is legal, where to look, what pays well",
+        "Managing your money: Czech banking, fees, sending money home",
+        "Weekend trips and cheap travel to other European countries",
+        "Visa renewal: timeline, documents, what is different the second time",
+        "Long-term planning: staying after graduation, residence permit",
       ],
       trigger: null,
     },
@@ -411,14 +423,14 @@ const en = {
     },
   ],
   previewOutro: "The full lesson covers 12+ questions with model answers, common mistakes, and what to do if you get a question you did not prepare for.",
-  previewBuyCta: "Get the Full Course — €49",
+  previewBuyCta: "Get the Full Course (€49)",
   previewCta: "Ask Me on WhatsApp",
   bottomCta: {
     title: "Ready to Prepare Properly?",
-    primary: "Get the Course — €49",
+    primary: "Get the Course (€49)",
     secondary: "Or start with the free guides →",
   },
-  whatsappTooltip: "Not sure if this is for you? Ask me — no pressure.",
+  whatsappTooltip: "Not sure if this is for you? Ask me, no pressure.",
 };
 
 // ─── Arabic copy ────────────────────────────────────────────────────────────
@@ -426,8 +438,8 @@ const en = {
 const ar: typeof en = {
   badge: "49€ · وصول مدى الحياة",
   title: "أول 90 يوم في التشيك",
-  subtitle: "لغة، ثقافة، تجهيز سفارة، وكل حاجة محدش بيقولهالك — بالعربي من طالب عايش هنا.",
-  heroCta: "احصل على الكورس — 49€",
+  subtitle: "لغة، ثقافة، تجهيز سفارة، وكل حاجة محدش بيقولهالك. بالعربي من طالب عايش هنا.",
+  heroCta: "احصل على الكورس (49€)",
   heroSecondaryCta: "شوف الوحدة 1 مجانًا →",
   notTextbook: {
     title: "ده مش كورس تشيكي من كتاب",
@@ -440,7 +452,7 @@ const ar: typeof en = {
     "ملخصات قابلة للتحميل لكل درس",
     "نسخ صوتية للتعلم وأنت ماشي",
     "دخول جروب واتساب الطلاب",
-    "وصول مدى الحياة — اتفرج في أي وقت، التحديثات متضمنة",
+    "وصول مدى الحياة. اتفرج في أي وقت، التحديثات متضمنة",
   ],
   modulesTitle: "وحدات الكورس",
   moduleLabel: "الوحدة",
@@ -449,10 +461,10 @@ const ar: typeof en = {
       title: "التشيك قبل ما توصل",
       subtitle: "تجهيز مقابلة السفارة + معرفة عن البلد",
       topics: [
-        "السفارة بتسأل إيه بالظبط — والإجابات اللي بتنفع",
+        "السفارة بتسأل إيه بالظبط والإجابات اللي بتنفع",
         "جغرافيا وسياسة وثقافة التشيك (جاهز للمقابلة)",
         "فهم نظام التعليم التشيكي مقارنة ببلدك",
-        "شرح خطتك الدراسية — إزاي تبان جاهز مش محفظ",
+        "شرح خطتك الدراسية: إزاي تبان جاهز مش محفظ",
         "أخطاء السفارة الشائعة اللي بتسبب رفض",
       ],
       trigger: "السفارة هتسألك إيه تعرف عن التشيك. الوحدة 1 هي إجابتك.",
@@ -461,10 +473,10 @@ const ar: typeof en = {
       title: "حقيبة النجاة لأول أسبوع",
       subtitle: "كل حاجة من المطار لحد ما تستقر",
       topics: [
-        "من المطار لمكان سكنك — خطوة بخطوة",
-        "تسجيل شرطة الأجانب — إيه وفين وإمتى والأوراق",
-        "شريحة موبايل، حساب بنكي، اشتراك مواصلات — قائمة أول يوم",
-        "أول مشوار سوبر ماركت — تشتري إيه ومنين وبكام",
+        "من المطار لمكان سكنك، خطوة بخطوة",
+        "تسجيل شرطة الأجانب: إيه وفين وإمتى والأوراق",
+        "شريحة موبايل، حساب بنكي، اشتراك مواصلات. قائمة أول يوم",
+        "أول مشوار سوبر ماركت: تشتري إيه ومنين وبكام",
         "جمل تشيكية طوارئ محتاجها فورًا",
       ],
       trigger: null,
@@ -473,11 +485,11 @@ const ar: typeof en = {
       title: "محادثات الحياة اليومية",
       subtitle: "مطعم، سوبر ماركت، مواصلات، دكتور، جامعة",
       topics: [
-        "طلب أكل وشرب — جمل حقيقية مش من كتاب",
-        "سوبر ماركت وصيدلية — قراءة التسميات وطلب مساعدة",
-        "مواصلات عامة — شراء تذاكر وفهم الإعلانات",
-        "عند الدكتور — شرح الأعراض وفهم التعليمات",
-        "إدارة الجامعة — التسجيل وكارت ISIC والمكتبة والامتحانات",
+        "طلب أكل وشرب: جمل حقيقية مش من كتاب",
+        "سوبر ماركت وصيدلية: قراءة التسميات وطلب مساعدة",
+        "مواصلات عامة: شراء تذاكر وفهم الإعلانات",
+        "عند الدكتور: شرح الأعراض وفهم التعليمات",
+        "إدارة الجامعة: التسجيل وكارت ISIC والمكتبة والامتحانات",
       ],
       trigger: "زميلك التشيكي في السكن هيحاول يتكلم معاك أول يوم. الوحدة 3 هي إجابتك.",
     },
@@ -485,7 +497,7 @@ const ar: typeof en = {
       title: "فهم الشعب التشيكي",
       subtitle: "ثقافة، صداقات، تجنب الأخطاء الشائعة",
       topics: [
-        "ليه التشيك بيبانوا باردين في الأول — وإزاي بيبينوا الصداقة فعلًا",
+        "ليه التشيك بيبانوا باردين في الأول وإزاي بيبينوا الصداقة فعلًا",
         "عادات اجتماعية مختلفة عن الثقافة العربية",
         "إزاي تعمل صحاب تشيك (مش طلاب دوليين بس)",
         "سوء فهم ثقافي شائع وإزاي تتجنبه",
@@ -497,11 +509,11 @@ const ar: typeof en = {
       title: "بناء حياتك هنا",
       subtitle: "شغل، فلوس، سفر، تجديد الفيزا",
       topics: [
-        "وظائف طلاب — إيه القانوني وتدور فين وإيه اللي بيدفع كويس",
-        "إدارة فلوسك — بنوك تشيكية ورسوم وتحويل فلوس للبلد",
-        "رحلات ويك إند — سفر رخيص لدول أوروبية تانية",
-        "تجديد الفيزا — الجدول الزمني والأوراق وإيه المختلف المرة التانية",
-        "تخطيط طويل المدى — البقاء بعد التخرج وتصريح الإقامة",
+        "وظائف طلاب: إيه القانوني وتدور فين وإيه اللي بيدفع كويس",
+        "إدارة فلوسك: بنوك تشيكية ورسوم وتحويل فلوس للبلد",
+        "رحلات ويك إند: سفر رخيص لدول أوروبية تانية",
+        "تجديد الفيزا: الجدول الزمني والأوراق وإيه المختلف المرة التانية",
+        "تخطيط طويل المدى: البقاء بعد التخرج وتصريح الإقامة",
       ],
       trigger: null,
     },
@@ -551,12 +563,12 @@ const ar: typeof en = {
     },
   ],
   previewOutro: "الدرس الكامل بيغطي أكتر من 12 سؤال مع إجابات نموذجية وأخطاء شائعة وإيه تعمل لو جالك سؤال مكنتش متحضر له.",
-  previewBuyCta: "احصل على الكورس الكامل — 49€",
+  previewBuyCta: "احصل على الكورس الكامل (49€)",
   previewCta: "اسألني على واتساب",
   bottomCta: {
     title: "جاهز تجهز صح؟",
-    primary: "احصل على الكورس — 49€",
+    primary: "احصل على الكورس (49€)",
     secondary: "أو ابدأ بالأدلة المجانية →",
   },
-  whatsappTooltip: "مش متأكد إن ده ليك؟ اسألني — من غير ضغط.",
+  whatsappTooltip: "مش متأكد إن ده ليك؟ اسألني، من غير ضغط.",
 };

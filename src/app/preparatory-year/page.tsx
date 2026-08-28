@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/translations";
+import Image from "next/image";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
 
@@ -44,8 +45,24 @@ export default function PreparatoryYearPage() {
       <Navbar />
       <main>
 
+      {/* Hero banner */}
+      <section className="pt-28 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-scenic.jpg"
+              alt="Aerial view of Prague Old Town"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 900px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+        </div>
+      </section>
+
       {/* Hero */}
-      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-6">

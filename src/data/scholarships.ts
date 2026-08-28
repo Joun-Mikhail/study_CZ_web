@@ -20,16 +20,16 @@ export const scholarships: Scholarship[] = [
       ar: "وزارة التعليم عبر DZS",
     },
     eligibility: {
-      en: "Citizens of eligible developing countries nominated through bilateral agreements — check the official DZS list.",
-      ar: "لمواطني بعض دول العالم الثالث حسب اتفاقيات ثنائية — شوف قائمة DZS الرسمية.",
+      en: "Citizens of eligible developing countries nominated through bilateral agreements. Check the official DZS list.",
+      ar: "لمواطني بعض دول العالم الثالث حسب اتفاقيات ثنائية. شوف قائمة DZS الرسمية.",
     },
     coverage: {
       en: "Typically covers tuition at public universities and a living stipend for the study period. Exact coverage varies by agreement.",
       ar: "عادة بتغطي رسوم الدراسة في الجامعات الحكومية ومخصص شهري للمعيشة طوال فترة الدراسة. التفصيل بيختلف حسب الاتفاقية.",
     },
     deadline: {
-      en: "Deadlines vary by sending country and agreement — check the DZS page each year.",
-      ar: "المواعيد بتختلف حسب البلد والاتفاقية — تابع صفحة DZS كل سنة.",
+      en: "Deadlines vary by sending country and agreement. Check the DZS page each year.",
+      ar: "المواعيد بتختلف حسب البلد والاتفاقية. تابع صفحة DZS كل سنة.",
     },
     link: "https://www.studyin.cz/",
   },
@@ -37,7 +37,7 @@ export const scholarships: Scholarship[] = [
   {
     id: "study-in-czech-free-path",
     name: {
-      en: "Study in Czech — Czech-language free-tuition path",
+      en: "Study in Czech: Czech-language free-tuition path",
       ar: "طريق الدراسة مجانًا (برامج بالتشيكي)",
     },
     provider: {
@@ -53,8 +53,8 @@ export const scholarships: Scholarship[] = [
       ar: "الرسوم الدراسية صفر يورو في الجامعات الحكومية للبرامج المُدرَّسة بالتشيكي. الطالب هو اللي بيتحمل مصاريف المعيشة وأي رسوم للسنة التحضيرية.",
     },
     deadline: {
-      en: "Application deadlines depend on the university and programme — check each university's admissions page.",
-      ar: "مواعيد التقديم حسب الجامعة والبرنامج — راجع صفحة القبول لكل جامعة.",
+      en: "Application deadlines depend on the university and programme. Check each university's admissions page.",
+      ar: "مواعيد التقديم حسب الجامعة والبرنامج. راجع صفحة القبول لكل جامعة.",
     },
     link: "https://www.studyin.cz/",
   },
@@ -83,12 +83,12 @@ export const scholarships: Scholarship[] = [
     name: { en: "University merit & fee-waiver scholarships", ar: "منح الجامعات للمتفوقين/إعفاء الرسوم" },
     provider: { en: "Individual Czech universities", ar: "كل جامعة على حدة" },
     eligibility: {
-      en: "High-performing applicants at many public universities may receive tuition reductions or waivers — criteria vary by university and programme.",
-      ar: "الطلاب المتفوقين في بعض الجامعات الحكومية ممكن يحصلوا على تخفيض أو إعفاء من الرسوم — الشروط بتختلف حسب الجامعة والبرنامج.",
+      en: "High-performing applicants at many public universities may receive tuition reductions or waivers. Criteria vary by university and programme.",
+      ar: "الطلاب المتفوقين في بعض الجامعات الحكومية ممكن يحصلوا على تخفيض أو إعفاء من الرسوم. الشروط بتختلف حسب الجامعة والبرنامج.",
     },
     coverage: {
       en: "Ranges from partial fee waivers to full tuition coverage for top-ranked applicants; check each university's scholarship page for details.",
-      ar: "من خصم جزئي للرسوم لحد إعفاء كمل للمتفوقين — شوف صفحة المنح في كل جامعة للتفاصيل.",
+      ar: "من خصم جزئي للرسوم لحد إعفاء كمل للمتفوقين. شوف صفحة المنح في كل جامعة للتفاصيل.",
     },
     deadline: {
       en: "Deadlines and application procedures are set by each university.",

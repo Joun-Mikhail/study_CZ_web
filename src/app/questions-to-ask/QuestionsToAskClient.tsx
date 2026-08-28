@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface Question {
   q: { en: string; ar: string };
@@ -20,8 +21,8 @@ const questions: Question[] = [
       ar: "هل الشخص اللي بينصحني زار التشيك قبل كده؟",
     },
     why: {
-      en: "Not the company — the specific person handling my file. Someone who's never seen the country can't tell you which dorm to avoid or how the foreign police office works.",
-      ar: "مش الشركة — الشخص اللي ماسك ملفي بالتحديد. حد عمره ما شاف البلد مش هيعرف يقولك أي سكن تتجنبه أو شرطة الأجانب بتشتغل ازاي.",
+      en: "Not the company, the specific person handling my file. Someone who's never seen the country can't tell you which dorm to avoid or how the foreign police office works.",
+      ar: "مش الشركة، الشخص اللي ماسك ملفي بالتحديد. حد عمره ما شاف البلد مش هيعرف يقولك أي سكن تتجنبه أو شرطة الأجانب بتشتغل ازاي.",
     },
   },
   {
@@ -80,8 +81,8 @@ const questions: Question[] = [
       ar: "بتساعدوني بعد ما أوصل؟",
     },
     why: {
-      en: "Most stop at the airport — which is exactly when you need help most.",
-      ar: "أغلبهم بيقفوا عند المطار — وده بالظبط لما بتحتاج مساعدة اكتر.",
+      en: "Most stop at the airport, which is exactly when you need help most.",
+      ar: "أغلبهم بيقفوا عند المطار، وده بالظبط لما بتحتاج مساعدة اكتر.",
     },
   },
   {
@@ -100,16 +101,16 @@ const t = {
   en: {
     title: "Before You Pay Any Agency, Ask These 8 Questions",
     intro:
-      "I'm not going to tell you which agency to use. I'm going to give you the questions I wish someone had given me before I paid anyone. Ask these of any agency — including me. If someone can't answer clearly, that tells you what you need to know.",
+      "I'm not going to tell you which agency to use. I'm going to give you the questions I wish someone had given me before I paid anyone. Ask these of any agency, including me. If someone can't answer clearly, that tells you what you need to know.",
     closing:
-      "If you're wondering how I'd answer: I'm a student living in Brno, I do live mock interviews, my prices are on the site, I refund within 48 hours, I support you for 30 days after you land, and yes — you can absolutely do this without me. The free guides here are for exactly that.",
+      "If you're wondering how I'd answer: I'm a student living in Brno, I do live mock interviews, my prices are on the site, I refund within 48 hours, I support you for 30 days after you land, and yes, you can absolutely do this without me. The free guides here are for exactly that.",
   },
   ar: {
     title: "قبل ما تدفع لأي وكالة، اسأل الـ 8 أسئلة دول",
     intro:
-      "مش هقولك تستخدم أنهي وكالة. هديك الأسئلة اللي كنت اتمنى حد يديهالي قبل ما ادفع لحد. اسأل أي وكالة — بما فيهم أنا. لو حد مش قادر يجاوب بوضوح، ده بيقولك كل اللي محتاج تعرفه.",
+      "مش هقولك تستخدم أنهي وكالة. هديك الأسئلة اللي كنت اتمنى حد يديهالي قبل ما ادفع لحد. اسأل أي وكالة، بما فيهم أنا. لو حد مش قادر يجاوب بوضوح، ده بيقولك كل اللي محتاج تعرفه.",
     closing:
-      "لو بتسأل ازاي انا هجاوب: انا طالب عايش في برنو، بعمل مقابلات تجريبية لايف، اسعاري على الموقع، برجع الفلوس خلال 48 ساعة، بساعدك 30 يوم بعد ما توصل، وأيوه — تقدر تعمل كل ده لوحدك. الأدلة المجانية هنا عشان كده بالظبط.",
+      "لو بتسأل ازاي انا هجاوب: انا طالب عايش في برنو، بعمل مقابلات تجريبية لايف، اسعاري على الموقع، برجع الفلوس خلال 48 ساعة، بساعدك 30 يوم بعد ما توصل، وأيوه، تقدر تعمل كل ده لوحدك. الأدلة المجانية هنا عشان كده بالظبط.",
   },
 };
 
@@ -163,6 +164,18 @@ export default function QuestionsToAskClient() {
       <Navbar />
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
+          {/* Hero banner */}
+          <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden mb-8">
+            <Image
+              src="/images/students-group.jpg"
+              alt="Students discussing together"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+
           {/* Hero */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">{l.title}</h1>

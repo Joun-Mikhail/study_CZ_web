@@ -6,10 +6,24 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { universities, type University } from "@/data/universities";
+import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { filterProgrammes } from "@/data/programmes";
+import { universitiesV2 } from "@/data/universities-v2";
+import type { Programme } from "@/data/types";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, MapPin, Sparkles, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  MapPin,
+  Sparkles,
+  ExternalLink,
+  Euro,
+  Clock,
+  GraduationCap,
+  ShieldCheck,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
 const budgetRanges: Record<Exclude<BudgetBucket, "any">, [number, number]> = {
@@ -31,38 +45,132 @@ const languageLabels: { key: "English" | "Czech" | "any"; en: string; ar: string
   { key: "any", en: "Either is fine", ar: "أي لغة تناسبني" },
 ];
 
-const cityOptions = Array.from(new Set(universities.map((u) => u.city)));
+const fieldLabels: { key: string; en: string; ar: string }[] = [
+  { key: "any", en: "Any field", ar: "أي مجال" },
+  { key: "Medicine", en: "Medicine", ar: "الطب" },
+  { key: "Business", en: "Business", ar: "الأعمال" },
+  { key: "Economics", en: "Economics", ar: "الاقتصاد" },
+  { key: "Finance", en: "Finance", ar: "المالية" },
+  { key: "Engineering", en: "Engineering", ar: "الهندسة" },
+  { key: "IT", en: "IT / Computer Science", ar: "تكنولوجيا المعلومات" },
+  { key: "Chemistry", en: "Chemistry", ar: "الكيمياء" },
+  { key: "Social Sciences", en: "Social Sciences", ar: "العلوم الاجتماعية" },
+  { key: "International Relations", en: "International Relations", ar: "العلاقات الدولية" },
+];
+
+type MatchResult = {
+  programme: Programme;
+  universityName: string;
+  city: string;
+  score: number;
+  reasons: { en: string; ar: string }[];
+};
+
+function computeMatches(
+  field: string,
+  budget: BudgetBucket,
+  language: "English" | "Czech" | "any",
+  city: string
+): MatchResult[] {
+  const hardFilters: Parameters<typeof filterProgrammes>[0] = {};
+  if (language !== "any") hardFilters.language = language;
+  if (budget !== "any") {
+    const [, hi] = budgetRanges[budget];
+    if (hi !== Infinity) hardFilters.maxTuition = hi;
+  }
+  if (field !== "any") hardFilters.field = field;
+  if (city !== "any") hardFilters.city = city;
+
+  const eligible = filterProgrammes(hardFilters, universitiesV2);
+
+  return eligible
+    .map((prog) => {
+      const uni = universitiesV2.find((u) => u.id === prog.universityId);
+      if (!uni) return null;
+
+      let score = 0;
+      const reasons: { en: string; ar: string }[] = [];
+
+      if (city !== "any") {
+        reasons.push({ en: `Located in ${city}`, ar: `في ${city}` });
+      }
+
+      if (field !== "any") {
+        score += 30;
+        reasons.push({
+          en: `Matches your field: ${field}`,
+          ar: `يطابق مجالك: ${field}`,
+        });
+      }
+
+      if (budget !== "any") {
+        const [lo, hi] = budgetRanges[budget];
+        const mid = hi === Infinity ? lo : (lo + hi) / 2;
+        const distFromMid = Math.abs(prog.tuitionEurPerYear - mid);
+        const range = hi === Infinity ? 10000 : hi - lo;
+        score += Math.round(25 * Math.max(0, 1 - distFromMid / range));
+        reasons.push({
+          en: `€${prog.tuitionEurPerYear.toLocaleString()}/yr fits your budget`,
+          ar: `€${prog.tuitionEurPerYear.toLocaleString()}/سنة ضمن ميزانيتك`,
+        });
+      }
+
+      reasons.push({
+        en: `Taught in ${prog.language}`,
+        ar: `التدريس بـ${prog.language === "English" ? "الإنجليزية" : "التشيكية"}`,
+      });
+
+      return {
+        programme: prog,
+        universityName: uni.name,
+        city: uni.city,
+        score,
+        reasons,
+      };
+    })
+    .filter((r): r is MatchResult => r !== null)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.programme.tuitionEurPerYear - b.programme.tuitionEurPerYear;
+    });
+}
+
+const cityOptions = Array.from(new Set(universitiesV2.map((u) => u.city))).sort();
 
 export default function MatcherPage() {
   const { t, locale } = useTranslation();
   const [step, setStep] = useState(0);
-  const [city, setCity] = useState<string | "any">("any");
+  const [city, setCity] = useState<string>("any");
+  const [field, setField] = useState<string | null>(null);
   const [budget, setBudget] = useState<BudgetBucket | null>(null);
   const [language, setLanguage] = useState<"English" | "Czech" | "any" | null>(null);
 
-  const results: University[] = useMemo(() => {
-    if (step < 3) return [];
-    return universities.filter((u) => {
-      const cityMatch = city === "any" || u.city === city;
-      const budgetMatch =
-        !budget ||
-        budget === "any" ||
-        (u.tuitionEurPerYear[0] <= budgetRanges[budget][1] &&
-          u.tuitionEurPerYear[1] >= budgetRanges[budget][0]);
-      const langMatch =
-        !language || language === "any" || u.languages.includes(language);
-      return cityMatch && budgetMatch && langMatch;
-    });
-  }, [step, city, budget, language]);
+  const results = useMemo(() => {
+    if (step < 4) return [];
+    return computeMatches(
+      field || "any",
+      budget || "any",
+      language || "any",
+      city
+    );
+  }, [step, field, budget, language, city]);
 
-  const canGoNext = [true, budget !== null, language !== null][step];
+  const canGoNext = [
+    true,
+    field !== null,
+    budget !== null,
+    language !== null,
+  ][step];
 
   const reset = () => {
     setStep(0);
     setCity("any");
+    setField(null);
     setBudget(null);
     setLanguage(null);
   };
+
+  const stepFieldTitle = locale === "ar" ? "عايز تدرس إيه؟" : "What do you want to study?";
 
   const steps = [
     {
@@ -76,6 +184,21 @@ export default function MatcherPage() {
           />
           {cityOptions.map((c) => (
             <OptionCard key={c} active={city === c} onClick={() => setCity(c)} label={c} />
+          ))}
+        </div>
+      ),
+    },
+    {
+      title: stepFieldTitle,
+      content: (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {fieldLabels.map((f) => (
+            <OptionCard
+              key={f.key}
+              active={field === f.key}
+              onClick={() => setField(f.key)}
+              label={locale === "ar" ? f.ar : f.en}
+            />
           ))}
         </div>
       ),
@@ -112,11 +235,26 @@ export default function MatcherPage() {
     },
   ];
 
+  const totalSteps = steps.length + 1;
+
   return (
     <div className="relative min-h-screen">
       <Navbar />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero image */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-architecture.jpg"
+              alt="Prague river and bridge view"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+        </div>
         <div className="max-w-2xl mx-auto text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
             {t.matcher.title}
@@ -124,9 +262,8 @@ export default function MatcherPage() {
           <p className="text-text-secondary leading-relaxed">{t.matcher.subtitle}</p>
         </div>
 
-        {/* progress dots */}
         <div className="flex justify-center gap-2 mb-8">
-          {[0, 1, 2, 3].map((i) => (
+          {Array.from({ length: totalSteps }, (_, i) => (
             <span
               key={i}
               className={cn(
@@ -139,7 +276,7 @@ export default function MatcherPage() {
 
         <div className="max-w-2xl mx-auto">
           <AnimatePresence mode="wait">
-            {step < 3 ? (
+            {step < steps.length ? (
               <motion.div
                 key={step}
                 initial={{ opacity: 0, x: 24 }}
@@ -168,7 +305,7 @@ export default function MatcherPage() {
                     onClick={() => canGoNext && setStep((s) => s + 1)}
                     className={cn(!canGoNext && "opacity-50 pointer-events-none")}
                   >
-                    {step === 2 ? t.matcher.seeResults : t.matcher.next}
+                    {step === steps.length - 1 ? t.matcher.seeResults : t.matcher.next}
                     <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                   </MagneticButton>
                 </div>
@@ -184,49 +321,25 @@ export default function MatcherPage() {
                   <h2 className="text-xl font-semibold text-text-primary mb-1">
                     {t.matcher.resultsTitle}
                   </h2>
-                  <p className="text-text-secondary text-sm">{t.matcher.resultsSubtitle}</p>
+                  <p className="text-text-secondary text-sm">
+                    {results.length > 0
+                      ? `${results.length} ${locale === "ar" ? "برنامج مطابق" : "matching programmes"}`
+                      : ""}
+                  </p>
                 </div>
 
                 {results.length === 0 ? (
                   <p className="text-center text-text-muted py-10">{t.matcher.noResults}</p>
                 ) : (
                   <div className="grid grid-cols-1 gap-4 mb-8">
-                    {results.map((uni, i) => (
+                    {results.map((match, i) => (
                       <motion.div
-                        key={uni.id}
+                        key={match.programme.id}
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.08, duration: 0.4 }}
+                        transition={{ delay: i * 0.06, duration: 0.4 }}
                       >
-                        <GlassCard hoverEffect="glow" href={`/university/${uni.id}`}>
-                          <div className="flex items-start justify-between gap-4 mb-2">
-                            <h3 className="font-semibold text-text-primary">{uni.name}</h3>
-                            <span className="shrink-0 inline-flex items-center gap-1 text-xs text-text-muted">
-                              <MapPin className="w-3.5 h-3.5" />
-                              {uni.city}
-                            </span>
-                          </div>
-                          <p className="text-sm text-text-secondary leading-relaxed mb-3">
-                            {uni.blurb[locale]}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2 text-xs">
-                            <span className="px-2.5 py-1 rounded-full bg-amber/10 text-amber border border-amber/20">
-                              €{uni.tuitionEurPerYear[0].toLocaleString()}–{uni.tuitionEurPerYear[1].toLocaleString()}/yr
-                            </span>
-                            {uni.fields.slice(0, 3).map((f) => (
-                              <span
-                                key={f}
-                                className="px-2.5 py-1 rounded-full bg-white/5 text-text-secondary border border-border-subtle"
-                              >
-                                {f}
-                              </span>
-                            ))}
-                            <span className="ml-auto inline-flex items-center gap-1 text-amber">
-                              <ExternalLink className="w-3 h-3" />
-                              {locale === "ar" ? "التفاصيل" : "Details"}
-                            </span>
-                          </div>
-                        </GlassCard>
+                        <MatchCard match={match} locale={locale} rank={i + 1} />
                       </motion.div>
                     ))}
                   </div>
@@ -238,8 +351,8 @@ export default function MatcherPage() {
                   </div>
                   <h3 className="font-semibold text-text-primary mb-1">
                     {locale === "ar"
-                      ? "لقيت جامعتك؟ يلا نشوف لو جاهز تقدم."
-                      : "Found your match? Let's check if you're ready to apply."}
+                      ? "لقيت برنامجك؟ يلا نشوف لو جاهز تقدم."
+                      : "Found your programme? Let's check if you're ready to apply."}
                   </h3>
                   <p className="text-sm text-text-secondary mb-3">
                     {locale === "ar"
@@ -247,25 +360,16 @@ export default function MatcherPage() {
                       : "Take a 2-minute eligibility check to see if your grades, documents, and timeline are on track."}
                   </p>
                   <span className="text-sm font-medium text-amber">
-                    {locale === "ar" ? "تحقق من أهليتي — مجاني →" : "Check My Eligibility -- Free →"}
+                    {locale === "ar" ? "تحقق من أهليتي (مجاني) →" : "Check My Eligibility (Free) →"}
                   </span>
-                  <p className="text-xs text-text-muted mt-1">
-                    {locale === "ar" ? "من غير تسجيل. من غير سبام. بس وضوح." : "No signup needed. No spam. Just clarity."}
-                  </p>
                 </GlassCard>
 
-                <GlassCard hoverEffect="glow" className="text-center mb-6">
-                  <Sparkles className="w-6 h-6 text-amber mx-auto mb-3" />
-                  <h3 className="font-semibold text-text-primary mb-1">{t.matcher.ctaTitle}</h3>
-                  <p className="text-sm text-text-secondary mb-4">{t.matcher.ctaSubtitle}</p>
-                  <MagneticButton variant="primary" href="/courses">
-                    {t.matcher.ctaButton}
-                  </MagneticButton>
-                </GlassCard>
-
-                <div className="text-center">
+                <div className="flex items-center justify-center gap-4 mt-6">
                   <MagneticButton variant="ghost" onClick={reset}>
                     {t.matcher.startOver}
+                  </MagneticButton>
+                  <MagneticButton variant="secondary" href="/deadlines">
+                    {locale === "ar" ? "متتبع المواعيد" : "Deadline Tracker"}
                   </MagneticButton>
                 </div>
               </motion.div>
@@ -276,6 +380,91 @@ export default function MatcherPage() {
 
       <Footer />
     </div>
+  );
+}
+
+function MatchCard({
+  match,
+  locale,
+  rank,
+}: {
+  match: MatchResult;
+  locale: "en" | "ar";
+  rank: number;
+}) {
+  const { programme: prog, universityName, city, reasons } = match;
+
+  return (
+    <GlassCard hoverEffect="glow" href={`/programmes/${prog.id}`}>
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber/10 text-amber text-xs font-bold border border-amber/20 shrink-0">
+              {rank}
+            </span>
+            <h3 className="font-semibold text-text-primary text-sm truncate">
+              {prog.name[locale] || prog.name.en}
+            </h3>
+          </div>
+          {prog.faculty && (
+            <p className="text-xs text-text-muted ms-8">{prog.faculty}</p>
+          )}
+        </div>
+        <div className="flex gap-1.5 shrink-0">
+          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+            {prog.degree}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-text-secondary ms-8 mb-2">
+        <span className="inline-flex items-center gap-1">
+          <MapPin className="w-3 h-3 text-text-muted" />
+          {universityName}, {city}
+        </span>
+      </div>
+
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-secondary ms-8 mb-3">
+        <span className="inline-flex items-center gap-1">
+          <Euro className="w-3 h-3 text-amber/70" />
+          €{prog.tuitionEurPerYear.toLocaleString()}/{locale === "ar" ? "سنة" : "yr"}
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <Clock className="w-3 h-3 text-text-muted" />
+          {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <GraduationCap className="w-3 h-3 text-text-muted" />
+          {prog.entranceExam
+            ? (locale === "ar" ? "امتحان قبول" : "Entrance exam")
+            : (locale === "ar" ? "بدون امتحان" : "No exam")}
+        </span>
+      </div>
+
+      <div className="ms-8 flex flex-wrap gap-1.5 mb-2">
+        {reasons.map((r, i) => (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/5 text-success text-[10px] border border-success/10"
+          >
+            <ShieldCheck className="w-2.5 h-2.5" />
+            {r[locale]}
+          </span>
+        ))}
+      </div>
+
+      <div className="ms-8 flex items-center justify-between">
+        <VerifiedBadge
+          date={prog.verification.lastVerified}
+          sourceUrl={prog.verification.sourceUrl}
+          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
+        />
+        <span className="inline-flex items-center gap-1 text-xs text-amber">
+          <ExternalLink className="w-3 h-3" />
+          {locale === "ar" ? "التفاصيل" : "Details"}
+        </span>
+      </div>
+    </GlassCard>
   );
 }
 

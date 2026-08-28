@@ -12,8 +12,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div>
-            <Link href="/" className="text-lg font-bold tracking-tight text-text-primary">
-              study<span className="text-[#d42127]">.</span><span className="text-[#d42127]">czechia</span>
+            <Link href="/" className="text-xl font-extrabold tracking-tight text-text-primary">
+              Study <span className="text-[#d42127]">Czechia</span>
             </Link>
             <p className="text-sm text-text-secondary mt-2 leading-relaxed">{t.footer.tagline}</p>
           </div>
@@ -69,7 +69,7 @@ export function Footer() {
 
         <div className="border-t border-border-subtle pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-text-muted">
-            © {new Date().getFullYear()} study.czechia — {t.footer.rights}
+            © {new Date().getFullYear()} Study Czechia. {t.footer.rights}
           </p>
           <div className="flex items-center gap-4 text-xs">
             <Link href="/about" className="text-text-muted hover:text-text-secondary transition-colors">

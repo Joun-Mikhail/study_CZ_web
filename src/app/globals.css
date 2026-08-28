@@ -18,8 +18,8 @@
   --color-text-muted: #64748b;
   --color-success: #22c55e;
   --color-info: #3b82f6;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta);
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
   --font-arabic: var(--font-tajawal), "Segoe UI", sans-serif;
 }
 
@@ -137,6 +137,28 @@ body {
     --chart-tooltip-border: rgba(15, 23, 42, 0.12);
     --chart-cursor: rgba(180, 83, 9, 0.08);
   }
+}
+
+/* Decorative dot grid pattern */
+.dot-grid {
+  background-image: radial-gradient(circle, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Gradient mesh background */
+.gradient-mesh {
+  background-image:
+    radial-gradient(at 20% 30%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+}
+
+[data-theme="light"] .gradient-mesh,
+:root:not([data-theme="dark"]) .gradient-mesh {
+  background-image:
+    radial-gradient(at 20% 30%, rgba(180, 83, 9, 0.06) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(109, 40, 217, 0.04) 0%, transparent 50%);
 }
 
 @media (prefers-reduced-motion: reduce) {

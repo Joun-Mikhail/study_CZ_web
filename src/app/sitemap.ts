@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { universities } from "@/data/universities";
+import { programmes } from "@/data/programmes";
 
 export const dynamic = "force-static";
 
@@ -24,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/interview-prep",
     "/questions-to-ask",
     "/search",
+    "/programmes/compare",
     "/about",
     "/terms",
     "/privacy",
@@ -41,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...universityRoutes];
+  const programmeRoutes = programmes.map((p) => ({
+    url: `${SITE_URL}/programmes/${p.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...universityRoutes, ...programmeRoutes];
 }

@@ -197,10 +197,9 @@ export function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-text-primary shrink-0 min-w-[140px]"
+            className="text-2xl font-extrabold tracking-tight text-text-primary shrink-0 min-w-[160px]"
           >
-            study<span className="text-[#d42127]">.</span>
-            <span className="text-[#d42127]">czechia</span>
+            Study <span className="text-[#d42127]">Czechia</span>
           </Link>
 
           {/* Desktop nav — visible at xl (1280px+) */}

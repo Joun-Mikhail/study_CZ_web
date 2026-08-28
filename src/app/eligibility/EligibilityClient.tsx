@@ -28,6 +28,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type Status = "pass" | "warning" | "fail";
 
@@ -101,6 +102,19 @@ export default function EligibilityClient() {
     <div className="relative min-h-screen">
       <Navbar />
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero image */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
+            <Image
+              src="/images/prague-bridge.jpg"
+              alt="Prague panoramic rooftops view"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+        </div>
         <div className="max-w-2xl mx-auto text-center mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -913,7 +927,7 @@ const en = {
     fullSub: "I'll build your complete plan.",
   },
   sendReportTitle: "Want this report sent to you?",
-  sendReportDesc: "Message us on WhatsApp and we'll discuss your results and next steps — free, no pressure.",
+  sendReportDesc: "Message us on WhatsApp and we'll discuss your results and next steps. Free, no pressure.",
   whatsappButton: "Message me on WhatsApp",
   startOver: "Start Over",
 };
@@ -1111,7 +1125,7 @@ const ar: typeof en = {
     fullSub: "هبنيلك خطة كاملة.",
   },
   sendReportTitle: "عايز التقرير ده يتبعتلك؟",
-  sendReportDesc: "راسلنا على واتساب وهنناقش نتيجتك والخطوات الجاية — مجاني، من غير ضغط.",
+  sendReportDesc: "راسلنا على واتساب وهنناقش نتيجتك والخطوات الجاية. مجاني، من غير ضغط.",
   whatsappButton: "راسلني على واتساب",
   startOver: "ابدأ من الأول",
 };

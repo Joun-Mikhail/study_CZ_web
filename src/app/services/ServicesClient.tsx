@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -106,7 +106,18 @@ export default function ServicesClient() {
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative">
+        <section className="max-w-3xl mx-auto text-center mb-16 relative rounded-3xl py-4 overflow-hidden">
+          {/* Hero background image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/students-group.jpg"
+              alt=""
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/75 to-midnight/90" />
+          </div>
           <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -543,62 +554,62 @@ const en = {
   hero: {
     title: "Don't Let a Preventable Mistake Cost You a Year",
     subtitle:
-      "Every year, students get rejected — not because they aren't qualified, but because of a document mistake, a wrong university choice, or an embassy interview they weren't ready for. I've been through the entire process myself. I can help you avoid what others learn the hard way.",
+      "Every year, students get rejected, not because they aren't qualified, but because of a document mistake, a wrong university choice, or an embassy interview they weren't ready for. I've been through the entire process myself. I can help you avoid what others learn the hard way.",
     trustBar: [
       "10,500+ students in our community",
       "Hundreds of applications guided",
       "Based in Brno, Czech Republic",
-      "Egyptian student — been through it all",
+      "Egyptian student, been through it all",
     ],
     cta: "See Services & Pricing",
     whatsappCta: "Ask Me First",
   },
   framing: {
     title:
-      "Everything You Need to Apply on Your Own Is Free. If You Want Me Personally — That's Below.",
+      "Everything You Need to Apply on Your Own Is Free. If You Want Me Personally. That's Below.",
     paragraphs: [
-      "I built this site so any Arabic-speaking student can navigate Czech universities without paying anyone. The guides, the university matcher, the Q&A, the cost calculator, the Facebook community — all free, all staying free.",
+      "I built this site so any Arabic-speaking student can navigate Czech universities without paying anyone. The guides, the university matcher, the Q&A, the cost calculator, the Facebook community, all free, all staying free.",
       "But some students want more than a guide. They want someone to sit with them, review their actual documents, prepare them for their specific embassy interview, and be on the other end of a WhatsApp message when something goes wrong.",
-      "That takes my personal time — hours per student. That's what the services below are for. And they cost a fraction of what agencies in Egypt, Jordan, or Iraq charge for worse help.",
+      "That takes my personal time, hours per student. That's what the services below are for. And they cost a fraction of what agencies in Egypt, Jordan, or Iraq charge for worse help.",
     ],
   },
   freeTier: {
-    title: "Do It Yourself — Free",
-    subtitle: "Most students start here. Many finish here too — and that's completely fine.",
+    title: "Do It Yourself: Free",
+    subtitle: "Most students start here. Many finish here too, and that's completely fine.",
     items: {
-      matcher: "University Matcher — personalized recommendations in 2 minutes",
-      guide: "Full Application Guide — step-by-step, nothing hidden",
-      costCalc: "Cost of Living Calculator — Prague, Brno, Ostrava",
-      scholarships: "Scholarship Database — updated regularly",
-      prepYear: "Preparatory Year Guide — with real prices from real institutions",
-      qaBase: "Q&A Knowledge Base — visa, documents, housing, everything",
-      community: "Facebook Community — 10,500+ students helping each other",
+      matcher: "Programme Matcher: personalized recommendations in 2 minutes",
+      guide: "Full Application Guide: step-by-step, nothing hidden",
+      costCalc: "Cost of Living Calculator: Prague, Brno, Ostrava",
+      scholarships: "Scholarship Database: updated regularly",
+      prepYear: "Preparatory Year Guide: with real prices from real institutions",
+      qaBase: "Q&A Knowledge Base: visa, documents, housing, everything",
+      community: "Facebook Community: 10,500+ students helping each other",
     },
     cta: "Explore Free Resources →",
   },
   services: {
     consultation: {
-      title: "Ask Me Anything — 30 Minutes",
+      title: "Ask Me Anything: 30 Minutes",
       fearTrigger: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
       description:
-        "A focused call about YOUR specific situation. Not generic advice — I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on one thing: which university to pick, whether their documents are right, what to expect at the embassy, or whether their plan even makes sense.",
+        "A focused call about YOUR specific situation. Not generic advice. I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on one thing: which university to pick, whether their documents are right, what to expect at the embassy, or whether their plan even makes sense.",
       included: [
         "30-minute video or voice call (your choice)",
         "I review your situation before the call (send me details via WhatsApp)",
-        "Written summary after the call — so you don't forget anything",
+        "Written summary after the call so you don't forget anything",
         "48 hours of follow-up on WhatsApp for quick questions",
       ],
       triggerLine:
         "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
-      cta: "Book a Call — €15",
+      cta: "Book a Call (€15)",
       postButton: "🔒 Secure payment via Stripe · Full refund if the call doesn't happen",
     },
     documentReview: {
-      title: "Document Check — Before You Submit",
+      title: "Document Check: Before You Submit",
       fearTrigger:
         "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
       description:
-        "You send me everything you're planning to submit — university application, visa documents, translations, bank statements, all of it. I go through every page like the embassy officer will, and I tell you exactly what's wrong, what's missing, and what will get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
+        "You send me everything you're planning to submit: university application, visa documents, translations, bank statements, all of it. I go through every page like the embassy officer will, and I tell you exactly what's wrong, what's missing, and what will get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
       included: [
         "Full review of your complete document package",
         "Detailed written report: what's correct, what needs fixing, what's missing",
@@ -607,12 +618,12 @@ const en = {
         "One follow-up round: fix the issues, send back, I confirm you're good",
       ],
       triggerLine:
-        "The embassy doesn't tell you what's wrong — they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
-      cta: "Get My Documents Reviewed — €25",
+        "The embassy doesn't tell you what's wrong, they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
+      cta: "Get My Documents Reviewed (€25)",
       postButton: "🔒 Secure payment via Stripe · Send documents via WhatsApp or email",
     },
     interviewPrep: {
-      title: "Embassy Interview Prep — Don't Walk In Unprepared",
+      title: "Embassy Interview Prep: Don't Walk In Unprepared",
       fearTrigger: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
       description:
         "I've coached dozens of students through embassy interviews in Cairo, Amman, Beirut, and other consulates. I know the questions they ask, the traps they set, and the answers that work. We'll do a full mock interview together. I'll ask you the real questions, in the real order, with the real follow-ups. Then I'll tell you exactly where you're weak and how to fix it before the real thing. You'll walk into that interview knowing what's coming.",
@@ -632,7 +643,7 @@ const en = {
     arrivalSupport: {
       title: "Landed in Czechia? I've Got You.",
       fearTrigger:
-        "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone — and everything is in Czech.",
+        "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
       description:
         "You just landed. You don't speak Czech. Every sign is confusing. You need to register at the foreign police within 3 days but you don't know where it is or what to bring. Your university sent you 4 emails in Czech and you have no idea what they say. I've been through all of this. I live here. I'll give you a complete first-week plan and be available on WhatsApp to answer every question you're afraid to ask.",
       included: [
@@ -642,19 +653,19 @@ const en = {
         "Czech SIM card recommendation (best plan for students)",
         "Transport pass setup",
         "Health insurance verification",
-        "14 days of WhatsApp support — ask me anything, anytime",
+        "14 days of WhatsApp support, ask me anything, anytime",
       ],
       triggerLine:
         "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
-      cta: "Get My Arrival Plan — €29",
+      cta: "Get My Arrival Plan (€29)",
       postButton: "🔒 Secure payment via Stripe",
     },
     fullPackage: {
-      title: "Full Journey — From Zero to Visa",
+      title: "Full Journey: From Zero to Visa",
       fearTrigger:
         "For students who don't want to figure it out alone. I'll be with you from your first question to your first day in Czechia.",
       description:
-        "This is everything. We start from wherever you are — even if you haven't chosen a country yet — and I guide you through every step until you have your visa and a plan for your first week in Czechia. You're not buying a service. You're getting a person who's already done this, speaks your language, lives here, and will answer your WhatsApp messages at midnight when you're panicking about a deadline. Most agencies charge €1,500–€3,000 for this and they're sitting in Cairo googling the same things you are. I'm sitting in Brno, 20 minutes from the foreign police office.",
+        "This is everything. We start from wherever you are, even if you haven't chosen a country yet, and I guide you through every step until you have your visa and a plan for your first week in Czechia. You're not buying a service. You're getting a person who's already done this, speaks your language, lives here, and will answer your WhatsApp messages at midnight when you're panicking about a deadline. Most agencies charge €1,500–€3,000 for this and they're sitting in Cairo googling the same things you are. I'm sitting in Brno, 20 minutes from the foreign police office.",
       included: [
         "University & program selection (based on your grades, budget, and goals)",
         "Full document preparation guidance",
@@ -662,21 +673,21 @@ const en = {
         "Complete visa application walkthrough",
         "Embassy interview prep (mock interview included)",
         "Housing guidance for your first months",
-        '"First Week in Czechia" plan: SIM card, bank account, transport pass, foreign police registration, insurance — everything',
+        '"First Week in Czechia" plan: SIM card, bank account, transport pass, foreign police registration, insurance, everything',
         "Direct WhatsApp access to me throughout the process",
         "30 days of support after you arrive in Czechia",
-        '"Your First 90 Days in Czechia" course — included free',
+        '"Your First 90 Days in Czechia" course, included free',
       ],
       triggerLine:
-        "Students who go through this process alone spend an average of 3 months longer figuring things out — and many apply to the wrong program or miss a deadline they didn't know existed.",
-      cta: "Start My Application — €150",
+        "Students who go through this process alone spend an average of 3 months longer figuring things out, and many apply to the wrong program or miss a deadline they didn't know existed.",
+      cta: "Start My Application (€150)",
       postButton:
-        "🔒 Secure payment via Stripe · Also available via InstaPay 🇪🇬 · Not sure yet? Message me on WhatsApp first — no pressure.",
+        "🔒 Secure payment via Stripe · Also available via InstaPay 🇪🇬 · Not sure yet? Message me on WhatsApp first, no pressure.",
       paymentStructure: {
         header: "💳 Pay in 2 steps:",
         steps: [
-          "Step 1: €150 — starts the process (university selection + document plan)",
-          "Step 2: €200 — after documents are reviewed, before visa submission",
+          "Step 1: €150, starts the process (university selection + document plan)",
+          "Step 2: €200, after documents are reviewed, before visa submission",
           "Total: €350 (agencies charge €1,500+ for less)",
         ],
       },
@@ -684,8 +695,8 @@ const en = {
   },
   about: {
     paragraphs: [
-      "I'm John — an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself: the confusion, the document chaos, the embassy interview stress, the first weeks of being completely lost in a country where I didn't speak the language.",
-      "I started a Facebook group to answer questions for other Arabic-speaking students. It grew to 10,500+ members. This website is the next step — putting everything I've learned into one place so you don't have to go through what I went through.",
+      "I'm John, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself: the confusion, the document chaos, the embassy interview stress, the first weeks of being completely lost in a country where I didn't speak the language.",
+      "I started a Facebook group to answer questions for other Arabic-speaking students. It grew to 10,500+ members. This website is the next step, putting everything I've learned into one place so you don't have to go through what I went through.",
       "The free resources are for everyone. The paid services are for students who want me personally in their corner.",
     ],
   },
@@ -694,12 +705,12 @@ const en = {
     agencyHeader: "Typical Agency",
     usHeader: "Study in Czechia",
     rows: [
-      { label: "Where they're based", agency: "In your country — never been to Czechia", us: "In Brno, Czech Republic — living here now" },
+      { label: "Where they're based", agency: "In your country, never been to Czechia", us: "In Brno, Czech Republic, living here now" },
       { label: "Their experience", agency: "Read about the process online", us: "Went through the entire process personally" },
       { label: "Language", agency: "Arabic only", us: "Arabic, English, and Czech" },
       { label: "Price for full support", agency: "€1,500 – €3,000", us: "€350 (payable in 2 steps)" },
-      { label: "Free resources included", agency: "None — everything behind a paywall", us: "Full website, guides, tools, community" },
-      { label: "Post-arrival help", agency: "None — their job ends at the airport", us: "30 days of support after you land" },
+      { label: "Free resources included", agency: "None, everything behind a paywall", us: "Full website, guides, tools, community" },
+      { label: "Post-arrival help", agency: "None, their job ends at the airport", us: "30 days of support after you land" },
       { label: "Embassy interview prep", agency: "Generic tips from a PDF", us: "Live mock interview with real questions" },
       { label: "Refund if not satisfied", agency: "Almost never", us: "Message within 48 hours, full refund" },
       { label: "Community", agency: "You're a client number", us: "Join 10,500+ students helping each other" },
@@ -707,7 +718,7 @@ const en = {
   },
   testimonials: {
     title: "Students Who Were in Your Exact Situation",
-    placeholder: `"Testimonials coming soon — we're collecting stories from students in our community."`,
+    placeholder: `"Testimonials coming soon, we're collecting stories from students in our community."`,
     comingSoon: "Coming soon",
   },
   scamWarning:
@@ -729,11 +740,11 @@ const en = {
       },
       {
         q: "Is it safe to pay online?",
-        a: "Payments are processed by Stripe — the same company that handles payments for Amazon, Google, and Shopify. I never see your card number. If you're in Egypt and prefer InstaPay, that works too — just message me on WhatsApp.",
+        a: "Payments are processed by Stripe, the same company that handles payments for Amazon, Google, and Shopify. I never see your card number. If you're in Egypt and prefer InstaPay, that works too, just message me on WhatsApp.",
       },
       {
         q: "Can I just message you on WhatsApp for free?",
-        a: "Of course — and I answer questions in the Facebook group every day for free. But if you need me to spend 2 hours reviewing your documents or 45 minutes doing a mock interview, that's what the paid services are for. Quick questions? Always free. Deep personal work? That's the service.",
+        a: "Of course, and I answer questions in the Facebook group every day for free. But if you need me to spend 2 hours reviewing your documents or 45 minutes doing a mock interview, that's what the paid services are for. Quick questions? Always free. Deep personal work? That's the service.",
       },
       {
         q: "I found a cheaper agency. Why not use them?",
@@ -741,13 +752,13 @@ const en = {
       },
       {
         q: "What if my visa gets rejected even after using your service?",
-        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions — nobody can, and anyone who promises a 'guaranteed visa' is lying to you. What I can tell you: students I've worked with have a significantly higher approval rate because we catch the mistakes that cause most rejections.",
+        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions, nobody can, and anyone who promises a 'guaranteed visa' is lying to you. What I can tell you: students I've worked with have a significantly higher approval rate because we catch the mistakes that cause most rejections.",
       },
     ],
   },
   priceAnchor: {
     bold: "Most agencies charge $800-$3,000 for application support.",
-    sub: "Mine is €350, paid in two steps. Not because it's less work — because I'm one student who lives here, not an office with overheads in four cities.",
+    sub: "Mine is €350, paid in two steps. Not because it's less work, because I'm one student who lives here, not an office with overheads in four cities.",
   },
   securityNotice:
     "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
@@ -758,7 +769,7 @@ const en = {
     button: "Message on WhatsApp",
   },
   bestValue: "Best Value",
-  whatsappTooltip: "Not sure which service? Ask me — no pressure.",
+  whatsappTooltip: "Not sure which service? Ask me, no pressure.",
 };
 
 // ─── Arabic copy ────────────────────────────────────────────────────────────
@@ -767,57 +778,57 @@ const ar: typeof en = {
   hero: {
     title: "ماتخليش غلطة ممكن تتفاديها تكلفك سنة كاملة",
     subtitle:
-      "كل سنة، طلاب بيترفضوا — مش عشان مش مؤهلين، بس عشان غلطة في ورقة، أو اختيار جامعة غلط، أو مقابلة سفارة ماكانوش جاهزين ليها. أنا عديت العملية كلها بنفسي. أقدر أساعدك تتفادى اللي غيرك اتعلموه بالطريقة الصعبة.",
+      "كل سنة، طلاب بيترفضوا. مش عشان مش مؤهلين، بس عشان غلطة في ورقة، أو اختيار جامعة غلط، أو مقابلة سفارة ماكانوش جاهزين ليها. أنا عديت العملية كلها بنفسي. أقدر أساعدك تتفادى اللي غيرك اتعلموه بالطريقة الصعبة.",
     trustBar: [
       "أكتر من 10,500 طالب في مجتمعنا",
       "مئات الطلبات اتوجهت",
       "مقيم في برنو، جمهورية التشيك",
-      "طالب مصري — عديت التجربة كلها",
+      "طالب مصري، عديت التجربة كلها",
     ],
     cta: "شوف الخدمات والأسعار",
     whatsappCta: "اسألني الأول",
   },
   framing: {
-    title: "كل اللي محتاجه عشان تقدم لوحدك مجاني. لو عايزني أنا شخصيًا — ده تحت.",
+    title: "كل اللي محتاجه عشان تقدم لوحدك مجاني. لو عايزني أنا شخصيًا، ده تحت.",
     paragraphs: [
-      "أنا بنيت الموقع ده عشان أي طالب عربي يقدر يتعامل مع الجامعات التشيكية من غير ما يدفع لحد. الأدلة، اختيار الجامعة، الأسئلة والأجوبة، حاسبة التكاليف، جروب الفيسبوك — كله مجاني وهيفضل مجاني.",
+      "أنا بنيت الموقع ده عشان أي طالب عربي يقدر يتعامل مع الجامعات التشيكية من غير ما يدفع لحد. الأدلة، اختيار الجامعة، الأسئلة والأجوبة، حاسبة التكاليف، جروب الفيسبوك. كله مجاني وهيفضل مجاني.",
       "بس فيه طلاب عايزين أكتر من دليل. عايزين حد يقعد معاهم، يراجع أوراقهم، يجهزهم لمقابلة السفارة، ويرد على رسائلهم على واتساب لما حاجة تغلط.",
-      "ده بياخد وقتي الشخصي — ساعات لكل طالب. ده اللي الخدمات تحت دي عشانه. وبتكلف جزء صغير من اللي المكاتب في مصر أو الأردن أو العراق بتاخده على مساعدة أقل.",
+      "ده بياخد وقتي الشخصي. ساعات لكل طالب. ده اللي الخدمات تحت دي عشانه. وبتكلف جزء صغير من اللي المكاتب في مصر أو الأردن أو العراق بتاخده على مساعدة أقل.",
     ],
   },
   freeTier: {
-    title: "اعملها بنفسك — مجانًا",
-    subtitle: "معظم الطلاب بيبدأوا هنا. وكتير بيخلصوا هنا كمان — وده تمام خالص.",
+    title: "اعملها بنفسك: مجانًا",
+    subtitle: "معظم الطلاب بيبدأوا هنا. وكتير بيخلصوا هنا كمان. وده تمام خالص.",
     items: {
-      matcher: "اختيار الجامعة — ترشيحات مخصصة في دقيقتين",
-      guide: "دليل التقديم الكامل — خطوة بخطوة، مفيش حاجة مخبية",
-      costCalc: "حاسبة تكاليف المعيشة — براغ، برنو، أوسترافا",
-      scholarships: "قاعدة بيانات المنح — بتتحدث بانتظام",
-      prepYear: "دليل السنة التحضيرية — بأسعار حقيقية من مؤسسات حقيقية",
-      qaBase: "قاعدة المعرفة — فيزا، أوراق، سكن، كل حاجة",
-      community: "جروب الفيسبوك — أكتر من 10,500 طالب بيساعدوا بعض",
+      matcher: "اختيار الجامعة: ترشيحات مخصصة في دقيقتين",
+      guide: "دليل التقديم الكامل: خطوة بخطوة، مفيش حاجة مخبية",
+      costCalc: "حاسبة تكاليف المعيشة: براغ، برنو، أوسترافا",
+      scholarships: "قاعدة بيانات المنح: بتتحدث بانتظام",
+      prepYear: "دليل السنة التحضيرية: بأسعار حقيقية من مؤسسات حقيقية",
+      qaBase: "قاعدة المعرفة: فيزا، أوراق، سكن، كل حاجة",
+      community: "جروب الفيسبوك: أكتر من 10,500 طالب بيساعدوا بعض",
     },
     cta: "استكشف الموارد المجانية →",
   },
   services: {
     consultation: {
-      title: "اسألني أي حاجة — 30 دقيقة",
+      title: "اسألني أي حاجة: 30 دقيقة",
       fearTrigger: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
-      description: "مكالمة مركزة عن وضعك أنت تحديدًا. مش نصايح عامة — هبص على وضعك وهقولك بالظبط تعمل إيه. معظم الطلاب بيحجزوا لما بيكونوا واقفين عند حاجة معينة.",
+      description: "مكالمة مركزة عن وضعك أنت تحديدًا. مش نصايح عامة. هبص على وضعك وهقولك بالظبط تعمل إيه. معظم الطلاب بيحجزوا لما بيكونوا واقفين عند حاجة معينة.",
       included: [
         "مكالمة فيديو أو صوت 30 دقيقة (اختيارك)",
         "براجع وضعك قبل المكالمة (ابعتلي التفاصيل على واتساب)",
-        "ملخص مكتوب بعد المكالمة — عشان ماتنساش حاجة",
+        "ملخص مكتوب بعد المكالمة. عشان ماتنساش حاجة",
         "48 ساعة متابعة على واتساب لأسئلة سريعة",
       ],
       triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
-      cta: "احجز مكالمة — 15€",
+      cta: "احجز مكالمة (15€)",
       postButton: "🔒 دفع آمن عبر Stripe · استرداد كامل لو المكالمة ماتمتش",
     },
     documentReview: {
-      title: "مراجعة الأوراق — قبل ما تقدم",
+      title: "مراجعة الأوراق: قبل ما تقدم",
       fearTrigger: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
-      description: "ابعتلي كل حاجة ناوي تقدمها — طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ 25€ ممكن تنقذك من رفض بيكلفك فصل كامل.",
+      description: "ابعتلي كل حاجة ناوي تقدمها. طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ 25€ ممكن تنقذك من رفض بيكلفك فصل كامل.",
       included: [
         "مراجعة كاملة لكل الأوراق",
         "تقرير مكتوب مفصل: الصحيح، اللي محتاج تعديل، الناقص",
@@ -825,12 +836,12 @@ const ar: typeof en = {
         "توجيه خاص للترجمات والابوستيل والتنسيق",
         "جولة متابعة: صلح المشاكل، ابعت تاني، بأكدلك إن كله تمام",
       ],
-      triggerLine: 'السفارة مش بتقولك إيه الغلط — بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
-      cta: "راجع أوراقي — 25€",
+      triggerLine: 'السفارة مش بتقولك إيه الغلط. بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
+      cta: "راجع أوراقي (25€)",
       postButton: "🔒 دفع آمن عبر Stripe · ابعت الأوراق على واتساب أو إيميل",
     },
     interviewPrep: {
-      title: "تجهيز مقابلة السفارة — ماتروحش من غير تحضير",
+      title: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير",
       fearTrigger: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
       description: "دربت عشرات الطلاب على مقابلات السفارة في القاهرة وعمان وبيروت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
       included: [
@@ -847,7 +858,7 @@ const ar: typeof en = {
     },
     arrivalSupport: {
       title: "وصلت التشيك؟ أنا معاك.",
-      fearTrigger: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل — وكل حاجة بالتشيكي.",
+      fearTrigger: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
       description: "لسه واصل. مش بتتكلم تشيكي. كل لافتة محيرة. أنا عديت كل ده. أنا ساكن هنا. هديك خطة كاملة لأول أسبوع وهكون متاح على واتساب أجاوب على كل سؤال.",
       included: [
         `قائمة "أول أسبوعين" مخصصة لمدينتك`,
@@ -856,16 +867,16 @@ const ar: typeof en = {
         "توصية شريحة موبايل (أحسن باقة للطلاب)",
         "إعداد اشتراك المواصلات",
         "تحقق من التأمين الصحي",
-        "14 يوم دعم واتساب — اسأل أي حاجة، في أي وقت",
+        "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
       ],
       triggerLine: "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
-      cta: "احصل على خطة وصولي — 29€",
+      cta: "احصل على خطة وصولي (29€)",
       postButton: "🔒 دفع آمن عبر Stripe",
     },
     fullPackage: {
-      title: "الرحلة الكاملة — من الصفر للفيزا",
+      title: "الرحلة الكاملة: من الصفر للفيزا",
       fearTrigger: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
-      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه — حتى لو لسه مااخترتش بلد — وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك، ساكن هنا. المكاتب بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
+      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه. حتى لو لسه مااخترتش بلد. وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك، ساكن هنا. المكاتب بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
       included: [
         "اختيار الجامعة والتخصص (حسب درجاتك وميزانيتك وأهدافك)",
         "توجيه كامل لتجهيز الأوراق",
@@ -873,19 +884,19 @@ const ar: typeof en = {
         "شرح كامل لطلب الفيزا",
         "تجهيز مقابلة السفارة (مقابلة تجريبية متضمنة)",
         "توجيه سكن لأول شهور",
-        `خطة "أول أسبوع": شريحة، بنك، مواصلات، شرطة الأجانب، تأمين — كل حاجة`,
+        `خطة "أول أسبوع": شريحة، بنك، مواصلات، شرطة الأجانب، تأمين. كل حاجة`,
         "تواصل مباشر معايا على واتساب طول العملية",
         "30 يوم دعم بعد وصولك التشيك",
-        `كورس "أول 90 يوم في التشيك" — مجانًا`,
+        `كورس "أول 90 يوم في التشيك". مجانًا`,
       ],
-      triggerLine: "الطلاب اللي بيعملوا العملية لوحدهم بياخدوا في المتوسط 3 شهور أكتر — وكتير بيقدموا على البرنامج الغلط أو بيفوتهم موعد ماكانوش يعرفوا بيه.",
-      cta: "ابدأ طلبي — 150€",
-      postButton: "🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · مش متأكد؟ راسلني على واتساب الأول — من غير ضغط.",
+      triggerLine: "الطلاب اللي بيعملوا العملية لوحدهم بياخدوا في المتوسط 3 شهور أكتر. وكتير بيقدموا على البرنامج الغلط أو بيفوتهم موعد ماكانوش يعرفوا بيه.",
+      cta: "ابدأ طلبي (150€)",
+      postButton: "🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · مش متأكد؟ راسلني على واتساب الأول. من غير ضغط.",
       paymentStructure: {
         header: "💳 ادفع على خطوتين:",
         steps: [
-          "الخطوة 1: 150€ — بتبدأ العملية (اختيار الجامعة + خطة الأوراق)",
-          "الخطوة 2: 200€ — بعد مراجعة الأوراق، قبل تقديم الفيزا",
+          "الخطوة 1: 150€، بتبدأ العملية (اختيار الجامعة + خطة الأوراق)",
+          "الخطوة 2: 200€، بعد مراجعة الأوراق، قبل تقديم الفيزا",
           "الإجمالي: 350€ (المكاتب بتاخد 1,500€+ على أقل)",
         ],
       },
@@ -893,8 +904,8 @@ const ar: typeof en = {
   },
   about: {
     paragraphs: [
-      "أنا جون — طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي: الحيرة، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.",
-      "بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من 10,500 عضو. الموقع ده الخطوة التالية — كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.",
+      "أنا جون، طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي: الحيرة، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.",
+      "بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من 10,500 عضو. الموقع ده الخطوة التالية. كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.",
       "الموارد المجانية للجميع. الخدمات المدفوعة للطلاب اللي عايزيني أنا شخصيًا في جانبهم.",
     ],
   },
@@ -903,12 +914,12 @@ const ar: typeof en = {
     agencyHeader: "وكالة عادية",
     usHeader: "Study in Czechia",
     rows: [
-      { label: "مكانهم", agency: "في بلدك — عمرهم ماراحوا التشيك", us: "في برنو، التشيك — ساكن هنا دلوقتي" },
+      { label: "مكانهم", agency: "في بلدك. عمرهم ماراحوا التشيك", us: "في برنو، التشيك. ساكن هنا دلوقتي" },
       { label: "خبرتهم", agency: "قريوا عن العملية أونلاين", us: "عديت العملية كلها بنفسي" },
       { label: "اللغة", agency: "عربي بس", us: "عربي، إنجليزي، وتشيكي" },
       { label: "سعر الدعم الكامل", agency: "1,500€ – 3,000€", us: "350€ (على خطوتين)" },
-      { label: "موارد مجانية", agency: "مفيش — كل حاجة بفلوس", us: "موقع كامل، أدلة، أدوات، مجتمع" },
-      { label: "دعم بعد الوصول", agency: "مفيش — شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
+      { label: "موارد مجانية", agency: "مفيش، كل حاجة بفلوس", us: "موقع كامل، أدلة، أدوات، مجتمع" },
+      { label: "دعم بعد الوصول", agency: "مفيش، شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
       { label: "تجهيز مقابلة السفارة", agency: "نصايح عامة من PDF", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
       { label: "استرداد", agency: "تقريبًا مستحيل", us: "راسل خلال 48 ساعة، استرداد كامل" },
       { label: "المجتمع", agency: "أنت رقم عميل", us: "انضم لأكتر من 10,500 طالب بيساعدوا بعض" },
@@ -916,7 +927,7 @@ const ar: typeof en = {
   },
   testimonials: {
     title: "طلاب كانوا في نفس موقفك بالظبط",
-    placeholder: `"التجارب قريبًا — بنجمع قصص من طلاب في مجتمعنا."`,
+    placeholder: `"التجارب قريبًا. بنجمع قصص من طلاب في مجتمعنا."`,
     comingSoon: "قريبًا",
   },
   scamWarning: "إحنا مش بنطلب فلوس على أي رقم واتساب غير رسمي أو رسايل خاصة بتدعي إنها منّا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
@@ -926,15 +937,15 @@ const ar: typeof en = {
       { q: "ليه أدفع والأدلة مجانية؟", a: "الأدلة بتعلمك العملية. الخدمات هي أنا شخصيًا براجع أوراقك أنت ووضعك أنت وبجاوب أسئلتك أنت. الفرق بين إنك تقرأ كتاب طب وإنك تروح لدكتور." },
       { q: "إيه الفرق بينكم وبين مكتب؟", a: "المكاتب في مصر أو الأردن بيبيعوك باكيج وبيختفوا. عمرهم ماراحوا التشيك. أنا ساكن هنا. عديت التجربة. وبكلف جزء صغير من سعرهم." },
       { q: "لو دفعت ومش راضي؟", a: "راسلني خلال 48 ساعة وهرجعلك فلوسك كلها. بدون أسئلة، بدون نماذج، بدون انتظار." },
-      { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe — نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام — راسلني على واتساب." },
-      { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا — وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
+      { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe. نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام. راسلني على واتساب." },
+      { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا. وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
       { q: "لقيت مكتب أرخص. ليه ماستخدمهمش؟", a: "اسألهم 3 أسئلة: راحوا التشيك قبل كده؟ يقدروا يعملوا مقابلة تجريبية بأسئلة حقيقية؟ هيساعدوك بعد ما توصل؟ لو الإجابة لأ على أي واحد، بتدفع لوسيط بيعملك Google." },
-      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة — محدش يقدر، وأي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
+      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة. محدش يقدر، وأي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
     ],
   },
   priceAnchor: {
     bold: "اغلب الوكالات بتاخد $800-$3,000 على دعم التقديم.",
-    sub: "عندي €350، على خطوتين. مش عشان الشغل اقل — عشان انا طالب عايش هنا، مش مكتب بمصاريف في 4 مدن.",
+    sub: "عندي €350، على خطوتين. مش عشان الشغل أقل، عشان أنا طالب عايش هنا، مش مكتب بمصاريف في 4 مدن.",
   },
   securityNotice:
     "احنا عمرنا ما بنطلب دفع من خلال ارقام واتساب غير رسمية او رسائل بتدعي انها مننا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
@@ -944,5 +955,5 @@ const ar: typeof en = {
     button: "راسل على واتساب",
   },
   bestValue: "الأفضل قيمة",
-  whatsappTooltip: "مش متأكد من أي خدمة؟ اسألني — من غير ضغط.",
+  whatsappTooltip: "مش متأكد من أي خدمة؟ اسألني. من غير ضغط.",
 };

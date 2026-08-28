@@ -32,7 +32,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://cuni.cz/UKEN-1.html",
     admissionsUrl: "https://cuni.cz/UKEN-108.html",
     blurb: {
-      en: "Founded 1348 — one of Europe's oldest and most prestigious universities, strong in medicine and sciences.",
+      en: "Founded 1348, one of Europe's oldest and most prestigious universities, strong in medicine and sciences.",
       ar: "تأسست 1348، من أعرق وأرقى جامعات أوروبا، قوية جدًا في الطب والعلوم.",
     },
     fields: ["Medicine", "Law", "Humanities", "Sciences"],
@@ -53,7 +53,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://www.cvut.cz/en",
     admissionsUrl: "https://www.cvut.cz/en/admissions",
     blurb: {
-      en: "Established 1707 — a leading technical university for engineering, robotics, and architecture.",
+      en: "Established 1707, a leading technical university for engineering, robotics, and architecture.",
       ar: "تأسست 1707، من أفضل الجامعات التقنية في الهندسة والروبوتات والعمارة.",
     },
     fields: ["Engineering", "IT", "Architecture", "Robotics"],
@@ -95,7 +95,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://www.muni.cz/en",
     admissionsUrl: "https://www.muni.cz/en/admissions",
     blurb: {
-      en: "Founded 1919 — one of Central Europe's most prestigious universities in a very student-friendly city.",
+      en: "Founded 1919, one of Central Europe's most prestigious universities in a very student-friendly city.",
       ar: "تأسست 1919، من أرقى جامعات وسط أوروبا في مدينة مناسبة جدًا للطلاب.",
     },
     fields: ["Medicine", "Humanities", "Sciences", "Social Sciences"],
@@ -137,7 +137,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://mendelu.cz/en/",
     admissionsUrl: "https://mendelu.cz/en/admission/",
     blurb: {
-      en: "Named after Gregor Mendel — sustainability and green-tech focused, on a serene green campus.",
+      en: "Named after Gregor Mendel, sustainability and green-tech focused, on a serene green campus.",
       ar: "سميت على مندل مؤسس علم الوراثة، متخصصة في الاستدامة والتكنولوجيا الخضراء.",
     },
     fields: ["Agriculture", "Forestry", "Economics", "Environmental Science"],
@@ -158,7 +158,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://www.upol.cz/en/",
     admissionsUrl: "https://www.upol.cz/en/applicants/",
     blurb: {
-      en: "Established 1573 — over 450 years of tradition in a picturesque, affordable university city.",
+      en: "Established 1573, over 450 years of tradition in a picturesque, affordable university city.",
       ar: "تأسست عام 1573، أكثر من 450 سنة من التقاليد الأكاديمية في مدينة جميلة واقتصادية.",
     },
     fields: ["Medicine", "Humanities", "Sciences", "Law"],
@@ -260,8 +260,8 @@ export const universitiesV2: UniversityV2[] = [
     founded: 1953,
     website: "https://www.tul.cz/en/",
     blurb: {
-      en: "A compact technical university in a small, mountain-adjacent city — a quieter, more affordable option.",
-      ar: "جامعة تقنية في مدينة صغيرة قريبة من الجبال — خيار أهدأ وأرخص.",
+      en: "A compact technical university in a small, mountain-adjacent city: a quieter, more affordable option.",
+      ar: "جامعة تقنية في مدينة صغيرة قريبة من الجبال، خيار أهدأ وأرخص.",
     },
     fields: ["Engineering", "IT", "Textiles", "Sciences"],
     verification: {
@@ -341,7 +341,7 @@ export const universitiesV2: UniversityV2[] = [
     website: "https://www.jcu.cz/en/",
     blurb: {
       en: "A green-campus university by the Vltava river, strong in biology, agriculture and environmental sciences.",
-      ar: "جامعة بحرم أخضر على نهر فلتافا — قوية في الأحياء والزراعة والعلوم البيئية.",
+      ar: "جامعة بحرم أخضر على نهر فلتافا، قوية في الأحياء والزراعة والعلوم البيئية.",
     },
     fields: ["Biology", "Agriculture", "Education", "Fisheries"],
     verification: {
@@ -404,7 +404,7 @@ export const universitiesV2: UniversityV2[] = [
     contactEmail: "info@skoda-auto.cz",
     blurb: {
       en: "Industry-linked university in the car-manufacturing hub of Mladá Boleslav with strong logistics and business programmes.",
-      ar: "جامعة مرتبطة بصناعة السيارات في ملادا بوليسلاف — برامج قوية في اللوجستيات وإدارة الأعمال.",
+      ar: "جامعة مرتبطة بصناعة السيارات في ملادا بوليسلاف، برامج قوية في اللوجستيات وإدارة الأعمال.",
     },
     fields: ["Business", "Logistics", "IT"],
     verification: {

@@ -3,7 +3,7 @@ import CoursesClient from "./CoursesClient";
 
 export const metadata: Metadata = {
   title: "Your First 90 Days in Czechia",
-  description: "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here. €49, lifetime access.",
+  description: "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here. €49, lifetime access.",
   alternates: { canonical: "/courses" },
 };
 
@@ -11,7 +11,7 @@ const courseJsonLd = {
   "@context": "https://schema.org",
   "@type": "Course",
   name: "Your First 90 Days in Czechia",
-  description: "Language, culture, embassy prep, and everything nobody tells you — taught in Arabic by a student who lives here.",
+  description: "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here.",
   provider: {
     "@type": "Organization",
     name: "Study in Czechia",

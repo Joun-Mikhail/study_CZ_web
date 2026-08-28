@@ -8,6 +8,7 @@ import { getUniversityV2 } from "@/data/compat";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import UniversityCorrectionForm from "./UniversityCorrectionForm";
 import { Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText, ExternalLink } from "lucide-react";
+import Image from "next/image";
 import type { Programme } from "@/data/types";
 
 function TrustLabel({ level, locale }: { level: string; locale: "en" | "ar" }) {
@@ -99,6 +100,21 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
 
   return (
     <div>
+      {/* University hero banner */}
+      <div className="relative w-full h-[120px] sm:h-[160px] rounded-2xl overflow-hidden mb-6">
+        <Image
+          src="/images/prague-bridge.jpg"
+          alt={`${uni.name} in ${uni.city}`}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-transparent" />
+        <div className="absolute bottom-3 start-4 z-10">
+          <span className="text-xs text-white/70">{uni.city}</span>
+        </div>
+      </div>
+
       <div className="flex items-start justify-between gap-4 mb-1">
         <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">{uni.name}</h1>
         {uniV2 && (
@@ -115,7 +131,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       </div>
       <p className="text-sm text-text-secondary mb-2">
         {uni.city}
-        {uni.founded ? ` — ${t.university.established} ${uni.founded}` : ""}
+        {uni.founded ? `, ${t.university.established} ${uni.founded}` : ""}
       </p>
       {uniV2 && (
         <VerifiedBadge

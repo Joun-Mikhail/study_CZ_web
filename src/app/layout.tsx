@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Tajawal } from "next/font/google";
+import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const tajawal = Tajawal({
@@ -19,11 +20,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "studyczechia — Your Trusted Bridge to Czech University Life",
-    template: "%s | studyczechia",
+    default: "Study Czechia: Your Trusted Bridge to Czech University Life",
+    template: "%s | Study Czechia",
   },
   description:
-    "Free guides, university matching, and cost-of-living tools plus personal services — document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
+    "Free guides, university matching, and cost-of-living tools plus personal services: document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
   keywords: [
     "studyczechia",
     "study in czechia",
@@ -35,12 +36,12 @@ export const metadata: Metadata = {
     "scholarships czech republic",
     "arabic students czech",
   ],
-  authors: [{ name: "Study in Czechia" }],
+  authors: [{ name: "Study Czechia" }],
   openGraph: {
-    siteName: "Study in Czechia",
+    siteName: "Study Czechia",
     locale: "en_US",
     type: "website",
-    images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study in Czechia" }],
+    images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -64,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" className={`${geistSans.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" dir="ltr" className={`${jakarta.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
       <head>
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/`} />
         <link rel="alternate" hrefLang="ar" href={`${SITE_URL}/`} />
@@ -77,7 +78,7 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "EducationalOrganization",
-                name: "Study in Czechia",
+                name: "Study Czechia",
                 alternateName: "studyczechia",
                 url: SITE_URL,
                 description: "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
@@ -88,7 +89,7 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                name: "Study in Czechia",
+                name: "Study Czechia",
                 alternateName: "studyczechia",
                 url: SITE_URL,
                 potentialAction: {
@@ -108,7 +109,6 @@ export default function RootLayout({
         <TranslationProvider>
           {children}
         </TranslationProvider>
-        {/* Analytics placeholder component (client) */}
         <Analytics />
       </body>
     </html>

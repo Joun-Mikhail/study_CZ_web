@@ -34,11 +34,11 @@ export const cityGuides: Record<CityKey, CityGuide> = {
     avgRentMonthly: 6500,
     tips: {
       en: [
-        "Look for dorm applications early—waiting lists fill fast.",
+        "Look for dorm applications early, waiting lists fill fast.",
         "Avoid the most tourist-heavy streets when renting to save money.",
       ],
       ar: [
-        "قدّم على السكن الجامعي مبكرًا — القوائم تمتلئ سريعًا.",
+        "قدّم على السكن الجامعي مبكرًا، القوائم تمتلئ سريعًا.",
         "تجنب الشوارع المزدحمة بالسياح عند البحث عن سكن لتوفير المال.",
       ],
     },
@@ -55,8 +55,8 @@ export const cityGuides: Record<CityKey, CityGuide> = {
       ar: "إيجارات أكثر قابلية للتحمل والعديد من الأحياء الطلابية القريبة من الجامعات.",
     },
     transport: {
-      en: "Compact city center — many students cycle or use buses and trams.",
-      ar: "مركز مدينة مدمج — العديد من الطلاب يركبون الدراجات أو يستخدمون الحافلات والترام.",
+      en: "Compact city center: many students cycle or use buses and trams.",
+      ar: "مركز مدينة مدمج، العديد من الطلاب يركبون الدراجات أو يستخدمون الحافلات والترام.",
     },
     nightlife: {
       en: "Good student-focused cafes and cultural spots; lively but smaller than Prague.",

@@ -10,16 +10,16 @@ export const guideSteps: GuideStep[] = [
     id: "major",
     title: { en: "1. Decide on your major", ar: "١. حدد التخصص اللي هتدرسه" },
     body: {
-      en: "Start here — for example \"Engineering\" or \"Medicine.\" Everything else (which universities you'll compare, which language level you need) depends on this choice.",
-      ar: "ابدأ من هنا — مثلًا \"هندسة\" أو \"طب\". كل حاجة تانية (الجامعات اللي هتقارن بينها، مستوى اللغة المطلوب) بيعتمد على القرار ده.",
+      en: "Start here: for example \"Engineering\" or \"Medicine.\" Everything else (which universities you'll compare, which language level you need) depends on this choice.",
+      ar: "ابدأ من هنا: مثلًا \"هندسة\" أو \"طب\". كل حاجة تانية (الجامعات اللي هتقارن بينها، مستوى اللغة المطلوب) بيعتمد على القرار ده.",
     },
   },
   {
     id: "language",
     title: { en: "2. Choose your language of instruction", ar: "٢. اختار لغة الدراسة" },
     body: {
-      en: "For most students this will be English. Don't get too excited about studying in Czech for free — Czech is genuinely difficult and typically takes about two years of dedicated study before you're ready to study a full degree in it.",
-      ar: "للأغلبية هتكون إنجليزي. متتحمسش قوي لفكرة إنك تدرس بالتشيكي ببلاش — التشيكي صعب فعلًا وبياخد حوالي سنتين تفرغ كمل عشان تبقى جاهز تدرس بيه.",
+      en: "For most students this will be English. Don't get too excited about studying in Czech for free: Czech is genuinely difficult and typically takes about two years of dedicated study before you're ready to study a full degree in it.",
+      ar: "للأغلبية هتكون إنجليزي. متتحمسش قوي لفكرة إنك تدرس بالتشيكي ببلاش، فالتشيكي صعب فعلًا وبياخد حوالي سنتين تفرغ كمل عشان تبقى جاهز تدرس بيه.",
     },
   },
   {
@@ -42,12 +42,12 @@ export const guideSteps: GuideStep[] = [
     id: "research",
     title: { en: "5. Research universities offering English-taught programs", ar: "٥. دوّر على جامعات بتقدم برامج بالإنجليزي" },
     body: {
-      en: "This is one of the most tedious steps. Compare tuition across a shortlist of universities for your major, and check each program's entrance requirements before committing. Universities have charged anywhere from about €1,000 to €2,000/year for the same major — it's worth comparing.",
-      ar: "هذه من أكثر الخطوات المرهقة. قارن الرسوم بين قائمة مختصرة من الجامعات لنفس التخصص، وراجع شروط القبول لكل برنامج قبل الالتزام. وجدنا فروقًا فعلية بين 1,000 و2,000 يورو في السنة لنفس التخصص في جامعات مختلفة — من المفيد المقارنة.",
+      en: "This is one of the most tedious steps. Compare tuition across a shortlist of universities for your major, and check each program's entrance requirements before committing. Universities have charged anywhere from about €1,000 to €2,000/year for the same major, so it's worth comparing.",
+      ar: "هذه من أكثر الخطوات المرهقة. قارن الرسوم بين قائمة مختصرة من الجامعات لنفس التخصص، وراجع شروط القبول لكل برنامج قبل الالتزام. وجدنا فروقًا فعلية بين 1,000 و2,000 يورو في السنة لنفس التخصص في جامعات مختلفة، من المفيد المقارنة.",
     },
     tip: {
-      en: "Confirm the entrance exam is available online before applying — you likely won't get a visa to travel just to sit an exam.",
-      ar: "تأكد إن الامتحان متاح أونلاين قبل ما تقدم — على الأغلب مش هتقدر تجيب فيزا تسافر بيها تمتحن بس.",
+      en: "Confirm the entrance exam is available online before applying. You likely won't get a visa to travel just to sit an exam.",
+      ar: "تأكد إن الامتحان متاح أونلاين قبل ما تقدم. على الأغلب مش هتقدر تجيب فيزا تسافر بيها تمتحن بس.",
     },
   },
   {
@@ -86,16 +86,16 @@ export const guideSteps: GuideStep[] = [
     id: "apply-exams",
     title: { en: "10. Apply to universities and sit the entrance exams", ar: "١٠. قدّم للجامعات وادخل امتحانات القبول" },
     body: {
-      en: "Applications typically open in January and close by around March — apply as early as possible in that window, since missing it can mean waiting a full extra year. Exams are usually in May or June. Prepare thoroughly and wait for results.",
-      ar: "التقديم غالبًا بيفتح في يناير ويقفل حوالي شهر مارس — قدّم بدري قد ما تقدر لأن لو فاتك الموعد ممكن تستنى سنة كملة تانية. الامتحانات غالبًا في مايو أو يونيو. ذاكر كويس واستنى النتيجة.",
+      en: "Applications typically open in January and close by around March. Apply as early as possible in that window, since missing it can mean waiting a full extra year. Exams are usually in May or June. Prepare thoroughly and wait for results.",
+      ar: "التقديم غالبًا بيفتح في يناير ويقفل حوالي شهر مارس. قدّم بدري قد ما تقدر لأن لو فاتك الموعد ممكن تستنى سنة كملة تانية. الامتحانات غالبًا في مايو أو يونيو. ذاكر كويس واستنى النتيجة.",
     },
   },
   {
     id: "housing",
     title: { en: "11. Apply for university accommodation", ar: "١١. قدّم على سكن الجامعة" },
     body: {
-      en: "As soon as results are out, apply for housing and contact your university's foreign students' office — you'll need the accommodation contract to apply for your visa.",
-      ar: "أول ما النتيجة تطلع، قدّم على السكن وتواصل مع مكتب الطلاب الأجانب في جامعتك — هتحتاج عقد السكن عشان تقدم بيه على الفيزا.",
+      en: "As soon as results are out, apply for housing and contact your university's foreign students' office. You'll need the accommodation contract to apply for your visa.",
+      ar: "أول ما النتيجة تطلع، قدّم على السكن وتواصل مع مكتب الطلاب الأجانب في جامعتك. هتحتاج عقد السكن عشان تقدم بيه على الفيزا.",
     },
   },
   {
@@ -126,24 +126,24 @@ export const guideSteps: GuideStep[] = [
     id: "interview",
     title: { en: "15. Prepare for the embassy interview", ar: "١٥. جهّز نفسك للمقابلة" },
     body: {
-      en: "You'll get an email with your interview date. Prepare specific, confident answers about your university, finances, and plans — and it's strongly preferred to do the interview in English, not Arabic.",
-      ar: "هيوصلك إيميل بمعاد المقابلة. جهّز إجابات محددة وواثقة عن جامعتك ووضعك المادي وخططك — ويفضل تعمل المقابلة بالإنجليزي مش بالعربي.",
+      en: "You'll get an email with your interview date. Prepare specific, confident answers about your university, finances, and plans, and it's strongly preferred to do the interview in English, not Arabic.",
+      ar: "هيوصلك إيميل بمعاد المقابلة. جهّز إجابات محددة وواثقة عن جامعتك ووضعك المادي وخططك، ويفضل تعمل المقابلة بالإنجليزي مش بالعربي.",
     },
   },
   {
     id: "post-approval",
     title: { en: "16. Book your flight, insurance, and collect your visa", ar: "١٦. احجز طيران وتأمين واستلم الفيزا" },
     body: {
-      en: "Once approved by email, book a flight ticket, buy health insurance, and send copies of both to the embassy — they'll then send you an appointment to pick up your visa.",
-      ar: "أول ما توصلك موافقة بالإيميل، احجز تذكرة طيران واشترِ تأمين صحي وابعت نسخ منهم للسفارة — بعدها هيبعتولك معاد استلام الفيزا.",
+      en: "Once approved by email, book a flight ticket, buy health insurance, and send copies of both to the embassy. They'll then send you an appointment to pick up your visa.",
+      ar: "أول ما توصلك موافقة بالإيميل، احجز تذكرة طيران واشترِ تأمين صحي وابعت نسخ منهم للسفارة. بعدها هيبعتولك معاد استلام الفيزا.",
     },
   },
   {
     id: "arrival",
     title: { en: "17. Travel and settle in", ar: "١٧. سافر واستقر" },
     body: {
-      en: "Pick up your visa, pack your documents (not in checked luggage), and travel. After arrival you'll register with the foreigners' police, open a local bank account, and pick a mobile plan — details worth researching before you land.",
-      ar: "استلم الفيزا، جهّز أوراقك (في شنطة اليد مش المسجلة)، وسافر. بعد ما توصل هتسجل في شرطة الأجانب، تفتح حساب بنكي محلي، وتختار خط موبايل — كلها تفاصيل يستاهل تقرا عنها قبل ما توصل.",
+      en: "Pick up your visa, pack your documents (not in checked luggage), and travel. After arrival you'll register with the foreigners' police, open a local bank account, and pick a mobile plan, details worth researching before you land.",
+      ar: "استلم الفيزا، جهّز أوراقك (في شنطة اليد مش المسجلة)، وسافر. بعد ما توصل هتسجل في شرطة الأجانب، تفتح حساب بنكي محلي، وتختار خط موبايل، كلها تفاصيل يستاهل تقرا عنها قبل ما توصل.",
     },
   },
 ];

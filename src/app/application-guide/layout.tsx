@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Application Guide",
-  description: "Step-by-step guide to applying to Czech universities — documents, deadlines, and visa requirements.",
+  description: "Step-by-step guide to applying to Czech universities. Documents, deadlines, and visa requirements.",
   alternates: { canonical: "/application-guide" },
 };
 

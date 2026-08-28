@@ -12,7 +12,7 @@ const sections = {
     blocks: [
       {
         heading: "What we collect",
-        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form. The eligibility checker and university matcher process your answers entirely in your browser — nothing is sent to our servers.",
+        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form. The eligibility checker and university matcher process your answers entirely in your browser. Nothing is sent to our servers.",
       },
       {
         heading: "How we use it",
@@ -42,7 +42,7 @@ const sections = {
     blocks: [
       {
         heading: "إيه اللي بنجمعه",
-        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة. تقييم الأهلية واختيار الجامعة بيشتغلوا بالكامل على جهازك — مفيش حاجة بتتبعت لسيرفراتنا.",
+        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة. تقييم الأهلية واختيار الجامعة بيشتغلوا بالكامل على جهازك. مفيش حاجة بتتبعت لسيرفراتنا.",
       },
       {
         heading: "إزاي بنستخدمه",

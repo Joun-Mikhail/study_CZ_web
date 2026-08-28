@@ -19,7 +19,7 @@ const t = {
     badge: "About this platform",
     title: "Study Czechia is not an agency.",
     subtitle:
-      "It is an independent, student-built platform that helps Arabic-speaking students navigate Czech universities — with free resources, honest information, and optional personal support.",
+      "It is an independent, student-built platform that helps Arabic-speaking students navigate Czech universities, with free resources, honest information, and optional personal support.",
     notOfficialTitle: "Is this an official government website?",
     notOfficialBody:
       "No. Study Czechia is not affiliated with any Czech embassy, government ministry, or university. We provide guidance and link directly to official sources. For legal decisions, always rely on the relevant Czech authority.",
@@ -30,7 +30,7 @@ const t = {
     ],
     storyTitle: "How it started",
     storyBody:
-      "This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to 10,500+ members. This website is the next step: the same free, honest answers — just easier to find.",
+      "This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to 10,500+ members. This website is the next step: the same free, honest answers, just easier to find.",
     whatWeDoTitle: "What we do",
     whatWeDo: [
       "Free guides on applications, visas, costs, and university selection",
@@ -40,14 +40,14 @@ const t = {
     ],
     whatWeDontTitle: "What we don't do",
     whatWeDont: [
-      "We don't guarantee admission or visa approval — no one can",
-      "We don't fabricate data — every figure is sourced or labelled as community experience",
+      "We don't guarantee admission or visa approval. No one can.",
+      "We don't fabricate data. Every figure is sourced or labelled as community experience",
       "We don't represent any university or government body",
       "We don't store personal data without explicit consent",
     ],
     verificationTitle: "How we verify information",
     verificationBody:
-      "Important claims on this site are marked with a \"Last verified\" date and linked to their official source. When our information conflicts with an official source, follow the official source — and tell us so we can correct it.",
+      "Important claims on this site are marked with a \"Last verified\" date and linked to their official source. When our information conflicts with an official source, follow the official source, and tell us so we can correct it.",
     officialSourcesTitle: "Official sources we reference",
     officialSources: [
       { name: "Czech Ministry of Interior", url: "https://www.mvcr.cz/mvcren/" },
@@ -55,13 +55,13 @@ const t = {
       { name: "Study in the Czech Republic", url: "https://www.studyin.cz/" },
     ],
     contactTitle: "Contact",
-    contactBody: "Questions, corrections, or feedback — we read everything.",
+    contactBody: "Questions, corrections, or feedback. We read everything.",
   },
   ar: {
     badge: "عن المنصة",
     title: "Study Czechia مش وكالة.",
     subtitle:
-      "منصة مستقلة بناها طلاب، بتساعد الطلاب العرب يفهموا الجامعات التشيكية — بموارد مجانية، معلومات صادقة، ودعم شخصي اختياري.",
+      "منصة مستقلة بناها طلاب، بتساعد الطلاب العرب يفهموا الجامعات التشيكية، بموارد مجانية، معلومات صادقة، ودعم شخصي اختياري.",
     notOfficialTitle: "هل ده موقع حكومي رسمي؟",
     notOfficialBody:
       "لا. Study Czechia مش تابع لأي سفارة تشيكية أو وزارة حكومية أو جامعة. إحنا بنقدم إرشاد وبنربط مباشرة بالمصادر الرسمية. في القرارات القانونية، دايما ارجع للجهة التشيكية المختصة.",
@@ -72,7 +72,7 @@ const t = {
     ],
     storyTitle: "إزاي بدأ",
     storyBody:
-      "الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من 10,500 عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة — بس أسهل توصلها.",
+      "الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من 10,500 عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة، بس أسهل توصلها.",
     whatWeDoTitle: "إيه اللي بنعمله",
     whatWeDo: [
       "أدلة مجانية عن التقديمات والفيزا والتكاليف واختيار الجامعة",
@@ -82,14 +82,14 @@ const t = {
     ],
     whatWeDontTitle: "إيه اللي مش بنعمله",
     whatWeDont: [
-      "مش بنضمن قبول أو موافقة فيزا — محدش يقدر يضمن ده",
-      "مش بنخترع بيانات — كل رقم مصدره موثق أو مكتوب إنه تجربة مجتمعية",
+      "مش بنضمن قبول أو موافقة فيزا. محدش يقدر يضمن ده.",
+      "مش بنخترع بيانات. كل رقم مصدره موثق أو مكتوب إنه تجربة مجتمعية",
       "مش بنمثل أي جامعة أو جهة حكومية",
       "مش بنخزن بيانات شخصية من غير موافقة صريحة",
     ],
     verificationTitle: "إزاي بنتحقق من المعلومات",
     verificationBody:
-      "المعلومات المهمة على الموقع متعلم عليها بتاريخ \"آخر تحقق\" ومربوطة بمصدرها الرسمي. لو معلوماتنا اتعارضت مع مصدر رسمي، اتبع المصدر الرسمي — وقولنا عشان نصلحها.",
+      "المعلومات المهمة على الموقع متعلم عليها بتاريخ \"آخر تحقق\" ومربوطة بمصدرها الرسمي. لو معلوماتنا اتعارضت مع مصدر رسمي، اتبع المصدر الرسمي، وقولنا عشان نصلحها.",
     officialSourcesTitle: "المصادر الرسمية اللي بنرجعلها",
     officialSources: [
       { name: "وزارة الداخلية التشيكية", url: "https://www.mvcr.cz/mvcren/" },
@@ -97,7 +97,7 @@ const t = {
       { name: "الدراسة في التشيك", url: "https://www.studyin.cz/" },
     ],
     contactTitle: "تواصل",
-    contactBody: "أسئلة، تصحيحات، أو ملاحظات — بنقرأ كل حاجة.",
+    contactBody: "أسئلة، تصحيحات، أو ملاحظات. بنقرأ كل حاجة.",
   },
 };
 
@@ -109,6 +109,21 @@ export default function AboutClient() {
     <div className="relative min-h-screen">
       <Navbar />
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero image banner */}
+        <div className="max-w-3xl mx-auto mb-10">
+          <div className="relative w-full h-[200px] sm:h-[280px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-old-town.jpg"
+              alt="Charles Bridge in Prague at golden hour"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent" />
+          </div>
+        </div>
+
         <div className="max-w-3xl mx-auto">
           <span className="inline-block text-xs font-medium text-amber mb-4">
             {l.badge}

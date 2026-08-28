@@ -2,7 +2,7 @@ import ServicesClient from "./ServicesClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services — Study in Czechia",
+  title: "Services: Study in Czechia",
   description:
     "Personal guidance for Arabic-speaking students applying to Czech universities. Document review, embassy interview prep, arrival support, and full application packages.",
   alternates: { canonical: "/services" },
@@ -41,7 +41,7 @@ const faqJsonLd = {
       name: "Is online payment safe?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Payments are processed through Stripe — the same company used by Amazon and Google. I never see your card number. If you're in Egypt and prefer InstaPay, that works too — message me on WhatsApp.",
+        text: "Payments are processed through Stripe, the same company used by Amazon and Google. I never see your card number. If you're in Egypt and prefer InstaPay, that works too. Message me on WhatsApp.",
       },
     },
     {
@@ -49,7 +49,7 @@ const faqJsonLd = {
       name: "Can I message you on WhatsApp for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Absolutely — and I answer questions in the Facebook group every day for free. But if you need two hours of document review or a 45-minute mock interview, that's what the services are for.",
+        text: "Absolutely, and I answer questions in the Facebook group every day for free. But if you need two hours of document review or a 45-minute mock interview, that's what the services are for.",
       },
     },
     {
@@ -57,7 +57,7 @@ const faqJsonLd = {
       name: "What if my visa gets rejected despite the service?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "I help you build the strongest application possible, but I cannot guarantee embassy decisions — nobody can, and anyone who promises you a 'guaranteed visa' is lying. Students I've worked with have a much higher acceptance rate because we catch the mistakes that cause most rejections.",
+        text: "I help you build the strongest application possible, but I cannot guarantee embassy decisions. Nobody can, and anyone who promises you a 'guaranteed visa' is lying. Students I've worked with have a much higher acceptance rate because we catch the mistakes that cause most rejections.",
       },
     },
   ],

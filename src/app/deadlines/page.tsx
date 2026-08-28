@@ -2,9 +2,9 @@ import DeadlinesClient from "./DeadlinesClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Application Deadlines",
+  title: "Deadline Tracker: Czech University Application Deadlines",
   description:
-    "All upcoming Czech university application deadlines in one place. Sorted by date with days remaining. Check back weekly.",
+    "Track verified application deadlines for English-taught programmes at Czech universities. Filter by degree, field, city, and tuition. Only official sources.",
   alternates: { canonical: "/deadlines" },
 };
 

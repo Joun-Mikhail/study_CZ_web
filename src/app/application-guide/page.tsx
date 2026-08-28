@@ -9,6 +9,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { guideSteps } from "@/data/guide";
 import { cn } from "@/lib/utils";
 import { Lightbulb, FileCheck } from "lucide-react";
+import Image from "next/image";
 
 export default function ApplicationGuidePage() {
   const { t, locale } = useTranslation();
@@ -38,6 +39,20 @@ export default function ApplicationGuidePage() {
       <Navbar />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero banner */}
+        <div className="max-w-6xl mx-auto mb-8">
+          <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-old-town.jpg"
+              alt="Prague at golden hour"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 1200px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+        </div>
+
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.guide.title}</h1>
           <p className="text-text-secondary leading-relaxed">{t.guide.subtitle}</p>

@@ -33,7 +33,7 @@ export default function SearchClient() {
       {q && (
         <p className="text-text-muted mb-6 text-sm">
           {isAr ? `البحث عن: "${q}"` : `Showing results for "${q}"`}
-          {results.length > 0 && ` — ${results.length} ${isAr ? "نتيجة" : "found"}`}
+          {results.length > 0 && ` (${results.length} ${isAr ? "نتيجة" : "found"})`}
         </p>
       )}
 

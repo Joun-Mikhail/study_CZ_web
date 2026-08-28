@@ -8,6 +8,7 @@ import { qaEntries, qaCategories, type QaEntry } from "@/data/qa";
 import { motion } from "framer-motion";
 import { Search, ChevronDown, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 
 // Answer text stays permanently mounted (never conditionally rendered) so it's
@@ -80,6 +81,19 @@ export default function QaPage() {
       <Navbar />
 
       <main className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+        {/* Hero banner */}
+        <div className="max-w-3xl mx-auto mb-8">
+          <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/students-studying.jpg"
+              alt="Students collaborating in a library"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+          </div>
+        </div>
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
             {t.qa.title}

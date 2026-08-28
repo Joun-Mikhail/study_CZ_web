@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { qaEntries } from "@/data/qa";
 
 export const metadata: Metadata = {
-  title: "Q&A — Studying in Czechia",
-  description: "Frequently asked questions about studying in the Czech Republic — visas, costs, language, and admissions.",
+  title: "Q&A: Studying in Czechia",
+  description: "Frequently asked questions about studying in the Czech Republic. Visas, costs, language, and admissions.",
   alternates: { canonical: "/qa" },
 };
 

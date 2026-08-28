@@ -186,7 +186,7 @@ export const privatePrograms: PrepProgram[] = [
 
 export const usefulLinks = [
   { label: { en: "Study in Czechia Portal (Language Courses)", ar: "بوابة الدراسة في التشيك (دورات لغة)" }, url: "https://portal.studyin.cz/en/find-your-study-programme/language-courses/" },
-  { label: { en: "Study in Czechia — Language Preparation", ar: "الدراسة في التشيك — التحضير اللغوي" }, url: "https://www.studyin.cz/plan-your-studies/language-preparation/" },
+  { label: { en: "Study in Czechia: Language Preparation", ar: "الدراسة في التشيك: التحضير اللغوي" }, url: "https://www.studyin.cz/plan-your-studies/language-preparation/" },
   { label: { en: "Charles University ÚJOP", ar: "جامعة تشارلز ÚJOP" }, url: "https://ujop.cuni.cz/UJOPEN-1.html" },
   { label: { en: "Masaryk University Czech Courses", ar: "دورات التشيكي في جامعة مساريك" }, url: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/language-courses/czech-language-courses" },
   { label: { en: "VUT Brno Czech Courses", ar: "دورات التشيكي في VUT برنو" }, url: "https://www.lli.vutbr.cz/english" },

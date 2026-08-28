@@ -29,11 +29,11 @@ export const qaEntries: QaEntry[] = [
     id: "visa-decision-delayed",
     category: "visa",
     q: {
-      en: "The embassy's response is delayed and my studies have already started — what do I do?",
+      en: "The embassy's response is delayed and my studies have already started. What do I do?",
       ar: "رد السفارة اتأخر والدراسة بدأت، أعمل إيه؟",
     },
     a: {
-      en: "Contacting the embassy directly usually won't help — your file is now with the Czech Ministry of the Interior, not the embassy, and they'll only respond once a decision is made. You can ask your university to add you to \"student mode\" if that's possible, which can speed things along, or ask the university to follow up with the ministry directly. Delays of 90–120 days after the embassy interview are common and normal as long as you're still within 90 days of your study start date.",
+      en: "Contacting the embassy directly usually won't help: your file is now with the Czech Ministry of the Interior, not the embassy, and they'll only respond once a decision is made. You can ask your university to add you to \"student mode\" if that's possible, which can speed things along, or ask the university to follow up with the ministry directly. Delays of 90–120 days after the embassy interview are common and normal as long as you're still within 90 days of your study start date.",
       ar: "أي محاولة تتواصل مع السفارة مالهاش لازمة لأن ورقك الآن في وزارة الداخلية التشيكية مش معاهم، وهيردوا لما يوصلهم الرد. تقدر تطلب من جامعتك تضيفك على الـ student mode لو ممكن، وده هيسرع الأمور، أو تطلب من الجامعة تتواصل مع الوزارة مباشرة. التأخير لـ90 أو 120 يوم بعد مقابلة السفارة حاجة طبيعية جدًا طالما معداش 90 يوم على معاد بداية دراستك.",
     },
   },
@@ -45,7 +45,7 @@ export const qaEntries: QaEntry[] = [
       ar: "لو اترفضت، أقدر أقدم بنفس الورق تاني؟",
     },
     a: {
-      en: "No — unfortunately you cannot resubmit the exact same application after a rejection.",
+      en: "No, unfortunately you cannot resubmit the exact same application after a rejection.",
       ar: "للأسف لأ، مش ممكن تقدم بنفس الأوراق تاني بعد الرفض.",
     },
   },
@@ -57,7 +57,7 @@ export const qaEntries: QaEntry[] = [
       ar: "لو اترفضت، فلوسي بترجعلي؟",
     },
     a: {
-      en: "Visa and document-processing fees are not refundable. University fees depend entirely on the university's own policy — some refund 90%, some 75%, and some don't refund anything at all.",
+      en: "Visa and document-processing fees are not refundable. University fees depend entirely on the university's own policy: some refund 90%, some 75%, and some don't refund anything at all.",
       ar: "مصاريف الفيزا والأوراق مش بترجع. مصاريف الكلية بتختلف حسب كل كلية: في كليات بترجع 90% من المبلغ، وكليات بترجع 75%، وكليات مبترجعش خالص.",
     },
   },
@@ -69,7 +69,7 @@ export const qaEntries: QaEntry[] = [
       ar: "لو اترفضت، أعمل تظلم إزاي؟",
     },
     a: {
-      en: "The appeal must be filed within two weeks of receiving the rejection, and it needs to be written in Czech — it's best to get someone to help you with it.",
+      en: "The appeal must be filed within two weeks of receiving the rejection, and it needs to be written in Czech. It's best to get someone to help you with it.",
       ar: "التظلم بيتعمل خلال أسبوعين من استلام الرفض، ولازم يكون مكتوب بالتشيكي، ويستحسن تلاقي حد يساعدك فيه.",
     },
   },
@@ -187,8 +187,8 @@ export const qaEntries: QaEntry[] = [
       ar: "أحتاج أحط قد إيه في الحساب البنكي، ولمدة قد إيه؟",
     },
     a: {
-      en: "The published minimum on the embassy's official site is around 115,810 CZK. This must sit in a current (checking) account — not a certificate of deposit or savings certificate — for at least 6 months before your interview, and cover accommodation, food, insurance, travel, and other living costs. If you're under 21 and can't open an account in your own name, you can deposit it in a parent's account with a bank signature verification or a notarized affidavit (usually ~0.5% of the amount as a fee). Always check the embassy's official page for the current figure — it changes with the exchange rate.",
-      ar: "الحد الأدنى المعلن على موقع السفارة الرسمي حوالي 115,810 كرونة تشيكية. لازم يكون المبلغ في حساب جاري — مش شهادات أو ودايع — لمدة 6 أشهر على الأقل قبل المقابلة، ويغطي السكن والأكل والتأمين والسفر ومصاريف الحياة التانية. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، تقدر تحطهم في حساب والدك أو والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (بتدفع عادة حوالي 0.5% من قيمة المبلغ كرسوم). دايمًا تابع الصفحة الرسمية للسفارة عشان الرقم بيتغير مع سعر الصرف.",
+      en: "The published minimum on the embassy's official site is around 115,810 CZK. This must sit in a current (checking) account, not a certificate of deposit or savings certificate, for at least 6 months before your interview, and cover accommodation, food, insurance, travel, and other living costs. If you're under 21 and can't open an account in your own name, you can deposit it in a parent's account with a bank signature verification or a notarized affidavit (usually ~0.5% of the amount as a fee). Always check the embassy's official page for the current figure, since it changes with the exchange rate.",
+      ar: "الحد الأدنى المعلن على موقع السفارة الرسمي حوالي 115,810 كرونة تشيكية. لازم يكون المبلغ في حساب جاري، مش شهادات أو ودايع، لمدة 6 أشهر على الأقل قبل المقابلة، ويغطي السكن والأكل والتأمين والسفر ومصاريف الحياة التانية. لو عمرك أقل من 21 ومش هتقدر تفتح حساب بأسمك، تقدر تحطهم في حساب والدك أو والدتك مع صحة توقيع من البنك أو إقرار من الشهر العقاري (بتدفع عادة حوالي 0.5% من قيمة المبلغ كرسوم). دايمًا تابع الصفحة الرسمية للسفارة عشان الرقم بيتغير مع سعر الصرف.",
     },
   },
 
@@ -213,8 +213,8 @@ export const qaEntries: QaEntry[] = [
       ar: "إيه مستوى اللغة المطلوب للطب وطب الأسنان؟",
     },
     a: {
-      en: "B2 for Charles University's Plzeň branch and Ostrava University's medicine program; C1 for Charles University's Prague and Hradec Králové branches. Masaryk University (Brno) and Palacký University don't require a language certificate for medicine — you just need the high school equivalency certificate and to pass the entrance exam. Pharmacy doesn't require a language certificate at all, only the entrance exam.",
-      ar: "B2 لفرع بلزن من جامعة تشارلز وطب جامعة أوسترافا؛ C1 لفرع براغ وهرادتس كرالوفه من جامعة تشارلز. جامعة مساريك (برنو) وجامعة بالاتسكي مش مطلوب فيهم شهادة لغة للطب — بس معادلة الثانوية واجتياز امتحان القبول. الصيدلة مش مطلوب فيها شهادة لغة خالص، بس اجتياز امتحان القبول.",
+      en: "B2 for Charles University's Plzeň branch and Ostrava University's medicine program; C1 for Charles University's Prague and Hradec Králové branches. Masaryk University (Brno) and Palacký University don't require a language certificate for medicine: you just need the high school equivalency certificate and to pass the entrance exam. Pharmacy doesn't require a language certificate at all, only the entrance exam.",
+      ar: "B2 لفرع بلزن من جامعة تشارلز وطب جامعة أوسترافا؛ C1 لفرع براغ وهرادتس كرالوفه من جامعة تشارلز. جامعة مساريك (برنو) وجامعة بالاتسكي مش مطلوب فيهم شهادة لغة للطب، بس معادلة الثانوية واجتياز امتحان القبول. الصيدلة مش مطلوب فيها شهادة لغة خالص، بس اجتياز امتحان القبول.",
     },
   },
   {
@@ -225,8 +225,8 @@ export const qaEntries: QaEntry[] = [
       ar: "إيه مواد امتحان القبول للطب؟",
     },
     a: {
-      en: "Biology, Physics, and Chemistry for human medicine or dentistry across the Czech Republic. For pharmacy, it's just Chemistry and Biology. Admission is based purely on the entrance exam result plus your equivalency certificate — not your high school GPA.",
-      ar: "أحياء، فيزياء، وكيمياء للطب البشري وطب الأسنان في كل التشيك. للصيدلة، كيمياء وأحياء بس. القبول بيعتمد على نتيجة امتحان القبول ومعادلة الثانوية بس — مش على مجموع الثانوية.",
+      en: "Biology, Physics, and Chemistry for human medicine or dentistry across the Czech Republic. For pharmacy, it's just Chemistry and Biology. Admission is based purely on the entrance exam result plus your equivalency certificate, not your high school GPA.",
+      ar: "أحياء، فيزياء، وكيمياء للطب البشري وطب الأسنان في كل التشيك. للصيدلة، كيمياء وأحياء بس. القبول بيعتمد على نتيجة امتحان القبول ومعادلة الثانوية بس، مش على مجموع الثانوية.",
     },
   },
   {
@@ -237,8 +237,8 @@ export const qaEntries: QaEntry[] = [
       ar: "أختار الجامعة والتخصص إزاي؟",
     },
     a: {
-      en: "Use the official Study in Czechia portal to browse institutions, then filter by major and degree level (bachelor's/master's). Compare tuition across a shortlist — for example, one student found engineering programs ranging from about €1,000 to €2,000/year across different universities — and check each program's entrance requirements before committing.",
-      ar: "استخدم بوابة Study in Czechia الرسمية لتصفح الجامعات، وبعدين فلتر حسب التخصص ومستوى الدرجة (بكالوريوس/ماجستير). قارن الرسوم بين شورت ليست — مثلًا طالب لقى برامج هندسة تتراوح من 1,000 لـ2,000 يورو في السنة في جامعات مختلفة — وراجع شروط القبول لكل برنامج قبل ما تلتزم.",
+      en: "Use the official Study in Czechia portal to browse institutions, then filter by major and degree level (bachelor's/master's). Compare tuition across a shortlist (for example, one student found engineering programs ranging from about €1,000 to €2,000/year across different universities) and check each program's entrance requirements before committing.",
+      ar: "استخدم بوابة Study in Czechia الرسمية لتصفح الجامعات، وبعدين فلتر حسب التخصص ومستوى الدرجة (بكالوريوس/ماجستير). قارن الرسوم بين شورت ليست (مثلًا طالب لقى برامج هندسة تتراوح من 1,000 لـ2,000 يورو في السنة في جامعات مختلفة) وراجع شروط القبول لكل برنامج قبل ما تلتزم.",
 
     },
   },
@@ -251,8 +251,8 @@ export const qaEntries: QaEntry[] = [
       ar: "ممكن أدرس مجانًا بالتشيك؟",
     },
     a: {
-      en: "Yes — public universities charge no tuition for programmes taught in Czech. You usually need B2+ Czech, often achieved via a one-year foundation/preparatory programme (costs ~€2,000–€5,000). You still pay living costs (~€500–€800/month).",
-      ar: "أيوه — الجامعات الحكومية مابتاخدش رسوم على البرامج اللي بتتدرّس بالتشيكي. عادة بيُطلب مستوى تشيكي حوالي B2 أو أعلى، والطلبة بياخدوا سنة تحضيرية بتكلف تقريبًا 2,000–5,000 يورو. هتتحمّل مصاريف المعيشة برضه (حوالي 500–800 يورو في الشهر).",
+      en: "Yes, public universities charge no tuition for programmes taught in Czech. You usually need B2+ Czech, often achieved via a one-year foundation/preparatory programme (costs ~€2,000–€5,000). You still pay living costs (~€500–€800/month).",
+      ar: "أيوه، الجامعات الحكومية مابتاخدش رسوم على البرامج اللي بتتدرّس بالتشيكي. عادة بيُطلب مستوى تشيكي حوالي B2 أو أعلى، والطلبة بياخدوا سنة تحضيرية بتكلف تقريبًا 2,000–5,000 يورو. هتتحمّل مصاريف المعيشة برضه (حوالي 500–800 يورو في الشهر).",
     },
   },
 
@@ -277,8 +277,8 @@ export const qaEntries: QaEntry[] = [
       ar: "كم برنامج بيتدرّس بالإنجليزي؟",
     },
     a: {
-      en: "There are over 400 Bachelor's and Master's programmes taught fully in English across 60+ Czech universities — the exact number grows each year as universities add international offerings.",
-      ar: "في أكثر من 400 برنامج بكالوريوس وماجستير يُدرَّس بالكمل باللغة الإنجليزية عبر أكثر من 60 جامعة تشيكية — ويزداد هذا العدد سنويًا مع إضافة برامج دولية جديدة.",
+      en: "There are over 400 Bachelor's and Master's programmes taught fully in English across 60+ Czech universities, and the exact number grows each year as universities add international offerings.",
+      ar: "في أكثر من 400 برنامج بكالوريوس وماجستير يُدرَّس بالكمل باللغة الإنجليزية عبر أكثر من 60 جامعة تشيكية، ويزداد هذا العدد سنويًا مع إضافة برامج دولية جديدة.",
     },
   },
 
@@ -291,8 +291,8 @@ export const qaEntries: QaEntry[] = [
       ar: "نظام أولوية سكن الجامعة بيشتغل إزاي؟",
     },
     a: {
-      en: "Each faculty has its own set of dormitory buildings. Priority goes first to students of that same faculty, then to students from other faculties, then to students from institutes. If your faculty's building is full, you'll need to apply to another university's dormitories — VŠE's dormitories in Prague are the most popular fallback and are consistently well-rated.",
-      ar: "كل كلية ليها عدد من المباني السكنية. الأولوية بتكون أولًا لطلبة نفس الكلية، وبعدين طلبة الكليات التانية، وبعدين طلبة المعاهد. لو مبنى كليتك مليان، هتحتاج تقدم على سكن جامعة تانية — سكن VŠE في براغ أشهر بديل ومقيّم كويس باستمرار.",
+      en: "Each faculty has its own set of dormitory buildings. Priority goes first to students of that same faculty, then to students from other faculties, then to students from institutes. If your faculty's building is full, you'll need to apply to another university's dormitories. VŠE's dormitories in Prague are the most popular fallback and are consistently well-rated.",
+      ar: "كل كلية ليها عدد من المباني السكنية. الأولوية بتكون أولًا لطلبة نفس الكلية، وبعدين طلبة الكليات التانية، وبعدين طلبة المعاهد. لو مبنى كليتك مليان، هتحتاج تقدم على سكن جامعة تانية. سكن VŠE في براغ أشهر بديل ومقيّم كويس باستمرار.",
     },
   },
   {
@@ -329,8 +329,8 @@ export const qaEntries: QaEntry[] = [
       ar: "أقدر أشتغل قد إيه قانونيًا وأنا بدرس، وهكسب قد إيه؟",
     },
     a: {
-      en: "Students with a residence permit for the purpose of \"study\" have free access to the Czech labour market — no work permit needed and no fixed hour limit. Verify your specific visa type, as other residence purposes may carry restrictions. Entry-level wages (e.g. restaurant work) start around 120–180 CZK/hour. Work in your field pays according to industry — check sites like Indeed or Salary Explorer. English alone can get you work, but Czech usually unlocks better pay and more options.",
-      ar: "الطلاب اللي عندهم إقامة بغرض \"دراسة\" عندهم حق الوصول الحر لسوق العمل التشيكي — مش محتاج تصريح عمل ومفيش حد ساعات ثابت. تأكد من نوع إقامتك، لأن أغراض الإقامة التانية ممكن يكون عليها قيود. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بيدفع حسب المجال — راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
+      en: "Students with a residence permit for the purpose of \"study\" have free access to the Czech labour market, no work permit needed and no fixed hour limit. Verify your specific visa type, as other residence purposes may carry restrictions. Entry-level wages (e.g. restaurant work) start around 120–180 CZK/hour. Work in your field pays according to industry, so check sites like Indeed or Salary Explorer. English alone can get you work, but Czech usually unlocks better pay and more options.",
+      ar: "الطلاب اللي عندهم إقامة بغرض \"دراسة\" عندهم حق الوصول الحر لسوق العمل التشيكي، مش محتاج تصريح عمل ومفيش حد ساعات ثابت. تأكد من نوع إقامتك، لأن أغراض الإقامة التانية ممكن يكون عليها قيود. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بيدفع حسب المجال، راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
     },
     source: {
       url: "https://www.mvcr.cz/mvcren/article/employment-and-doing-business.aspx",
@@ -347,8 +347,8 @@ export const qaEntries: QaEntry[] = [
       ar: "أتجنب النصب من مكاتب الدراسة إزاي؟",
     },
     a: {
-      en: "This isn't like other destinations where someone takes €100 and hands you a university acceptance the next day — it's genuinely difficult, takes real time and effort, and requires a solid language level. Be very wary of any office promising to \"handle everything\" for a large flat fee (some scams have charged around €1,000) — do the steps yourself where you can, and only use vetted, community-recommended offices for translation and document help.",
-      ar: "الموضوع مش زي بلاد تانية حد ياخد منك 100 يورو وباكر يبقى معاك قبول جامعة — الموضوع صعب فعلًا وبياخد وقت ومجهود كبير ومحتاج مستوى لغة كويس. احذر جدًا من أي مكتب بيوعدك \"هخلصلك كل حاجة\" مقابل مبلغ كبير (في مكاتب نصب أخذت حوالي ألف يورو) — اعمل الخطوات بنفسك قد ما تقدر، واستخدم بس مكاتب ترجمة موثوقة ومرشحة من المجتمع.",
+      en: "This isn't like other destinations where someone takes €100 and hands you a university acceptance the next day. It's genuinely difficult, takes real time and effort, and requires a solid language level. Be very wary of any office promising to \"handle everything\" for a large flat fee (some scams have charged around €1,000). Do the steps yourself where you can, and only use vetted, community-recommended offices for translation and document help.",
+      ar: "الموضوع مش زي بلاد تانية حد ياخد منك 100 يورو وباكر يبقى معاك قبول جامعة. الموضوع صعب فعلًا وبياخد وقت ومجهود كبير ومحتاج مستوى لغة كويس. احذر جدًا من أي مكتب بيوعدك \"هخلصلك كل حاجة\" مقابل مبلغ كبير (في مكاتب نصب أخذت حوالي ألف يورو). اعمل الخطوات بنفسك قد ما تقدر، واستخدم بس مكاتب ترجمة موثوقة ومرشحة من المجتمع.",
     },
   },
 
@@ -357,12 +357,12 @@ export const qaEntries: QaEntry[] = [
     id: "prep-military-travel-permit",
     category: "prep",
     q: {
-      en: "I'm still enrolled in an Egyptian university and haven't registered my military deferral yet — how do I get a tourist travel permit?",
+      en: "I'm still enrolled in an Egyptian university and haven't registered my military deferral yet. How do I get a tourist travel permit?",
       ar: "لسه مقيد في جامعة مصرية ومسجلتش بعثة، أطلع تصريح سفر سياحة إزاي؟",
     },
     a: {
-      en: "You'll need a recent enrollment certificate from your college for the current academic year (issued within the last 3 months), plus a valid national ID and a copy of it. Go to the recruitment (conscription) office you're registered under in your governorate. At the inquiries desk, say you need a tourist travel permit for students; they'll stamp your enrollment certificate. Hand in your phone at the lockers, then get the travel permit application form (costs around 270 EGP), fill it in — if you're actually flying via Vienna or Budapest, put that as your destination on the form (say you're traveling for tourism, not study — this matters). Submit the form, get fingerprinted, and you'll receive a paper with a link to collect the permit online the same evening (around 6 PM) using your national ID number. As of the latest update, the permit is valid for only 15 days from issue and can be used once.",
-      ar: "هتحتاج شهادة اثبات قيد حديثة من الكلية للعام الدراسي الحالي (معداش عليها 3 شهور)، وبطاقة شخصية سارية وصورة منها. روح منطقة التجنيد اللي انت تابع عليها في محافظتك. في الاستعلامات قول انك محتاج تصريح سفر سياحة للطلبة، هيختملولك بيان القيد. سلم موبايلك في الأمانات، وبعدين هات نموذج تصريح سفر السياحة (بـ270 جنيه تقريبًا) واملأ البيانات — لو انت مسافر فعليًا عن طريق فيينا أو بودابست، اكتب الوجهة دي في التصريح (وقول للعسكري انك مسافر سياحة مش دراسة، ودي حاجة مهمة جدًا). سلم الورق، وابصم، وهيديلك ورقة فيها لينك الاستلام. الاستلام بيكون بليل نفس اليوم (حوالي الساعة 6 مساءً) أونلاين بالرقم القومي. بعد آخر تحديث، مدة التصريح 15 يوم بس وصالح لاستخدام واحد فقط.",
+      en: "You'll need a recent enrollment certificate from your college for the current academic year (issued within the last 3 months), plus a valid national ID and a copy of it. Go to the recruitment (conscription) office you're registered under in your governorate. At the inquiries desk, say you need a tourist travel permit for students; they'll stamp your enrollment certificate. Hand in your phone at the lockers, then get the travel permit application form (costs around 270 EGP), fill it in. If you're actually flying via Vienna or Budapest, put that as your destination on the form (say you're traveling for tourism, not study, this matters). Submit the form, get fingerprinted, and you'll receive a paper with a link to collect the permit online the same evening (around 6 PM) using your national ID number. As of the latest update, the permit is valid for only 15 days from issue and can be used once.",
+      ar: "هتحتاج شهادة اثبات قيد حديثة من الكلية للعام الدراسي الحالي (معداش عليها 3 شهور)، وبطاقة شخصية سارية وصورة منها. روح منطقة التجنيد اللي انت تابع عليها في محافظتك. في الاستعلامات قول انك محتاج تصريح سفر سياحة للطلبة، هيختملولك بيان القيد. سلم موبايلك في الأمانات، وبعدين هات نموذج تصريح سفر السياحة (بـ270 جنيه تقريبًا) واملأ البيانات. لو انت مسافر فعليًا عن طريق فيينا أو بودابست، اكتب الوجهة دي في التصريح (وقول للعسكري انك مسافر سياحة مش دراسة، ودي حاجة مهمة جدًا). سلم الورق، وابصم، وهيديلك ورقة فيها لينك الاستلام. الاستلام بيكون بليل نفس اليوم (حوالي الساعة 6 مساءً) أونلاين بالرقم القومي. بعد آخر تحديث، مدة التصريح 15 يوم بس وصالح لاستخدام واحد فقط.",
     },
   },
   {
@@ -373,8 +373,8 @@ export const qaEntries: QaEntry[] = [
       ar: "إيه الأوراق والحاجات اللي لازم أجيبها معايا من مصر؟",
     },
     a: {
-      en: "Keep the originals of everything you had authenticated and translated — your passport, provisional university acceptance letter, translated and legalized education certificates (last 4 years), criminal record extract, bank statement, health certificate, passport-size photos, and your Czech visa/residence permit sticker itself. Also worth bringing: a copy of your accommodation contract, proof of health insurance, and enough cash for your first few days before you sort out a local bank account. Keep digital scans of everything as backup, and don't pack these documents in checked luggage — carry them with you.",
-      ar: "احتفظ بأصل كل حاجة وثقتها وترجمتها — جواز السفر، خطاب القبول المبدئي، الشهادات الدراسية (آخر 4 سنين) مترجمة وموثقة، الفيش والتشبيه، كشف الحساب البنكي، الشهادة الصحية، صور شخصية، وطبعًا ملصق الفيزا أو تصريح الإقامة نفسه. كمان يفضل تجيب نسخة من عقد السكن، إثبات التأمين الصحي، وفلوس كاش تكفيك أول كم يوم لحد ما تفتح حساب بنكي هناك. احتفظ بنسخ سكانر من كل حاجة كباك أب، ولا تحط الأوراق دي في الشنطة اللي بتتسجل في الطيران — خليها معاك في شنطة اليد.",
+      en: "Keep the originals of everything you had authenticated and translated: your passport, provisional university acceptance letter, translated and legalized education certificates (last 4 years), criminal record extract, bank statement, health certificate, passport-size photos, and your Czech visa/residence permit sticker itself. Also worth bringing: a copy of your accommodation contract, proof of health insurance, and enough cash for your first few days before you sort out a local bank account. Keep digital scans of everything as backup, and don't pack these documents in checked luggage; carry them with you.",
+      ar: "احتفظ بأصل كل حاجة وثقتها وترجمتها: جواز السفر، خطاب القبول المبدئي، الشهادات الدراسية (آخر 4 سنين) مترجمة وموثقة، الفيش والتشبيه، كشف الحساب البنكي، الشهادة الصحية، صور شخصية، وطبعًا ملصق الفيزا أو تصريح الإقامة نفسه. كمان يفضل تجيب نسخة من عقد السكن، إثبات التأمين الصحي، وفلوس كاش تكفيك أول كم يوم لحد ما تفتح حساب بنكي هناك. احتفظ بنسخ سكانر من كل حاجة كباك أب، ولا تحط الأوراق دي في الشنطة اللي بتتسجل في الطيران، خليها معاك في شنطة اليد.",
     },
   },
 ];
