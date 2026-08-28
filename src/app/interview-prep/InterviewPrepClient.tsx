@@ -9,6 +9,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { PAYMENT_LINKS, WHATSAPP_URL } from "@/config/contact";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Shield,
   Clock,
@@ -33,6 +34,21 @@ export default function InterviewPrepClient() {
       <Navbar />
       <Breadcrumb />
       <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero image */}
+        <div className="max-w-3xl mx-auto mb-10">
+          <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-bridge.jpg"
+              alt="Charles Bridge in Prague"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+          </div>
+        </div>
+
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16">
           <motion.div

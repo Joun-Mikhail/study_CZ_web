@@ -9,6 +9,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL } from "@/config/contact";
 import { Mail, MessageCircle, Users, Clock, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function ContactPage() {
   const { t, locale } = useTranslation();
@@ -78,6 +79,21 @@ export default function ContactPage() {
       <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Hero image */}
+        <div className="max-w-5xl mx-auto mb-10">
+          <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden">
+            <Image
+              src="/images/prague-scenic.jpg"
+              alt="Prague scenic view"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+          </div>
+        </div>
+
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

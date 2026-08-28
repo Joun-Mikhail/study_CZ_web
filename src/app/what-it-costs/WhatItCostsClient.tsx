@@ -6,6 +6,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { motion } from "framer-motion";
 import { Clock, GraduationCap, Home, FileText, Plane, Shield, Utensils } from "lucide-react";
+import Image from "next/image";
 import costsData from "../../../content/costs.json";
 
 type RangeData = { min: number | null; max: number | null; note?: string };
@@ -148,6 +149,19 @@ export default function WhatItCostsClient() {
       <Breadcrumb />
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
+          {/* Hero image */}
+          <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden mb-8">
+            <Image
+              src="/images/prague-architecture.jpg"
+              alt="Prague architecture"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+          </div>
+
           {/* Verified badge */}
           <motion.div
             initial={{ opacity: 0 }}

@@ -3,6 +3,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { programmes, getProgrammeById } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -39,6 +40,17 @@ export default async function ProgrammePage({ params }: Props) {
     <div className="min-h-screen">
       <Navbar />
       <main className="max-w-4xl mx-auto px-4 pt-24 pb-16">
+        <div className="relative w-full h-[160px] sm:h-[200px] rounded-2xl overflow-hidden mb-6">
+          <Image
+            src="/images/university-campus.jpg"
+            alt="University campus"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 900px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+        </div>
         <Breadcrumbs
           items={[
             { label: "Programmes", href: "/universities" },
