@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "@/i18n/context";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
@@ -12,39 +13,35 @@ type DropdownGroup = {
   items: { href: string; label: string }[];
 };
 
-function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
-  useEffect(() => {
-    function listener(e: MouseEvent | TouchEvent) {
-      if (!ref.current || ref.current.contains(e.target as Node)) return;
-      handler();
-    }
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, [ref, handler]);
-}
-
 function DesktopDropdown({
   label,
   items,
   open,
   onToggle,
-  dropdownRef,
+  onNavigate,
+  currentPath,
 }: {
   label: string;
   items: { href: string; label: string }[];
   open: boolean;
   onToggle: () => void;
-  dropdownRef: React.RefObject<HTMLDivElement | null>;
+  onNavigate: () => void;
+  currentPath: string;
 }) {
+  const hasActiveItem = items.some((item) => currentPath === item.href);
+
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative">
       <button
-        onClick={onToggle}
-        className="flex items-center gap-1 whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
+        className={`flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
+          hasActiveItem
+            ? "text-amber font-medium"
+            : "text-text-secondary hover:text-text-primary"
+        }`}
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -64,8 +61,12 @@ function DesktopDropdown({
           <Link
             key={item.href}
             href={item.href}
-            tabIndex={open ? 0 : -1}
-            className="block px-4 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors whitespace-nowrap"
+            onClick={onNavigate}
+            className={`block px-4 py-2.5 text-sm transition-colors whitespace-nowrap ${
+              currentPath === item.href
+                ? "text-amber bg-amber/5 font-medium"
+                : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+            }`}
           >
             {item.label}
           </Link>
@@ -129,25 +130,45 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
 
 export function Navbar() {
   const { t, locale, setLocale } = useTranslation();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
-  const uniRef = useRef<HTMLDivElement>(null);
-  const toolsRef = useRef<HTMLDivElement>(null);
-  const guidesRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 10);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const closeDropdowns = useCallback(() => setOpenDropdown(null), []);
+  // Close dropdown when clicking outside the nav
+  useEffect(() => {
+    if (!openDropdown) return;
+    function handleOutside(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    // Use setTimeout so the opening click finishes before we start listening
+    const id = setTimeout(() => {
+      document.addEventListener("click", handleOutside);
+    }, 0);
+    return () => {
+      clearTimeout(id);
+      document.removeEventListener("click", handleOutside);
+    };
+  }, [openDropdown]);
 
-  useClickOutside(uniRef, () => {
-    if (openDropdown === "uni") closeDropdowns();
-  });
-  useClickOutside(toolsRef, () => {
-    if (openDropdown === "tools") closeDropdowns();
-  });
-  useClickOutside(guidesRef, () => {
-    if (openDropdown === "guides") closeDropdowns();
-  });
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenDropdown(null);
+  }, [pathname]);
 
   const dropdowns: Record<string, DropdownGroup> = {
     uni: {
@@ -164,7 +185,6 @@ export function Navbar() {
       items: [
         { href: "/cost-of-living", label: t.nav.costOfLiving },
         { href: "/eligibility", label: locale === "ar" ? "تقييم الأهلية" : "Eligibility Check" },
-        { href: "/university-matcher", label: t.nav.matcher },
         { href: "/deadlines", label: locale === "ar" ? "مواعيد التقديم" : "Deadline Tracker" },
       ],
     },
@@ -179,31 +199,38 @@ export function Navbar() {
     },
   };
 
-  const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
-    uni: uniRef,
-    tools: toolsRef,
-    guides: guidesRef,
+  const toggleLang = () => setLocale(locale === "en" ? "ar" : "en");
+
+  const handleNavigate = () => {
+    setOpenDropdown(null);
+    setMobileOpen(false);
   };
 
-  const toggleLang = () => setLocale(locale === "en" ? "ar" : "en");
+  const isActive = (href: string) => pathname === href;
 
   return (
     <>
       <nav
+        ref={navRef}
         aria-label="Main navigation"
-        className="fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-midnight/80 backdrop-blur-xl"
+        className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
+          scrolled
+            ? "border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-lg"
+            : "border-transparent bg-midnight/70 backdrop-blur-md"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-extrabold tracking-tight text-text-primary shrink-0 min-w-[160px]"
+            onClick={handleNavigate}
+            className="text-2xl font-extrabold tracking-tight text-text-primary shrink-0 min-w-[160px] hover:opacity-90 transition-opacity"
           >
             Study <span className="text-[#d42127]">Czechia</span>
           </Link>
 
-          {/* Desktop nav — visible at xl (1280px+) */}
-          <div className="hidden xl:flex items-center gap-7 ms-12 text-sm">
+          {/* Desktop nav — visible at lg+ */}
+          <div className="hidden lg:flex items-center gap-6 ms-10 text-sm">
             {Object.entries(dropdowns).map(([key, group]) => (
               <DesktopDropdown
                 key={key}
@@ -211,44 +238,29 @@ export function Navbar() {
                 items={group.items}
                 open={openDropdown === key}
                 onToggle={() => setOpenDropdown(openDropdown === key ? null : key)}
-                dropdownRef={refs[key]}
+                onNavigate={handleNavigate}
+                currentPath={pathname}
               />
             ))}
             <Link
               href="/courses"
-              className="whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
+              onClick={handleNavigate}
+              className={`whitespace-nowrap transition-colors py-1 ${
+                isActive("/courses")
+                  ? "text-amber font-medium"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
             >
               {locale === "ar" ? "الكورس" : "The Course"}
             </Link>
             <Link
               href="/services"
-              className="whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
-            >
-              {t.nav.services}
-            </Link>
-          </div>
-
-          {/* Mid-range nav — visible at lg (1024-1279) */}
-          <div className="hidden lg:flex xl:hidden items-center gap-5 ms-8 text-sm">
-            {Object.entries(dropdowns).map(([key, group]) => (
-              <DesktopDropdown
-                key={key}
-                label={group.label}
-                items={group.items}
-                open={openDropdown === key}
-                onToggle={() => setOpenDropdown(openDropdown === key ? null : key)}
-                dropdownRef={refs[key]}
-              />
-            ))}
-            <Link
-              href="/courses"
-              className="whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
-            >
-              {locale === "ar" ? "الكورس" : "The Course"}
-            </Link>
-            <Link
-              href="/services"
-              className="whitespace-nowrap text-text-secondary hover:text-text-primary transition-colors"
+              onClick={handleNavigate}
+              className={`whitespace-nowrap transition-colors py-1 ${
+                isActive("/services")
+                  ? "text-amber font-medium"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
             >
               {t.nav.services}
             </Link>
@@ -258,23 +270,21 @@ export function Navbar() {
           <div className="flex-1" />
 
           {/* Utility cluster */}
-          <div className="flex items-center gap-2">
-            {/* Search icon — hidden on mobile <768, visible on md+ */}
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => setSearchOpen(true)}
               aria-label={locale === "ar" ? "بحث" : "Search"}
-              className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
+              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
             >
               <Search className="w-4 h-4" />
             </button>
 
             <ThemeToggle />
 
-            {/* Language toggle */}
             <button
               onClick={toggleLang}
               aria-label={locale === "en" ? "Switch to Arabic" : "Switch to English"}
-              className="flex items-center justify-center w-10 h-10 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle"
+              className="flex items-center justify-center w-9 h-9 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle"
             >
               {locale === "en" ? "ع" : "EN"}
             </button>
@@ -283,75 +293,98 @@ export function Navbar() {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle"
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle ms-1"
             >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={mobileOpen ? "close" : "open"}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                </motion.span>
+              </AnimatePresence>
             </button>
           </div>
         </div>
 
-        {/* Mobile menu — always in DOM for crawlability */}
-        <div
-          className={`lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95 backdrop-blur-xl transition-all duration-250 ease-in-out ${
-            mobileOpen ? "max-h-[calc(100dvh-4rem)] opacity-100" : "max-h-0 opacity-0 invisible"
-          }`}
-          aria-hidden={!mobileOpen}
-        >
-          <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
-            {/* Mobile search */}
-            <form action="/search" method="get" role="search" className="mb-4">
-              <div className="relative">
-                <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                <input
-                  name="q"
-                  placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                  tabIndex={mobileOpen ? 0 : -1}
-                  className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
-                />
-              </div>
-            </form>
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95 backdrop-blur-xl"
+            >
+              <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+                {/* Mobile search */}
+                <form action="/search" method="get" role="search" className="mb-4">
+                  <div className="relative">
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                    <input
+                      name="q"
+                      placeholder={locale === "ar" ? "ابحث..." : "Search..."}
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+                    />
+                  </div>
+                </form>
 
-            {/* Grouped nav items */}
-            {Object.entries(dropdowns).map(([key, group]) => (
-              <div key={key} className="mb-3">
-                <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
-                  {group.label}
-                </p>
-                {group.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    tabIndex={mobileOpen ? 0 : -1}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2.5 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
+                {/* Grouped nav items */}
+                {Object.entries(dropdowns).map(([key, group]) => (
+                  <div key={key} className="mb-3">
+                    <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
+                      {group.label}
+                    </p>
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleNavigate}
+                        className={`block px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                          isActive(item.href)
+                            ? "text-amber bg-amber/5 font-medium"
+                            : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 ))}
-              </div>
-            ))}
 
-            {/* Direct links */}
-            <div className="border-t border-border-subtle pt-3 mt-1">
-              <Link
-                href="/courses"
-                tabIndex={mobileOpen ? 0 : -1}
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-text-primary hover:bg-white/5 transition-colors"
-              >
-                {locale === "ar" ? "الكورس" : "The Course"}
-              </Link>
-              <Link
-                href="/services"
-                tabIndex={mobileOpen ? 0 : -1}
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-amber hover:bg-white/5 transition-colors"
-              >
-                {t.nav.services}
-              </Link>
-            </div>
-          </div>
-        </div>
+                {/* Direct links */}
+                <div className="border-t border-border-subtle pt-3 mt-1">
+                  <Link
+                    href="/courses"
+                    onClick={handleNavigate}
+                    className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive("/courses")
+                        ? "text-amber bg-amber/5"
+                        : "text-text-primary hover:bg-white/5"
+                    }`}
+                  >
+                    {locale === "ar" ? "الكورس" : "The Course"}
+                  </Link>
+                  <Link
+                    href="/services"
+                    onClick={handleNavigate}
+                    className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive("/services")
+                        ? "text-amber bg-amber/5"
+                        : "text-amber hover:bg-white/5"
+                    }`}
+                  >
+                    {t.nav.services}
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Search overlay */}
