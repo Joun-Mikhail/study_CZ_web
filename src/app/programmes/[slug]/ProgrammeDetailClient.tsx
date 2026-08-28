@@ -71,9 +71,9 @@ type Props = {
 };
 
 export default function ProgrammeDetailClient({ programme: p, university: uni }: Props) {
-  const { t, lang } = useTranslation();
+  const { t, locale } = useTranslation();
   const deadlineStatus = getDeadlineStatus(p);
-  const name = lang === "ar" && p.name.ar ? p.name.ar : p.name.en;
+  const name = locale === "ar" && p.name.ar ? p.name.ar : p.name.en;
   const uniName = uni?.name ?? p.universityId;
 
   return (
@@ -148,7 +148,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni }:
             {p.entranceExam ? "Yes" : "No exam required"}
             {p.entranceExamDetails && (
               <span className="text-text-muted block mt-0.5">
-                {lang === "ar" && p.entranceExamDetails.ar ? p.entranceExamDetails.ar : p.entranceExamDetails.en}
+                {locale === "ar" && p.entranceExamDetails.ar ? p.entranceExamDetails.ar : p.entranceExamDetails.en}
               </span>
             )}
           </span>

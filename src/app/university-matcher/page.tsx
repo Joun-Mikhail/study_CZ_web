@@ -9,7 +9,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
-import type { Programme } from "@/data/types";
+import type { Programme, City } from "@/data/types";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -61,7 +61,7 @@ const fieldLabels: { key: string; en: string; ar: string }[] = [
 type MatchResult = {
   programme: Programme;
   universityName: string;
-  city: string;
+  city: City;
   score: number;
   reasons: { en: string; ar: string }[];
 };
