@@ -166,7 +166,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 4,
     tuitionEurPerYear: 5000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.cvut.cz/en/admissions",
     verification: {
       lastVerified: "2026-08-27",
@@ -210,7 +210,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 3,
     tuitionEurPerYear: 1500,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.pef.czu.cz/en/r-9409-study/r-9675-study-programmes",
     verification: {
       lastVerified: "2026-08-27",
@@ -229,7 +229,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 2,
     tuitionEurPerYear: 1500,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.pef.czu.cz/en/r-9409-study/r-9675-study-programmes",
     verification: {
       lastVerified: "2026-08-27",
@@ -296,7 +296,7 @@ export const programmes: Programme[] = [
     field: "Social Sciences",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.muni.cz/en/admissions",
     verification: {
       lastVerified: "2026-08-27",
@@ -317,7 +317,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 4,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vutbr.cz/en/admission",
     verification: {
       lastVerified: "2026-08-27",
@@ -411,7 +411,7 @@ export const programmes: Programme[] = [
     field: "International Relations",
     durationYears: 3,
     tuitionEurPerYear: 5000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://aauni.edu/admissions",
     verification: {
       lastVerified: "2026-08-27",
@@ -430,7 +430,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 5000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://aauni.edu/admissions",
     verification: {
       lastVerified: "2026-08-27",
@@ -451,7 +451,7 @@ export const programmes: Programme[] = [
     field: "Chemistry",
     durationYears: 3,
     tuitionEurPerYear: 2500,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vscht.cz/EN/study/programs",
     verification: {
       lastVerified: "2026-08-27",
@@ -472,7 +472,7 @@ export const programmes: Programme[] = [
     field: "IT",
     durationYears: 3,
     tuitionEurPerYear: 3500,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vsb.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-27",

@@ -3,6 +3,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { cities, costCategories, totalRange, oneTimeCosts, type CityKey } from "@/data/costs";
@@ -91,6 +92,7 @@ export default function CostOfLivingPage() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero banner */}

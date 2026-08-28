@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
@@ -356,6 +357,7 @@ export default function DeadlinesClient() {
   return (
     <>
       <Navbar />
+      <Breadcrumb />
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Hero banner */}

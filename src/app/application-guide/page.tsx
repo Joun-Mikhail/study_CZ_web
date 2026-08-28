@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -37,6 +38,7 @@ export default function ApplicationGuidePage() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero banner */}

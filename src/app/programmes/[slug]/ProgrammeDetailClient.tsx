@@ -145,7 +145,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni }:
         )}
         <Row icon={FileText} label="Entrance exam" value={
           <span>
-            {p.entranceExam ? "Yes" : "No exam required"}
+            {p.entranceExam ? "Yes" : "Check with university"}
             {p.entranceExamDetails && (
               <span className="text-text-muted block mt-0.5">
                 {locale === "ar" && p.entranceExamDetails.ar ? p.entranceExamDetails.ar : p.entranceExamDetails.en}

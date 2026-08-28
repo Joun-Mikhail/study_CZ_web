@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div>
             <Link href="/" className="text-xl font-extrabold tracking-tight text-text-primary">
-              Study <span className="text-[#d42127]">Czechia</span>
+              <span className="text-[#11457e]">Study</span> <span className="text-[#d42127]">Czechia</span>
             </Link>
             <p className="text-sm text-text-secondary mt-2 leading-relaxed">{t.footer.tagline}</p>
           </div>

@@ -226,7 +226,7 @@ export function Navbar() {
             onClick={handleNavigate}
             className="text-2xl font-extrabold tracking-tight text-text-primary shrink-0 min-w-[160px] hover:opacity-90 transition-opacity"
           >
-            Study <span className="text-[#d42127]">Czechia</span>
+            <span className="text-[#11457e]">Study</span> <span className="text-[#d42127]">Czechia</span>
           </Link>
 
           {/* Desktop nav — visible at lg+ */}

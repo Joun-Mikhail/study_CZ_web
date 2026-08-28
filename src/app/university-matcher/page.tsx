@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -240,6 +241,7 @@ export default function MatcherPage() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero image */}
@@ -435,9 +437,7 @@ function MatchCard({
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
-          {prog.entranceExam
-            ? (locale === "ar" ? "امتحان قبول" : "Entrance exam")
-            : (locale === "ar" ? "بدون امتحان" : "No exam")}
+          {locale === "ar" ? "امتحان قبول" : "Entrance exam"}
         </span>
       </div>
 

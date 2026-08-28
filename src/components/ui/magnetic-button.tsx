@@ -37,21 +37,21 @@ export function MagneticButton({
   const reset = () => setPosition({ x: 0, y: 0 });
 
   const baseStyles =
-    "relative inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight";
+    "relative inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight overflow-hidden";
 
   const variants = {
     primary:
-      "bg-amber text-midnight hover:bg-amber-hover shadow-[0_0_20px_rgba(245,158,11,0.25)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)]",
+      "bg-gradient-to-r from-amber via-amber to-orange-400 text-midnight shadow-[0_4px_24px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_32px_rgba(245,158,11,0.5)] hover:brightness-110 active:brightness-95",
     secondary:
-      "bg-surface text-text-primary border border-border-subtle hover:border-amber/40 hover:bg-surface-hover",
+      "bg-surface text-text-primary border border-border-subtle hover:border-amber/50 hover:bg-surface-hover hover:shadow-[0_2px_16px_rgba(245,158,11,0.1)] backdrop-blur-sm",
     ghost:
       "text-text-secondary hover:text-text-primary hover:bg-white/5",
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
-    md: "px-6 py-3 text-base rounded-xl gap-2",
-    lg: "px-8 py-4 text-lg rounded-xl gap-2.5",
+    sm: "px-5 py-2.5 text-sm rounded-xl gap-2",
+    md: "px-7 py-3.5 text-base rounded-xl gap-2.5",
+    lg: "px-9 py-4.5 text-lg rounded-2xl gap-3",
   };
 
   const classes = cn(baseStyles, variants[variant], sizes[size], className);
@@ -61,7 +61,12 @@ export function MagneticButton({
     animate: { x: position.x, y: position.y },
     transition: { type: "spring" as const, stiffness: 150, damping: 15, mass: 0.1 },
     whileTap: { scale: 0.97 },
+    whileHover: { scale: 1.02 },
   };
+
+  const shimmer = variant === "primary" ? (
+    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover-shimmer pointer-events-none" />
+  ) : null;
 
   const isInternal = href && href.startsWith("/");
   const isExternal = href && !isInternal;
@@ -70,6 +75,7 @@ export function MagneticButton({
     return (
       <motion.div {...motionProps} className="inline-flex">
         <Link ref={ref as any} href={href} onClick={onClick} className={classes}>
+          {shimmer}
           {children}
         </Link>
       </motion.div>
@@ -87,6 +93,7 @@ export function MagneticButton({
         className={classes}
         {...motionProps}
       >
+        {shimmer}
         {children}
       </motion.a>
     );
@@ -99,6 +106,7 @@ export function MagneticButton({
       className={classes}
       {...motionProps}
     >
+      {shimmer}
       {children}
     </motion.button>
   );

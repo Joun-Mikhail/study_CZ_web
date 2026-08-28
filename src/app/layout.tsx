@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
+import { QuickNav } from "@/components/ui/quick-nav";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -108,6 +109,7 @@ export default function RootLayout({
         </a>
         <TranslationProvider>
           {children}
+          <QuickNav />
         </TranslationProvider>
         <Analytics />
       </body>

@@ -55,7 +55,7 @@ const labels = {
     showing: "programmes",
     showingUnis: "universities",
     entranceExam: "Entrance exam",
-    noEntranceExam: "No exam",
+    noEntranceExam: "Exam required",
     verified: "Verified",
     notSure: "Not sure which programme fits you?",
     tryMatcher: "Try Programme Matcher",

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL } from "@/config/contact";
@@ -64,7 +65,7 @@ export default function ContactPage() {
       desc: t.contact.facebookDesc,
       cta: t.contact.facebookCta,
       href: FACEBOOK_GROUP_URL,
-      detail: locale === "ar" ? "+10,500 عضو" : "10,500+ members",
+      detail: locale === "ar" ? "+12,000 عضو" : "12,000+ members",
       color: "text-[#1877F2]",
       bgColor: "bg-[#1877F2]/10",
       external: true,
@@ -74,6 +75,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12">

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { qaEntries, qaCategories, type QaEntry } from "@/data/qa";
 import { motion } from "framer-motion";
@@ -79,6 +80,7 @@ export default function QaPage() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         {/* Hero banner */}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -162,6 +163,7 @@ export default function QuestionsToAskClient() {
   return (
     <>
       <Navbar />
+      <Breadcrumb />
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Hero banner */}

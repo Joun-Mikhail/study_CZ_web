@@ -140,7 +140,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            {locale === "en" ? "10,500+ community members" : "أكتر من 10,500 عضو في المجتمع"}
+            {locale === "en" ? "12,000+ community members" : "أكتر من 12,000 عضو في المجتمع"}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
@@ -201,7 +201,7 @@ export default function Home() {
           className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-text-muted text-sm"
         >
           {[
-            { icon: Users, label: locale === "en" ? "10,500+ students helped" : "أكتر من 10,500 طالب ساعدناهم" },
+            { icon: Users, label: locale === "en" ? "12,000+ students helped" : "أكتر من 12,000 طالب ساعدناهم" },
             { icon: ShieldAlert, label: locale === "en" ? "No fabricated data" : "بدون بيانات مخترعة" },
             { icon: BookOpen, label: locale === "en" ? "100% free guides" : "أدلة مجانية 100%" },
           ].map((item, i) => (
@@ -437,12 +437,12 @@ export default function Home() {
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden gradient-mesh">
             <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
-            <div className="w-20 h-20 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
               <Image
                 src="/images/john.jpg"
                 alt="Joun"
-                width={80}
-                height={80}
+                width={160}
+                height={160}
                 className="object-cover w-full h-full"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;

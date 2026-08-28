@@ -23,9 +23,17 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
 
   const setLocale = useCallback((l: Locale) => {
-    setLocaleState(l);
-    document.documentElement.lang = l;
-    document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+    const body = document.body;
+    body.style.opacity = "0";
+    body.style.transition = "opacity 150ms ease";
+    setTimeout(() => {
+      setLocaleState(l);
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+      requestAnimationFrame(() => {
+        body.style.opacity = "1";
+      });
+    }, 150);
   }, []);
 
   const toggleLocale = useCallback(() => {

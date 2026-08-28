@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { FACEBOOK_GROUP_URL, CONTACT_EMAIL } from "@/config/contact";
@@ -19,7 +20,7 @@ const t = {
     badge: "About this platform",
     title: "Study Czechia is not an agency.",
     subtitle:
-      "It is an independent, student-built platform that helps Arabic-speaking students navigate Czech universities, with free resources, honest information, and optional personal support.",
+      "It is an independent, student-built platform that helps Arabic-speaking students navigate Czech universities with free resources, honest information, and personal support if you want it.",
     notOfficialTitle: "Is this an official government website?",
     notOfficialBody:
       "No. Study Czechia is not affiliated with any Czech embassy, government ministry, or university. We provide guidance and link directly to official sources. For legal decisions, always rely on the relevant Czech authority.",
@@ -30,7 +31,7 @@ const t = {
     ],
     storyTitle: "How it started",
     storyBody:
-      "This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to 10,500+ members. This website is the next step: the same free, honest answers, just easier to find.",
+      "This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to 12,000+ members. This website is the next step: the same free, honest answers, just easier to find.",
     whatWeDoTitle: "What we do",
     whatWeDo: [
       "Free guides on applications, visas, costs, and university selection",
@@ -72,7 +73,7 @@ const t = {
     ],
     storyTitle: "إزاي بدأ",
     storyBody:
-      "الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من 10,500 عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة، بس أسهل توصلها.",
+      "الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من 12,000 عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة، بس أسهل توصلها.",
     whatWeDoTitle: "إيه اللي بنعمله",
     whatWeDo: [
       "أدلة مجانية عن التقديمات والفيزا والتكاليف واختيار الجامعة",
@@ -108,6 +109,7 @@ export default function AboutClient() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero image banner */}
         <div className="max-w-3xl mx-auto mb-10">

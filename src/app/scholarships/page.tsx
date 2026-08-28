@@ -5,6 +5,7 @@ import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { scholarships } from "@/data/scholarships";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GraduationCap, Clock } from "lucide-react";
 import { motion } from "framer-motion";
@@ -16,6 +17,7 @@ export default function Page() {
   return (
     <div className="min-h-screen">
       <Navbar />
+      <Breadcrumb />
       <main className="max-w-5xl mx-auto px-4 pt-28 pb-16">
         {/* Hero banner */}
         <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden mb-8">

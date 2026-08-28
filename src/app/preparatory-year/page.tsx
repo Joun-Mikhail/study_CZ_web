@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { universityPrograms, otherUniversities, privatePrograms, usefulLinks } from "@/data/preparatory-programs";
@@ -43,6 +44,7 @@ export default function PreparatoryYearPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
+      <Breadcrumb />
       <main>
 
       {/* Hero banner */}

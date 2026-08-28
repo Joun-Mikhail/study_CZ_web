@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -103,6 +104,7 @@ export default function ServicesClient() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
+      <Breadcrumb />
 
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
@@ -268,13 +270,13 @@ export default function ServicesClient() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 items-start">
-              <div className="w-[200px] h-[200px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden">
+            <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start">
+              <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
                 <Image
                   src="/images/john.jpg"
-                  alt="John"
-                  width={200}
-                  height={200}
+                  alt="Joun"
+                  width={220}
+                  height={220}
                   className="object-cover w-full h-full"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -556,7 +558,7 @@ const en = {
     subtitle:
       "Every year, students get rejected, not because they aren't qualified, but because of a document mistake, a wrong university choice, or an embassy interview they weren't ready for. I've been through the entire process myself. I can help you avoid what others learn the hard way.",
     trustBar: [
-      "10,500+ students in our community",
+      "12,000+ students in our community",
       "Hundreds of applications guided",
       "Based in Brno, Czech Republic",
       "Egyptian student, been through it all",
@@ -583,7 +585,7 @@ const en = {
       scholarships: "Scholarship Database: updated regularly",
       prepYear: "Preparatory Year Guide: with real prices from real institutions",
       qaBase: "Q&A Knowledge Base: visa, documents, housing, everything",
-      community: "Facebook Community: 10,500+ students helping each other",
+      community: "Facebook Community: 12,000+ students helping each other",
     },
     cta: "Explore Free Resources →",
   },
@@ -592,7 +594,7 @@ const en = {
       title: "Ask Me Anything: 30 Minutes",
       fearTrigger: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
       description:
-        "A focused call about YOUR specific situation. Not generic advice. I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on one thing: which university to pick, whether their documents are right, what to expect at the embassy, or whether their plan even makes sense.",
+        "A focused call about YOUR specific situation. Not generic advice. I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on something specific, like which university to pick, whether their documents look right, or what to expect at the embassy.",
       included: [
         "30-minute video or voice call (your choice)",
         "I review your situation before the call (send me details via WhatsApp)",
@@ -609,7 +611,7 @@ const en = {
       fearTrigger:
         "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
       description:
-        "You send me everything you're planning to submit: university application, visa documents, translations, bank statements, all of it. I go through every page like the embassy officer will, and I tell you exactly what's wrong, what's missing, and what will get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
+        "You send me everything you're planning to submit: university application, visa documents, translations, bank statements. I go through every page the way the embassy officer will and tell you what's wrong, what's missing, and what could get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
       included: [
         "Full review of your complete document package",
         "Detailed written report: what's correct, what needs fixing, what's missing",
@@ -626,7 +628,7 @@ const en = {
       title: "Embassy Interview Prep: Don't Walk In Unprepared",
       fearTrigger: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
       description:
-        "I've coached dozens of students through embassy interviews in Cairo, Amman, Beirut, and other consulates. I know the questions they ask, the traps they set, and the answers that work. We'll do a full mock interview together. I'll ask you the real questions, in the real order, with the real follow-ups. Then I'll tell you exactly where you're weak and how to fix it before the real thing. You'll walk into that interview knowing what's coming.",
+        "I've coached dozens of students through embassy interviews in Cairo, Amman, Beirut, and other consulates. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
       included: [
         "45-minute mock interview session (video call)",
         "Real questions from real embassy interviews (updated regularly)",
@@ -665,7 +667,7 @@ const en = {
       fearTrigger:
         "For students who don't want to figure it out alone. I'll be with you from your first question to your first day in Czechia.",
       description:
-        "This is everything. We start from wherever you are, even if you haven't chosen a country yet, and I guide you through every step until you have your visa and a plan for your first week in Czechia. You're not buying a service. You're getting a person who's already done this, speaks your language, lives here, and will answer your WhatsApp messages at midnight when you're panicking about a deadline. Most agencies charge €1,500–€3,000 for this and they're sitting in Cairo googling the same things you are. I'm sitting in Brno, 20 minutes from the foreign police office.",
+        "This is everything. We start from wherever you are, even if you haven't picked a country yet, and I walk you through every step until you have your visa and a plan for your first week. You're not buying a service. You're getting someone who's been through this, speaks your language, lives here, and will answer your WhatsApp at midnight when you're panicking about a deadline. Most agencies charge €1,500–€3,000 and they're sitting in Cairo googling the same things you are. I'm in Brno, 20 minutes from the foreign police office.",
       included: [
         "University & program selection (based on your grades, budget, and goals)",
         "Full document preparation guidance",
@@ -695,8 +697,8 @@ const en = {
   },
   about: {
     paragraphs: [
-      "I'm John, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself: the confusion, the document chaos, the embassy interview stress, the first weeks of being completely lost in a country where I didn't speak the language.",
-      "I started a Facebook group to answer questions for other Arabic-speaking students. It grew to 10,500+ members. This website is the next step, putting everything I've learned into one place so you don't have to go through what I went through.",
+      "I'm John, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself. The confusing research, the piles of documents, the stressful embassy interview, those first weeks of being completely lost in a country where I didn't speak the language.",
+      "I started a Facebook group to answer questions for other Arabic-speaking students. It grew to 12,000+ members. This website is the next step, putting everything I've learned into one place so you don't have to go through what I went through.",
       "The free resources are for everyone. The paid services are for students who want me personally in their corner.",
     ],
   },
@@ -713,7 +715,7 @@ const en = {
       { label: "Post-arrival help", agency: "None, their job ends at the airport", us: "30 days of support after you land" },
       { label: "Embassy interview prep", agency: "Generic tips from a PDF", us: "Live mock interview with real questions" },
       { label: "Refund if not satisfied", agency: "Almost never", us: "Message within 48 hours, full refund" },
-      { label: "Community", agency: "You're a client number", us: "Join 10,500+ students helping each other" },
+      { label: "Community", agency: "You're a client number", us: "Join 12,000+ students helping each other" },
     ],
   },
   testimonials: {
@@ -752,7 +754,7 @@ const en = {
       },
       {
         q: "What if my visa gets rejected even after using your service?",
-        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions, nobody can, and anyone who promises a 'guaranteed visa' is lying to you. What I can tell you: students I've worked with have a significantly higher approval rate because we catch the mistakes that cause most rejections.",
+        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions. Nobody can. Anyone who promises a 'guaranteed visa' is lying to you. What I can tell you is that students I've worked with have a much higher approval rate because we catch the mistakes that cause most rejections.",
       },
     ],
   },
@@ -780,7 +782,7 @@ const ar: typeof en = {
     subtitle:
       "كل سنة، طلاب بيترفضوا. مش عشان مش مؤهلين، بس عشان غلطة في ورقة، أو اختيار جامعة غلط، أو مقابلة سفارة ماكانوش جاهزين ليها. أنا عديت العملية كلها بنفسي. أقدر أساعدك تتفادى اللي غيرك اتعلموه بالطريقة الصعبة.",
     trustBar: [
-      "أكتر من 10,500 طالب في مجتمعنا",
+      "أكتر من 12,000 طالب في مجتمعنا",
       "مئات الطلبات اتوجهت",
       "مقيم في برنو، جمهورية التشيك",
       "طالب مصري، عديت التجربة كلها",
@@ -806,7 +808,7 @@ const ar: typeof en = {
       scholarships: "قاعدة بيانات المنح: بتتحدث بانتظام",
       prepYear: "دليل السنة التحضيرية: بأسعار حقيقية من مؤسسات حقيقية",
       qaBase: "قاعدة المعرفة: فيزا، أوراق، سكن، كل حاجة",
-      community: "جروب الفيسبوك: أكتر من 10,500 طالب بيساعدوا بعض",
+      community: "جروب الفيسبوك: أكتر من 12,000 طالب بيساعدوا بعض",
     },
     cta: "استكشف الموارد المجانية →",
   },
@@ -876,7 +878,7 @@ const ar: typeof en = {
     fullPackage: {
       title: "الرحلة الكاملة: من الصفر للفيزا",
       fearTrigger: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
-      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه. حتى لو لسه مااخترتش بلد. وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك، ساكن هنا. المكاتب بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
+      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه، حتى لو لسه مااخترتش بلد، وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك وساكن هنا. المكاتب بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
       included: [
         "اختيار الجامعة والتخصص (حسب درجاتك وميزانيتك وأهدافك)",
         "توجيه كامل لتجهيز الأوراق",
@@ -904,8 +906,8 @@ const ar: typeof en = {
   },
   about: {
     paragraphs: [
-      "أنا جون، طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي: الحيرة، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.",
-      "بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من 10,500 عضو. الموقع ده الخطوة التالية. كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.",
+      "أنا جون، طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي. البحث المحير، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.",
+      "بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من 12,000 عضو. الموقع ده الخطوة التالية. كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.",
       "الموارد المجانية للجميع. الخدمات المدفوعة للطلاب اللي عايزيني أنا شخصيًا في جانبهم.",
     ],
   },
@@ -922,7 +924,7 @@ const ar: typeof en = {
       { label: "دعم بعد الوصول", agency: "مفيش، شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
       { label: "تجهيز مقابلة السفارة", agency: "نصايح عامة من PDF", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
       { label: "استرداد", agency: "تقريبًا مستحيل", us: "راسل خلال 48 ساعة، استرداد كامل" },
-      { label: "المجتمع", agency: "أنت رقم عميل", us: "انضم لأكتر من 10,500 طالب بيساعدوا بعض" },
+      { label: "المجتمع", agency: "أنت رقم عميل", us: "انضم لأكتر من 12,000 طالب بيساعدوا بعض" },
     ],
   },
   testimonials: {
@@ -940,7 +942,7 @@ const ar: typeof en = {
       { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe. نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام. راسلني على واتساب." },
       { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا. وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
       { q: "لقيت مكتب أرخص. ليه ماستخدمهمش؟", a: "اسألهم 3 أسئلة: راحوا التشيك قبل كده؟ يقدروا يعملوا مقابلة تجريبية بأسئلة حقيقية؟ هيساعدوك بعد ما توصل؟ لو الإجابة لأ على أي واحد، بتدفع لوسيط بيعملك Google." },
-      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة. محدش يقدر، وأي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
+      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة. محدش يقدر. أي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
     ],
   },
   priceAnchor: {

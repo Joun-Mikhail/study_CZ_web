@@ -161,6 +161,21 @@ body {
     radial-gradient(at 50% 80%, rgba(109, 40, 217, 0.04) 0%, transparent 50%);
 }
 
+/* Button shimmer animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+*:hover > .hover-shimmer {
+  animation: shimmer 0.8s ease-in-out;
+}
+
+/* Smooth language switch transition */
+.lang-transition * {
+  transition: direction 0s, font-family 200ms ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
