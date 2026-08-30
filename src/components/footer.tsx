@@ -68,7 +68,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border-subtle pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-text-muted">
+          <p className="text-xs text-text-muted" suppressHydrationWarning>
             © {new Date().getFullYear()} Study Czechia. {t.footer.rights}
           </p>
           <div className="flex items-center gap-4 text-xs">
