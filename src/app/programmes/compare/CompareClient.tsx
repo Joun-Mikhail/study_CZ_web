@@ -239,7 +239,7 @@ export default function CompareClient() {
         </button>
         <p className="text-xs text-text-muted mt-6">
           Or{" "}
-          <Link href="/universities" className="text-accent hover:underline underline-offset-2">
+          <Link href="/programmes" className="text-accent hover:underline underline-offset-2">
             browse programmes
           </Link>{" "}
           and use the compare button on each card.

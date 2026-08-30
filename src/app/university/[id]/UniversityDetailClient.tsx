@@ -7,7 +7,8 @@ import { getProgrammesByUniversity } from "@/data/programmes";
 import { getUniversityV2 } from "@/data/compat";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import UniversityCorrectionForm from "./UniversityCorrectionForm";
-import { Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText, ExternalLink } from "lucide-react";
+import { Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText, ExternalLink, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import type { Programme } from "@/data/types";
 
@@ -27,9 +28,11 @@ function ProgrammeCard({ prog, locale }: { prog: Programme; locale: "en" | "ar" 
     <div className="rounded-xl border border-border-subtle bg-white/[0.02] p-4 space-y-2.5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h4 className="font-medium text-text-primary text-sm">
-            {prog.name[locale] || prog.name.en}
-          </h4>
+          <Link href={`/programmes/${prog.id}`} className="block">
+            <h4 className="font-medium text-text-primary text-sm hover:text-amber transition-colors">
+              {prog.name[locale] || prog.name.en}
+            </h4>
+          </Link>
           {prog.faculty && (
             <p className="text-xs text-text-muted mt-0.5">{prog.faculty}</p>
           )}
@@ -79,15 +82,24 @@ function ProgrammeCard({ prog, locale }: { prog: Programme; locale: "en" | "ar" 
           sourceUrl={prog.verification.sourceUrl}
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
-        <a
-          href={prog.programmeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-amber hover:underline"
-        >
-          {locale === "ar" ? "الصفحة الرسمية" : "Official page"}
-          <ExternalLink className="w-3 h-3" />
-        </a>
+        <div className="flex items-center gap-3">
+          <Link
+            href={`/programmes/${prog.id}`}
+            className="inline-flex items-center gap-1 text-xs text-amber hover:underline"
+          >
+            {locale === "ar" ? "التفاصيل" : "Details"}
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+          <a
+            href={prog.programmeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-text-secondary"
+          >
+            {locale === "ar" ? "الصفحة الرسمية" : "Official page"}
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
       </div>
     </div>
   );
