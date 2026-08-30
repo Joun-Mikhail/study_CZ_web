@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -123,7 +123,7 @@ function SectionCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className="rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm p-6"
+      className="motion-safe-fallback rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm p-6"
     >
       <div className="flex items-center gap-3 mb-4">
         <div className="p-2 rounded-xl bg-accent/10">
@@ -147,7 +147,7 @@ export default function WhatItCostsClient() {
     <>
       <Navbar />
       <Breadcrumb />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+      <main id="main-content" className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Hero image */}
           <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden mb-8">
@@ -288,8 +288,8 @@ export default function WhatItCostsClient() {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            className="mt-12 border-s-4 border-accent ps-6 py-4 text-text-secondary italic"
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback mt-12 border-s-4 border-accent ps-6 py-4 text-text-secondary italic"
           >
             {l.closing}
           </motion.blockquote>

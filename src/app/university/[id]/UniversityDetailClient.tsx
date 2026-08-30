@@ -203,7 +203,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
         {(uniV2?.website || uni.website) && (
           <div className="flex items-center gap-2">
             <Globe className="w-3.5 h-3.5 text-amber" />
-            <a href={uniV2?.website || uni.website} target="_blank" rel="noreferrer" className="text-amber hover:underline text-sm">
+            <a href={uniV2?.website || uni.website} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline text-sm">
               {t.university.websiteLabel}
             </a>
           </div>
@@ -211,7 +211,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
         {uniV2?.admissionsUrl && (
           <div className="flex items-center gap-2">
             <FileText className="w-3.5 h-3.5 text-amber" />
-            <a href={uniV2.admissionsUrl} target="_blank" rel="noreferrer" className="text-amber hover:underline text-sm">
+            <a href={uniV2.admissionsUrl} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline text-sm">
               {locale === "ar" ? "صفحة القبول" : "Admissions page"}
             </a>
           </div>

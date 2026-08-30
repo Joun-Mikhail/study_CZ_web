@@ -18,7 +18,6 @@ export default function Page() {
       <Breadcrumb />
       <div className="pt-4 pb-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">Programme Discovery</h1>
           <p className="text-text-secondary">Search and filter English-taught programmes at Czech universities.</p>
         </div>
       </div>

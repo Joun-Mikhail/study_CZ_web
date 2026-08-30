@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -243,7 +243,7 @@ export default function MatcherPage() {
       <Navbar />
       <Breadcrumb />
 
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero image */}
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">

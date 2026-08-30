@@ -93,8 +93,9 @@ export default function PreparatoryYearPage() {
                   key={i}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.06 }}
+                  className="motion-safe-fallback"
                 >
                   <GlassCard className="h-full">
                     <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center mb-3">
@@ -120,8 +121,9 @@ export default function PreparatoryYearPage() {
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1 }}
+                className="motion-safe-fallback"
               >
                 <GlassCard className="h-full" hoverEffect="lift">
                   <h3 className="font-semibold text-text-primary mb-3">{type.title}</h3>
@@ -193,7 +195,7 @@ export default function PreparatoryYearPage() {
                   key={u.name}
                   href={u.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 rounded-xl border border-border-subtle bg-surface/60 hover:border-amber/30 transition-colors"
                 >
                   <Building2 className="w-4 h-4 text-amber shrink-0" />
@@ -235,9 +237,9 @@ export default function PreparatoryYearPage() {
                   key={i}
                   initial={{ opacity: 0, x: locale === "ar" ? 16 : -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.06 }}
-                  className="relative flex gap-4 items-start"
+                  className="motion-safe-fallback relative flex gap-4 items-start"
                 >
                   <div className="relative z-10 w-10 h-10 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center shrink-0">
                     <span className="text-sm font-bold text-amber">{i + 1}</span>
@@ -330,7 +332,7 @@ export default function PreparatoryYearPage() {
                 <a
                   href={prog.website.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="mt-3 inline-flex items-center gap-1.5 text-xs text-amber hover:underline"
                 >
                   <Globe className="w-3 h-3" />
@@ -352,9 +354,9 @@ export default function PreparatoryYearPage() {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-start gap-3 p-4 rounded-xl border border-amber/20 bg-amber/5"
+                className="motion-safe-fallback flex items-start gap-3 p-4 rounded-xl border border-amber/20 bg-amber/5"
               >
                 <Lightbulb className="w-5 h-5 text-amber shrink-0 mt-0.5" />
                 <div>
@@ -426,7 +428,7 @@ export default function PreparatoryYearPage() {
                 key={link.url}
                 href={link.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-3 p-3.5 rounded-xl border border-border-subtle bg-surface/60 hover:border-amber/30 transition-colors group"
               >
                 <ExternalLink className="w-4 h-4 text-amber shrink-0" />
@@ -524,7 +526,7 @@ function ProgramCard({
             {prog.contact.email}
           </a>
         )}
-        <a href={prog.website.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
+        <a href={prog.website.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
           <Globe className="w-3 h-3" />
           {prog.website.label}
         </a>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -193,9 +193,9 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       className={cn(
-        "rounded-xl border border-border-subtle bg-white/[0.02] p-4 space-y-3",
+        "motion-safe-fallback rounded-xl border border-border-subtle bg-white/[0.02] p-4 space-y-3",
         status === "passed" && "opacity-50"
       )}
     >
@@ -358,7 +358,7 @@ export default function DeadlinesClient() {
     <>
       <Navbar />
       <Breadcrumb />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+      <main id="main-content" className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Hero banner */}
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden mb-6">

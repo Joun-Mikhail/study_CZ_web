@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -94,7 +94,7 @@ export default function CostOfLivingPage() {
       <Navbar />
       <Breadcrumb />
 
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero banner */}
         <div className="max-w-5xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">

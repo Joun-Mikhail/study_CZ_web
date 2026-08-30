@@ -39,7 +39,7 @@ export default async function ProgrammePage({ params }: Props) {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="max-w-4xl mx-auto px-4 pt-24 pb-16">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 pt-24 pb-16">
         <div className="relative w-full h-[160px] sm:h-[200px] rounded-2xl overflow-hidden mb-6">
           <Image
             src="/images/university-campus.jpg"

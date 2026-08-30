@@ -113,7 +113,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/prague-cityscape.jpg"
-            alt=""
+            alt="Aerial view of Prague cityscape with Vltava river and historic bridges"
             fill
             className="object-cover object-center"
             priority
@@ -197,8 +197,8 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-text-muted text-sm"
+          viewport={{ once: true, margin: "-50px" }}
+          className="motion-safe-fallback flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-text-muted text-sm"
         >
           {[
             { icon: Users, label: locale === "en" ? "12,000+ students helped" : "أكتر من 12,000 طالب ساعدناهم" },
@@ -209,9 +209,9 @@ export default function Home() {
               key={i}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.1 * i }}
-              className="flex items-center gap-2"
+              className="motion-safe-fallback flex items-center gap-2"
             >
               <item.icon className="w-4 h-4 text-amber/60" />
               <span>{item.label}</span>
@@ -225,8 +225,8 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="motion-safe-fallback text-center mb-12"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
             {locale === "en" ? "Everything you need in one place" : "كل اللي محتاجه في مكان واحد"}
@@ -247,7 +247,7 @@ export default function Home() {
                 key={item.key}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 + index * 0.1, duration: 0.5 }}
+                transition={{ delay: 0.7 + index * 0.08, duration: 0.5 }}
               >
                 <GlassCard
                   hoverEffect={item.hoverEffect}
@@ -297,9 +297,9 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="motion-safe-fallback text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
             {t.whyCzechia.title}
@@ -317,8 +317,9 @@ export default function Home() {
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="motion-safe-fallback"
             >
               <GlassCard hoverEffect="border" className="h-full">
                 <div className="flex items-start gap-4">
@@ -349,14 +350,15 @@ export default function Home() {
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className={`relative ${photo.h} rounded-2xl overflow-hidden group`}
+              className={`motion-safe-fallback relative ${photo.h} rounded-2xl overflow-hidden group`}
             >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
+                loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 50vw, 45vw"
               />
@@ -376,9 +378,9 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="mb-8"
+          className="motion-safe-fallback mb-8"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">{t.glance.title}</h2>
           <VerifiedBadge
@@ -402,8 +404,9 @@ export default function Home() {
               key={s.key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="motion-safe-fallback"
             >
               <GlassCard className="h-full group" hoverEffect="lift">
                 <div className="flex items-center gap-4">
@@ -432,22 +435,21 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
+          className="motion-safe-fallback"
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden gradient-mesh">
             <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
+              <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
               <Image
                 src="/images/john.jpg"
-                alt="Joun"
+                alt="Joun, founder of Study Czechia"
                 width={160}
                 height={160}
-                className="object-cover w-full h-full"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                }}
+                loading="lazy"
+                className="absolute inset-0 object-cover w-full h-full"
               />
             </div>
             <div className="relative z-10">

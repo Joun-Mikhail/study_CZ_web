@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { useSearchParams } from "next/navigation";
@@ -25,7 +25,7 @@ export default function SearchClient() {
     : [];
 
   return (
-    <main className="max-w-5xl mx-auto px-4 pt-24 pb-16">
+    <main id="main-content" className="max-w-5xl mx-auto px-4 pt-24 pb-16">
       <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">
         {isAr ? "نتائج البحث" : "Search Results"}
       </h1>

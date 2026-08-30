@@ -88,7 +88,7 @@ export function MagneticButton({
         ref={ref as any}
         href={href}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         onClick={onClick}
         className={classes}
         {...motionProps}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { useTranslation } from "@/i18n/context";
@@ -18,7 +18,7 @@ export default function Page() {
     <div className="min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <main className="max-w-5xl mx-auto px-4 pt-28 pb-16">
+      <main id="main-content" className="max-w-5xl mx-auto px-4 pt-28 pb-16">
         {/* Hero banner */}
         <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden mb-8">
           <Image

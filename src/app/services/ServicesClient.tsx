@@ -106,14 +106,14 @@ export default function ServicesClient() {
       <Navbar />
       <Breadcrumb />
 
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16 relative rounded-3xl py-4 overflow-hidden">
           {/* Hero background image */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/images/students-group.jpg"
-              alt=""
+              alt="International students celebrating together"
               fill
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
@@ -133,7 +133,7 @@ export default function ServicesClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8 relative z-10"
+            className="text-white/80 leading-relaxed max-w-2xl mx-auto mb-8 relative z-10"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -188,8 +188,8 @@ export default function ServicesClient() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
           >
             <div className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-4">{t.framing.title}</h2>
@@ -206,7 +206,8 @@ export default function ServicesClient() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback"
           >
             <div className="rounded-2xl border border-dashed border-border-subtle bg-surface/40 p-6 sm:p-8">
               <div className="flex items-start gap-4 mb-5">
@@ -241,8 +242,8 @@ export default function ServicesClient() {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-sm text-text-secondary"
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback text-center text-sm text-text-secondary"
           >
             <p className="font-semibold text-text-primary mb-1">{t.priceAnchor.bold}</p>
             <p>{t.priceAnchor.sub}</p>
@@ -268,13 +269,14 @@ export default function ServicesClient() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback"
           >
             <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start">
               <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
                 <Image
                   src="/images/john.jpg"
-                  alt="Joun"
+                  alt="Joun, founder of Study Czechia"
                   width={220}
                   height={220}
                   className="object-cover w-full h-full"
@@ -444,7 +446,7 @@ export default function ServicesClient() {
       <a
         href={WHATSAPP_URL}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50 group"
         aria-label="WhatsApp"
       >
@@ -478,8 +480,9 @@ function ServiceCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
+      className="motion-safe-fallback"
     >
       <div
         className={cn(

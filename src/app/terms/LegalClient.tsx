@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -87,7 +87,7 @@ export default function LegalClient() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-text-primary mb-2">
             {content.title}

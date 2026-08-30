@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -426,7 +426,7 @@ export default function UniversityListClient() {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-8">
+    <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
       {/* Hero banner */}
       <div className="relative w-full h-[160px] sm:h-[220px] rounded-2xl overflow-hidden mb-8">
         <Image

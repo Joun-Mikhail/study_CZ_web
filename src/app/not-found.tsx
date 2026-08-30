@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useTranslation } from "@/i18n/context";
@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 flex items-center justify-center px-4">
+      <main id="main-content" className="flex-1 flex items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-7xl font-bold text-amber mb-4">404</h1>
           <h2 className="text-2xl font-semibold text-text-primary mb-3">

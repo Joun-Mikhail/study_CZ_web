@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -122,9 +122,9 @@ function QuestionCard({ question, index, locale }: { question: Question; index: 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm overflow-hidden"
+      className="motion-safe-fallback rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm overflow-hidden"
     >
       <button
         onClick={() => setOpen((v) => !v)}
@@ -164,7 +164,7 @@ export default function QuestionsToAskClient() {
     <>
       <Navbar />
       <Breadcrumb />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+      <main id="main-content" className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Hero banner */}
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden mb-8">
@@ -197,8 +197,8 @@ export default function QuestionsToAskClient() {
           <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="border-s-4 border-accent ps-6 py-4 text-text-secondary italic"
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback border-s-4 border-accent ps-6 py-4 text-text-secondary italic"
           >
             {l.closing}
           </motion.blockquote>

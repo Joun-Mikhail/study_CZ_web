@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -40,7 +40,7 @@ export default function CoursesClient() {
       <Navbar />
       <Breadcrumb />
 
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl py-2">
           {/* Background image */}
@@ -99,8 +99,8 @@ export default function CoursesClient() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
+            viewport={{ once: true, margin: "-50px" }}
+            className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
           >
             <div aria-hidden="true" className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none pointer-events-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-3">{t.notTextbook.title}</h2>
@@ -277,7 +277,7 @@ export default function CoursesClient() {
       <a
         href={WHATSAPP_URL}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50 group"
         aria-label="WhatsApp"
       >

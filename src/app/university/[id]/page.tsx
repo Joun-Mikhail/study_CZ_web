@@ -35,7 +35,7 @@ export default async function UniversityPage({ params }: Props) {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="max-w-4xl mx-auto px-4 pt-24 pb-16">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 pt-24 pb-16">
         <Breadcrumbs items={[{ label: "Universities", href: "/universities" }, { label: uni.name }]} />
         <GlassCard>
           <UniversityDetailClient uni={uni} />

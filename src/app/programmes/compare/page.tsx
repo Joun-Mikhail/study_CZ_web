@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -15,7 +15,7 @@ export default function ComparePage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="max-w-6xl mx-auto px-4 pt-24 pb-16">
+      <main id="main-content" className="max-w-6xl mx-auto px-4 pt-24 pb-16">
         <Breadcrumbs
           items={[
             { label: "Programmes", href: "/universities" },

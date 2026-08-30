@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -110,7 +110,7 @@ export default function AboutClient() {
     <div className="relative min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero image banner */}
         <div className="max-w-3xl mx-auto mb-10">
           <div className="relative w-full h-[200px] sm:h-[280px] rounded-2xl overflow-hidden">

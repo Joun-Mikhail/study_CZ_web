@@ -49,12 +49,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="text-text-secondary hover:text-text-primary transition-colors">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-text-primary transition-colors">
                   WhatsApp
                 </a>
               </li>
               <li>
-                <a href={FACEBOOK_GROUP_URL} target="_blank" rel="noreferrer" className="text-text-secondary hover:text-text-primary transition-colors">
+                <a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-text-primary transition-colors">
                   Facebook
                 </a>
               </li>

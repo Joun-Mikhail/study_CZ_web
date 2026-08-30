@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
@@ -78,7 +78,7 @@ export default function ContactPage() {
       <Navbar />
       <Breadcrumb />
 
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         {/* Hero image */}
         <div className="max-w-5xl mx-auto mb-10">
           <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden">

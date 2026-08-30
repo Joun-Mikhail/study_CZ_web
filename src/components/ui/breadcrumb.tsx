@@ -25,6 +25,8 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   compare: { en: "Compare", ar: "مقارنة" },
 };
 
+const SITE_URL = "https://studyczechia.com";
+
 export function Breadcrumb() {
   const pathname = usePathname();
   const { locale } = useTranslation();
@@ -34,8 +36,31 @@ export function Breadcrumb() {
   const segments = pathname.split("/").filter(Boolean);
   if (segments.length === 0) return null;
 
+  const breadcrumbItems = [
+    { name: locale === "ar" ? "الرئيسية" : "Home", url: `${SITE_URL}/` },
+    ...segments.map((segment, i) => ({
+      name: pathNames[segment]?.[locale] || segment.replace(/-/g, " "),
+      url: `${SITE_URL}/${segments.slice(0, i + 1).join("/")}/`,
+    })),
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
   return (
     <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ol className="flex items-center gap-1.5 text-xs text-text-muted flex-wrap">
         <li>
           <Link href="/" className="flex items-center gap-1 hover:text-text-secondary transition-colors">

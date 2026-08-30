@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import { QuickNav } from "@/components/ui/quick-nav";
+import { MotionFallback } from "@/components/motion-fallback";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -42,6 +43,7 @@ export const metadata: Metadata = {
     siteName: "Study Czechia",
     locale: "en_US",
     type: "website",
+    url: SITE_URL,
     images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
   },
   twitter: {
@@ -99,6 +101,16 @@ export default function RootLayout({
                   "query-input": "required name=search_term_string",
                 },
               },
+              {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Joun",
+                jobTitle: "Founder",
+                worksFor: { "@type": "EducationalOrganization", name: "Study Czechia", url: SITE_URL },
+                alumniOf: { "@type": "CollegeOrUniversity", name: "Brno University of Technology" },
+                knowsLanguage: ["ar", "en", "cs"],
+                sameAs: ["https://www.facebook.com/groups/czechiastudents"],
+              },
             ]),
           }}
         />
@@ -110,6 +122,7 @@ export default function RootLayout({
         <TranslationProvider>
           {children}
           <QuickNav />
+          <MotionFallback />
         </TranslationProvider>
         <Analytics />
       </body>
