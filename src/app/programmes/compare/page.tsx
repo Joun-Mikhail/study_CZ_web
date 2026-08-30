@@ -18,7 +18,7 @@ export default function ComparePage() {
       <main id="main-content" className="max-w-6xl mx-auto px-4 pt-24 pb-16">
         <Breadcrumbs
           items={[
-            { label: "Programmes", href: "/universities" },
+            { label: "Programmes", href: "/programmes" },
             { label: "Compare" },
           ]}
         />

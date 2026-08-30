@@ -7,6 +7,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { getDeadlineStatus } from "@/data/programmes";
 import type { Programme, UniversityV2, DeadlineStatus } from "@/data/types";
+import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import {
   GraduationCap,
   MapPin,
@@ -111,12 +112,13 @@ export default function ProgrammeDetailClient({ programme: p, university: uni }:
           </span>
         </div>
 
-        <div className="mt-4">
+        <div className="flex items-center gap-3 mt-4">
           <VerifiedBadge
             date={p.verification.lastVerified}
             sourceUrl={p.verification.sourceUrl}
             label="Verified:"
           />
+          <SaveProgrammeButton programmeId={p.id} locale={locale} size="md" />
         </div>
       </div>
 

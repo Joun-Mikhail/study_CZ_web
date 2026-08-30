@@ -175,6 +175,7 @@ export function Navbar() {
       label: locale === "ar" ? "الجامعات" : "Universities",
       items: [
         { href: "/universities", label: t.nav.universities },
+        { href: "/programmes", label: locale === "ar" ? "استكشف البرامج" : "Browse Programmes" },
         { href: "/university-matcher", label: t.nav.matcher },
         { href: "/preparatory-year", label: t.nav.prep },
         { href: "/scholarships", label: t.nav.scholarships },
@@ -186,6 +187,7 @@ export function Navbar() {
         { href: "/cost-of-living", label: t.nav.costOfLiving },
         { href: "/eligibility", label: locale === "ar" ? "تقييم الأهلية" : "Eligibility Check" },
         { href: "/deadlines", label: locale === "ar" ? "مواعيد التقديم" : "Deadline Tracker" },
+        { href: "/my-journey", label: locale === "ar" ? "رحلتي" : "My Journey" },
       ],
     },
     guides: {

@@ -53,7 +53,7 @@ export default async function ProgrammePage({ params }: Props) {
         </div>
         <Breadcrumbs
           items={[
-            { label: "Programmes", href: "/universities" },
+            { label: "Programmes", href: "/programmes" },
             { label: prog.name.en },
           ]}
         />
