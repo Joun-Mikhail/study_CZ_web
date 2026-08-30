@@ -7,7 +7,6 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import {
   programmes,

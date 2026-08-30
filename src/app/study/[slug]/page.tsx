@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const field = slugToField(slug);
   if (field) {
     return {
-      title: `Study ${field} in Czech Republic | Verified Programmes`,
+      title: `Study ${field} in Czech Republic`,
       description: `Explore verified English-taught ${field} programmes at Czech universities. Compare tuition, deadlines, and entry requirements.`,
       alternates: { canonical: `/study/${slug}` },
     };
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = slugToCity(slug);
   if (city) {
     return {
-      title: `Study in ${city}, Czech Republic | Universities & Programmes`,
+      title: `Study in ${city}, Czech Republic`,
       description: `Discover English-taught programmes at universities in ${city}, Czech Republic. Verified tuition fees, deadlines, and application info.`,
       alternates: { canonical: `/study/${slug}` },
     };

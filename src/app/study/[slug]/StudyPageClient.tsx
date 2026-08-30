@@ -12,6 +12,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes, filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme } from "@/data/types";
+import { SeoCrosslinks } from "@/components/seo-crosslinks";
 import {
   GraduationCap,
   Euro,
@@ -230,6 +231,8 @@ export default function StudyPageClient({ type, value, slug }: Props) {
             </p>
           </div>
         )}
+
+        <SeoCrosslinks locale={locale} exclude={{ type, value }} />
 
         {/* CTA */}
         <div className="mt-10 text-center">
