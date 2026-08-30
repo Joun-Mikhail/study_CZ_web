@@ -36,8 +36,40 @@ export default async function ProgrammePage({ params }: Props) {
   if (!prog) return notFound();
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: prog.name.en,
+    description: `${prog.degree} programme in ${prog.name.en} at ${uni?.name ?? prog.universityId}`,
+    provider: {
+      "@type": "CollegeOrUniversity",
+      name: uni?.name ?? prog.universityId,
+      url: uni?.website,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: uni?.city ?? "Czech Republic",
+        addressCountry: "CZ",
+      },
+    },
+    inLanguage: prog.language === "English" ? "en" : "cs",
+    timeToComplete: `P${prog.durationYears}Y`,
+    educationalLevel: prog.degree,
+    offers: {
+      "@type": "Offer",
+      price: prog.tuitionEurPerYear,
+      priceCurrency: "EUR",
+      category: "Tuition per academic year",
+    },
+    url: `${SITE_URL}/programmes/${prog.id}`,
+  };
+
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main id="main-content" className="max-w-4xl mx-auto px-4 pt-24 pb-16">
         <div className="relative w-full h-[160px] sm:h-[200px] rounded-2xl overflow-hidden mb-6">

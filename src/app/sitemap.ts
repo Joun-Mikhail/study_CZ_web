@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { universities } from "@/data/universities";
-import { programmes } from "@/data/programmes";
+import { programmes, PROGRAMME_FIELDS } from "@/data/programmes";
+import { universitiesV2 } from "@/data/universities-v2";
+import { fieldToSlug, cityToSlug } from "@/lib/seo-utils";
 
 export const dynamic = "force-static";
 
@@ -11,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/courses",
     "/universities",
+    "/programmes",
     "/scholarships",
     "/cost-of-living",
     "/application-guide",
@@ -26,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/questions-to-ask",
     "/search",
     "/programmes/compare",
+    "/my-journey",
     "/about",
     "/terms",
     "/privacy",
@@ -33,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : 0.8,
+    priority: route === "" ? 1 : route === "/programmes" ? 0.9 : 0.8,
   }));
 
   const universityRoutes = universities.map((u) => ({
@@ -50,5 +54,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...universityRoutes, ...programmeRoutes];
+  const fieldRoutes = PROGRAMME_FIELDS.map((f) => ({
+    url: `${SITE_URL}/study/${fieldToSlug(f)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const cities = [...new Set(universitiesV2.map((u) => u.city))];
+  const cityRoutes = cities.map((c) => ({
+    url: `${SITE_URL}/study/${cityToSlug(c)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const intentRoutes = [
+    "/study/cheapest-programmes",
+    "/study/no-entrance-exam",
+  ].map((route) => ({
+    url: `${SITE_URL}${route}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...universityRoutes,
+    ...programmeRoutes,
+    ...fieldRoutes,
+    ...cityRoutes,
+    ...intentRoutes,
+  ];
 }

@@ -26,7 +26,11 @@ import {
   Plane,
   ArrowRight,
   Sparkles,
+  Search,
+  MapPin,
+  TrendingDown,
 } from "lucide-react";
+import Link from "next/link";
 import { FACEBOOK_GROUP_URL } from "@/config/contact";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 
@@ -368,6 +372,144 @@ export default function HomeClient() {
         <p className="text-center text-text-muted text-xs mt-4">
           {locale === "en" ? "Photos: Unsplash & Pexels (free license)" : "الصور: Unsplash و Pexels (ترخيص مجاني)"}
         </p>
+      </section>
+
+      <SectionDivider />
+
+      {/* Browse by Interest */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="motion-safe-fallback text-center mb-10"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
+            {locale === "en" ? "Browse by Interest" : "تصفح حسب الاهتمام"}
+          </h2>
+          <p className="text-text-secondary max-w-lg mx-auto">
+            {locale === "en"
+              ? "Explore verified programmes by field of study, city, or budget."
+              : "استكشف البرامج الموثقة حسب مجال الدراسة أو المدينة أو الميزانية."}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          {[
+            { href: "/study/medicine-in-czech-republic", label: locale === "en" ? "Medicine" : "الطب", icon: GraduationCap },
+            { href: "/study/business-in-czech-republic", label: locale === "en" ? "Business" : "إدارة الأعمال", icon: Briefcase },
+            { href: "/study/engineering-in-czech-republic", label: locale === "en" ? "Engineering" : "الهندسة", icon: BarChart3 },
+            { href: "/study/it-in-czech-republic", label: locale === "en" ? "IT & Computer Science" : "تكنولوجيا المعلومات", icon: Compass },
+            { href: "/study/economics-in-czech-republic", label: locale === "en" ? "Economics" : "الاقتصاد", icon: Banknote },
+            { href: "/study/law-in-czech-republic", label: locale === "en" ? "Law" : "القانون", icon: BookOpen },
+          ].map((item, i) => (
+            <motion.div
+              key={item.href}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.06, duration: 0.4 }}
+              className="motion-safe-fallback"
+            >
+              <Link href={item.href} className="block">
+                <GlassCard hoverEffect="border" className="group">
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 transition-colors">
+                      <item.icon className="w-5 h-5 text-amber" />
+                    </div>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">{item.label}</span>
+                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </GlassCard>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          {[
+            { href: "/study/in-prague", label: locale === "en" ? "Study in Prague" : "ادرس في براغ", icon: MapPin },
+            { href: "/study/in-brno", label: locale === "en" ? "Study in Brno" : "ادرس في برنو", icon: MapPin },
+            { href: "/study/in-olomouc", label: locale === "en" ? "Study in Olomouc" : "ادرس في أولوموتس", icon: MapPin },
+          ].map((item, i) => (
+            <motion.div
+              key={item.href}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.06, duration: 0.4 }}
+              className="motion-safe-fallback"
+            >
+              <Link href={item.href} className="block">
+                <GlassCard hoverEffect="lift" className="group">
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-info/5 border border-info/20 flex items-center justify-center group-hover:bg-info/10 transition-colors">
+                      <item.icon className="w-5 h-5 text-info" />
+                    </div>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-info transition-colors">{item.label}</span>
+                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </GlassCard>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
+            className="motion-safe-fallback"
+          >
+            <Link href="/study/cheapest-programmes" className="block">
+              <GlassCard hoverEffect="glow" className="group">
+                <div className="flex items-center gap-3">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-success/5 border border-success/20 flex items-center justify-center group-hover:bg-success/10 transition-colors">
+                    <TrendingDown className="w-5 h-5 text-success" />
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-success transition-colors block">
+                      {locale === "en" ? "Cheapest Programmes" : "أرخص البرامج"}
+                    </span>
+                    <span className="text-xs text-text-muted">
+                      {locale === "en" ? "Starting from €1,500/yr" : "تبدأ من 1,500€/سنة"}
+                    </span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </GlassCard>
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.06, duration: 0.4 }}
+            className="motion-safe-fallback"
+          >
+            <Link href="/programmes" className="block">
+              <GlassCard hoverEffect="glow" className="group">
+                <div className="flex items-center gap-3">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 transition-colors">
+                    <Search className="w-5 h-5 text-amber" />
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors block">
+                      {locale === "en" ? "Browse All Programmes" : "تصفح كل البرامج"}
+                    </span>
+                    <span className="text-xs text-text-muted">
+                      {locale === "en" ? "Search, filter & compare" : "ابحث، فلتر وقارن"}
+                    </span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </GlassCard>
+            </Link>
+          </motion.div>
+        </div>
       </section>
 
       <SectionDivider />
