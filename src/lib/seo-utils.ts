@@ -42,3 +42,18 @@ export function getAllCitySlugs(): string[] {
   const cities = [...new Set(universitiesV2.map((u) => u.city))];
   return cities.map(cityToSlug);
 }
+
+const DEGREE_LEVELS = ["Bachelor", "Master"] as const;
+
+export function degreeToSlug(degree: string): string {
+  return slugify(degree) + "-programmes-in-czech-republic";
+}
+
+export function slugToDegree(slug: string): string | undefined {
+  const raw = slug.replace(/-programmes-in-czech-republic$/, "");
+  return DEGREE_LEVELS.find((d) => slugify(d) === raw);
+}
+
+export function getAllDegreeSlugs(): string[] {
+  return DEGREE_LEVELS.map(degreeToSlug);
+}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
-import { fieldToSlug, cityToSlug } from "@/lib/seo-utils";
+import { fieldToSlug, cityToSlug, degreeToSlug } from "@/lib/seo-utils";
 import {
   GraduationCap,
   MapPin,
@@ -15,7 +15,7 @@ import {
 
 type Props = {
   locale: "en" | "ar";
-  exclude?: { type: "field" | "city" | "intent"; value: string };
+  exclude?: { type: "field" | "city" | "degree" | "intent"; value: string };
 };
 
 export function SeoCrosslinks({ locale, exclude }: Props) {
@@ -69,6 +69,27 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             </GlassCard>
           </Link>
         ) : null}
+      </div>
+
+      {/* Degree links */}
+      <div className="mb-4">
+        <h3 className="text-xs font-medium text-text-muted mb-2 uppercase tracking-wider">
+          {locale === "ar" ? "حسب الدرجة" : "By Degree"}
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {(["Bachelor", "Master"] as const)
+            .filter((d) => !(exclude?.type === "degree" && exclude.value === d))
+            .map((d) => (
+              <Link
+                key={d}
+                href={`/study/${degreeToSlug(d)}`}
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+              >
+                <GraduationCap className="w-3 h-3" />
+                {d}
+              </Link>
+            ))}
+        </div>
       </div>
 
       {/* Field links */}

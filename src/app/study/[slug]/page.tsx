@@ -3,15 +3,17 @@ import { notFound } from "next/navigation";
 import {
   getAllFieldSlugs,
   getAllCitySlugs,
+  getAllDegreeSlugs,
   slugToField,
   slugToCity,
+  slugToDegree,
 } from "@/lib/seo-utils";
 import StudyPageClient from "./StudyPageClient";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return [...getAllFieldSlugs(), ...getAllCitySlugs()].map((slug) => ({ slug }));
+  return [...getAllFieldSlugs(), ...getAllCitySlugs(), ...getAllDegreeSlugs()].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -35,6 +37,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const degree = slugToDegree(slug);
+  if (degree) {
+    return {
+      title: `${degree} Programmes in Czech Republic`,
+      description: `Browse verified English-taught ${degree}'s degree programmes at Czech universities. Compare tuition, deadlines, and application requirements.`,
+      alternates: { canonical: `/study/${slug}` },
+    };
+  }
+
   return { title: "Not Found" };
 }
 
@@ -49,6 +60,11 @@ export default async function StudyPage({ params }: Props) {
   const city = slugToCity(slug);
   if (city) {
     return <StudyPageClient type="city" value={city} slug={slug} />;
+  }
+
+  const degree = slugToDegree(slug);
+  if (degree) {
+    return <StudyPageClient type="degree" value={degree} slug={slug} />;
   }
 
   return notFound();

@@ -84,7 +84,7 @@ function ProgrammeRow({ prog, locale }: { prog: Programme; locale: "en" | "ar" }
 }
 
 type Props = {
-  type: "field" | "city";
+  type: "field" | "city" | "degree";
   value: string;
   slug: string;
 };
@@ -99,6 +99,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
 
   const filtered = useMemo(() => {
     if (type === "field") return filterProgrammes({ field: value }, uniLookup);
+    if (type === "degree") return filterProgrammes({ degree: value }, uniLookup);
     return filterProgrammes({ city: value }, uniLookup);
   }, [type, value, uniLookup]);
 
@@ -107,6 +108,10 @@ export default function StudyPageClient({ type, value, slug }: Props) {
       ? locale === "ar"
         ? `دراسة ${value} في جمهورية التشيك`
         : `Study ${value} in Czech Republic`
+      : type === "degree"
+      ? locale === "ar"
+        ? `برامج ${value} في جمهورية التشيك`
+        : `${value} Programmes in Czech Republic`
       : locale === "ar"
       ? `الدراسة في ${value}`
       : `Study in ${value}`;
@@ -116,6 +121,10 @@ export default function StudyPageClient({ type, value, slug }: Props) {
       ? locale === "ar"
         ? `${filtered.length} برنامج ${value} موثق متاح باللغة الإنجليزية في الجامعات التشيكية.`
         : `${filtered.length} verified ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
+      : type === "degree"
+      ? locale === "ar"
+        ? `${filtered.length} برنامج ${value} متاح باللغة الإنجليزية.`
+        : `${filtered.length} ${value}'s programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
       : locale === "ar"
       ? `${filtered.length} برنامج متاح في ${value}.`
       : `${filtered.length} programme${filtered.length !== 1 ? "s" : ""} available in ${value}.`;
@@ -187,13 +196,13 @@ export default function StudyPageClient({ type, value, slug }: Props) {
         {unisInScope.length > 0 && (
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-text-primary mb-3">
-              {type === "field"
+              {type === "city"
                 ? locale === "ar"
-                  ? `جامعات تقدم ${value}`
-                  : `Universities offering ${value}`
+                  ? `جامعات في ${value}`
+                  : `Universities in ${value}`
                 : locale === "ar"
-                ? `جامعات في ${value}`
-                : `Universities in ${value}`}
+                ? `جامعات تقدم ${value}`
+                : `Universities offering ${value}`}
             </h2>
             <div className="flex flex-wrap gap-2">
               {unisInScope.map((u) => (

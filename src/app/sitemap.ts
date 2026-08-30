@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { universities } from "@/data/universities";
 import { programmes, PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
-import { fieldToSlug, cityToSlug } from "@/lib/seo-utils";
+import { fieldToSlug, cityToSlug, degreeToSlug } from "@/lib/seo-utils";
 
 export const dynamic = "force-static";
 
@@ -69,6 +69,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const degreeRoutes = (["Bachelor", "Master"] as const).map((d) => ({
+    url: `${SITE_URL}/study/${degreeToSlug(d)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const intentRoutes = [
     "/study/cheapest-programmes",
     "/study/no-entrance-exam",
@@ -85,6 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...programmeRoutes,
     ...fieldRoutes,
     ...cityRoutes,
+    ...degreeRoutes,
     ...intentRoutes,
   ];
 }
