@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "@/i18n/context";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
@@ -50,28 +50,38 @@ function DesktopDropdown({
           className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-      <div
-        className={`absolute top-full start-0 mt-2 min-w-[220px] rounded-xl border border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-xl py-1.5 z-50 transition-all duration-150 ${
-          open
-            ? "opacity-100 translate-y-0 visible"
-            : "opacity-0 -translate-y-1 invisible pointer-events-none"
-        }`}
-      >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onNavigate}
-            className={`block px-4 py-2.5 text-sm transition-colors whitespace-nowrap ${
-              currentPath === item.href
-                ? "text-amber bg-amber/5 font-medium"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/5"
-            }`}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="absolute top-full start-0 mt-2 min-w-[220px] rounded-xl border border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-2xl py-1.5 z-50"
           >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+            {items.map((item, i) => (
+              <motion.div
+                key={item.href}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.03, duration: 0.15 }}
+              >
+                <Link
+                  href={item.href}
+                  onClick={onNavigate}
+                  className={`block px-4 py-2.5 text-sm transition-all whitespace-nowrap ${
+                    currentPath === item.href
+                      ? "text-amber bg-amber/5 font-medium"
+                      : "text-text-secondary hover:text-text-primary hover:bg-white/5 hover:ps-5"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -102,26 +112,29 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
       }}
     >
       <motion.div
-        initial={{ opacity: 0, y: -10, scale: 0.98 }}
+        initial={{ opacity: 0, y: -20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -10, scale: 0.98 }}
-        transition={{ duration: 0.15 }}
+        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-lg mx-4"
       >
         <form action="/search" method="get" role="search">
-          <div className="relative">
-            <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+          <div className="relative group">
+            <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-amber transition-colors" />
             <input
               ref={inputRef}
               name="q"
               placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
-              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-amber/50 transition-colors"
+              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-amber/50 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.1)] transition-all"
               autoComplete="off"
             />
           </div>
-          <p className="text-xs text-text-muted mt-2 text-center">
-            {locale === "ar" ? "اضغط Esc للإغلاق" : "Press Esc to close"}
-          </p>
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <kbd className="px-2 py-0.5 rounded-md bg-white/5 border border-border-subtle text-[10px] text-text-muted font-mono">ESC</kbd>
+            <span className="text-xs text-text-muted">
+              {locale === "ar" ? "للإغلاق" : "to close"}
+            </span>
+          </div>
         </form>
       </motion.div>
     </motion.div>
@@ -137,6 +150,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
   useEffect(() => {
     function onScroll() {
       setScrolled(window.scrollY > 10);
@@ -146,7 +162,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close dropdown when clicking outside the nav
   useEffect(() => {
     if (!openDropdown) return;
     function handleOutside(e: MouseEvent) {
@@ -154,7 +169,6 @@ export function Navbar() {
         setOpenDropdown(null);
       }
     }
-    // Use setTimeout so the opening click finishes before we start listening
     const id = setTimeout(() => {
       document.addEventListener("click", handleOutside);
     }, 0);
@@ -164,7 +178,6 @@ export function Navbar() {
     };
   }, [openDropdown]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
     setOpenDropdown(null);
@@ -185,7 +198,7 @@ export function Navbar() {
       label: locale === "ar" ? "أدوات" : "Tools",
       items: [
         { href: "/cost-of-living", label: t.nav.costOfLiving },
-        { href: "/eligibility", label: locale === "ar" ? "تقييم الأهلية" : "Eligibility Check" },
+        { href: "/eligibility", label: locale === "ar" ? "أقدر أقدم؟" : "Eligibility Check" },
         { href: "/deadlines", label: locale === "ar" ? "مواعيد التقديم" : "Deadline Tracker" },
         { href: "/my-journey", label: locale === "ar" ? "رحلتي" : "My Journey" },
       ],
@@ -217,7 +230,7 @@ export function Navbar() {
         aria-label="Main navigation"
         className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
           scrolled
-            ? "border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-lg"
+            ? "border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-lg shadow-black/10"
             : "border-transparent bg-midnight/70 backdrop-blur-md"
         }`}
       >
@@ -231,7 +244,7 @@ export function Navbar() {
             <span className="text-[#11457e]">Study</span> <span className="text-[#d42127]">Czechia</span>
           </Link>
 
-          {/* Desktop nav — visible at lg+ */}
+          {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-6 ms-10 text-sm">
             {Object.entries(dropdowns).map(([key, group]) => (
               <DesktopDropdown
@@ -268,7 +281,6 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Spacer */}
           <div className="flex-1" />
 
           {/* Utility cluster */}
@@ -291,7 +303,6 @@ export function Navbar() {
               {locale === "en" ? "ع" : "EN"}
             </button>
 
-            {/* Hamburger — visible below lg */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
@@ -312,6 +323,12 @@ export function Navbar() {
           </div>
         </div>
 
+        {/* Scroll progress bar */}
+        <motion.div
+          className="scroll-progress absolute bottom-0 inset-x-0 h-[2px]"
+          style={{ scaleX }}
+        />
+
         {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
@@ -325,12 +342,12 @@ export function Navbar() {
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
                 <form action="/search" method="get" role="search" className="mb-4">
-                  <div className="relative">
-                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                  <div className="relative group">
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors" />
                     <input
                       name="q"
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.1)] transition-all"
                     />
                   </div>
                 </form>

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const uniName = uni?.name ?? "";
   return {
     title: `${prog.name.en} | ${uniName}`,
-    description: `${prog.degree} in ${prog.name.en} at ${uniName}, ${uni?.city ?? "Czech Republic"}. ${prog.language}-taught, ${prog.durationYears} years, €${prog.tuitionEurPerYear.toLocaleString()}/yr.`,
+    description: `${prog.degree} in ${prog.name.en} at ${uniName}, ${uni?.city ?? "Czech Republic"}. ${prog.language}-taught, ${prog.durationYears} years, €${prog.tuitionEurPerYear.toLocaleString()} per year.`,
     alternates: { canonical: `/programmes/${slug}` },
   };
 }

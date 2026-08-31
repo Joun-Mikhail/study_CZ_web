@@ -15,7 +15,10 @@ export type University = {
     | "Mladá Boleslav"
     | "Ústí nad Labem"
     | "Pardubice"
-    | "České Budějovice";
+    | "České Budějovice"
+    | "Opava"
+    | "Jihlava"
+    | "Přerov";
   languages: ("English" | "Czech")[];
   fields: string[];
   tuitionEurPerYear: [number, number];

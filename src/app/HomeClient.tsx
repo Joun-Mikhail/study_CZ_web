@@ -6,7 +6,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { PragueSkyline } from "@/components/ui/prague-skyline";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
@@ -33,8 +33,9 @@ import {
 import Link from "next/link";
 import { FACEBOOK_GROUP_URL } from "@/config/contact";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { useRef } from "react";
 
-function FloatingShape({ className }: { className?: string }) {
+function FloatingShape({ className, delay = 0 }: { className?: string; delay?: number }) {
   return (
     <motion.div
       className={`absolute rounded-full pointer-events-none ${className}`}
@@ -47,6 +48,7 @@ function FloatingShape({ className }: { className?: string }) {
         duration: 6,
         repeat: Infinity,
         ease: "easeInOut",
+        delay,
       }}
     />
   );
@@ -54,6 +56,13 @@ function FloatingShape({ className }: { className?: string }) {
 
 export default function HomeClient() {
   const { t, locale } = useTranslation();
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const bentoItems = [
     {
@@ -112,42 +121,48 @@ export default function HomeClient() {
       <main id="main-content">
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Hero background image */}
-        <div className="absolute inset-0 z-0">
+      <section ref={heroRef} className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[90vh] flex flex-col justify-center">
+        {/* Hero background image with parallax */}
+        <motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
           <Image
             src="/images/prague-cityscape.jpg"
             alt="Aerial view of Prague cityscape with Vltava river and historic bridges"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center scale-110"
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-midnight/90 via-midnight/80 to-midnight" />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-midnight/90 via-midnight/75 to-midnight" />
+        </motion.div>
+
+        {/* Noise texture */}
+        <div className="absolute inset-0 z-[1] noise-overlay opacity-50" />
+
         {/* Ambient glow effects */}
         <div className="absolute top-20 start-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-amber/[0.08] rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute top-40 end-0 w-[500px] h-[500px] bg-info/[0.06] rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 start-0 w-[400px] h-[400px] bg-purple-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
 
         {/* Floating decorative shapes */}
-        <FloatingShape className="top-32 start-[10%] w-3 h-3 bg-amber/30" />
-        <FloatingShape className="top-48 end-[15%] w-2 h-2 bg-info/40" />
-        <FloatingShape className="bottom-20 start-[20%] w-4 h-4 bg-success/20" />
-        <FloatingShape className="top-60 end-[25%] w-2.5 h-2.5 bg-amber/20" />
+        <FloatingShape className="top-32 start-[10%] w-3 h-3 bg-amber/30" delay={0} />
+        <FloatingShape className="top-48 end-[15%] w-2 h-2 bg-info/40" delay={1.5} />
+        <FloatingShape className="bottom-20 start-[20%] w-4 h-4 bg-success/20" delay={3} />
+        <FloatingShape className="top-60 end-[25%] w-2.5 h-2.5 bg-amber/20" delay={0.8} />
+        <FloatingShape className="top-40 start-[5%] w-2 h-2 bg-purple-400/20" delay={2} />
+        <FloatingShape className="bottom-40 end-[10%] w-3 h-3 bg-info/20" delay={4} />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <motion.div className="max-w-4xl mx-auto text-center relative z-10" style={{ opacity: heroOpacity }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8 backdrop-blur-sm"
           >
             <Sparkles className="w-3.5 h-3.5" />
             {locale === "en" ? "12,000+ community members" : "أكتر من 12,000 عضو في المجتمع"}
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
             <TextReveal text={t.hero.title} />
           </h1>
 
@@ -155,7 +170,7 @@ export default function HomeClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -174,7 +189,7 @@ export default function HomeClient() {
               {t.hero.secondaryCta}
             </MagneticButton>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Prague skyline silhouette */}
         <PragueSkyline className="absolute bottom-0 inset-x-0 w-full h-[120px] sm:h-[160px]" />
@@ -189,9 +204,13 @@ export default function HomeClient() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 rounded-full border-2 border-border-subtle flex items-start justify-center pt-2"
+            className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center pt-2"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-text-muted" />
+            <motion.div
+              animate={{ opacity: [0.4, 1, 0.4], height: [4, 8, 4] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 rounded-full bg-amber/60"
+            />
           </motion.div>
         </motion.div>
       </section>
@@ -202,7 +221,7 @@ export default function HomeClient() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          className="motion-safe-fallback flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-text-muted text-sm"
+          className="motion-safe-fallback grid grid-cols-1 sm:grid-cols-3 gap-4"
         >
           {[
             { icon: Users, label: locale === "en" ? "12,000+ students helped" : "أكتر من 12,000 طالب ساعدناهم" },
@@ -211,14 +230,16 @@ export default function HomeClient() {
           ].map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.1 * i }}
-              className="motion-safe-fallback flex items-center gap-2"
+              className="motion-safe-fallback flex items-center gap-3 px-4 py-3 rounded-xl bg-surface/40 border border-border-subtle backdrop-blur-sm"
             >
-              <item.icon className="w-4 h-4 text-amber/60" />
-              <span>{item.label}</span>
+              <div className="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center shrink-0">
+                <item.icon className="w-4 h-4 text-amber" />
+              </div>
+              <span className="text-sm text-text-secondary">{item.label}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -228,8 +249,9 @@ export default function HomeClient() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="motion-safe-fallback text-center mb-12"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
@@ -250,13 +272,14 @@ export default function HomeClient() {
               <motion.div
                 key={item.key}
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.08, duration: 0.5 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ delay: index * 0.08, duration: 0.5 }}
               >
                 <GlassCard
                   hoverEffect={item.hoverEffect}
                   href={item.href}
-                  className="h-full min-h-[180px] group relative overflow-hidden"
+                  className="h-full min-h-[180px] group relative overflow-hidden card-shine"
                   ariaLabel={content.title}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl`} />
@@ -278,7 +301,7 @@ export default function HomeClient() {
                       <p className="text-sm text-text-secondary leading-relaxed">
                         {content.description}
                       </p>
-                      <span className="inline-flex items-center gap-1 text-xs text-amber mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="inline-flex items-center gap-1 text-xs text-amber mt-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
                         {locale === "en" ? "Explore" : "استكشف"}
                         <ArrowRight className="w-3 h-3" />
                       </span>
@@ -294,53 +317,55 @@ export default function HomeClient() {
       <SectionDivider />
 
       {/* Why Study in Czechia */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden gradient-mesh rounded-3xl mx-4 sm:mx-6 lg:mx-auto">
-        <div className="absolute top-0 end-0 w-[300px] h-[300px] bg-amber/[0.04] rounded-full blur-[80px] pointer-events-none" />
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden">
+        <div className="relative rounded-3xl p-8 sm:p-12 noise-overlay aurora-bg">
+          <div className="absolute top-0 end-0 w-[300px] h-[300px] bg-amber/[0.04] rounded-full blur-[80px] pointer-events-none" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="motion-safe-fallback text-center mb-10"
-        >
-          <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
-            {t.whyCzechia.title}
-          </h2>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="motion-safe-fallback text-center mb-10 relative z-10"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
+              {t.whyCzechia.title}
+            </h2>
+          </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {[
-            { icon: BookOpen, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
-            { icon: Banknote, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
-            { icon: Award, color: "text-amber", bg: "bg-amber/10 border-amber/20", ...t.whyCzechia.reasons[2] },
-            { icon: Plane, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="motion-safe-fallback"
-            >
-              <GlassCard hoverEffect="border" className="h-full">
-                <div className="flex items-start gap-4">
-                  <div className={`shrink-0 w-11 h-11 rounded-xl ${item.bg} border flex items-center justify-center`}>
-                    <item.icon className={`w-5 h-5 ${item.color}`} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 relative z-10">
+            {[
+              { icon: BookOpen, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
+              { icon: Banknote, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
+              { icon: Award, color: "text-amber", bg: "bg-amber/10 border-amber/20", ...t.whyCzechia.reasons[2] },
+              { icon: Plane, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="motion-safe-fallback"
+              >
+                <GlassCard hoverEffect="border" className="h-full">
+                  <div className="flex items-start gap-4">
+                    <div className={`shrink-0 w-11 h-11 rounded-xl ${item.bg} border flex items-center justify-center`}>
+                      <item.icon className={`w-5 h-5 ${item.color}`} />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-semibold text-text-primary mb-1">{item.title}</h3>
+                      <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-base font-semibold text-text-primary mb-1">{item.title}</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
+                </GlassCard>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Photo showcase */}
+      {/* Photo showcase with parallax */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
           {[
@@ -366,6 +391,9 @@ export default function HomeClient() {
                 sizes="(max-width: 768px) 50vw, 45vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Corner accent on hover */}
+              <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-bl-lg" />
+              <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-tr-lg" />
             </motion.div>
           ))}
         </div>
@@ -413,13 +441,13 @@ export default function HomeClient() {
               className="motion-safe-fallback"
             >
               <Link href={item.href} className="block">
-                <GlassCard hoverEffect="border" className="group">
+                <GlassCard hoverEffect="border" className="group card-shine">
                   <div className="flex items-center gap-3">
-                    <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 transition-colors">
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
                       <item.icon className="w-5 h-5 text-amber" />
                     </div>
                     <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">{item.label}</span>
-                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                   </div>
                 </GlassCard>
               </Link>
@@ -442,13 +470,13 @@ export default function HomeClient() {
               className="motion-safe-fallback"
             >
               <Link href={item.href} className="block">
-                <GlassCard hoverEffect="lift" className="group">
+                <GlassCard hoverEffect="lift" className="group card-shine">
                   <div className="flex items-center gap-3">
-                    <div className="shrink-0 w-10 h-10 rounded-xl bg-info/5 border border-info/20 flex items-center justify-center group-hover:bg-info/10 transition-colors">
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-info/5 border border-info/20 flex items-center justify-center group-hover:bg-info/10 group-hover:scale-105 transition-all duration-300">
                       <item.icon className="w-5 h-5 text-info" />
                     </div>
                     <span className="text-sm font-medium text-text-primary group-hover:text-info transition-colors">{item.label}</span>
-                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                   </div>
                 </GlassCard>
               </Link>
@@ -465,9 +493,9 @@ export default function HomeClient() {
             className="motion-safe-fallback"
           >
             <Link href="/study/cheapest-programmes" className="block">
-              <GlassCard hoverEffect="glow" className="group">
+              <GlassCard hoverEffect="glow" className="group card-shine">
                 <div className="flex items-center gap-3">
-                  <div className="shrink-0 w-10 h-10 rounded-xl bg-success/5 border border-success/20 flex items-center justify-center group-hover:bg-success/10 transition-colors">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-success/5 border border-success/20 flex items-center justify-center group-hover:bg-success/10 group-hover:scale-105 transition-all duration-300">
                     <TrendingDown className="w-5 h-5 text-success" />
                   </div>
                   <div>
@@ -475,10 +503,10 @@ export default function HomeClient() {
                       {locale === "en" ? "Cheapest Programmes" : "أرخص البرامج"}
                     </span>
                     <span className="text-xs text-text-muted">
-                      {locale === "en" ? "Starting from €1,500/yr" : "تبدأ من 1,500€/سنة"}
+                      {locale === "en" ? "Starting from €1,500 per year" : "تبدأ من 1,500€ في السنة"}
                     </span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                 </div>
               </GlassCard>
             </Link>
@@ -491,9 +519,9 @@ export default function HomeClient() {
             className="motion-safe-fallback"
           >
             <Link href="/programmes" className="block">
-              <GlassCard hoverEffect="glow" className="group">
+              <GlassCard hoverEffect="glow" className="group card-shine">
                 <div className="flex items-center gap-3">
-                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 transition-colors">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
                     <Search className="w-5 h-5 text-amber" />
                   </div>
                   <div>
@@ -501,10 +529,10 @@ export default function HomeClient() {
                       {locale === "en" ? "Browse All Programmes" : "تصفح كل البرامج"}
                     </span>
                     <span className="text-xs text-text-muted">
-                      {locale === "en" ? "Search, filter & compare" : "ابحث، فلتر وقارن"}
+                      {locale === "en" ? "Search, filter & compare" : "ابحث وصفّي وقارن"}
                     </span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                 </div>
               </GlassCard>
             </Link>
@@ -549,9 +577,9 @@ export default function HomeClient() {
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className="motion-safe-fallback"
             >
-              <GlassCard className="h-full group" hoverEffect="lift">
+              <GlassCard className="h-full group card-shine" hoverEffect="lift">
                 <div className="flex items-center gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 group-hover:border-amber/20 transition-all duration-300">
                     <s.icon className={`w-6 h-6 ${s.color}`} />
                   </div>
                   <div>
@@ -580,9 +608,9 @@ export default function HomeClient() {
           transition={{ duration: 0.6 }}
           className="motion-safe-fallback"
         >
-          <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden gradient-mesh">
+          <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden noise-overlay aurora-bg">
             <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
-            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
               <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
               <Image
                 src="/images/john.jpg"
@@ -590,7 +618,7 @@ export default function HomeClient() {
                 width={160}
                 height={160}
                 loading="lazy"
-                className="absolute inset-0 object-cover w-full h-full"
+                className="absolute inset-0 object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
               />
             </div>
             <div className="relative z-10">

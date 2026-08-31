@@ -24,16 +24,16 @@ export type JourneyData = {
 const STORAGE_KEY = "studyczechia-journey";
 
 const DEFAULT_CHECKLIST: Omit<ChecklistItem, "done">[] = [
-  { id: "apostille", label: { en: "Get diploma apostilled", ar: "توثيق الشهادة (أبوستيل)" } },
-  { id: "translate", label: { en: "Translate documents to Czech", ar: "ترجمة المستندات للتشيكية" } },
-  { id: "passport", label: { en: "Valid passport (6+ months)", ar: "جواز سفر ساري (6+ أشهر)" } },
-  { id: "motivation", label: { en: "Write motivation letter", ar: "كتابة خطاب الدافع" } },
-  { id: "cv", label: { en: "Prepare CV / resume", ar: "تجهيز السيرة الذاتية" } },
-  { id: "language", label: { en: "Language certificate (if required)", ar: "شهادة اللغة (إذا مطلوبة)" } },
-  { id: "funds", label: { en: "Proof of funds for visa", ar: "إثبات القدرة المالية للفيزا" } },
-  { id: "apply", label: { en: "Submit application", ar: "إرسال طلب القبول" } },
-  { id: "fee", label: { en: "Pay application fee", ar: "دفع رسوم التقديم" } },
-  { id: "visa", label: { en: "Apply for student visa", ar: "التقديم على فيزا طالب" } },
+  { id: "apostille", label: { en: "Get diploma apostilled", ar: "صدّق شهادتك (أبوستيل)" } },
+  { id: "translate", label: { en: "Translate documents to Czech", ar: "ترجم أوراقك للتشيكي" } },
+  { id: "passport", label: { en: "Valid passport (6+ months)", ar: "جواز ساري (6 شهور على الأقل)" } },
+  { id: "motivation", label: { en: "Write motivation letter", ar: "اكتب جواب الدافع" } },
+  { id: "cv", label: { en: "Prepare CV / resume", ar: "جهّز السيرة الذاتية" } },
+  { id: "language", label: { en: "Language certificate (if required)", ar: "شهادة لغة (لو مطلوبة)" } },
+  { id: "funds", label: { en: "Proof of funds for visa", ar: "إثبات إن معاك فلوس كفاية للفيزا" } },
+  { id: "apply", label: { en: "Submit application", ar: "ابعت طلب القبول" } },
+  { id: "fee", label: { en: "Pay application fee", ar: "ادفع رسوم التقديم" } },
+  { id: "visa", label: { en: "Apply for student visa", ar: "قدّم على فيزا طالب" } },
 ];
 
 function freshChecklist(): ChecklistItem[] {

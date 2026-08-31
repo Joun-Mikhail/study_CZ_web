@@ -22,9 +22,12 @@ export type City =
   | "Mladá Boleslav"
   | "Ústí nad Labem"
   | "Pardubice"
-  | "České Budějovice";
+  | "České Budějovice"
+  | "Opava"
+  | "Jihlava"
+  | "Přerov";
 
-export type UniversityType = "public" | "private";
+export type UniversityType = "public" | "private" | "state";
 
 export type UniversityV2 = {
   id: string;

@@ -4,6 +4,7 @@ import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import { QuickNav } from "@/components/ui/quick-nav";
 import { MotionFallback } from "@/components/motion-fallback";
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -120,9 +121,11 @@ export default function RootLayout({
           Skip to content
         </a>
         <TranslationProvider>
-          {children}
-          <QuickNav />
-          <MotionFallback />
+          <ToastProvider>
+            {children}
+            <QuickNav />
+            <MotionFallback />
+          </ToastProvider>
         </TranslationProvider>
         <Analytics />
       </body>

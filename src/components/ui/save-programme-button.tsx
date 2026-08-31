@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import { isProgrammeSaved, addProgrammeToJourney, removeProgrammeFromJourney } from "@/lib/journey-store";
+import { useToast } from "@/components/ui/toast";
 
 export function SaveProgrammeButton({
   programmeId,
@@ -15,6 +16,7 @@ export function SaveProgrammeButton({
 }) {
   const [saved, setSaved] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     setSaved(isProgrammeSaved(programmeId));
@@ -26,11 +28,19 @@ export function SaveProgrammeButton({
     if (saved) {
       removeProgrammeFromJourney(programmeId);
       setSaved(false);
+      toast(
+        locale === "ar" ? "اتشال من رحلتي" : "Removed from My Journey",
+        "info"
+      );
     } else {
       addProgrammeToJourney(programmeId);
       setSaved(true);
       setAnimate(true);
       setTimeout(() => setAnimate(false), 600);
+      toast(
+        locale === "ar" ? "اتضاف لرحلتي" : "Added to My Journey",
+        "success"
+      );
     }
   };
 
@@ -45,7 +55,7 @@ export function SaveProgrammeButton({
           ? "bg-amber/15 text-amber border border-amber/30 hover:bg-amber/25"
           : "bg-white/5 text-text-secondary border border-border-subtle hover:border-amber/30 hover:text-amber"
       } ${animate ? "scale-110" : ""}`}
-      aria-label={saved ? (locale === "ar" ? "إزالة من رحلتي" : "Remove from My Journey") : (locale === "ar" ? "حفظ في رحلتي" : "Save to My Journey")}
+      aria-label={saved ? (locale === "ar" ? "شيل من رحلتي" : "Remove from My Journey") : (locale === "ar" ? "احفظ في رحلتي" : "Save to My Journey")}
     >
       {saved ? (
         <BookmarkCheck className={iconSize} />

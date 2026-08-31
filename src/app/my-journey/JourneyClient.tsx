@@ -159,7 +159,7 @@ function ProgrammeJourneyCard({
             <DeadlineBadge deadline={prog.applicationDeadline} locale={locale} />
             <span className="inline-flex items-center gap-1 text-xs text-text-muted">
               <Euro className="w-3 h-3" />
-              €{prog.tuitionEurPerYear.toLocaleString()}/{locale === "ar" ? "سنة" : "yr"}
+              €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
             </span>
           </div>
         </div>

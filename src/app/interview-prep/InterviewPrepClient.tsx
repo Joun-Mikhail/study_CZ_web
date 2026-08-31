@@ -241,7 +241,7 @@ const en = {
     title: "Embassy Interview Prep",
     subtitle: "A list of questions isn't preparation.",
     body: "Reading fifteen questions on paper and being asked them by a person are not the same experience. You don't find out you freeze on question six by reading it. You find out when someone asks you.",
-    cta: "Book My Mock Interview -- EUR 39",
+    cta: "Book My Mock Interview —EUR 39",
     micro: "Session scheduled within 48 hours of booking",
   },
   timeline: {
@@ -257,7 +257,7 @@ const en = {
         icon: Mic,
         time: "Minutes 5-35",
         title: "The mock interview",
-        desc: "Real questions, real order, real follow-ups. I don't stop to help you -- same as the real one. You'll feel the pressure, and that's the point.",
+        desc: "Real questions, real order, real follow-ups. I don't stop to help you —same as the real one. You'll feel the pressure, and that's the point.",
       },
       {
         icon: Target,
@@ -291,7 +291,7 @@ const en = {
       },
       {
         question: "\"What will you do after graduating?\"",
-        testing: "They're testing immigration intent. They want to hear a plan that includes returning home or a legitimate reason to stay -- not an open-ended \"I'll see what happens.\"",
+        testing: "They're testing immigration intent. They want to hear a plan that includes returning home or a legitimate reason to stay —not an open-ended \"I'll see what happens.\"",
       },
       {
         question: "\"What do you know about the Czech Republic?\"",
@@ -301,7 +301,7 @@ const en = {
   },
   failure: {
     heading: "The Most Common Failure",
-    body: "The single most common reason capable students get rejected isn't documents. It's an unclear study plan. If you can't explain in two sentences why this program, in this country, connects to what you've studied and what you want to do -- that's the gap. And it's fixable in one session.",
+    body: "The single most common reason capable students get rejected isn't documents. It's an unclear study plan. If you can't explain in two sentences why this program, in this country, connects to what you've studied and what you want to do —that's the gap. And it's fixable in one session.",
   },
   faq: {
     heading: "Common Questions",
@@ -316,7 +316,7 @@ const en = {
       },
       {
         q: "Is this in Arabic or English?",
-        a: "Your choice. We can also practise in English if your interview will be conducted in English -- some consulates do this.",
+        a: "Your choice. We can also practise in English if your interview will be conducted in English —some consulates do this.",
       },
       {
         q: "Which embassies do you know?",
@@ -327,9 +327,9 @@ const en = {
   finalCta: {
     title: "Don't Walk In Unprepared",
     body: "Students get rejected not because of their documents, but because of one answer in a ten-minute interview. A 45-minute session can change that.",
-    cta: "Book My Mock Interview -- EUR 39",
+    cta: "Book My Mock Interview —EUR 39",
     micro: "Secure payment via Stripe. Full refund if the session doesn't happen.",
-    whatsapp: "Not sure? Ask me on WhatsApp first -- no pressure",
+    whatsapp: "Not sure? Ask me on WhatsApp first —no pressure",
   },
 };
 
@@ -340,7 +340,7 @@ const ar: typeof en = {
     title: "تحضير مقابلة السفارة",
     subtitle: "قايمة أسئلة مش تحضير.",
     body: "قراءة 15 سؤال على ورق وإن حد يسألك وجها لوجه تجربتين مختلفين تماما. مش هتعرف إنك بتتلخبط في السؤال السادس إلا لما حد يسألك.",
-    cta: "احجز مقابلة تجريبية -- 39 يورو",
+    cta: "احجز مقابلة تجريبية —39 يورو",
     micro: "الجلسة بتتحدد خلال 48 ساعة من الحجز",
   },
   timeline: {
@@ -356,7 +356,7 @@ const ar: typeof en = {
         icon: Mic,
         time: "الدقايق 5-35",
         title: "المقابلة التجريبية",
-        desc: "أسئلة حقيقية، ترتيب حقيقي، أسئلة متابعة حقيقية. مش هوقف أساعدك -- زي الحقيقية بالظبط.",
+        desc: "أسئلة حقيقية، ترتيب حقيقي، أسئلة متابعة حقيقية. مش هوقف أساعدك —زي الحقيقية بالظبط.",
       },
       {
         icon: Target,
@@ -390,7 +390,7 @@ const ar: typeof en = {
       },
       {
         question: "\"هتعمل إيه بعد التخرج؟\"",
-        testing: "بيختبروا نية الهجرة. عايزين يسمعوا خطة تشمل الرجوع أو سبب مشروع للبقاء -- مش \"هشوف الأمور\".",
+        testing: "بيختبروا نية الهجرة. عايزين يسمعوا خطة تشمل الرجوع أو سبب مشروع للبقاء —مش \"هشوف الأمور\".",
       },
       {
         question: "\"تعرف إيه عن التشيك؟\"",
@@ -400,7 +400,7 @@ const ar: typeof en = {
   },
   failure: {
     heading: "أكتر سبب شائع للرفض",
-    body: "أكتر سبب شائع لرفض طلاب مؤهلين مش الأوراق. ده خطة دراسية مش واضحة. لو ماتقدرش تشرح في جملتين ليه البرنامج ده، في البلد دي، متربط باللي درسته واللي عايز تعمله -- دي الفجوة. وممكن تتصلح في جلسة واحدة.",
+    body: "أكتر سبب شائع لرفض طلاب مؤهلين مش الأوراق. ده خطة دراسية مش واضحة. لو ماتقدرش تشرح في جملتين ليه البرنامج ده، في البلد دي، متربط باللي درسته واللي عايز تعمله —دي الفجوة. وممكن تتصلح في جلسة واحدة.",
   },
   faq: {
     heading: "أسئلة شائعة",
@@ -415,7 +415,7 @@ const ar: typeof en = {
       },
       {
         q: "الجلسة بالعربي ولا بالإنجليزي؟",
-        a: "اختيارك. ممكن كمان نتدرب بالإنجليزي لو مقابلتك هتكون بالإنجليزي -- بعض القنصليات بتعمل كده.",
+        a: "اختيارك. ممكن كمان نتدرب بالإنجليزي لو مقابلتك هتكون بالإنجليزي —بعض القنصليات بتعمل كده.",
       },
       {
         q: "أي سفارات بتعرفها؟",
@@ -426,8 +426,8 @@ const ar: typeof en = {
   finalCta: {
     title: "ماتدخلش مش مستعد",
     body: "الطلاب بيترفضوا مش بسبب أوراقهم، بس بسبب إجابة واحدة في مقابلة عشر دقايق. جلسة 45 دقيقة ممكن تغير ده.",
-    cta: "احجز مقابلة تجريبية -- 39 يورو",
+    cta: "احجز مقابلة تجريبية —39 يورو",
     micro: "دفع آمن عبر Stripe. استرداد كامل لو الجلسة ماتمتش.",
-    whatsapp: "مش متأكد؟ اسألني على واتساب الأول -- من غير أي ضغط",
+    whatsapp: "مش متأكد؟ اسألني على واتساب الأول —من غير أي ضغط",
   },
 };

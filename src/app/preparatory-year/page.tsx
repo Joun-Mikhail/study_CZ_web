@@ -138,7 +138,7 @@ export default function PreparatoryYearPage() {
                     </div>
                     <div className="flex items-center gap-2 text-text-secondary">
                       <Shield className="w-3.5 h-3.5 text-amber shrink-0" />
-                      {locale === "ar" ? "تأشيرة:" : "Visa:"} {type.visa}
+                      {locale === "ar" ? "فيزا:" : "Visa:"} {type.visa}
                     </div>
                   </div>
                   <p className="mt-3 text-xs text-text-muted leading-relaxed">{type.desc}</p>

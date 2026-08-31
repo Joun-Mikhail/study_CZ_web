@@ -4,6 +4,8 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { FadeIn } from "@/components/ui/fade-in";
+import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import Link from "next/link";
 import {
   Search,
@@ -18,12 +20,15 @@ import {
   BookOpen,
   Filter,
   GitCompareArrows,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { filterProgrammes, getDeadlineStatus, PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ViewMode = "programmes" | "universities";
 
@@ -48,7 +53,7 @@ const labels = {
     hasExam: "Entrance exam",
     clearFilters: "Clear all filters",
     filters: "Filters",
-    perYear: "/yr",
+    perYear: " per year",
     noResults: "No programmes match your filters.",
     noResultsHint: "Try increasing your tuition limit, selecting \"Either language\", or removing the city filter.",
     noUniResults: "No universities match your filters.",
@@ -79,17 +84,17 @@ const labels = {
     allTypes: "حكومي وخاص",
     allExam: "أي حالة امتحان",
     allDeadlines: "أي حالة موعد",
-    maxTuition: "الرسوم القصوى",
+    maxTuition: "أعلى مصاريف",
     publicUni: "حكومي",
     privateUni: "خاص",
     noExam: "بدون امتحان قبول",
     hasExam: "امتحان قبول",
-    clearFilters: "مسح كل الفلاتر",
-    filters: "الفلاتر",
-    perYear: "/سنة",
-    noResults: "لا يوجد برامج تطابق الفلاتر.",
-    noResultsHint: "جرّب تزيد حد الرسوم، أو تختار \"أي لغة\"، أو تشيل فلتر المدينة.",
-    noUniResults: "لا يوجد جامعات تطابق الفلاتر.",
+    clearFilters: "امسح الفلتر",
+    filters: "فلتر",
+    perYear: " في السنة",
+    noResults: "مفيش برامج مطابقة للفلتر ده.",
+    noResultsHint: "جرّب تزود حد المصاريف، أو تختار \"أي لغة\"، أو تشيل فلتر المدينة.",
+    noUniResults: "مفيش جامعات مطابقة للفلتر ده.",
     showing: "برنامج",
     showingUnis: "جامعة",
     entranceExam: "امتحان قبول",
@@ -173,23 +178,33 @@ function ProgrammeCard({
   const status = getDeadlineStatus(prog);
 
   return (
-    <GlassCard hoverEffect="lift" className={cn("p-5 h-full flex flex-col", isComparing && "ring-2 ring-accent")}>
+    <GlassCard hoverEffect="lift" className={cn("group relative card-shine p-5 h-full flex flex-col overflow-hidden", isComparing && "ring-2 ring-accent")}>
+      {/* Decorative corner element */}
+      <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
+        <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
+          <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+        </svg>
+      </div>
+
       <div className="flex items-start justify-between gap-2">
-        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug hover:text-accent transition-colors">
+        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-amber transition-colors duration-300">
           {prog.name[locale] || prog.name.en}
         </Link>
-        {onToggleCompare && (
-          <button
-            onClick={() => onToggleCompare(prog.id)}
-            className={cn(
-              "shrink-0 p-1.5 rounded-lg transition-colors",
-              isComparing ? "bg-accent/15 text-accent" : "text-text-muted hover:text-accent hover:bg-accent/10"
-            )}
-            aria-label={isComparing ? "Remove from compare" : "Add to compare"}
-          >
-            <GitCompareArrows className="w-3.5 h-3.5" />
-          </button>
-        )}
+        <div className="flex items-center gap-1 shrink-0">
+          <SaveProgrammeButton programmeId={prog.id} locale={locale} />
+          {onToggleCompare && (
+            <button
+              onClick={() => onToggleCompare(prog.id)}
+              className={cn(
+                "p-1.5 rounded-lg transition-colors",
+                isComparing ? "bg-accent/15 text-accent" : "text-text-muted hover:text-accent hover:bg-accent/10"
+              )}
+              aria-label={isComparing ? "Remove from compare" : "Add to compare"}
+            >
+              <GitCompareArrows className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
       {uni && (
         <div className="flex items-center gap-1.5 mt-1.5 text-sm text-text-secondary">
@@ -197,37 +212,30 @@ function ProgrammeCard({
           <span className="truncate">{uni.name}</span>
         </div>
       )}
-      <div className="flex items-center gap-3 mt-1 text-xs text-text-muted">
+
+      <div className="flex flex-wrap items-center gap-2 mt-3">
+        <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+          {prog.degree}
+        </span>
+        <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
+          {prog.language}
+        </span>
         {uni && (
-          <span className="inline-flex items-center gap-1">
+          <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
             <MapPin className="w-3 h-3" />
             {uni.city}
           </span>
         )}
-        {uni && (
-          <span>{uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}</span>
-        )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-text-secondary">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs text-text-secondary">
         <span className="inline-flex items-center gap-1">
-          <BookOpen className="w-3 h-3 text-text-muted" />
-          {prog.language === "English" ? "🇬🇧" : "🇨🇿"} {prog.language}
-        </span>
-        <span className="inline-flex items-center gap-1">
-          <GraduationCap className="w-3 h-3 text-text-muted" />
-          {prog.degree}
+          <Euro className="w-3 h-3 text-amber/70" />
+          €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
         </span>
         <span className="inline-flex items-center gap-1">
           <Clock className="w-3 h-3 text-text-muted" />
           {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
-        </span>
-      </div>
-
-      <div className="flex items-center gap-3 mt-2 text-xs text-text-secondary">
-        <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-amber/70" />
-          €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
@@ -244,15 +252,15 @@ function ProgrammeCard({
         </span>
       </div>
 
-      <div className="mt-auto pt-3 flex items-center justify-between">
+      <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
         <VerifiedBadge
           date={prog.verification.lastVerified}
           sourceUrl={prog.verification.sourceUrl}
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
-        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-amber hover:underline underline-offset-2">
-          <ExternalLink className="w-3 h-3" />
+        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-amber hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300">
           {l.viewProgramme}
+          <ArrowRight className="w-3 h-3" />
         </Link>
       </div>
     </GlassCard>
@@ -272,38 +280,63 @@ function UniversityCard({
 
   return (
     <Link href={`/university/${uni.id}`} className="no-underline">
-      <GlassCard hoverEffect="lift" className="p-5 h-full flex flex-col">
-        <h3 className="text-lg font-semibold text-text-primary leading-snug">{uni.name}</h3>
+      <GlassCard hoverEffect="lift" className="group relative card-shine p-5 h-full flex flex-col overflow-hidden">
+        {/* Decorative gradient corner */}
+        <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="w-full h-full bg-gradient-to-bl from-amber/5 to-transparent rounded-bl-full" />
+        </div>
+
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-amber transition-colors duration-300">{uni.name}</h3>
+          <span className={cn(
+            "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
+            uni.type === "public"
+              ? "bg-success/10 text-success border-success/20"
+              : "bg-amber/10 text-amber border-amber/20"
+          )}>
+            {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
+          </span>
+        </div>
 
         <div className="flex items-center gap-3 mt-2 text-sm text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-text-muted" />
+            <MapPin className="w-3.5 h-3.5 text-amber/70" />
             {uni.city}
           </span>
-          <span>{uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}</span>
           {uni.founded && (
-            <span className="text-text-muted">{l.est} {uni.founded}</span>
+            <span className="text-text-muted text-xs">{l.est} {uni.founded}</span>
           )}
         </div>
 
-        <p className="mt-2 text-text-muted text-sm line-clamp-2 flex-grow">
+        <p className="mt-2.5 text-text-muted text-sm line-clamp-2 flex-grow">
           {uni.blurb[locale] || uni.blurb.en}
         </p>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {uni.fields.slice(0, 4).map((f) => (
-            <span key={f} className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-xs border border-border-subtle">{f}</span>
+            <span key={f} className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">{f}</span>
           ))}
           {uni.fields.length > 4 && (
-            <span className="px-2 py-0.5 text-xs text-text-muted">+{uni.fields.length - 4}</span>
+            <span className="px-2 py-0.5 text-[11px] text-text-muted">+{uni.fields.length - 4}</span>
           )}
         </div>
 
-        {programmeCount > 0 && (
-          <div className="mt-2 text-xs text-amber">
-            {programmeCount} {locale === "ar" ? "برنامج مسجل" : programmeCount === 1 ? "listed programme" : "listed programmes"}
-          </div>
-        )}
+        <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
+          {programmeCount > 0 ? (
+            <span className="inline-flex items-center gap-1.5 text-xs text-amber">
+              <GraduationCap className="w-3.5 h-3.5" />
+              {programmeCount} {locale === "ar" ? "برنامج مسجل" : programmeCount === 1 ? "programme" : "programmes"}
+            </span>
+          ) : (
+            <span className="text-xs text-text-muted">
+              {locale === "ar" ? "البرامج قريبًا" : "Programmes coming soon"}
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1 text-xs text-amber opacity-0 group-hover:opacity-100 transition-all duration-300">
+            {locale === "ar" ? "التفاصيل" : "View details"}
+            <ArrowRight className="w-3 h-3" />
+          </span>
+        </div>
       </GlassCard>
     </Link>
   );
@@ -428,22 +461,39 @@ export default function UniversityListClient() {
   return (
     <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
       {/* Hero banner */}
-      <div className="relative w-full h-[160px] sm:h-[220px] rounded-2xl overflow-hidden mb-8">
-        <Image
-          src="/images/university-campus.jpg"
-          alt="University graduation celebration"
-          fill
-          className="object-cover object-center"
-          sizes="(max-width: 768px) 100vw, 1200px"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-transparent" />
-        <div className="absolute bottom-4 start-5 sm:start-8 z-10">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
-            {mode === "programmes" ? l.programmes : l.universities}
-          </h1>
+      <FadeIn>
+        <div className="relative w-full h-[160px] sm:h-[220px] rounded-2xl overflow-hidden mb-8">
+          <Image
+            src="/images/university-campus.jpg"
+            alt="University graduation celebration"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, 1200px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-midnight/10" />
+          <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
+          <div className="absolute -bottom-6 start-1/3 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">
+            <div>
+              <p className="text-xs text-white/60 mb-1">
+                {locale === "ar" ? "استكشف" : "Explore"}
+              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
+                {mode === "programmes" ? l.programmes : l.universities}
+              </h1>
+            </div>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 text-amber" />
+              <span className="text-xs text-white/80">
+                {mode === "programmes"
+                  ? `${filteredProgrammes.length} ${l.showing}`
+                  : `${filteredUniversities.length} ${l.showingUnis}`}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      </FadeIn>
       {/* Mode toggle */}
       <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.03] border border-border-subtle w-fit mb-6">
         <button
@@ -473,13 +523,13 @@ export default function UniversityListClient() {
       </div>
 
       {/* Search */}
-      <div className="relative mb-4">
-        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+      <div className="relative mb-4 group">
+        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors duration-200" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={mode === "programmes" ? l.search : l.searchUni}
-          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:ring-1 focus:ring-amber/40"
+          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
         />
         {search && (
           <button
@@ -502,7 +552,15 @@ export default function UniversityListClient() {
           <ChevronDown className={cn("w-4 h-4 transition-transform", showFilters && "rotate-180")} />
         </button>
 
+        <AnimatePresence>
         {showFilters && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {mode === "programmes" && (
               <FilterSelect
@@ -582,7 +640,9 @@ export default function UniversityListClient() {
               </>
             )}
           </div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
         {hasFilters && (
           <button
@@ -645,21 +705,31 @@ export default function UniversityListClient() {
       )}
 
       {/* Matcher CTA */}
-      <div className="mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02]">
-        <h3 className="text-lg font-semibold text-text-primary mb-2">
-          {l.notSure}
-        </h3>
-        <p className="text-text-muted text-sm mb-4">
-          {l.matcherHint}
-        </p>
-        <Link
-          href="/university-matcher"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber/10 text-amber border border-amber/20 text-sm font-medium hover:bg-amber/20 transition-colors"
-        >
-          <GraduationCap className="w-4 h-4" />
-          {l.tryMatcher}
-        </Link>
-      </div>
+      <FadeIn>
+        <div className="relative mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02] overflow-hidden">
+          <div className="absolute inset-0 noise-overlay opacity-[0.02]" />
+          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-60 h-20 bg-amber/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber/10 mb-4">
+              <Sparkles className="w-6 h-6 text-amber" />
+            </div>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">
+              {l.notSure}
+            </h3>
+            <p className="text-text-muted text-sm mb-5 max-w-md mx-auto">
+              {l.matcherHint}
+            </p>
+            <Link
+              href="/university-matcher"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-amber/10 text-amber border border-amber/20 text-sm font-medium hover:bg-amber/20 hover:border-amber/40 transition-all duration-300"
+            >
+              <GraduationCap className="w-4 h-4" />
+              {l.tryMatcher}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </FadeIn>
 
       {/* Floating compare bar */}
       {compareIds.length > 0 && (

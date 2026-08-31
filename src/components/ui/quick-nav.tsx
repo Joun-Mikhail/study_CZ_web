@@ -20,10 +20,10 @@ import {
 const quickLinks = [
   { icon: GraduationCap, href: "/universities", en: "Browse Universities", ar: "تصفح الجامعات" },
   { icon: Compass, href: "/university-matcher", en: "Find My Programme", ar: "ابحث عن برنامجي" },
-  { icon: ClipboardCheck, href: "/eligibility", en: "Check Eligibility", ar: "تقييم الأهلية" },
+  { icon: ClipboardCheck, href: "/eligibility", en: "Check Eligibility", ar: "أقدر أقدم؟" },
   { icon: FileText, href: "/application-guide", en: "Application Guide", ar: "دليل التقديم" },
   { icon: BarChart3, href: "/cost-of-living", en: "Cost of Living", ar: "تكاليف المعيشة" },
-  { icon: Briefcase, href: "/services", en: "Get Help", ar: "احصل على مساعدة" },
+  { icon: Briefcase, href: "/services", en: "Get Help", ar: "محتاج مساعدة" },
   { icon: MessageCircleQuestion, href: "/qa", en: "Common Questions", ar: "أسئلة شائعة" },
   { icon: BookOpen, href: "/courses", en: "Language Course", ar: "كورس اللغة" },
 ];

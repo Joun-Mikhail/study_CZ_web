@@ -4,6 +4,7 @@ import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
+import { FadeIn } from "@/components/ui/fade-in";
 import { motion } from "framer-motion";
 import { Clock, GraduationCap, Home, FileText, Plane, Shield, Utensils } from "lucide-react";
 import Image from "next/image";
@@ -54,7 +55,7 @@ const t = {
     rent: "Private rent",
     food: "Food",
     transport: "Transport",
-    total: "Total / month",
+    total: "Total per month",
     closing: "Most agencies won't publish these numbers, because if you know what things actually cost you might realise you can do this yourself. You can. Everything on this site is free, and Czech public universities accept direct applications.",
     noData: "This data is being compiled from verified sources. Check back soon.",
   },
@@ -71,21 +72,21 @@ const t = {
     appFeesLabel: "لكل طلب",
     docCostsTitle: "تكاليف الوثائق",
     country: "البلد",
-    apostille: "ابوستيل",
+    apostille: "تصديق (أبوستيل)",
     translation: "ترجمة",
     note: "ملاحظة",
-    visaTitle: "التاشيرة واثبات القدرة المالية",
-    visaFee: "رسوم تاشيرة طويلة الامد",
-    financialProof: "الرصيد البنكي المطلوب (اثبات مالي)",
-    insuranceTitle: "التامين الصحي (سنويا)",
-    insuranceLabel: "تامين طلابي شامل",
+    visaTitle: "الفيزا وإثبات الفلوس",
+    visaFee: "رسوم فيزا طويلة المدة",
+    financialProof: "أقل رصيد لازم يكون في حسابك",
+    insuranceTitle: "التأمين الصحي (سنويا)",
+    insuranceLabel: "تأمين طلابي شامل",
     livingTitle: "تكاليف المعيشة الشهرية",
     city: "المدينة",
     dorm: "سكن جامعي",
     rent: "ايجار خاص",
     food: "اكل",
     transport: "مواصلات",
-    total: "اجمالي / شهر",
+    total: "الإجمالي في الشهر",
     closing: "اغلب الوكالات مش هتنشر الارقام دي، لان لو عرفت التكلفة الحقيقية ممكن تكتشف انك تقدر تعمل كل ده لوحدك. وفعلا تقدر. كل حاجة على الموقع ده مجانية، والجامعات الحكومية التشيكية بتقبل طلبات مباشرة.",
     noData: "البيانات قيد التجميع من مصادر موثقة. ارجع قريب.",
   },
@@ -123,11 +124,16 @@ function SectionCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className="motion-safe-fallback rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm p-6"
+      className="motion-safe-fallback rounded-2xl border border-border-subtle bg-surface/60 backdrop-blur-sm p-6 card-shine relative overflow-hidden group"
     >
+      <div className="absolute top-0 end-0 w-20 h-20 pointer-events-none opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500">
+        <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
+          <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+        </svg>
+      </div>
       <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-xl bg-accent/10">
-          <Icon className="w-5 h-5 text-accent" />
+        <div className="p-2 rounded-xl bg-amber/10 border border-amber/20">
+          <Icon className="w-5 h-5 text-amber" />
         </div>
         <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
       </div>
@@ -150,17 +156,21 @@ export default function WhatItCostsClient() {
       <main id="main-content" className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Hero image */}
-          <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden mb-8">
-            <Image
-              src="/images/prague-architecture.jpg"
-              alt="Prague architecture"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 768px"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
-          </div>
+          <FadeIn>
+            <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden mb-8">
+              <Image
+                src="/images/prague-architecture.jpg"
+                alt="Prague architecture"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-midnight/10" />
+              <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
+              <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
+            </div>
+          </FadeIn>
 
           {/* Verified badge */}
           <motion.div

@@ -53,7 +53,7 @@ const questions: Question[] = [
     },
     why: {
       en: "Ask what is not included. Translation? Apostille? Application fees? Visa fee?",
-      ar: "اسأل ايه اللي مش مشمول. ترجمة؟ ابوستيل؟ رسوم تقديم؟ رسوم تأشيرة؟",
+      ar: "اسأل إيه اللي مش مشمول. ترجمة؟ تصديق (أبوستيل)؟ رسوم تقديم؟ رسوم فيزا؟",
     },
   },
   {

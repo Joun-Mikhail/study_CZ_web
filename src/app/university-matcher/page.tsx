@@ -111,8 +111,8 @@ function computeMatches(
         const range = hi === Infinity ? 10000 : hi - lo;
         score += Math.round(25 * Math.max(0, 1 - distFromMid / range));
         reasons.push({
-          en: `€${prog.tuitionEurPerYear.toLocaleString()}/yr fits your budget`,
-          ar: `€${prog.tuitionEurPerYear.toLocaleString()}/سنة ضمن ميزانيتك`,
+          en: `€${prog.tuitionEurPerYear.toLocaleString()} per year fits your budget`,
+          ar: `€${prog.tuitionEurPerYear.toLocaleString()} في السنة ضمن ميزانيتك`,
         });
       }
 
@@ -358,11 +358,11 @@ export default function MatcherPage() {
                   </h3>
                   <p className="text-sm text-text-secondary mb-3">
                     {locale === "ar"
-                      ? "خد تقييم أهلية في دقيقتين عشان تشوف لو درجاتك وأوراقك وجدولك الزمني جاهزين."
+                      ? "جاوب على كام سؤال في دقيقتين وشوف لو درجاتك وأوراقك ووقتك كويسين."
                       : "Take a 2-minute eligibility check to see if your grades, documents, and timeline are on track."}
                   </p>
                   <span className="text-sm font-medium text-amber">
-                    {locale === "ar" ? "تحقق من أهليتي (مجاني) →" : "Check My Eligibility (Free) →"}
+                    {locale === "ar" ? "شوف لو تقدر تقدم (ببلاش) →" : "Check My Eligibility (Free) →"}
                   </span>
                 </GlassCard>
 

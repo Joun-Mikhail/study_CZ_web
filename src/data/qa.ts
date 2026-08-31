@@ -90,11 +90,11 @@ export const qaEntries: QaEntry[] = [
     category: "visa",
     q: {
       en: "What's the difference between the 90-day (short-term) visa and a long-term residence permit?",
-      ar: "إيه الفرق بين تأشيرة الـ90 يوم وتصريح الإقامة طويل المدى؟",
+      ar: "إيه الفرق بين فيزا الـ90 يوم وتصريح الإقامة الطويل؟",
     },
     a: {
       en: "A long-term visa lets you stay in the Czech Republic for more than 90 days, valid for up to one year, for a single entry. A long-term residence permit is a plastic biometric card issued after you're already in the country (typically after a long-term visa), valid up to 2 years, and lets you re-enter freely for the same purpose.",
-      ar: "التأشيرة طويلة المدى تخليك تقيم في التشيك أكثر من 90 يوم، وصالحة لمدة سنة كحد أقصى، ولدخول واحد بس. تصريح الإقامة طويل المدى بطاقة بيومترية بتتصدر وانت موجود بالفعل في البلد (عادة بعد التأشيرة طويلة المدى)، وصالحة لحد سنتين، وبتسمحلك بالدخول والخروج بحرية لنفس الغرض.",
+      ar: "الفيزا الطويلة بتخليك تقيم في التشيك أكتر من 90 يوم، وصالحة لسنة بالكتير، ولدخول واحد بس. تصريح الإقامة الطويل ده كارت بيومتري بيتعمل وانت موجود في البلد (عادة بعد الفيزا الطويلة)، وصالح لسنتين، وبيسمحلك تدخل وتخرج بحرية.",
     },
     source: {
       url: "https://www.mvcr.cz/mvcren/article/third-country-nationals-general-information.aspx",
@@ -162,7 +162,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Your passport must be valid. If you're under 15, you must be registered on a parent's passport, or have your own. To get a long-term visa, the passport must have been issued less than 10 years ago, contain at least 2 blank pages, and be valid for at least 3 months beyond the visa's validity period.",
-      ar: "لازم يكون جواز سفرك ساري. لو عمرك أقل من 15 سنة، لازم تكون مسجل في جواز أحد والديك أو يكون عندك جواز خاص بيك. للحصول على تأشيرة طويلة المدى، لازم يكون الجواز صادر من أقل من 10 سنين، وفيه صفحتين فاضيتين على الأقل، وصالح لمدة 3 أشهر على الأقل بعد نهاية صلاحية التأشيرة.",
+      ar: "لازم جوازك يكون ساري. لو عمرك أقل من 15 سنة، لازم تكون مسجل في جواز حد من أهلك أو يكون عندك جواز خاص بيك. عشان تاخد فيزا طويلة، لازم الجواز يكون طالع من أقل من 10 سنين، وفيه صفحتين فاضيين على الأقل، ويكون ساري 3 شهور بعد ما الفيزا تخلص.",
     },
   },
   {
@@ -238,7 +238,7 @@ export const qaEntries: QaEntry[] = [
     },
     a: {
       en: "Use the official Study in Czechia portal to browse institutions, then filter by major and degree level (bachelor's/master's). Compare tuition across a shortlist (for example, one student found engineering programs ranging from about €1,000 to €2,000/year across different universities) and check each program's entrance requirements before committing.",
-      ar: "استخدم بوابة Study in Czechia الرسمية لتصفح الجامعات، وبعدين فلتر حسب التخصص ومستوى الدرجة (بكالوريوس/ماجستير). قارن الرسوم بين شورت ليست (مثلًا طالب لقى برامج هندسة تتراوح من 1,000 لـ2,000 يورو في السنة في جامعات مختلفة) وراجع شروط القبول لكل برنامج قبل ما تلتزم.",
+      ar: "استخدم بوابة Study in Czechia الرسمية لتصفح الجامعات، وبعدين صفّي حسب التخصص ومستوى الدرجة (بكالوريوس أو ماجستير). قارن الرسوم بين قائمتك المختصرة (مثلا طالب لقى برامج هندسة تتراوح من 1,000 لـ2,000 يورو في السنة في جامعات مختلفة) وراجع شروط القبول لكل برنامج قبل ما تلتزم.",
 
     },
   },
@@ -251,7 +251,7 @@ export const qaEntries: QaEntry[] = [
       ar: "ممكن أدرس مجانًا بالتشيك؟",
     },
     a: {
-      en: "Yes, public universities charge no tuition for programmes taught in Czech. You usually need B2+ Czech, often achieved via a one-year foundation/preparatory programme (costs ~€2,000–€5,000). You still pay living costs (~€500–€800/month).",
+      en: "Yes, public universities charge no tuition for programmes taught in Czech. You usually need B2+ Czech, often achieved via a one-year foundation/preparatory programme (costs ~€2,000–€5,000). You still pay living costs (~€500–€800 per month).",
       ar: "أيوه، الجامعات الحكومية مابتاخدش رسوم على البرامج اللي بتتدرّس بالتشيكي. عادة بيُطلب مستوى تشيكي حوالي B2 أو أعلى، والطلبة بياخدوا سنة تحضيرية بتكلف تقريبًا 2,000–5,000 يورو. هتتحمّل مصاريف المعيشة برضه (حوالي 500–800 يورو في الشهر).",
     },
   },
@@ -317,7 +317,7 @@ export const qaEntries: QaEntry[] = [
       ar: "المصاريف الشهرية للطالب في التشيك بتكون قد إيه تقريبًا؟",
     },
     a: {
-      en: "Tuition (English-taught programs): 15,000–250,000 CZK/year, depending on program and university (Czech-taught programs are free). Health insurance: 13,000–19,000 CZK/year. Accommodation deposit: 5,000–15,000 CZK. Dorm rent: 4,500–6,500 CZK/month (shared room); private rentals start around 8,000 CZK/month. Food: from 2,500 CZK/month. Mobile top-up: from 300 CZK/month. Laundry: 40–70 CZK/load. Transport (student discount): 140–200 CZK/month.",
+      en: "Tuition (English-taught programs): 15,000–250,000 CZK per year, depending on program and university (Czech-taught programs are free). Health insurance: 13,000–19,000 CZK per year. Accommodation deposit: 5,000–15,000 CZK. Dorm rent: 4,500–6,500 CZK per month (shared room); private rentals start around 8,000 CZK per month. Food: from 2,500 CZK per month. Mobile top-up: from 300 CZK per month. Laundry: 40–70 CZK per load. Transport (student discount): 140–200 CZK per month.",
       ar: "الرسوم الدراسية (بالإنجليزي): من 15,000 لـ250,000 كرونة تشيكية في السنة حسب البرنامج والجامعة (البرامج بالتشيكي مجانية). التأمين الصحي: 13,000–19,000 كرونة تشيكية في السنة. تأمين السكن: 5,000–15,000 كرونة تشيكية. إيجار السكن الجامعي: 4,500–6,500 كرونة تشيكية شهريًا (غرفة مشتركة)؛ الإيجار الخاص من 8,000 كرونة تشيكية شهريًا. الأكل: من 2,500 كرونة تشيكية شهريًا. شحن الموبايل: من 300 كرونة تشيكية شهريًا. الغسيل: 40–70 كرونة تشيكية للمرة. المواصلات (خصم طالب): 140–200 كرونة تشيكية شهريًا.",
     },
   },
