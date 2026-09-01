@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -34,6 +34,13 @@ export default function CoursesClient() {
   const { locale } = useTranslation();
   const t = locale === "ar" ? ar : en;
   const [openModule, setOpenModule] = useState<number | null>(0);
+  const [showDashboardLink, setShowDashboardLink] = useState(false);
+
+  useEffect(() => {
+    try {
+      setShowDashboardLink(localStorage.getItem("studycz_access") === "true");
+    } catch {}
+  }, []);
 
   return (
     <div className="relative min-h-screen">
@@ -41,6 +48,19 @@ export default function CoursesClient() {
       <Breadcrumb />
 
       <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Already purchased banner */}
+        {showDashboardLink && (
+          <div className="max-w-3xl mx-auto mb-4">
+            <a
+              href="/courses/learn"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium hover:bg-green-500/15 transition-colors"
+            >
+              <PlayCircle className="w-4 h-4" />
+              {locale === "ar" ? "عندك الكورس بالفعل — روح للوحة التحكم" : "You already have the course — Go to Dashboard →"}
+            </a>
+          </div>
+        )}
+
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl py-2">
           {/* Background image */}
