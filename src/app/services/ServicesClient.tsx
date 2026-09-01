@@ -277,8 +277,9 @@ export default function ServicesClient() {
                 <Image
                   src="/images/john.jpg"
                   alt="Joun, founder of Study Czechia"
-                  width={220}
-                  height={220}
+                  width={440}
+                  height={440}
+                  quality={90}
                   className="object-cover w-full h-full"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;

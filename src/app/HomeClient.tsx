@@ -610,13 +610,14 @@ export default function HomeClient() {
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden noise-overlay aurora-bg">
             <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
-            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
               <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
               <Image
                 src="/images/john.jpg"
                 alt="Joun, founder of Study Czechia"
-                width={160}
-                height={160}
+                width={384}
+                height={384}
+                quality={90}
                 loading="lazy"
                 className="absolute inset-0 object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
               />
