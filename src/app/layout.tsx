@@ -44,7 +44,6 @@ export const metadata: Metadata = {
     siteName: "Study Czechia",
     locale: "en_US",
     type: "website",
-    url: SITE_URL,
     images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
   },
   twitter: {
@@ -54,9 +53,7 @@ export const metadata: Metadata = {
   icons: {
     icon: { url: "/favicon.svg", type: "image/svg+xml" },
   },
-  alternates: {
-    canonical: "/",
-  },
+  alternates: {},
   robots: process.env.CONTEXT === "production" || !process.env.CONTEXT
     ? { index: true, follow: true, googleBot: { index: true, follow: true } }
     : { index: false, follow: false },
