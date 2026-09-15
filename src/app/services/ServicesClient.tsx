@@ -202,6 +202,39 @@ export default function ServicesClient() {
           </motion.div>
         </section>
 
+        {/* How it works timeline */}
+        <section className="max-w-3xl mx-auto mb-16">
+          <h2 className="text-xl font-semibold text-text-primary text-center mb-8">
+            {t.howItWorks.title}
+          </h2>
+          <div className="relative">
+            <div className="absolute start-6 top-0 bottom-0 w-px bg-border-subtle hidden sm:block" />
+            {t.howItWorks.steps.map((step, i) => {
+              const stepIcons = [MessageCircle, CheckCircle2, Rocket];
+              const StepIcon = stepIcons[i] ?? CheckCircle2;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.15 }}
+                  className="motion-safe-fallback relative flex items-start gap-4 sm:gap-6 mb-8 last:mb-0"
+                >
+                  <div className="relative z-10 w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center shrink-0">
+                    <StepIcon className="w-5 h-5 text-amber" />
+                  </div>
+                  <div className="pt-1">
+                    <p className="text-xs text-amber font-medium mb-1">{step.label}</p>
+                    <h3 className="font-semibold text-text-primary mb-1">{step.title}</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
         {/* SECTION 3: Free tier card */}
         <section className="max-w-5xl mx-auto mb-12">
           <motion.div
@@ -623,6 +656,26 @@ const en = {
       "That takes my personal time, hours per student. That's what the services below are for. And they cost a fraction of what agencies in Egypt, Jordan, or Iraq charge for worse help.",
     ],
   },
+  howItWorks: {
+    title: "How It Works",
+    steps: [
+      {
+        label: "Step 1",
+        title: "Message me on WhatsApp",
+        desc: "Tell me your situation: where you're from, what you've done so far, and what you need help with. I'll tell you honestly if you need a paid service or if the free guides are enough.",
+      },
+      {
+        label: "Step 2",
+        title: "Pick a service and pay securely",
+        desc: "Choose what fits your needs. Pay via Stripe (or InstaPay if you're in Egypt). I'll review your details before our session so we don't waste a single minute.",
+      },
+      {
+        label: "Step 3",
+        title: "Get personal guidance + follow-up",
+        desc: "We work through your specific situation together. After our session, you get a written summary and WhatsApp follow-up support so you're never stuck alone.",
+      },
+    ],
+  },
   freeTier: {
     title: "Do It Yourself: Free",
     subtitle: "Most students start here. Many finish here too, and that's completely fine.",
@@ -867,6 +920,26 @@ const ar: typeof en = {
       "أنا بنيت الموقع ده عشان أي طالب عربي يقدر يتعامل مع الجامعات التشيكية من غير ما يدفع لحد. الأدلة، اختيار الجامعة، الأسئلة والأجوبة، حاسبة التكاليف، جروب الفيسبوك. كله مجاني وهيفضل مجاني.",
       "بس فيه طلاب عايزين أكتر من دليل. عايزين حد يقعد معاهم، يراجع أوراقهم، يجهزهم لمقابلة السفارة، ويرد على رسائلهم على واتساب لما حاجة تغلط.",
       "ده بياخد وقتي الشخصي. ساعات لكل طالب. ده اللي الخدمات تحت دي عشانه. وبتكلف جزء صغير من اللي المكاتب في مصر أو الأردن أو العراق بتاخده على مساعدة أقل.",
+    ],
+  },
+  howItWorks: {
+    title: "إزاي بتشتغل",
+    steps: [
+      {
+        label: "الخطوة 1",
+        title: "راسلني على واتساب",
+        desc: "قولي وضعك: أنت منين، عملت إيه لحد دلوقتي، ومحتاج مساعدة في إيه. هقولك بصراحة لو محتاج خدمة مدفوعة ولا الأدلة المجانية كفاية.",
+      },
+      {
+        label: "الخطوة 2",
+        title: "اختار خدمة وادفع بأمان",
+        desc: "اختار اللي يناسبك. ادفع عبر Stripe (أو InstaPay لو في مصر). هراجع تفاصيلك قبل جلستنا عشان مانضيعش دقيقة.",
+      },
+      {
+        label: "الخطوة 3",
+        title: "احصل على توجيه شخصي + متابعة",
+        desc: "بنشتغل على وضعك أنت تحديدًا مع بعض. بعد الجلسة بتاخد ملخص مكتوب ودعم متابعة على واتساب عشان عمرك ماتكون لوحدك.",
+      },
     ],
   },
   freeTier: {
