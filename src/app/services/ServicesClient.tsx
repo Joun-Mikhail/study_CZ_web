@@ -428,25 +428,32 @@ export default function ServicesClient() {
           </div>
         </section>
 
-        {/* SECTION 7: Testimonials */}
+        {/* SECTION 7: Community proof */}
         <section className="max-w-4xl mx-auto mb-16">
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">
-            {t.testimonials.title}
+            {t.communityProof.title}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[0, 1, 2].map((i) => (
-              <GlassCard key={i} className="flex flex-col justify-between">
-                <p className="text-sm text-text-secondary italic leading-relaxed mb-4">
-                  {t.testimonials.placeholder}
-                </p>
-                <div className="flex items-center gap-2 text-xs text-text-muted">
-                  <div className="w-8 h-8 rounded-full bg-white/5 border border-border-subtle flex items-center justify-center">
-                    <Users className="w-4 h-4 text-text-muted" />
-                  </div>
-                  <span>{t.testimonials.comingSoon}</span>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            {t.communityProof.stats.map((stat, i) => (
+              <GlassCard key={i} className="text-center">
+                {i === 0 && <Users className="w-8 h-8 text-amber mx-auto mb-3" />}
+                {i === 1 && <MessageCircle className="w-8 h-8 text-amber mx-auto mb-3" />}
+                {i === 2 && <Globe className="w-8 h-8 text-amber mx-auto mb-3" />}
+                <p className="text-2xl font-bold text-text-primary mb-1">{stat.value}</p>
+                <p className="text-sm text-text-secondary">{stat.label}</p>
               </GlassCard>
             ))}
+          </div>
+          <div className="text-center">
+            <a
+              href={FACEBOOK_GROUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-amber hover:text-amber/80 transition-colors"
+            >
+              <Users className="w-4 h-4" />
+              {t.communityProof.cta}
+            </a>
           </div>
         </section>
 
@@ -498,14 +505,6 @@ export default function ServicesClient() {
                 </AnimatePresence>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Security notice */}
-        <section className="max-w-2xl mx-auto mb-12">
-          <div className="flex items-start gap-3 px-5 py-4 rounded-xl border border-border-subtle bg-surface/40 text-sm text-text-muted">
-            <Shield className="w-5 h-5 shrink-0 mt-0.5 text-text-muted" />
-            <p>{t.securityNotice}</p>
           </div>
         </section>
 
@@ -842,10 +841,14 @@ const en = {
       { label: "Community", agency: "You're a client number", us: "Join 12,000+ students helping each other" },
     ],
   },
-  testimonials: {
+  communityProof: {
     title: "Students Who Were in Your Exact Situation",
-    placeholder: `"Testimonials coming soon, we're collecting stories from students in our community."`,
-    comingSoon: "Coming soon",
+    stats: [
+      { value: "12,000+", label: "Students in our Facebook community helping each other daily" },
+      { value: "4 Years", label: "Answering the same questions — now all in one place" },
+      { value: "€15–€350", label: "Vs. €1,500–€3,000 agencies charge for less" },
+    ],
+    cta: "See the community on Facebook →",
   },
   scamWarning:
     "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
@@ -1094,10 +1097,14 @@ const ar: typeof en = {
       { label: "المجتمع", agency: "أنت رقم عميل", us: "انضم لأكتر من 12,000 طالب بيساعدوا بعض" },
     ],
   },
-  testimonials: {
+  communityProof: {
     title: "طلاب كانوا في نفس موقفك بالظبط",
-    placeholder: `"التجارب قريبًا. بنجمع قصص من طلاب في مجتمعنا."`,
-    comingSoon: "قريبًا",
+    stats: [
+      { value: "+12,000", label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
+      { value: "4 سنين", label: "بجاوب على نفس الأسئلة — دلوقتي كلها في مكان واحد" },
+      { value: "€15–€350", label: "مقابل €1,500–€3,000 اللي المكاتب بتاخدها على أقل" },
+    ],
+    cta: "شوف المجتمع على فيسبوك →",
   },
   scamWarning: "إحنا مش بنطلب فلوس على أي رقم واتساب غير رسمي أو رسايل خاصة بتدعي إنها منّا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
   faq: {

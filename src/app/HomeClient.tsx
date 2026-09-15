@@ -553,7 +553,7 @@ export default function HomeClient() {
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">{t.glance.title}</h2>
           <VerifiedBadge
-            date="2026-08-27"
+            date="2026-09-15"
             label={locale === "ar" ? "آخر تحديث:" : "Last updated:"}
             sourceUrl="https://www.studyin.cz/"
             className="mt-1"

@@ -104,7 +104,6 @@ export default function CoursesClient() {
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10"
           >
-            {/* TODO: Replace with live Stripe payment link */}
             <MagneticButton variant="primary" size="lg" href={PAYMENT_LINKS.course}>
               {t.heroCta}
             </MagneticButton>
@@ -282,7 +281,6 @@ export default function CoursesClient() {
         <section className="max-w-xl mx-auto text-center">
           <h2 className="text-xl font-semibold text-text-primary mb-2">{t.bottomCta.title}</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
-            {/* TODO: Replace with live Stripe payment link */}
             <MagneticButton variant="primary" size="lg" href={PAYMENT_LINKS.course}>
               {t.bottomCta.primary}
             </MagneticButton>
