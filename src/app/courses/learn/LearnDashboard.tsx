@@ -15,7 +15,7 @@ import {
   getQuizScore,
   getLastVisited,
 } from "@/lib/course-store";
-import { PAYMENT_LINKS, WHATSAPP_URL } from "@/config/contact";
+import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -142,7 +142,7 @@ export default function LearnDashboard() {
 
                 <p className="text-xs text-text-muted text-center">
                   {t.gate.help}{" "}
-                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">
+                  <a href={whatsappWithContext("course access")} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">
                     {t.gate.helpLink}
                   </a>
                 </p>
@@ -361,7 +361,7 @@ export default function LearnDashboard() {
 
       {/* Floating WhatsApp */}
       <a
-        href={WHATSAPP_URL}
+        href={whatsappWithContext("the learning dashboard")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50"

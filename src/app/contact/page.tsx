@@ -6,7 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL } from "@/config/contact";
+import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL, whatsappWithContext } from "@/config/contact";
 import { Mail, MessageCircle, Users, Clock, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -53,7 +53,7 @@ export default function ContactPage() {
       title: t.contact.whatsappTitle,
       desc: t.contact.whatsappDesc,
       cta: t.contact.whatsappCta,
-      href: WHATSAPP_URL,
+      href: whatsappWithContext("contacting you"),
       detail: "+420 703 982 237",
       responseTime: t.contact.responseWhatsapp,
       color: "text-success",

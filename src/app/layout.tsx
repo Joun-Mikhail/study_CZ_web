@@ -23,11 +23,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "Study Czechia: Your Trusted Bridge to Czech University Life",
+    default: "Study Czechia: Study in Czechia Without an Agency",
     template: "%s | Study Czechia",
   },
   description:
-    "Free guides, university matching, and cost-of-living tools plus personal services: document review, embassy interview prep, and full application support for Arabic-speaking students in the Czech Republic.",
+    "Free guides, university matching, and cost-of-living tools from a student who lives in Czechia. Personal services: document review, embassy interview prep, and full application support for Arabic-speaking students.",
   keywords: [
     "studyczechia",
     "study in czechia",

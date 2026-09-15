@@ -13,7 +13,7 @@ import {
   isLessonComplete,
   setLastVisited,
 } from "@/lib/course-store";
-import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -328,7 +328,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
       {/* Floating WhatsApp */}
       <a
-        href={WHATSAPP_URL}
+        href={whatsappWithContext("a course lesson")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50"

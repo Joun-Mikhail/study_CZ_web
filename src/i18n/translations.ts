@@ -16,9 +16,9 @@ export const translations = {
       language: "العربية",
     },
     hero: {
-      title: "Your Trusted Bridge to Czech University Life",
+      title: "Study in Czechia Without an Agency",
       subtitle:
-        "Free guides, tools, and expert support for Arabic-speaking students navigating Czech universities. Built by students, for students.",
+        "Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in a 12,000-member community.",
       cta: "Find My University",
       secondaryCta: "Check My Eligibility",
     },
@@ -370,9 +370,9 @@ export const translations = {
       language: "English",
     },
     hero: {
-      title: "دليلك للدراسة في التشيك",
+      title: "ادرس في التشيك من غير وكالة",
       subtitle:
-        "كل اللي محتاجه عن الجامعات التشيكية — أدلة مجانية وأدوات ودعم حقيقي بالعربي. من طلاب، لطلاب.",
+        "أسعار حقيقية وميزانيات واقعية، من طالب عايش هنا. أدوات مجانية اتبنت من ٤ سنين رد على نفس الأسئلة في مجتمع فيه ١٢,٠٠٠ عضو.",
       cta: "دور على جامعتك",
       secondaryCta: "شوف لو تقدر تقدم",
     },

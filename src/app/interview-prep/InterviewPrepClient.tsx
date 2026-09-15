@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { PAYMENT_LINKS, WHATSAPP_URL } from "@/config/contact";
+import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -167,7 +167,7 @@ export default function InterviewPrepClient() {
               <p className="text-xs text-text-muted mt-3">{t.finalCta.micro}</p>
               <div className="mt-4 pt-4 border-t border-border-subtle">
                 <a
-                  href={WHATSAPP_URL}
+                  href={whatsappWithContext("embassy interview prep")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"

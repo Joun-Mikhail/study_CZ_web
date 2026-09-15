@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -714,7 +714,7 @@ function ResultsView({
             <p className="text-sm font-medium text-text-primary mb-1">{t.sendReportTitle}</p>
             <p className="text-xs text-text-muted mb-3">{t.sendReportDesc}</p>
             <a
-              href={WHATSAPP_URL}
+              href={whatsappWithContext("my eligibility results")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"

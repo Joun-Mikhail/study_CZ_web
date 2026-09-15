@@ -4,6 +4,11 @@ export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
 
 export const WHATSAPP_URL = "https://wa.me/420703982237";
 
+export function whatsappWithContext(page: string): string {
+  const text = encodeURIComponent(`Hi Joun, I have a question about ${page}`);
+  return `https://wa.me/420703982237?text=${text}`;
+}
+
 export const INSTAPAY_HANDLE = "+201282244587";
 
 export const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/351187011113360";

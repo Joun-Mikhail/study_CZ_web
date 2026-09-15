@@ -9,7 +9,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { COURSE } from "@/data/course";
 import type { QuizQuestion } from "@/data/course";
 import { hasAccess, saveQuizScore, getQuizScore } from "@/lib/course-store";
-import { PAYMENT_LINKS, WHATSAPP_URL } from "@/config/contact";
+import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -436,7 +436,7 @@ export default function QuizClient({ moduleId }: Props) {
       </main>
 
       <a
-        href={WHATSAPP_URL}
+        href={whatsappWithContext("a quiz question")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50"

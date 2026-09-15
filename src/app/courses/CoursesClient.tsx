@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -270,7 +270,7 @@ export default function CoursesClient() {
               <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
                 {t.previewBuyCta}
               </MagneticButton>
-              <MagneticButton variant="secondary" href={WHATSAPP_URL}>
+              <MagneticButton variant="secondary" href={whatsappWithContext("the First 90 Days course")}>
                 <MessageCircle className="w-4 h-4" />
                 {t.previewCta}
               </MagneticButton>
@@ -295,7 +295,7 @@ export default function CoursesClient() {
 
       {/* Floating WhatsApp button */}
       <a
-        href={WHATSAPP_URL}
+        href={whatsappWithContext("the First 90 Days course")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50 group"

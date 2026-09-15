@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
@@ -34,6 +34,7 @@ import {
   Calculator,
   GraduationCap,
   HelpCircle,
+  XCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -154,7 +155,7 @@ export default function ServicesClient() {
             >
               {t.hero.cta}
             </MagneticButton>
-            <MagneticButton variant="secondary" size="lg" href={WHATSAPP_URL}>
+            <MagneticButton variant="secondary" size="lg" href={whatsappWithContext("your services")}>
               <MessageCircle className="w-5 h-5" />
               {t.hero.whatsappCta}
             </MagneticButton>
@@ -261,6 +262,49 @@ export default function ServicesClient() {
             {services.slice(3).map((svc, i) => (
               <ServiceCard key={svc.key} svc={svc} t={t} index={i + 3} />
             ))}
+          </div>
+        </section>
+
+        {/* SECTION: Transparency — What's included / NOT included */}
+        <section className="max-w-4xl mx-auto mb-16">
+          <h2 className="text-xl font-semibold text-text-primary text-center mb-2">
+            {t.transparency.title}
+          </h2>
+          <p className="text-sm text-text-secondary text-center mb-6">
+            {t.transparency.subtitle}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="rounded-2xl border border-amber/30 bg-amber/[0.04] p-6">
+              <h3 className="flex items-center gap-2 font-semibold text-text-primary mb-4">
+                <CheckCircle2 className="w-5 h-5 text-amber" />
+                {t.transparency.includedTitle}
+              </h3>
+              <ul className="space-y-2">
+                {t.transparency.included.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-border-subtle bg-surface/60 p-6">
+              <h3 className="flex items-center gap-2 font-semibold text-text-primary mb-4">
+                <XCircle className="w-5 h-5 text-text-muted" />
+                {t.transparency.notIncludedTitle}
+              </h3>
+              <ul className="space-y-2">
+                {t.transparency.notIncluded.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                    <XCircle className="w-3.5 h-3.5 text-text-muted shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4 rounded-xl border border-border-subtle bg-surface/40 px-5 py-3">
+            <p className="text-xs text-text-muted text-center">{t.transparency.refund}</p>
           </div>
         </section>
 
@@ -436,7 +480,7 @@ export default function ServicesClient() {
         <section className="max-w-xl mx-auto text-center mb-8">
           <h2 className="text-xl font-semibold text-text-primary mb-2">{t.finalCta.title}</h2>
           <p className="text-sm text-text-secondary mb-5">{t.finalCta.subtitle}</p>
-          <MagneticButton variant="primary" size="lg" href={WHATSAPP_URL}>
+          <MagneticButton variant="primary" size="lg" href={whatsappWithContext("getting started")}>
             <MessageCircle className="w-5 h-5" />
             {t.finalCta.button}
           </MagneticButton>
@@ -445,7 +489,7 @@ export default function ServicesClient() {
 
       {/* Floating WhatsApp button */}
       <a
-        href={WHATSAPP_URL}
+        href={whatsappWithContext("your services page")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50 group"
@@ -699,6 +743,29 @@ const en = {
       },
     },
   },
+  transparency: {
+    title: "Full Transparency: What You Get and What You Don't",
+    subtitle: "No surprises. Here's exactly what's included and what isn't.",
+    includedTitle: "What's Included",
+    included: [
+      "Direct WhatsApp access to me personally",
+      "Written summaries and checklists after every session",
+      "Follow-up support (duration depends on service)",
+      "Honest advice — I'll tell you if you don't need a paid service",
+      "Full refund within 48 hours, no questions asked",
+      "Access to the free resources forever",
+    ],
+    notIncludedTitle: "What's NOT Included",
+    notIncluded: [
+      "I don't submit applications on your behalf — you do it, I guide you",
+      "I can't guarantee a visa — no one can, anyone who promises that is lying",
+      "I don't provide official translations or apostille services",
+      "I'm not an agency — I'm one student helping you personally",
+      "I don't offer ongoing monthly support (except what's in your service plan)",
+      "I don't cover countries other than Czech Republic",
+    ],
+    refund: "💳 All payments via Stripe. Full refund within 48 hours if not satisfied. Also available via InstaPay 🇪🇬 for Egyptian students.",
+  },
   about: {
     paragraphs: [
       "I'm John, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself. The confusing research, the piles of documents, the stressful embassy interview, those first weeks of being completely lost in a country where I didn't speak the language.",
@@ -907,6 +974,29 @@ const ar: typeof en = {
         ],
       },
     },
+  },
+  transparency: {
+    title: "شفافية كاملة: إيه اللي بتاخده وإيه لأ",
+    subtitle: "بدون مفاجآت. ده بالظبط إيه المتضمن وإيه مش متضمن.",
+    includedTitle: "المتضمن",
+    included: [
+      "تواصل مباشر معايا على واتساب",
+      "ملخصات مكتوبة وقوائم بعد كل جلسة",
+      "دعم متابعة (المدة حسب الخدمة)",
+      "نصيحة صادقة — هقولك لو مش محتاج خدمة مدفوعة",
+      "استرداد كامل خلال 48 ساعة، بدون أسئلة",
+      "وصول للموارد المجانية للأبد",
+    ],
+    notIncludedTitle: "مش متضمن",
+    notIncluded: [
+      "مش بقدم الطلبات بدلك — أنت بتعملها، أنا بوجهك",
+      "مش بضمن الفيزا — محدش يقدر. أي حد يوعدك بده بيكدب",
+      "مش بعمل ترجمات رسمية أو ابوستيل",
+      "أنا مش مكتب — أنا طالب واحد بيساعدك شخصيًا",
+      "مفيش دعم شهري مستمر (غير اللي في خطة خدمتك)",
+      "مش بغطي بلاد غير جمهورية التشيك",
+    ],
+    refund: "💳 كل المدفوعات عبر Stripe. استرداد كامل خلال 48 ساعة لو مش راضي. متاح كمان بـ InstaPay 🇪🇬 للطلاب المصريين.",
   },
   about: {
     paragraphs: [
