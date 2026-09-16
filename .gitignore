@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# one-off local artifacts, not source
+/files.zip
+/arabic-spellcheck-report.json
+/studyczechia.com-audit/
