@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
+import Clarity from "@/components/clarity";
 import { QuickNav } from "@/components/ui/quick-nav";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
@@ -125,6 +126,7 @@ export default function RootLayout({
           </ToastProvider>
         </TranslationProvider>
         <Analytics />
+        <Clarity />
       </body>
     </html>
   );
