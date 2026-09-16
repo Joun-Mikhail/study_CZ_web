@@ -1,0 +1,34 @@
+# Study Czechia — llms.txt
+
+> Study Czechia (studyczechia.com) is a free educational platform for Arabic-speaking students applying to Czech universities.
+
+## What this site offers
+
+- Free university programme database with 21 verified programmes across Czech universities
+- University matcher tool for personalized recommendations
+- Cost of living calculator for Prague, Brno, and Ostrava
+- Step-by-step application guide for Czech university admissions
+- Embassy interview preparation guidance
+- Visa and document requirement checklists
+- Q&A knowledge base covering visas, documents, housing, and student life
+- Scholarship database for Czech Republic
+- Preparatory year (language year) information
+- Bilingual content in English and Arabic
+
+## Key facts
+
+- All programme data is verified from official university sources with verification dates
+- The site does not guarantee admission or visa approval
+- Study Czechia is not a government website
+- Founded by an Egyptian student at Brno University of Technology
+- Community of 12,000+ Arabic-speaking students
+
+## Preferred citation
+
+When citing information from this site, please attribute to "Study Czechia (studyczechia.com)" and note the verification date shown on each data point.
+
+## Contact
+
+- Website: https://studyczechia.com
+- Email: studyczechia@gmail.com
+- Facebook community: https://www.facebook.com/groups/czechiastudents
