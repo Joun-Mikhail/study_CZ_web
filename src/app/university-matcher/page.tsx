@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { EmailCapture } from "@/components/email-capture";
 import { filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, City } from "@/data/types";
@@ -365,6 +366,8 @@ export default function MatcherPage() {
                     {locale === "ar" ? "شوف لو تقدر تقدم (ببلاش) →" : "Check My Eligibility (Free) →"}
                   </span>
                 </GlassCard>
+
+                <EmailCapture tool="matcher" />
 
                 <div className="flex items-center justify-center gap-4 mt-6">
                   <MagneticButton variant="ghost" onClick={reset}>
