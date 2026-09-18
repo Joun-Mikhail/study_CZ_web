@@ -4,7 +4,7 @@ import LearnDashboard from "./LearnDashboard";
 export const metadata: Metadata = {
   title: "Course Dashboard — Your First 90 Days",
   description: "Access your course modules, lessons, and quizzes. Track your progress through the First 90 Days in Czechia course.",
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {

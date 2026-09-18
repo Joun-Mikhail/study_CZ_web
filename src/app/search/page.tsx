@@ -10,11 +10,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/search" },
 };
 
+function SearchFallback() {
+  return (
+    <main id="main-content" className="max-w-5xl mx-auto px-4 pt-24 pb-16">
+      <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Search Results</h1>
+    </main>
+  );
+}
+
 export default function Page() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Suspense fallback={<div className="min-h-screen" />}>
+      <Suspense fallback={<SearchFallback />}>
         <SearchClient />
       </Suspense>
       <Footer />

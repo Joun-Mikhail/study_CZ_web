@@ -217,6 +217,16 @@ function ProgrammeJourneyCard({
   );
 }
 
+function JourneySkeleton({ locale }: { locale: "en" | "ar" }) {
+  return (
+    <div className="text-center py-16">
+      <p className="text-sm text-text-muted">
+        {locale === "ar" ? "بنحمّل رحلتك..." : "Loading your journey..."}
+      </p>
+    </div>
+  );
+}
+
 function EmptyJourney({ locale }: { locale: "en" | "ar" }) {
   return (
     <div className="text-center py-16">
@@ -266,8 +276,6 @@ export default function JourneyClient() {
     setJourney({ ...updated });
   }, []);
 
-  if (!loaded) return null;
-
   const saved = journey?.savedProgrammes || [];
   const totalItems = saved.reduce((sum, s) => sum + s.checklist.length, 0);
   const doneItems = saved.reduce((sum, s) => sum + s.checklist.filter((c) => c.done).length, 0);
@@ -306,7 +314,9 @@ export default function JourneyClient() {
           </div>
         </div>
 
-        {saved.length === 0 ? (
+        {!loaded ? (
+          <JourneySkeleton locale={locale} />
+        ) : saved.length === 0 ? (
           <EmptyJourney locale={locale} />
         ) : (
           <>
