@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Testimonials } from "@/components/testimonials";
 
 const services = [
   {
@@ -456,6 +457,8 @@ export default function ServicesClient() {
             </a>
           </div>
         </section>
+
+        <Testimonials />
 
         {/* Scam warning */}
         <section className="max-w-4xl mx-auto mb-16">
