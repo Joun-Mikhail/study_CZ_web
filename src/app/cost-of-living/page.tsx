@@ -22,6 +22,7 @@ import { Info, Briefcase, Calculator } from "lucide-react";
 import { cityGuides } from "@/data/city-guides";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import Image from "next/image";
+import { ContextualCTA } from "@/components/contextual-cta";
 
 function useChartColors() {
   const [colors, setColors] = useState({
@@ -223,6 +224,10 @@ export default function CostOfLivingPage() {
               </p>
             </GlassCard>
           </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto">
+          <ContextualCTA service="consultation" />
         </div>
 
         {/* City guide for selected city */}
