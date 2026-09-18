@@ -16,6 +16,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/translations";
 import Image from "next/image";
+import { ContextualCTA } from "@/components/contextual-cta";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
 
@@ -296,6 +297,12 @@ export default function PreparatoryYearPage() {
               <p className="text-xs text-text-secondary">{t.prep.visaEu}</p>
             </div>
           </GlassCard>
+        </div>
+      </section>
+
+      <section className="pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <ContextualCTA service="interviewPrep" />
         </div>
       </section>
 

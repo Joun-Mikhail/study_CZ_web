@@ -11,6 +11,7 @@ import { guideSteps } from "@/data/guide";
 import { cn } from "@/lib/utils";
 import { Lightbulb, FileCheck } from "lucide-react";
 import Image from "next/image";
+import { ContextualCTA } from "@/components/contextual-cta";
 
 export default function ApplicationGuidePage() {
   const { t, locale } = useTranslation();
@@ -92,26 +93,28 @@ export default function ApplicationGuidePage() {
           {/* Steps */}
           <div className="space-y-10">
             {guideSteps.map((step) => (
-              <section
-                key={step.id}
-                id={step.id}
-                ref={(el) => {
-                  sectionRefs.current[step.id] = el;
-                }}
-                className="scroll-mt-24"
-              >
-                <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
-                <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
-                {step.tip && (
-                  <div className="flex gap-3 items-start rounded-xl border border-amber/20 bg-amber/[0.05] px-4 py-3">
-                    <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
-                    <p className="text-sm text-text-secondary">
-                      <span className="font-medium text-amber">{t.guide.tipLabel}: </span>
-                      {step.tip[locale]}
-                    </p>
-                  </div>
-                )}
-              </section>
+              <div key={step.id}>
+                <section
+                  id={step.id}
+                  ref={(el) => {
+                    sectionRefs.current[step.id] = el;
+                  }}
+                  className="scroll-mt-24"
+                >
+                  <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
+                  <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
+                  {step.tip && (
+                    <div className="flex gap-3 items-start rounded-xl border border-amber/20 bg-amber/[0.05] px-4 py-3">
+                      <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <p className="text-sm text-text-secondary">
+                        <span className="font-medium text-amber">{t.guide.tipLabel}: </span>
+                        {step.tip[locale]}
+                      </p>
+                    </div>
+                  )}
+                </section>
+                {step.id === "authenticate" && <ContextualCTA service="documentCheck" />}
+              </div>
             ))}
 
             {/* Monetization hook */}
