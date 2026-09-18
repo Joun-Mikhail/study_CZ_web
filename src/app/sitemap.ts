@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/what-it-costs",
     "/deadlines",
     "/interview-prep",
+    "/arrival",
     "/questions-to-ask",
     "/search",
     "/programmes/compare",
