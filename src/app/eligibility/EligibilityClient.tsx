@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
+import { EmailCapture } from "@/components/email-capture";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -708,6 +709,8 @@ function ResultsView({
               <span className="block text-xs text-midnight/70 mt-0.5">{t.ctaPaths.fullSub}</span>
             </a>
           </div>
+
+          <EmailCapture tool="eligibility" />
 
           {/* Optional contact — send report via WhatsApp */}
           <div className="rounded-2xl border border-border-subtle bg-surface/50 p-5 mb-6">
