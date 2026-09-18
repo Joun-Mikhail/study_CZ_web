@@ -16,6 +16,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   eligibility: { en: "Eligibility", ar: "الأهلية" },
   scholarships: { en: "Scholarships", ar: "المنح الدراسية" },
   "preparatory-year": { en: "Preparatory Year", ar: "السنة التحضيرية" },
+  arrival: { en: "Just Arrived", ar: "لسه واصل" },
   deadlines: { en: "Deadlines", ar: "المواعيد النهائية" },
   about: { en: "About", ar: "عن الموقع" },
   contact: { en: "Contact", ar: "تواصل معنا" },
