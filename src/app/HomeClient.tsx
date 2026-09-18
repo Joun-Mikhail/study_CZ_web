@@ -11,6 +11,7 @@ import Image from "next/image";
 import { PragueSkyline } from "@/components/ui/prague-skyline";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { SectionDivider } from "@/components/ui/section-divider";
+import { StageRouter } from "@/components/stage-router";
 import {
   GraduationCap,
   BarChart3,
@@ -214,6 +215,8 @@ export default function HomeClient() {
           </motion.div>
         </motion.div>
       </section>
+
+      <StageRouter />
 
       {/* Trust bar */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
