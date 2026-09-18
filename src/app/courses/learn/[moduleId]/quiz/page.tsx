@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${mod.quiz.title.en}`,
-    robots: { index: false, follow: false },
+    robots: { index: false, follow: true },
   };
 }
 

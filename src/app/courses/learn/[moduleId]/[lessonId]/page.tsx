@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${lesson.title.en} — ${mod.title.en}`,
     description: lesson.content.en.slice(0, 160),
-    robots: { index: false, follow: false },
+    robots: { index: false, follow: true },
   };
 }
 
