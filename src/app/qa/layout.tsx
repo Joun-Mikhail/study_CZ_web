@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: qaEntries.slice(0, 20).map((entry) => ({
+  mainEntity: qaEntries.map((entry) => ({
     "@type": "Question",
     name: entry.q.en,
     acceptedAnswer: {
