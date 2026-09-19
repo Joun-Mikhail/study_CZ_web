@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -11,15 +11,45 @@ import { Search, ChevronDown, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { slugify } from "@/lib/seo-utils";
+
+// Every entry already carries a hand-picked, stable id (e.g.
+// "bank-minimum-amount") used as its anchor. These predate this ticket and
+// are also referenced by src/data/stages.ts (Ticket 7's stage pages filter
+// qaEntries by these exact ids) -- changing them would silently break those
+// pages and any link already shared on WhatsApp/Facebook. slugify() (from
+// seo-utils, already used elsewhere for field/city slugs) is the fallback
+// for any future entry added without a curated id, so anchors stay
+// human-readable even if nobody picks one by hand.
+function anchorIdFor(entry: QaEntry): string {
+  return entry.id || slugify(entry.q.en);
+}
 
 // Answer text stays permanently mounted (never conditionally rendered) so it's
 // present in the server-rendered HTML and indexable even without JS running —
 // only the visual height/opacity animate on toggle.
 function AccordionItem({ entry, locale }: { entry: QaEntry; locale: "en" | "ar" }) {
+  const anchorId = anchorIdFor(entry);
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash === `#${anchorId}`) {
+      setOpen(true);
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    // Only check on first mount -- this is a one-time "did I arrive via a
+    // direct link" check, not a live hash-change listener.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="rounded-2xl border border-border-subtle bg-surface/60 overflow-hidden">
+    <div
+      id={anchorId}
+      ref={ref}
+      className="rounded-2xl border border-border-subtle bg-surface/60 overflow-hidden scroll-mt-24"
+    >
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
