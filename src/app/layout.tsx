@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import Clarity from "@/components/clarity";
+import { HreflangDefault } from "@/components/hreflang-default";
 import { QuickNav } from "@/components/ui/quick-nav";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
@@ -69,25 +70,12 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" className={`${jakarta.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
       <head>
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/`} />
-        <link rel="alternate" hrefLang="ar" href={`${SITE_URL}/`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} />
+        <HreflangDefault />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("theme");if(t){document.documentElement.dataset.theme=t}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme:light)").matches){document.documentElement.dataset.theme="light"}}catch(e){}})()` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "EducationalOrganization",
-                name: "Study Czechia",
-                alternateName: "studyczechia",
-                url: SITE_URL,
-                description: "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
-                areaServed: { "@type": "Country", name: "Czech Republic" },
-                inLanguage: ["en", "ar"],
-                sameAs: ["https://www.facebook.com/groups/czechiastudents"],
-              },
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
@@ -105,7 +93,7 @@ export default function RootLayout({
                 "@type": "Person",
                 name: "Joun",
                 jobTitle: "Founder",
-                worksFor: { "@type": "EducationalOrganization", name: "Study Czechia", url: SITE_URL },
+                worksFor: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
                 alumniOf: { "@type": "CollegeOrUniversity", name: "Brno University of Technology" },
                 knowsLanguage: ["ar", "en", "cs"],
                 sameAs: ["https://www.facebook.com/groups/czechiastudents"],
