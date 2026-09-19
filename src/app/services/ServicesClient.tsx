@@ -42,21 +42,21 @@ import { Testimonials } from "@/components/testimonials";
 
 const services = [
   {
-    key: "consultation" as const,
-    icon: Phone,
-    triggerIcon: Lightbulb,
-    price: "€15",
-    priceSub: "(≈ 375 Kc)",
-    paymentLink: PAYMENT_LINKS.consultation,
-    featured: false,
-  },
-  {
     key: "documentReview" as const,
     icon: FileSearch,
     triggerIcon: AlertTriangle,
     price: "€25",
     priceSub: "(≈ 625 Kc)",
     paymentLink: PAYMENT_LINKS.documentReview,
+    featured: false,
+  },
+  {
+    key: "consultation" as const,
+    icon: Phone,
+    triggerIcon: Lightbulb,
+    price: "€15",
+    priceSub: "(≈ 375 Kc)",
+    paymentLink: PAYMENT_LINKS.consultation,
     featured: false,
   },
   {
@@ -650,12 +650,11 @@ const en = {
     whatsappCta: "Ask Me First",
   },
   framing: {
-    title:
-      "Everything You Need to Apply on Your Own Is Free. If You Want Me Personally. That's Below.",
+    title: "The Free Guides Answer the General Question. These Answer Yours.",
     paragraphs: [
-      "I built this site so any Arabic-speaking student can navigate Czech universities without paying anyone. The guides, the university matcher, the Q&A, the cost calculator, the Facebook community, all free, all staying free.",
-      "But some students want more than a guide. They want someone to sit with them, review their actual documents, prepare them for their specific embassy interview, and be on the other end of a WhatsApp message when something goes wrong.",
-      "That takes my personal time, hours per student. That's what the services below are for. And they cost a fraction of what agencies in Egypt, Jordan, or Iraq charge for worse help.",
+      "Every guide, tool, and answer on this site is free, and stays free. The application guide, the programme matcher, the Q&A, the cost calculator, the 12,000-member community, none of it is a teaser for something you have to pay to unlock.",
+      "But a guide can only tell you what's generally true. It can't look at your transcript and tell you if your grades clear the bar. It can't read your specific document and tell you if that translation will pass. It can't sit with you before your embassy interview and tell you where your answer is weak. That's the part no guide, mine or anyone else's, can ever do.",
+      "That's what the services below are for: someone who's already done this, looking at your actual situation instead of the general case. Still a fraction of what agencies charge for worse, less personal help.",
     ],
   },
   howItWorks: {
@@ -703,6 +702,7 @@ const en = {
         "I review your situation before the call (send me details via WhatsApp)",
         "Written summary after the call so you don't forget anything",
         "48 hours of follow-up on WhatsApp for quick questions",
+        "Credited in full toward any larger service if you upgrade later",
       ],
       triggerLine:
         "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
@@ -921,11 +921,11 @@ const ar: typeof en = {
     whatsappCta: "اسألني الأول",
   },
   framing: {
-    title: "كل اللي محتاجه عشان تقدم لوحدك مجاني. لو عايزني أنا شخصيًا، ده تحت.",
+    title: "الأدلة المجانية بتجاوب على السؤال العام. أنا بجاوب على سؤالك إنت.",
     paragraphs: [
-      "أنا بنيت الموقع ده عشان أي طالب عربي يقدر يتعامل مع الجامعات التشيكية من غير ما يدفع لحد. الأدلة، اختيار الجامعة، الأسئلة والأجوبة، حاسبة التكاليف، جروب الفيسبوك. كله مجاني وهيفضل مجاني.",
-      "بس فيه طلاب عايزين أكتر من دليل. عايزين حد يقعد معاهم، يراجع أوراقهم، يجهزهم لمقابلة السفارة، ويرد على رسائلهم على واتساب لما حاجة تغلط.",
-      "ده بياخد وقتي الشخصي. ساعات لكل طالب. ده اللي الخدمات تحت دي عشانه. وبتكلف جزء صغير من اللي المكاتب في مصر أو الأردن أو العراق بتاخده على مساعدة أقل.",
+      "كل دليل وأداة وإجابة في الموقع ده مجانية، وهتفضل مجانية. دليل التقديم، مطابقة البرامج، الأسئلة والأجوبة، حاسبة التكاليف، جروب الـ12,000 عضو. مفيش حاجة فيهم مجرد إعلان لحاجة هتدفع عشان تفتحها.",
+      "بس الدليل بيقولك إيه اللي صح بشكل عام بس. مش يقدر يبص على مجموعك إنت ويقولك لو بيكفي. مش يقدر يقرا ورقتك إنت ويقولك لو الترجمة دي هتتقبل. مش يقدر يقعد معاك إنت قبل مقابلتك إنت ويقولك فين إجابتك ضعيفة. ده الجزء اللي مفيش دليل، مني ولا من حد تاني، هيقدر يعمله أبدًا.",
+      "ده اللي الخدمات تحت دي عشانه: حد عدى التجربة دي فعلاً، بيبص على وضعك إنت الحقيقي مش الحالة العامة. وبرضو جزء صغير من اللي المكاتب بتاخده على مساعدة أقل وأقل شخصية.",
     ],
   },
   howItWorks: {
@@ -972,6 +972,7 @@ const ar: typeof en = {
         "براجع وضعك قبل المكالمة (ابعتلي التفاصيل على واتساب)",
         "ملخص مكتوب بعد المكالمة. عشان ماتنساش حاجة",
         "48 ساعة متابعة على واتساب لأسئلة سريعة",
+        "بتتحسب بالكامل لو حجزت خدمة أكبر بعدين",
       ],
       triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
       cta: "احجز مكالمة (15€)",
