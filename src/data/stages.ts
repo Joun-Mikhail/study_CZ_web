@@ -21,6 +21,8 @@ export type StageConfig = {
   tools: StageLink[];
   qaIds: string[];
   paidService: StagePaidService | null;
+  /** Show the waitlist signup at the bottom of this stage page. */
+  waitlist?: boolean;
 };
 
 // Content sourced from the Ticket 7 mapping audit (approved). Tool/guide
@@ -52,6 +54,7 @@ export const stages: Record<StageSlug, StageConfig> = {
       "costs-breakdown",
     ],
     paidService: null,
+    waitlist: true,
   },
 
   choosing: {

@@ -12,6 +12,7 @@ import { PragueSkyline } from "@/components/ui/prague-skyline";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { StageRouter } from "@/components/stage-router";
+import { WaitlistSignup } from "@/components/waitlist-signup";
 import {
   GraduationCap,
   BarChart3,
@@ -217,6 +218,8 @@ export default function HomeClient() {
       </section>
 
       <StageRouter />
+
+      <WaitlistSignup className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" />
 
       {/* Trust bar */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">

@@ -10,6 +10,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { stages, type StageSlug } from "@/data/stages";
 import { qaEntries } from "@/data/qa";
+import { WaitlistSignup } from "@/components/waitlist-signup";
 
 export default function StagePageClient({ slug }: { slug: StageSlug }) {
   const { locale } = useTranslation();
@@ -103,6 +104,8 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
               </GlassCard>
             </section>
           )}
+
+          {config.waitlist && <WaitlistSignup className="mt-12" />}
         </div>
       </main>
       <Footer />

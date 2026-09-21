@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Mail, CheckCircle2, Loader2 } from "lucide-react";
 import { useTranslation } from "@/i18n/context";
+import { submitToConvertKit } from "@/lib/convertkit";
 
 type Tool = "eligibility" | "matcher";
 
@@ -81,23 +82,8 @@ export function EmailCapture({ tool }: { tool: Tool }) {
     e.preventDefault();
     if (!canSubmit) return;
     setStatus("submitting");
-    try {
-      const body = new FormData();
-      body.set("email_address", email);
-      const res = await fetch(`https://app.convertkit.com/forms/${formId}/subscriptions`, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body,
-      });
-      const data = await res.json().catch(() => null);
-      if (res.ok && data && data.status !== "error" && !data.errors) {
-        setStatus("success");
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
+    const ok = await submitToConvertKit(formId!, email);
+    setStatus(ok ? "success" : "error");
   }
 
   if (status === "success") {
