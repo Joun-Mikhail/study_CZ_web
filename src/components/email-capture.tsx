@@ -28,14 +28,16 @@ const COPY = {
   },
   matcher: {
     en: {
-      headline: "Get your matches + a checklist by email",
+      headline: "Get your personalized match summary & next steps",
       subtext:
-        "We'll email you this result along with a next-steps checklist you can save. No spam, just useful info.",
+        "We'll email you a breakdown of your matches and a quick eligibility overview to help you plan.",
+      button: "Email me my summary",
     },
     ar: {
-      headline: "احصل على البرامج المطابقة وقائمة تحقق عبر البريد الإلكتروني",
+      headline: "استلم ملخص البرامج المناسبة ليك والخطوات الجاية",
       subtext:
-        "سنرسل لك البرامج المطابقة إلى بريدك الإلكتروني مع قائمة تحقق بالخطوات التالية يمكنك حفظها. بدون رسائل مزعجة، فقط معلومات مفيدة.",
+        "هنرسل لك بالملخص البرامج اللي جات لك ونظرة سريعة على أهليتك للتقديم عشان تبدأ تخطط.",
+      button: "ابعتلي الملخص على الإيميل",
     },
   },
 } as const;
