@@ -66,7 +66,7 @@ export default function ContactPage() {
       desc: t.contact.facebookDesc,
       cta: t.contact.facebookCta,
       href: FACEBOOK_GROUP_URL,
-      detail: locale === "ar" ? "+12,000 عضو" : "12,000+ members",
+      detail: locale === "ar" ? "+11,000 عضو" : "11,000+ members",
       color: "text-[#1877F2]",
       bgColor: "bg-[#1877F2]/10",
       external: true,
