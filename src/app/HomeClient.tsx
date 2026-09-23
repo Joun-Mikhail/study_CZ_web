@@ -161,7 +161,7 @@ export default function HomeClient() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8 backdrop-blur-sm"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            {locale === "en" ? "12,000+ community members" : "أكتر من 12,000 عضو في المجتمع"}
+            {locale === "en" ? "11,000+ community members" : "أكتر من 11,000 عضو في المجتمع"}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
@@ -230,7 +230,7 @@ export default function HomeClient() {
           className="motion-safe-fallback grid grid-cols-1 sm:grid-cols-3 gap-4"
         >
           {[
-            { icon: Users, label: locale === "en" ? "12,000+ Facebook group members" : "أكتر من 12,000 عضو في جروب الفيسبوك" },
+            { icon: Users, label: locale === "en" ? "11,000+ Facebook group members" : "أكتر من 11,000 عضو في جروب الفيسبوك" },
             { icon: ShieldAlert, label: locale === "en" ? "Based in Brno since 2022" : "مقيم في برنو من 2022" },
             { icon: BookOpen, label: locale === "en" ? "7 free tools, no paywall" : "7 أدوات مجانية، بدون حائط دفع" },
           ].map((item, i) => (
