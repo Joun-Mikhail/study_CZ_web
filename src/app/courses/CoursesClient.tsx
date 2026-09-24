@@ -31,8 +31,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// TODO: replace with actual delivery date once confirmed
-const DELIVERY_DATE = "TBD";
+const DELIVERY_DATE = "January 1, 2027";
+const DELIVERY_DATE_AR = "١ يناير ٢٠٢٧";
 
 export default function CoursesClient() {
   const { locale } = useTranslation();
@@ -247,7 +247,7 @@ export default function CoursesClient() {
           <div className="rounded-2xl border border-green-500/20 bg-green-500/[0.04] p-6 flex items-start gap-4">
             <ShieldCheck className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-text-primary mb-1">{t.guarantee.title.replace("[DATE]", DELIVERY_DATE)}</h3>
+              <h3 className="font-semibold text-text-primary mb-1">{t.guarantee.title.replace("[DATE]", locale === "ar" ? DELIVERY_DATE_AR : DELIVERY_DATE)}</h3>
               <p className="text-sm text-text-secondary leading-relaxed">{t.guarantee.body}</p>
             </div>
           </div>
