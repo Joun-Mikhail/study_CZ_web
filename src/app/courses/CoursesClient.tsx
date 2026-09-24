@@ -27,13 +27,18 @@ import {
   Coffee,
   Heart,
   Briefcase,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// TODO: replace with actual delivery date once confirmed
+const DELIVERY_DATE = "TBD";
 
 export default function CoursesClient() {
   const { locale } = useTranslation();
   const t = locale === "ar" ? ar : en;
   const [openModule, setOpenModule] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showDashboardLink, setShowDashboardLink] = useState(false);
 
   useEffect(() => {
@@ -237,6 +242,50 @@ export default function CoursesClient() {
           </div>
         </section>
 
+        {/* Delivery guarantee */}
+        <section className="max-w-2xl mx-auto mb-16">
+          <div className="rounded-2xl border border-green-500/20 bg-green-500/[0.04] p-6 flex items-start gap-4">
+            <ShieldCheck className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-text-primary mb-1">{t.guarantee.title.replace("[DATE]", DELIVERY_DATE)}</h3>
+              <p className="text-sm text-text-secondary leading-relaxed">{t.guarantee.body}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="max-w-2xl mx-auto mb-16">
+          <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.faqTitle}</h2>
+          <div className="space-y-2">
+            {t.faq.map((item, i) => (
+              <div key={i} className="rounded-xl border border-border-subtle bg-surface/60 overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center gap-3 px-5 py-4 text-start"
+                >
+                  <p className="flex-1 text-sm font-medium text-text-primary">{item.q}</p>
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 text-text-muted shrink-0 transition-transform duration-200",
+                      openFaq === i && "rotate-180"
+                    )}
+                  />
+                </button>
+                <div
+                  className={cn(
+                    "grid transition-all duration-200 ease-in-out",
+                    openFaq === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-4 text-sm text-text-secondary leading-relaxed">{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Free preview — Module 1 Lesson 1 outline */}
         <section id="preview" className="max-w-2xl mx-auto mb-16 scroll-mt-24">
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.previewTitle}</h2>
@@ -416,6 +465,37 @@ const en = {
     },
   ],
   bestValue: "Best Value",
+  guarantee: {
+    title: "Pre-sale guarantee: delivered by [DATE] or full refund",
+    body: "This course is currently in production. By purchasing now at the founding price, you are locking in the lowest price it will ever be. If the full course content is not delivered by the date above, you will receive a complete refund — no questions asked.",
+  },
+  faqTitle: "Common Questions",
+  faq: [
+    {
+      q: "When will the full course be ready?",
+      a: "The course is currently being recorded. The target delivery date is shown in the guarantee banner above. All pre-sale buyers get access to modules as they are completed, and the full course will be delivered by the stated date or you get a full refund.",
+    },
+    {
+      q: "What if I buy now and it's not delivered on time?",
+      a: "You get a full refund, no questions asked. The delivery guarantee is a real commitment, not marketing.",
+    },
+    {
+      q: "Is this course in Arabic or Czech?",
+      a: "The lessons are taught in Arabic. Czech words, phrases, and on-screen text appear alongside so you learn them in context — not from a textbook.",
+    },
+    {
+      q: "I already use the free guides on this site. Why would I pay for this?",
+      a: "The free guides cover facts: deadlines, documents, costs. The course covers situations: what to say at the embassy, how to survive your first week, how to order food, how to make Czech friends. They are completely different.",
+    },
+    {
+      q: "Do I get a certificate?",
+      a: "This is planned but not yet confirmed. We will update this page once the details are finalized.",
+    },
+    {
+      q: "Can I get a refund after the course is delivered?",
+      a: "The pre-sale guarantee covers delivery. Once the course is delivered and you have access to the full content, refunds are handled on a case-by-case basis — message us on WhatsApp.",
+    },
+  ],
   previewTitle: "Free Preview",
   previewLesson: "Module 1, Lesson 1: What the Embassy Actually Asks",
   previewSubtitle: "A look at what this lesson covers",
@@ -556,6 +636,37 @@ const ar: typeof en = {
     },
   ],
   bestValue: "الأفضل قيمة",
+  guarantee: {
+    title: "ضمان ما قبل البيع: التسليم بحلول [DATE] أو استرداد كامل",
+    body: "الكورس ده لسه في مرحلة الإنتاج. بشرائك دلوقتي بالسعر التأسيسي، أنت بتضمن أقل سعر هيتعرض بيه. لو المحتوى الكامل للكورس ما اتسلّمش في الموعد المحدد فوق، هترجع لك فلوسك بالكامل — من غير أي أسئلة.",
+  },
+  faqTitle: "أسئلة شائعة",
+  faq: [
+    {
+      q: "امتى الكورس الكامل هيكون جاهز؟",
+      a: "الكورس لسه بيتسجل. الموعد المستهدف للتسليم موجود في بانر الضمان فوق. كل اللي اشتروا بسعر ما قبل البيع هيوصلهم الوحدات أول ما تتسلم، والكورس الكامل هيتسلم في الموعد المحدد أو هترجع لك فلوسك.",
+    },
+    {
+      q: "لو اشتريت دلوقتي والكورس ما اتسلمش في الوقت؟",
+      a: "هترجع لك فلوسك بالكامل، من غير أي أسئلة. ضمان التسليم ده التزام حقيقي، مش تسويق.",
+    },
+    {
+      q: "الكورس بالعربي ولا بالتشيكي؟",
+      a: "الدروس بالعربي. الكلمات والجمل والنصوص التشيكية بتظهر جنبها عشان تتعلمها في السياق — مش من كتاب.",
+    },
+    {
+      q: "أنا أصلاً بستخدم الأدلة المجانية على الموقع. ليه أدفع؟",
+      a: "الأدلة المجانية بتغطي معلومات: مواعيد، وثائق، تكاليف. الكورس بيغطي مواقف: تقول إيه في السفارة، إزاي تعدي أول أسبوع، إزاي تطلب أكل، إزاي تكوّن صداقات مع التشيك. دول حاجتين مختلفين تماماً.",
+    },
+    {
+      q: "هاخد شهادة؟",
+      a: "ده مخطط له بس لسه ما اتأكدش. هنحدّث الصفحة دي أول ما التفاصيل تتحدد.",
+    },
+    {
+      q: "أقدر أسترجع فلوسي بعد ما الكورس يتسلم؟",
+      a: "ضمان ما قبل البيع بيغطي التسليم. بعد ما الكورس يتسلم ويكون عندك المحتوى الكامل، الاسترداد بيتعامل معاه حالة بحالة — كلمنا على واتساب.",
+    },
+  ],
   previewTitle: "معاينة مجانية",
   previewLesson: "الوحدة 1، الدرس 1: السفارة بتسأل إيه بالظبط",
   previewSubtitle: "نظرة على محتوى الدرس",
