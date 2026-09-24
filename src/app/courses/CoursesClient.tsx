@@ -149,6 +149,33 @@ export default function CoursesClient() {
           </div>
         </section>
 
+        {/* Curriculum overview */}
+        <section className="max-w-3xl mx-auto mb-16">
+          <h2 className="text-xl font-semibold text-text-primary text-center mb-2">{t.curriculumTitle}</h2>
+          <p className="text-sm text-text-muted text-center mb-8">{t.curriculumSubtitle}</p>
+          <div className="space-y-3">
+            {t.curriculum.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 rounded-xl border border-border-subtle bg-surface/60 p-5"
+              >
+                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-sm font-bold text-amber">{i < 5 ? i : "+"}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs text-amber font-medium">{item.module}</span>
+                  <h3 className="text-sm font-semibold text-text-primary mt-0.5">{item.title}</h3>
+                  <p className="text-xs text-text-secondary leading-relaxed mt-1">{item.description}</p>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0 mt-1">
+                  <Video className="w-3.5 h-3.5 text-text-muted" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-text-muted" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Modules accordion */}
         <section className="max-w-2xl mx-auto mb-16">
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.modulesTitle}</h2>
@@ -383,6 +410,16 @@ const en = {
     "Access to the student WhatsApp group",
     "Lifetime access, rewatch anytime, updates included",
   ],
+  curriculumTitle: "What You'll Learn",
+  curriculumSubtitle: "Each lesson: a short video + a quick check, so you actually retain it — not just watch and forget.",
+  curriculum: [
+    { module: "Module 0", title: "Before You Fly", description: "Know exactly what to pack, what to sort before takeoff, and what can wait — so your first days aren't spent scrambling." },
+    { module: "Module 1", title: "Your First 7 Days", description: "The legal deadlines, the SIM card, the orientation — everything that has to happen in week one, laid out so nothing slips through the cracks." },
+    { module: "Module 2", title: "Weeks 2–4: Setting Up Your Life", description: "Bank account, residence permit, real housing, real groceries — go from \"just landed\" to actually living here." },
+    { module: "Module 3", title: "Month 2: Building Your Routine", description: "Understand how Czech university actually works, make real friends, and figure out money without the guesswork." },
+    { module: "Module 4", title: "Month 3: Long-Term Stability", description: "Protect the status you worked hard to get, and build the support system that carries you through the rest of the year." },
+    { module: "Bonus", title: "The Toolkit", description: "Checklists, contact directories, and an FAQ built from the real questions our 10,500-member community has asked — answers you won't find by googling." },
+  ],
   modulesTitle: "Course Modules",
   moduleLabel: "Module",
   modules: [
@@ -553,6 +590,16 @@ const ar: typeof en = {
     "نسخ صوتية للتعلم وأنت ماشي",
     "دخول جروب واتساب الطلاب",
     "وصول مدى الحياة. اتفرج في أي وقت، التحديثات متضمنة",
+  ],
+  curriculumTitle: "ماذا ستتعلم",
+  curriculumSubtitle: "كل درس: فيديو قصير + اختبار سريع للتأكد من فهمك فعلاً — لا مجرد المشاهدة والنسيان.",
+  curriculum: [
+    { module: "الوحدة 0", title: "قبل السفر", description: "اعرف بالضبط ماذا تحضّر، وماذا تُنهي قبل الطيران، وما الذي يمكن أن ينتظر — حتى لا تكون أيامك الأولى كلها ارتباك وتخبط." },
+    { module: "الوحدة 1", title: "أول 7 أيام", description: "المواعيد القانونية، شريحة الهاتف، التعريف بالجامعة — كل ما يجب أن يحدث في الأسبوع الأول، منظّم بحيث لا يفوتك شيء." },
+    { module: "الوحدة 2", title: "من الأسبوع 2 إلى 4: تنظيم حياتك", description: "حساب بنكي، إقامة، سكن حقيقي، تسوق فعلي — من \"وصلت للتو\" إلى \"أعيش هنا بالفعل\"." },
+    { module: "الوحدة 3", title: "الشهر الثاني: بناء روتينك", description: "افهم نظام الجامعة التشيكية جيدًا، كوّن صداقات حقيقية، ونظّم أمورك المالية دون تخبط." },
+    { module: "الوحدة 4", title: "الشهر الثالث: استقرار طويل الأمد", description: "حافظ على وضعك القانوني الذي تعبت من أجله، وابنِ شبكة دعم تظل معك طوال العام الدراسي." },
+    { module: "إضافة", title: "صندوق الأدوات", description: "قوائم تحقق، دليل جهات اتصال مهمة، وأسئلة شائعة مبنية على أسئلة حقيقية من مجتمعنا الذي يضم أكثر من 10,500 عضو — إجابات لن تجدها بالبحث في جوجل." },
   ],
   modulesTitle: "وحدات الكورس",
   moduleLabel: "الوحدة",
