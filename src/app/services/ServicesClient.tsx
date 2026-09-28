@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
@@ -613,6 +613,10 @@ function ServiceCard({
           </div>
         )}
 
+        {svc.key === "fullPackage" && "bundledNote" in content && (
+          <p className="text-xs text-text-muted leading-relaxed mb-4">{(content as any).bundledNote}</p>
+        )}
+
         <div className="flex items-start gap-2 rounded-lg bg-amber/[0.04] border border-amber/15 px-3 py-2 mb-4">
           <TriggerIcon className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
           <p className="text-xs text-text-secondary leading-relaxed">{content.triggerLine}</p>
@@ -795,6 +799,7 @@ const en = {
           "Total: €350 (agencies charge €1,500+ for less)",
         ],
       },
+      bundledNote: REFUND_COPY.en.bundledNote,
     },
   },
   transparency: {
@@ -806,7 +811,7 @@ const en = {
       "Written summaries and checklists after every session",
       "Follow-up support (duration depends on service)",
       "Honest advice — I'll tell you if you don't need a paid service",
-      "Full refund within 48 hours, no questions asked",
+      REFUND_COPY.en.inline,
       "Access to the free resources forever",
     ],
     notIncludedTitle: "What's NOT Included",
@@ -818,7 +823,7 @@ const en = {
       "I don't offer ongoing monthly support (except what's in your service plan)",
       "I don't cover countries other than Czech Republic",
     ],
-    refund: "💳 All payments via Stripe. Full refund within 48 hours if not satisfied. Also available via InstaPay 🇪🇬 for Egyptian students.",
+    refund: REFUND_COPY.en.footer,
   },
   about: {
     paragraphs: [
@@ -839,7 +844,7 @@ const en = {
       { label: "Free resources included", agency: "None, everything behind a paywall", us: "Full website, guides, tools, community" },
       { label: "Post-arrival help", agency: "None, their job ends at the airport", us: "30 days of support after you land" },
       { label: "Embassy interview prep", agency: "Generic tips from a PDF", us: "Live mock interview with real questions" },
-      { label: "Refund if not satisfied", agency: "Almost never", us: "Message within 48 hours, full refund" },
+      { label: "Refund if not satisfied", agency: "Almost never", us: REFUND_COPY.en.comparison },
       { label: "Community", agency: "You're a client number", us: `Join ${COMMUNITY_SIZE} students helping each other` },
     ],
   },
@@ -867,7 +872,7 @@ const en = {
       },
       {
         q: "What if I pay and I'm not satisfied?",
-        a: "Message me within 48 hours of any service and I'll refund you completely. No questions, no forms, no waiting. I'd rather give your money back than have an unhappy student in the community.",
+        a: REFUND_COPY.en.faq,
       },
       {
         q: "Is it safe to pay online?",
@@ -1052,6 +1057,7 @@ const ar: typeof en = {
           "الإجمالي: 350€ (المكاتب بتاخد 1,500€+ على أقل)",
         ],
       },
+      bundledNote: REFUND_COPY.ar.bundledNote,
     },
   },
   transparency: {
@@ -1063,7 +1069,7 @@ const ar: typeof en = {
       "ملخصات مكتوبة وقوائم بعد كل جلسة",
       "دعم متابعة (المدة حسب الخدمة)",
       "نصيحة صادقة — هقولك لو مش محتاج خدمة مدفوعة",
-      "استرداد كامل خلال 48 ساعة، بدون أسئلة",
+      REFUND_COPY.ar.inline,
       "وصول للموارد المجانية للأبد",
     ],
     notIncludedTitle: "مش متضمن",
@@ -1075,7 +1081,7 @@ const ar: typeof en = {
       "مفيش دعم شهري مستمر (غير اللي في خطة خدمتك)",
       "مش بغطي بلاد غير جمهورية التشيك",
     ],
-    refund: "💳 كل المدفوعات عبر Stripe. استرداد كامل خلال 48 ساعة لو مش راضي. متاح كمان بـ InstaPay 🇪🇬 للطلاب المصريين.",
+    refund: REFUND_COPY.ar.footer,
   },
   about: {
     paragraphs: [
@@ -1096,7 +1102,7 @@ const ar: typeof en = {
       { label: "موارد مجانية", agency: "مفيش، كل حاجة بفلوس", us: "موقع كامل، أدلة، أدوات، مجتمع" },
       { label: "دعم بعد الوصول", agency: "مفيش، شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
       { label: "تجهيز مقابلة السفارة", agency: "نصايح عامة من PDF", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
-      { label: "استرداد", agency: "تقريبًا مستحيل", us: "راسل خلال 48 ساعة، استرداد كامل" },
+      { label: "استرداد", agency: "تقريبًا مستحيل", us: REFUND_COPY.ar.comparison },
       { label: "المجتمع", agency: "أنت رقم عميل", us: `انضم لأكتر من ${COMMUNITY_SIZE_AR} طالب بيساعدوا بعض` },
     ],
   },
@@ -1115,7 +1121,7 @@ const ar: typeof en = {
     items: [
       { q: "ليه أدفع والأدلة مجانية؟", a: "الأدلة بتعلمك العملية. الخدمات هي أنا شخصيًا براجع أوراقك أنت ووضعك أنت وبجاوب أسئلتك أنت. الفرق بين إنك تقرأ كتاب طب وإنك تروح لدكتور." },
       { q: "إيه الفرق بينكم وبين مكتب؟", a: "المكاتب في مصر أو الأردن بيبيعوك باكيج وبيختفوا. عمرهم ماراحوا التشيك. أنا ساكن هنا. عديت التجربة. وبكلف جزء صغير من سعرهم." },
-      { q: "لو دفعت ومش راضي؟", a: "راسلني خلال 48 ساعة وهرجعلك فلوسك كلها. بدون أسئلة، بدون نماذج، بدون انتظار." },
+      { q: "لو دفعت ومش راضي؟", a: REFUND_COPY.ar.faq },
       { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe. نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام. راسلني على واتساب." },
       { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا. وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
       { q: "لقيت مكتب أرخص. ليه ماستخدمهمش؟", a: "اسألهم 3 أسئلة: راحوا التشيك قبل كده؟ يقدروا يعملوا مقابلة تجريبية بأسئلة حقيقية؟ هيساعدوك بعد ما توصل؟ لو الإجابة لأ على أي واحد، بتدفع لوسيط بيعملك Google." },
