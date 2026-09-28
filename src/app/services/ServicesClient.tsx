@@ -38,7 +38,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Testimonials } from "@/components/testimonials";
 
 const services = [
   {
@@ -458,7 +457,7 @@ export default function ServicesClient() {
           </div>
         </section>
 
-        <Testimonials />
+        {/* TODO: Hidden pending real, permission-granted testimonials — re-enable with <Testimonials /> */}
 
         {/* Scam warning */}
         <section className="max-w-4xl mx-auto mb-16">
