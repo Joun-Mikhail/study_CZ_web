@@ -14,6 +14,7 @@ import { SectionDivider } from "@/components/ui/section-divider";
 import { StageRouter } from "@/components/stage-router";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME } from "@/config/contact";
+import { EmailCapture } from "@/components/email-capture";
 import {
   GraduationCap,
   BarChart3,
@@ -320,6 +321,10 @@ export default function HomeClient() {
           })}
         </div>
       </section>
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <EmailCapture tool="checklist" />
+      </div>
 
       <SectionDivider />
 
