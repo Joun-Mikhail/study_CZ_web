@@ -7,6 +7,7 @@ import { HreflangDefault } from "@/components/hreflang-default";
 import { QuickNav } from "@/components/ui/quick-nav";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
+import { FOUNDER_NAME } from "@/config/contact";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -91,7 +92,7 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "Person",
-                name: "Joun",
+                name: FOUNDER_NAME,
                 jobTitle: "Founder",
                 worksFor: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
                 alumniOf: { "@type": "CollegeOrUniversity", name: "Brno University of Technology" },

@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
@@ -38,7 +38,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Testimonials } from "@/components/testimonials";
 
 const services = [
   {
@@ -354,7 +353,7 @@ export default function ServicesClient() {
               <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
                 <Image
                   src="/images/john.jpg"
-                  alt="Joun, founder of Study Czechia"
+                  alt={`${FOUNDER_NAME}, founder of Study Czechia`}
                   width={440}
                   height={440}
                   quality={90}
@@ -458,7 +457,7 @@ export default function ServicesClient() {
           </div>
         </section>
 
-        <Testimonials />
+        {/* TODO: Hidden pending real, permission-granted testimonials — re-enable with <Testimonials /> */}
 
         {/* Scam warning */}
         <section className="max-w-4xl mx-auto mb-16">
@@ -614,6 +613,10 @@ function ServiceCard({
           </div>
         )}
 
+        {svc.key === "fullPackage" && "bundledNote" in content && (
+          <p className="text-xs text-text-muted leading-relaxed mb-4">{(content as any).bundledNote}</p>
+        )}
+
         <div className="flex items-start gap-2 rounded-lg bg-amber/[0.04] border border-amber/15 px-3 py-2 mb-4">
           <TriggerIcon className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
           <p className="text-xs text-text-secondary leading-relaxed">{content.triggerLine}</p>
@@ -641,7 +644,7 @@ const en = {
     subtitle:
       "Every year, students get rejected, not because they aren't qualified, but because of a document mistake, a wrong university choice, or an embassy interview they weren't ready for. I've been through the entire process myself. I can help you avoid what others learn the hard way.",
     trustBar: [
-      "11,000+ students in our community",
+      `${COMMUNITY_SIZE} students in our community`,
       "Hundreds of applications guided",
       "Based in Brno, Czech Republic",
       "Egyptian student, been through it all",
@@ -652,7 +655,7 @@ const en = {
   framing: {
     title: "The Free Guides Answer the General Question. These Answer Yours.",
     paragraphs: [
-      "Every guide, tool, and answer on this site is free, and stays free. The application guide, the programme matcher, the Q&A, the cost calculator, the 11,000-member community, none of it is a teaser for something you have to pay to unlock.",
+      `Every guide, tool, and answer on this site is free, and stays free. The application guide, the programme matcher, the Q&A, the cost calculator, the ${COMMUNITY_SIZE}-member community, none of it is a teaser for something you have to pay to unlock.`,
       "But a guide can only tell you what's generally true. It can't look at your transcript and tell you if your grades clear the bar. It can't read your specific document and tell you if that translation will pass. It can't sit with you before your embassy interview and tell you where your answer is weak. That's the part no guide, mine or anyone else's, can ever do.",
       "That's what the services below are for: someone who's already done this, looking at your actual situation instead of the general case. Still a fraction of what agencies charge for worse, less personal help.",
     ],
@@ -687,7 +690,7 @@ const en = {
       scholarships: "Scholarship Database: updated regularly",
       prepYear: "Preparatory Year Guide: with real prices from real institutions",
       qaBase: "Q&A Knowledge Base: visa, documents, housing, everything",
-      community: "Facebook Community: 11,000+ students helping each other",
+      community: `Facebook Community: ${COMMUNITY_SIZE} students helping each other`,
     },
     cta: "Explore Free Resources →",
   },
@@ -796,6 +799,7 @@ const en = {
           "Total: €350 (agencies charge €1,500+ for less)",
         ],
       },
+      bundledNote: REFUND_COPY.en.bundledNote,
     },
   },
   transparency: {
@@ -807,7 +811,7 @@ const en = {
       "Written summaries and checklists after every session",
       "Follow-up support (duration depends on service)",
       "Honest advice — I'll tell you if you don't need a paid service",
-      "Full refund within 48 hours, no questions asked",
+      REFUND_COPY.en.inline,
       "Access to the free resources forever",
     ],
     notIncludedTitle: "What's NOT Included",
@@ -819,12 +823,12 @@ const en = {
       "I don't offer ongoing monthly support (except what's in your service plan)",
       "I don't cover countries other than Czech Republic",
     ],
-    refund: "💳 All payments via Stripe. Full refund within 48 hours if not satisfied. Also available via InstaPay 🇪🇬 for Egyptian students.",
+    refund: REFUND_COPY.en.footer,
   },
   about: {
     paragraphs: [
-      "I'm John, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself. The confusing research, the piles of documents, the stressful embassy interview, those first weeks of being completely lost in a country where I didn't speak the language.",
-      "I started a Facebook group to answer questions for other Arabic-speaking students. It grew to 11,000+ members. This website is the next step, putting everything I've learned into one place so you don't have to go through what I went through.",
+      `I'm ${FOUNDER_NAME}, an Egyptian student in my final year at Brno University of Technology. I went through the entire Czech university application process myself. The confusing research, the piles of documents, the stressful embassy interview, those first weeks of being completely lost in a country where I didn't speak the language.`,
+      `I started a Facebook group to answer questions for other Arabic-speaking students. It grew to ${COMMUNITY_SIZE} members. This website is the next step, putting everything I've learned into one place so you don't have to go through what I went through.`,
       "The free resources are for everyone. The paid services are for students who want me personally in their corner.",
     ],
   },
@@ -840,14 +844,14 @@ const en = {
       { label: "Free resources included", agency: "None, everything behind a paywall", us: "Full website, guides, tools, community" },
       { label: "Post-arrival help", agency: "None, their job ends at the airport", us: "30 days of support after you land" },
       { label: "Embassy interview prep", agency: "Generic tips from a PDF", us: "Live mock interview with real questions" },
-      { label: "Refund if not satisfied", agency: "Almost never", us: "Message within 48 hours, full refund" },
-      { label: "Community", agency: "You're a client number", us: "Join 11,000+ students helping each other" },
+      { label: "Refund if not satisfied", agency: "Almost never", us: REFUND_COPY.en.comparison },
+      { label: "Community", agency: "You're a client number", us: `Join ${COMMUNITY_SIZE} students helping each other` },
     ],
   },
   communityProof: {
     title: "Students Who Were in Your Exact Situation",
     stats: [
-      { value: "11,000+", label: "Students in our Facebook community helping each other daily" },
+      { value: COMMUNITY_SIZE, label: "Students in our Facebook community helping each other daily" },
       { value: "4 Years", label: "Answering the same questions — now all in one place" },
       { value: "€15–€350", label: "Vs. €1,500–€3,000 agencies charge for less" },
     ],
@@ -868,7 +872,7 @@ const en = {
       },
       {
         q: "What if I pay and I'm not satisfied?",
-        a: "Message me within 48 hours of any service and I'll refund you completely. No questions, no forms, no waiting. I'd rather give your money back than have an unhappy student in the community.",
+        a: REFUND_COPY.en.faq,
       },
       {
         q: "Is it safe to pay online?",
@@ -912,7 +916,7 @@ const ar: typeof en = {
     subtitle:
       "كل سنة، طلاب بيترفضوا. مش عشان مش مؤهلين، بس عشان غلطة في ورقة، أو اختيار جامعة غلط، أو مقابلة سفارة ماكانوش جاهزين ليها. أنا عديت العملية كلها بنفسي. أقدر أساعدك تتفادى اللي غيرك اتعلموه بالطريقة الصعبة.",
     trustBar: [
-      "أكتر من 11,000 طالب في مجتمعنا",
+      `أكتر من ${COMMUNITY_SIZE_AR} طالب في مجتمعنا`,
       "مئات الطلبات اتوجهت",
       "مقيم في برنو، جمهورية التشيك",
       "طالب مصري، عديت التجربة كلها",
@@ -923,7 +927,7 @@ const ar: typeof en = {
   framing: {
     title: "الأدلة المجانية بتجاوب على السؤال العام. أنا بجاوب على سؤالك إنت.",
     paragraphs: [
-      "كل دليل وأداة وإجابة في الموقع ده مجانية، وهتفضل مجانية. دليل التقديم، مطابقة البرامج، الأسئلة والأجوبة، حاسبة التكاليف، جروب الـ11,000 عضو. مفيش حاجة فيهم مجرد إعلان لحاجة هتدفع عشان تفتحها.",
+      `كل دليل وأداة وإجابة في الموقع ده مجانية، وهتفضل مجانية. دليل التقديم، مطابقة البرامج، الأسئلة والأجوبة، حاسبة التكاليف، جروب الـ${COMMUNITY_SIZE_AR} عضو. مفيش حاجة فيهم مجرد إعلان لحاجة هتدفع عشان تفتحها.`,
       "بس الدليل بيقولك إيه اللي صح بشكل عام بس. مش يقدر يبص على مجموعك إنت ويقولك لو بيكفي. مش يقدر يقرا ورقتك إنت ويقولك لو الترجمة دي هتتقبل. مش يقدر يقعد معاك إنت قبل مقابلتك إنت ويقولك فين إجابتك ضعيفة. ده الجزء اللي مفيش دليل، مني ولا من حد تاني، هيقدر يعمله أبدًا.",
       "ده اللي الخدمات تحت دي عشانه: حد عدى التجربة دي فعلاً، بيبص على وضعك إنت الحقيقي مش الحالة العامة. وبرضو جزء صغير من اللي المكاتب بتاخده على مساعدة أقل وأقل شخصية.",
     ],
@@ -958,7 +962,7 @@ const ar: typeof en = {
       scholarships: "قاعدة بيانات المنح: بتتحدث بانتظام",
       prepYear: "دليل السنة التحضيرية: بأسعار حقيقية من مؤسسات حقيقية",
       qaBase: "أسئلة وأجوبة: فيزا، أوراق، سكن، كل حاجة",
-      community: "جروب الفيسبوك: أكتر من 11,000 طالب بيساعدوا بعض",
+      community: `جروب الفيسبوك: أكتر من ${COMMUNITY_SIZE_AR} طالب بيساعدوا بعض`,
     },
     cta: "استكشف الموارد المجانية →",
   },
@@ -1053,6 +1057,7 @@ const ar: typeof en = {
           "الإجمالي: 350€ (المكاتب بتاخد 1,500€+ على أقل)",
         ],
       },
+      bundledNote: REFUND_COPY.ar.bundledNote,
     },
   },
   transparency: {
@@ -1064,7 +1069,7 @@ const ar: typeof en = {
       "ملخصات مكتوبة وقوائم بعد كل جلسة",
       "دعم متابعة (المدة حسب الخدمة)",
       "نصيحة صادقة — هقولك لو مش محتاج خدمة مدفوعة",
-      "استرداد كامل خلال 48 ساعة، بدون أسئلة",
+      REFUND_COPY.ar.inline,
       "وصول للموارد المجانية للأبد",
     ],
     notIncludedTitle: "مش متضمن",
@@ -1076,12 +1081,12 @@ const ar: typeof en = {
       "مفيش دعم شهري مستمر (غير اللي في خطة خدمتك)",
       "مش بغطي بلاد غير جمهورية التشيك",
     ],
-    refund: "💳 كل المدفوعات عبر Stripe. استرداد كامل خلال 48 ساعة لو مش راضي. متاح كمان بـ InstaPay 🇪🇬 للطلاب المصريين.",
+    refund: REFUND_COPY.ar.footer,
   },
   about: {
     paragraphs: [
-      "أنا جون، طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي. البحث المحير، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.",
-      "بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من 11,000 عضو. الموقع ده الخطوة التالية. كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.",
+      `أنا ${FOUNDER_NAME_AR}، طالب مصري في السنة الأخيرة في جامعة برنو التقنية. عديت عملية التقديم للجامعات التشيكية كلها بنفسي. البحث المحير، فوضى الأوراق، ضغط مقابلة السفارة، أول أسابيع ضايع تمامًا في بلد مابعرفش لغته.`,
+      `بدأت جروب فيسبوك عشان أجاوب على أسئلة الطلاب العرب. كبر لأكتر من ${COMMUNITY_SIZE_AR} عضو. الموقع ده الخطوة التالية. كل اللي اتعلمته في مكان واحد عشان ماتعديش اللي أنا عديته.`,
       "الموارد المجانية للجميع. الخدمات المدفوعة للطلاب اللي عايزيني أنا شخصيًا في جانبهم.",
     ],
   },
@@ -1097,14 +1102,14 @@ const ar: typeof en = {
       { label: "موارد مجانية", agency: "مفيش، كل حاجة بفلوس", us: "موقع كامل، أدلة، أدوات، مجتمع" },
       { label: "دعم بعد الوصول", agency: "مفيش، شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
       { label: "تجهيز مقابلة السفارة", agency: "نصايح عامة من PDF", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
-      { label: "استرداد", agency: "تقريبًا مستحيل", us: "راسل خلال 48 ساعة، استرداد كامل" },
-      { label: "المجتمع", agency: "أنت رقم عميل", us: "انضم لأكتر من 11,000 طالب بيساعدوا بعض" },
+      { label: "استرداد", agency: "تقريبًا مستحيل", us: REFUND_COPY.ar.comparison },
+      { label: "المجتمع", agency: "أنت رقم عميل", us: `انضم لأكتر من ${COMMUNITY_SIZE_AR} طالب بيساعدوا بعض` },
     ],
   },
   communityProof: {
     title: "طلاب كانوا في نفس موقفك بالظبط",
     stats: [
-      { value: "+11,000", label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
+      { value: COMMUNITY_SIZE_AR, label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
       { value: "4 سنين", label: "بجاوب على نفس الأسئلة — دلوقتي كلها في مكان واحد" },
       { value: "€15–€350", label: "مقابل €1,500–€3,000 اللي المكاتب بتاخدها على أقل" },
     ],
@@ -1116,7 +1121,7 @@ const ar: typeof en = {
     items: [
       { q: "ليه أدفع والأدلة مجانية؟", a: "الأدلة بتعلمك العملية. الخدمات هي أنا شخصيًا براجع أوراقك أنت ووضعك أنت وبجاوب أسئلتك أنت. الفرق بين إنك تقرأ كتاب طب وإنك تروح لدكتور." },
       { q: "إيه الفرق بينكم وبين مكتب؟", a: "المكاتب في مصر أو الأردن بيبيعوك باكيج وبيختفوا. عمرهم ماراحوا التشيك. أنا ساكن هنا. عديت التجربة. وبكلف جزء صغير من سعرهم." },
-      { q: "لو دفعت ومش راضي؟", a: "راسلني خلال 48 ساعة وهرجعلك فلوسك كلها. بدون أسئلة، بدون نماذج، بدون انتظار." },
+      { q: "لو دفعت ومش راضي؟", a: REFUND_COPY.ar.faq },
       { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe. نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام. راسلني على واتساب." },
       { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا. وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
       { q: "لقيت مكتب أرخص. ليه ماستخدمهمش؟", a: "اسألهم 3 أسئلة: راحوا التشيك قبل كده؟ يقدروا يعملوا مقابلة تجريبية بأسئلة حقيقية؟ هيساعدوك بعد ما توصل؟ لو الإجابة لأ على أي واحد، بتدفع لوسيط بيعملك Google." },

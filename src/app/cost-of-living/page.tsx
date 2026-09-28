@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { cities, costCategories, totalRange, oneTimeCosts, type CityKey } from "@/data/costs";
 import { motion } from "framer-motion";
+import { EmailCapture } from "@/components/email-capture";
 import {
   BarChart,
   Bar,
@@ -328,6 +329,10 @@ export default function CostOfLivingPage() {
           </GlassCard>
         </div>
       </main>
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <EmailCapture tool="checklist" />
+      </div>
 
       <Footer />
     </div>

@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { FACEBOOK_GROUP_URL, CONTACT_EMAIL } from "@/config/contact";
+import { FACEBOOK_GROUP_URL, CONTACT_EMAIL, COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -31,7 +31,7 @@ const t = {
     ],
     storyTitle: "How it started",
     storyBody:
-      "This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to 11,000+ members. This website is the next step: the same free, honest answers, just easier to find.",
+      `This started as a Facebook group where one student answered the same questions over and over for Arabic-speaking students trying to figure out Czech universities. The group grew to ${COMMUNITY_SIZE} members. This website is the next step: the same free, honest answers, just easier to find.`,
     whatWeDoTitle: "What we do",
     whatWeDo: [
       "Free guides on applications, visas, costs, and university selection",
@@ -73,7 +73,7 @@ const t = {
     ],
     storyTitle: "إزاي بدأ",
     storyBody:
-      "الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من 11,000 عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة، بس أسهل توصلها.",
+      `الموضوع بدأ كجروب فيسبوك طالب واحد كان بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. الجروب كبر لأكتر من ${COMMUNITY_SIZE_AR} عضو. الموقع ده هو الخطوة الجاية: نفس الإجابات المجانية والصادقة، بس أسهل توصلها.`,
     whatWeDoTitle: "إيه اللي بنعمله",
     whatWeDo: [
       "أدلة مجانية عن التقديمات والفيزا والتكاليف واختيار الجامعة",

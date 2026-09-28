@@ -1,3 +1,5 @@
+import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
+
 export type Locale = "en" | "ar";
 
 export const translations = {
@@ -18,7 +20,7 @@ export const translations = {
     hero: {
       title: "Study in Czechia Without an Agency",
       subtitle:
-        "Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in an 11,000-member community.",
+        `Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in an ${COMMUNITY_SIZE}-member community.`,
       cta: "Find My University",
       secondaryCta: "Check My Eligibility",
     },
@@ -101,7 +103,7 @@ export const translations = {
       whatsappDesc: "Quick questions, booking consultations, or payment confirmations. WhatsApp is the fastest way.",
       whatsappCta: "Open WhatsApp",
       facebookTitle: "Facebook Group",
-      facebookDesc: "Join 11,000+ students sharing tips, updates, and real experiences about studying in Czechia.",
+      facebookDesc: `Join ${COMMUNITY_SIZE} students sharing tips, updates, and real experiences about studying in Czechia.`,
       facebookCta: "Join the group",
       formTitle: "Send Us a Message",
       formName: "Your name",
@@ -133,7 +135,7 @@ export const translations = {
       badge: "Who's behind this",
       title: "Built by a student who has been through it",
       story:
-        "This started as a Facebook group answering the same questions over and over for Arabic-speaking students figuring out Czech universities. It has grown into a community of 11,000+ students, and this site is the next step: the same free, honest answers, just easier to find.",
+        `This started as a Facebook group answering the same questions over and over for Arabic-speaking students figuring out Czech universities. It has grown into a community of ${COMMUNITY_SIZE} students, and this site is the next step: the same free, honest answers, just easier to find.`,
       cta: "Join the Facebook group",
     },
     scam: {
@@ -455,7 +457,7 @@ export const translations = {
       whatsappDesc: "أسئلة سريعة، حجز استشارات، أو تأكيد دفع. واتساب أسرع طريقة.",
       whatsappCta: "افتح واتساب",
       facebookTitle: "جروب الفيسبوك",
-      facebookDesc: "انضم لأكتر من 11,000 طالب بيشاركوا نصايح وتحديثات وتجارب حقيقية عن الدراسة في التشيك.",
+      facebookDesc: `انضم لأكتر من ${COMMUNITY_SIZE_AR} طالب بيشاركوا نصايح وتحديثات وتجارب حقيقية عن الدراسة في التشيك.`,
       facebookCta: "انضم للجروب",
       formTitle: "ابعتلنا رسالة",
       formName: "اسمك",
@@ -487,7 +489,7 @@ export const translations = {
       badge: "مين ورا الموقع ده",
       title: "من طالب عدى التجربة دي بنفسه",
       story:
-        "الموضوع بدأ كجروب فيسبوك بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. دلوقتي بقى مجتمع أكتر من 11,000 طالب، والموقع ده الخطوة التالية: نفس الإجابات المجانية والصادقة بس أسهل إنك تلاقيها.",
+        `الموضوع بدأ كجروب فيسبوك بيجاوب على نفس الأسئلة كل مرة للطلاب العرب اللي بيحاولوا يفهموا الجامعات التشيكية. دلوقتي بقى مجتمع أكتر من ${COMMUNITY_SIZE_AR} طالب، والموقع ده الخطوة التالية: نفس الإجابات المجانية والصادقة بس أسهل إنك تلاقيها.`,
       cta: "انضم لجروب الفيسبوك",
     },
     scam: {

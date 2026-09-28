@@ -13,6 +13,8 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { StageRouter } from "@/components/stage-router";
 import { WaitlistSignup } from "@/components/waitlist-signup";
+import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME } from "@/config/contact";
+import { EmailCapture } from "@/components/email-capture";
 import {
   GraduationCap,
   BarChart3,
@@ -161,7 +163,7 @@ export default function HomeClient() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-8 backdrop-blur-sm"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            {locale === "en" ? "11,000+ community members" : "أكتر من 11,000 عضو في المجتمع"}
+            {locale === "en" ? `${COMMUNITY_SIZE} community members` : `أكتر من ${COMMUNITY_SIZE_AR} عضو في المجتمع`}
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
@@ -230,7 +232,7 @@ export default function HomeClient() {
           className="motion-safe-fallback grid grid-cols-1 sm:grid-cols-3 gap-4"
         >
           {[
-            { icon: Users, label: locale === "en" ? "11,000+ Facebook group members" : "أكتر من 11,000 عضو في جروب الفيسبوك" },
+            { icon: Users, label: locale === "en" ? `${COMMUNITY_SIZE} Facebook group members` : `أكتر من ${COMMUNITY_SIZE_AR} عضو في جروب الفيسبوك` },
             { icon: ShieldAlert, label: locale === "en" ? "Based in Brno since 2022" : "مقيم في برنو من 2022" },
             { icon: BookOpen, label: locale === "en" ? "7 free tools, no paywall" : "7 أدوات مجانية، بدون حائط دفع" },
           ].map((item, i) => (
@@ -318,6 +320,34 @@ export default function HomeClient() {
             );
           })}
         </div>
+      </section>
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <EmailCapture tool="checklist" />
+      </div>
+
+      {/* Services CTA band */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          className="motion-safe-fallback rounded-2xl border border-amber/20 bg-gradient-to-br from-amber/[0.08] to-amber/[0.02] p-8 sm:p-10 text-center"
+        >
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">
+            {locale === "en"
+              ? "Want me personally in your corner?"
+              : "عايز حد يقف جنبك شخصيًا؟"}
+          </h2>
+          <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto mb-6 leading-relaxed">
+            {locale === "en"
+              ? "The guides are free and always will be. If you want someone to review your actual documents, prep you for your specific embassy interview, and answer your WhatsApp when something goes wrong — that's what the services are for."
+              : "الأدلة مجانية وهتفضل مجانية دايمًا. لكن لو عايز حد يراجع مستنداتك الحقيقية، ويجهزك لمقابلة السفارة بالتحديد، ويرد عليك على الواتساب لما حاجة تحصل — دي وظيفة الخدمات المدفوعة."}
+          </p>
+          <MagneticButton variant="primary" size="lg" href="/services">
+            {locale === "en" ? "See Services — from €15" : "شوف الخدمات — تبدأ من €15"}
+          </MagneticButton>
+        </motion.div>
       </section>
 
       <SectionDivider />
@@ -620,7 +650,7 @@ export default function HomeClient() {
               <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
               <Image
                 src="/images/john.jpg"
-                alt="Joun, founder of Study Czechia"
+                alt={`${FOUNDER_NAME}, founder of Study Czechia`}
                 width={384}
                 height={384}
                 quality={90}

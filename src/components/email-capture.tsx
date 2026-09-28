@@ -6,11 +6,12 @@ import { Mail, CheckCircle2, Loader2 } from "lucide-react";
 import { useTranslation } from "@/i18n/context";
 import { submitToConvertKit } from "@/lib/convertkit";
 
-type Tool = "eligibility" | "matcher";
+type Tool = "eligibility" | "matcher" | "checklist";
 
 const FORM_IDS: Record<Tool, string | undefined> = {
   eligibility: process.env.NEXT_PUBLIC_CONVERTKIT_ELIGIBILITY_FORM_ID,
   matcher: process.env.NEXT_PUBLIC_CONVERTKIT_MATCHER_FORM_ID,
+  checklist: process.env.NEXT_PUBLIC_CONVERTKIT_CHECKLIST_FORM_ID,
 };
 
 const COPY = {
@@ -38,6 +39,18 @@ const COPY = {
       subtext:
         "هنرسل لك بالملخص البرامج اللي جات لك ونظرة سريعة على أهليتك للتقديم عشان تبدأ تخطط.",
       button: "ابعتلي الملخص على الإيميل",
+    },
+  },
+  checklist: {
+    en: {
+      headline: "Get the free document checklist",
+      subtext:
+        "Enter your email and I'll send it straight to you. No spam, unsubscribe anytime.",
+    },
+    ar: {
+      headline: "احصل على قائمة تحقق المستندات مجانًا",
+      subtext:
+        "اكتب بريدك الإلكتروني وسأرسلها لك مباشرة. بدون رسائل مزعجة، يمكنك إلغاء الاشتراك في أي وقت.",
     },
   },
 } as const;
