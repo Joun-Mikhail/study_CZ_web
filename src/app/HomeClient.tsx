@@ -326,6 +326,30 @@ export default function HomeClient() {
         <EmailCapture tool="checklist" />
       </div>
 
+      {/* Services CTA band */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          className="motion-safe-fallback rounded-2xl border border-amber/20 bg-gradient-to-br from-amber/[0.08] to-amber/[0.02] p-8 sm:p-10 text-center"
+        >
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">
+            {locale === "en"
+              ? "Want me personally in your corner?"
+              : "عايز حد يقف جنبك شخصيًا؟"}
+          </h2>
+          <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto mb-6 leading-relaxed">
+            {locale === "en"
+              ? "The guides are free and always will be. If you want someone to review your actual documents, prep you for your specific embassy interview, and answer your WhatsApp when something goes wrong — that's what the services are for."
+              : "الأدلة مجانية وهتفضل مجانية دايمًا. لكن لو عايز حد يراجع مستنداتك الحقيقية، ويجهزك لمقابلة السفارة بالتحديد، ويرد عليك على الواتساب لما حاجة تحصل — دي وظيفة الخدمات المدفوعة."}
+          </p>
+          <MagneticButton variant="primary" size="lg" href="/services">
+            {locale === "en" ? "See Services — from €15" : "شوف الخدمات — تبدأ من €15"}
+          </MagneticButton>
+        </motion.div>
+      </section>
+
       <SectionDivider />
 
       {/* Why Study in Czechia */}
