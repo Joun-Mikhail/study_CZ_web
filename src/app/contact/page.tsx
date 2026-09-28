@@ -6,7 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL, whatsappWithContext } from "@/config/contact";
+import { WHATSAPP_URL, CONTACT_EMAIL, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
 import { Mail, MessageCircle, Users, Clock, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -66,7 +66,7 @@ export default function ContactPage() {
       desc: t.contact.facebookDesc,
       cta: t.contact.facebookCta,
       href: FACEBOOK_GROUP_URL,
-      detail: locale === "ar" ? "+11,000 عضو" : "11,000+ members",
+      detail: locale === "ar" ? `${COMMUNITY_SIZE_AR} عضو` : `${COMMUNITY_SIZE} members`,
       color: "text-[#1877F2]",
       bgColor: "bg-[#1877F2]/10",
       external: true,

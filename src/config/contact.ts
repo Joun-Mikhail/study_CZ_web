@@ -5,13 +5,20 @@ export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
 export const WHATSAPP_URL = "https://wa.me/420703982237";
 
 export function whatsappWithContext(page: string): string {
-  const text = encodeURIComponent(`Hi Joun, I have a question about ${page}`);
+  const text = encodeURIComponent(`Hi ${FOUNDER_NAME}, I have a question about ${page}`);
   return `https://wa.me/420703982237?text=${text}`;
 }
 
 export const INSTAPAY_HANDLE = "+201282244587";
 
+export const FOUNDER_NAME = "John";
+export const FOUNDER_NAME_AR = "جون";
+
 export const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/351187011113360";
+
+// TODO: confirm actual current count before shipping
+export const COMMUNITY_SIZE = "11,000+";
+export const COMMUNITY_SIZE_AR = "+11,000";
 
 export const PRICING = {
   consultation: 15,

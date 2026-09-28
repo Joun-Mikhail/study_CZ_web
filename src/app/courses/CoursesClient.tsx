@@ -7,7 +7,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -418,7 +418,7 @@ const en = {
     { module: "Module 2", title: "Weeks 2–4: Setting Up Your Life", description: "Bank account, residence permit, real housing, real groceries — go from \"just landed\" to actually living here." },
     { module: "Module 3", title: "Month 2: Building Your Routine", description: "Understand how Czech university actually works, make real friends, and figure out money without the guesswork." },
     { module: "Module 4", title: "Month 3: Long-Term Stability", description: "Protect the status you worked hard to get, and build the support system that carries you through the rest of the year." },
-    { module: "Bonus", title: "The Toolkit", description: "Checklists, contact directories, and an FAQ built from the real questions our 10,500-member community has asked — answers you won't find by googling." },
+    { module: "Bonus", title: "The Toolkit", description: `Checklists, contact directories, and an FAQ built from the real questions our ${COMMUNITY_SIZE}-member community has asked — answers you won't find by googling.` },
   ],
   modulesTitle: "Course Modules",
   moduleLabel: "Module",
@@ -599,7 +599,7 @@ const ar: typeof en = {
     { module: "الوحدة 2", title: "من الأسبوع 2 إلى 4: تنظيم حياتك", description: "حساب بنكي، إقامة، سكن حقيقي، تسوق فعلي — من \"وصلت للتو\" إلى \"أعيش هنا بالفعل\"." },
     { module: "الوحدة 3", title: "الشهر الثاني: بناء روتينك", description: "افهم نظام الجامعة التشيكية جيدًا، كوّن صداقات حقيقية، ونظّم أمورك المالية دون تخبط." },
     { module: "الوحدة 4", title: "الشهر الثالث: استقرار طويل الأمد", description: "حافظ على وضعك القانوني الذي تعبت من أجله، وابنِ شبكة دعم تظل معك طوال العام الدراسي." },
-    { module: "إضافة", title: "صندوق الأدوات", description: "قوائم تحقق، دليل جهات اتصال مهمة، وأسئلة شائعة مبنية على أسئلة حقيقية من مجتمعنا الذي يضم أكثر من 10,500 عضو — إجابات لن تجدها بالبحث في جوجل." },
+    { module: "إضافة", title: "صندوق الأدوات", description: `قوائم تحقق، دليل جهات اتصال مهمة، وأسئلة شائعة مبنية على أسئلة حقيقية من مجتمعنا الذي يضم أكثر من ${COMMUNITY_SIZE_AR} عضو — إجابات لن تجدها بالبحث في جوجل.` },
   ],
   modulesTitle: "وحدات الكورس",
   moduleLabel: "الوحدة",
