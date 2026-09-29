@@ -18,7 +18,7 @@ export const translations = {
       language: "العربية",
     },
     hero: {
-      title: "Study in Czechia Without an Agency",
+      title: "Everything About Studying in Czechia — In One Place, For Free",
       subtitle:
         `Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in an ${COMMUNITY_SIZE}-member community.`,
       cta: "Find My University",
@@ -372,7 +372,7 @@ export const translations = {
       language: "English",
     },
     hero: {
-      title: "ادرس في التشيك من غير وكالة",
+      title: "كل معلومات الدراسة في التشيك في مكان واحد ومجانًا",
       subtitle:
         "أسعار حقيقية وميزانيات واقعية، من طالب عايش هنا. أدوات مجانية اتبنت من ٤ سنين رد على نفس الأسئلة في مجتمع فيه ١١,٠٠٠ عضو.",
       cta: "دور على جامعتك",
