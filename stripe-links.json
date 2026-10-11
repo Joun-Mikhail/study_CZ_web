@@ -4,25 +4,25 @@
     "consultation": {
       "name": "Quick Consultation",
       "priceEur": 15,
-      "url": "https://buy.stripe.com/cNicN4958bxAfQv0F9fnO00",
+      "url": "https://buy.stripe.com/dRm4gy2GKeJMdIn4VpfnO0a",
       "public": true
     },
     "documentReview": {
       "name": "Document Review",
       "priceEur": 25,
-      "url": "https://buy.stripe.com/cNi28q1CG59cbAf3RlfnO01",
+      "url": "https://buy.stripe.com/3cIcN45SWcBEdIn5ZtfnO09",
       "public": true
     },
     "arrivalSupport": {
       "name": "Post-Arrival Support",
       "priceEur": 29,
-      "url": "https://buy.stripe.com/6oUcN4814gRU1ZF9bFfnO02",
+      "url": "https://buy.stripe.com/3cI6oG9589ps1ZF4VpfnO0c",
       "public": true
     },
     "interviewPrep": {
       "name": "Embassy Interview Prep",
       "priceEur": 39,
-      "url": "https://buy.stripe.com/7sYcN4a9catw9s787BfnO03",
+      "url": "https://buy.stripe.com/3cI3cu5SW7hkawb4VpfnO0b",
       "public": true
     },
     "course": {
