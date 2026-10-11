@@ -40,12 +40,16 @@ export function WhatsAppFloat() {
       const el = ref.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
+      // Test a slightly larger area than the button, so it hides before it overlaps.
+      const m = 6;
       const points: [number, number][] = [
         [r.left + r.width / 2, r.top + r.height / 2],
-        [r.left + 4, r.top + 4],
-        [r.right - 4, r.top + 4],
-        [r.left + 4, r.bottom - 4],
-        [r.right - 4, r.bottom - 4],
+        [r.left - m, r.top - m],
+        [r.right + m, r.top - m],
+        [r.left - m, r.bottom + m],
+        [r.right + m, r.bottom + m],
+        [r.left + r.width / 2, r.top - m],
+        [r.left + r.width / 2, r.bottom + m],
       ];
       const hit = points.some(([x, y]) =>
         document
@@ -82,8 +86,8 @@ export function WhatsAppFloat() {
       aria-hidden={covering || undefined}
       tabIndex={covering ? -1 : undefined}
       className={cn(
-        "fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-[opacity,transform,box-shadow] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366]",
-        covering && "opacity-0 pointer-events-none scale-90"
+        "fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-[opacity,box-shadow] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366]",
+        covering && "opacity-0 pointer-events-none"
       )}
     >
       <MessageCircle className="w-7 h-7 text-white" aria-hidden="true" />
