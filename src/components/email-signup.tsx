@@ -150,7 +150,7 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
         autoComplete="off"
         value={website}
         onChange={(e) => setWebsite(e.target.value)}
-        className="absolute -left-[9999px] w-px h-px opacity-0"
+        className="absolute top-0 start-0 w-px h-px p-0 -m-px overflow-hidden border-0 opacity-0 pointer-events-none"
         aria-hidden="true"
       />
       <label className="flex items-start gap-2 mt-3 text-xs text-text-secondary cursor-pointer">
