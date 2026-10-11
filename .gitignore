@@ -48,3 +48,6 @@ next-env.d.ts
 /files.zip
 /arabic-spellcheck-report.json
 /studyczechia.com-audit/
+
+# paid course content (downloaded at build time from the private repo)
+/netlify/course-content/
