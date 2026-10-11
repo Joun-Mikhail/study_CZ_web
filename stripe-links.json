@@ -34,13 +34,13 @@
     "fullPackageStep1": {
       "name": "Full Assistance Step 1",
       "priceEur": 150,
-      "url": "https://buy.stripe.com/dRmaEWbdg314cEj4VpfnO05",
+      "url": "https://buy.stripe.com/bJe5kCa9c7hkeMr4VpfnO0d",
       "public": true
     },
     "fullPackageStep2": {
       "name": "Full Assistance Step 2",
       "priceEur": 200,
-      "url": "https://buy.stripe.com/eVqfZgdlodFI7jZcnRfnO06",
+      "url": "https://buy.stripe.com/3cIcN43KO6dg6fV2NhfnO0e",
       "public": false
     }
   }

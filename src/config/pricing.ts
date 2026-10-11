@@ -11,8 +11,8 @@ import stripeConfig from "../../stripe-links.json";
  * LAUNCH50 stops redeeming on the same date.
  *
  * `enabled` must stay false until the Stripe side is ready:
- *   1. A 50% coupon (duration: once, redeem by the end date below)
- *   2. A promotion code `LAUNCH50` on that coupon
+ *   1. A 50% coupon ("Launch50", redeem by the end date below)
+ *   2. An active promotion code `LAUNCH50` on that coupon, expiring on the same date
  *   3. "Allow promotion codes" turned on for every payment link
  * Otherwise the site would show half prices while Stripe charges full ones.
  */
@@ -20,11 +20,11 @@ export const LAUNCH_OFFER = {
   enabled: false,
   percentOff: 50,
   /** Last moment the offer is valid, Prague time. */
-  endsAt: "2026-12-31T23:59:59+01:00",
+  endsAt: "2027-01-31T23:59:59+01:00",
   promoCode: "LAUNCH50",
 } as const;
 
-export const OFFER_END_LABEL = { en: "31 December 2026", ar: "31 ديسمبر 2026" } as const;
+export const OFFER_END_LABEL = { en: "31 January 2027", ar: "31 يناير 2027" } as const;
 
 /** Prices actually charged before the launch offer (EUR). */
 export const REGULAR_PRICES = {

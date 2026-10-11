@@ -43,7 +43,7 @@ function formatLeft(ms: number, locale: Locale): string {
   return `${Math.max(hours, 1)} hours left`;
 }
 
-/** "50% off everything until 31 December 2026 · 81 days left" */
+/** "50% off everything until 31 January 2027 · 112 days left" */
 export function OfferBadge({ locale, className }: { locale: Locale; className?: string }) {
   const left = useTimeLeft();
   if (!OFFER_ACTIVE) return null;
