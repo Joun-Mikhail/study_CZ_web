@@ -14,7 +14,8 @@ import {
   isLessonComplete,
   setLastVisited,
 } from "@/lib/course-store";
-import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
+import { useLessonBody } from "@/lib/course-api";
+import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { motion } from "framer-motion";
 import Link from "@/components/locale-link";
 import {
@@ -40,7 +41,6 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
   const isAr = locale === "ar";
   const t = isAr ? ar : en;
 
-  const [unlocked, setUnlocked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -50,14 +50,14 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
   const modIndex = COURSE.modules.findIndex((m) => m.id === moduleId);
   const lessonIndex = mod?.lessons.findIndex((l) => l.id === lessonId) ?? 0;
 
+  const body = useLessonBody(moduleId, lesson);
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
-    const access = hasAccess();
-    setUnlocked(access || (lesson?.isFree ?? false));
     setCompleted(isLessonComplete(moduleId, lessonId));
-    if (access) setLastVisited(moduleId, lessonId);
-  }, [moduleId, lessonId, lesson?.isFree]);
+    if (hasAccess()) setLastVisited(moduleId, lessonId);
+  }, [moduleId, lessonId]);
 
   if (!mod || !lesson) {
     return (
@@ -74,7 +74,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     );
   }
 
-  if (!mounted) {
+  if (!mounted || body.status === "loading") {
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -86,8 +86,9 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     );
   }
 
-  // Locked state
-  if (!unlocked) {
+  // Locked state: no valid access token, or the course service is unavailable
+  if (body.status === "locked") {
+    const copy = body.reason === "unavailable" ? t.unavailable : body.reason === "not-open" ? t.notOpen : t.locked;
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -96,12 +97,18 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
             <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
               <Lock className="w-8 h-8 text-amber" />
             </div>
-            <h1 className="text-2xl font-bold text-text-primary mb-2">{t.locked.title}</h1>
-            <p className="text-text-secondary text-sm mb-6">{t.locked.subtitle}</p>
+            <h1 className="text-2xl font-bold text-text-primary mb-2">{copy.title}</h1>
+            <p className="text-text-secondary text-sm mb-6">{copy.subtitle}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
-                {t.locked.buyBtn}
-              </MagneticButton>
+              {body.reason === "not-open" ? null : body.reason === "no-access" ? (
+                <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
+                  {t.locked.buyBtn}
+                </MagneticButton>
+              ) : (
+                <MagneticButton variant="primary" href={whatsappWithContext("a course lesson that would not load")}>
+                  {t.unavailable.helpBtn}
+                </MagneticButton>
+              )}
               <MagneticButton variant="secondary" href="/courses/learn">
                 {t.locked.dashboardBtn}
               </MagneticButton>
@@ -118,7 +125,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     setCompleted(true);
   };
 
-  const contentText = isAr ? lesson.content.ar : lesson.content.en;
+  const contentText = isAr ? body.content.ar : body.content.en;
   const paragraphs = contentText.split("\n").filter((p) => p.trim());
 
   return (
@@ -181,10 +188,10 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
             transition={{ delay: 0.1 }}
             className="mb-8"
           >
-            {lesson.videoUrl ? (
+            {body.videoUrl ? (
               <div className="aspect-video rounded-2xl overflow-hidden border border-border-subtle bg-midnight">
                 <iframe
-                  src={lesson.videoUrl}
+                  src={body.videoUrl}
                   className="w-full h-full"
                   allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                   allowFullScreen
@@ -233,7 +240,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
           </motion.div>
 
           {/* Resources */}
-          {lesson.resources.length > 0 && (
+          {body.resources.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -245,7 +252,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                 {t.resources}
               </h3>
               <div className="space-y-2">
-                {lesson.resources.map((res, i) => {
+                {body.resources.map((res, i) => {
                   const ResIcon = res.type === "audio" ? Headphones : FileText;
                   return (
                     <a
@@ -353,9 +360,18 @@ const en = {
   takeQuiz: "Take the Quiz",
   locked: {
     title: "This Lesson is Locked",
-    subtitle: "Purchase the course to unlock all lessons, quizzes, and downloadable resources.",
+    subtitle: "Purchase the course to unlock all lessons, quizzes, and downloadable resources. Already bought it on another device? Message me on WhatsApp with the email you paid with and I'll send your personal link.",
     buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
+  },
+  notOpen: {
+    title: "The course opens on 1 January 2027",
+    subtitle: "Your access is ready on this device. Lessons unlock on opening day; free preview lessons are open now.",
+  },
+  unavailable: {
+    title: "This lesson couldn't load",
+    subtitle: "Something went wrong on our side. Please try again in a few minutes, or message me on WhatsApp.",
+    helpBtn: "Message on WhatsApp",
   },
 };
 
@@ -377,8 +393,17 @@ const ar: typeof en = {
   takeQuiz: "ابدأ الاختبار",
   locked: {
     title: "الدرس ده مقفول",
-    subtitle: "اشتري الكورس عشان تفتح كل الدروس والاختبارات والملفات.",
+    subtitle: "اشتري الكورس عشان تفتح كل الدروس والاختبارات والملفات. اشتريته قبل كده على جهاز تاني؟ ابعتلي على واتساب الإيميل اللي دفعت بيه وهبعتلك اللينك بتاعك.",
     buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
+  },
+  notOpen: {
+    title: "الكورس بيفتح يوم 1 يناير 2027",
+    subtitle: "الدخول جاهز على الجهاز ده. الدروس بتفتح يوم الافتتاح، والدروس المجانية متاحة دلوقتي.",
+  },
+  unavailable: {
+    title: "الدرس ماتحملش",
+    subtitle: "في مشكلة عندنا. جرب تاني بعد شوية، أو ابعتلي على واتساب.",
+    helpBtn: "كلمني على واتساب",
   },
 };

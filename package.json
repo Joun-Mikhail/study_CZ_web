@@ -11,6 +11,7 @@
     "gen:ar": "node tools/gen-ar-routes.mjs"
   },
   "dependencies": {
+    "@netlify/blobs": "^8.2.0",
     "framer-motion": "^13.0.0",
     "lucide-react": "^1.30.0",
     "next": "16.3.0",

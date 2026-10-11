@@ -10,6 +10,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { PAYMENT_LINKS, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, REFUND_COPY } from "@/config/contact";
 import { price, regularPrice, eur, fullPackageTotal, OFFER_ACTIVE } from "@/config/pricing";
+import { hasAccess } from "@/lib/course-store";
 import { OfferBadge } from "@/components/launch-offer";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -47,7 +48,7 @@ export default function CoursesClient() {
   useEffect(() => {
     try {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
-      setShowDashboardLink(localStorage.getItem("studycz_access") === "true");
+      setShowDashboardLink(hasAccess());
     } catch {}
   }, []);
 

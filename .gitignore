@@ -49,5 +49,8 @@ next-env.d.ts
 /arabic-spellcheck-report.json
 /studyczechia.com-audit/
 
+# paid course content (downloaded at build time from the private repo)
+/netlify/course-content/
+
 # page measurements (tools/measure-pages.mjs)
 /measurements/
