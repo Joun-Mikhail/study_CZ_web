@@ -159,7 +159,7 @@ export default function ServicesClient() {
         {/* SECTION 2: Free vs Personal framing */}
         <section className="max-w-2xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
@@ -187,7 +187,7 @@ export default function ServicesClient() {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.15 }}
@@ -210,7 +210,7 @@ export default function ServicesClient() {
         {/* SECTION 3: Free tier card */}
         <section className="max-w-5xl mx-auto mb-12">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback"
@@ -246,7 +246,7 @@ export default function ServicesClient() {
         {/* Price anchor block */}
         <section className="max-w-2xl mx-auto mb-10">
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback text-center text-sm text-text-secondary"
@@ -316,7 +316,7 @@ export default function ServicesClient() {
         {/* SECTION 5: About me */}
         <section className="max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback"
@@ -504,7 +504,7 @@ function ServiceCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.4 }}

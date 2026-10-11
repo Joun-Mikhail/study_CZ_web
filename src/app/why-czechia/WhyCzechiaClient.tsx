@@ -52,7 +52,7 @@ export default function WhyCzechiaClient() {
           <div className="absolute top-0 end-0 w-[300px] h-[300px] bg-amber/[0.04] rounded-full blur-[80px] pointer-events-none" />
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
@@ -72,7 +72,7 @@ export default function WhyCzechiaClient() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
@@ -106,7 +106,7 @@ export default function WhyCzechiaClient() {
           ].map((photo, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
@@ -137,7 +137,7 @@ export default function WhyCzechiaClient() {
       {/* Browse by Interest */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
@@ -164,7 +164,7 @@ export default function WhyCzechiaClient() {
           ].map((item, i) => (
             <motion.div
               key={item.href}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.06, duration: 0.4 }}
@@ -193,7 +193,7 @@ export default function WhyCzechiaClient() {
           ].map((item, i) => (
             <motion.div
               key={item.href}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.06, duration: 0.4 }}
@@ -216,7 +216,7 @@ export default function WhyCzechiaClient() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4 }}
@@ -242,7 +242,7 @@ export default function WhyCzechiaClient() {
             </Link>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.06, duration: 0.4 }}
@@ -275,7 +275,7 @@ export default function WhyCzechiaClient() {
       {/* Czechia at a Glance */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
@@ -301,7 +301,7 @@ export default function WhyCzechiaClient() {
           ].map((s, i) => (
             <motion.div
               key={s.key}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
@@ -332,7 +332,7 @@ export default function WhyCzechiaClient() {
       {/* About the founder */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
