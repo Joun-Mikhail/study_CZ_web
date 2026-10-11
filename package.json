@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "deploy": "npx vercel --prod",
     "gen:ar": "node tools/gen-ar-routes.mjs"
   },
   "dependencies": {
