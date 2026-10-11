@@ -8,7 +8,7 @@
 // Files containing the marker "@custom-ar" are never overwritten — use it for
 // Arabic pages that need hand-written metadata (dynamic routes).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from "node:fs";
-import { join, relative, dirname } from "node:path";
+import { join, relative, dirname, sep } from "node:path";
 
 const APP = "src/app";
 const AR = join(APP, "ar");
@@ -39,7 +39,9 @@ function writeIfAllowed(target, content) {
 const files = walk(APP).filter((f) => f !== join(APP, "layout.tsx"));
 let count = 0;
 for (const file of files) {
-  const rel = relative(APP, file); // e.g. services/page.tsx
+  // Always forward slashes: on Windows path.relative() returns backslashes,
+  // which would end up inside import paths.
+  const rel = relative(APP, file).split(sep).join("/"); // e.g. services/page.tsx
   const routeDir = dirname(rel) === "." ? "" : dirname(rel);
   const enPath = routeDir === "" ? "/" : `/${routeDir}/`;
   const importPath = `@/app/${rel.replace(/\.tsx$/, "")}`;
