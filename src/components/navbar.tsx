@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Link from "@/components/locale-link";
