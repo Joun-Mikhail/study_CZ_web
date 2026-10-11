@@ -19,6 +19,7 @@ export function SaveProgrammeButton({
   const { toast } = useToast();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setSaved(isProgrammeSaved(programmeId));
   }, [programmeId]);
 

@@ -54,6 +54,7 @@ export default function QuizClient({ moduleId }: Props) {
   const nextModule = COURSE.modules[modIndex + 1] ?? null;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
     setUnlocked(hasAccess());
     setBestScore(getQuizScore(moduleId));

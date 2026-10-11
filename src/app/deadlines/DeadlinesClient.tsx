@@ -186,6 +186,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
 }) {
   const l = labels[locale] || labels.en;
   const daysLeft = prog.applicationDeadline
+    // eslint-disable-next-line react-hooks/purity -- days left is meant to reflect the current date
     ? Math.ceil((new Date(prog.applicationDeadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : null;
   const isUrgent = daysLeft !== null && daysLeft >= 0 && daysLeft <= 30;

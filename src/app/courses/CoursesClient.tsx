@@ -46,6 +46,7 @@ export default function CoursesClient() {
 
   useEffect(() => {
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
       setShowDashboardLink(localStorage.getItem("studycz_access") === "true");
     } catch {}
   }, []);

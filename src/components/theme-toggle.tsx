@@ -11,6 +11,7 @@ export default function ThemeToggle() {
     if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem("theme");
     const initial = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setTheme(initial);
     document.documentElement.dataset.theme = initial;
   }, []);

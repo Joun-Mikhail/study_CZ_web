@@ -34,7 +34,9 @@ export function localizeHref(href: string, locale: Locale): string {
   if (!href.startsWith("/") || href.startsWith("//")) return href;
   if (localeFromPath(href) === "ar") return href;
   if (FILE_EXTENSION.test(href)) return href;
-  const [path, rest = ""] = href.split(/(?=[?#])/, 2);
+  const cut = href.search(/[?#]/);
+  const path = cut === -1 ? href : href.slice(0, cut);
+  const rest = cut === -1 ? "" : href.slice(cut);
   if (!hasArabicVersion(path)) return href;
   return pathForLocale(path, "ar") + rest;
 }
