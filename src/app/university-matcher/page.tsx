@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { track } from "@/components/umami";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -166,7 +166,10 @@ export default function MatcherPage() {
     language !== null,
   ][step];
 
+  const completed = useRef(false);
+
   const reset = () => {
+    completed.current = false;
     setStep(0);
     setCity("any");
     setField(null);
@@ -309,8 +312,12 @@ export default function MatcherPage() {
                     variant="primary"
                     onClick={() => {
                       if (!canGoNext) return;
-                      if (step === steps.length - 1) track("matcher_completed", { field: field || "any" });
-                      setStep((s) => s + 1);
+                      if (step === steps.length - 1 && !completed.current) {
+                        completed.current = true; // count a double tap once
+                        track("matcher_completed", { field: field || "any" });
+                      }
+                      // Clamp: a double tap during the animation must not skip a question.
+                      setStep((s) => Math.min(step + 1, s + 1, steps.length));
                     }}
                     className={cn(!canGoNext && "opacity-50 pointer-events-none")}
                   >

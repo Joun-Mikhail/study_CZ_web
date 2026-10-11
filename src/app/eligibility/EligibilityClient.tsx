@@ -2,7 +2,7 @@
 
 import { track } from "@/components/umami";
 import { price } from "@/config/pricing";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -91,11 +91,20 @@ export default function EligibilityClient() {
     { title: t.steps[3], icon: Clock },
   ];
 
+  const lastStep = stepDefs.length - 1;
+  // A double tap on "Next" during the step animation used to run past the
+  // last step and crash the page, so clamp every move to a real step.
+  const goNext = () => setStep((s) => Math.min(lastStep, s + 1));
+
+  const finished = useRef(false);
   const handleFinish = () => {
+    if (finished.current) return; // count a double tap once
+    finished.current = true;
     setShowResults(true);
     track("eligibility_completed");
   };
   const reset = () => {
+    finished.current = false;
     setForm(initial);
     setStep(0);
     setShowResults(false);
@@ -197,10 +206,10 @@ export default function EligibilityClient() {
                 </MagneticButton>
                 <MagneticButton
                   variant="primary"
-                  onClick={() => (step === 3 ? handleFinish() : setStep((s) => s + 1))}
+                  onClick={() => (step === lastStep ? handleFinish() : goNext())}
                 >
-                  {step === 3 ? t.seeResults : t.next}
-                  {step < 3 && <ArrowRight className="w-4 h-4 rtl:rotate-180" />}
+                  {step === lastStep ? t.seeResults : t.next}
+                  {step < lastStep && <ArrowRight className="w-4 h-4 rtl:rotate-180" />}
                 </MagneticButton>
               </div>
             </motion.div>
