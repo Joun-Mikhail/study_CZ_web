@@ -32,6 +32,12 @@ function injectFallbackStyle() {
 export function MotionFallback() {
   const pathname = usePathname();
 
+  // The app is running: hand animated elements back to Framer Motion
+  // (see the no-JavaScript safety net in globals.css).
+  useEffect(() => {
+    document.documentElement.classList.add("hydrated");
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(injectFallbackStyle, 3000);
     let scrollTimer: ReturnType<typeof setTimeout>;
