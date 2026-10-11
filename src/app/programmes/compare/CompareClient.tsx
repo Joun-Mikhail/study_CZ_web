@@ -218,6 +218,7 @@ export default function CompareClient() {
       const params = new URLSearchParams(window.location.search);
       const idsParam = params.get("ids") ?? "";
       const ids = idsParam.split(",").map((s) => s.trim()).filter(Boolean).slice(0, MAX_COMPARE);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reads the URL query after mount (static export has no request)
       if (ids.length > 0) setSelectedIds(ids);
     } catch {}
   }, []);

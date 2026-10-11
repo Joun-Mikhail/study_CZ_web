@@ -36,6 +36,7 @@ function AccordionItem({ entry, locale }: { entry: QaEntry; locale: "en" | "ar" 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.hash === `#${anchorId}`) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reads the URL hash after mount
       setOpen(true);
       ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }

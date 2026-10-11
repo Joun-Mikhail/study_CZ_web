@@ -72,7 +72,7 @@ export function initJourney(name?: string): JourneyData {
 }
 
 export function addProgrammeToJourney(programmeId: string): JourneyData {
-  let data = loadJourney() || initJourney();
+  const data = loadJourney() || initJourney();
   if (data.savedProgrammes.some((p) => p.programmeId === programmeId)) return data;
   data.savedProgrammes.push({
     programmeId,
@@ -85,14 +85,14 @@ export function addProgrammeToJourney(programmeId: string): JourneyData {
 }
 
 export function removeProgrammeFromJourney(programmeId: string): JourneyData {
-  let data = loadJourney() || initJourney();
+  const data = loadJourney() || initJourney();
   data.savedProgrammes = data.savedProgrammes.filter((p) => p.programmeId !== programmeId);
   saveJourney(data);
   return data;
 }
 
 export function toggleChecklistItem(programmeId: string, itemId: string): JourneyData {
-  let data = loadJourney() || initJourney();
+  const data = loadJourney() || initJourney();
   const prog = data.savedProgrammes.find((p) => p.programmeId === programmeId);
   if (prog) {
     const item = prog.checklist.find((c) => c.id === itemId);

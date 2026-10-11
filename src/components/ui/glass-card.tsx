@@ -100,7 +100,7 @@ export function GlassCard({
 
   return (
     <Component
-      ref={cardRef as any}
+      ref={cardRef as React.RefObject<never>}
       href={href}
       target={href ? "_blank" : undefined}
       rel={href ? "noreferrer" : undefined}

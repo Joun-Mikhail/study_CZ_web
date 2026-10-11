@@ -15,7 +15,7 @@ const sample = [
 
 describe('UniversityListClient', () => {
   it('renders list and search input', () => {
-    render(<UniversityListClient initialList={sample as any} initialQ={''} cities={['Prague']} fields={['Engineering']} />)
+    render(<UniversityListClient initialList={sample as never} initialQ={''} cities={['Prague']} fields={['Engineering']} />)
     expect(screen.getByPlaceholderText('Search by name, city, field...')).toBeInTheDocument()
     expect(screen.getByText('Test University')).toBeInTheDocument()
   })

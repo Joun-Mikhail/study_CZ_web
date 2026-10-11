@@ -181,6 +181,7 @@ export function Navbar() {
   }, [openDropdown]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- close menus after navigation
     setMobileOpen(false);
     setOpenDropdown(null);
   }, [pathname]);

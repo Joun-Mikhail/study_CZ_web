@@ -262,6 +262,7 @@ export default function JourneyClient() {
 
   useEffect(() => {
     const data = loadJourney();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setJourney(data);
     setLoaded(true);
   }, []);
