@@ -377,21 +377,6 @@ export default function CoursesClient() {
         </section>
       </main>
 
-      {/* Floating WhatsApp button */}
-      <a
-        href={whatsappWithContext("the First 90 Days course")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 end-6 z-50 group"
-        aria-label="WhatsApp"
-      >
-        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-          <MessageCircle className="w-7 h-7 text-white" />
-        </div>
-        <div className="absolute bottom-full end-0 mb-2 px-3 py-1.5 rounded-lg bg-surface border border-border-subtle text-xs text-text-secondary whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          {t.whatsappTooltip}
-        </div>
-      </a>
 
       <Footer />
     </div>
