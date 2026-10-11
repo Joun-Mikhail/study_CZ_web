@@ -35,7 +35,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const DELIVERY_DATE = "January 1, 2027";
-const DELIVERY_DATE_AR = "١ يناير ٢٠٢٧";
+const DELIVERY_DATE_AR = "1 يناير 2027";
 
 export default function CoursesClient() {
   const { locale } = useTranslation();

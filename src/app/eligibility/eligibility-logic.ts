@@ -137,7 +137,7 @@ export const en = {
     apostille: "Have you apostilled your diploma/transcripts?",
     translation: "Have you had documents officially translated?",
     passportValid: "Valid passport, expiring more than 18 months from now?",
-    proofOfFunds: "Can you show proof of roughly EUR 5,500/year in a bank account?",
+    proofOfFunds: "Can you show proof of roughly €5,500 a year in a bank account?",
     fundingSource: "How are you funding your studies?",
     startWhen: "When do you want to start?",
     appliedBefore: "Applied to a Czech university before?",
@@ -241,7 +241,7 @@ export const en = {
       fail: "Insufficient funds or no proof. This will likely cause a visa rejection.",
       advice: {
         warning: {
-          detail: "The Czech embassy requires bank statements showing approximately EUR 5,500 per year. Start gathering this proof now — last-minute transfers raise red flags.",
+          detail: "The Czech embassy requires bank statements showing approximately €5,500 per year. Start gathering this proof now — last-minute transfers raise red flags.",
           freeLink: "/cost-of-living",
           freeLabel: "Use the free Cost of Living Calculator",
           paidLink: "/services",
