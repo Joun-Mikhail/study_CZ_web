@@ -4,6 +4,7 @@ import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import Clarity from "@/components/clarity";
 import Umami from "@/components/umami";
+import { MotionProvider } from "@/components/motion-provider";
 import { OfferExpiryGuard } from "@/components/launch-offer";
 import { HreflangDefault } from "@/components/hreflang-default";
 import { QuickNav } from "@/components/ui/quick-nav";
@@ -99,6 +100,7 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-amber focus:text-white focus:text-sm focus:font-medium">
           Skip to content
         </a>
+        <MotionProvider>
         <TranslationProvider>
           <ToastProvider>
             {children}
@@ -107,6 +109,7 @@ export default function RootLayout({
             <OfferExpiryGuard />
           </ToastProvider>
         </TranslationProvider>
+        </MotionProvider>
         <Umami />
         <Analytics />
         <Clarity />

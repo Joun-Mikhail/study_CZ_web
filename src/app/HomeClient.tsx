@@ -191,7 +191,7 @@ export default function HomeClient() {
       {/* Trust bar */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           className="motion-safe-fallback grid grid-cols-1 sm:grid-cols-3 gap-4"
@@ -203,7 +203,7 @@ export default function HomeClient() {
           ].map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.1 * i }}
@@ -221,7 +221,7 @@ export default function HomeClient() {
       {/* Bento Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
@@ -244,7 +244,7 @@ export default function HomeClient() {
             return (
               <motion.div
                 key={item.key}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ delay: index * 0.08, duration: 0.5 }}
@@ -323,7 +323,7 @@ export default function HomeClient() {
       {/* Services CTA band */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           className="motion-safe-fallback rounded-2xl border border-amber/20 bg-gradient-to-br from-amber/[0.08] to-amber/[0.02] p-8 sm:p-10 text-center"
