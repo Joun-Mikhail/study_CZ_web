@@ -89,7 +89,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
   // Locked state: no valid access token, or the course service is unavailable
   if (body.status === "locked") {
-    const copy = body.reason === "unavailable" ? t.unavailable : t.locked;
+    const copy = body.reason === "unavailable" ? t.unavailable : body.reason === "not-open" ? t.notOpen : t.locked;
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -101,7 +101,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
             <h1 className="text-2xl font-bold text-text-primary mb-2">{copy.title}</h1>
             <p className="text-text-secondary text-sm mb-6">{copy.subtitle}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              {body.reason === "no-access" ? (
+              {body.reason === "not-open" ? null : body.reason === "no-access" ? (
                 <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
                   {t.locked.buyBtn}
                 </MagneticButton>
@@ -377,6 +377,10 @@ const en = {
     buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
   },
+  notOpen: {
+    title: "The course opens on 1 January 2027",
+    subtitle: "Your access is ready on this device. Lessons unlock on opening day; free preview lessons are open now.",
+  },
   unavailable: {
     title: "This lesson couldn't load",
     subtitle: "Something went wrong on our side. Please try again in a few minutes, or message me on WhatsApp.",
@@ -405,6 +409,10 @@ const ar: typeof en = {
     subtitle: "اشتري الكورس عشان تفتح كل الدروس والاختبارات والملفات. اشتريته قبل كده على جهاز تاني؟ ابعتلي على واتساب الإيميل اللي دفعت بيه وهبعتلك اللينك بتاعك.",
     buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
+  },
+  notOpen: {
+    title: "الكورس بيفتح يوم 1 يناير 2027",
+    subtitle: "الدخول جاهز على الجهاز ده. الدروس بتفتح يوم الافتتاح، والدروس المجانية متاحة دلوقتي.",
   },
   unavailable: {
     title: "الدرس ماتحملش",

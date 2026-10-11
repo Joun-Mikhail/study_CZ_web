@@ -5,7 +5,7 @@ import type { Bilingual, Lesson, LessonResource, Quiz } from "@/data/course";
 import { getAccessToken, revokeAccess, setAccessToken } from "@/lib/course-store";
 
 /** Why paid content couldn't be shown. */
-export type LockReason = "no-access" | "unavailable";
+export type LockReason = "no-access" | "not-open" | "unavailable";
 
 export type LessonBody =
   | { status: "loading" }
@@ -23,6 +23,7 @@ async function getJson<T>(url: string): Promise<{ ok: true; data: T } | { ok: fa
       revokeAccess();
       return { ok: false, reason: "no-access" };
     }
+    if (res.status === 403) return { ok: false, reason: "not-open" };
     if (!res.ok) return { ok: false, reason: "unavailable" };
     return { ok: true, data: (await res.json()) as T };
   } catch {
@@ -71,8 +72,10 @@ export function useQuiz(moduleId: string): QuizState {
   return state;
 }
 
-/** Exchange the Stripe Checkout Session from the welcome page for an access token. */
-export async function claimAccess(sessionId: string): Promise<"ok" | "not-paid" | "unavailable"> {
+export type ClaimResult = "ok" | "preorder" | "not-paid" | "unavailable";
+
+/** Exchange the Stripe Checkout Session for an access token; "preorder" = paid, course not open yet. */
+export async function claimAccess(sessionId: string): Promise<ClaimResult> {
   try {
     const res = await fetch("/api/course/claim", {
       method: "POST",
@@ -80,9 +83,9 @@ export async function claimAccess(sessionId: string): Promise<"ok" | "not-paid" 
       body: JSON.stringify({ sessionId }),
     });
     if (res.ok) {
-      const { token } = (await res.json()) as { token: string };
+      const { token, open } = (await res.json()) as { token: string; open?: boolean };
       setAccessToken(token);
-      return "ok";
+      return open === false ? "preorder" : "ok";
     }
     return res.status === 403 || res.status === 400 ? "not-paid" : "unavailable";
   } catch {

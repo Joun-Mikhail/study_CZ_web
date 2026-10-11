@@ -86,7 +86,12 @@ export default function QuizClient({ moduleId }: Props) {
   }
 
   if (!quiz) {
-    const copy = loaded.status === "locked" && loaded.reason === "unavailable" ? t.unavailable : t.locked;
+    const copy =
+      loaded.status === "locked" && loaded.reason === "unavailable"
+        ? t.unavailable
+        : loaded.status === "locked" && loaded.reason === "not-open"
+          ? t.notOpen
+          : t.locked;
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -482,6 +487,10 @@ const en = {
     buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
   },
+  notOpen: {
+    title: "The course opens on 1 January 2027",
+    subtitle: "Your access is ready on this device. Quizzes unlock on opening day.",
+  },
   unavailable: {
     title: "This quiz couldn't load",
     subtitle: "Something went wrong on our side. Please try again in a few minutes, or message me on WhatsApp.",
@@ -520,6 +529,10 @@ const ar: typeof en = {
     subtitle: "اشتري الكورس عشان تقدر تعمل الاختبارات.",
     buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
+  },
+  notOpen: {
+    title: "الكورس بيفتح يوم 1 يناير 2027",
+    subtitle: "الدخول جاهز على الجهاز ده. الاختبارات بتفتح يوم الافتتاح.",
   },
   unavailable: {
     title: "الاختبار ماتحملش",

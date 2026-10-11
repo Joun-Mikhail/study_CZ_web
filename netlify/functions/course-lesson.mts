@@ -2,13 +2,13 @@
  * GET /api/course/lesson?module=<id>&lesson=<id>   Authorization: Bearer <token>
  * Returns the paid lesson text, resources and a short-lived signed video URL.
  */
-import { requireBuyer, ID_PATTERN } from "../lib/course-auth.mjs";
+import { requireOpenCourse, ID_PATTERN } from "../lib/course-auth.mjs";
 import { signedBunnyEmbedUrl } from "../lib/bunny.mjs";
 import { loadCourseContent } from "../lib/course-content.mjs";
 import { env, json } from "../lib/http.mjs";
 
 export default async function handler(req: Request) {
-  const buyer = await requireBuyer(req);
+  const buyer = await requireOpenCourse(req);
   if (buyer instanceof Response) return buyer;
 
   const url = new URL(req.url);

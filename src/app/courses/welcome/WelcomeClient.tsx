@@ -11,7 +11,7 @@ import { claimAccess } from "@/lib/course-api";
 import { hasAccess } from "@/lib/course-store";
 import { CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 
-type State = "checking" | "ok" | "not-paid" | "unavailable" | "no-session";
+type State = "checking" | "ok" | "preorder" | "not-paid" | "unavailable" | "no-session";
 
 /**
  * Stripe sends course buyers here: /courses/welcome/?session_id={CHECKOUT_SESSION_ID}.
@@ -32,7 +32,7 @@ export default function WelcomeClient() {
     }
     claimAccess(sessionId).then((result) => {
       setState(result);
-      if (result === "ok") {
+      if (result === "ok" || result === "preorder") {
         // Drop the session ID from the address bar so it isn't shared by accident.
         url.searchParams.delete("session_id");
         window.history.replaceState(null, "", url.pathname + url.search);
@@ -60,11 +60,11 @@ export default function WelcomeClient() {
               </div>
             )}
 
-            {state === "ok" && (
+            {(state === "ok" || state === "preorder") && (
               <div className="space-y-4 text-center">
                 <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto" aria-hidden="true" />
-                <h1 className="text-2xl font-bold text-text-primary">{t.ok.title}</h1>
-                <p className="text-sm text-text-secondary leading-relaxed">{t.ok.body}</p>
+                <h1 className="text-2xl font-bold text-text-primary">{state === "preorder" ? t.preorder.title : t.ok.title}</h1>
+                <p className="text-sm text-text-secondary leading-relaxed">{state === "preorder" ? t.preorder.body : t.ok.body}</p>
                 <MagneticButton variant="primary" href="/courses/learn/" className="w-full">
                   {t.ok.start}
                 </MagneticButton>
@@ -91,9 +91,13 @@ export default function WelcomeClient() {
 const en = {
   checking: "Checking your payment with Stripe…",
   whatsapp: "Message me on WhatsApp",
+  preorder: {
+    title: "Payment received",
+    body: "The course opens on 1 January 2027 and this device is already unlocked. The free preview lessons are open now.",
+  },
   ok: {
     title: "Thank you! Your course is unlocked",
-    body: "This device now has access to every lesson and quiz. The course officially opens on 1 January 2027; new lessons and videos appear here as they are published.",
+    body: "This device now has access to every lesson and quiz. New lessons and videos appear here as they are published.",
     start: "Go to the course",
     otherDevice:
       "Want it on another phone or laptop later? Message me on WhatsApp with the email you paid with, and I'll send you a personal link.",
@@ -115,9 +119,13 @@ const en = {
 const ar: typeof en = {
   checking: "بنتأكد من الدفع مع Stripe…",
   whatsapp: "كلمني على واتساب",
+  preorder: {
+    title: "الدفع وصل",
+    body: "الكورس بيفتح يوم 1 يناير 2027، والجهاز ده اتفتح خلاص. الدروس المجانية متاحة دلوقتي.",
+  },
   ok: {
     title: "شكرًا! الكورس اتفتح ليك",
-    body: "الجهاز ده دلوقتي يقدر يفتح كل الدروس والاختبارات. الكورس بيفتح رسميًا يوم 1 يناير 2027، والدروس والفيديوهات الجديدة هتظهر هنا أول ما تنزل.",
+    body: "الجهاز ده دلوقتي يقدر يفتح كل الدروس والاختبارات، والدروس والفيديوهات الجديدة هتظهر هنا أول ما تنزل.",
     start: "ادخل على الكورس",
     otherDevice: "عايز تفتحه على موبايل أو لابتوب تاني بعدين؟ ابعتلي على واتساب الإيميل اللي دفعت بيه، وهبعتلك لينك شخصي.",
   },

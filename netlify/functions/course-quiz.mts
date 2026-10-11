@@ -1,12 +1,12 @@
 /**
  * GET /api/course/quiz?module=<id>   Authorization: Bearer <token>
  */
-import { requireBuyer, ID_PATTERN } from "../lib/course-auth.mjs";
+import { requireOpenCourse, ID_PATTERN } from "../lib/course-auth.mjs";
 import { loadCourseContent } from "../lib/course-content.mjs";
 import { json } from "../lib/http.mjs";
 
 export default async function handler(req: Request) {
-  const buyer = await requireBuyer(req);
+  const buyer = await requireOpenCourse(req);
   if (buyer instanceof Response) return buyer;
 
   const moduleId = new URL(req.url).searchParams.get("module") ?? "";
