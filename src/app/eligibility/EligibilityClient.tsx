@@ -1,5 +1,7 @@
 ﻿"use client";
 
+import { track } from "@/components/umami";
+import { price } from "@/config/pricing";
 import { useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -10,7 +12,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { EmailCapture } from "@/components/email-capture";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import {
   User,
   GraduationCap,
@@ -89,7 +91,10 @@ export default function EligibilityClient() {
     { title: t.steps[3], icon: Clock },
   ];
 
-  const handleFinish = () => setShowResults(true);
+  const handleFinish = () => {
+    setShowResults(true);
+    track("eligibility_completed");
+  };
   const reset = () => {
     setForm(initial);
     setStep(0);
@@ -744,7 +749,7 @@ function ResultsView({
 
 const en = {
   title: "Am I Eligible?",
-  subtitle: "Answer a few questions and we'll tell you where you stand —free, instant, no sign-up.",
+  subtitle: "Answer a few questions and we'll tell you where you stand — free, instant, no sign-up.",
   steps: ["Academics", "Documents", "Finances", "Timeline & Language"],
   back: "Back",
   next: "Next",
@@ -775,7 +780,7 @@ const en = {
   helpers: {
     whatsapp: "So we can send your results if you want",
     email: "For your eligibility report",
-    gpa: "Approximate is fine —e.g. 85%, 3.2 GPA",
+    gpa: "Approximate is fine — e.g. 85%, 3.2 GPA",
   },
   options: {
     yes: "Yes",
@@ -816,7 +821,7 @@ const en = {
     academics: {
       title: "Academic Background",
       pass: "Your grades and education meet admission requirements.",
-      warning: "Grade may limit program options —consider preparatory year.",
+      warning: "Grade may limit program options — consider preparatory year.",
       fail: "Missing education details may block your application.",
       advice: {
         warning: {
@@ -824,65 +829,65 @@ const en = {
           freeLink: "/preparatory-year",
           freeLabel: "Read the free Preparatory Year guide",
           paidLink: "/services",
-          paidLabel: "Or get a consultation —EUR 15",
+          paidLabel: `Or get a consultation — ${price("consultation")}`,
         },
         fail: {
           detail: "Without confirming your education level and grades, universities cannot assess your application. Gather your transcripts and diploma first.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
           paidLink: "/services",
-          paidLabel: "Or get your documents reviewed —EUR 25",
+          paidLabel: `Or get your documents reviewed — ${price("documentReview")}`,
         },
       },
     },
     documents: {
       title: "Required Documents",
       pass: "All essential documents are ready.",
-      warning: "Some documents still need attention —you can fix this in time.",
+      warning: "Some documents still need attention — you can fix this in time.",
       fail: "Critical document gaps could block your application.",
       advice: {
         warning: {
-          detail: "Missing apostille or translation can delay your application by weeks. In Egypt, apostille requires legalization from the Ministry of Foreign Affairs and then the Czech embassy —typically 4-8 weeks.",
+          detail: "Missing apostille or translation can delay your application by weeks. In Egypt, apostille requires legalization from the Ministry of Foreign Affairs and then the Czech embassy — typically 4-8 weeks.",
           freeLink: "/application-guide",
           freeLabel: "Read our free apostille and document guide",
           paidLink: "/services",
-          paidLabel: "Or get your full document package reviewed —EUR 25",
+          paidLabel: `Or get your full document package reviewed — ${price("documentReview")}`,
         },
         fail: {
-          detail: "The embassy does not tell you what is wrong —they just say \"rejected.\" You will not know which document killed your application unless someone checks before you submit.",
+          detail: "The embassy does not tell you what is wrong — they just say \"rejected.\" You will not know which document killed your application unless someone checks before you submit.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
           paidLink: "/services",
-          paidLabel: "Or get your full document package reviewed —EUR 25",
+          paidLabel: `Or get your full document package reviewed — ${price("documentReview")}`,
         },
       },
     },
     finances: {
       title: "Financial Readiness",
       pass: "Your finances look sufficient for a student visa.",
-      warning: "You say you can arrange funds —start now, it takes time.",
+      warning: "You say you can arrange funds — start now, it takes time.",
       fail: "Insufficient funds or no proof. This will likely cause a visa rejection.",
       advice: {
         warning: {
-          detail: "The Czech embassy requires bank statements showing approximately EUR 5,500 per year. Start gathering this proof now —last-minute transfers raise red flags.",
+          detail: "The Czech embassy requires bank statements showing approximately EUR 5,500 per year. Start gathering this proof now — last-minute transfers raise red flags.",
           freeLink: "/cost-of-living",
           freeLabel: "Use the free Cost of Living Calculator",
           paidLink: "/services",
-          paidLabel: "Or book a consultation —EUR 15",
+          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
         fail: {
           detail: "Without proof of financial support, your visa will almost certainly be rejected. This is one of the most common reasons for denial.",
           freeLink: "/cost-of-living",
           freeLabel: "Use the free Cost of Living Calculator",
           paidLink: "/services",
-          paidLabel: "Or book a consultation —EUR 15",
+          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
       },
     },
     timeline: {
       title: "Timeline",
       pass: "You have enough time to prepare a strong application.",
-      warning: "Tight timeline —start immediately and do not wait on anything.",
+      warning: "Tight timeline — start immediately and do not wait on anything.",
       fail: "Very little time left. You may need to target the next intake.",
       advice: {
         warning: {
@@ -890,46 +895,46 @@ const en = {
           freeLink: "/application-guide",
           freeLabel: "Read the step-by-step Application Guide",
           paidLink: "/services",
-          paidLabel: "Or get full application assistance —EUR 150 to start",
+          paidLabel: `Or get full application assistance — ${price("fullPackageStep1")} to start`,
         },
         fail: {
           detail: "With this timeline and outstanding gaps, applying this semester risks a rejection that goes on your record. Targeting the next intake gives you time to build a strong application.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
           paidLink: "/services",
-          paidLabel: "Or let me plan your timeline —EUR 15 consultation",
+          paidLabel: `Or let me plan your timeline — ${price("consultation")} consultation`,
         },
       },
     },
     language: {
       title: "Language Proficiency",
       pass: "Your language qualifications look good.",
-      warning: "Plan to get certified —some programs require proof.",
+      warning: "Plan to get certified — some programs require proof.",
       fail: "Unclear language status could limit your options.",
       advice: {
         warning: {
-          detail: "Most English-taught programs require IELTS 5.5-6.5 or equivalent. Book your test soon —slots fill up and results take weeks.",
+          detail: "Most English-taught programs require IELTS 5.5-6.5 or equivalent. Book your test soon — slots fill up and results take weeks.",
           freeLink: "/qa",
           freeLabel: "Check language requirements in the Q&A",
           paidLink: "/services",
-          paidLabel: "Or book a consultation —EUR 15",
+          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
         fail: {
           detail: "Without knowing whether you need a language certificate, you risk applying to programs you are not eligible for. Check requirements for your target program.",
           freeLink: "/qa",
           freeLabel: "Check language requirements in the Q&A",
           paidLink: "/services",
-          paidLabel: "Or book a consultation —EUR 15",
+          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
       },
     },
   },
   ctaPaths: {
     selfLabel: "I'll handle it myself",
-    selfSub: "Great —use our free guides and the Facebook community.",
+    selfSub: "Great — use our free guides and the Facebook community.",
     specificLabel: "I need help with specific things",
     specificSub: "Book just the services you need.",
-    fullLabel: "I want someone to guide me through everything —Start with EUR 150",
+    fullLabel: `I want someone to guide me through everything — Start with ${price("fullPackageStep1")}`,
     fullSub: "I'll build your complete plan.",
   },
   sendReportTitle: "Want this report sent to you?",
@@ -973,7 +978,7 @@ const ar: typeof en = {
   helpers: {
     whatsapp: "عشان نبعتلك النتيجة لو حبيت",
     email: "عشان نبعتلك النتيجة",
-    gpa: "تقريبي كفاية —مثلا 85%، 3.2",
+    gpa: "تقريبي كفاية — مثلا 85%، 3.2",
   },
   options: {
     yes: "أيوه",
@@ -1022,21 +1027,21 @@ const ar: typeof en = {
           freeLink: "/preparatory-year",
           freeLabel: "اقرأ دليل السنة التحضيرية المجاني",
           paidLink: "/services",
-          paidLabel: "أو احجز استشارة —15 يورو",
+          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
           detail: "من غير ما تأكد مستواك التعليمي ودرجاتك، الجامعات مش هتقدر تقيّم طلبك. جمّع كشف الدرجات والشهادة الأول.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
           paidLink: "/services",
-          paidLabel: "أو خلي أوراقك تتراجع —25 يورو",
+          paidLabel: `أو خلي أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
       },
     },
     documents: {
       title: "الأوراق المطلوبة",
       pass: "كل الأوراق الأساسية جاهزة.",
-      warning: "بعض الأوراق لسه محتاجة انتباه —تقدر تلحق.",
+      warning: "بعض الأوراق لسه محتاجة انتباه — تقدر تلحق.",
       fail: "نواقص حرجة في الأوراق ممكن توقف طلبك.",
       advice: {
         warning: {
@@ -1044,14 +1049,14 @@ const ar: typeof en = {
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل الأوراق والتصديقات المجاني",
           paidLink: "/services",
-          paidLabel: "أو خلي كل أوراقك تتراجع —25 يورو",
+          paidLabel: `أو خلي كل أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
         fail: {
-          detail: "السفارة مش بتقولك إيه الغلط —بس بتقول \"مرفوض\". مش هتعرف أي ورقة وقعتك غير لما حد يراجع قبل ما تقدم.",
+          detail: "السفارة مش بتقولك إيه الغلط — بس بتقول \"مرفوض\". مش هتعرف أي ورقة وقعتك غير لما حد يراجع قبل ما تقدم.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
           paidLink: "/services",
-          paidLabel: "أو خلي كل أوراقك تتراجع —25 يورو",
+          paidLabel: `أو خلي كل أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
       },
     },
@@ -1062,25 +1067,25 @@ const ar: typeof en = {
       fail: "مفيش فلوس كفاية أو مفيش إثبات. ده غالبا بيسبب رفض الفيزا.",
       advice: {
         warning: {
-          detail: "السفارة التشيكية بتطلب كشوفات حساب بتوضح حوالي 5,500 يورو في السنة. ابدأ تجمع الإثبات ده دلوقتي —التحويلات اللي في آخر لحظة بترفع علامات استفهام.",
+          detail: "السفارة التشيكية بتطلب كشوفات حساب بتوضح حوالي 5,500 يورو في السنة. ابدأ تجمع الإثبات ده دلوقتي — التحويلات اللي في آخر لحظة بترفع علامات استفهام.",
           freeLink: "/cost-of-living",
           freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
           paidLink: "/services",
-          paidLabel: "أو احجز استشارة —15 يورو",
+          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
           detail: "من غير إثبات دعم مالي، فيزتك هتترفض تقريبا. ده من أكتر أسباب الرفض شيوعا.",
           freeLink: "/cost-of-living",
           freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
           paidLink: "/services",
-          paidLabel: "أو احجز استشارة —15 يورو",
+          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
       },
     },
     timeline: {
       title: "الوقت",
       pass: "عندك وقت كافي تجهز طلب قوي.",
-      warning: "الوقت ضيق —ابدأ فورا وماتستناش حاجة.",
+      warning: "الوقت ضيق — ابدأ فورا وماتستناش حاجة.",
       fail: "فاضل وقت قليل جدا. ممكن تحتاج تستهدف الدفعة الجاية.",
       advice: {
         warning: {
@@ -1088,46 +1093,46 @@ const ar: typeof en = {
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم خطوة بخطوة",
           paidLink: "/services",
-          paidLabel: "أو خد مساعدة كاملة في التقديم —ابدأ ب 150 يورو",
+          paidLabel: `أو خد مساعدة كاملة في التقديم — ابدأ بـ ${price("fullPackageStep1", "ar")}`,
         },
         fail: {
           detail: "بالجدول الزمني ده والنواقص اللي عندك، التقديم الفصل ده بيخاطر برفض هيتسجل في ملفك. استهداف الدفعة الجاية هيديك وقت تبني طلب قوي.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
           paidLink: "/services",
-          paidLabel: "أو خليني أخطط جدولك —استشارة 15 يورو",
+          paidLabel: `أو خليني أخطط جدولك — استشارة ${price("consultation", "ar")}`,
         },
       },
     },
     language: {
       title: "مستوى اللغة",
       pass: "مستوى لغتك كويس.",
-      warning: "خطط تمتحن —بعض البرامج بتطلب إثبات.",
+      warning: "خطط تمتحن — بعض البرامج بتطلب إثبات.",
       fail: "وضع اللغة مش واضح وده ممكن يحد من اختياراتك.",
       advice: {
         warning: {
-          detail: "معظم البرامج بالإنجليزي بتطلب IELTS 5.5-6.5 أو ما يعادله. احجز امتحانك بدري —الأماكن بتخلص والنتايج بتاخد أسابيع.",
+          detail: "معظم البرامج بالإنجليزي بتطلب IELTS 5.5-6.5 أو ما يعادله. احجز امتحانك بدري — الأماكن بتخلص والنتايج بتاخد أسابيع.",
           freeLink: "/qa",
           freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
           paidLink: "/services",
-          paidLabel: "أو احجز استشارة —15 يورو",
+          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
           detail: "من غير ما تعرف لو محتاج شهادة لغة ولا لا، ممكن تقدم على برامج مش مؤهل ليها. تحقق من متطلبات البرنامج اللي مستهدفه.",
           freeLink: "/qa",
           freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
           paidLink: "/services",
-          paidLabel: "أو احجز استشارة —15 يورو",
+          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
       },
     },
   },
   ctaPaths: {
     selfLabel: "هتعمل كل حاجة بنفسي",
-    selfSub: "تمام —استخدم الأدلة المجانية ومجتمع فيسبوك.",
+    selfSub: "تمام — استخدم الأدلة المجانية ومجتمع فيسبوك.",
     specificLabel: "محتاج مساعدة في حاجات معينة",
     specificSub: "احجز بس الخدمات اللي محتاجها.",
-    fullLabel: "عايز حد يمشيني في كل حاجة —ابدأ ب 150 يورو",
+    fullLabel: `عايز حد يمشيني في كل حاجة — ابدأ بـ ${price("fullPackageStep1", "ar")}`,
     fullSub: "هبنيلك خطة كاملة.",
   },
   sendReportTitle: "عايز التقرير ده يتبعتلك؟",

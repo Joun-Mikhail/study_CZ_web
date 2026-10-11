@@ -36,14 +36,24 @@ function gitDate(paths: string[]): Date | undefined {
 // Trailing slash on every URL: next.config sets trailingSlash: true, every
 // page's canonical ends in "/", and the live host 301s the slashless form --
 // so a slashless <loc> would be a redirect, not the canonical URL.
-function entry(route: string, priority: number, sources: string[]): MetadataRoute.Sitemap[number] {
-  const lastModified = gitDate(sources);
-  return {
-    url: route === "" ? `${SITE_URL}/` : `${SITE_URL}${route}/`,
+// Every page is listed twice — English (/x/) and Arabic (/ar/x/) — and each
+// entry names its twin, so search engines treat them as one page in two
+// languages rather than duplicates.
+function entry(route: string, priority: number, sources: string[]): MetadataRoute.Sitemap {
+  const lastModified = gitDate([...sources, "src/i18n"]);
+  const en = route === "" ? `${SITE_URL}/` : `${SITE_URL}${route}/`;
+  const ar = route === "" ? `${SITE_URL}/ar/` : `${SITE_URL}/ar${route}/`;
+  const alternates = { languages: { en, ar, "x-default": en } };
+  const base = {
     ...(lastModified ? { lastModified } : {}),
-    changeFrequency: "monthly",
+    changeFrequency: "monthly" as const,
     priority,
+    alternates,
   };
+  return [
+    { url: en, ...base },
+    { url: ar, ...base },
+  ];
 }
 
 const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = [
@@ -65,8 +75,6 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/interview-prep", priority: 0.8, sources: ["src/app/interview-prep"] },
   { route: "/arrival", priority: 0.8, sources: ["src/app/arrival"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
-  { route: "/search", priority: 0.8, sources: ["src/app/search", "src/data/universities.ts"] },
-  { route: "/programmes/compare", priority: 0.8, sources: ["src/app/programmes/compare"] },
   { route: "/my-journey", priority: 0.8, sources: ["src/app/my-journey"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },
   { route: "/terms", priority: 0.8, sources: ["src/app/terms"] },
@@ -74,32 +82,32 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = STATIC_ROUTES.map((r) => entry(r.route, r.priority, r.sources));
+  const staticRoutes = STATIC_ROUTES.flatMap((r) => entry(r.route, r.priority, r.sources));
 
-  const stageRoutes = stageOrder.map((slug) =>
+  const stageRoutes = stageOrder.flatMap((slug) =>
     entry(`/stage/${slug}`, 0.8, ["src/app/stage", "src/data/stages.ts", "src/data/qa.ts"])
   );
 
-  const universityRoutes = universities.map((u) =>
+  const universityRoutes = universities.flatMap((u) =>
     entry(`/university/${u.id}`, 0.6, ["src/app/university", "src/data/universities.ts"])
   );
 
-  const programmeRoutes = programmes.map((p) =>
+  const programmeRoutes = programmes.flatMap((p) =>
     entry(`/programmes/${p.id}`, 0.7, ["src/app/programmes/[slug]", "src/data/programmes.ts"])
   );
 
   const studySources = ["src/app/study", "src/data/programmes.ts", "src/data/universities-v2.ts"];
 
-  const fieldRoutes = PROGRAMME_FIELDS.map((f) => entry(`/study/${fieldToSlug(f)}`, 0.7, studySources));
+  const fieldRoutes = PROGRAMME_FIELDS.flatMap((f) => entry(`/study/${fieldToSlug(f)}`, 0.7, studySources));
 
   const cities = [...new Set(universitiesV2.map((u) => u.city))];
-  const cityRoutes = cities.map((c) => entry(`/study/${cityToSlug(c)}`, 0.7, studySources));
+  const cityRoutes = cities.flatMap((c) => entry(`/study/${cityToSlug(c)}`, 0.7, studySources));
 
-  const degreeRoutes = (["Bachelor", "Master"] as const).map((d) =>
+  const degreeRoutes = (["Bachelor", "Master"] as const).flatMap((d) =>
     entry(`/study/${degreeToSlug(d)}`, 0.7, studySources)
   );
 
-  const intentRoutes = ["/study/cheapest-programmes", "/study/no-entrance-exam"].map((route) =>
+  const intentRoutes = ["/study/cheapest-programmes", "/study/no-entrance-exam"].flatMap((route) =>
     entry(route, 0.7, studySources)
   );
 

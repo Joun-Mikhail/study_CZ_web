@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { priceOf, fullPackageTotal } from "@/config/pricing";
+import { REFUND_COPY } from "@/config/contact";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Professional application support, document translation, and admission consulting for Czech universities.",
+  description: "Personal application support for Czech universities: document review, embassy interview prep, arrival help and full application guidance.",
 };
 
 const serviceSchema = [
@@ -14,7 +16,7 @@ const serviceSchema = [
     description: "30-minute personalized consultation about your Czech university application, including university selection, document requirements, and visa guidance.",
     provider: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
     areaServed: { "@type": "Country", name: "Czech Republic" },
-    offers: { "@type": "Offer", price: "15", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: String(priceOf("consultation")), priceCurrency: "EUR" },
   },
   {
     "@type": "Service",
@@ -22,7 +24,7 @@ const serviceSchema = [
     description: "Complete review of your university application and visa document package with detailed written feedback on what needs fixing.",
     provider: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
     areaServed: { "@type": "Country", name: "Czech Republic" },
-    offers: { "@type": "Offer", price: "25", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: String(priceOf("documentReview")), priceCurrency: "EUR" },
   },
   {
     "@type": "Service",
@@ -30,7 +32,7 @@ const serviceSchema = [
     description: "45-minute mock embassy interview session with real questions, feedback, and a written cheat sheet of common questions and ideal answers.",
     provider: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
     areaServed: { "@type": "Country", name: "Czech Republic" },
-    offers: { "@type": "Offer", price: "39", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: String(priceOf("interviewPrep")), priceCurrency: "EUR" },
   },
   {
     "@type": "Service",
@@ -38,7 +40,7 @@ const serviceSchema = [
     description: "Personalized first-two-weeks checklist, foreign police registration walkthrough, bank and SIM setup guidance, plus 14 days of WhatsApp support.",
     provider: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
     areaServed: { "@type": "Country", name: "Czech Republic" },
-    offers: { "@type": "Offer", price: "29", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: String(priceOf("arrivalSupport")), priceCurrency: "EUR" },
   },
   {
     "@type": "Service",
@@ -46,7 +48,7 @@ const serviceSchema = [
     description: "End-to-end support from university selection through visa approval and first month in Czechia, including all individual services plus ongoing WhatsApp support.",
     provider: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
     areaServed: { "@type": "Country", name: "Czech Republic" },
-    offers: { "@type": "Offer", price: "350", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: String(fullPackageTotal()), priceCurrency: "EUR" },
   },
 ];
 
@@ -61,12 +63,12 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "How is this different from an agency?",
-      acceptedAnswer: { "@type": "Answer", text: "Agencies sell you a package and disappear. They've never been to Czechia. I live here, went through this process myself, and cost a fraction of what they charge." },
+      acceptedAnswer: { "@type": "Answer", text: "Many agencies sell a package and stop once you have your visa. I live here, went through this process myself, and cost a fraction of what agencies usually charge." },
     },
     {
       "@type": "Question",
       name: "What if I pay and I'm not satisfied?",
-      acceptedAnswer: { "@type": "Answer", text: "Message me within 48 hours of any service and I'll refund you completely. No questions, no forms, no waiting." },
+      acceptedAnswer: { "@type": "Answer", text: REFUND_COPY.en.faq },
     },
     {
       "@type": "Question",

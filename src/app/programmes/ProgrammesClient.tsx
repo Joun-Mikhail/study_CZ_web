@@ -29,7 +29,7 @@ import {
   Bookmark,
   ArrowRight,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 

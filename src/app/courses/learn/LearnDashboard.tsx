@@ -1,5 +1,6 @@
 "use client";
 
+import { price } from "@/config/pricing";
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -17,7 +18,7 @@ import {
 } from "@/lib/course-store";
 import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import {
   Lock,
   Unlock,
@@ -388,7 +389,7 @@ const en = {
     codeError: "Invalid code. Please check and try again.",
     unlockBtn: "Unlock Course",
     or: "or",
-    buyBtn: "Buy the Course (€49)",
+    buyBtn: `Buy the Course (${price("course")})`,
     help: "Bought but didn't get a code?",
     helpLink: "Message us on WhatsApp",
   },
@@ -416,7 +417,7 @@ const ar: typeof en = {
     codeError: "الكود غلط. اتأكد وجرب تاني.",
     unlockBtn: "افتح الكورس",
     or: "أو",
-    buyBtn: "اشتري الكورس (49€)",
+    buyBtn: `اشتري الكورس (${price("course", "ar")})`,
     help: "اشتريت بس الكود ما وصلش؟",
     helpLink: "كلمنا على واتساب",
   },

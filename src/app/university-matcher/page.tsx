@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { track } from "@/components/umami";
 import { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -50,6 +51,7 @@ const languageLabels: { key: "English" | "Czech" | "any"; en: string; ar: string
 const fieldLabels: { key: string; en: string; ar: string }[] = [
   { key: "any", en: "Any field", ar: "أي مجال" },
   { key: "Medicine", en: "Medicine", ar: "الطب" },
+  { key: "Veterinary Medicine", en: "Veterinary Medicine", ar: "الطب البيطري" },
   { key: "Business", en: "Business", ar: "الأعمال" },
   { key: "Economics", en: "Economics", ar: "الاقتصاد" },
   { key: "Finance", en: "Finance", ar: "المالية" },
@@ -305,7 +307,11 @@ export default function MatcherPage() {
                   </MagneticButton>
                   <MagneticButton
                     variant="primary"
-                    onClick={() => canGoNext && setStep((s) => s + 1)}
+                    onClick={() => {
+                      if (!canGoNext) return;
+                      if (step === steps.length - 1) track("matcher_completed", { field: field || "any" });
+                      setStep((s) => s + 1);
+                    }}
                     className={cn(!canGoNext && "opacity-50 pointer-events-none")}
                   >
                     {step === steps.length - 1 ? t.matcher.seeResults : t.matcher.next}

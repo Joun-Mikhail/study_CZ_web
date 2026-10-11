@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { Mail, CheckCircle2, Loader2 } from "lucide-react";
 import { useTranslation } from "@/i18n/context";
 import { submitToConvertKit } from "@/lib/convertkit";

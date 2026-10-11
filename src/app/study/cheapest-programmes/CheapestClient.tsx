@@ -21,7 +21,7 @@ import {
   Building2,
   ArrowRight,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/fade-in";

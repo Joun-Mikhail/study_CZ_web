@@ -1,5 +1,6 @@
 "use client";
 
+import { price } from "@/config/pricing";
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -15,7 +16,7 @@ import {
 } from "@/lib/course-store";
 import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -365,7 +366,7 @@ const en = {
   locked: {
     title: "This Lesson is Locked",
     subtitle: "Purchase the course to unlock all lessons, quizzes, and downloadable resources.",
-    buyBtn: "Get the Course (€49)",
+    buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
   },
 };
@@ -389,7 +390,7 @@ const ar: typeof en = {
   locked: {
     title: "الدرس ده مقفول",
     subtitle: "اشتري الكورس عشان تفتح كل الدروس والاختبارات والملفات.",
-    buyBtn: "احصل على الكورس (49€)",
+    buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
   },
 };

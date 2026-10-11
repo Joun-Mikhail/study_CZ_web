@@ -20,7 +20,7 @@ import {
   CheckCircle2,
   FileX,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 
 export default function NoExamClient() {

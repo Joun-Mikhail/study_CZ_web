@@ -6,7 +6,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import {
   Search,
   GraduationCap,

@@ -1,3 +1,4 @@
+import { price } from "@/config/pricing";
 import { PAYMENT_LINKS } from "@/config/contact";
 import type { Bilingual } from "@/data/stages";
 
@@ -20,7 +21,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       en: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
       ar: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
     },
-    cta: { en: "Book a Call (€15)", ar: "احجز مكالمة (15€)" },
+    cta: { en: `Book a Call (${price("consultation")})`, ar: `احجز مكالمة (${price("consultation", "ar")})` },
     href: PAYMENT_LINKS.consultation,
   },
   documentCheck: {
@@ -29,7 +30,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       en: "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
       ar: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
     },
-    cta: { en: "Get My Documents Reviewed (€25)", ar: "راجع أوراقي (25€)" },
+    cta: { en: `Get My Documents Reviewed (${price("documentReview")})`, ar: `راجع أوراقي (${price("documentReview", "ar")})` },
     href: PAYMENT_LINKS.documentReview,
   },
   interviewPrep: {
@@ -38,7 +39,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       en: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
       ar: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
     },
-    cta: { en: "Book My Mock Interview —EUR 39", ar: "احجز مقابلة تجريبية —39 يورو" },
+    cta: { en: `Book My Mock Interview — ${price("interviewPrep")}`, ar: `احجز مقابلة تجريبية — ${price("interviewPrep", "ar")}` },
     href: PAYMENT_LINKS.interviewPrep,
   },
   arrivalSupport: {
@@ -47,7 +48,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       en: "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
       ar: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
     },
-    cta: { en: "Get My Arrival Plan (€29)", ar: "احصل على خطة وصولي (29€)" },
+    cta: { en: `Get My Arrival Plan (${price("arrivalSupport")})`, ar: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})` },
     href: PAYMENT_LINKS.arrivalSupport,
   },
 };

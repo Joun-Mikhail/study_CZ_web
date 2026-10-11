@@ -1,5 +1,6 @@
 "use client";
 
+import { localizeHref } from "@/i18n/paths";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/i18n/context";
@@ -33,7 +34,7 @@ export default function VerifyIndexClient() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmed = certId.trim();
-    if (trimmed) router.push(`/verify/${encodeURIComponent(trimmed)}`);
+    if (trimmed) router.push(localizeHref(`/verify/${encodeURIComponent(trimmed)}`, locale));
   }
 
   return (

@@ -11,3 +11,41 @@
   to = "https://studyczechia.com/:splat"
   status = 301
   force = true
+
+# City pages used to drop accented letters (Plzeň -> "plze"). Old URLs now
+# redirect permanently to the transliterated slugs.
+[[redirects]]
+  from = "/study/in-zl-n/"
+  to = "/study/in-zlin/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/study/in-plze/"
+  to = "/study/in-plzen/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/study/in-hradec-kr-lov/"
+  to = "/study/in-hradec-kralove/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/study/in-st-nad-labem/"
+  to = "/study/in-usti-nad-labem/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/study/in-esk-bud-jovice/"
+  to = "/study/in-ceske-budejovice/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/study/in-mlad-boleslav/"
+  to = "/study/in-mlada-boleslav/"
+  status = 301
+  force = true

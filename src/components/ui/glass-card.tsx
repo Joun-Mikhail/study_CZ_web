@@ -2,7 +2,7 @@
 
 import { type ReactNode, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { cn } from "@/lib/utils";
 
 type GlassCardProps = {

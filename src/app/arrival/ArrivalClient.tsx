@@ -1,5 +1,6 @@
 "use client";
 
+import { price } from "@/config/pricing";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -235,7 +236,7 @@ const en = {
     ],
     triggerLine:
       "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
-    cta: "Get My Arrival Plan (€29)",
+    cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
     postButton: "🔒 Secure payment via Stripe",
     whatsapp: "Ask on WhatsApp instead",
   },
@@ -297,7 +298,7 @@ const ar = {
     ],
     triggerLine:
       "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
-    cta: "احصل على خطة وصولي (29€)",
+    cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
     postButton: "🔒 دفع آمن عبر Stripe",
     whatsapp: "اسأل على واتساب بدل ده",
   },

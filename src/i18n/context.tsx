@@ -3,11 +3,13 @@
 import {
   createContext,
   useContext,
-  useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { type Locale, getTranslations } from "./translations";
+import { hasArabicVersion, localeFromPath, pathForLocale } from "./paths";
 
 type TranslationContextType = {
   locale: Locale;
@@ -19,22 +21,47 @@ type TranslationContextType = {
 
 const TranslationContext = createContext<TranslationContextType | null>(null);
 
-export function TranslationProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+const STORAGE_KEY = "locale";
 
-  const setLocale = useCallback((l: Locale) => {
-    const body = document.body;
-    body.style.opacity = "0";
-    body.style.transition = "opacity 150ms ease";
-    setTimeout(() => {
-      setLocaleState(l);
-      document.documentElement.lang = l;
-      document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
-      requestAnimationFrame(() => {
-        body.style.opacity = "1";
-      });
-    }, 150);
-  }, []);
+/**
+ * The language comes from the URL: /ar/... is Arabic, everything else is
+ * English. Each language has its own pre-rendered page, so search engines and
+ * shared links see the right language without running JavaScript.
+ */
+export function TranslationProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname() || "/";
+  const router = useRouter();
+  const locale = localeFromPath(pathname);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+  }, [locale]);
+
+  // A student who chose Arabic before lands on Arabic pages from then on.
+  useEffect(() => {
+    if (locale !== "en" || !hasArabicVersion(pathname)) return;
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(STORAGE_KEY);
+    } catch {}
+    if (saved === "ar") {
+      router.replace(pathForLocale(pathname, "ar") + window.location.search + window.location.hash);
+    }
+    // Only on first load of a page, not on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  const setLocale = useCallback(
+    (l: Locale) => {
+      try {
+        localStorage.setItem(STORAGE_KEY, l);
+      } catch {}
+      if (l === locale) return;
+      router.push(pathForLocale(window.location.pathname, l) + window.location.search + window.location.hash);
+    },
+    [locale, router]
+  );
 
   const toggleLocale = useCallback(() => {
     setLocale(locale === "en" ? "ar" : "en");

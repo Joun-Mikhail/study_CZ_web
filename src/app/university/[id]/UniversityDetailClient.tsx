@@ -14,7 +14,7 @@ import {
   Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText,
   ExternalLink, ArrowRight, MapPin, Calendar, Building2, Sparkles,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Programme } from "@/data/types";

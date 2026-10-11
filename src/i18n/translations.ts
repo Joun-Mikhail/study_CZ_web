@@ -1,3 +1,4 @@
+import { price, eur, fullPackageTotal } from "@/config/pricing";
 import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
 
 export type Locale = "en" | "ar";
@@ -20,7 +21,7 @@ export const translations = {
     hero: {
       title: "Everything About Studying in Czechia — In One Place, For Free",
       subtitle:
-        `Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in an ${COMMUNITY_SIZE}-member community.`,
+        `Real prices, real budgets, from a student who lives here. Free tools built from 4 years of answering the same questions in a community of ${COMMUNITY_SIZE} students.`,
       cta: "Find My University",
       secondaryCta: "Check My Eligibility",
     },
@@ -86,7 +87,7 @@ export const translations = {
       correctionError: "Could not send. Try again later.",
     },
     footer: {
-      tagline: "Built by students, for students. Not affiliated with any Czech embassy or university.",
+      tagline: "Built by students, for students. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.cz).",
       rights: "All content is community-sourced and provided for guidance only. Always verify with official sources.",
       exploreLabel: "Explore",
       resourcesLabel: "Resources",
@@ -127,7 +128,7 @@ export const translations = {
       reasons: [
         { title: "Tuition-Free in Czech", desc: "Public universities charge zero tuition for programmes taught in Czech. Learn the language in a prep year and study for free." },
         { title: "Affordable Living", desc: "Rent, food, and transport cost a fraction of Western Europe. Students live well on EUR 500 to 800 a month outside Prague." },
-        { title: "EU-Recognized Degrees", desc: "Czech diplomas are recognized across the EU and beyond. Graduate and work anywhere in Europe with no extra validation." },
+        { title: "EU Degrees", desc: "Czech universities award EU degrees that follow the Bologna system, which makes recognition across Europe easier. After graduating, you can apply to stay in Czechia to look for work; other countries have their own residence rules." },
         { title: "Heart of Europe", desc: "Fly to Berlin, Vienna, or Budapest in under 2 hours. Weekend trips across Europe become a normal part of student life." },
       ],
     },
@@ -147,7 +148,7 @@ export const translations = {
       tipLabel: "Pro tip",
       ctaTitle: "Overwhelmed by the paperwork?",
       ctaSubtitle: "Let our team review your documents before you submit anything. Catch mistakes before the embassy does.",
-      ctaButton: "Book a Document Review (€25)",
+      ctaButton: `Book a Document Review (${price("documentReview")})`,
     },
     services: {
       title: "Personal Services",
@@ -155,21 +156,21 @@ export const translations = {
       tiers: [
         {
           title: "Quick Consultation",
-          price: "€15",
+          price: `${price("consultation")}`,
           desc: "A focused 30-minute call to answer your specific questions about universities, visas, or documents.",
           features: ["30-minute video or voice call", "Ask anything specific to your situation", "Follow-up notes after the call"],
           cta: "Book a call",
         },
         {
           title: "Document Review",
-          price: "€25",
+          price: `${price("documentReview")}`,
           desc: "Send us your documents before you submit them. We check for mistakes that commonly cause delays or rejections.",
           features: ["Full document checklist review", "Written feedback on what to fix", "One round of follow-up questions"],
           cta: "Book a review",
         },
         {
           title: "Full Application Assistance",
-          price: "€350",
+          price: `${eur(fullPackageTotal())}`,
           desc: "End-to-end support from choosing a university through visa approval. For students who want a guide the whole way.",
           features: ["University and program selection", "Document prep and translation guidance", "Visa application support", "Embassy interview prep"],
           cta: "Get started",
@@ -264,7 +265,7 @@ export const translations = {
       noResults: "No exact matches. Try widening your budget or city.",
       ctaTitle: "Want a second opinion before you apply?",
       ctaSubtitle: "Book a paid application review. A real student checks your shortlist and documents before you submit anything.",
-      ctaButton: "Book a €25 document review",
+      ctaButton: `Book a ${price("documentReview")} document review`,
     },
     qa: {
       title: "Knowledge Base",
@@ -440,7 +441,7 @@ export const translations = {
       correctionError: "مقدرش يتبعت. جرب تاني بعدين.",
     },
     footer: {
-      tagline: "من طلاب، لطلاب. مش تابعين لأي سفارة أو جامعة.",
+      tagline: "من طلاب، لطلاب. مش تابعين لأي سفارة أو جامعة، ولا لبرنامج Study in Czechia الرسمي (studyin.cz).",
       rights: "كل المعلومات من المجتمع ولغرض الاسترشاد بس. دايما تأكد من المصادر الرسمية.",
       exploreLabel: "تصفح",
       resourcesLabel: "مصادر",
@@ -481,7 +482,7 @@ export const translations = {
       reasons: [
         { title: "مجانية بالتشيكي", desc: "الجامعات الحكومية ما بتاخدش رسوم على البرامج بالتشيكي. اتعلم اللغة في سنة تحضيرية وادرس ببلاش." },
         { title: "معيشة رخيصة", desc: "الإيجار والأكل والمواصلات بجزء صغير من غرب أوروبا. الطلاب بيعيشوا كويس بـ 500 لحد 800 يورو في الشهر برا براغ." },
-        { title: "شهادات معترف بيها في أوروبا", desc: "الشهادات التشيكية معترف بيها في كل الاتحاد الأوروبي وأكتر. اتخرج واشتغل في أي مكان في أوروبا." },
+        { title: "شهادات أوروبية", desc: "الجامعات التشيكية بتدي شهادات أوروبية على نظام بولونيا، وده بيسهل الاعتراف بيها في أوروبا. بعد التخرج تقدر تقدم على إقامة في التشيك عشان تدور على شغل، وكل دولة تانية ليها قواعد إقامة خاصة بيها." },
         { title: "قلب أوروبا", desc: "سافر لبرلين أو فيينا أو بودابست في أقل من ساعتين. الرحلات لأوروبا بتبقى جزء عادي من حياة الطالب." },
       ],
     },
@@ -501,7 +502,7 @@ export const translations = {
       tipLabel: "نصيحة",
       ctaTitle: "حاسس إن الأوراق كتير عليك؟",
       ctaSubtitle: "خلي فريقنا يراجع أوراقك قبل ما تقدمها. امسك الأخطاء قبل ما السفارة تمسكها.",
-      ctaButton: "احجز مراجعة أوراق (€25)",
+      ctaButton: `احجز مراجعة أوراق (${price("documentReview", "ar")})`,
     },
     services: {
       title: "خدمات شخصية",
@@ -509,21 +510,21 @@ export const translations = {
       tiers: [
         {
           title: "استشارة سريعة",
-          price: "€15",
+          price: `${price("consultation")}`,
           desc: "مكالمة 30 دقيقة تجاوب فيها على أسئلتك المحددة عن الجامعات أو الفيزا أو الأوراق.",
           features: ["مكالمة فيديو أو صوت 30 دقيقة", "اسأل عن أي حاجة تخص وضعك تحديدا", "ملاحظات مكتوبة بعد المكالمة"],
           cta: "احجز مكالمة",
         },
         {
           title: "مراجعة الأوراق",
-          price: "€25",
+          price: `${price("documentReview")}`,
           desc: "ابعتلنا أوراقك قبل ما تقدمها. بنراجع الأخطاء الشائعة اللي بتسبب تأخير أو رفض.",
           features: ["مراجعة كاملة لقائمة الأوراق", "ملاحظات مكتوبة على اللي محتاج تعديل", "جولة أسئلة متابعة"],
           cta: "احجز مراجعة",
         },
         {
           title: "مساعدة كاملة في التقديم",
-          price: "€350",
+          price: `${eur(fullPackageTotal())}`,
           desc: "دعم كامل من اختيار الجامعة لحد الموافقة على الفيزا. لطلاب عايزين حد يمشي معاهم الطريق كله.",
           features: ["اختيار الجامعة والتخصص", "دعم تجهيز الأوراق والترجمة", "دعم تقديم الفيزا", "تجهيز لمقابلة السفارة"],
           cta: "ابدأ دلوقتي",
