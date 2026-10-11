@@ -120,7 +120,7 @@ function QuestionCard({ question, index, locale }: { question: Question; index: 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
@@ -195,7 +195,7 @@ export default function QuestionsToAskClient() {
 
           {/* Closing */}
           <motion.blockquote
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback border-s-4 border-accent ps-6 py-4 text-text-secondary italic"

@@ -84,7 +84,7 @@ export default function ApplicationGuidePage() {
                   >
                     {i + 1}
                   </span>
-                  <span className="truncate">{step.title[locale].replace(/^[\d.٠-٩]+\.?\s*/u, "")}</span>
+                  <span className="truncate">{step.title[locale].replace(/^[\d.0-9]+\.?\s*/u, "")}</span>
                 </a>
               ))}
             </div>

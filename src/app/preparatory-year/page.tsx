@@ -92,7 +92,7 @@ export default function PreparatoryYearPage() {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.06 }}
@@ -120,7 +120,7 @@ export default function PreparatoryYearPage() {
             {t.prep.types.map((type, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1 }}
@@ -236,7 +236,7 @@ export default function PreparatoryYearPage() {
               {t.prep.steps.map((step, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: locale === "ar" ? 16 : -16 }}
+                  initial={{ x: locale === "ar" ? 16 : -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.06 }}
@@ -359,7 +359,7 @@ export default function PreparatoryYearPage() {
             {t.prep.tips.map((tip, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.05 }}

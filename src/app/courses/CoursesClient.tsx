@@ -36,7 +36,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const DELIVERY_DATE = "January 1, 2027";
-const DELIVERY_DATE_AR = "١ يناير ٢٠٢٧";
+const DELIVERY_DATE_AR = "1 يناير 2027";
 
 export default function CoursesClient() {
   const { locale } = useTranslation();
@@ -129,7 +129,7 @@ export default function CoursesClient() {
         {/* "Not a textbook" */}
         <section className="max-w-2xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
@@ -378,21 +378,6 @@ export default function CoursesClient() {
         </section>
       </main>
 
-      {/* Floating WhatsApp button */}
-      <a
-        href={whatsappWithContext("the First 90 Days course")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 end-6 z-50 group"
-        aria-label="WhatsApp"
-      >
-        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-          <MessageCircle className="w-7 h-7 text-white" />
-        </div>
-        <div className="absolute bottom-full end-0 mb-2 px-3 py-1.5 rounded-lg bg-surface border border-border-subtle text-xs text-text-secondary whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          {t.whatsappTooltip}
-        </div>
-      </a>
 
       <Footer />
     </div>

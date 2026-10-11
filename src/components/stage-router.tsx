@@ -49,7 +49,7 @@ export function StageRouter() {
   return (
     <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         className="motion-safe-fallback"
@@ -63,7 +63,7 @@ export function StageRouter() {
             return (
               <motion.div
                 key={stage.slug}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: 0.06 * i }}

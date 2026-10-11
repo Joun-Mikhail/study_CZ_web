@@ -159,7 +159,7 @@ export default function ServicesClient() {
         {/* SECTION 2: Free vs Personal framing */}
         <section className="max-w-2xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
@@ -187,7 +187,7 @@ export default function ServicesClient() {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.15 }}
@@ -210,7 +210,7 @@ export default function ServicesClient() {
         {/* SECTION 3: Free tier card */}
         <section className="max-w-5xl mx-auto mb-12">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback"
@@ -246,7 +246,7 @@ export default function ServicesClient() {
         {/* Price anchor block */}
         <section className="max-w-2xl mx-auto mb-10">
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback text-center text-sm text-text-secondary"
@@ -316,7 +316,7 @@ export default function ServicesClient() {
         {/* SECTION 5: About me */}
         <section className="max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             className="motion-safe-fallback"
@@ -466,21 +466,6 @@ export default function ServicesClient() {
         </section>
       </main>
 
-      {/* Floating WhatsApp button */}
-      <a
-        href={whatsappWithContext("your services page")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 end-6 z-50 group"
-        aria-label="WhatsApp"
-      >
-        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-          <MessageCircle className="w-7 h-7 text-white" />
-        </div>
-        <div className="absolute bottom-full end-0 mb-2 px-3 py-1.5 rounded-lg bg-surface border border-border-subtle text-xs text-text-secondary whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          {t.whatsappTooltip}
-        </div>
-      </a>
 
       <Footer />
     </div>
@@ -504,7 +489,7 @@ function ServiceCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
@@ -889,7 +874,7 @@ const ar: typeof en = {
   framing: {
     title: "الأدلة المجانية بتجاوب على السؤال العام. أنا بجاوب على سؤالك إنت.",
     paragraphs: [
-      `كل دليل وأداة وإجابة في الموقع ده مجانية، وهتفضل مجانية. دليل التقديم، مطابقة البرامج، الأسئلة والأجوبة، حاسبة التكاليف، جروب الـ${COMMUNITY_SIZE_AR} عضو. مفيش حاجة فيهم مجرد إعلان لحاجة هتدفع عشان تفتحها.`,
+      `كل دليل وأداة وإجابة في الموقع ده مجانية، وهتفضل مجانية. دليل التقديم، مطابقة البرامج، الأسئلة والأجوبة، حاسبة التكاليف، وجروب الفيسبوك اللي فيه أكتر من ${COMMUNITY_SIZE_AR} عضو. مفيش حاجة فيهم مجرد إعلان لحاجة هتدفع عشان تفتحها.`,
       "بس الدليل بيقولك إيه اللي صح بشكل عام بس. مش يقدر يبص على مجموعك إنت ويقولك لو بيكفي. مش يقدر يقرا ورقتك إنت ويقولك لو الترجمة دي هتتقبل. مش يقدر يقعد معاك إنت قبل مقابلتك إنت ويقولك فين إجابتك ضعيفة. ده الجزء اللي مفيش دليل، مني ولا من حد تاني، هيقدر يعمله أبدًا.",
       "ده اللي الخدمات تحت دي عشانه: حد عدى التجربة دي فعلاً، بيبص على وضعك إنت الحقيقي مش الحالة العامة. وبرضو جزء صغير من اللي المكاتب بتاخده على مساعدة أقل وأقل شخصية.",
     ],
@@ -1071,7 +1056,7 @@ const ar: typeof en = {
   communityProof: {
     title: "طلاب كانوا في نفس موقفك بالظبط",
     stats: [
-      { value: COMMUNITY_SIZE_AR, label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
+      { value: `${COMMUNITY_SIZE_AR}+`, label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
       { value: "4 سنين", label: "بجاوب على نفس الأسئلة — دلوقتي كلها في مكان واحد" },
       { value: `${price("consultation", "ar")}–${eur(fullPackageTotal(), "ar")}`, label: "مقابل 1,500€–3,000€ اللي المكاتب غالبًا بتاخدها" },
     ],
