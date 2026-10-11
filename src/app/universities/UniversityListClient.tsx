@@ -372,6 +372,7 @@ export default function UniversityListClient() {
       const c = params.get("city");
       const f = params.get("field");
       const m = params.get("mode");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reads the URL query after mount (static export has no request)
       if (q) setSearch(q);
       if (c) setCity(c);
       if (f) setField(f);

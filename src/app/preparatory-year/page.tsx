@@ -466,7 +466,7 @@ function ProgramCard({
 }: {
   prog: (typeof universityPrograms)[number];
   locale: Locale;
-  t: any;
+  t: ReturnType<typeof useTranslation>["t"];
   isPrivate?: boolean;
 }) {
   return (

@@ -52,6 +52,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
   const lessonIndex = mod?.lessons.findIndex((l) => l.id === lessonId) ?? 0;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
     const access = hasAccess();
     setUnlocked(access || (lesson?.isFree ?? false));
