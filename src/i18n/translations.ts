@@ -127,7 +127,7 @@ export const translations = {
       title: "Why Study in Czechia?",
       reasons: [
         { title: "Tuition-Free in Czech", desc: "Public universities charge zero tuition for programmes taught in Czech. Learn the language in a prep year and study for free." },
-        { title: "Affordable Living", desc: "Rent, food, and transport cost a fraction of Western Europe. Students live well on EUR 500 to 800 a month outside Prague." },
+        { title: "Affordable Living", desc: "Rent, food, and transport cost a fraction of Western Europe. Students live well on €500 to €800 a month outside Prague." },
         { title: "EU Degrees", desc: "Czech universities award EU degrees that follow the Bologna system, which makes recognition across Europe easier. After graduating, you can apply to stay in Czechia to look for work; other countries have their own residence rules." },
         { title: "Heart of Europe", desc: "Fly to Berlin, Vienna, or Budapest in under 2 hours. Weekend trips across Europe become a normal part of student life." },
       ],
@@ -375,7 +375,7 @@ export const translations = {
     hero: {
       title: "كل معلومات الدراسة في التشيك في مكان واحد ومجانًا",
       subtitle:
-        "أسعار حقيقية وميزانيات واقعية، من طالب عايش هنا. أدوات مجانية اتبنت من ٤ سنين رد على نفس الأسئلة في مجتمع فيه ١١,٠٠٠ عضو.",
+        "أسعار حقيقية وميزانيات واقعية، من طالب عايش هنا. أدوات مجانية اتبنت من 4 سنين رد على نفس الأسئلة في مجتمع فيه 11,000 عضو.",
       cta: "دور على جامعتك",
       secondaryCta: "شوف لو تقدر تقدم",
     },

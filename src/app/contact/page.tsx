@@ -66,7 +66,7 @@ export default function ContactPage() {
       desc: t.contact.facebookDesc,
       cta: t.contact.facebookCta,
       href: FACEBOOK_GROUP_URL,
-      detail: locale === "ar" ? `${COMMUNITY_SIZE_AR} عضو` : `${COMMUNITY_SIZE} members`,
+      detail: locale === "ar" ? `أكتر من ${COMMUNITY_SIZE_AR} عضو` : `${COMMUNITY_SIZE} members`,
       color: "text-[#1877F2]",
       bgColor: "bg-[#1877F2]/10",
       external: true,

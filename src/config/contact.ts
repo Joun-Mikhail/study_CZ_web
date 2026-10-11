@@ -19,7 +19,7 @@ export const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/3511870111133
 
 // TODO: confirm actual current count before shipping
 export const COMMUNITY_SIZE = "11,000+";
-export const COMMUNITY_SIZE_AR = "+11,000";
+export const COMMUNITY_SIZE_AR = "11,000"; // always used after "أكتر من" (more than), so no "+"
 
 /**
  * Refund rules are per service (see /terms for the full text). Every place
