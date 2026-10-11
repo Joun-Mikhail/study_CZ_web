@@ -93,8 +93,8 @@ export default function EligibilityClient() {
 
   const lastStep = stepDefs.length - 1;
   // A double tap on "Next" during the step animation used to run past the
-  // last step and crash the page, so clamp every move to a real step.
-  const goNext = () => setStep((s) => Math.min(lastStep, s + 1));
+  // last step and crash the page; never move more than one step per render.
+  const goNext = () => setStep((s) => Math.min(step + 1, s + 1, lastStep));
 
   const finished = useRef(false);
   const handleFinish = () => {
