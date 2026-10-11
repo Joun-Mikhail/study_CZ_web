@@ -1,0 +1,25 @@
+name: CI
+
+# Netlify builds and deploys from Git on its own (production from main, a
+# deploy preview per pull request). This workflow only checks the code.
+# Lint and test steps are added once their baselines are green.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    name: Type-check and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm install -g npm@10
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run build
