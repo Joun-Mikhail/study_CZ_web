@@ -74,7 +74,7 @@ export function MagneticButton({
   if (isInternal) {
     return (
       <motion.div {...motionProps} className="inline-flex">
-        <Link ref={ref as any} href={href} onClick={onClick} className={classes}>
+        <Link ref={ref as React.RefObject<HTMLAnchorElement>} href={href} onClick={onClick} className={classes}>
           {shimmer}
           {children}
         </Link>
@@ -85,7 +85,7 @@ export function MagneticButton({
   if (isExternal) {
     return (
       <motion.a
-        ref={ref as any}
+        ref={ref as React.RefObject<HTMLAnchorElement>}
         href={href}
         target="_blank"
         rel="noopener noreferrer"
@@ -101,7 +101,7 @@ export function MagneticButton({
 
   return (
     <motion.button
-      ref={ref as any}
+      ref={ref as React.RefObject<HTMLButtonElement>}
       onClick={onClick}
       className={classes}
       {...motionProps}

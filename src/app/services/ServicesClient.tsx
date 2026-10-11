@@ -564,15 +564,15 @@ function ServiceCard({
 
         {svc.key === "fullPackage" && "paymentStructure" in content && (
           <div className="rounded-xl bg-white/[0.03] border border-border-subtle p-3 mb-4">
-            <p className="text-xs font-medium text-text-primary mb-1">{(content as any).paymentStructure?.header}</p>
-            {(content as any).paymentStructure?.steps.map((step: string, i: number) => (
+            <p className="text-xs font-medium text-text-primary mb-1">{content.paymentStructure?.header}</p>
+            {content.paymentStructure?.steps.map((step: string, i: number) => (
               <p key={i} className="text-xs text-text-secondary">{step}</p>
             ))}
           </div>
         )}
 
         {svc.key === "fullPackage" && "bundledNote" in content && (
-          <p className="text-xs text-text-muted leading-relaxed mb-4">{(content as any).bundledNote}</p>
+          <p className="text-xs text-text-muted leading-relaxed mb-4">{content.bundledNote}</p>
         )}
 
         <div className="flex items-start gap-2 rounded-lg bg-amber/[0.04] border border-amber/15 px-3 py-2 mb-4">

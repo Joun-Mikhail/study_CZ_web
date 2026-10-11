@@ -53,6 +53,7 @@ export default function LearnDashboard() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
     setUnlocked(hasAccess());
   }, []);
