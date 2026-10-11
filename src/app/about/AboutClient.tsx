@@ -27,6 +27,7 @@ const t = {
     notOfficialBadges: [
       "Not affiliated with Czech embassies",
       "Not affiliated with Czech universities",
+      "Not affiliated with the official Study in Czechia programme (studyin.cz)",
       "Not a government website",
     ],
     storyTitle: "How it started",
@@ -69,6 +70,7 @@ const t = {
     notOfficialBadges: [
       "مش تابعين للسفارات التشيكية",
       "مش تابعين للجامعات التشيكية",
+      "مش تابعين لبرنامج Study in Czechia الرسمي (studyin.cz)",
       "مش موقع حكومي",
     ],
     storyTitle: "إزاي بدأ",

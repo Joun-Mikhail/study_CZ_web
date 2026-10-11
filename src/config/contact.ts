@@ -1,5 +1,6 @@
-import stripeConfig from "../../stripe-links.json";
+import { priceOf, fullPackageTotal, checkoutLink } from "./pricing";
 
+// TODO: switch to a domain address (e.g. john@studyczechia.com) once the mailbox exists.
 export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
 
 export const WHATSAPP_URL = "https://wa.me/420703982237";
@@ -20,55 +21,61 @@ export const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/3511870111133
 export const COMMUNITY_SIZE = "11,000+";
 export const COMMUNITY_SIZE_AR = "+11,000";
 
-export const REFUND_WINDOW = "48 hours";
-export const REFUND_WINDOW_AR = "48 ساعة";
-
+/**
+ * Refund rules are per service (see /terms for the full text). Every place
+ * that talks about refunds reads from here so the site never contradicts
+ * itself.
+ */
 export const REFUND_COPY = {
   en: {
-    inline: "Full refund within 48 hours, no questions asked",
-    footer: "💳 All payments via Stripe. Full refund within 48 hours if not satisfied. Also available via InstaPay 🇪🇬 for Egyptian students.",
-    comparison: "Message within 48 hours, full refund",
-    faq: "Message me within 48 hours of any service and I'll refund you completely. No questions, no forms, no waiting. I'd rather give your money back than have an unhappy student in the community.",
-    bundledNote: "The Full Journey includes the course free. The course has its own delivery guarantee (see above). The 48-hour service refund applies to the consulting portion.",
+    inline: "A written refund rule for every service, before you pay",
+    footer: "💳 All payments via Stripe (or InstaPay 🇪🇬 for Egyptian students). Each service shows its refund rule under the button; the full rules are in the Terms.",
+    comparison: "A written refund rule for every service",
+    faq: "Every service has a clear refund rule, written before you pay. Calls and mock interviews: full refund if they don't happen or you cancel at least 24 hours before. Document review: full refund until I start, or if the report is later than 5 business days. Arrival plan: full refund until I send your checklist. Full Journey: the first payment is refundable until our first session, and the second payment is only due after you're accepted. The full rules are in the Terms.",
+    bundledNote: "The course is included free and opens on 1 January 2027.",
+    perService: {
+      consultation: "Full refund if the call doesn't happen or you cancel 24 h before",
+      documentReview: "Full refund until I start, or if the report takes over 5 business days",
+      interviewPrep: "Full refund if the session doesn't happen or you cancel 24 h before",
+      arrivalSupport: "Full refund until I send your personal checklist",
+      fullPackage: "Step 1 refundable until our first session · Step 2 only after you're accepted",
+      course: "Full refund if it isn't ready by 1 Jan 2027, or within 14 days of it opening",
+    },
   },
   ar: {
-    inline: "استرداد كامل خلال 48 ساعة، بدون أسئلة",
-    footer: "💳 كل المدفوعات عبر Stripe. استرداد كامل خلال 48 ساعة لو مش راضي. متاح كمان بـ InstaPay 🇪🇬 للطلاب المصريين.",
-    comparison: "راسل خلال 48 ساعة، استرداد كامل",
-    faq: "راسلني خلال 48 ساعة وهرجعلك فلوسك كلها. بدون أسئلة، بدون نماذج، بدون انتظار.",
-    bundledNote: "الرحلة الكاملة بتشمل الكورس مجانًا. الكورس ليه ضمان تسليم خاص بيه (شوف فوق). استرداد الـ48 ساعة بينطبق على جزء الاستشارات.",
+    inline: "قاعدة استرداد مكتوبة لكل خدمة قبل ما تدفع",
+    footer: "💳 كل المدفوعات عبر Stripe (أو InstaPay 🇪🇬 للطلاب المصريين). قاعدة الاسترداد مكتوبة تحت زرار كل خدمة، والتفاصيل كاملة في الشروط.",
+    comparison: "قاعدة استرداد مكتوبة لكل خدمة",
+    faq: "كل خدمة ليها قاعدة استرداد واضحة ومكتوبة قبل ما تدفع. المكالمة والمقابلة التجريبية: استرداد كامل لو ماتمتش أو لغيت قبلها بـ24 ساعة. مراجعة الأوراق: استرداد كامل لحد ما أبدأ، أو لو التقرير اتأخر أكتر من 5 أيام عمل. خطة الوصول: استرداد كامل لحد ما أبعتلك القائمة بتاعتك. الرحلة الكاملة: الدفعة الأولى بترجع لحد أول جلسة، والدفعة التانية مش بتدفعها غير بعد ما تتقبل. التفاصيل كاملة في الشروط.",
+    bundledNote: "الكورس مجانًا معاها، وبيفتح يوم 1 يناير 2027.",
+    perService: {
+      consultation: "استرداد كامل لو المكالمة ماتمتش أو لغيت قبلها بـ24 ساعة",
+      documentReview: "استرداد كامل لحد ما أبدأ، أو لو التقرير اتأخر أكتر من 5 أيام عمل",
+      interviewPrep: "استرداد كامل لو الجلسة ماتمتش أو لغيت قبلها بـ24 ساعة",
+      arrivalSupport: "استرداد كامل لحد ما أبعتلك القائمة بتاعتك",
+      fullPackage: "الدفعة 1 بترجع لحد أول جلسة · الدفعة 2 بعد قبولك بس",
+      course: "استرداد كامل لو ماجهزش يوم 1 يناير 2027، أو خلال 14 يوم من فتحه",
+    },
   },
 };
 
+/** Current prices (launch offer applied when it is live). */
 export const PRICING = {
-  consultation: 15,
-  documentReview: 25,
-  arrivalSupport: 29,
-  interviewPrep: 39,
-  course: 49,
-  fullPackageStep1: 150,
-  fullPackageStep2: 200,
-  fullPackageTotal: 350,
+  consultation: priceOf("consultation"),
+  documentReview: priceOf("documentReview"),
+  arrivalSupport: priceOf("arrivalSupport"),
+  interviewPrep: priceOf("interviewPrep"),
+  course: priceOf("course"),
+  fullPackageStep1: priceOf("fullPackageStep1"),
+  fullPackageStep2: priceOf("fullPackageStep2"),
+  fullPackageTotal: fullPackageTotal(),
 };
 
-type StripeLinkKey = keyof typeof stripeConfig.links;
-
-export function getStripeLink(key: string): string {
-  if (!(key in stripeConfig.links)) {
-    throw new Error(`Unknown Stripe link key: "${key}"`);
-  }
-  const entry = stripeConfig.links[key as StripeLinkKey];
-  if (!entry.public) {
-    throw new Error(`Stripe link "${key}" is not public and must not be rendered on the site`);
-  }
-  return entry.url;
-}
-
 export const PAYMENT_LINKS = {
-  consultation: getStripeLink("consultation"),
-  documentReview: getStripeLink("documentReview"),
-  arrivalSupport: getStripeLink("arrivalSupport"),
-  interviewPrep: getStripeLink("interviewPrep"),
-  course: getStripeLink("course"),
-  fullPackageStep1: getStripeLink("fullPackageStep1"),
+  consultation: checkoutLink("consultation"),
+  documentReview: checkoutLink("documentReview"),
+  arrivalSupport: checkoutLink("arrivalSupport"),
+  interviewPrep: checkoutLink("interviewPrep"),
+  course: checkoutLink("course"),
+  fullPackageStep1: checkoutLink("fullPackageStep1"),
 };

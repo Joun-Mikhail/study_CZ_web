@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import CoursesClient from "./CoursesClient";
+import { priceOf } from "@/config/pricing";
 
 export const metadata: Metadata = {
   title: "Your First 90 Days in Czechia",
-  description: "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here. €49, lifetime access.",
+  description: "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here. Pre-order now; the course opens on 1 January 2027.",
   alternates: { canonical: "/courses" },
 };
 
@@ -14,14 +15,14 @@ const courseJsonLd = {
   description: "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here.",
   provider: {
     "@type": "Organization",
-    name: "Study in Czechia",
+    name: "Study Czechia",
     url: "https://studyczechia.com",
   },
   offers: {
     "@type": "Offer",
-    price: "49",
+    price: String(priceOf("course")),
     priceCurrency: "EUR",
-    availability: "https://schema.org/InStock",
+    availability: "https://schema.org/PreOrder",
   },
   inLanguage: "ar",
   courseMode: "online",

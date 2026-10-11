@@ -15,6 +15,8 @@ import { StageRouter } from "@/components/stage-router";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME } from "@/config/contact";
 import { EmailCapture } from "@/components/email-capture";
+import { OfferBadge } from "@/components/launch-offer";
+import { price } from "@/config/pricing";
 import {
   GraduationCap,
   BarChart3,
@@ -34,7 +36,7 @@ import {
   MapPin,
   TrendingDown,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { FACEBOOK_GROUP_URL } from "@/config/contact";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { useRef } from "react";
@@ -233,7 +235,7 @@ export default function HomeClient() {
         >
           {[
             { icon: Users, label: locale === "en" ? `${COMMUNITY_SIZE} Facebook group members` : `أكتر من ${COMMUNITY_SIZE_AR} عضو في جروب الفيسبوك` },
-            { icon: ShieldAlert, label: locale === "en" ? "Based in Brno since 2022" : "مقيم في برنو من 2022" },
+            { icon: ShieldAlert, label: locale === "en" ? "Living in Czechia since 2023" : "عايش في التشيك من 2023" },
             { icon: BookOpen, label: locale === "en" ? "7 free tools, no paywall" : "7 أدوات مجانية، بدون حائط دفع" },
           ].map((item, i) => (
             <motion.div
@@ -334,6 +336,7 @@ export default function HomeClient() {
           viewport={{ once: true, margin: "-50px" }}
           className="motion-safe-fallback rounded-2xl border border-amber/20 bg-gradient-to-br from-amber/[0.08] to-amber/[0.02] p-8 sm:p-10 text-center"
         >
+          <OfferBadge locale={locale} className="mb-4" />
           <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">
             {locale === "en"
               ? "Want me personally in your corner?"
@@ -345,7 +348,7 @@ export default function HomeClient() {
               : "الأدلة مجانية وهتفضل مجانية دايمًا. لكن لو عايز حد يراجع مستنداتك الحقيقية، ويجهزك لمقابلة السفارة بالتحديد، ويرد عليك على الواتساب لما حاجة تحصل — دي وظيفة الخدمات المدفوعة."}
           </p>
           <MagneticButton variant="primary" size="lg" href="/services">
-            {locale === "en" ? "See Services — from €15" : "شوف الخدمات — تبدأ من €15"}
+            {locale === "en" ? `See Services — from ${price("consultation")}` : `شوف الخدمات — تبدأ من ${price("consultation", "ar")}`}
           </MagneticButton>
         </motion.div>
       </section>

@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { localizeHref } from "@/i18n/paths";
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -7,7 +8,9 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
+import { PAYMENT_LINKS, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, REFUND_COPY } from "@/config/contact";
+import { price, regularPrice, eur, fullPackageTotal, OFFER_ACTIVE } from "@/config/pricing";
+import { OfferBadge } from "@/components/launch-offer";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -57,7 +60,7 @@ export default function CoursesClient() {
         {showDashboardLink && (
           <div className="max-w-3xl mx-auto mb-4">
             <a
-              href="/courses/learn"
+              href={localizeHref("/courses/learn", locale)}
               className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium hover:bg-green-500/15 transition-colors"
             >
               <PlayCircle className="w-4 h-4" />
@@ -80,6 +83,9 @@ export default function CoursesClient() {
             <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/80 to-midnight/90" />
           </div>
           <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
+          <div className="relative z-10 mb-3">
+            <OfferBadge locale={locale} />
+          </div>
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -253,7 +259,10 @@ export default function CoursesClient() {
                   </span>
                 )}
                 <h3 className="font-semibold text-text-primary mb-1">{b.name}</h3>
-                <p className="text-2xl font-bold text-amber mb-1">{b.price}</p>
+                <p className="text-2xl font-bold text-amber mb-1 flex items-baseline gap-2">
+                  <span data-price-current data-price-regular-value={b.regular}>{b.price}</span>
+                  {OFFER_ACTIVE && <s data-launch-offer className="text-sm font-normal text-text-muted">{b.regular}</s>}
+                </p>
                 {b.save && <p className="text-xs text-green-400 mb-2">{b.save}</p>}
                 <p className="text-xs text-text-muted mb-4 flex-1">{b.desc}</p>
                 <MagneticButton
@@ -391,11 +400,11 @@ export default function CoursesClient() {
 // ─── English copy ───────────────────────────────────────────────────────────
 
 const en = {
-  badge: "€49 · Lifetime access",
+  badge: "Pre-order · Opens 1 January 2027 · Lifetime access",
   title: "Your First 90 Days in Czechia",
   subtitle:
     "Language, culture, embassy prep, and everything nobody tells you. Taught in Arabic by a student who lives here.",
-  heroCta: "Get the Course (€49)",
+  heroCta: `Pre-order the Course (${price("course")})`,
   heroSecondaryCta: "Preview Module 1 Free →",
   notTextbook: {
     title: "This is NOT a Textbook Czech Course",
@@ -418,7 +427,7 @@ const en = {
     { module: "Module 2", title: "Weeks 2–4: Setting Up Your Life", description: "Bank account, residence permit, real housing, real groceries — go from \"just landed\" to actually living here." },
     { module: "Module 3", title: "Month 2: Building Your Routine", description: "Understand how Czech university actually works, make real friends, and figure out money without the guesswork." },
     { module: "Module 4", title: "Month 3: Long-Term Stability", description: "Protect the status you worked hard to get, and build the support system that carries you through the rest of the year." },
-    { module: "Bonus", title: "The Toolkit", description: `Checklists, contact directories, and an FAQ built from the real questions our ${COMMUNITY_SIZE}-member community has asked — answers you won't find by googling.` },
+    { module: "Bonus", title: "The Toolkit", description: `Checklists, contact directories, and an FAQ built from the real questions our community of ${COMMUNITY_SIZE} students has asked — answers you won't find by googling.` },
   ],
   modulesTitle: "Course Modules",
   moduleLabel: "Module",
@@ -488,23 +497,25 @@ const en = {
   bundles: [
     {
       name: "Course Only",
-      price: "€49",
+      price: price("course"),
+      regular: regularPrice("course"),
       save: null,
-      desc: "The full course: 5 modules, 35+ lessons, lifetime access.",
-      cta: "Get the Course",
+      desc: `The full course: 5 modules, 35+ lessons, lifetime access. ${REFUND_COPY.en.perService.course}.`,
+      cta: "Pre-order the Course",
     },
     {
       name: "Full Application Package",
-      price: "€350",
+      price: eur(fullPackageTotal()),
+      regular: eur(fullPackageTotal(false)),
       save: "Course included FREE",
-      desc: "Everything from zero to visa. Course included free, plus interview prep, document review, and personal guidance throughout.",
+      desc: `Everything from zero to visa, course included free. Pay ${price("fullPackageStep1")} to start; the second ${price("fullPackageStep2")} only after a university accepts you.`,
       cta: "Start My Application",
     },
   ],
   bestValue: "Best Value",
   guarantee: {
     title: "Pre-sale guarantee: delivered by [DATE] or full refund",
-    body: "This course is currently in production. By purchasing now at the founding price, you are locking in the lowest price it will ever be. If the full course content is not delivered by the date above, you will receive a complete refund — no questions asked.",
+    body: "This course is currently in production. Pre-order now at the launch price. If the full course is not available by the date above, you get a complete refund — no questions asked.",
   },
   faqTitle: "Common Questions",
   faq: [
@@ -530,7 +541,7 @@ const en = {
     },
     {
       q: "Can I get a refund after the course is delivered?",
-      a: "The pre-sale guarantee covers delivery. Once the course is delivered and you have access to the full content, refunds are handled on a case-by-case basis — message us on WhatsApp.",
+      a: "Yes. Within 14 days of the course opening, if you've completed less than 20% of the lessons, you get a full refund. Just message me on WhatsApp.",
     },
   ],
   previewTitle: "Free Preview",
@@ -560,11 +571,11 @@ const en = {
     },
   ],
   previewOutro: "The full lesson covers 12+ questions with model answers, common mistakes, and what to do if you get a question you did not prepare for.",
-  previewBuyCta: "Get the Full Course (€49)",
+  previewBuyCta: `Pre-order the Full Course (${price("course")})`,
   previewCta: "Ask Me on WhatsApp",
   bottomCta: {
     title: "Ready to Prepare Properly?",
-    primary: "Get the Course (€49)",
+    primary: `Pre-order the Course (${price("course")})`,
     secondary: "Or start with the free guides →",
   },
   whatsappTooltip: "Not sure if this is for you? Ask me, no pressure.",
@@ -573,10 +584,10 @@ const en = {
 // ─── Arabic copy ────────────────────────────────────────────────────────────
 
 const ar: typeof en = {
-  badge: "49€ · وصول مدى الحياة",
+  badge: "حجز مسبق · بيفتح 1 يناير 2027 · وصول مدى الحياة",
   title: "أول 90 يوم في التشيك",
   subtitle: "لغة، ثقافة، تجهيز سفارة، وكل حاجة محدش بيقولهالك. بالعربي من طالب عايش هنا.",
-  heroCta: "احصل على الكورس (49€)",
+  heroCta: `احجز الكورس مسبقًا (${price("course", "ar")})`,
   heroSecondaryCta: "شوف الوحدة 1 مجانًا →",
   notTextbook: {
     title: "ده مش كورس تشيكي من كتاب",
@@ -669,23 +680,25 @@ const ar: typeof en = {
   bundles: [
     {
       name: "الكورس لوحده",
-      price: "49€",
+      price: price("course", "ar"),
+      regular: regularPrice("course", "ar"),
       save: null,
-      desc: "الكورس الكامل: 5 وحدات، أكتر من 35 درس، وصول مدى الحياة.",
-      cta: "احصل على الكورس",
+      desc: `الكورس الكامل: 5 وحدات، أكتر من 35 درس، وصول مدى الحياة. ${REFUND_COPY.ar.perService.course}.`,
+      cta: "احجز الكورس مسبقًا",
     },
     {
       name: "الباقة الكاملة",
-      price: "350€",
+      price: eur(fullPackageTotal(), "ar"),
+      regular: eur(fullPackageTotal(false), "ar"),
       save: "الكورس مجانًا",
-      desc: "كل حاجة من الصفر للفيزا. الكورس مجانا، مع تجهيز المقابلة، مراجعة الأوراق، وتوجيه شخصي.",
+      desc: `كل حاجة من الصفر للفيزا، والكورس مجانًا. بتدفع ${price("fullPackageStep1", "ar")} عشان نبدأ، والـ${price("fullPackageStep2", "ar")} التانيين بعد ما جامعة تقبلك بس.`,
       cta: "ابدأ طلبي",
     },
   ],
   bestValue: "الأفضل قيمة",
   guarantee: {
     title: "ضمان ما قبل البيع: التسليم بحلول [DATE] أو استرداد كامل",
-    body: "الكورس ده لسه في مرحلة الإنتاج. بشرائك دلوقتي بالسعر التأسيسي، أنت بتضمن أقل سعر هيتعرض بيه. لو المحتوى الكامل للكورس ما اتسلّمش في الموعد المحدد فوق، هترجع لك فلوسك بالكامل — من غير أي أسئلة.",
+    body: "الكورس ده لسه في مرحلة الإنتاج. احجزه دلوقتي بسعر الإطلاق. لو الكورس الكامل ماكانش متاح في الموعد المحدد فوق، هترجعلك فلوسك بالكامل — من غير أي أسئلة.",
   },
   faqTitle: "أسئلة شائعة",
   faq: [
@@ -711,7 +724,7 @@ const ar: typeof en = {
     },
     {
       q: "أقدر أسترجع فلوسي بعد ما الكورس يتسلم؟",
-      a: "ضمان ما قبل البيع بيغطي التسليم. بعد ما الكورس يتسلم ويكون عندك المحتوى الكامل، الاسترداد بيتعامل معاه حالة بحالة — كلمنا على واتساب.",
+      a: "أيوه. خلال 14 يوم من فتح الكورس، لو خلصت أقل من 20% من الدروس، بترجعلك فلوسك كاملة. ابعتلي على واتساب بس.",
     },
   ],
   previewTitle: "معاينة مجانية",
@@ -741,11 +754,11 @@ const ar: typeof en = {
     },
   ],
   previewOutro: "الدرس الكامل بيغطي أكتر من 12 سؤال مع إجابات نموذجية وأخطاء شائعة وإيه تعمل لو جالك سؤال مكنتش متحضر له.",
-  previewBuyCta: "احصل على الكورس الكامل (49€)",
+  previewBuyCta: `احجز الكورس الكامل مسبقًا (${price("course", "ar")})`,
   previewCta: "اسألني على واتساب",
   bottomCta: {
     title: "جاهز تجهز صح؟",
-    primary: "احصل على الكورس (49€)",
+    primary: `احجز الكورس مسبقًا (${price("course", "ar")})`,
     secondary: "أو ابدأ بالأدلة المجانية →",
   },
   whatsappTooltip: "مش متأكد إن ده ليك؟ اسألني، من غير ضغط.",

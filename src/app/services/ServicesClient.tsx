@@ -7,7 +7,9 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
+import { PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
+import { price, priceOf, fullPackageTotal, eur, czk, OFFER_ACTIVE, type PriceKey } from "@/config/pricing";
+import { OfferBadge, PriceTag } from "@/components/launch-offer";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
@@ -39,52 +41,19 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-const services = [
-  {
-    key: "documentReview" as const,
-    icon: FileSearch,
-    triggerIcon: AlertTriangle,
-    price: "€25",
-    priceSub: "(≈ 625 Kc)",
-    paymentLink: PAYMENT_LINKS.documentReview,
-    featured: false,
-  },
-  {
-    key: "consultation" as const,
-    icon: Phone,
-    triggerIcon: Lightbulb,
-    price: "€15",
-    priceSub: "(≈ 375 Kc)",
-    paymentLink: PAYMENT_LINKS.consultation,
-    featured: false,
-  },
-  {
-    key: "interviewPrep" as const,
-    icon: Mic,
-    triggerIcon: Target,
-    price: "€39",
-    priceSub: "(≈ 975 Kc)",
-    paymentLink: "/interview-prep",
-    featured: false,
-  },
-  {
-    key: "arrivalSupport" as const,
-    icon: MapPin,
-    triggerIcon: Home,
-    price: "€29",
-    priceSub: "(≈ 725 Kc)",
-    paymentLink: PAYMENT_LINKS.arrivalSupport,
-    featured: false,
-  },
-  {
-    key: "fullPackage" as const,
-    icon: Rocket,
-    triggerIcon: Lightbulb,
-    price: "€350",
-    priceSub: "(payable in 2 steps: €150 + €200)",
-    paymentLink: PAYMENT_LINKS.fullPackageStep1,
-    featured: true,
-  },
+const services: {
+  key: "documentReview" | "consultation" | "interviewPrep" | "arrivalSupport" | "fullPackage";
+  icon: typeof FileSearch;
+  triggerIcon: typeof AlertTriangle;
+  priceKey: PriceKey;
+  paymentLink: string;
+  featured: boolean;
+}[] = [
+  { key: "documentReview", icon: FileSearch, triggerIcon: AlertTriangle, priceKey: "documentReview", paymentLink: PAYMENT_LINKS.documentReview, featured: false },
+  { key: "consultation", icon: Phone, triggerIcon: Lightbulb, priceKey: "consultation", paymentLink: PAYMENT_LINKS.consultation, featured: false },
+  { key: "interviewPrep", icon: Mic, triggerIcon: Target, priceKey: "interviewPrep", paymentLink: "/interview-prep", featured: false },
+  { key: "arrivalSupport", icon: MapPin, triggerIcon: Home, priceKey: "arrivalSupport", paymentLink: PAYMENT_LINKS.arrivalSupport, featured: false },
+  { key: "fullPackage", icon: Rocket, triggerIcon: Lightbulb, priceKey: "fullPackageStep1", paymentLink: PAYMENT_LINKS.fullPackageStep1, featured: true },
 ];
 
 const freeResources = [
@@ -122,6 +91,9 @@ export default function ServicesClient() {
             <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/75 to-midnight/90" />
           </div>
           <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
+          <div className="relative z-10 mb-5">
+            <OfferBadge locale={locale} />
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -288,12 +260,12 @@ export default function ServicesClient() {
         <section id="paid-services" className="max-w-5xl mx-auto mb-16 scroll-mt-24">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
             {services.slice(0, 3).map((svc, i) => (
-              <ServiceCard key={svc.key} svc={svc} t={t} index={i} />
+              <ServiceCard key={svc.key} svc={svc} t={t} index={i} locale={locale} />
             ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {services.slice(3).map((svc, i) => (
-              <ServiceCard key={svc.key} svc={svc} t={t} index={i + 3} />
+              <ServiceCard key={svc.key} svc={svc} t={t} index={i + 3} locale={locale} />
             ))}
           </div>
         </section>
@@ -428,34 +400,7 @@ export default function ServicesClient() {
           </div>
         </section>
 
-        {/* SECTION 7: Community proof */}
-        <section className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-xl font-semibold text-text-primary text-center mb-6">
-            {t.communityProof.title}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {t.communityProof.stats.map((stat, i) => (
-              <GlassCard key={i} className="text-center">
-                {i === 0 && <Users className="w-8 h-8 text-amber mx-auto mb-3" />}
-                {i === 1 && <MessageCircle className="w-8 h-8 text-amber mx-auto mb-3" />}
-                {i === 2 && <Globe className="w-8 h-8 text-amber mx-auto mb-3" />}
-                <p className="text-2xl font-bold text-text-primary mb-1">{stat.value}</p>
-                <p className="text-sm text-text-secondary">{stat.label}</p>
-              </GlassCard>
-            ))}
-          </div>
-          <div className="text-center">
-            <a
-              href={FACEBOOK_GROUP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-amber hover:text-amber/80 transition-colors"
-            >
-              <Users className="w-4 h-4" />
-              {t.communityProof.cta}
-            </a>
-          </div>
-        </section>
+        {/* Community proof / testimonials section hidden until real, permission-granted testimonials exist. */}
 
         {/* TODO: Hidden pending real, permission-granted testimonials — re-enable with <Testimonials /> */}
 
@@ -546,10 +491,12 @@ function ServiceCard({
   svc,
   t,
   index,
+  locale,
 }: {
   svc: (typeof services)[number];
   t: typeof en;
   index: number;
+  locale: "en" | "ar";
 }) {
   const content = t.services[svc.key];
   const Icon = svc.icon;
@@ -583,11 +530,22 @@ function ServiceCard({
           </div>
           <div>
             <h3 className="font-semibold text-text-primary">{content.title}</h3>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-bold text-amber">{svc.price}</span>
-              {svc.priceSub && (
-                <span className="text-xs text-text-muted">{svc.priceSub}</span>
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              {svc.key === "fullPackage" ? (
+                <>
+                  <span className="text-2xl font-bold text-amber" data-price-current data-price-regular-value={eur(fullPackageTotal(false), locale)}>
+                    {eur(fullPackageTotal(), locale)}
+                  </span>
+                  {OFFER_ACTIVE && (
+                    <s data-launch-offer className="text-sm text-text-muted">{eur(fullPackageTotal(false), locale)}</s>
+                  )}
+                </>
+              ) : (
+                <PriceTag k={svc.priceKey} locale={locale} className="text-2xl font-bold text-amber" />
               )}
+              <span className="text-xs text-text-muted">
+                {svc.key === "fullPackage" ? t.twoStepsNote : czk(priceOf(svc.priceKey))}
+              </span>
             </div>
           </div>
         </div>
@@ -623,7 +581,7 @@ function ServiceCard({
         </div>
 
         <MagneticButton
-          variant={svc.featured ? "primary" : "secondary"}
+          variant="primary"
           href={svc.paymentLink}
           className="w-full"
         >
@@ -645,7 +603,7 @@ const en = {
       "Every year, students get rejected, not because they aren't qualified, but because of a document mistake, a wrong university choice, or an embassy interview they weren't ready for. I've been through the entire process myself. I can help you avoid what others learn the hard way.",
     trustBar: [
       `${COMMUNITY_SIZE} students in our community`,
-      "Hundreds of applications guided",
+      "4 years answering students' questions",
       "Based in Brno, Czech Republic",
       "Egyptian student, been through it all",
     ],
@@ -655,7 +613,7 @@ const en = {
   framing: {
     title: "The Free Guides Answer the General Question. These Answer Yours.",
     paragraphs: [
-      `Every guide, tool, and answer on this site is free, and stays free. The application guide, the programme matcher, the Q&A, the cost calculator, the ${COMMUNITY_SIZE}-member community, none of it is a teaser for something you have to pay to unlock.`,
+      `Every guide, tool, and answer on this site is free, and stays free. The application guide, the programme matcher, the Q&A, the cost calculator, the community of ${COMMUNITY_SIZE} students, none of it is a teaser for something you have to pay to unlock.`,
       "But a guide can only tell you what's generally true. It can't look at your transcript and tell you if your grades clear the bar. It can't read your specific document and tell you if that translation will pass. It can't sit with you before your embassy interview and tell you where your answer is weak. That's the part no guide, mine or anyone else's, can ever do.",
       "That's what the services below are for: someone who's already done this, looking at your actual situation instead of the general case. Still a fraction of what agencies charge for worse, less personal help.",
     ],
@@ -709,15 +667,15 @@ const en = {
       ],
       triggerLine:
         "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
-      cta: "Book a Call (€15)",
-      postButton: "🔒 Secure payment via Stripe · Full refund if the call doesn't happen",
+      cta: `Book a Call (${price("consultation")})`,
+      postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.consultation}`,
     },
     documentReview: {
       title: "Document Check: Before You Submit",
       fearTrigger:
         "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
       description:
-        "You send me everything you're planning to submit: university application, visa documents, translations, bank statements. I go through every page the way the embassy officer will and tell you what's wrong, what's missing, and what could get flagged. A €25 review can save you from a rejection that costs you an entire semester.",
+        `You send me everything you're planning to submit: university application, visa documents, translations, bank statements. I go through every page the way the embassy officer will and tell you what's wrong, what's missing, and what could get flagged. A ${price("documentReview")} review can save you from a rejection that costs you an entire semester.`,
       included: [
         "Full review of your complete document package",
         "Detailed written report: what's correct, what needs fixing, what's missing",
@@ -727,8 +685,8 @@ const en = {
       ],
       triggerLine:
         "The embassy doesn't tell you what's wrong, they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
-      cta: "Get My Documents Reviewed (€25)",
-      postButton: "🔒 Secure payment via Stripe · Send documents via WhatsApp or email",
+      cta: `Get My Documents Reviewed (${price("documentReview")})`,
+      postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.documentReview}`,
     },
     interviewPrep: {
       title: "Embassy Interview Prep: Don't Walk In Unprepared",
@@ -745,8 +703,8 @@ const en = {
       ],
       triggerLine:
         "Last year, a student was rejected because he couldn't explain his study plan clearly. His grades were perfect. His documents were perfect. He just wasn't ready for question 6.",
-      cta: "See How It Works →",
-      postButton: "",
+      cta: `See How It Works (${price("interviewPrep")}) →`,
+      postButton: REFUND_COPY.en.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "Landed in Czechia? I've Got You.",
@@ -765,15 +723,15 @@ const en = {
       ],
       triggerLine:
         "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
-      cta: "Get My Arrival Plan (€29)",
-      postButton: "🔒 Secure payment via Stripe",
+      cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
+      postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "Full Journey: From Zero to Visa",
       fearTrigger:
         "For students who don't want to figure it out alone. I'll be with you from your first question to your first day in Czechia.",
       description:
-        "This is everything. We start from wherever you are, even if you haven't picked a country yet, and I walk you through every step until you have your visa and a plan for your first week. You're not buying a service. You're getting someone who's been through this, speaks your language, lives here, and will answer your WhatsApp at midnight when you're panicking about a deadline. Most agencies charge €1,500–€3,000 and they're sitting in Cairo googling the same things you are. I'm in Brno, 20 minutes from the foreign police office.",
+        "This is everything. We start from wherever you are, even if you haven't picked a country yet, and I walk you through every step until you have your visa and a plan for your first week. You're not buying a service. You're getting someone who's been through this, speaks your language, lives here, and will answer your WhatsApp at midnight when you're panicking about a deadline. Agencies often charge €1,500–€3,000. I'm in Brno, 20 minutes from the foreign police office.",
       included: [
         "University & program selection (based on your grades, budget, and goals)",
         "Full document preparation guidance",
@@ -788,15 +746,14 @@ const en = {
       ],
       triggerLine:
         "Students who go through this process alone spend an average of 3 months longer figuring things out, and many apply to the wrong program or miss a deadline they didn't know existed.",
-      cta: "Start My Application (€150)",
-      postButton:
-        "🔒 Secure payment via Stripe · Also available via InstaPay 🇪🇬 · Not sure yet? Message me on WhatsApp first, no pressure.",
+      cta: `Start My Application (${price("fullPackageStep1")})`,
+      postButton: `🔒 Secure payment via Stripe · Also via InstaPay 🇪🇬 · ${REFUND_COPY.en.perService.fullPackage}`,
       paymentStructure: {
-        header: "💳 Pay in 2 steps:",
+        header: "💳 Pay in 2 steps — the second only after you're accepted:",
         steps: [
-          "Step 1: €150, starts the process (university selection + document plan)",
-          "Step 2: €200, after documents are reviewed, before visa submission",
-          "Total: €350 (agencies charge €1,500+ for less)",
+          `Step 1: ${price("fullPackageStep1")} to start (university selection + document plan)`,
+          `Step 2: ${price("fullPackageStep2")}, only after a university accepts you. Not accepted? You never pay it.`,
+          `Total: ${eur(fullPackageTotal())}`,
         ],
       },
       bundledNote: REFUND_COPY.en.bundledNote,
@@ -835,17 +792,17 @@ const en = {
   comparison: {
     title: "Why Students Choose Us Over Traditional Agencies",
     agencyHeader: "Typical Agency",
-    usHeader: "Study in Czechia",
+    usHeader: "Study Czechia",
     rows: [
-      { label: "Where they're based", agency: "In your country, never been to Czechia", us: "In Brno, Czech Republic, living here now" },
-      { label: "Their experience", agency: "Read about the process online", us: "Went through the entire process personally" },
-      { label: "Language", agency: "Arabic only", us: "Arabic, English, and Czech" },
-      { label: "Price for full support", agency: "€1,500 – €3,000", us: "€350 (payable in 2 steps)" },
-      { label: "Free resources included", agency: "None, everything behind a paywall", us: "Full website, guides, tools, community" },
-      { label: "Post-arrival help", agency: "None, their job ends at the airport", us: "30 days of support after you land" },
-      { label: "Embassy interview prep", agency: "Generic tips from a PDF", us: "Live mock interview with real questions" },
-      { label: "Refund if not satisfied", agency: "Almost never", us: REFUND_COPY.en.comparison },
-      { label: "Community", agency: "You're a client number", us: `Join ${COMMUNITY_SIZE} students helping each other` },
+      { label: "Where they're based", agency: "Usually in your home country", us: "In Brno, Czech Republic, living here now" },
+      { label: "Their experience", agency: "Ask whether they've done it themselves", us: "Went through the entire process personally" },
+      { label: "Language", agency: "Usually Arabic", us: "Arabic, English, and Czech" },
+      { label: "Price for full support", agency: "Often €1,500 – €3,000", us: `${eur(fullPackageTotal())}, step 2 only after you're accepted` },
+      { label: "Free resources included", agency: "Usually few", us: "Full website, guides, tools, community" },
+      { label: "Post-arrival help", agency: "Often ends at the visa", us: "30 days of support after you land" },
+      { label: "Embassy interview prep", agency: "Often general tips", us: "Live mock interview with real questions" },
+      { label: "Refunds", agency: "Varies", us: REFUND_COPY.en.comparison },
+      { label: "Community", agency: "Varies", us: `Join ${COMMUNITY_SIZE} students helping each other` },
     ],
   },
   communityProof: {
@@ -853,7 +810,7 @@ const en = {
     stats: [
       { value: COMMUNITY_SIZE, label: "Students in our Facebook community helping each other daily" },
       { value: "4 Years", label: "Answering the same questions — now all in one place" },
-      { value: "€15–€350", label: "Vs. €1,500–€3,000 agencies charge for less" },
+      { value: `${price("consultation")}–${eur(fullPackageTotal())}`, label: "Vs. the €1,500–€3,000 agencies often charge" },
     ],
     cta: "See the community on Facebook →",
   },
@@ -868,7 +825,7 @@ const en = {
       },
       {
         q: "How is this different from an agency?",
-        a: "Agencies in Egypt or Jordan sell you a package and disappear. They've never been to Czechia. They don't know which foreign police office is less crowded on Tuesdays. They can't tell you which dorm to avoid. I live here. I went through this. And I cost a fraction of what they charge.",
+        a: "Many agencies sell a package and stop once you have your visa. I live here and went through this myself, so I know which foreign police office is less crowded on Tuesdays and which dorm to avoid. And I cost a fraction of what agencies usually charge.",
       },
       {
         q: "What if I pay and I'm not satisfied?",
@@ -888,13 +845,17 @@ const en = {
       },
       {
         q: "What if my visa gets rejected even after using your service?",
-        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions. Nobody can. Anyone who promises a 'guaranteed visa' is lying to you. What I can tell you is that students I've worked with have a much higher approval rate because we catch the mistakes that cause most rejections.",
+        a: "I help you build the strongest possible application, but I can't guarantee embassy decisions. Nobody can. Anyone who promises a 'guaranteed visa' is lying to you. What I can do is catch the mistakes that cause most rejections before you submit.",
+      },
+      {
+        q: "Why is the Full Journey paid in two steps?",
+        a: `Because your result matters more to me than the money. You pay ${price("fullPackageStep1")} to start. The second ${price("fullPackageStep2")} is only due after a university accepts you. If you're not accepted, you never pay it.`,
       },
     ],
   },
   priceAnchor: {
-    bold: "Most agencies charge $800-$3,000 for application support.",
-    sub: "Mine is €350, paid in two steps. Not because it's less work, because I'm one student who lives here, not an office with overheads in four cities.",
+    bold: "Agencies often charge €1,500–€3,000 for application support.",
+    sub: `Mine is ${eur(fullPackageTotal())}, and the second payment is only due after you're accepted. Not because it's less work, because I'm one student who lives here, not an office with overheads in four cities.`,
   },
   securityNotice:
     "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
@@ -905,6 +866,7 @@ const en = {
     button: "Message on WhatsApp",
   },
   bestValue: "Best Value",
+  twoStepsNote: OFFER_ACTIVE ? "half now, half after acceptance" : "in 2 steps, the second after acceptance",
   whatsappTooltip: "Not sure which service? Ask me, no pressure.",
 };
 
@@ -917,7 +879,7 @@ const ar: typeof en = {
       "كل سنة، طلاب بيترفضوا. مش عشان مش مؤهلين، بس عشان غلطة في ورقة، أو اختيار جامعة غلط، أو مقابلة سفارة ماكانوش جاهزين ليها. أنا عديت العملية كلها بنفسي. أقدر أساعدك تتفادى اللي غيرك اتعلموه بالطريقة الصعبة.",
     trustBar: [
       `أكتر من ${COMMUNITY_SIZE_AR} طالب في مجتمعنا`,
-      "مئات الطلبات اتوجهت",
+      "4 سنين بجاوب على أسئلة الطلاب",
       "مقيم في برنو، جمهورية التشيك",
       "طالب مصري، عديت التجربة كلها",
     ],
@@ -979,13 +941,13 @@ const ar: typeof en = {
         "بتتحسب بالكامل لو حجزت خدمة أكبر بعدين",
       ],
       triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
-      cta: "احجز مكالمة (15€)",
-      postButton: "🔒 دفع آمن عبر Stripe · استرداد كامل لو المكالمة ماتمتش",
+      cta: `احجز مكالمة (${price("consultation", "ar")})`,
+      postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.consultation}`,
     },
     documentReview: {
       title: "مراجعة الأوراق: قبل ما تقدم",
       fearTrigger: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
-      description: "ابعتلي كل حاجة ناوي تقدمها. طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ 25€ ممكن تنقذك من رفض بيكلفك فصل كامل.",
+      description: `ابعتلي كل حاجة ناوي تقدمها. طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ ${price("documentReview", "ar")} ممكن تنقذك من رفض بيكلفك فصل كامل.`,
       included: [
         "مراجعة كاملة لكل الأوراق",
         "تقرير مكتوب مفصل: الصحيح، اللي محتاج تعديل، الناقص",
@@ -994,8 +956,8 @@ const ar: typeof en = {
         "جولة متابعة: صلح المشاكل، ابعت تاني، بأكدلك إن كله تمام",
       ],
       triggerLine: 'السفارة مش بتقولك إيه الغلط. بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
-      cta: "راجع أوراقي (25€)",
-      postButton: "🔒 دفع آمن عبر Stripe · ابعت الأوراق على واتساب أو إيميل",
+      cta: `راجع أوراقي (${price("documentReview", "ar")})`,
+      postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.documentReview}`,
     },
     interviewPrep: {
       title: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير",
@@ -1010,8 +972,8 @@ const ar: typeof en = {
         "دعم واتساب لحد موعد مقابلتك",
       ],
       triggerLine: "السنة اللي فاتت، طالب اترفض عشان ماعرفش يشرح خطته الدراسية بوضوح. درجاته كانت ممتازة. أوراقه كانت كاملة. بس ماكانش جاهز للسؤال رقم 6.",
-      cta: "شوف التفاصيل →",
-      postButton: "",
+      cta: `شوف التفاصيل (${price("interviewPrep", "ar")}) →`,
+      postButton: REFUND_COPY.ar.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "وصلت التشيك؟ أنا معاك.",
@@ -1027,13 +989,13 @@ const ar: typeof en = {
         "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
       ],
       triggerLine: "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
-      cta: "احصل على خطة وصولي (29€)",
-      postButton: "🔒 دفع آمن عبر Stripe",
+      cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
+      postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "الرحلة الكاملة: من الصفر للفيزا",
       fearTrigger: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
-      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه، حتى لو لسه مااخترتش بلد، وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك وساكن هنا. المكاتب بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
+      description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه، حتى لو لسه مااخترتش بلد، وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك وساكن هنا. المكاتب غالبًا بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
       included: [
         "اختيار الجامعة والتخصص (حسب درجاتك وميزانيتك وأهدافك)",
         "توجيه كامل لتجهيز الأوراق",
@@ -1047,14 +1009,14 @@ const ar: typeof en = {
         `كورس "أول 90 يوم في التشيك". مجانًا`,
       ],
       triggerLine: "الطلاب اللي بيعملوا العملية لوحدهم بياخدوا في المتوسط 3 شهور أكتر. وكتير بيقدموا على البرنامج الغلط أو بيفوتهم موعد ماكانوش يعرفوا بيه.",
-      cta: "ابدأ طلبي (150€)",
-      postButton: "🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · مش متأكد؟ راسلني على واتساب الأول. من غير ضغط.",
+      cta: `ابدأ طلبي (${price("fullPackageStep1", "ar")})`,
+      postButton: `🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · ${REFUND_COPY.ar.perService.fullPackage}`,
       paymentStructure: {
-        header: "💳 ادفع على خطوتين:",
+        header: "💳 ادفع على خطوتين — التانية بعد قبولك بس:",
         steps: [
-          "الخطوة 1: 150€، بتبدأ العملية (اختيار الجامعة + خطة الأوراق)",
-          "الخطوة 2: 200€، بعد مراجعة الأوراق، قبل تقديم الفيزا",
-          "الإجمالي: 350€ (المكاتب بتاخد 1,500€+ على أقل)",
+          `الخطوة 1: ${price("fullPackageStep1", "ar")} عشان نبدأ (اختيار الجامعة + خطة الأوراق)`,
+          `الخطوة 2: ${price("fullPackageStep2", "ar")}، بعد ما جامعة تقبلك بس. لو ماتقبلتش، مش هتدفعها خالص.`,
+          `الإجمالي: ${eur(fullPackageTotal(), "ar")}`,
         ],
       },
       bundledNote: REFUND_COPY.ar.bundledNote,
@@ -1093,17 +1055,17 @@ const ar: typeof en = {
   comparison: {
     title: "ليه الطلاب بيختارونا عن المكاتب التقليدية",
     agencyHeader: "وكالة عادية",
-    usHeader: "Study in Czechia",
+    usHeader: "Study Czechia",
     rows: [
-      { label: "مكانهم", agency: "في بلدك. عمرهم ماراحوا التشيك", us: "في برنو، التشيك. ساكن هنا دلوقتي" },
-      { label: "خبرتهم", agency: "قريوا عن العملية أونلاين", us: "عديت العملية كلها بنفسي" },
-      { label: "اللغة", agency: "عربي بس", us: "عربي، إنجليزي، وتشيكي" },
-      { label: "سعر الدعم الكامل", agency: "1,500€ – 3,000€", us: "350€ (على خطوتين)" },
-      { label: "موارد مجانية", agency: "مفيش، كل حاجة بفلوس", us: "موقع كامل، أدلة، أدوات، مجتمع" },
-      { label: "دعم بعد الوصول", agency: "مفيش، شغلهم بيخلص في المطار", us: "30 يوم دعم بعد وصولك" },
-      { label: "تجهيز مقابلة السفارة", agency: "نصايح عامة من PDF", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
-      { label: "استرداد", agency: "تقريبًا مستحيل", us: REFUND_COPY.ar.comparison },
-      { label: "المجتمع", agency: "أنت رقم عميل", us: `انضم لأكتر من ${COMMUNITY_SIZE_AR} طالب بيساعدوا بعض` },
+      { label: "مكانهم", agency: "غالبًا في بلدك", us: "في برنو، التشيك. ساكن هنا دلوقتي" },
+      { label: "خبرتهم", agency: "اسألهم لو عدوا التجربة بنفسهم", us: "عديت العملية كلها بنفسي" },
+      { label: "اللغة", agency: "غالبًا عربي", us: "عربي، إنجليزي، وتشيكي" },
+      { label: "سعر الدعم الكامل", agency: "غالبًا 1,500€ – 3,000€", us: `${eur(fullPackageTotal(), "ar")}، الدفعة التانية بعد قبولك بس` },
+      { label: "موارد مجانية", agency: "غالبًا قليلة", us: "موقع كامل، أدلة، أدوات، مجتمع" },
+      { label: "دعم بعد الوصول", agency: "غالبًا بيخلص عند الفيزا", us: "30 يوم دعم بعد وصولك" },
+      { label: "تجهيز مقابلة السفارة", agency: "غالبًا نصايح عامة", us: "مقابلة تجريبية حية بأسئلة حقيقية" },
+      { label: "استرداد", agency: "بيختلف", us: REFUND_COPY.ar.comparison },
+      { label: "المجتمع", agency: "بيختلف", us: `انضم لأكتر من ${COMMUNITY_SIZE_AR} طالب بيساعدوا بعض` },
     ],
   },
   communityProof: {
@@ -1111,7 +1073,7 @@ const ar: typeof en = {
     stats: [
       { value: COMMUNITY_SIZE_AR, label: "طالب في مجتمعنا على فيسبوك بيساعدوا بعض يوميًا" },
       { value: "4 سنين", label: "بجاوب على نفس الأسئلة — دلوقتي كلها في مكان واحد" },
-      { value: "€15–€350", label: "مقابل €1,500–€3,000 اللي المكاتب بتاخدها على أقل" },
+      { value: `${price("consultation", "ar")}–${eur(fullPackageTotal(), "ar")}`, label: "مقابل 1,500€–3,000€ اللي المكاتب غالبًا بتاخدها" },
     ],
     cta: "شوف المجتمع على فيسبوك →",
   },
@@ -1120,17 +1082,18 @@ const ar: typeof en = {
     title: "أسئلة شائعة",
     items: [
       { q: "ليه أدفع والأدلة مجانية؟", a: "الأدلة بتعلمك العملية. الخدمات هي أنا شخصيًا براجع أوراقك أنت ووضعك أنت وبجاوب أسئلتك أنت. الفرق بين إنك تقرأ كتاب طب وإنك تروح لدكتور." },
-      { q: "إيه الفرق بينكم وبين مكتب؟", a: "المكاتب في مصر أو الأردن بيبيعوك باكيج وبيختفوا. عمرهم ماراحوا التشيك. أنا ساكن هنا. عديت التجربة. وبكلف جزء صغير من سعرهم." },
+      { q: "إيه الفرق بينكم وبين مكتب؟", a: "مكاتب كتير بتبيعلك باكيج وشغلها بيخلص لما تاخد الفيزا. أنا ساكن هنا وعديت التجربة بنفسي. وبكلف جزء صغير من اللي المكاتب غالبًا بتاخده." },
       { q: "لو دفعت ومش راضي؟", a: REFUND_COPY.ar.faq },
       { q: "الدفع أونلاين آمن؟", a: "المدفوعات بتتعالج عن طريق Stripe. نفس الشركة اللي بتشتغل مع Amazon و Google. مش بشوف رقم كارتك. لو في مصر وتفضل InstaPay، برضو تمام. راسلني على واتساب." },
       { q: "أقدر أراسلك على واتساب بلاش؟", a: "طبعًا. وبجاوب أسئلة في جروب الفيسبوك كل يوم بالمجان. بس لو محتاج ساعتين مراجعة أوراق أو 45 دقيقة مقابلة تجريبية، ده اللي الخدمات عشانه." },
       { q: "لقيت مكتب أرخص. ليه ماستخدمهمش؟", a: "اسألهم 3 أسئلة: راحوا التشيك قبل كده؟ يقدروا يعملوا مقابلة تجريبية بأسئلة حقيقية؟ هيساعدوك بعد ما توصل؟ لو الإجابة لأ على أي واحد، بتدفع لوسيط بيعملك Google." },
-      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة. محدش يقدر. أي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. الطلاب اللي اشتغلت معاهم عندهم معدل قبول أعلى بكتير عشان بنمسك الأخطاء اللي بتسبب معظم الرفض.` },
+      { q: "لو الفيزا اترفضت رغم الخدمة؟", a: `بساعدك تبني أقوى طلب ممكن، بس مش بضمن قرارات السفارة. محدش يقدر. أي حد يوعدك ب"فيزا مضمونة" بيكدب عليك. اللي أقدر أعمله إني أمسك الأخطاء اللي بتسبب معظم الرفض قبل ما تقدم.` },
+      { q: "ليه الرحلة الكاملة بتتدفع على خطوتين؟", a: `عشان نتيجتك تهمني أكتر من الفلوس. بتدفع ${price("fullPackageStep1", "ar")} عشان نبدأ، والـ${price("fullPackageStep2", "ar")} التانيين مش بتدفعهم غير بعد ما جامعة تقبلك. لو ماتقبلتش، مش هتدفعهم خالص.` },
     ],
   },
   priceAnchor: {
-    bold: "اغلب الوكالات بتاخد $800-$3,000 على دعم التقديم.",
-    sub: "عندي €350، على خطوتين. مش عشان الشغل أقل، عشان أنا طالب عايش هنا، مش مكتب بمصاريف في 4 مدن.",
+    bold: "المكاتب غالبًا بتاخد 1,500€–3,000€ على دعم التقديم.",
+    sub: `عندي ${eur(fullPackageTotal(), "ar")}، والدفعة التانية بعد قبولك بس. مش عشان الشغل أقل، عشان أنا طالب عايش هنا، مش مكتب بمصاريف في 4 مدن.`,
   },
   securityNotice:
     "احنا عمرنا ما بنطلب دفع من خلال ارقام واتساب غير رسمية او رسائل بتدعي انها مننا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
@@ -1140,5 +1103,6 @@ const ar: typeof en = {
     button: "راسل على واتساب",
   },
   bestValue: "الأفضل قيمة",
+  twoStepsNote: OFFER_ACTIVE ? "نص دلوقتي، ونص بعد القبول" : "على خطوتين، التانية بعد القبول",
   whatsappTooltip: "مش متأكد من أي خدمة؟ اسألني. من غير ضغط.",
 };

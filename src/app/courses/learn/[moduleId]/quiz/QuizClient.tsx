@@ -1,5 +1,6 @@
 "use client";
 
+import { price } from "@/config/pricing";
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -11,7 +12,7 @@ import type { QuizQuestion } from "@/data/course";
 import { hasAccess, saveQuizScore, getQuizScore } from "@/lib/course-store";
 import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import {
   Trophy,
   CheckCircle2,
@@ -475,7 +476,7 @@ const en = {
   locked: {
     title: "Quiz Locked",
     subtitle: "Purchase the course to access quizzes.",
-    buyBtn: "Get the Course (€49)",
+    buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
   },
   result: {
@@ -510,7 +511,7 @@ const ar: typeof en = {
   locked: {
     title: "الاختبار مقفول",
     subtitle: "اشتري الكورس عشان تقدر تعمل الاختبارات.",
-    buyBtn: "احصل على الكورس (49€)",
+    buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
   },
   result: {

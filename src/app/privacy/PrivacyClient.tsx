@@ -8,11 +8,19 @@ import { CONTACT_EMAIL } from "@/config/contact";
 const sections = {
   en: {
     title: "Privacy Policy",
-    updated: "Last updated: 27 August 2026",
+    updated: "Last updated: 11 October 2026",
     blocks: [
       {
         heading: "What we collect",
-        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form. The eligibility checker and university matcher process your answers entirely in your browser. Nothing is sent to our servers.",
+        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form, and your email if you sign up for a checklist or waitlist. The eligibility checker and university matcher process your answers entirely in your browser. Nothing is sent to our servers.",
+      },
+      {
+        heading: "Documents you send us",
+        body: "For a document review or the Full Journey you may send passports, transcripts, translations or bank statements by WhatsApp or email. We use them only for your service, never share them, and delete them within 90 days after the service ends, or sooner if you ask.",
+      },
+      {
+        heading: "Analytics",
+        body: "We count visits and button clicks with privacy-friendly analytics that do not use cookies and do not identify you. This tells us which pages and tools help students, nothing more.",
       },
       {
         heading: "How we use it",
@@ -20,11 +28,11 @@ const sections = {
       },
       {
         heading: "Third parties",
-        body: "Payments are processed by Stripe. We do not receive or store your card details. We do not sell, rent, or share your personal data with any third party for marketing purposes.",
+        body: "Payments are processed by Stripe. We do not receive or store your card details. If you sign up for an email checklist or waitlist, your email is stored with our email provider (ConvertKit). We do not sell, rent, or share your personal data with any third party for marketing purposes.",
       },
       {
         heading: "Cookies",
-        body: "This site uses essential cookies only (language preference). We do not use advertising cookies or third-party trackers.",
+        body: "This site does not use advertising cookies. It stores a few preferences in your browser (language, theme, course progress) so the site remembers them.",
       },
       {
         heading: "Your rights",
@@ -38,11 +46,19 @@ const sections = {
   },
   ar: {
     title: "سياسة الخصوصية",
-    updated: "آخر تحديث: 27 أغسطس 2026",
+    updated: "آخر تحديث: 11 أكتوبر 2026",
     blocks: [
       {
         heading: "إيه اللي بنجمعه",
-        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة. أداة \"أقدر أقدم؟\" واختيار الجامعة بيشتغلوا بالكامل على جهازك. مفيش حاجة بتتبعت لسيرفراتنا.",
+        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة، وإيميلك لو اشتركت في قائمة أو قائمة انتظار. أداة \"أقدر أقدم؟\" واختيار الجامعة بيشتغلوا بالكامل على جهازك. مفيش حاجة بتتبعت لسيرفراتنا.",
+      },
+      {
+        heading: "الأوراق اللي بتبعتهالنا",
+        body: "في مراجعة الأوراق أو الرحلة الكاملة ممكن تبعت جواز سفر أو شهادات أو ترجمات أو كشف حساب على واتساب أو إيميل. بنستخدمها لخدمتك بس، عمرنا ما بنشاركها، وبنمسحها خلال 90 يوم من نهاية الخدمة، أو قبل كده لو طلبت.",
+      },
+      {
+        heading: "الإحصائيات",
+        body: "بنعد الزيارات والضغطات على الأزرار بأداة إحصائيات بتحترم الخصوصية، من غير كوكيز ومن غير ما تعرف إنت مين. ده بيورينا أنهي صفحات وأدوات بتفيد الطلاب، مش أكتر.",
       },
       {
         heading: "إزاي بنستخدمه",
@@ -50,11 +66,11 @@ const sections = {
       },
       {
         heading: "أطراف تالتة",
-        body: "المدفوعات بتتم من خلال Stripe. إحنا مش بنستلم أو نخزن بيانات كارتك. مش بنبيع أو نأجر أو نشارك بياناتك الشخصية مع أي طرف تالت.",
+        body: "المدفوعات بتتم من خلال Stripe. إحنا مش بنستلم أو نخزن بيانات كارتك. لو اشتركت في قائمة بالإيميل، إيميلك بيتخزن عند مزود الإيميل بتاعنا (ConvertKit). مش بنبيع أو نأجر أو نشارك بياناتك الشخصية مع أي طرف تالت.",
       },
       {
         heading: "الكوكيز",
-        body: "الموقع بيستخدم كوكيز أساسية بس (تفضيل اللغة). مش بنستخدم كوكيز إعلانية أو متتبعات من أطراف تالتة.",
+        body: "الموقع مش بيستخدم كوكيز إعلانية. بيحفظ شوية تفضيلات في المتصفح بتاعك (اللغة، الشكل، تقدمك في الكورس) عشان يفتكرها.",
       },
       {
         heading: "حقوقك",
