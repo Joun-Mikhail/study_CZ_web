@@ -43,14 +43,14 @@ function formatLeft(ms: number, locale: Locale): string {
   return `${Math.max(hours, 1)} hours left`;
 }
 
-/** "50% off everything until 31 January 2027 · 112 days left" */
+/** "Launch offer: 50% off until 31 January 2027 · 112 days left" */
 export function OfferBadge({ locale, className }: { locale: Locale; className?: string }) {
   const left = useTimeLeft();
   if (!OFFER_ACTIVE) return null;
   const text =
     locale === "ar"
-      ? `خصم ${LAUNCH_OFFER.percentOff}% على كل الخدمات لحد ${OFFER_END_LABEL.ar}`
-      : `${LAUNCH_OFFER.percentOff}% off everything until ${OFFER_END_LABEL.en}`;
+      ? `عرض الإطلاق: خصم ${LAUNCH_OFFER.percentOff}% لحد ${OFFER_END_LABEL.ar}`
+      : `Launch offer: ${LAUNCH_OFFER.percentOff}% off until ${OFFER_END_LABEL.en}`;
   return (
     <span
       data-launch-offer
@@ -88,12 +88,13 @@ export function PriceTag({
 }) {
   const regular = eur(REGULAR_PRICES[k], locale);
   const current = eur(priceOf(k), locale);
+  const reduced = current !== regular;
   return (
     <span className="inline-flex items-baseline gap-2">
       <span className={className} data-price-current data-price-regular-value={regular}>
         {current}
       </span>
-      {OFFER_ACTIVE && (
+      {reduced && (
         <s data-launch-offer className={cn("text-sm text-text-muted font-normal", regularClassName)}>
           {regular}
         </s>

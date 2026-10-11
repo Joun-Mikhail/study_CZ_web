@@ -16,14 +16,15 @@ import {
 const keys = Object.keys(REGULAR_PRICES) as PriceKey[];
 
 describe("launch offer maths", () => {
-  it("halves every regular price while active", () => {
+  it("halves every regular price except step 2 while active", () => {
     expect(priceOf("consultation", true)).toBe(7.5);
     expect(priceOf("documentReview", true)).toBe(12.5);
     expect(priceOf("arrivalSupport", true)).toBe(14.5);
     expect(priceOf("interviewPrep", true)).toBe(19.5);
     expect(priceOf("course", true)).toBe(24.5);
     expect(priceOf("fullPackageStep1", true)).toBe(75);
-    expect(priceOf("fullPackageStep2", true)).toBe(100);
+    // Step 2 is paid after acceptance, usually after the offer ends.
+    expect(priceOf("fullPackageStep2", true)).toBe(200);
   });
 
   it("charges the regular price when the offer is off", () => {
@@ -32,7 +33,7 @@ describe("launch offer maths", () => {
 
   it("totals both Full Journey steps", () => {
     expect(fullPackageTotal(false)).toBe(350);
-    expect(fullPackageTotal(true)).toBe(175);
+    expect(fullPackageTotal(true)).toBe(275);
   });
 
   it("keeps site prices in line with stripe-links.json", () => {
@@ -46,21 +47,36 @@ describe("offer dates", () => {
     expect(new Date(LAUNCH_OFFER.endsAt).toISOString()).toBe("2027-01-31T22:59:59.000Z");
   });
 
-  it("is never active while the offer is switched off", () => {
-    expect(LAUNCH_OFFER.enabled).toBe(false);
-    expect(isOfferActiveAt(Date.parse("2026-12-01T12:00:00Z"))).toBe(false);
-    expect(OFFER_ACTIVE).toBe(false);
+  it("runs until the end date and not a second longer", () => {
+    expect(isOfferActiveAt(Date.parse("2026-12-01T12:00:00Z"), true)).toBe(true);
+    expect(isOfferActiveAt(Date.parse("2027-01-31T22:59:59Z"), true)).toBe(true);
+    expect(isOfferActiveAt(Date.parse("2027-01-31T23:00:00Z"), true)).toBe(false);
+  });
+
+  it("is never active while switched off", () => {
+    expect(isOfferActiveAt(Date.parse("2026-12-01T12:00:00Z"), false)).toBe(false);
+  });
+
+  it("matches the build-time flag", () => {
+    expect(OFFER_ACTIVE).toBe(isOfferActiveAt(Date.now()));
   });
 });
 
 describe("checkoutLink", () => {
   it("returns the plain Stripe URL when the offer is off", () => {
-    expect(checkoutLink("consultation")).toBe(stripeConfig.links.consultation.url);
-    expect(checkoutLink("course")).not.toContain(PROMO_PARAM);
+    expect(checkoutLink("consultation", false)).toBe(stripeConfig.links.consultation.url);
+    expect(checkoutLink("course", false)).not.toContain(PROMO_PARAM);
+  });
+
+  it("pre-fills the launch code while the offer runs", () => {
+    expect(checkoutLink("consultation", true)).toBe(
+      `${stripeConfig.links.consultation.url}?${PROMO_PARAM}=${LAUNCH_OFFER.promoCode}`
+    );
   });
 
   it("refuses to render the private step 2 link", () => {
     expect(() => checkoutLink("fullPackageStep2")).toThrow(/not public/);
+    expect(() => checkoutLink("fullPackageStep2", false)).toThrow(/not public/);
   });
 
   it("only uses buy.stripe.com URLs", () => {

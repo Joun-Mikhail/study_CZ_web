@@ -1,7 +1,9 @@
 import stripeConfig from "../../stripe-links.json";
 
 /**
- * Launch offer: 50% off every paid product until a real end date.
+ * Launch offer: 50% off every paid product except Full Journey step 2,
+ * until a real end date. Step 2 is paid after a university accepts the
+ * student, usually months later, so it is always charged at the regular price.
  *
  * EU price-indication rules (Omnibus Directive) require the crossed-out
  * "regular" price to be a price actually charged in the 30 days before the
@@ -17,7 +19,7 @@ import stripeConfig from "../../stripe-links.json";
  * Otherwise the site would show half prices while Stripe charges full ones.
  */
 export const LAUNCH_OFFER = {
-  enabled: false,
+  enabled: true,
   percentOff: 50,
   /** Last moment the offer is valid, Prague time. */
   endsAt: "2027-01-31T23:59:59+01:00",
@@ -39,10 +41,13 @@ export const REGULAR_PRICES = {
 
 export type PriceKey = keyof typeof REGULAR_PRICES;
 
+/** Products the launch offer does not reduce. */
+export const OFFER_EXCLUDED: readonly PriceKey[] = ["fullPackageStep2"];
+
 const BUILT_AT = Number(process.env.NEXT_PUBLIC_BUILT_AT) || Date.now();
 
-export function isOfferActiveAt(time: number): boolean {
-  return LAUNCH_OFFER.enabled && time <= Date.parse(LAUNCH_OFFER.endsAt);
+export function isOfferActiveAt(time: number, enabled: boolean = LAUNCH_OFFER.enabled): boolean {
+  return enabled && time <= Date.parse(LAUNCH_OFFER.endsAt);
 }
 
 /** Whether the offer was live when this static site was built. */
@@ -54,7 +59,7 @@ function discounted(amount: number): number {
 
 export function priceOf(key: PriceKey, active: boolean = OFFER_ACTIVE): number {
   const regular = REGULAR_PRICES[key];
-  return active ? discounted(regular) : regular;
+  return active && !OFFER_EXCLUDED.includes(key) ? discounted(regular) : regular;
 }
 
 export function fullPackageTotal(active: boolean = OFFER_ACTIVE): number {
@@ -94,7 +99,7 @@ function baseStripeLink(key: StripeLinkKey): string {
 export const PROMO_PARAM = "prefilled_promo_code";
 
 /** Stripe payment link, with the launch code pre-filled while the offer runs. */
-export function checkoutLink(key: StripeLinkKey): string {
+export function checkoutLink(key: StripeLinkKey, active: boolean = OFFER_ACTIVE): string {
   const base = baseStripeLink(key);
-  return OFFER_ACTIVE ? `${base}?${PROMO_PARAM}=${LAUNCH_OFFER.promoCode}` : base;
+  return active ? `${base}?${PROMO_PARAM}=${LAUNCH_OFFER.promoCode}` : base;
 }

@@ -9,10 +9,10 @@ import { LAUNCH_OFFER, OFFER_ACTIVE, OFFER_END_LABEL, eur, fullPackageTotal, pri
 const P = (k: PriceKey) => price(k);
 const PA = (k: PriceKey) => price(k, "ar");
 const offerEn = OFFER_ACTIVE
-  ? ` Launch offer: until ${OFFER_END_LABEL.en}, every price is ${LAUNCH_OFFER.percentOff}% below the regular price, which is shown crossed out next to it.`
+  ? ` Launch offer: until ${OFFER_END_LABEL.en}, every price except Full Journey step 2 is ${LAUNCH_OFFER.percentOff}% below the regular price, which is shown crossed out next to it. Step 2 is always charged at its regular price when it falls due.`
   : "";
 const offerAr = OFFER_ACTIVE
-  ? ` عرض الإطلاق: حتى ${OFFER_END_LABEL.ar}، كل الأسعار أقل بنسبة ${LAUNCH_OFFER.percentOff}% من السعر العادي، والسعر العادي ظاهر بجانبها مشطوبًا.`
+  ? ` عرض الإطلاق: حتى ${OFFER_END_LABEL.ar}، كل الأسعار، ما عدا المرحلة الثانية من الرحلة الكاملة، أقل بنسبة ${LAUNCH_OFFER.percentOff}% من السعر العادي، والسعر العادي ظاهر بجانبها مشطوبًا. المرحلة الثانية تُدفع دائمًا بسعرها العادي عند استحقاقها.`
   : "";
 
 const sections = {
