@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { VerifiedBadge } from "@/components/ui/verified-badge";

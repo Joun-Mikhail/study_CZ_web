@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslation } from "@/i18n/context";
 import { universities } from "@/data/universities";
 import { GlassCard } from "@/components/ui/glass-card";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { Search, MapPin } from "lucide-react";
 
 export default function SearchClient() {

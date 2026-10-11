@@ -3,8 +3,10 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "@/i18n/context";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
+import NextLink from "next/link";
+import { pathForLocale, stripLocale } from "@/i18n/paths";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
@@ -214,14 +216,20 @@ export function Navbar() {
     },
   };
 
-  const toggleLang = () => setLocale(locale === "en" ? "ar" : "en");
+  const otherLocale = locale === "en" ? "ar" : "en";
+  const switchHref = pathForLocale(pathname || "/", otherLocale);
+  const toggleLang = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setLocale(otherLocale);
+  };
 
   const handleNavigate = () => {
     setOpenDropdown(null);
     setMobileOpen(false);
   };
 
-  const isActive = (href: string) => pathname === href;
+  const normalize = (p: string) => (p.length > 1 ? p.replace(/\/$/, "") : p);
+  const isActive = (href: string) => normalize(stripLocale(pathname || "/")) === normalize(href);
 
   return (
     <>
@@ -295,13 +303,15 @@ export function Navbar() {
 
             <ThemeToggle />
 
-            <button
+            <NextLink
+              href={switchHref}
               onClick={toggleLang}
+              hrefLang={otherLocale}
               aria-label={locale === "en" ? "Switch to Arabic" : "Switch to English"}
               className="flex items-center justify-center w-9 h-9 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle"
             >
               {locale === "en" ? "ع" : "EN"}
-            </button>
+            </NextLink>
 
             <button
               onClick={() => setMobileOpen((v) => !v)}

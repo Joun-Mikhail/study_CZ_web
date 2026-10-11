@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/i18n/context";
 import { ChevronRight, Home } from "lucide-react";
+import { stripLocale } from "@/i18n/paths";
 
 const pathNames: Record<string, { en: string; ar: string }> = {
   universities: { en: "Universities", ar: "الجامعات" },
@@ -12,7 +13,12 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   "application-guide": { en: "Application Guide", ar: "دليل التقديم" },
   qa: { en: "Q&A", ar: "أسئلة وأجوبة" },
   services: { en: "Services", ar: "الخدمات" },
-  courses: { en: "Language Course", ar: "كورس اللغة" },
+  courses: { en: "First 90 Days Course", ar: "كورس أول 90 يوم" },
+  "interview-prep": { en: "Interview Prep", ar: "تجهيز المقابلة" },
+  terms: { en: "Terms", ar: "الشروط" },
+  privacy: { en: "Privacy", ar: "الخصوصية" },
+  "my-journey": { en: "My Journey", ar: "رحلتي" },
+  search: { en: "Search", ar: "البحث" },
   eligibility: { en: "Eligibility", ar: "الأهلية" },
   scholarships: { en: "Scholarships", ar: "المنح الدراسية" },
   "preparatory-year": { en: "Preparatory Year", ar: "السنة التحضيرية" },
@@ -41,16 +47,18 @@ export function Breadcrumb() {
   const pathname = usePathname();
   const { locale } = useTranslation();
 
-  if (pathname === "/") return null;
+  const path = stripLocale(pathname || "/");
+  if (path === "/") return null;
+  const base = locale === "ar" ? `${SITE_URL}/ar` : SITE_URL;
 
-  const segments = pathname.split("/").filter(Boolean);
+  const segments = path.split("/").filter(Boolean);
   if (segments.length === 0) return null;
 
   const breadcrumbItems = [
-    { name: locale === "ar" ? "الرئيسية" : "Home", url: `${SITE_URL}/` },
+    { name: locale === "ar" ? "الرئيسية" : "Home", url: `${base}/` },
     ...segments.map((segment, i) => ({
       name: pathNames[segment]?.[locale] || segment.replace(/-/g, " "),
-      url: `${SITE_URL}/${segments.slice(0, i + 1).join("/")}/`,
+      url: `${base}/${segments.slice(0, i + 1).join("/")}/`,
     })),
   ];
 

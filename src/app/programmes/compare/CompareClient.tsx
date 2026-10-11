@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { FadeIn } from "@/components/ui/fade-in";

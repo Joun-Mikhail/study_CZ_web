@@ -37,7 +37,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 import type { Programme } from "@/data/types";
 

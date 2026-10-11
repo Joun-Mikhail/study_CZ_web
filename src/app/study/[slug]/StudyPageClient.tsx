@@ -1,5 +1,6 @@
 "use client";
 
+import { CITY_AR, DEGREE_AR, FIELD_AR } from "@/i18n/ar-metadata";
 import { useMemo } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -25,7 +26,7 @@ import {
   ArrowRight,
   Calendar,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -125,30 +126,33 @@ export default function StudyPageClient({ type, value, slug }: Props) {
     return filterProgrammes({ city: value }, uniLookup);
   }, [type, value, uniLookup]);
 
+  const valueAr =
+    type === "field" ? FIELD_AR[value] ?? value : type === "degree" ? DEGREE_AR[value] ?? value : CITY_AR[value] ?? value;
+
   const heading =
     type === "field"
       ? locale === "ar"
-        ? `دراسة ${value} في جمهورية التشيك`
+        ? `دراسة ${valueAr} في التشيك`
         : `Study ${value} in Czech Republic`
       : type === "degree"
       ? locale === "ar"
-        ? `برامج ${value} في جمهورية التشيك`
+        ? `برامج ${valueAr} في التشيك`
         : `${value} Programmes in Czech Republic`
       : locale === "ar"
-      ? `الدراسة في ${value}`
+      ? `الدراسة في ${valueAr}`
       : `Study in ${value}`;
 
   const description =
     type === "field"
       ? locale === "ar"
-        ? `${filtered.length} برنامج ${value} موثق متاح باللغة الإنجليزية في الجامعات التشيكية.`
+        ? `${filtered.length} برنامج موثّق في ${valueAr} باللغة الإنجليزية في الجامعات التشيكية.`
         : `${filtered.length} verified ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
       : type === "degree"
       ? locale === "ar"
-        ? `${filtered.length} برنامج ${value} متاح باللغة الإنجليزية.`
+        ? `${filtered.length} برنامج ${valueAr} باللغة الإنجليزية.`
         : `${filtered.length} ${value}'s programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
       : locale === "ar"
-      ? `${filtered.length} برنامج متاح في ${value}.`
+      ? `${filtered.length} برنامج متاح في ${valueAr}.`
       : `${filtered.length} programme${filtered.length !== 1 ? "s" : ""} available in ${value}.`;
 
   const unisInScope = useMemo(() => {

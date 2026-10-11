@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { CONTACT_EMAIL, WHATSAPP_URL, FACEBOOK_GROUP_URL } from "@/config/contact";
 import { PragueSkyline } from "@/components/ui/prague-skyline";

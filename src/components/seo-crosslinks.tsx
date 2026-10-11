@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";

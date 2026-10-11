@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";

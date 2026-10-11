@@ -2,7 +2,7 @@
 
 import { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { cn } from "@/lib/utils";
 
 type MagneticButtonProps = {

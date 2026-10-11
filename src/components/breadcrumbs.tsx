@@ -1,18 +1,22 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { ChevronRight, Home } from "lucide-react";
+import { useTranslation } from "@/i18n/context";
 
 const SITE_URL = "https://studyczechia.com";
 
 type Crumb = { label: string; href?: string };
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
+  const { locale } = useTranslation();
+  const base = locale === "ar" ? `${SITE_URL}/ar` : SITE_URL;
+  const homeLabel = locale === "ar" ? "الرئيسية" : "Home";
   const jsonLdItems = [
-    { name: "Home", url: `${SITE_URL}/` },
+    { name: homeLabel, url: `${base}/` },
     ...items.map((item) => ({
       name: item.label,
-      url: item.href ? `${SITE_URL}${item.href}/` : undefined,
+      url: item.href ? `${base}${item.href}/` : undefined,
     })),
   ];
 
@@ -35,8 +39,9 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Link href="/" className="hover:text-text-primary transition-colors">
-        <Home className="w-3.5 h-3.5" />
+      <Link href="/" className="hover:text-text-primary transition-colors" aria-label={homeLabel}>
+        <Home className="w-3.5 h-3.5" aria-hidden="true" />
+        <span className="sr-only">{homeLabel}</span>
       </Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1.5">

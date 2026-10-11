@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { localizeHref } from "@/i18n/paths";
 import { useState, useMemo } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -208,7 +209,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
             <p className="text-xs text-text-muted mt-0.5 truncate">{prog.faculty}</p>
           )}
           <a
-            href={`/programmes/${prog.id}`}
+            href={localizeHref(`/programmes/${prog.id}`, locale)}
             className="text-xs text-amber hover:underline mt-0.5 inline-block"
           >
             {uni?.name || prog.universityId}

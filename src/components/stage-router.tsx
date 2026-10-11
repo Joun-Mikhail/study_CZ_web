@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/i18n/context";
 import { HelpCircle, GraduationCap, FileSearch, Landmark, Plane, ArrowRight } from "lucide-react";
