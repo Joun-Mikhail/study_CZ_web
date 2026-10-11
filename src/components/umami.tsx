@@ -1,0 +1,51 @@
+"use client";
+
+import Script from "next/script";
+import { useEffect } from "react";
+import stripeConfig from "../../stripe-links.json";
+
+/**
+ * Cookieless analytics (Umami). No cookie banner needed, nothing personal is
+ * stored. Set NEXT_PUBLIC_UMAMI_WEBSITE_ID on Netlify to switch it on.
+ *
+ * Clicks on Stripe and WhatsApp links are tracked automatically, so no button
+ * needs its own tracking code. Tools call track() when a student finishes.
+ */
+const STRIPE_PRODUCT_BY_URL = new Map<string, string>(
+  Object.entries(stripeConfig.links).map(([key, entry]) => [entry.url, key])
+);
+
+type UmamiWindow = Window & {
+  umami?: { track: (event: string, data?: Record<string, string | number>) => void };
+};
+
+export function track(event: string, data?: Record<string, string | number>) {
+  try {
+    (window as UmamiWindow).umami?.track(event, data);
+  } catch {}
+}
+
+export default function Umami() {
+  const id = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+
+  useEffect(() => {
+    if (!id) return;
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!link) return;
+      const href = link.href;
+      const page = window.location.pathname;
+      if (href.includes("buy.stripe.com")) {
+        const base = href.split("?")[0];
+        track("checkout_click", { product: STRIPE_PRODUCT_BY_URL.get(base) ?? "unknown", page });
+      } else if (href.includes("wa.me/")) {
+        track("whatsapp_click", { page });
+      }
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [id]);
+
+  if (!id) return null;
+  return <Script src="https://cloud.umami.is/script.js" data-website-id={id} strategy="afterInteractive" />;
+}

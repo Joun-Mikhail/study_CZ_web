@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import Clarity from "@/components/clarity";
+import Umami from "@/components/umami";
+import { OfferExpiryGuard } from "@/components/launch-offer";
 import { HreflangDefault } from "@/components/hreflang-default";
 import { QuickNav } from "@/components/ui/quick-nav";
 import { MotionFallback } from "@/components/motion-fallback";
@@ -31,17 +33,6 @@ export const metadata: Metadata = {
   },
   description:
     "Free guides, university matching, and cost-of-living tools from a student who lives in Czechia. Personal services: document review, embassy interview prep, and full application support for Arabic-speaking students.",
-  keywords: [
-    "studyczechia",
-    "study in czechia",
-    "study in czech republic",
-    "study abroad",
-    "czech universities",
-    "application guide",
-    "cost of living czechia",
-    "scholarships czech republic",
-    "arabic students czech",
-  ],
   authors: [{ name: "Study Czechia" }],
   openGraph: {
     siteName: "Study Czechia",
@@ -72,6 +63,7 @@ export default function RootLayout({
     <html lang="en" dir="ltr" className={`${jakarta.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
       <head>
         <HreflangDefault />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(/^\\/ar(\\/|$)/.test(location.pathname)){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}})()` }} />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("theme");if(t){document.documentElement.dataset.theme=t}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme:light)").matches){document.documentElement.dataset.theme="light"}}catch(e){}})()` }} />
         <script
           type="application/ld+json"
@@ -112,8 +104,10 @@ export default function RootLayout({
             {children}
             <QuickNav />
             <MotionFallback />
+            <OfferExpiryGuard />
           </ToastProvider>
         </TranslationProvider>
+        <Umami />
         <Analytics />
         <Clarity />
       </body>

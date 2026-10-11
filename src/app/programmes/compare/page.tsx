@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Compare Programmes",
   description: "Compare up to 3 Czech university programmes side by side: tuition, duration, entrance exams, deadlines, and more.",
   alternates: { canonical: "/programmes/compare" },
+  robots: { index: false, follow: true },
 };
 
 export default function ComparePage() {

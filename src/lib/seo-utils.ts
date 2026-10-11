@@ -4,6 +4,8 @@ import type { City } from "@/data/types";
 
 export function slugify(str: string): string {
   return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // Plzeň -> Plzen, Ústí -> Usti (instead of dropping the letter)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
