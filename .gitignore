@@ -48,3 +48,6 @@ next-env.d.ts
 /files.zip
 /arabic-spellcheck-report.json
 /studyczechia.com-audit/
+
+# page measurements (tools/measure-pages.mjs)
+/measurements/
