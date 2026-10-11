@@ -146,6 +146,18 @@ body {
 .motion-safe-fallback {
   animation: motion-fallback-reveal 0s 4s forwards;
 }
+
+/*
+ * No-JavaScript safety net. Framer Motion renders animated elements with an
+ * inline opacity:0 and fades them in from JavaScript. On browsers that can't
+ * run the app (old phones, in-app browsers, blocked scripts) that left whole
+ * pages blank. Until the app has started (MotionFallback adds .hydrated to
+ * <html>), reveal those elements with CSS alone after a short delay.
+ */
+html:not(.hydrated) [style*="opacity:0"],
+html:not(.hydrated) [style*="opacity: 0"] {
+  animation: motion-fallback-reveal 0s 1.2s forwards;
+}
 .motion-revealed {
   opacity: 1 !important;
   transform: none !important;

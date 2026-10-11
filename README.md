@@ -1,82 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Study Czechia
 
-## Getting Started
+Source code for [studyczechia.com](https://studyczechia.com): free guides and tools for Arabic-speaking students who want to study in Czechia (eligibility check, university matcher, programme and fee data, cost calculators), plus paid personal services and a course.
 
-First, run the development server:
+The site is bilingual. English pages live at `/…` and their Arabic twins at `/ar/…`, each pre-rendered with its own metadata and `hreflang` links.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js 16 (App Router), React 19, Tailwind CSS 4, framer-motion, TypeScript
+- **Static export** (`output: "export"`, `trailingSlash: true`), published from `out/`. There is no server code at runtime.
+- Hosted on Netlify. Payments are Stripe Payment Links; analytics are Umami (cookieless); email capture is ConvertKit.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> This Next.js version differs from older ones. Read the relevant guide in `node_modules/next/dist/docs/` before changing framework code (see `AGENTS.md`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Run it locally
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-### Deploy script
-
-This project includes a convenience npm script to deploy to Vercel using the Vercel CLI:
+Requires Node 22 and npm 10 (the versions Netlify uses).
 
 ```bash
-# set your public site URL for metadata (optional)
-export NEXT_PUBLIC_SITE_URL="https://your-site.example"
-
-npm run deploy
+npm ci
+cp .env.example .env.local   # optional: analytics and email-capture IDs
+npm run dev                  # http://localhost:3000
 ```
 
-## Deploying to Netlify
-
-This project supports Netlify's Next.js plugin. To deploy from this machine:
-
-1. Install and login to the Netlify CLI:
+## Checks
 
 ```bash
-npm i -g netlify-cli
-netlify login
+npx tsc --noEmit   # types
+npm run lint       # ESLint
+npx vitest run     # unit and component tests (test/)
+npm run build      # static export to out/, then sets lang/dir on Arabic pages
+npx serve out      # preview the exported site
 ```
 
-2. From the project root run (this links the project and deploys production):
+`npm run build` runs `next build` and then `tools/postbuild-ar.mjs`, which prints how many Arabic pages it set to `lang="ar" dir="rtl"`.
 
-```bash
-netlify init    # follow interactive prompts (choose existing site or create new)
-netlify deploy --prod
-```
+## Deploy
 
-Notes:
-- Netlify will run `npm run build` and use `@netlify/plugin-nextjs`. You can also connect your GitHub repo in the Netlify dashboard for continuous deploys.
-- If you prefer Vercel, run `vercel --prod` after `vercel login`.
+Netlify builds from Git (`netlify.toml`):
 
-## CI deploy (GitHub Actions)
+- every pull request gets a deploy preview at `https://deploy-preview-<N>--studyczechia.netlify.app`;
+- merging to `main` deploys production.
 
-This repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds on push to `main` and will deploy to Netlify and/or Vercel when the corresponding repository secrets are set.
+GitHub Actions (`.github/workflows/ci.yml`) only runs checks. Environment variables (`NEXT_PUBLIC_*`) are set in Netlify and baked in at build time, so a changed value needs a new deploy.
 
-Set these repository secrets in GitHub Settings → Secrets → Actions:
+## Add a page
 
-- `NETLIFY_AUTH_TOKEN` — your Netlify personal access token
-- `NETLIFY_SITE_ID` — the Netlify site ID to deploy to
-- `VERCEL_TOKEN` — your Vercel token (for Vercel deploys)
+1. Build the English page under `src/app/<route>/`.
+2. Add its Arabic strings with the same keys as the English ones (`src/i18n/translations.ts` or the page's own `{ en, ar }` copy).
+3. Add an `AR_PAGE_META` entry in `src/i18n/ar-metadata.ts` (title and description in Modern Standard Arabic).
+4. Run `npm run gen:ar` and commit the generated files under `src/app/ar/`. Dynamic routes need a hand-written Arabic route file containing `@custom-ar`, which the generator never overwrites.
+5. Add the page to `src/app/sitemap.ts`.
 
-The workflow will only run the provider job when the necessary secrets are present.
-If you prefer another host (Netlify, Azure Static Web Apps, etc.), follow the provider's Next.js deployment guide instead.
+Internal links: import `Link` from `@/components/locale-link` (never `next/link`), and pass plain `<a>` hrefs through `localizeHref()`. Internal URLs end with `/`.
+
+## Change prices or payment links
+
+- **Prices** live only in `src/config/pricing.ts` (`REGULAR_PRICES`, `LAUNCH_OFFER`). Copy never contains a typed price: use `price(key, locale)`, `<PriceTag k="…">`, `fullPackageTotal()` or `czk()`.
+- **Stripe links** live only in `stripe-links.json` and are rendered through `checkoutLink(key)`. Entries with `"public": false` are sent privately and must never be rendered (`checkoutLink` throws).
+- **Refund wording** comes from `REFUND_COPY` in `src/config/contact.ts`, or from `/terms`.
+
+After changing a price, update the matching Stripe link too; `test/pricing.test.ts` checks that `REGULAR_PRICES` and `stripe-links.json` agree.
+
+## Project map
+
+| Area | Where |
+|---|---|
+| Prices, launch offer | `src/config/pricing.ts`, `src/components/launch-offer.tsx` |
+| Contact details, refund copy | `src/config/contact.ts` |
+| Programme and fee data (with sources) | `src/data/programmes.ts` |
+| Course content | `src/data/course.ts`, `src/app/courses/learn/`, `COURSE-ADMIN-GUIDE.md` |
+| i18n | `src/i18n/` (`context.tsx`, `translations.ts`, `paths.ts`, `ar-metadata.ts`) |
+| Arabic routes | `src/app/ar/` (generated by `tools/gen-ar-routes.mjs`) |
+| SEO | `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/hreflang-default.tsx` |
+| Redirects, build settings | `netlify.toml` |
+
+Engineering conventions for contributors (and coding agents) are in `CLAUDE.md`.

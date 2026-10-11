@@ -51,3 +51,6 @@ next-env.d.ts
 
 # paid course content (downloaded at build time from the private repo)
 /netlify/course-content/
+
+# page measurements (tools/measure-pages.mjs)
+/measurements/
