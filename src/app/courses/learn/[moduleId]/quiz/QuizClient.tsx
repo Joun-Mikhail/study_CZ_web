@@ -9,7 +9,8 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { COURSE } from "@/data/course";
 import type { QuizQuestion } from "@/data/course";
-import { hasAccess, saveQuizScore, getQuizScore } from "@/lib/course-store";
+import { useQuiz } from "@/lib/course-api";
+import { saveQuizScore, getQuizScore } from "@/lib/course-store";
 import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "@/components/locale-link";
@@ -38,7 +39,6 @@ export default function QuizClient({ moduleId }: Props) {
   const isAr = locale === "ar";
   const t = isAr ? ar : en;
 
-  const [unlocked, setUnlocked] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [state, setState] = useState<QuizState>("intro");
   const [currentQ, setCurrentQ] = useState(0);
@@ -49,18 +49,19 @@ export default function QuizClient({ moduleId }: Props) {
 
   const mod = COURSE.modules.find((m) => m.id === moduleId);
   const modIndex = COURSE.modules.findIndex((m) => m.id === moduleId);
-  const quiz = mod?.quiz;
-  const questions = quiz?.questions ?? [];
+  const quizSummary = mod?.quiz;
+  const loaded = useQuiz(moduleId);
+  const quiz = loaded.status === "ready" ? loaded.quiz : undefined;
+  const questions: QuizQuestion[] = quiz?.questions ?? [];
   const nextModule = COURSE.modules[modIndex + 1] ?? null;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
-    setUnlocked(hasAccess());
     setBestScore(getQuizScore(moduleId));
   }, [moduleId]);
 
-  if (!mod || !quiz) {
+  if (!mod || !quizSummary) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -72,7 +73,7 @@ export default function QuizClient({ moduleId }: Props) {
     );
   }
 
-  if (!mounted) {
+  if (!mounted || loaded.status === "loading") {
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -84,7 +85,8 @@ export default function QuizClient({ moduleId }: Props) {
     );
   }
 
-  if (!unlocked) {
+  if (!quiz) {
+    const copy = loaded.status === "locked" && loaded.reason === "unavailable" ? t.unavailable : t.locked;
     return (
       <div className="relative min-h-screen">
         <Navbar />
@@ -93,8 +95,8 @@ export default function QuizClient({ moduleId }: Props) {
             <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
               <Lock className="w-8 h-8 text-amber" />
             </div>
-            <h1 className="text-2xl font-bold text-text-primary mb-2">{t.locked.title}</h1>
-            <p className="text-text-secondary text-sm mb-6">{t.locked.subtitle}</p>
+            <h1 className="text-2xl font-bold text-text-primary mb-2">{copy.title}</h1>
+            <p className="text-text-secondary text-sm mb-6">{copy.subtitle}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <MagneticButton variant="primary" href={PAYMENT_LINKS.course}>
                 {t.locked.buyBtn}
@@ -480,6 +482,10 @@ const en = {
     buyBtn: `Get the Course (${price("course")})`,
     dashboardBtn: "Back to Dashboard",
   },
+  unavailable: {
+    title: "This quiz couldn't load",
+    subtitle: "Something went wrong on our side. Please try again in a few minutes, or message me on WhatsApp.",
+  },
   result: {
     passTitle: "Great job! You passed!",
     failTitle: "Not quite there yet",
@@ -514,6 +520,10 @@ const ar: typeof en = {
     subtitle: "اشتري الكورس عشان تقدر تعمل الاختبارات.",
     buyBtn: `احصل على الكورس (${price("course", "ar")})`,
     dashboardBtn: "رجوع للوحة التحكم",
+  },
+  unavailable: {
+    title: "الاختبار ماتحملش",
+    subtitle: "في مشكلة عندنا. جرب تاني بعد شوية، أو ابعتلي على واتساب.",
   },
   result: {
     passTitle: "أحسنت! نجحت!",

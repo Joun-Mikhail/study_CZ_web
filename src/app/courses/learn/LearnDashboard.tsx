@@ -10,18 +10,17 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { COURSE, getTotalLessons } from "@/data/course";
 import {
   hasAccess,
-  validateCode,
+  captureAccessFromUrl,
   getProgress,
   getModuleProgress,
   getQuizScore,
   getLastVisited,
 } from "@/lib/course-store";
 import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "@/components/locale-link";
 import {
   Lock,
-  Unlock,
   CheckCircle2,
   PlayCircle,
   BookOpen,
@@ -48,24 +47,14 @@ export default function LearnDashboard() {
   const t = isAr ? ar : en;
 
   const [unlocked, setUnlocked] = useState(false);
-  const [code, setCode] = useState("");
-  const [codeError, setCodeError] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setMounted(true);
+    captureAccessFromUrl(); // personal links: /courses/learn/?access=<token>
     setUnlocked(hasAccess());
   }, []);
-
-  const handleUnlock = () => {
-    if (validateCode(code)) {
-      setUnlocked(true);
-      setCodeError(false);
-    } else {
-      setCodeError(true);
-    }
-  };
 
   if (!mounted) {
     return (
@@ -101,35 +90,13 @@ export default function LearnDashboard() {
             <GlassCard>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-text-primary mb-1.5">{t.gate.codeLabel}</label>
-                  <input
-                    type="text"
-                    value={code}
-                    onChange={(e) => { setCode(e.target.value); setCodeError(false); }}
-                    onKeyDown={(e) => e.key === "Enter" && handleUnlock()}
-                    placeholder={t.gate.codePlaceholder}
-                    className={cn(
-                      "w-full px-4 py-3 rounded-xl bg-midnight/50 border text-text-primary placeholder-text-muted text-sm focus:outline-none focus:ring-2 focus:ring-amber/50 transition-colors",
-                      codeError ? "border-red-500/50" : "border-border-subtle"
-                    )}
-                  />
-                  <AnimatePresence>
-                    {codeError && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="text-red-400 text-xs mt-1.5"
-                      >
-                        {t.gate.codeError}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <h2 className="text-sm font-semibold text-text-primary mb-1">{t.gate.newDeviceTitle}</h2>
+                  <p className="text-sm text-text-secondary leading-relaxed">{t.gate.newDeviceBody}</p>
                 </div>
 
-                <MagneticButton variant="primary" onClick={handleUnlock} className="w-full">
-                  <Unlock className="w-4 h-4" />
-                  {t.gate.unlockBtn}
+                <MagneticButton variant="primary" href={whatsappWithContext("course access on a new device")} className="w-full">
+                  <MessageCircle className="w-4 h-4" />
+                  {t.gate.whatsappBtn}
                 </MagneticButton>
 
                 <div className="relative flex items-center gap-3 my-2">
@@ -142,12 +109,6 @@ export default function LearnDashboard() {
                   {t.gate.buyBtn}
                 </MagneticButton>
 
-                <p className="text-xs text-text-muted text-center">
-                  {t.gate.help}{" "}
-                  <a href={whatsappWithContext("course access")} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">
-                    {t.gate.helpLink}
-                  </a>
-                </p>
               </div>
             </GlassCard>
           </div>
@@ -314,7 +275,7 @@ export default function LearnDashboard() {
                                 {lesson.isFree && (
                                   <span className="text-xs text-green-400 font-medium">{t.dashboard.free}</span>
                                 )}
-                                {!lesson.videoUrl && (
+                                {!lesson.hasVideo && (
                                   <span className="text-xs text-text-muted/70 italic">{t.dashboard.comingSoon}</span>
                                 )}
                               </div>
@@ -346,7 +307,7 @@ export default function LearnDashboard() {
                             {isAr ? mod.quiz.title.ar : mod.quiz.title.en}
                           </p>
                           <p className="text-xs text-text-muted">
-                            {mod.quiz.questions.length} {t.dashboard.questions}
+                            {mod.quiz.questionCount} {t.dashboard.questions}
                             {quizScore !== null && ` · ${t.dashboard.bestScore}: ${quizScore}%`}
                           </p>
                         </div>
@@ -384,15 +345,12 @@ export default function LearnDashboard() {
 const en = {
   gate: {
     title: "Access Your Course",
-    subtitle: "Enter your access code to unlock the course. You received it after purchasing.",
-    codeLabel: "Access Code",
-    codePlaceholder: "Enter your code here...",
-    codeError: "Invalid code. Please check and try again.",
-    unlockBtn: "Unlock Course",
+    subtitle: "Bought the course? After paying, Stripe brings you back to a welcome page that opens the course on that device.",
+    newDeviceTitle: "Changed phone or laptop?",
+    newDeviceBody: "Message me on WhatsApp with the email you paid with, and I'll send you a personal link that opens the course.",
+    whatsappBtn: "Get my link on WhatsApp",
     or: "or",
     buyBtn: `Buy the Course (${price("course")})`,
-    help: "Bought but didn't get a code?",
-    helpLink: "Message us on WhatsApp",
   },
   dashboard: {
     badge: "Your Course",
@@ -412,15 +370,12 @@ const en = {
 const ar: typeof en = {
   gate: {
     title: "ادخل للكورس",
-    subtitle: "اكتب كود الدخول عشان تفتح الكورس. الكود وصلك بعد الشراء.",
-    codeLabel: "كود الدخول",
-    codePlaceholder: "اكتب الكود هنا...",
-    codeError: "الكود غلط. اتأكد وجرب تاني.",
-    unlockBtn: "افتح الكورس",
+    subtitle: "اشتريت الكورس؟ بعد الدفع، Stripe بيرجعك لصفحة ترحيب بتفتحلك الكورس على الجهاز ده.",
+    newDeviceTitle: "غيرت موبايلك أو اللابتوب؟",
+    newDeviceBody: "ابعتلي على واتساب الإيميل اللي دفعت بيه، وهبعتلك لينك شخصي يفتحلك الكورس.",
+    whatsappBtn: "ابعتلي اللينك على واتساب",
     or: "أو",
     buyBtn: `اشتري الكورس (${price("course", "ar")})`,
-    help: "اشتريت بس الكود ما وصلش؟",
-    helpLink: "كلمنا على واتساب",
   },
   dashboard: {
     badge: "الكورس بتاعك",
