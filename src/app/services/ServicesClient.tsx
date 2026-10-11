@@ -866,7 +866,7 @@ const en = {
     button: "Message on WhatsApp",
   },
   bestValue: "Best Value",
-  twoStepsNote: OFFER_ACTIVE ? "half now, half after acceptance" : "in 2 steps, the second after acceptance",
+  twoStepsNote: `${price("fullPackageStep1")} now, ${price("fullPackageStep2")} after acceptance`,
   whatsappTooltip: "Not sure which service? Ask me, no pressure.",
 };
 
@@ -1103,6 +1103,6 @@ const ar: typeof en = {
     button: "راسل على واتساب",
   },
   bestValue: "الأفضل قيمة",
-  twoStepsNote: OFFER_ACTIVE ? "نص دلوقتي، ونص بعد القبول" : "على خطوتين، التانية بعد القبول",
+  twoStepsNote: `${price("fullPackageStep1", "ar")} دلوقتي، و${price("fullPackageStep2", "ar")} بعد القبول`,
   whatsappTooltip: "مش متأكد من أي خدمة؟ اسألني. من غير ضغط.",
 };
