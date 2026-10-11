@@ -10,7 +10,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { COURSE } from "@/data/course";
 import type { QuizQuestion } from "@/data/course";
 import { hasAccess, saveQuizScore, getQuizScore } from "@/lib/course-store";
-import { PAYMENT_LINKS, WHATSAPP_URL, whatsappWithContext } from "@/config/contact";
+import { PAYMENT_LINKS, WHATSAPP_URL } from "@/config/contact";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "@/components/locale-link";
 import {
@@ -23,7 +23,6 @@ import {
   LayoutDashboard,
   Lock,
   Award,
-  MessageCircle,
   Target,
   Lightbulb,
 } from "lucide-react";
@@ -437,17 +436,6 @@ export default function QuizClient({ moduleId }: Props) {
         </div>
       </main>
 
-      <a
-        href={whatsappWithContext("a quiz question")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 end-6 z-50"
-        aria-label="WhatsApp"
-      >
-        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-          <MessageCircle className="w-7 h-7 text-white" />
-        </div>
-      </a>
 
       <Footer />
     </div>

@@ -14,7 +14,7 @@ import {
   isLessonComplete,
   setLastVisited,
 } from "@/lib/course-store";
-import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
+import { WHATSAPP_URL, PAYMENT_LINKS } from "@/config/contact";
 import { motion } from "framer-motion";
 import Link from "@/components/locale-link";
 import {
@@ -28,7 +28,6 @@ import {
   FileText,
   Headphones,
   BookOpen,
-  MessageCircle,
   LayoutDashboard,
   Video,
 } from "lucide-react";
@@ -328,18 +327,6 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
         </div>
       </main>
 
-      {/* Floating WhatsApp */}
-      <a
-        href={whatsappWithContext("a course lesson")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 end-6 z-50"
-        aria-label="WhatsApp"
-      >
-        <div className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-          <MessageCircle className="w-7 h-7 text-white" />
-        </div>
-      </a>
 
       <Footer />
     </div>

@@ -7,7 +7,7 @@ import Umami from "@/components/umami";
 import { MotionProvider } from "@/components/motion-provider";
 import { OfferExpiryGuard } from "@/components/launch-offer";
 import { HreflangDefault } from "@/components/hreflang-default";
-import { QuickNav } from "@/components/ui/quick-nav";
+import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
 import { FOUNDER_NAME } from "@/config/contact";
@@ -104,7 +104,7 @@ export default function RootLayout({
         <TranslationProvider>
           <ToastProvider>
             {children}
-            <QuickNav />
+            <WhatsAppFloat />
             <MotionFallback />
             <OfferExpiryGuard />
           </ToastProvider>
