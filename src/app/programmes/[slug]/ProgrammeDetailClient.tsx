@@ -8,6 +8,7 @@ import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { getDeadlineStatus } from "@/data/programmes";
 import type { Programme, UniversityV2, DeadlineStatus } from "@/data/types";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
+import { EmailSignup } from "@/components/email-signup";
 import {
   GraduationCap,
   MapPin,
@@ -121,6 +122,10 @@ export default function ProgrammeDetailClient({ programme: p, university: uni }:
           <SaveProgrammeButton programmeId={p.id} locale={locale} size="md" />
         </div>
       </div>
+
+      {deadlineStatus !== "passed" && deadlineStatus !== "rolling" && (
+        <EmailSignup source="deadline" programmeIds={[p.id]} compact className="mb-8" />
+      )}
 
       {/* ── Key Facts ─────────────────────────────────────────── */}
       <Section title="Key Facts" icon={ClipboardList}>
