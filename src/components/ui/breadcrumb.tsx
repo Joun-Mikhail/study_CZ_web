@@ -33,6 +33,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   about: { en: "About", ar: "عن الموقع" },
   contact: { en: "Contact", ar: "تواصل معنا" },
   "what-it-costs": { en: "What It Costs", ar: "التكاليف" },
+  "why-czechia": { en: "Why Czechia", ar: "ليه التشيك" },
   "questions-to-ask": { en: "Questions to Ask", ar: "أسئلة مهمة" },
   programmes: { en: "Programmes", ar: "البرامج" },
   compare: { en: "Compare", ar: "مقارنة" },

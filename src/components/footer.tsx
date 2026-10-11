@@ -94,6 +94,7 @@ export function Footer() {
               {t.footer.resourcesLabel}
             </h4>
             <ul className="space-y-2.5 text-sm">
+              <li><Link href="/why-czechia" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
               <li><Link href="/cost-of-living" className="text-text-secondary hover:text-amber transition-colors">{t.nav.costOfLiving}</Link></li>
               <li><Link href="/application-guide" className="text-text-secondary hover:text-amber transition-colors">{t.nav.guide}</Link></li>
               <li><Link href="/qa" className="text-text-secondary hover:text-amber transition-colors">{t.nav.qa}</Link></li>

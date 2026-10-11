@@ -47,17 +47,17 @@ export function StageRouter() {
   const { locale } = useTranslation();
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         className="motion-safe-fallback"
       >
-        <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-4 sm:mb-6">
           {HEADING[locale]}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
           {STAGES.map((stage, i) => {
             const Icon = stage.icon;
             return (
@@ -71,15 +71,15 @@ export function StageRouter() {
               >
                 <Link
                   href={`/stage/${stage.slug}`}
-                  className="group flex flex-col h-full p-5 rounded-2xl border border-amber/20 bg-amber/[0.04] hover:bg-amber/[0.08] hover:border-amber/40 transition-colors"
+                  className="group flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0 h-full px-4 py-3 sm:p-5 rounded-xl sm:rounded-2xl border border-amber/20 bg-amber/[0.04] hover:bg-amber/[0.08] hover:border-amber/40 transition-colors"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center mb-3 shrink-0">
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center sm:mb-3 shrink-0">
                     <Icon className="w-5 h-5 text-amber" />
                   </div>
                   <p className="text-sm font-semibold text-text-primary leading-snug flex-1">
                     {stage[locale]}
                   </p>
-                  <ArrowRight className="w-4 h-4 text-amber mt-3 opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
+                  <ArrowRight className="w-4 h-4 text-amber shrink-0 sm:mt-3 sm:opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
                 </Link>
               </motion.div>
             );
