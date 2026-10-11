@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Link from "@/components/locale-link";
@@ -142,6 +142,9 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
     </motion.div>
   );
 }
+
+/** Shown at the top of the mobile menu, so not repeated in its groups. */
+const MOBILE_TOP = new Set(["/courses", "/services", "/university-matcher", "/eligibility"]);
 
 export function Navbar() {
   const { t, locale, setLocale } = useTranslation();
@@ -362,6 +365,27 @@ export function Navbar() {
                     />
                   </div>
                 </form>
+                {/* Most-used first: Course, Services, Matcher, Eligibility */}
+                <div className="mb-3 pb-3 border-b border-border-subtle">
+                  {[
+                    { href: "/courses", label: locale === "ar" ? "الكورس" : "The Course" },
+                    { href: "/services", label: t.nav.services },
+                    { href: "/university-matcher", label: t.nav.matcher },
+                    { href: "/eligibility", label: locale === "ar" ? "أقدر أقدم؟" : "Eligibility Check" },
+                  ].map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={handleNavigate}
+                      className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                        isActive(item.href) ? "text-amber bg-amber/5" : "text-text-primary hover:bg-white/5"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+
 
                 {/* Grouped nav items */}
                 {Object.entries(dropdowns).map(([key, group]) => (
@@ -369,7 +393,7 @@ export function Navbar() {
                     <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
                       {group.label}
                     </p>
-                    {group.items.map((item) => (
+                    {group.items.filter((item) => !MOBILE_TOP.has(item.href)).map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -385,32 +409,6 @@ export function Navbar() {
                     ))}
                   </div>
                 ))}
-
-                {/* Direct links */}
-                <div className="border-t border-border-subtle pt-3 mt-1">
-                  <Link
-                    href="/courses"
-                    onClick={handleNavigate}
-                    className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      isActive("/courses")
-                        ? "text-amber bg-amber/5"
-                        : "text-text-primary hover:bg-white/5"
-                    }`}
-                  >
-                    {locale === "ar" ? "الكورس" : "The Course"}
-                  </Link>
-                  <Link
-                    href="/services"
-                    onClick={handleNavigate}
-                    className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      isActive("/services")
-                        ? "text-amber bg-amber/5"
-                        : "text-amber hover:bg-white/5"
-                    }`}
-                  >
-                    {t.nav.services}
-                  </Link>
-                </div>
               </div>
             </motion.div>
           )}
