@@ -12,7 +12,7 @@ import { PragueSkyline } from "@/components/ui/prague-skyline";
 import { StageRouter } from "@/components/stage-router";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
-import { EmailCapture } from "@/components/email-capture";
+import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
 import { price } from "@/config/pricing";
 import {
@@ -317,7 +317,7 @@ export default function HomeClient() {
       </section>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <EmailCapture tool="checklist" />
+        <EmailSignup source="checklist" />
       </div>
 
       {/* Services CTA band */}

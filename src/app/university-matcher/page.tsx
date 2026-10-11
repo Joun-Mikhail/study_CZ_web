@@ -9,7 +9,7 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
-import { EmailCapture } from "@/components/email-capture";
+import { EmailSignup } from "@/components/email-signup";
 import { filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, City } from "@/data/types";
@@ -380,7 +380,7 @@ export default function MatcherPage() {
                   </span>
                 </GlassCard>
 
-                <EmailCapture tool="matcher" />
+                <EmailSignup source="matcher" programmeIds={results.slice(0, 5).map((m) => m.programme.id)} className="mt-6" />
 
                 <div className="flex items-center justify-center gap-4 mt-6">
                   <MagneticButton variant="ghost" onClick={reset}>
