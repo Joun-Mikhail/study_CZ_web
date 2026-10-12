@@ -41,6 +41,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   learn: { en: "Course Dashboard", ar: "لوحة الكورس" },
   quiz: { en: "Quiz", ar: "الاختبار" },
   verify: { en: "Verify Certificate", ar: "التحقق من الشهادة" },
+  "for-parents": { en: "For Parents", ar: "لأولياء الأمور" },
 };
 
 const SITE_URL = "https://studyczechia.com";

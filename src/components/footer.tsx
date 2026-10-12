@@ -99,6 +99,7 @@ export function Footer() {
               <li><Link href="/application-guide" className="text-text-secondary hover:text-amber transition-colors">{t.nav.guide}</Link></li>
               <li><Link href="/qa" className="text-text-secondary hover:text-amber transition-colors">{t.nav.qa}</Link></li>
               <li><Link href="/services" className="text-text-secondary hover:text-amber transition-colors">{t.nav.services}</Link></li>
+              <li><Link href="/for-parents" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "لأولياء الأمور" : "For Parents"}</Link></li>
               <li><Link href="/eligibility" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "أقدر أقدم؟" : "Eligibility Check"}</Link></li>
               <li><Link href="/verify" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "التحقق من شهادة" : "Verify Certificate"}</Link></li>
             </ul>
