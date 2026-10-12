@@ -41,6 +41,8 @@ jobs:
       - run: npx lhci autorun --config=lighthouserc.cjs
         env:
           CHROME_PATH: /usr/bin/google-chrome
+      # Homepage JavaScript, gzipped, against baseline + 30 KB.
+      - run: node tools/js-budget.mjs
       # axe WCAG 2.1 A/AA on 15 pages, EN + AR, light + dark, plus the open help sheet.
       - run: node tools/a11y-check.mjs
         env:

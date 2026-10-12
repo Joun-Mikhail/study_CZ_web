@@ -13,8 +13,8 @@ const PAGES = [
   { path: "/services/", perf: 0.84, lcp: 3972 },
   { path: "/programmes/vse-bba-intl-business/", perf: 0.85, lcp: 3844 },
 ];
-const HOME_JS_BASELINE = 228 * 1024; // compressed script bytes on "/"
-
+// Homepage JS is budgeted by tools/js-budget.mjs: Lighthouse's script total
+// also counts route chunks Next.js prefetches, which varies run to run.
 
 module.exports = {
   ci: {
@@ -35,7 +35,6 @@ module.exports = {
           "cumulative-layout-shift": ["error", { maxNumericValue: 0.05 }],
           "total-blocking-time": ["error", { maxNumericValue: 200 }],
           "largest-contentful-paint": ["error", { maxNumericValue: Math.round(p.lcp * 1.1) }],
-          ...(p.path === "/" ? { "resource-summary:script:size": ["error", { maxNumericValue: HOME_JS_BASELINE + 30 * 1024 }] } : {}),
         },
       })).concat([
         // The brief's target. A warning until the baseline gets there.

@@ -11,7 +11,7 @@ Every pull request runs **Lighthouse budgets and accessibility** in CI (`.github
 
 ## Baseline (main, 12 October 2026, median of 3)
 
-| Page | Performance | Accessibility | LCP | CLS | TBT | JS (compressed) |
+| Page | Performance | Accessibility | LCP | CLS | TBT | JS transferred (Lighthouse) |
 |---|---|---|---|---|---|---|
 | `/` | 89 | 100 | 3.8 s | 0 | 40 ms | 228 KB |
 | `/ar/` | 83 | 100 | 4.6 s | 0 | 66 ms | 228 KB |
@@ -19,7 +19,7 @@ Every pull request runs **Lighthouse budgets and accessibility** in CI (`.github
 | `/services/` | 87 | 100 | 4.0 s | 0.019 | 41 ms | 256 KB |
 | `/programmes/vse-bba-intl-business/` | 88 | 100 | 3.8 s | 0 | 41 ms | 252 KB |
 
-These come from the local CI server, not production. Netlify's CDN may be a little faster, so compare runs of the same kind with each other.
+Lighthouse's JS column also counts route chunks Next.js prefetches, so it varies from run to run. The JS budget therefore uses `tools/js-budget.mjs`, which is exact. These numbers come from the local CI server, not production. Netlify's CDN may be a little faster, so compare runs of the same kind with each other.
 
 ## Budgets (`lighthouserc.cjs`)
 
@@ -31,7 +31,7 @@ These come from the local CI server, not production. Netlify's CDN may be a litt
 | TBT | ≤ 200 ms | error |
 | LCP | no worse than the baseline + 10 % | error |
 | LCP | ≤ 2.5 s, the brief's target | **warning** |
-| Homepage JavaScript | ≤ baseline + 30 KB (258 KB compressed) | error |
+| Homepage JavaScript (`tools/js-budget.mjs`: gzipped size of the scripts the homepage HTML loads, EN and AR; baseline 264 KB) | ≤ 294 KB | error |
 
 **Why LCP 2.5 s is only a warning for now:** no page meets it yet (3.8–4.6 s), so an error would fail every PR, including ones that make things better. The LCP element is the hero photo on most pages. The photo work in phase 3 (B2) is the chance to bring it down. When a page gets under 2.5 s, tighten its budget in `lighthouserc.cjs` so it stays there.
 
