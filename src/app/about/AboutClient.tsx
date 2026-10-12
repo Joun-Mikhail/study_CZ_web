@@ -124,7 +124,7 @@ export default function AboutClient() {
               sizes="(max-width: 768px) 100vw, 768px"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
           </div>
         </div>
 

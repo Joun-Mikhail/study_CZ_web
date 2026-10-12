@@ -472,7 +472,7 @@ export default function UniversityListClient() {
             sizes="(max-width: 768px) 100vw, 1200px"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-midnight/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
           <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
           <div className="absolute -bottom-6 start-1/3 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">

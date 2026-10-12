@@ -119,7 +119,7 @@ export default function WhyCzechiaClient() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 50vw, 45vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Corner accent on hover */}
               <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-bl-lg" />
               <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-tr-lg" />

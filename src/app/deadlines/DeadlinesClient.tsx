@@ -371,7 +371,7 @@ export default function DeadlinesClient() {
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 896px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-3">{l.title}</h1>
