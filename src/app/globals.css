@@ -34,7 +34,8 @@
   --color-accent-red: #c8102e;
   --color-ink: #0b1f3a;
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-zen-antique), Georgia, "Times New Roman", serif;
+  --font-display-ar: var(--font-lalezar), var(--font-plex-arabic), "Segoe UI", Tahoma, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
   --font-arabic: var(--font-plex-arabic), "Segoe UI", Tahoma, sans-serif;
 }
@@ -126,19 +127,31 @@ body {
   transition: background-color 200ms ease, color 200ms ease;
 }
 
-/* Editorial serif for page and section headings; UI text stays sans. */
+/*
+ * Display faces for headings: Zen Antique (English) and Lalezar (Arabic).
+ * Both have a single weight, so headings stay at 400 and the browser never
+ * fakes a bold from font-semibold. Body and interface text stay in the
+ * readable sans faces.
+ */
 h1:not(.font-sans),
 h2:not(.font-sans),
+h3:not(.font-sans),
 .font-display {
   font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  letter-spacing: -0.012em;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
-[dir="rtl"] h1,
-[dir="rtl"] h2 {
-  line-height: 1.35;
+[dir="rtl"] h1:not(.font-sans),
+[dir="rtl"] h2:not(.font-sans),
+[dir="rtl"] h3:not(.font-sans),
+[dir="rtl"] .font-display {
+  font-family: var(--font-display-ar);
+  /* Lalezar's tall letters clip at tight line heights. */
+  line-height: 1.5;
+  padding-block: 0.05em;
 }
 
 p {
