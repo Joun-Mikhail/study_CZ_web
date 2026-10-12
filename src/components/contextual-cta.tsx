@@ -3,13 +3,16 @@
 import { useEffect } from "react";
 import { ShieldAlert } from "lucide-react";
 import { useTranslation } from "@/i18n/context";
+import { usePathname } from "next/navigation";
 import { contextualCtas, type ContextualCtaService } from "@/data/contextual-ctas";
+import { HelpLink } from "@/components/help-sheet";
 
 let mountedCount = 0;
 
 export function ContextualCTA({ service }: { service: ContextualCtaService }) {
   const { locale } = useTranslation();
   const config = contextualCtas[service];
+  const pathname = usePathname();
 
   useEffect(() => {
     mountedCount += 1;
@@ -35,15 +38,14 @@ export function ContextualCTA({ service }: { service: ContextualCtaService }) {
           <p className="text-sm text-text-secondary leading-relaxed mb-3">
             {config.fearTrigger[locale]}
           </p>
-          <a
-            href={config.href}
-            target="_blank"
-            rel="noopener noreferrer"
+          <HelpLink
+            service={config.service}
+            source={`guide:${pathname}`}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
           >
             {config.cta[locale]}
             <span aria-hidden="true">{locale === "ar" ? "←" : "→"}</span>
-          </a>
+          </HelpLink>
         </div>
       </div>
     </div>

@@ -5,9 +5,16 @@ export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
 
 export const WHATSAPP_URL = "https://wa.me/420703982237";
 
-export function whatsappWithContext(page: string): string {
-  const text = encodeURIComponent(`Hi ${FOUNDER_NAME}, I have a question about ${page}`);
+export function whatsappWithContext(page: string, locale: "en" | "ar" = "en"): string {
+  const text = encodeURIComponent(
+    locale === "ar" ? `أهلًا ${FOUNDER_NAME_AR}، عندي سؤال عن ${page}` : `Hi ${FOUNDER_NAME}, I have a question about ${page}`
+  );
   return `https://wa.me/420703982237?text=${text}`;
+}
+
+/** WhatsApp link with a whole message already written, e.g. a student's plan. */
+export function whatsappWithText(text: string): string {
+  return `https://wa.me/420703982237?text=${encodeURIComponent(text)}`;
 }
 
 export const INSTAPAY_HANDLE = "+201282244587";

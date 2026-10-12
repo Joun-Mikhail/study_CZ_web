@@ -1,5 +1,5 @@
 import { price } from "@/config/pricing";
-import { PAYMENT_LINKS } from "@/config/contact";
+import type { HelpService } from "@/data/help-services";
 
 export type Bilingual = { en: string; ar: string };
 
@@ -12,7 +12,7 @@ export type StagePaidService = {
   fearTrigger: Bilingual;
   cta: Bilingual;
   postButton: Bilingual;
-  href: string;
+  service: HelpService;
 };
 
 export type StageConfig = {
@@ -94,7 +94,7 @@ export const stages: Record<StageSlug, StageConfig> = {
         en: "🔒 Secure payment via Stripe · Full refund if the call doesn't happen",
         ar: "🔒 دفع آمن عبر Stripe · استرداد كامل لو المكالمة ماتمتش",
       },
-      href: PAYMENT_LINKS.consultation,
+      service: "consultation",
     },
   },
 
@@ -128,7 +128,7 @@ export const stages: Record<StageSlug, StageConfig> = {
         en: "🔒 Secure payment via Stripe · Send documents via WhatsApp or email",
         ar: "🔒 دفع آمن عبر Stripe · ابعت الأوراق على واتساب أو إيميل",
       },
-      href: PAYMENT_LINKS.documentReview,
+      service: "documentReview",
     },
   },
 
@@ -162,7 +162,7 @@ export const stages: Record<StageSlug, StageConfig> = {
       },
       cta: { en: `Book My Mock Interview — ${price("interviewPrep")}`, ar: `احجز مقابلة تجريبية — ${price("interviewPrep", "ar")}` },
       postButton: { en: "", ar: "" },
-      href: PAYMENT_LINKS.interviewPrep,
+      service: "interviewPrep",
     },
   },
 
@@ -186,7 +186,7 @@ export const stages: Record<StageSlug, StageConfig> = {
       },
       cta: { en: `Get My Arrival Plan (${price("arrivalSupport")})`, ar: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})` },
       postButton: { en: "🔒 Secure payment via Stripe", ar: "🔒 دفع آمن عبر Stripe" },
-      href: PAYMENT_LINKS.arrivalSupport,
+      service: "arrivalSupport",
     },
   },
 };

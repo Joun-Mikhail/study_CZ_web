@@ -1,5 +1,5 @@
 import { price } from "@/config/pricing";
-import { PAYMENT_LINKS } from "@/config/contact";
+import type { HelpService } from "@/data/help-services";
 import type { Bilingual } from "@/data/stages";
 
 export type ContextualCtaService = "consultation" | "documentCheck" | "interviewPrep" | "arrivalSupport";
@@ -8,7 +8,7 @@ export type ContextualCtaConfig = {
   title: Bilingual;
   fearTrigger: Bilingual;
   cta: Bilingual;
-  href: string;
+  service: HelpService;
 };
 
 // Copy reused verbatim from ServicesClient.tsx / stages.ts -- nothing
@@ -22,7 +22,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       ar: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
     },
     cta: { en: `Book a Call (${price("consultation")})`, ar: `احجز مكالمة (${price("consultation", "ar")})` },
-    href: PAYMENT_LINKS.consultation,
+    service: "consultation",
   },
   documentCheck: {
     title: { en: "Document Check: Before You Submit", ar: "مراجعة الأوراق: قبل ما تقدم" },
@@ -31,7 +31,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       ar: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
     },
     cta: { en: `Get My Documents Reviewed (${price("documentReview")})`, ar: `راجع أوراقي (${price("documentReview", "ar")})` },
-    href: PAYMENT_LINKS.documentReview,
+    service: "documentReview",
   },
   interviewPrep: {
     title: { en: "Embassy Interview Prep: Don't Walk In Unprepared", ar: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير" },
@@ -40,7 +40,7 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       ar: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
     },
     cta: { en: `Book My Mock Interview — ${price("interviewPrep")}`, ar: `احجز مقابلة تجريبية — ${price("interviewPrep", "ar")}` },
-    href: PAYMENT_LINKS.interviewPrep,
+    service: "interviewPrep",
   },
   arrivalSupport: {
     title: { en: "Landed in Czechia? I've Got You.", ar: "وصلت التشيك؟ أنا معاك." },
@@ -49,6 +49,6 @@ export const contextualCtas: Record<ContextualCtaService, ContextualCtaConfig> =
       ar: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
     },
     cta: { en: `Get My Arrival Plan (${price("arrivalSupport")})`, ar: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})` },
-    href: PAYMENT_LINKS.arrivalSupport,
+    service: "arrivalSupport",
   },
 };

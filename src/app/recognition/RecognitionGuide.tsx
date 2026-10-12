@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "@/components/locale-link";
+import { usePathname } from "next/navigation";
+import { HelpLink } from "@/components/help-sheet";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -68,6 +70,7 @@ function ItemExtras({ item, sources, label }: { item: GuideItem; sources: Record
  */
 export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, string>; en: GuideCopy; ar: GuideCopy }) {
   const { locale } = useTranslation();
+  const pathname = usePathname();
   const t = locale === "ar" ? ar : en;
 
   return (
@@ -132,12 +135,13 @@ export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, 
           <GlassCard className="mb-10 text-center">
             <h2 className="text-lg font-semibold text-text-primary mb-1">{t.reviewTitle}</h2>
             <p className="text-sm text-text-secondary mb-4">{t.reviewBody}</p>
-            <Link
-              href="/services/#svc-documentReview"
+            <HelpLink
+              service="documentReview"
+              source={`recognition:${pathname}`}
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors"
             >
               {t.reviewCta}
-            </Link>
+            </HelpLink>
           </GlassCard>
 
           <section aria-labelledby="sources">
