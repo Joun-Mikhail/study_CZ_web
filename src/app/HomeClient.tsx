@@ -70,7 +70,8 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             src="/images/prague-cityscape.jpg"
             alt=""
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="-z-20 object-cover object-center"
           />

@@ -25,6 +25,8 @@ export default function Page() {
             src="/images/university-campus.jpg"
             alt="University graduation celebration"
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 1024px"
           />
@@ -32,7 +34,7 @@ export default function Page() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-10"
         >
@@ -50,7 +52,7 @@ export default function Page() {
           {scholarships.map((s, i) => (
             <motion.div
               key={s.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.08 }}
             >

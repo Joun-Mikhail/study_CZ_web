@@ -325,7 +325,7 @@ export function Navbar() {
               aria-label="Menu"
               className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-text-primary hover:bg-surface-hover transition-colors border border-border-subtle ms-1"
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                   key={mobileOpen ? "close" : "open"}
                   initial={{ rotate: -90, opacity: 0 }}

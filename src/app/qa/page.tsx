@@ -121,6 +121,8 @@ export default function QaPage() {
               src="/images/students-studying.jpg"
               alt="Students collaborating in a library"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
             />

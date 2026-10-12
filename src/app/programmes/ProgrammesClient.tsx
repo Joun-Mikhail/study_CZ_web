@@ -51,7 +51,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4 }}
     >
@@ -184,6 +184,8 @@ export default function ProgrammesClient({
             src="/images/university-campus.jpg"
             alt="University campus"
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 900px"
           />
@@ -214,6 +216,8 @@ export default function ProgrammesClient({
           </div>
           <button
             onClick={() => setShowFilters(!showFilters)}
+            aria-label={locale === "ar" ? "الفلاتر" : "Filters"}
+            aria-expanded={showFilters}
             className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
               showFilters || activeFilters > 0
                 ? "bg-amber/10 text-amber border-amber/30"
@@ -229,6 +233,7 @@ export default function ProgrammesClient({
           </button>
           <Link
             href="/my-journey"
+            aria-label={locale === "ar" ? "رحلتي" : "My Journey"}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
           >
             <Bookmark className="w-4 h-4" />
@@ -320,15 +325,15 @@ export default function ProgrammesClient({
         )}
         </AnimatePresence>
 
-        {/* Results count */}
-        <p className="text-sm text-text-muted mb-4">
+        {/* Results count, also the heading for the result cards */}
+        <h2 className="font-sans text-sm font-normal text-text-muted mb-4" aria-live="polite">
           {locale === "ar"
             ? `${filtered.length} برنامج`
             : `${filtered.length} programme${filtered.length !== 1 ? "s" : ""}`}
           {activeFilters > 0 || search
             ? (locale === "ar" ? " (بعد الفلتر)" : " (filtered)")
             : ""}
-        </p>
+        </h2>
 
         {/* Programme grid */}
         {filtered.length > 0 ? (

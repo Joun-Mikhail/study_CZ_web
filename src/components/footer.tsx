@@ -67,10 +67,10 @@ export function Footer() {
 
           {/* Explore column */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
               <span className="w-5 h-px bg-amber/40" />
               {t.footer.exploreLabel}
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/courses" className="text-text-secondary hover:text-amber transition-colors">{t.nav.courses}</Link></li>
               <li><Link href="/universities" className="text-text-secondary hover:text-amber transition-colors">{t.nav.universities}</Link></li>
@@ -82,10 +82,10 @@ export function Footer() {
 
           {/* Resources column */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
               <span className="w-5 h-px bg-amber/40" />
               {t.footer.resourcesLabel}
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/why-czechia" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
               <li><Link href="/cost-of-living" className="text-text-secondary hover:text-amber transition-colors">{t.nav.costOfLiving}</Link></li>
@@ -101,10 +101,10 @@ export function Footer() {
 
           {/* Contact column */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
               <span className="w-5 h-px bg-amber/40" />
               {t.footer.connectLabel}
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a href={`mailto:${CONTACT_EMAIL}`} className="text-text-secondary hover:text-amber transition-colors">

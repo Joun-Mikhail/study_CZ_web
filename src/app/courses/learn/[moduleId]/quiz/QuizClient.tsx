@@ -177,7 +177,7 @@ export default function QuizClient({ moduleId }: Props) {
           {/* ── INTRO ── */}
           {state === "intro" && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
@@ -224,7 +224,7 @@ export default function QuizClient({ moduleId }: Props) {
           {state === "active" && currentQuestion && (
             <motion.div
               key={currentQ}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -303,7 +303,7 @@ export default function QuizClient({ moduleId }: Props) {
                 <AnimatePresence>
                   {showExplanation && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
+                      initial={{ height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
@@ -363,7 +363,7 @@ export default function QuizClient({ moduleId }: Props) {
           {/* ── RESULTS ── */}
           {state === "result" && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >

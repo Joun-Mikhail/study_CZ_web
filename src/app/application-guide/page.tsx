@@ -49,6 +49,8 @@ export default function ApplicationGuidePage() {
               src="/images/prague-old-town.jpg"
               alt="Prague at golden hour"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 1200px"
             />

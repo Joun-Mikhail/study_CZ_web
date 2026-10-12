@@ -26,7 +26,7 @@
   --color-text-primary: #0b1f3a;
   --color-text-secondary: #3d4a5f;
   --color-text-muted: #5b677a;
-  --color-success: #15803d;
+  --color-success: #166534;
   --color-info: #1d4ed8;
   --color-accent: #11457e;
   --color-warning: #a16207;
@@ -127,8 +127,8 @@ body {
 }
 
 /* Editorial serif for page and section headings; UI text stays sans. */
-h1,
-h2,
+h1:not(.font-sans),
+h2:not(.font-sans),
 .font-display {
   font-family: var(--font-serif);
   font-optical-sizing: auto;

@@ -39,7 +39,7 @@ export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
     <motion.span
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ y: 10 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4 }}
     >

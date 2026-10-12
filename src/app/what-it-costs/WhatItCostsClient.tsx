@@ -93,7 +93,7 @@ const t = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
@@ -164,7 +164,8 @@ export default function WhatItCostsClient() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
-                priority
+                loading="eager"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-ink/10" />
             </div>
@@ -172,7 +173,7 @@ export default function WhatItCostsClient() {
 
           {/* Verified badge */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             className="flex items-center gap-2 mb-6"
           >
@@ -184,7 +185,7 @@ export default function WhatItCostsClient() {
 
           {/* Hero */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
@@ -194,7 +195,7 @@ export default function WhatItCostsClient() {
 
           {!hasData ? (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
               className="rounded-2xl border border-border-subtle bg-surface/60 p-8 text-center"
             >
@@ -217,7 +218,7 @@ export default function WhatItCostsClient() {
               {/* Document costs */}
               {c.documentCosts.some((d) => d.country !== "") && (
                 <SectionCard icon={FileText} title={l.docCostsTitle}>
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto" tabIndex={0}>
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="text-text-muted border-b border-border-subtle">
@@ -258,7 +259,7 @@ export default function WhatItCostsClient() {
               {/* Living costs */}
               {c.livingCosts.some((lc) => lc.city !== "") && (
                 <SectionCard icon={Utensils} title={l.livingTitle}>
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto" tabIndex={0}>
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="text-text-muted border-b border-border-subtle">

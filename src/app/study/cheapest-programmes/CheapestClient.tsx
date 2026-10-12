@@ -54,6 +54,8 @@ export default function CheapestClient() {
               src="/images/university-campus.jpg"
               alt="University campus"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 800px"
             />
@@ -110,7 +112,7 @@ export default function CheapestClient() {
             return (
               <motion.div
                 key={prog.id}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.04, 0.5), duration: 0.4 }}
               >

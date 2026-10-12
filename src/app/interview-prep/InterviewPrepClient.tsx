@@ -44,7 +44,8 @@ export default function InterviewPrepClient() {
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
@@ -53,7 +54,7 @@ export default function InterviewPrepClient() {
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
@@ -75,7 +76,7 @@ export default function InterviewPrepClient() {
         {/* What actually happens */}
         <section className="max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
@@ -106,7 +107,7 @@ export default function InterviewPrepClient() {
         {/* What the officer is actually testing */}
         <section className="max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
@@ -125,7 +126,7 @@ export default function InterviewPrepClient() {
         {/* Most common failure */}
         <section className="max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
@@ -154,7 +155,7 @@ export default function InterviewPrepClient() {
         {/* Final CTA */}
         <section className="max-w-xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >

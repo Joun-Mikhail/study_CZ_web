@@ -56,6 +56,8 @@ export default function PreparatoryYearPage() {
               src="/images/prague-scenic.jpg"
               alt="Aerial view of Prague Old Town"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 900px"
             />
@@ -67,7 +69,7 @@ export default function PreparatoryYearPage() {
       {/* Hero */}
       <section className="pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-6">
               <GraduationCap className="w-4 h-4" />
               {locale === "ar" ? "السنة التحضيرية" : "Foundation Year"}
@@ -160,6 +162,7 @@ export default function PreparatoryYearPage() {
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-text-muted" />
               <select
+                aria-label={locale === "ar" ? "المدينة" : "City"}
                 value={cityFilter}
                 onChange={(e) => setCityFilter(e.target.value)}
                 className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-amber/50"
@@ -171,6 +174,7 @@ export default function PreparatoryYearPage() {
               </select>
             </div>
             <select
+              aria-label={locale === "ar" ? "لغة الدراسة" : "Language of study"}
               value={langFilter}
               onChange={(e) => setLangFilter(e.target.value)}
               className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-amber/50"
@@ -491,7 +495,7 @@ function ProgramCard({
         <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
       )}
 
-      <div className="overflow-x-auto -mx-2">
+      <div className="overflow-x-auto -mx-2" tabIndex={0}>
         <table className="w-full text-xs min-w-[400px]">
           <thead>
             <tr className="border-b border-border-subtle">
