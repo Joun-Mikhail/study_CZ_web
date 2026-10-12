@@ -44,6 +44,7 @@ export function CityStrip({ cities }: { cities: CityCard[] }) {
                   sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 180px"
                   className="transition-transform duration-500 ease-out group-hover:scale-105"
                   decorative
+                  whenNear
                 />
               </div>
               <div className="p-3">

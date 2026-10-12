@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/i18n/context";
+import { CityMap, type MapCity } from "@/components/city-map";
 import { PhotoCredits } from "@/components/site-image";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -33,7 +34,7 @@ import {
 } from "lucide-react";
 
 /** Background on studying in Czechia, moved from the homepage to keep it short. */
-export default function WhyCzechiaClient() {
+export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }) {
   const { t, locale } = useTranslation();
   const copy = PAGE_COPY[locale];
 
@@ -131,6 +132,18 @@ export default function WhyCzechiaClient() {
           {locale === "en" ? "Photos: Unsplash & Pexels (free license)" : "الصور: Unsplash و Pexels (ترخيص مجاني)"}
         </p>
       </section>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section aria-labelledby="city-map-title" className="reveal mb-10">
+          <h2 id="city-map-title" className="text-2xl sm:text-3xl text-text-primary mb-1">
+            {locale === "ar" ? "مدن الجامعات على الخريطة" : "University cities on the map"}
+          </h2>
+          <p className="text-sm text-text-secondary mb-4">
+            {locale === "ar" ? "14 مدينة فيها جامعات بتدرّس بالإنجليزي." : "14 cities with universities teaching in English."}
+          </p>
+          <CityMap cities={mapCities} />
+        </section>
+      </div>
 
       <SectionDivider />
 

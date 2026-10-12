@@ -353,3 +353,21 @@ html:not(.hydrated) [style*="opacity: 0"] {
 @media (prefers-reduced-motion: reduce) {
   .card-lift, .card-lift:hover { transition: none; transform: none; }
 }
+
+/* City map (components/city-map.tsx): dots breathe, the card rises. */
+@media (prefers-reduced-motion: no-preference) {
+  .map-pulse {
+    animation: map-pulse 2.6s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .map-card {
+    animation: map-card-rise 220ms ease-out;
+  }
+}
+@keyframes map-pulse {
+  50% { transform: scale(1.35); opacity: 0.35; }
+}
+@keyframes map-card-rise {
+  from { transform: translateY(12px); opacity: 0.6; }
+}
