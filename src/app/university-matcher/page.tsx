@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { track } from "@/components/umami";
+import { track, trackToolStarted } from "@/components/umami";
 import { useMemo, useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -329,9 +329,10 @@ export default function MatcherPage() {
                     variant="primary"
                     onClick={() => {
                       if (!canGoNext) return;
+                      trackToolStarted("matcher");
                       if (step === steps.length - 1 && !completed.current) {
                         completed.current = true; // count a double tap once
-                        track("matcher_completed", { field: field || "any" });
+                        track("tool_completed", { tool: "matcher", field: field || "any" });
                       }
                       // Clamp: a double tap during the animation must not skip a question.
                       setStep((s) => Math.min(step + 1, s + 1, steps.length));

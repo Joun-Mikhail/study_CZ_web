@@ -24,6 +24,7 @@ import { cityGuides } from "@/data/city-guides";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
+import { trackToolStarted } from "@/components/umami";
 
 function useChartColors() {
   const [colors, setColors] = useState({
@@ -131,7 +132,7 @@ export default function CostOfLivingPage() {
           {cities.map((c) => (
             <button
               key={c.key}
-              onClick={() => setCity(c.key)}
+              onClick={() => { trackToolStarted("cost-of-living"); setCity(c.key); }}
               className={cn(
                 "px-5 py-2.5 rounded-xl text-sm font-medium border transition-colors",
                 city === c.key
@@ -296,7 +297,7 @@ export default function CostOfLivingPage() {
                   min={0}
                   max={30}
                   value={hoursPerWeek}
-                  onChange={(e) => setHoursPerWeek(Number(e.target.value))}
+                  onChange={(e) => { trackToolStarted("cost-of-living"); setHoursPerWeek(Number(e.target.value)); }}
                   className="w-full accent-brand"
                 />
               </div>
@@ -312,7 +313,7 @@ export default function CostOfLivingPage() {
                   max={220}
                   step={10}
                   value={hourlyWage}
-                  onChange={(e) => setHourlyWage(Number(e.target.value))}
+                  onChange={(e) => { trackToolStarted("cost-of-living"); setHourlyWage(Number(e.target.value)); }}
                   className="w-full accent-brand"
                 />
               </div>
