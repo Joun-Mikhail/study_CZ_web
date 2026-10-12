@@ -148,7 +148,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-amber/40"
+        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-brand/40"
       >
         <option value="">{placeholder}</option>
         {options.map((o) => (
@@ -183,12 +183,12 @@ function ProgrammeCard({
       {/* Decorative corner element */}
       <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
         <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-          <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+          <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
         </svg>
       </div>
 
       <div className="flex items-start justify-between gap-2">
-        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-amber transition-colors duration-300">
+        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-brand transition-colors duration-300">
           {prog.name[locale] || prog.name.en}
         </Link>
         <div className="flex items-center gap-1 shrink-0">
@@ -215,7 +215,7 @@ function ProgrammeCard({
       )}
 
       <div className="flex flex-wrap items-center gap-2 mt-3">
-        <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+        <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
           {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
         </span>
         <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
@@ -231,7 +231,7 @@ function ProgrammeCard({
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs text-text-secondary">
         <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-amber/70" />
+          <Euro className="w-3 h-3 text-brand/70" />
           €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
         </span>
         <span className="inline-flex items-center gap-1">
@@ -259,7 +259,7 @@ function ProgrammeCard({
           sourceUrl={prog.verification.sourceUrl}
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
-        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-amber hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-brand hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300">
           {l.viewProgramme}
           <ArrowRight className="w-3 h-3" />
         </Link>
@@ -284,16 +284,16 @@ function UniversityCard({
       <GlassCard hoverEffect="lift" className="group relative card-shine p-5 h-full flex flex-col overflow-hidden">
         {/* Decorative gradient corner */}
         <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="w-full h-full bg-gradient-to-bl from-amber/5 to-transparent rounded-bl-full" />
+          <div className="w-full h-full bg-gradient-to-bl from-brand/5 to-transparent rounded-bl-full" />
         </div>
 
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-amber transition-colors duration-300">{uni.name}</h3>
+          <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-brand transition-colors duration-300">{uni.name}</h3>
           <span className={cn(
             "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
             uni.type === "public"
               ? "bg-success/10 text-success border-success/20"
-              : "bg-amber/10 text-amber border-amber/20"
+              : "bg-brand/10 text-brand border-brand/20"
           )}>
             {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
           </span>
@@ -301,7 +301,7 @@ function UniversityCard({
 
         <div className="flex items-center gap-3 mt-2 text-sm text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-amber/70" />
+            <MapPin className="w-3.5 h-3.5 text-brand/70" />
             {locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
           </span>
           {uni.founded && (
@@ -324,7 +324,7 @@ function UniversityCard({
 
         <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
           {programmeCount > 0 ? (
-            <span className="inline-flex items-center gap-1.5 text-xs text-amber">
+            <span className="inline-flex items-center gap-1.5 text-xs text-brand">
               <GraduationCap className="w-3.5 h-3.5" />
               {programmeCount} {locale === "ar" ? "برنامج مسجل" : programmeCount === 1 ? "programme" : "programmes"}
             </span>
@@ -333,7 +333,7 @@ function UniversityCard({
               {locale === "ar" ? "البرامج قريبًا" : "Programmes coming soon"}
             </span>
           )}
-          <span className="inline-flex items-center gap-1 text-xs text-amber opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <span className="inline-flex items-center gap-1 text-xs text-brand opacity-0 group-hover:opacity-100 transition-all duration-300">
             {locale === "ar" ? "التفاصيل" : "View details"}
             <ArrowRight className="w-3 h-3" />
           </span>
@@ -488,7 +488,7 @@ export default function UniversityListClient() {
               </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-amber" />
+              <Sparkles className="w-3.5 h-3.5 text-brand" />
               <span className="text-xs text-white/80">
                 {mode === "programmes"
                   ? `${filteredProgrammes.length} ${l.showing}`
@@ -505,7 +505,7 @@ export default function UniversityListClient() {
           className={cn(
             "px-4 py-2 rounded-lg text-sm font-medium transition-all",
             mode === "programmes"
-              ? "bg-amber/10 text-amber border border-amber/30"
+              ? "bg-brand/10 text-brand border border-brand/30"
               : "text-text-secondary hover:text-text-primary border border-transparent"
           )}
         >
@@ -517,7 +517,7 @@ export default function UniversityListClient() {
           className={cn(
             "px-4 py-2 rounded-lg text-sm font-medium transition-all",
             mode === "universities"
-              ? "bg-amber/10 text-amber border border-amber/30"
+              ? "bg-brand/10 text-brand border border-brand/30"
               : "text-text-secondary hover:text-text-primary border border-transparent"
           )}
         >
@@ -528,12 +528,12 @@ export default function UniversityListClient() {
 
       {/* Search */}
       <div className="relative mb-4 group">
-        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors duration-200" />
+        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors duration-200" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={mode === "programmes" ? l.search : l.searchUni}
-          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
+          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
         />
         {search && (
           <button
@@ -549,7 +549,7 @@ export default function UniversityListClient() {
       <div className="mb-4">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-amber transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-brand transition-colors"
         >
           <Filter className="w-4 h-4" />
           {l.filters}
@@ -651,7 +651,7 @@ export default function UniversityListClient() {
         {hasFilters && (
           <button
             onClick={clearFilters}
-            className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-amber transition-colors"
+            className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-brand transition-colors"
           >
             <X className="w-3 h-3" />
             {l.clearFilters}
@@ -712,8 +712,8 @@ export default function UniversityListClient() {
       <FadeIn>
         <div className="relative mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02] overflow-hidden">
           <div className="relative">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber/10 mb-4">
-              <Sparkles className="w-6 h-6 text-amber" />
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand/10 mb-4">
+              <Sparkles className="w-6 h-6 text-brand" />
             </div>
             <h3 className="text-lg font-semibold text-text-primary mb-2">
               {l.notSure}
@@ -723,7 +723,7 @@ export default function UniversityListClient() {
             </p>
             <Link
               href="/university-matcher"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-amber/10 text-amber border border-amber/20 text-sm font-medium hover:bg-amber/20 hover:border-amber/40 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand/10 text-brand border border-brand/20 text-sm font-medium hover:bg-brand/20 hover:border-brand/40 transition-all duration-300"
             >
               <GraduationCap className="w-4 h-4" />
               {l.tryMatcher}

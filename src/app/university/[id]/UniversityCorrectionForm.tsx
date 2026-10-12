@@ -32,7 +32,7 @@ export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
         onChange={(e) => setEmail(e.target.value)}
         type="email"
         placeholder="you@example.com"
-        className="w-full mb-3 px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+        className="w-full mb-3 px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors"
       />
 
       <label className="block text-xs text-text-secondary mb-1">{t.university.correctionPlaceholderLabel}</label>
@@ -41,13 +41,13 @@ export default function UniversityCorrectionForm({ uniId }: { uniId: string }) {
         onChange={(e) => setMessage(e.target.value)}
         rows={4}
         placeholder={t.university.correctionPlaceholder}
-        className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors resize-none"
+        className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors resize-none"
       />
 
       <div className="mt-3 flex items-center gap-3">
         <button
           type="submit"
-          className="px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-midnight text-sm font-medium transition-colors"
+          className="px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-bg text-sm font-medium transition-colors"
         >
           {t.university.correctionSubmit}
         </button>

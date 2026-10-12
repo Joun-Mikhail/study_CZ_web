@@ -293,7 +293,7 @@ export default function MatcherPage() {
               key={i}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                i === step ? "w-8 bg-amber" : "w-1.5 bg-border-subtle"
+                i === step ? "w-8 bg-brand" : "w-1.5 bg-border-subtle"
               )}
             />
           ))}
@@ -379,8 +379,8 @@ export default function MatcherPage() {
                 )}
 
                 <GlassCard hoverEffect="border" className="text-center mb-4" href="/eligibility">
-                  <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center mx-auto mb-3">
-                    <Sparkles className="w-5 h-5 text-amber" />
+                  <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-5 h-5 text-brand" />
                   </div>
                   <h3 className="font-semibold text-text-primary mb-1">
                     {locale === "ar"
@@ -392,7 +392,7 @@ export default function MatcherPage() {
                       ? "جاوب على كام سؤال في دقيقتين وشوف لو درجاتك وأوراقك ووقتك كويسين."
                       : "Take a 2-minute eligibility check to see if your grades, documents, and timeline are on track."}
                   </p>
-                  <span className="text-sm font-medium text-amber">
+                  <span className="text-sm font-medium text-brand">
                     {locale === "ar" ? "شوف لو تقدر تقدم (ببلاش) →" : "Check My Eligibility (Free) →"}
                   </span>
                 </GlassCard>
@@ -434,7 +434,7 @@ function MatchCard({
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber/10 text-amber text-xs font-bold border border-amber/20 shrink-0">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand/10 text-brand text-xs font-bold border border-brand/20 shrink-0">
               {rank}
             </span>
             <h3 className="font-semibold text-text-primary text-sm truncate">
@@ -446,7 +446,7 @@ function MatchCard({
           )}
         </div>
         <div className="flex gap-1.5 shrink-0">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
             {prog.degree}
           </span>
         </div>
@@ -461,7 +461,7 @@ function MatchCard({
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-secondary ms-8 mb-3">
         <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-amber/70" />
+          <Euro className="w-3 h-3 text-brand/70" />
           €{prog.tuitionEurPerYear.toLocaleString()}/{locale === "ar" ? "سنة" : "yr"}
         </span>
         <span className="inline-flex items-center gap-1">
@@ -492,7 +492,7 @@ function MatchCard({
           sourceUrl={prog.verification.sourceUrl}
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
-        <span className="inline-flex items-center gap-1 text-xs text-amber">
+        <span className="inline-flex items-center gap-1 text-xs text-brand">
           <ExternalLink className="w-3 h-3" />
           {locale === "ar" ? "التفاصيل" : "Details"}
         </span>
@@ -516,8 +516,8 @@ function OptionCard({
       className={cn(
         "px-4 py-3 rounded-xl text-sm text-start border transition-colors",
         active
-          ? "bg-amber/10 border-amber/50 text-text-primary font-medium"
-          : "bg-surface border-border-subtle text-text-secondary hover:border-amber/30 hover:text-text-primary"
+          ? "bg-brand/10 border-brand/50 text-text-primary font-medium"
+          : "bg-surface border-border-subtle text-text-secondary hover:border-brand/30 hover:text-text-primary"
       )}
     >
       {label}

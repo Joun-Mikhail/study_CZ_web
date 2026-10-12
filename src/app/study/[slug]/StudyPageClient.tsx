@@ -41,13 +41,13 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
       <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
         <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
           <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
           </svg>
         </div>
 
         <div className="flex items-start justify-between gap-3">
           <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+            <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
               {prog.name[locale] || prog.name.en}
             </h3>
             <p className="text-xs text-text-secondary mt-0.5">
@@ -58,7 +58,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
         </div>
 
         <div className="flex flex-wrap gap-2 mt-3">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
             {prog.degree}
           </span>
           <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
@@ -68,7 +68,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
 
         <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
+            <Euro className="w-3 h-3 text-brand/70" />
             €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
           </span>
           <span className="inline-flex items-center gap-1">
@@ -83,7 +83,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
           )}
         </div>
         {prog.applicationDeadline && (
-          <p className="text-xs font-medium text-amber mt-2 inline-flex items-center gap-1">
+          <p className="text-xs font-medium text-brand mt-2 inline-flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
           </p>
@@ -96,7 +96,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
           />
           <Link
             href={`/programmes/${prog.id}`}
-            className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
+            className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
           >
             {locale === "ar" ? "التفاصيل" : "Details"} <ArrowRight className="w-3 h-3" />
           </Link>
@@ -199,7 +199,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
         {/* Quick stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
           <GlassCard className="text-center py-3">
-            <div className="text-2xl font-bold text-amber">{filtered.length}</div>
+            <div className="text-2xl font-bold text-brand">{filtered.length}</div>
             <div className="text-xs text-text-muted">
               {locale === "ar" ? "برامج" : "Programmes"}
             </div>
@@ -239,7 +239,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
                 <Link
                   key={u.id}
                   href={`/university/${u.id}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
                 >
                   <Building2 className="w-3 h-3" />
                   {u.name}

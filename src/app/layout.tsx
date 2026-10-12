@@ -107,8 +107,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-midnight text-text-primary">
-        <a href="#main-content" className="sr-only top-0 start-0 focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-amber focus:text-midnight focus:text-sm focus:font-semibold">
+      <body className="min-h-screen bg-bg text-text-primary">
+        <a href="#main-content" className="sr-only top-0 start-0 focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-brand focus:text-bg focus:text-sm focus:font-semibold">
           Skip to content
         </a>
         <MotionProvider>

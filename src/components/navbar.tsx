@@ -41,7 +41,7 @@ function DesktopDropdown({
         }}
         className={`flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
           hasActiveItem
-            ? "text-amber font-medium"
+            ? "text-brand font-medium"
             : "text-text-secondary hover:text-text-primary"
         }`}
         aria-expanded={open}
@@ -73,7 +73,7 @@ function DesktopDropdown({
                   onClick={onNavigate}
                   className={`block px-4 py-2.5 text-sm transition-all whitespace-nowrap ${
                     currentPath === item.href
-                      ? "text-amber bg-amber/5 font-medium"
+                      ? "text-brand bg-brand/5 font-medium"
                       : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                   }`}
                 >
@@ -122,12 +122,12 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
       >
         <form action="/search" method="get" role="search">
           <div className="relative group">
-            <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-amber transition-colors" />
+            <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-brand transition-colors" />
             <input
               ref={inputRef}
               name="q"
               placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
-              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-amber focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
               autoComplete="off"
             />
           </div>
@@ -237,7 +237,7 @@ export function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-midnight transition-shadow duration-200 ${
+        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-bg transition-shadow duration-200 ${
           scrolled ? "shadow-[0_10px_30px_-22px_rgba(11,31,58,0.45)]" : ""
         }`}
       >
@@ -269,7 +269,7 @@ export function Navbar() {
               onClick={handleNavigate}
               className={`whitespace-nowrap transition-colors py-1 ${
                 isActive("/courses")
-                  ? "text-amber font-medium"
+                  ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
@@ -280,7 +280,7 @@ export function Navbar() {
               onClick={handleNavigate}
               className={`whitespace-nowrap transition-colors py-1 ${
                 isActive("/services")
-                  ? "text-amber font-medium"
+                  ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
@@ -315,7 +315,7 @@ export function Navbar() {
             <Link
               href="/eligibility"
               onClick={handleNavigate}
-              className="hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg bg-amber text-midnight text-sm font-semibold hover:bg-amber-hover transition-colors"
+              className="hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg bg-brand text-bg text-sm font-semibold hover:bg-brand-hover transition-colors"
             >
               {locale === "ar" ? "أقدر أقدم؟" : "Check eligibility"}
             </Link>
@@ -348,17 +348,17 @@ export function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
                 <form action="/search" method="get" role="search" className="mb-4">
                   <div className="relative group">
-                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors" />
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors" />
                     <input
                       name="q"
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
                     />
                   </div>
                 </form>
@@ -375,7 +375,7 @@ export function Navbar() {
                       href={item.href}
                       onClick={handleNavigate}
                       className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                        isActive(item.href) ? "text-amber bg-amber/5" : "text-text-primary hover:bg-surface-hover"
+                        isActive(item.href) ? "text-brand bg-brand/5" : "text-text-primary hover:bg-surface-hover"
                       }`}
                     >
                       {item.label}
@@ -397,7 +397,7 @@ export function Navbar() {
                         onClick={handleNavigate}
                         className={`block px-3 py-2.5 rounded-lg text-sm transition-colors ${
                           isActive(item.href)
-                            ? "text-amber bg-amber/5 font-medium"
+                            ? "text-brand bg-brand/5 font-medium"
                             : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                         }`}
                       >

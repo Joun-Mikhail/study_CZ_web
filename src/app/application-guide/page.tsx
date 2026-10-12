@@ -74,14 +74,14 @@ export default function ApplicationGuidePage() {
                   className={cn(
                     "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors",
                     activeId === step.id
-                      ? "bg-amber/10 text-amber font-medium"
+                      ? "bg-brand/10 text-brand font-medium"
                       : "text-text-muted hover:text-text-secondary"
                   )}
                 >
                   <span
                     className={cn(
                       "w-5 h-5 shrink-0 rounded-full text-[11px] flex items-center justify-center border",
-                      activeId === step.id ? "border-amber text-amber" : "border-border-subtle"
+                      activeId === step.id ? "border-brand text-brand" : "border-border-subtle"
                     )}
                   >
                     {i + 1}
@@ -106,10 +106,10 @@ export default function ApplicationGuidePage() {
                   <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
                   <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
                   {step.tip && (
-                    <div className="flex gap-3 items-start rounded-xl border border-amber/20 bg-amber/[0.05] px-4 py-3">
-                      <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                    <div className="flex gap-3 items-start rounded-xl border border-brand/20 bg-brand/[0.05] px-4 py-3">
+                      <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <p className="text-sm text-text-secondary">
-                        <span className="font-medium text-amber">{t.guide.tipLabel}: </span>
+                        <span className="font-medium text-brand">{t.guide.tipLabel}: </span>
                         {step.tip[locale]}
                       </p>
                     </div>
@@ -121,7 +121,7 @@ export default function ApplicationGuidePage() {
 
             {/* Monetization hook */}
             <GlassCard hoverEffect="glow" className="text-center">
-              <FileCheck className="w-7 h-7 text-amber mx-auto mb-3" />
+              <FileCheck className="w-7 h-7 text-brand mx-auto mb-3" />
               <h3 className="font-semibold text-text-primary mb-1.5">{t.guide.ctaTitle}</h3>
               <p className="text-sm text-text-secondary mb-5">{t.guide.ctaSubtitle}</p>
               <MagneticButton variant="primary" href="/services">

@@ -76,7 +76,7 @@ export default function QuizClient({ moduleId }: Props) {
       <div className="relative min-h-screen">
         <Navbar />
         <main className="pt-32 pb-20 px-4 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
       </div>
@@ -89,8 +89,8 @@ export default function QuizClient({ moduleId }: Props) {
         <Navbar />
         <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-amber" />
+            <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-8 h-8 text-brand" />
             </div>
             <h1 className="text-2xl font-bold text-text-primary mb-2">{t.locked.title}</h1>
             <p className="text-text-secondary text-sm mb-6">{t.locked.subtitle}</p>
@@ -181,8 +181,8 @@ export default function QuizClient({ moduleId }: Props) {
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-                <Trophy className="w-8 h-8 text-amber" />
+              <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                <Trophy className="w-8 h-8 text-brand" />
               </div>
               <h1 className="text-2xl font-bold text-text-primary mb-2">
                 {isAr ? quiz.title.ar : quiz.title.en}
@@ -191,7 +191,7 @@ export default function QuizClient({ moduleId }: Props) {
                 {questions.length} {t.questionsLabel} · {t.passingScore}: {quiz.passingScore}%
               </p>
               {bestScore !== null && (
-                <p className="text-sm text-amber mb-4 flex items-center justify-center gap-1">
+                <p className="text-sm text-brand mb-4 flex items-center justify-center gap-1">
                   <Award className="w-4 h-4" />
                   {t.bestScoreLabel}: {bestScore}%
                 </p>
@@ -200,15 +200,15 @@ export default function QuizClient({ moduleId }: Props) {
                 <GlassCard>
                   <div className="space-y-3 text-start">
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <Target className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <Target className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip1}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip2}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <RotateCcw className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <RotateCcw className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip3}</span>
                     </div>
                   </div>
@@ -238,9 +238,9 @@ export default function QuizClient({ moduleId }: Props) {
                     {Math.round(((currentQ + 1) / questions.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-midnight/50 overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-bg/50 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400 transition-all duration-300"
+                    className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400 transition-all duration-300"
                     style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
                   />
                 </div>
@@ -269,8 +269,8 @@ export default function QuizClient({ moduleId }: Props) {
                             : showResult && isSelected && !isAnswer
                             ? "border-red-500/50 bg-red-500/10 text-error"
                             : isSelected
-                            ? "border-amber/50 bg-amber/10 text-text-primary"
-                            : "border-border-subtle bg-surface/60 text-text-secondary hover:border-amber/30 hover:bg-surface-hover/50"
+                            ? "border-brand/50 bg-brand/10 text-text-primary"
+                            : "border-border-subtle bg-surface/60 text-text-secondary hover:border-brand/30 hover:bg-surface-hover/50"
                         )}
                       >
                         <div className="flex items-center gap-3">
@@ -281,7 +281,7 @@ export default function QuizClient({ moduleId }: Props) {
                               : showResult && isSelected && !isAnswer
                               ? "border-red-500 bg-red-500/20 text-error"
                               : isSelected
-                              ? "border-amber bg-amber/20 text-amber"
+                              ? "border-brand bg-brand/20 text-brand"
                               : "border-border-subtle text-text-muted"
                           )}>
                             {showResult && isAnswer ? (
@@ -381,7 +381,7 @@ export default function QuizClient({ moduleId }: Props) {
               <h1 className="text-2xl font-bold text-text-primary mb-1">
                 {passed ? t.result.passTitle : t.result.failTitle}
               </h1>
-              <p className="text-4xl font-bold text-amber my-3">{score}%</p>
+              <p className="text-4xl font-bold text-brand my-3">{score}%</p>
               <p className="text-text-secondary text-sm mb-6">
                 {passed ? t.result.passMsg : t.result.failMsg}
               </p>

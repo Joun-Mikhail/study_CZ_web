@@ -87,7 +87,7 @@ export default function NoExamClient() {
             </div>
           </GlassCard>
           <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
-            <div className="text-2xl font-bold text-amber">
+            <div className="text-2xl font-bold text-brand">
               {Math.round((noExam.length / programmes.length) * 100)}%
             </div>
             <div className="text-xs text-text-muted">
@@ -136,7 +136,7 @@ export default function NoExamClient() {
               <GlassCard key={prog.id} className="group" hoverEffect="border">
                 <div className="flex items-start justify-between gap-3">
                   <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors">
+                    <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors">
                       {prog.name[locale] || prog.name.en}
                     </h3>
                     <p className="text-xs text-text-secondary mt-0.5">
@@ -146,7 +146,7 @@ export default function NoExamClient() {
                   <SaveProgrammeButton programmeId={prog.id} locale={locale} />
                 </div>
                 <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+                  <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
                     {prog.degree}
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-success/10 text-success text-[11px] font-medium border border-success/20">
@@ -155,7 +155,7 @@ export default function NoExamClient() {
                 </div>
                 <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
                   <span className="inline-flex items-center gap-1">
-                    <Euro className="w-3 h-3 text-amber/70" />
+                    <Euro className="w-3 h-3 text-brand/70" />
                     €{prog.tuitionEurPerYear.toLocaleString()}/{locale === "ar" ? "سنة" : "yr"}
                   </span>
                   <span className="inline-flex items-center gap-1">
@@ -164,7 +164,7 @@ export default function NoExamClient() {
                   </span>
                 </div>
                 {prog.applicationDeadline && (
-                  <p className="text-xs font-medium text-amber mt-2">
+                  <p className="text-xs font-medium text-brand mt-2">
                     {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
                   </p>
                 )}

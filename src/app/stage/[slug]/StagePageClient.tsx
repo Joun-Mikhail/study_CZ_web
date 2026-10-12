@@ -41,12 +41,12 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                   <Link
                     key={tool.href}
                     href={tool.href}
-                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl border border-border-subtle bg-surface/50 hover:border-amber/30 hover:bg-surface transition-colors"
+                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl border border-border-subtle bg-surface/50 hover:border-brand/30 hover:bg-surface transition-colors"
                   >
                     <span className="text-sm font-medium text-text-primary">
                       {tool.label[locale]}
                     </span>
-                    <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors rtl:rotate-180 shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors rtl:rotate-180 shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -72,7 +72,7 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                 ))}
               </div>
               <div className="text-center mt-4">
-                <Link href="/qa" className="text-sm text-amber hover:text-amber/80 transition-colors">
+                <Link href="/qa" className="text-sm text-brand hover:text-brand/80 transition-colors">
                   {locale === "ar" ? "شوف كل الأسئلة والأجوبة ←" : "See all Q&A →"}
                 </Link>
               </div>
@@ -83,14 +83,14 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
           {config.paidService && (
             <section>
               <GlassCard hoverEffect="glow" className="text-center">
-                <ShieldAlert className="w-8 h-8 text-amber mx-auto mb-3" />
+                <ShieldAlert className="w-8 h-8 text-brand mx-auto mb-3" />
                 <p className="text-xs text-text-muted mb-2">
                   {locale === "ar" ? "لو لسه واقف عند ده" : "If you're still stuck here"}
                 </p>
                 <h2 className="text-xl font-bold text-text-primary mb-2">
                   {config.paidService.title[locale]}
                 </h2>
-                <p className="text-sm text-amber font-medium mb-5">
+                <p className="text-sm text-brand font-medium mb-5">
                   {config.paidService.fearTrigger[locale]}
                 </p>
                 <MagneticButton variant="primary" size="lg" href={config.paidService.href}>

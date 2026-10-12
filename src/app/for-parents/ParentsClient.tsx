@@ -106,7 +106,7 @@ function Block({ icon: Icon, title, children }: { icon: React.ElementType; title
   return (
     <GlassCard className="mb-6">
       <h2 className="text-lg font-semibold text-text-primary mb-3 flex items-center gap-2">
-        <Icon className="w-5 h-5 text-amber shrink-0" aria-hidden="true" />
+        <Icon className="w-5 h-5 text-brand shrink-0" aria-hidden="true" />
         {title}
       </h2>
       <div className="space-y-3 text-sm text-text-secondary leading-relaxed">{children}</div>
@@ -139,7 +139,7 @@ export default function ParentsClient() {
             </ul>
             <div className="flex flex-col gap-1.5 pt-1">
               {t.costLinks.map((l) => (
-                <Link key={l.href} href={l.href} className="text-amber hover:underline font-medium">
+                <Link key={l.href} href={l.href} className="text-brand hover:underline font-medium">
                   {l.label}
                 </Link>
               ))}
@@ -149,7 +149,7 @@ export default function ParentsClient() {
           <Block icon={ShieldCheck} title={t.safetyTitle}>
             <p>
               {t.safety}{" "}
-              <a href={GPI_SOURCE} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-amber hover:underline whitespace-nowrap">
+              <a href={GPI_SOURCE} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-brand hover:underline whitespace-nowrap">
                 {t.safetySource}
                 <ExternalLink className="w-3 h-3" aria-hidden="true" />
               </a>
@@ -163,7 +163,7 @@ export default function ParentsClient() {
             <h3 className="text-sm font-semibold text-text-primary pt-2">{t.refundTitle}</h3>
             <p>{t.refund}</p>
             <p>{t.withdraw}</p>
-            <Link href="/terms" className="text-amber hover:underline font-medium">
+            <Link href="/terms" className="text-brand hover:underline font-medium">
               {t.termsLink}
             </Link>
           </Block>
@@ -182,14 +182,14 @@ export default function ParentsClient() {
                 href={whatsappWithContext(t.waTopic)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors"
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />
                 {t.whatsapp}
               </a>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-border-subtle text-text-primary font-medium text-sm hover:border-amber/40 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-border-subtle text-text-primary font-medium text-sm hover:border-brand/40 transition-colors"
               >
                 <Mail className="w-4 h-4" aria-hidden="true" />
                 {t.email}

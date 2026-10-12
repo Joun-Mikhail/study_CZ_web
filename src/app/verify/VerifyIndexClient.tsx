@@ -45,7 +45,7 @@ export default function VerifyIndexClient() {
           <Breadcrumb />
 
           <GlassCard className="mt-8 p-8 text-center">
-            <ShieldCheck className="w-12 h-12 text-amber mx-auto mb-4" />
+            <ShieldCheck className="w-12 h-12 text-brand mx-auto mb-4" />
             <h1 className="text-lg font-semibold text-text-primary mb-2">
               {t.title}
             </h1>
@@ -59,12 +59,12 @@ export default function VerifyIndexClient() {
                 value={certId}
                 onChange={(e) => setCertId(e.target.value)}
                 placeholder={t.placeholder}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors text-center font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors text-center font-mono"
               />
               <button
                 type="submit"
                 disabled={!certId.trim()}
-                className="w-full px-5 py-2.5 rounded-xl bg-amber text-midnight text-sm font-medium hover:bg-amber/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full px-5 py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t.button}
               </button>

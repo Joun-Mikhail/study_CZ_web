@@ -36,7 +36,7 @@ export function QuickNav() {
     <>
       <motion.button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 end-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-amber to-orange-500 text-white shadow-lg shadow-amber/25 flex items-center justify-center hover:shadow-xl hover:shadow-amber/30 transition-shadow"
+        className="fixed bottom-6 end-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-brand to-orange-500 text-white shadow-lg shadow-brand/25 flex items-center justify-center hover:shadow-xl hover:shadow-brand/30 transition-shadow"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={locale === "ar" ? "مساعدة سريعة" : "Quick help"}
@@ -51,7 +51,7 @@ export function QuickNav() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-midnight/60 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-bg/60 backdrop-blur-sm"
               onClick={() => setOpen(false)}
             />
             <motion.div
@@ -78,10 +78,10 @@ export function QuickNav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 px-3 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-amber/5 transition-all group"
+                    className="flex items-center gap-3 px-3 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-brand/5 transition-all group"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-amber/10 flex items-center justify-center shrink-0 group-hover:bg-amber/20 transition-colors">
-                      <link.icon className="w-4.5 h-4.5 text-amber" />
+                    <div className="w-9 h-9 rounded-lg bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-brand/20 transition-colors">
+                      <link.icon className="w-4.5 h-4.5 text-brand" />
                     </div>
                     <span className="text-sm font-medium">{locale === "ar" ? link.ar : link.en}</span>
                   </Link>

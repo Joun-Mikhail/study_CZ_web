@@ -71,15 +71,15 @@ export function StageRouter() {
               >
                 <Link
                   href={`/stage/${stage.slug}`}
-                  className="group flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0 h-full px-4 py-3 sm:p-5 rounded-xl sm:rounded-2xl border border-amber/20 bg-amber/[0.04] hover:bg-amber/[0.08] hover:border-amber/40 transition-colors"
+                  className="group flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0 h-full px-4 py-3 sm:p-5 rounded-xl sm:rounded-2xl border border-brand/20 bg-brand/[0.04] hover:bg-brand/[0.08] hover:border-brand/40 transition-colors"
                 >
-                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center sm:mb-3 shrink-0">
-                    <Icon className="w-5 h-5 text-amber" />
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center sm:mb-3 shrink-0">
+                    <Icon className="w-5 h-5 text-brand" />
                   </div>
                   <p className="text-sm font-semibold text-text-primary leading-snug flex-1">
                     {stage[locale]}
                   </p>
-                  <ArrowRight className="w-4 h-4 text-amber shrink-0 sm:mt-3 sm:opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
+                  <ArrowRight className="w-4 h-4 text-brand shrink-0 sm:mt-3 sm:opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
                 </Link>
               </motion.div>
             );

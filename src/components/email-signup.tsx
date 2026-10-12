@@ -110,9 +110,9 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
   }
 
   return (
-    <form onSubmit={submit} className={cn("relative rounded-2xl border border-amber/25 bg-amber/[0.04] p-5", className)}>
+    <form onSubmit={submit} className={cn("relative rounded-2xl border border-brand/25 bg-brand/[0.04] p-5", className)}>
       <div className="flex items-start gap-3 mb-3">
-        <Icon className="w-5 h-5 text-amber shrink-0 mt-0.5" aria-hidden="true" />
+        <Icon className="w-5 h-5 text-brand shrink-0 mt-0.5" aria-hidden="true" />
         <div>
           <p className="text-sm font-semibold text-text-primary">{c.title}</p>
           {!compact && <p className="text-xs text-text-secondary mt-1">{c.text}</p>}
@@ -131,12 +131,12 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.placeholder}
-          className="flex-1 min-w-0 px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/60"
+          className="flex-1 min-w-0 px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/60"
         />
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber text-midnight text-sm font-semibold hover:bg-amber/90 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand text-bg text-sm font-semibold hover:bg-brand/90 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
           {status === "sending" && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
           {c.button}
@@ -154,12 +154,12 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
         aria-hidden="true"
       />
       <label className="flex items-start gap-2 mt-3 text-xs text-text-secondary cursor-pointer">
-        <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} className="mt-0.5 accent-amber" />
+        <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} className="mt-0.5 accent-brand" />
         <span>{t.tips}</span>
       </label>
       <p className="text-[11px] text-text-muted mt-2">
         {t.privacy}{" "}
-        <Link href="/privacy" className="underline hover:text-amber">
+        <Link href="/privacy" className="underline hover:text-brand">
           {t.privacyLink}
         </Link>
         .

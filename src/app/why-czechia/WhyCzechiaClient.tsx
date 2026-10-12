@@ -66,7 +66,7 @@ export default function WhyCzechiaClient() {
             {[
               { icon: BookOpen, color: "text-success", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
               { icon: Banknote, color: "text-info", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
-              { icon: Award, color: "text-amber", bg: "bg-amber/10 border-amber/20", ...t.whyCzechia.reasons[2] },
+              { icon: Award, color: "text-brand", bg: "bg-brand/10 border-brand/20", ...t.whyCzechia.reasons[2] },
               { icon: Plane, color: "text-violet-700 dark:text-violet-300", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
             ].map((item, i) => (
               <motion.div
@@ -121,8 +121,8 @@ export default function WhyCzechiaClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Corner accent on hover */}
-              <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-bl-lg" />
-              <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-tr-lg" />
+              <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-brand/0 group-hover:border-brand/40 transition-all duration-500 rounded-bl-lg" />
+              <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-brand/0 group-hover:border-brand/40 transition-all duration-500 rounded-tr-lg" />
             </motion.div>
           ))}
         </div>
@@ -172,10 +172,10 @@ export default function WhyCzechiaClient() {
               <Link href={item.href} className="block">
                 <GlassCard hoverEffect="border" className="group card-shine">
                   <div className="flex items-center gap-3">
-                    <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
-                      <item.icon className="w-5 h-5 text-amber" />
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-brand/5 border border-brand/20 flex items-center justify-center group-hover:bg-brand/10 group-hover:scale-105 transition-all duration-300">
+                      <item.icon className="w-5 h-5 text-brand" />
                     </div>
-                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">{item.label}</span>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">{item.label}</span>
                     <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                   </div>
                 </GlassCard>
@@ -250,11 +250,11 @@ export default function WhyCzechiaClient() {
             <Link href="/programmes" className="block">
               <GlassCard hoverEffect="glow" className="group card-shine">
                 <div className="flex items-center gap-3">
-                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
-                    <Search className="w-5 h-5 text-amber" />
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-brand/5 border border-brand/20 flex items-center justify-center group-hover:bg-brand/10 group-hover:scale-105 transition-all duration-300">
+                    <Search className="w-5 h-5 text-brand" />
                   </div>
                   <div>
-                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors block">
+                    <span className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors block">
                       {locale === "en" ? "Browse All Programmes" : "تصفح كل البرامج"}
                     </span>
                     <span className="text-xs text-text-muted">
@@ -291,7 +291,7 @@ export default function WhyCzechiaClient() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { key: "universities", icon: Users, color: "text-amber" },
+            { key: "universities", icon: Users, color: "text-brand" },
             { key: "programs", icon: BarChart3, color: "text-info" },
             { key: "students", icon: Users, color: "text-success" },
             { key: "cost", icon: BarChart3, color: "text-violet-700 dark:text-violet-300" },
@@ -308,7 +308,7 @@ export default function WhyCzechiaClient() {
             >
               <GlassCard className="h-full group card-shine" hoverEffect="lift">
                 <div className="flex items-center gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 group-hover:border-amber/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 group-hover:border-brand/20 transition-all duration-300">
                     <s.icon className={`w-6 h-6 ${s.color}`} />
                   </div>
                   <div>
@@ -338,8 +338,8 @@ export default function WhyCzechiaClient() {
           className="motion-safe-fallback"
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden noise-overlay aurora-bg">
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
-              <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-brand/20 shadow-xl group">
+              <span className="text-3xl font-bold text-brand/60 select-none" aria-hidden="true">J</span>
               <Image
                 src="/images/john.jpg"
                 alt={`${FOUNDER_NAME}, founder of Study Czechia`}
@@ -351,7 +351,7 @@ export default function WhyCzechiaClient() {
               />
             </div>
             <div className="relative z-10">
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber mb-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand mb-2">
                 <Sparkles className="w-3 h-3" />
                 {t.founder.badge}
               </span>

@@ -5,19 +5,19 @@
 
 /*
  * Design tokens. Light is the default theme; dark is opt-in through the
- * theme toggle ([data-theme="dark"]). Token names are historical: "amber"
- * is the brand accent (Czech blue from the logo) and "midnight" is the page
- * background, so the hundreds of existing utility classes keep working.
+ * theme toggle ([data-theme="dark"]). Names describe the role, not the
+ * colour: "bg" is the page background, "brand" the Czech blue from the logo,
+ * "accent-red" the Czech red and "ink" the fixed navy behind photos.
  */
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-midnight: #ffffff;
-  --color-midnight-light: #f5f7fa;
-  --color-midnight-lighter: #e9edf3;
-  --color-amber: #11457e;
-  --color-amber-hover: #0c3563;
-  --color-amber-light: #2d64a5;
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f5f7fa;
+  --color-bg-muted: #e9edf3;
+  --color-brand: #11457e;
+  --color-brand-hover: #0c3563;
+  --color-brand-light: #2d64a5;
   --color-surface: #ffffff;
   --color-surface-hover: #f5f7fa;
   --color-surface-raised: #eef2f7;
@@ -31,7 +31,7 @@
   --color-accent: #11457e;
   --color-warning: #a16207;
   --color-error: #b91c1c;
-  --color-brand-red: #c8102e;
+  --color-accent-red: #c8102e;
   --color-ink: #0b1f3a;
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
@@ -55,12 +55,12 @@
 [data-theme="dark"] {
   --background: #0b1220;
   --foreground: #f1f5f9;
-  --color-midnight: #0b1220;
-  --color-midnight-light: #101a2c;
-  --color-midnight-lighter: #1a2639;
-  --color-amber: #8ab8ef;
-  --color-amber-hover: #a9cbf4;
-  --color-amber-light: #6fa3e3;
+  --color-bg: #0b1220;
+  --color-bg-subtle: #101a2c;
+  --color-bg-muted: #1a2639;
+  --color-brand: #8ab8ef;
+  --color-brand-hover: #a9cbf4;
+  --color-brand-light: #6fa3e3;
   --color-surface: #121c2e;
   --color-surface-hover: #18243a;
   --color-surface-raised: #1d2a42;
@@ -74,7 +74,7 @@
   --color-accent: #8ab8ef;
   --color-warning: #facc15;
   --color-error: #f87171;
-  --color-brand-red: #f2545b;
+  --color-accent-red: #f2545b;
   --chart-grid: rgba(255, 255, 255, 0.06);
   --chart-axis: rgba(255, 255, 255, 0.12);
   --chart-tick: #b4bfcf;
@@ -94,12 +94,12 @@
   --color-text-primary: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.82);
   --color-text-muted: rgba(255, 255, 255, 0.66);
-  --color-amber: #ffffff;
-  --color-amber-hover: #e3ecf7;
+  --color-brand: #ffffff;
+  --color-brand-hover: #e3ecf7;
   --color-border-subtle: rgba(255, 255, 255, 0.16);
   --color-surface: rgba(255, 255, 255, 0.06);
   --color-surface-hover: rgba(255, 255, 255, 0.1);
-  --color-midnight: #0b1f3a;
+  --color-bg: #0b1f3a;
   background-color: #0b1f3a;
   color: #ffffff;
 }
@@ -167,7 +167,7 @@ table {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }
 
@@ -213,7 +213,7 @@ html:not(.hydrated) [style*="opacity: 0"] {
 
 /* Former decorative effects, kept as no-ops so old class names are harmless. */
 .text-gradient-animate {
-  color: var(--color-amber);
+  color: var(--color-brand);
 }
 
 /* Custom scrollbar */

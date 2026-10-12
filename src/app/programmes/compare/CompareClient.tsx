@@ -254,8 +254,8 @@ function ProgrammeSelector({
           <GlassCard className="w-full max-w-md max-h-[80vh] flex flex-col card-shine overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-amber/10 border border-amber/20">
-                  <Plus className="w-3.5 h-3.5 text-amber" />
+                <div className="p-1.5 rounded-lg bg-brand/10 border border-brand/20">
+                  <Plus className="w-3.5 h-3.5 text-brand" />
                 </div>
                 <h3 className="font-semibold text-text-primary">{c.addToCompare}</h3>
               </div>
@@ -264,14 +264,14 @@ function ProgrammeSelector({
               </button>
             </div>
             <div className="relative mb-3 group">
-              <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors duration-200" />
+              <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors duration-200" />
               <input
                 type="text"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={c.search}
                 aria-label={c.search}
-                className="w-full ps-9 pe-3 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
+                className="w-full ps-9 pe-3 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
                 autoFocus
               />
             </div>
@@ -293,7 +293,7 @@ function ProgrammeSelector({
                     onClick={() => onSelect(p.id)}
                     className="w-full text-start px-3 py-3 rounded-xl hover:bg-white/5 transition-all duration-200 group/item border border-transparent hover:border-border-subtle"
                   >
-                    <p className="text-sm font-medium text-text-primary group-hover/item:text-amber transition-colors duration-200">
+                    <p className="text-sm font-medium text-text-primary group-hover/item:text-brand transition-colors duration-200">
                       {ar && p.name.ar ? p.name.ar : p.name.en}
                     </p>
                     <p className="text-xs text-text-muted mt-0.5">
@@ -374,13 +374,13 @@ export default function CompareClient() {
           <GlassCard className="max-w-lg mx-auto relative overflow-hidden card-shine">
             <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none opacity-[0.04]">
               <svg viewBox="0 0 96 96" fill="none" className="w-full h-full">
-                <circle cx="72" cy="24" r="60" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-                <circle cx="72" cy="24" r="36" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+                <circle cx="72" cy="24" r="60" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
+                <circle cx="72" cy="24" r="36" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
               </svg>
             </div>
             <div className="p-2">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber/10 border border-amber/20 mb-4">
-                <Scale className="w-7 h-7 text-amber" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand/10 border border-brand/20 mb-4">
+                <Scale className="w-7 h-7 text-brand" />
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">{c.title}</h1>
               <p className="text-text-secondary mb-6 max-w-md mx-auto text-sm leading-relaxed">{c.intro}</p>
@@ -388,14 +388,14 @@ export default function CompareClient() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setShowSelector(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors shadow-lg shadow-amber/20"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
               >
                 <Plus className="w-4 h-4" />
                 {c.addAProgramme}
               </motion.button>
               <p className="text-xs text-text-muted mt-6">
                 {c.orBrowse}{" "}
-                <Link href="/programmes" className="text-amber underline underline-offset-2">
+                <Link href="/programmes" className="text-brand underline underline-offset-2">
                   {c.browse}
                 </Link>{" "}
                 {c.orBrowseEnd}
@@ -413,8 +413,8 @@ export default function CompareClient() {
       <FadeIn>
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-amber/10 border border-amber/20">
-              <Scale className="w-5 h-5 text-amber" />
+            <div className="p-2 rounded-xl bg-brand/10 border border-brand/20">
+              <Scale className="w-5 h-5 text-brand" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">{c.title}</h1>
@@ -426,7 +426,7 @@ export default function CompareClient() {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => setShowSelector(true)}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors shadow-lg shadow-amber/20"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
             >
               <Plus className="w-4 h-4" />
               {c.add}
@@ -453,7 +453,7 @@ export default function CompareClient() {
                       <div className="flex items-start justify-between gap-2">
                         <Link
                           href={`/programmes/${p.id}`}
-                          className="font-semibold text-text-primary hover:text-amber transition-colors text-base leading-snug"
+                          className="font-semibold text-text-primary hover:text-brand transition-colors text-base leading-snug"
                         >
                           {nameOf(p)}
                         </Link>
@@ -474,7 +474,7 @@ export default function CompareClient() {
                     <th className="p-4 min-w-[220px] align-top">
                       <button
                         onClick={() => setShowSelector(true)}
-                        className="w-full h-20 rounded-xl border-2 border-dashed border-border-subtle hover:border-amber/40 transition-all duration-300 flex items-center justify-center gap-2 text-text-muted hover:text-amber group/add"
+                        className="w-full h-20 rounded-xl border-2 border-dashed border-border-subtle hover:border-brand/40 transition-all duration-300 flex items-center justify-center gap-2 text-text-muted hover:text-brand group/add"
                       >
                         <Plus className="w-4 h-4 group-hover/add:rotate-90 transition-transform duration-300" />
                         <span className="text-sm">{c.addProgramme}</span>
@@ -496,7 +496,7 @@ export default function CompareClient() {
                       {row.label}
                     </td>
                     {selected.map((p) => (
-                      <td key={p.id} className={`p-4 text-text-primary ${row.highlight ? "font-semibold text-amber" : ""}`}>
+                      <td key={p.id} className={`p-4 text-text-primary ${row.highlight ? "font-semibold text-brand" : ""}`}>
                         {row.render(p)}
                       </td>
                     ))}
@@ -510,7 +510,7 @@ export default function CompareClient() {
                       <div className="flex flex-col gap-2">
                         <Link
                           href={`/programmes/${p.id}`}
-                          className="inline-flex items-center gap-1.5 text-xs text-amber font-medium hover:underline underline-offset-2 group/link"
+                          className="inline-flex items-center gap-1.5 text-xs text-brand font-medium hover:underline underline-offset-2 group/link"
                         >
                           {c.viewDetails}{" "}
                           <ArrowRight className="w-3 h-3 rtl:rotate-180 group-hover/link:translate-x-0.5 rtl:group-hover/link:-translate-x-0.5 transition-transform" />

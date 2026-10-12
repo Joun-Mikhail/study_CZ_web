@@ -51,7 +51,7 @@ export default function ArrivalClient() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-amber font-medium mb-4">{t.hero.subtitle}</p>
+            <p className="text-lg text-brand font-medium mb-4">{t.hero.subtitle}</p>
             <p className="text-text-secondary leading-relaxed max-w-2xl mx-auto">
               {t.hero.body}
             </p>
@@ -69,8 +69,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -83,8 +83,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -97,8 +97,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <Navigation className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <Navigation className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -111,8 +111,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div className="min-w-0 flex-1">
@@ -131,8 +131,8 @@ export default function ArrivalClient() {
               </GlassCard>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-amber/20 bg-amber/5 p-5 flex gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+            <div className="mt-6 rounded-2xl border border-brand/20 bg-brand/5 p-5 flex gap-3">
+              <AlertTriangle className="w-5 h-5 text-brand shrink-0 mt-0.5" />
               <p className="text-sm text-text-secondary leading-relaxed">{t.free.warning}</p>
             </div>
           </motion.div>
@@ -142,9 +142,9 @@ export default function ArrivalClient() {
         <section className="max-w-3xl mx-auto">
           <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <GlassCard hoverEffect="glow" className="text-center">
-              <ShieldAlert className="w-8 h-8 text-amber mx-auto mb-3" />
+              <ShieldAlert className="w-8 h-8 text-brand mx-auto mb-3" />
               <h2 className="text-xl font-bold text-text-primary mb-2">{t.paid.title}</h2>
-              <p className="text-sm text-amber font-medium mb-3">{t.paid.fearTrigger}</p>
+              <p className="text-sm text-brand font-medium mb-3">{t.paid.fearTrigger}</p>
               <p className="text-sm text-text-secondary leading-relaxed mb-5 text-start">
                 {t.paid.description}
               </p>

@@ -94,7 +94,7 @@ function DeadlineBadge({ deadline, locale }: { deadline: string | undefined; loc
   }
   if (days <= 30) {
     return (
-      <span className="inline-flex items-center gap-1 text-xs text-amber font-medium">
+      <span className="inline-flex items-center gap-1 text-xs text-brand font-medium">
         <Clock className="w-3 h-3" />
         {days} {locale === "ar" ? "يوم متبقي" : "days left"}
       </span>
@@ -129,7 +129,7 @@ function ProgrammeJourneyCard({
   return (
     <GlassCard className="relative overflow-hidden">
       {days !== null && days <= 14 && days >= 0 && (
-        <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-red-500 via-amber to-red-500" />
+        <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-red-500 via-brand to-red-500" />
       )}
       <div className="flex items-start gap-4">
         <ProgressRing percent={progress} />
@@ -138,7 +138,7 @@ function ProgrammeJourneyCard({
             <div>
               <Link
                 href={`/programmes/${prog.id}`}
-                className="text-base font-semibold text-text-primary hover:text-amber transition-colors"
+                className="text-base font-semibold text-text-primary hover:text-brand transition-colors"
               >
                 {prog.name[locale] || prog.name.en}
               </Link>
@@ -197,8 +197,8 @@ function ProgrammeJourneyCard({
       )}
 
       {progress >= 60 && progress < 100 && (
-        <div className="mt-4 p-3 rounded-xl bg-amber/5 border border-amber/15">
-          <p className="text-xs text-amber">
+        <div className="mt-4 p-3 rounded-xl bg-brand/5 border border-brand/15">
+          <p className="text-xs text-brand">
             <Sparkles className="w-3 h-3 inline me-1" />
             {locale === "ar"
               ? "أنت قريب! محتاج مساعدة في مراجعة المستندات قبل التقديم؟"
@@ -206,7 +206,7 @@ function ProgrammeJourneyCard({
           </p>
           <Link
             href="/services"
-            className="inline-flex items-center gap-1 text-xs font-medium text-amber mt-1.5 hover:underline"
+            className="inline-flex items-center gap-1 text-xs font-medium text-brand mt-1.5 hover:underline"
           >
             {locale === "ar" ? "مراجعة المستندات" : "Document Review"}
             <ArrowRight className="w-3 h-3" />
@@ -326,7 +326,7 @@ export default function JourneyClient() {
             {/* Stats bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
               <GlassCard className="text-center py-3">
-                <div className="text-2xl font-bold text-amber">{saved.length}</div>
+                <div className="text-2xl font-bold text-brand">{saved.length}</div>
                 <div className="text-xs text-text-muted">
                   {locale === "ar" ? "برامج محفوظة" : "Saved"}
                 </div>
@@ -353,8 +353,8 @@ export default function JourneyClient() {
 
             {/* Urgent deadlines alert */}
             {urgentDeadlines.length > 0 && urgentDeadlines[0].days <= 30 && (
-              <div className="mb-6 p-4 rounded-xl bg-amber/5 border border-amber/20">
-                <h3 className="text-sm font-semibold text-amber mb-2 flex items-center gap-2">
+              <div className="mb-6 p-4 rounded-xl bg-brand/5 border border-brand/20">
+                <h3 className="text-sm font-semibold text-brand mb-2 flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4" />
                   {locale === "ar" ? "مواعيد قريبة" : "Upcoming Deadlines"}
                 </h3>
@@ -362,7 +362,7 @@ export default function JourneyClient() {
                   {urgentDeadlines.filter((d) => d.days <= 30).map((d) => (
                     <div key={d.prog.id} className="flex items-center justify-between text-sm">
                       <span className="text-text-secondary">{d.prog.name[locale] || d.prog.name.en}</span>
-                      <span className={`font-medium ${d.days <= 7 ? "text-error" : "text-amber"}`}>
+                      <span className={`font-medium ${d.days <= 7 ? "text-error" : "text-brand"}`}>
                         {d.days} {locale === "ar" ? "يوم" : d.days === 1 ? "day" : "days"}
                       </span>
                     </div>
