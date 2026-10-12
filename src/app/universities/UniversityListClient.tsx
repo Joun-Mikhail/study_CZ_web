@@ -29,6 +29,7 @@ import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
 import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
+import { CityMap, type MapCity } from "@/components/city-map";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ViewMode = "programmes" | "universities";
@@ -343,7 +344,7 @@ function UniversityCard({
   );
 }
 
-export default function UniversityListClient() {
+export default function UniversityListClient({ mapCities }: { mapCities?: MapCity[] } = {}) {
   const { locale } = useTranslation();
   const l = labels[locale] || labels.en;
 
@@ -498,6 +499,18 @@ export default function UniversityListClient() {
           </div>
         </div>
       </FadeIn>
+      {mapCities && (
+        <section aria-labelledby="city-map-title" className="reveal mb-10">
+        <h2 id="city-map-title" className="text-2xl sm:text-3xl text-text-primary mb-1">
+          {locale === "ar" ? "مدن الجامعات على الخريطة" : "University cities on the map"}
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          {locale === "ar" ? "14 مدينة فيها جامعات بتدرّس بالإنجليزي." : "14 cities with universities teaching in English."}
+        </p>
+        <CityMap cities={mapCities} />
+      </section>
+      )}
+
       {/* Mode toggle */}
       <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.03] border border-border-subtle w-fit mb-6">
         <button

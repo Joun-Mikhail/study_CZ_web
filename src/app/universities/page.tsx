@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
 import UniversityListClient from "./UniversityListClient";
+import { cityMapData } from "@/lib/city-map-data";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -16,7 +17,7 @@ export default function Page() {
     <div className="min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <UniversityListClient />
+      <UniversityListClient mapCities={cityMapData()} />
       <Footer />
     </div>
   );

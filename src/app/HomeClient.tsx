@@ -9,6 +9,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
 import { CityStrip, type CityCard } from "@/components/city-strip";
+import { JourneyGlobe } from "@/components/journey-globe";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -137,6 +138,11 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             ))}
           </div>
         </section>
+
+        {/* ── 3D: from your city to Czechia ───────────────────── */}
+        <div className="pt-16 sm:pt-20">
+          <JourneyGlobe />
+        </div>
 
         {/* ── Where are you right now? ─────────────────────────── */}
         <div className="pt-16 sm:pt-20">
