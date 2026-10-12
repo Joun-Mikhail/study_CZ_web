@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Public_Sans, Source_Serif_4, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
-import Analytics from "@/components/analytics";
-import Clarity from "@/components/clarity";
 import Umami from "@/components/umami";
 import { MotionProvider } from "@/components/motion-provider";
 import { OfferExpiryGuard } from "@/components/launch-offer";
@@ -122,8 +120,6 @@ export default function RootLayout({
         </TranslationProvider>
         </MotionProvider>
         <Umami />
-        <Analytics />
-        <Clarity />
       </body>
     </html>
   );
