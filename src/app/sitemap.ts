@@ -75,6 +75,7 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/deadlines", priority: 0.8, sources: ["src/app/deadlines", "src/data/programmes.ts"] },
   { route: "/interview-prep", priority: 0.8, sources: ["src/app/interview-prep"] },
   { route: "/arrival", priority: 0.8, sources: ["src/app/arrival"] },
+  { route: "/for-parents", priority: 0.8, sources: ["src/app/for-parents"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
   { route: "/my-journey", priority: 0.8, sources: ["src/app/my-journey"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },
