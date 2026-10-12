@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Public_Sans, Source_Serif_4, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Public_Sans, Zen_Antique, Lalezar, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Umami from "@/components/umami";
 import { MotionProvider } from "@/components/motion-provider";
@@ -18,11 +18,22 @@ const publicSans = Public_Sans({
   display: "swap",
 });
 
-// Page and section headings.
-const sourceSerif = Source_Serif_4({
-  variable: "--font-source-serif",
-  subsets: ["latin", "latin-ext"],
+// English display face for headings (one weight). SIL Open Font License.
+const zenAntique = Zen_Antique({
+  variable: "--font-zen-antique",
+  weight: "400",
+  subsets: ["latin"],
   display: "swap",
+});
+
+// Arabic display face for headings (one weight). SIL Open Font License.
+// Not preloaded, so English pages don't download it.
+const lalezar = Lalezar({
+  variable: "--font-lalezar",
+  weight: "400",
+  subsets: ["arabic"],
+  display: "swap",
+  preload: false,
 });
 
 // Arabic pages. Not preloaded, so English pages don't download it.
@@ -70,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" className={`${publicSans.variable} ${sourceSerif.variable} ${plexArabic.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" dir="ltr" className={`${publicSans.variable} ${zenAntique.variable} ${lalezar.variable} ${plexArabic.variable} antialiased`} suppressHydrationWarning>
       <head>
         <HreflangDefault />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(/^\\/ar(\\/|$)/.test(location.pathname)){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}})()` }} />
