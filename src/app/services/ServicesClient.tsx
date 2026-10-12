@@ -780,7 +780,7 @@ const en = {
       title: "Embassy Interview Prep: Don't Walk In Unprepared",
       fearTrigger: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
       description:
-        "I've coached dozens of students through embassy interviews in Cairo, Amman, Beirut, and other consulates. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
+        "Embassy interviews follow a pattern. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
       included: [
         "45-minute mock interview session (video call)",
         "Real questions from real embassy interviews (updated regularly)",
@@ -1050,7 +1050,7 @@ const ar: typeof en = {
     interviewPrep: {
       title: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير",
       fearTrigger: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
-      description: "دربت عشرات الطلاب على مقابلات السفارة في القاهرة وعمان وبيروت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
+      description: "مقابلات السفارة ليها نمط ثابت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
       included: [
         "جلسة مقابلة تجريبية 45 دقيقة (فيديو)",
         "أسئلة حقيقية من مقابلات سفارة حقيقية",

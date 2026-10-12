@@ -10,7 +10,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { EmailSignup } from "@/components/email-signup";
-import { filterProgrammes } from "@/data/programmes";
+import { filterProgrammes, programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, City } from "@/data/types";
 import { motion, AnimatePresence } from "framer-motion";
@@ -278,6 +278,11 @@ export default function MatcherPage() {
             {t.matcher.title}
           </h1>
           <p className="text-text-secondary leading-relaxed">{t.matcher.subtitle}</p>
+          <p className="text-xs text-text-muted mt-2">
+            {locale === "ar"
+              ? `بيدور في ${programmes.length} برنامج اتأكدنا منهم من مواقع الجامعات نفسها.`
+              : `Searches the ${programmes.length} programmes we've checked on each university's own website.`}
+          </p>
         </div>
 
         <div className="flex justify-center gap-2 mb-8">

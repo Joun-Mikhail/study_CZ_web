@@ -37,7 +37,7 @@ export const translations = {
       },
       stats: {
         universities: "26 Public Universities",
-        programs: "1,000+ English Programmes",
+        programs: "1,000+ English Programmes across Czech universities",
         students: "50,000+ International Students",
         cost: "€500 to €800 per month Average Living Cost",
         safety: "Top 30 Safest Country Globally",
@@ -391,7 +391,7 @@ export const translations = {
       },
       stats: {
         universities: "26 جامعة حكومية",
-        programs: "أكتر من 1,000 برنامج بالإنجليزي",
+        programs: "أكتر من 1,000 برنامج بالإنجليزي في جامعات التشيك كلها",
         students: "أكتر من 50,000 طالب دولي",
         cost: "500 لحد 800 يورو شهريا متوسط مصاريف المعيشة",
         safety: "من أأمن 30 دولة في العالم",
