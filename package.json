@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node tools/postbuild-ar.mjs",
+    "build": "next build && node tools/postbuild-ar.mjs && node tools/postbuild-og.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "gen:ar": "node tools/gen-ar-routes.mjs"
+    "gen:ar": "node tools/gen-ar-routes.mjs",
+    "gen:og": "node tools/gen-og.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",

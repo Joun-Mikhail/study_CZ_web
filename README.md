@@ -50,6 +50,7 @@ GitHub Actions (`.github/workflows/ci.yml`) only runs checks. Environment variab
 3. Add an `AR_PAGE_META` entry in `src/i18n/ar-metadata.ts` (title and description in Modern Standard Arabic).
 4. Run `npm run gen:ar` and commit the generated files under `src/app/ar/`. Dynamic routes need a hand-written Arabic route file containing `@custom-ar`, which the generator never overwrites.
 5. Add the page to `src/app/sitemap.ts`.
+6. Run `npm run build`, then `npm run gen:og`, and commit `public/og/`. This draws the page's share cards (the picture WhatsApp and Facebook show with a link) in English and Arabic. Cards are redrawn only when a title or description changes; a page whose card is missing or out of date falls back to `/og-image.jpg`.
 
 Internal links: import `Link` from `@/components/locale-link` (never `next/link`), and pass plain `<a>` hrefs through `localizeHref()`. Internal URLs end with `/`.
 
