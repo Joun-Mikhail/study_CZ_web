@@ -22,6 +22,8 @@ export interface FormData {
   appliedBefore: string;
   englishCert: string;
   czechPrep: string;
+  /** Optional: "myself" | "someHelp" | "withMe". */
+  helpStyle: string;
 }
 
 export const initial: FormData = {
@@ -41,6 +43,7 @@ export const initial: FormData = {
   appliedBefore: "",
   englishCert: "",
   czechPrep: "",
+  helpStyle: "",
 };
 
 // ── Scoring ──────────────────────────────────────────────────────────────────
@@ -117,6 +120,112 @@ export function scoreForm(form: FormData): { categories: ScoredCategory[]; pct: 
   return { categories, pct, total };
 }
 
+// ── The plan: verdict, top risks, matched help ──────────────────────────────
+// The risk → help mapping is in docs/JOURNEY.md, 2.1. Each risk gets a free fix
+// first and at most one paid service: the cheapest one that fixes it.
+
+export type Verdict = "ready" | "fixable" | "notYet";
+/** Same keys as HelpService in src/data/help-services.ts (kept plain here for the email function). */
+export type PlanService = "documentReview" | "consultation";
+
+export interface Risk {
+  key: string;
+  status: Exclude<Status, "pass">;
+  service?: PlanService;
+}
+
+const RISK_ORDER = ["documents", "finances", "timeline", "academics", "language"];
+
+function serviceFor(key: string, status: Status): PlanService | undefined {
+  if (key === "documents") return "documentReview";
+  if (key === "finances" || key === "timeline") return "consultation";
+  if (key === "academics" && status === "warning") return "consultation";
+  return undefined; // missing education details or language: nothing I sell fixes it
+}
+
+export function verdictFor(categories: ScoredCategory[]): Verdict {
+  const fails = categories.filter((c) => c.status === "fail").length;
+  const warnings = categories.filter((c) => c.status === "warning").length;
+  if (fails >= 2) return "notYet";
+  if (fails === 0 && warnings <= 1) return "ready";
+  return "fixable";
+}
+
+/** Up to three open risks, fails first; a service is never offered twice. */
+export function topRisks(categories: ScoredCategory[]): Risk[] {
+  const open = categories
+    .filter((c): c is ScoredCategory & { status: Exclude<Status, "pass"> } => c.status !== "pass")
+    .sort(
+      (a, b) =>
+        (a.status === "fail" ? 0 : 1) - (b.status === "fail" ? 0 : 1) ||
+        RISK_ORDER.indexOf(a.key) - RISK_ORDER.indexOf(b.key)
+    )
+    .slice(0, 3);
+  const used = new Set<PlanService>();
+  return open.map((c) => {
+    const s = serviceFor(c.key, c.status);
+    const service = s && !used.has(s) ? s : undefined;
+    if (service) used.add(service);
+    return { key: c.key, status: c.status, service };
+  });
+}
+
+/** The Full Journey is offered only for several red flags, or when asked for. */
+export function offersFullJourney(form: FormData, categories: ScoredCategory[]): boolean {
+  return form.helpStyle === "withMe" || categories.filter((c) => c.status === "fail").length >= 2;
+}
+
+/** Short reason per risk, for the WhatsApp summary ("apostille not done"). */
+function riskReason(key: string, form: FormData, locale: "en" | "ar"): string {
+  const ar = locale === "ar";
+  switch (key) {
+    case "documents":
+      if (form.passportValid === "no") return ar ? "الجواز هيخلص قريب" : "passport expiring soon";
+      if (form.apostille !== "yes") return ar ? "لسه ماعملتش أبوستيل" : "apostille not done";
+      return ar ? "الترجمة لسه" : "translations not done";
+    case "finances":
+      return form.proofOfFunds === "canArrange" ? (ar ? "أقدر أرتبها" : "can arrange funds") : ar ? "مش متأكد" : "not sure yet";
+    case "timeline":
+      return ar ? "عايز أبدأ الفصل الجاي" : "starting this coming semester";
+    case "academics":
+      return ar ? "المجموع" : "grades";
+    default:
+      return ar ? "شهادة اللغة" : "language certificate";
+  }
+}
+
+/** The prefilled "Send my plan to John" message. Answers only: no name, email or number. */
+export function planSummary(form: FormData, locale: "en" | "ar"): string {
+  const { categories, pct } = scoreForm(form);
+  const copy = locale === "ar" ? ar : en;
+  const risks = topRisks(categories)
+    .map((r) => `${copy.resultCategories[r.key as keyof typeof copy.resultCategories].title} (${riskReason(r.key, form, locale)})`)
+    .join(locale === "ar" ? "، " : ", ");
+  const start = { thisSemester: copy.options.thisSemester, nextYear: copy.options.nextYear, exploring: copy.options.exploring }[
+    form.startWhen as "thisSemester" | "nextYear" | "exploring"
+  ];
+  if (locale === "ar") {
+    return [
+      `أهلًا جون، دي خطتي من اختبار الأهلية. الجاهزية: ${pct}%.`,
+      risks ? `محتاج أشتغل على: ${risks}.` : "",
+      start ? `عايز أبدأ: ${start}.` : "",
+      "ممكن تساعدني في الخطوة الجاية؟",
+    ].filter(Boolean).join(" ");
+  }
+  return [
+    `Hi John, here's my plan from the eligibility check. Readiness: ${pct}%.`,
+    risks ? `To work on: ${risks}.` : "",
+    start ? `Starting: ${start.toLowerCase()}.` : "",
+    "Can you help me with the next step?",
+  ].filter(Boolean).join(" ");
+}
+
+/** Official sources for the figures in the timeline. */
+export const TIMELINE_SOURCES = {
+  visa: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/long_term_visa/study_long_term_visa_to_the_czech/index.html",
+  police: "https://policie.gov.cz/reditelstvi-sluzby-cizinecke-policie/reporting-of-the-place-of-foreigns-residence",
+};
+
 // ─── English copy ───────────────────────────────────────────────────────────
 
 export const en = {
@@ -143,6 +252,7 @@ export const en = {
     appliedBefore: "Applied to a Czech university before?",
     englishCert: "English certificate",
     czechPrep: "Czech language preparation",
+    helpStyle: "How would you like to do this? (optional)",
   },
   placeholders: {
     firstName: "Your first name",
@@ -181,13 +291,16 @@ export const en = {
     courseTaken: "Course taken",
     selfStudy: "Some self-study",
     noneYet: "None yet",
+    myself: "By myself",
+    someHelp: "With help on specific steps",
+    withMe: "With someone the whole way",
     highschool: "High school",
     bachelor: "Bachelor's",
     master: "Master's",
     phd: "PhD",
   },
-  resultsTitle: "Your Eligibility Assessment",
-  resultsSubtitle: "Here's where you stand based on what you told us.",
+  resultsTitle: "Your plan",
+  resultsSubtitle: "Based on what you told me.",
   readiness: "readiness",
   resultCategories: {
     academics: {
@@ -200,15 +313,11 @@ export const en = {
           detail: "A lower GPA does not disqualify you, but it narrows your university choices. A preparatory year can strengthen your profile significantly.",
           freeLink: "/preparatory-year",
           freeLabel: "Read the free Preparatory Year guide",
-          paidLink: "/services",
-          paidLabel: `Or get a consultation — ${price("consultation")}`,
         },
         fail: {
           detail: "Without confirming your education level and grades, universities cannot assess your application. Gather your transcripts and diploma first.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
-          paidLink: "/services",
-          paidLabel: `Or get your documents reviewed — ${price("documentReview")}`,
         },
       },
     },
@@ -216,21 +325,17 @@ export const en = {
       title: "Required Documents",
       pass: "All essential documents are ready.",
       warning: "Some documents still need attention — you can fix this in time.",
-      fail: "Critical document gaps could block your application.",
+      fail: "Some documents need sorting out before you apply.",
       advice: {
         warning: {
           detail: "Missing apostille or translation can delay your application by weeks. In Egypt, apostille requires legalization from the Ministry of Foreign Affairs and then the Czech embassy — typically 4-8 weeks.",
           freeLink: "/application-guide",
           freeLabel: "Read our free apostille and document guide",
-          paidLink: "/services",
-          paidLabel: `Or get your full document package reviewed — ${price("documentReview")}`,
         },
         fail: {
-          detail: "The embassy does not tell you what is wrong — they just say \"rejected.\" You will not know which document killed your application unless someone checks before you submit.",
+          detail: "An apostille you're unsure about, or a passport that expires too soon, can hold up the whole application. Both are fixable. Start with the apostille: it usually takes 4-8 weeks.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
-          paidLink: "/services",
-          paidLabel: `Or get your full document package reviewed — ${price("documentReview")}`,
         },
       },
     },
@@ -238,21 +343,17 @@ export const en = {
       title: "Financial Readiness",
       pass: "Your finances look sufficient for a student visa.",
       warning: "You say you can arrange funds — start now, it takes time.",
-      fail: "Insufficient funds or no proof. This will likely cause a visa rejection.",
+      fail: "No proof of funds yet. The visa needs it, so plan this first.",
       advice: {
         warning: {
           detail: "The Czech embassy requires bank statements showing approximately €5,500 per year. Start gathering this proof now — last-minute transfers raise red flags.",
           freeLink: "/cost-of-living",
           freeLabel: "Use the free Cost of Living Calculator",
-          paidLink: "/services",
-          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
         fail: {
-          detail: "Without proof of financial support, your visa will almost certainly be rejected. This is one of the most common reasons for denial.",
+          detail: "The embassy asks for proof of about €5,500 a year before it grants a student visa, so this needs a plan before you apply. The calculator shows what you'll really need; cheaper cities and scholarships can close the gap.",
           freeLink: "/cost-of-living",
           freeLabel: "Use the free Cost of Living Calculator",
-          paidLink: "/services",
-          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
       },
     },
@@ -266,15 +367,11 @@ export const en = {
           detail: "Rushing an application leads to mistakes. Apostille alone can take 4-8 weeks. If any of your documents are not ready, start today.",
           freeLink: "/application-guide",
           freeLabel: "Read the step-by-step Application Guide",
-          paidLink: "/services",
-          paidLabel: `Or get full application assistance — ${price("fullPackageStep1")} to start`,
         },
         fail: {
-          detail: "With this timeline and outstanding gaps, applying this semester risks a rejection that goes on your record. Targeting the next intake gives you time to build a strong application.",
+          detail: "With this timeline and a few gaps still open, the next intake gives you time to apply properly instead of in a rush.",
           freeLink: "/application-guide",
           freeLabel: "Read the free Application Guide",
-          paidLink: "/services",
-          paidLabel: `Or let me plan your timeline — ${price("consultation")} consultation`,
         },
       },
     },
@@ -288,31 +385,49 @@ export const en = {
           detail: "Most English-taught programs require IELTS 5.5-6.5 or equivalent. Book your test soon — slots fill up and results take weeks.",
           freeLink: "/qa",
           freeLabel: "Check language requirements in the Q&A",
-          paidLink: "/services",
-          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
         fail: {
           detail: "Without knowing whether you need a language certificate, you risk applying to programs you are not eligible for. Check requirements for your target program.",
           freeLink: "/qa",
           freeLabel: "Check language requirements in the Q&A",
-          paidLink: "/services",
-          paidLabel: `Or book a consultation — ${price("consultation")}`,
         },
       },
     },
   },
-  ctaPaths: {
-    selfLabel: "I'll handle it myself",
-    selfSub: "Great — use our free guides and the Facebook community.",
-    specificLabel: "I need help with specific things",
-    specificSub: "Book just the services you need.",
-    fullLabel: `I want someone to guide me through everything — Start with ${price("fullPackageStep1")}`,
-    fullSub: "I'll build your complete plan.",
+  plan: {
+    verdicts: {
+      ready: "You're in a good position to apply.",
+      fixable: "You can apply. Fix these first.",
+      notYet: "Not yet, but here's how to get there.",
+    },
+    risksTitle: "The things to work on",
+    noRisks: "Nothing stands in your way. Next: pick your programmes and their deadlines.",
+    diy: "Do it yourself:",
+    service: {
+      documentReview: "Or I can check your documents for you",
+      consultation: "Or let's plan it together in a 30-minute call",
+    },
+    fullTitle: "Several things need work at once.",
+    fullBody: (step1: string, step2: string) =>
+      `If you'd rather not juggle them alone, I can go through the whole process with you. You pay step 1 (${step1}) now. Step 2 (${step2}) is only due after a university accepts you.`,
+    fullButton: "See how the Full Journey works",
+    timelineTitle: "Your timeline",
+    timeline: [
+      "Now: start the apostille and translations (usually 4-8 weeks).",
+      "Pick your programmes and note their deadlines.",
+      "Apply before each programme's deadline.",
+      "After you're accepted: book the embassy appointment. The visa decision can take up to 60 days, sometimes 90.",
+      "When you arrive: report your address to the foreign police within 3 working days (dorms and hotels usually do it for you).",
+    ],
+    deadlinesLink: "Deadline tracker",
+    nextIntake: "Aim for the next intake. It gives you time to do this properly.",
+    sourceLabel: "Source",
+    save: "Save to My Journey",
+    saved: "Saved. Open My Journey",
+    send: "Send my plan to John",
+    sendHint: "Opens WhatsApp with a short summary of your answers. Nothing is sent until you press send.",
+    startOver: "Start over",
   },
-  sendReportTitle: "Want this report sent to you?",
-  sendReportDesc: "Message us on WhatsApp and we'll discuss your results and next steps. Free, no pressure.",
-  whatsappButton: "Message me on WhatsApp",
-  startOver: "Start Over",
 };
 
 // ─── Arabic copy ────────────────────────────────────────────────────────────
@@ -341,6 +456,7 @@ export const ar: typeof en = {
     appliedBefore: "قدمت على جامعة تشيكية قبل كده؟",
     englishCert: "شهادة إنجليزي",
     czechPrep: "تحضير اللغة التشيكية",
+    helpStyle: "حابب تعملها إزاي؟ (اختياري)",
   },
   placeholders: {
     firstName: "اسمك الأول",
@@ -379,13 +495,16 @@ export const ar: typeof en = {
     courseTaken: "خدت كورس",
     selfStudy: "شوية دراسة ذاتية",
     noneYet: "لسه مبدأتش",
+    myself: "لوحدي",
+    someHelp: "بمساعدة في خطوات معينة",
+    withMe: "مع حد طول الطريق",
     highschool: "ثانوية عامة",
     bachelor: "بكالوريوس",
     master: "ماجستير",
     phd: "دكتوراه",
   },
-  resultsTitle: "شوف وضعك",
-  resultsSubtitle: "دي نتيجتك حسب اللي قولتهولنا.",
+  resultsTitle: "خطتك",
+  resultsSubtitle: "حسب اللي قولتهولي.",
   readiness: "جاهزية",
   resultCategories: {
     academics: {
@@ -398,15 +517,11 @@ export const ar: typeof en = {
           detail: "معدل أقل مش بيشيلك، بس بيقلل اختياراتك. السنة التحضيرية ممكن تقوي ملفك بشكل كبير.",
           freeLink: "/preparatory-year",
           freeLabel: "اقرأ دليل السنة التحضيرية المجاني",
-          paidLink: "/services",
-          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
           detail: "من غير ما تأكد مستواك التعليمي ودرجاتك، الجامعات مش هتقدر تقيّم طلبك. جمّع كشف الدرجات والشهادة الأول.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
-          paidLink: "/services",
-          paidLabel: `أو خلي أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
       },
     },
@@ -414,21 +529,17 @@ export const ar: typeof en = {
       title: "الأوراق المطلوبة",
       pass: "كل الأوراق الأساسية جاهزة.",
       warning: "بعض الأوراق لسه محتاجة انتباه — تقدر تلحق.",
-      fail: "نواقص حرجة في الأوراق ممكن توقف طلبك.",
+      fail: "في أوراق محتاجة تتظبط قبل ما تقدم.",
       advice: {
         warning: {
           detail: "التصديق أو الترجمة الناقصة ممكن تأخر طلبك أسابيع. في مصر، التصديق (الأبوستيل) محتاج تروح الخارجية وبعدين السفارة التشيكية — عادة 4-8 أسابيع.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل الأوراق والتصديقات المجاني",
-          paidLink: "/services",
-          paidLabel: `أو خلي كل أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
         fail: {
-          detail: "السفارة مش بتقولك إيه الغلط — بس بتقول \"مرفوض\". مش هتعرف أي ورقة وقعتك غير لما حد يراجع قبل ما تقدم.",
+          detail: "الأبوستيل اللي مش متأكد منه، أو جواز سفر هيخلص بدري، ممكن يوقفوا الطلب كله. والاتنين ليهم حل. ابدأ بالأبوستيل لإنه غالبًا بياخد من 4 لـ8 أسابيع.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
-          paidLink: "/services",
-          paidLabel: `أو خلي كل أوراقك تتراجع — ${price("documentReview", "ar")}`,
         },
       },
     },
@@ -436,21 +547,17 @@ export const ar: typeof en = {
       title: "الوضع المادي",
       pass: "فلوسك كفاية لفيزا الطالب.",
       warning: "بتقول تقدر ترتبه — ابدأ دلوقتي لإن بياخد وقت.",
-      fail: "مفيش فلوس كفاية أو مفيش إثبات. ده غالبا بيسبب رفض الفيزا.",
+      fail: "لسه مفيش إثبات فلوس. الفيزا محتاجاه، فخطط له الأول.",
       advice: {
         warning: {
           detail: "السفارة التشيكية بتطلب كشوفات حساب بتوضح حوالي 5,500 يورو في السنة. ابدأ تجمع الإثبات ده دلوقتي — التحويلات اللي في آخر لحظة بترفع علامات استفهام.",
           freeLink: "/cost-of-living",
           freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
-          paidLink: "/services",
-          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
-          detail: "من غير إثبات دعم مالي، فيزتك هتترفض تقريبا. ده من أكتر أسباب الرفض شيوعا.",
+          detail: "السفارة بتطلب إثبات حوالي 5,500 يورو في السنة قبل ما تدي فيزا الطالب، فده محتاج خطة قبل ما تقدم. الحاسبة هتوريك محتاج كام فعلًا، والمدن الأرخص والمنح ممكن يسدوا الفرق.",
           freeLink: "/cost-of-living",
           freeLabel: "استخدم حاسبة تكلفة المعيشة المجانية",
-          paidLink: "/services",
-          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
       },
     },
@@ -464,15 +571,11 @@ export const ar: typeof en = {
           detail: "الاستعجال في التقديم بيجيب أخطاء. التصديق (الأبوستيل) لوحده ممكن ياخد 4-8 أسابيع. لو أي ورق مش جاهز، ابدأ النهارده.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم خطوة بخطوة",
-          paidLink: "/services",
-          paidLabel: `أو خد مساعدة كاملة في التقديم — ابدأ بـ ${price("fullPackageStep1", "ar")}`,
         },
         fail: {
-          detail: "بالجدول الزمني ده والنواقص اللي عندك، التقديم الفصل ده بيخاطر برفض هيتسجل في ملفك. استهداف الدفعة الجاية هيديك وقت تبني طلب قوي.",
+          detail: "بالوقت ده ومع النواقص اللي لسه مفتوحة، الدفعة الجاية هتديك وقت تقدم صح بدل ما تقدم على عجلة.",
           freeLink: "/application-guide",
           freeLabel: "اقرأ دليل التقديم المجاني",
-          paidLink: "/services",
-          paidLabel: `أو خليني أخطط جدولك — استشارة ${price("consultation", "ar")}`,
         },
       },
     },
@@ -486,29 +589,47 @@ export const ar: typeof en = {
           detail: "معظم البرامج بالإنجليزي بتطلب IELTS 5.5-6.5 أو ما يعادله. احجز امتحانك بدري — الأماكن بتخلص والنتايج بتاخد أسابيع.",
           freeLink: "/qa",
           freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
-          paidLink: "/services",
-          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
         fail: {
           detail: "من غير ما تعرف لو محتاج شهادة لغة ولا لا، ممكن تقدم على برامج مش مؤهل ليها. تحقق من متطلبات البرنامج اللي مستهدفه.",
           freeLink: "/qa",
           freeLabel: "شوف متطلبات اللغة في الأسئلة الشائعة",
-          paidLink: "/services",
-          paidLabel: `أو احجز استشارة — ${price("consultation", "ar")}`,
         },
       },
     },
   },
-  ctaPaths: {
-    selfLabel: "هتعمل كل حاجة بنفسي",
-    selfSub: "تمام — استخدم الأدلة المجانية ومجتمع فيسبوك.",
-    specificLabel: "محتاج مساعدة في حاجات معينة",
-    specificSub: "احجز بس الخدمات اللي محتاجها.",
-    fullLabel: `عايز حد يمشيني في كل حاجة — ابدأ بـ ${price("fullPackageStep1", "ar")}`,
-    fullSub: "هبنيلك خطة كاملة.",
+  plan: {
+    verdicts: {
+      ready: "وضعك كويس وتقدر تقدم.",
+      fixable: "تقدر تقدم، بس صلّح الحاجات دي الأول.",
+      notYet: "لسه مش دلوقتي، بس دي الطريقة اللي توصلك.",
+    },
+    risksTitle: "الحاجات اللي تشتغل عليها",
+    noRisks: "مفيش حاجة واقفة قدامك. الخطوة الجاية: اختار برامجك ومواعيدها.",
+    diy: "اعملها بنفسك:",
+    service: {
+      documentReview: "أو أراجعلك أوراقك بنفسي",
+      consultation: "أو نخططها مع بعض في مكالمة 30 دقيقة",
+    },
+    fullTitle: "في كذا حاجة محتاجة شغل في نفس الوقت.",
+    fullBody: (step1: string, step2: string) =>
+      `لو مش عايز تشيلهم لوحدك، أقدر أمشي معاك في العملية كلها. بتدفع المرحلة الأولى (${step1}) دلوقتي، والتانية (${step2}) بس بعد ما جامعة تقبلك.`,
+    fullButton: "شوف الرحلة الكاملة بتمشي إزاي",
+    timelineTitle: "الجدول بتاعك",
+    timeline: [
+      "دلوقتي: ابدأ الأبوستيل والترجمة (غالبًا من 4 لـ8 أسابيع).",
+      "اختار برامجك واكتب مواعيدها.",
+      "قدّم قبل آخر ميعاد لكل برنامج.",
+      "بعد القبول: احجز ميعاد السفارة. قرار الفيزا ممكن ياخد لحد 60 يوم، وأحيانًا 90.",
+      "أول ما توصل: بلّغ شرطة الأجانب بعنوانك خلال 3 أيام عمل (السكن الجامعي والفنادق غالبًا بيعملوها بدالك).",
+    ],
+    deadlinesLink: "متتبع المواعيد",
+    nextIntake: "خلي هدفك الدفعة الجاية، هتديك وقت تعملها صح.",
+    sourceLabel: "المصدر",
+    save: "احفظ في رحلتي",
+    saved: "اتحفظت. افتح رحلتي",
+    send: "ابعت خطتي لجون",
+    sendHint: "هيفتح واتساب بملخص قصير لإجاباتك. مفيش حاجة بتتبعت غير لما تدوس إرسال.",
+    startOver: "ابدأ من الأول",
   },
-  sendReportTitle: "عايز التقرير ده يتبعتلك؟",
-  sendReportDesc: "راسلنا على واتساب وهنناقش نتيجتك والخطوات الجاية. مجاني، من غير ضغط.",
-  whatsappButton: "راسلني على واتساب",
-  startOver: "ابدأ من الأول",
 };
