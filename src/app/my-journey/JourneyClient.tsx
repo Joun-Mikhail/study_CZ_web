@@ -56,12 +56,13 @@ function ProgressRing({ percent, size = 56 }: { percent: number; size?: number }
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="currentColor" strokeWidth={stroke} className="text-surface-raised" />
         <circle
           cx={size / 2} cy={size / 2} r={radius} fill="none"
           stroke={color} strokeWidth={stroke} strokeLinecap="round"
           strokeDasharray={circ} strokeDashoffset={offset}
-          className="transition-all duration-700 ease-out"
+          className="ring-fill transition-all duration-700 ease-out"
+          style={{ "--ring": `${circ}` } as React.CSSProperties}
         />
       </svg>
       <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-text-primary">

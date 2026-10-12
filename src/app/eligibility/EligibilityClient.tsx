@@ -527,9 +527,11 @@ function ResultsView({
                   stroke="currentColor"
                   strokeWidth="8"
                   fill="none"
-                  strokeDasharray={`${(pct / 100) * 2 * Math.PI * 52} ${2 * Math.PI * 52}`}
+                  strokeDasharray={2 * Math.PI * 52}
+                  strokeDashoffset={(1 - pct / 100) * 2 * Math.PI * 52}
                   strokeLinecap="round"
-                  className={tone}
+                  className={cn("ring-fill", tone)}
+                  style={{ "--ring": `${2 * Math.PI * 52}` } as React.CSSProperties}
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">

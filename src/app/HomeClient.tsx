@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
 import { CityStrip, type CityCard } from "@/components/city-strip";
 import { JourneyGlobe } from "@/components/journey-globe";
+import { CountUp } from "@/components/ui/count-up";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -168,7 +169,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
                 <div key={s.label} className="grid content-start border-s-2 border-brand ps-4">
                   <dt className="row-start-2 text-sm leading-snug text-text-secondary mt-1">{s.label}</dt>
                   <dd className="row-start-1 font-display text-3xl sm:text-4xl font-semibold text-text-primary tabular-nums" dir="ltr">
-                    {s.value}
+                    <CountUp value={s.value} />
                   </dd>
                 </div>
               ))}
