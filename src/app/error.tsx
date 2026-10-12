@@ -16,7 +16,7 @@ export default function Error({
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="text-center">
-        <h1 className="text-5xl font-bold text-amber mb-4">Oops</h1>
+        <h1 className="text-5xl font-bold text-brand mb-4">Oops</h1>
         <h2 className="text-xl font-semibold text-text-primary mb-3">
           Something went wrong
         </h2>
@@ -25,7 +25,7 @@ export default function Error({
         </p>
         <button
           onClick={reset}
-          className="inline-block px-6 py-3 rounded-xl bg-amber hover:bg-amber-hover text-midnight font-medium transition-colors"
+          className="inline-block px-6 py-3 rounded-xl bg-brand hover:bg-brand-hover text-bg font-medium transition-colors"
         >
           Try again
         </button>

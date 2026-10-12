@@ -30,14 +30,14 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
       <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
         <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
           <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
           </svg>
         </div>
 
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <Link href={`/programmes/${prog.id}`} className="block">
-              <h4 className="font-medium text-text-primary text-sm group-hover:text-amber transition-colors duration-300">
+              <h4 className="font-medium text-text-primary text-sm group-hover:text-brand transition-colors duration-300">
                 {prog.name[locale] || prog.name.en}
               </h4>
             </Link>
@@ -46,7 +46,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
             )}
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
-            <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+            <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
               {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
             </span>
             <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
@@ -58,7 +58,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
 
         <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
+            <Euro className="w-3 h-3 text-brand/70" />
             €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
           </span>
           <span className="inline-flex items-center gap-1">
@@ -80,7 +80,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         )}
 
         {prog.applicationDeadline && (
-          <p className="text-xs font-medium text-amber mt-2 inline-flex items-center gap-1">
+          <p className="text-xs font-medium text-brand mt-2 inline-flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
           </p>
@@ -95,7 +95,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           <div className="flex items-center gap-3">
             <Link
               href={`/programmes/${prog.id}`}
-              className="inline-flex items-center gap-1 text-xs text-amber hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300"
+              className="inline-flex items-center gap-1 text-xs text-brand hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300"
             >
               {locale === "ar" ? "التفاصيل" : "Details"}
               <ArrowRight className="w-3 h-3" />
@@ -119,8 +119,8 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
 function QuickStat({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) {
   return (
     <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-border-subtle">
-      <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-amber/10 shrink-0">
-        <Icon className="w-4 h-4 text-amber" />
+      <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand/10 shrink-0">
+        <Icon className="w-4 h-4 text-brand" />
       </div>
       <div>
         <p className="text-xs text-text-muted">{label}</p>
@@ -181,7 +181,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                     ? "bg-success/20 text-success border-success/30"
                     : uniV2.type === "state"
                     ? "bg-info/20 text-info border-info/30"
-                    : "bg-amber/20 text-amber border-amber/30"
+                    : "bg-brand/20 text-brand border-brand/30"
                 }`}>
                   {uniV2.type === "public"
                     ? (locale === "ar" ? "حكومية" : "Public")
@@ -237,7 +237,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       <FadeIn delay={0.2}>
         <GlassCard className="mb-6">
           <h3 className="text-sm font-semibold text-text-primary mb-2 flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-amber" />
+            <BookOpen className="w-4 h-4 text-brand" />
             {t.university.overviewLabel}
           </h3>
           <p className="text-sm text-text-secondary leading-relaxed">{uni.blurb[locale] || uni.blurb.en}</p>
@@ -246,21 +246,21 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
           <div className="flex flex-wrap gap-3 mt-4 pt-3 border-t border-border-subtle">
             {(uniV2?.website || uni.website) && (
               <a href={uniV2?.website || uni.website} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
+                className="inline-flex items-center gap-1.5 text-xs text-brand hover:underline">
                 <Globe className="w-3.5 h-3.5" />
                 {t.university.websiteLabel}
               </a>
             )}
             {uniV2?.admissionsUrl && (
               <a href={uniV2.admissionsUrl} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
+                className="inline-flex items-center gap-1.5 text-xs text-brand hover:underline">
                 <FileText className="w-3.5 h-3.5" />
                 {locale === "ar" ? "صفحة القبول" : "Admissions"}
               </a>
             )}
             {(uniV2?.contactEmail || uni.contactEmail) && (
               <a href={`mailto:${uniV2?.contactEmail || uni.contactEmail}`}
-                className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
+                className="inline-flex items-center gap-1.5 text-xs text-brand hover:underline">
                 <Mail className="w-3.5 h-3.5" />
                 {uniV2?.contactEmail || uni.contactEmail}
               </a>
@@ -273,12 +273,12 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       <FadeIn delay={0.25}>
         <div className="mb-6">
           <h3 className="text-base font-semibold text-text-primary mb-4 flex items-center gap-2">
-            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber/10">
-              <GraduationCap className="w-4 h-4 text-amber" />
+            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-brand/10">
+              <GraduationCap className="w-4 h-4 text-brand" />
             </div>
             {locale === "ar" ? "البرامج المتاحة بالإنجليزية" : "English-Taught Programmes"}
             {progs.length > 0 && (
-              <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-xs font-medium border border-amber/20">
+              <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-xs font-medium border border-brand/20">
                 {progs.length}
               </span>
             )}
@@ -297,12 +297,12 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                   initial={{ x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.3 }}
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-border-subtle hover:border-amber/20 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-border-subtle hover:border-brand/20 transition-colors"
                 >
                   <div>
                     <span className="font-medium text-text-primary text-sm">{p.name[locale] || p.name.en}</span>
                     <div className="flex gap-1.5 mt-1">
-                      <span className="px-1.5 py-0.5 rounded bg-amber/10 text-amber text-[10px] font-medium">{p.degree}</span>
+                      <span className="px-1.5 py-0.5 rounded bg-brand/10 text-brand text-[10px] font-medium">{p.degree}</span>
                       <span className="px-1.5 py-0.5 rounded bg-white/5 text-text-muted text-[10px]">{p.language}</span>
                     </div>
                   </div>
@@ -313,11 +313,11 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
           ) : (
             <GlassCard className="relative overflow-hidden">
               <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none">
-                <div className="w-full h-full bg-gradient-to-bl from-amber/5 to-transparent rounded-bl-full" />
+                <div className="w-full h-full bg-gradient-to-bl from-brand/5 to-transparent rounded-bl-full" />
               </div>
               <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber/10 shrink-0">
-                  <Sparkles className="w-5 h-5 text-amber" />
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10 shrink-0">
+                  <Sparkles className="w-5 h-5 text-brand" />
                 </div>
                 <div>
                   <p className="text-sm text-text-secondary">
@@ -330,7 +330,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                       href={uni.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg bg-amber/10 text-sm text-amber hover:bg-amber/20 transition-colors"
+                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg bg-brand/10 text-sm text-brand hover:bg-brand/20 transition-colors"
                     >
                       {locale === "ar" ? "الموقع الرسمي" : "Visit official website"}
                       <ExternalLink className="w-3.5 h-3.5" />

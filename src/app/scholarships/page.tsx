@@ -58,8 +58,8 @@ export default function Page() {
             >
               <GlassCard href={s.link || "#"} hoverEffect="lift" className="h-full flex flex-col">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-5 h-5 text-amber" />
+                  <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center shrink-0">
+                    <GraduationCap className="w-5 h-5 text-brand" />
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-text-primary mb-0.5">{s.name[locale]}</h2>

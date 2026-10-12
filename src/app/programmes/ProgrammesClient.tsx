@@ -58,14 +58,14 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
       <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
         <div className="absolute top-0 end-0 w-20 h-20 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
           <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
-            <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-            <circle cx="60" cy="20" r="30" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+            <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
+            <circle cx="60" cy="20" r="30" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
           </svg>
         </div>
 
         <div className="flex items-start justify-between gap-3">
           <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+            <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
               {prog.name[locale] || prog.name.en}
             </h3>
             <p className="text-xs text-text-secondary mt-0.5">
@@ -76,7 +76,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         </div>
 
         <div className="flex flex-wrap gap-2 mt-3">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
             {prog.degree}
           </span>
           <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
@@ -91,7 +91,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
 
         <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
+            <Euro className="w-3 h-3 text-brand/70" />
             €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
           </span>
           <span className="inline-flex items-center gap-1">
@@ -107,7 +107,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         </div>
 
         {prog.applicationDeadline && (
-          <p className="text-xs font-medium text-amber mt-2">
+          <p className="text-xs font-medium text-brand mt-2">
             {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
           </p>
         )}
@@ -120,7 +120,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           />
           <Link
             href={`/programmes/${prog.id}`}
-            className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
+            className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
           >
             {locale === "ar" ? "التفاصيل" : "Details"}
             <ArrowRight className="w-3 h-3" />
@@ -205,13 +205,13 @@ export default function ProgrammesClient({
         {/* Search + filter bar */}
         <div className="flex gap-2 mb-4">
           <div className="relative flex-1 group">
-            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber pointer-events-none transition-colors duration-200" />
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand pointer-events-none transition-colors duration-200" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={locale === "ar" ? "ابحث عن برنامج أو جامعة..." : "Search programmes or universities..."}
-              className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
+              className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
             />
           </div>
           <button
@@ -220,13 +220,13 @@ export default function ProgrammesClient({
             aria-expanded={showFilters}
             className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
               showFilters || activeFilters > 0
-                ? "bg-amber/10 text-amber border-amber/30"
-                : "bg-white/5 text-text-secondary border-border-subtle hover:border-amber/30"
+                ? "bg-brand/10 text-brand border-brand/30"
+                : "bg-white/5 text-text-secondary border-border-subtle hover:border-brand/30"
             }`}
           >
             <SlidersHorizontal className="w-4 h-4" />
             {activeFilters > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full bg-amber text-midnight text-[10px] font-bold">
+              <span className="px-1.5 py-0.5 rounded-full bg-brand text-bg text-[10px] font-bold">
                 {activeFilters}
               </span>
             )}
@@ -234,7 +234,7 @@ export default function ProgrammesClient({
           <Link
             href="/my-journey"
             aria-label={locale === "ar" ? "رحلتي" : "My Journey"}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
           >
             <Bookmark className="w-4 h-4" />
             <span className="hidden sm:inline">{locale === "ar" ? "رحلتي" : "My Journey"}</span>
@@ -259,7 +259,7 @@ export default function ProgrammesClient({
               <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All fields"}</option>
                 {PROGRAMME_FIELDS.map((f) => (
@@ -274,7 +274,7 @@ export default function ProgrammesClient({
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All cities"}</option>
                 {CITIES.map((c) => (
@@ -289,7 +289,7 @@ export default function ProgrammesClient({
               <select
                 value={degree}
                 onChange={(e) => setDegree(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All degrees"}</option>
                 <option value="Bachelor">Bachelor</option>
@@ -304,7 +304,7 @@ export default function ProgrammesClient({
               <select
                 value={maxTuition || ""}
                 onChange={(e) => setMaxTuition(e.target.value ? Number(e.target.value) : undefined)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "أي سعر" : "Any price"}</option>
                 {TUITION_RANGES.map((r) => (
@@ -315,7 +315,7 @@ export default function ProgrammesClient({
             {activeFilters > 0 && (
               <button
                 onClick={clearFilters}
-                className="col-span-2 sm:col-span-4 text-xs text-text-muted hover:text-amber flex items-center gap-1 justify-center"
+                className="col-span-2 sm:col-span-4 text-xs text-text-muted hover:text-brand flex items-center gap-1 justify-center"
               >
                 <X className="w-3 h-3" /> {locale === "ar" ? "امسح الفلتر" : "Clear all filters"}
               </button>
@@ -353,7 +353,7 @@ export default function ProgrammesClient({
                 ? "جرب تغيّر الفلتر أو تدور بكلمات تانية."
                 : "Try adjusting your filters or search terms."}
             </p>
-            <button onClick={clearFilters} className="text-sm text-amber hover:underline">
+            <button onClick={clearFilters} className="text-sm text-brand hover:underline">
               {locale === "ar" ? "امسح الفلتر" : "Clear filters"}
             </button>
           </div>

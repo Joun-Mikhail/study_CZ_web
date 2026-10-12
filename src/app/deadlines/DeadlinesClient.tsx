@@ -164,7 +164,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-amber/40"
+        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-brand/40"
       >
         <option value="">{placeholder}</option>
         {options.map((o) => (
@@ -211,7 +211,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           )}
           <a
             href={localizeHref(`/programmes/${prog.id}`, locale)}
-            className="text-xs text-amber hover:underline mt-0.5 inline-block"
+            className="text-xs text-brand hover:underline mt-0.5 inline-block"
           >
             {uni?.name || prog.universityId}
             {uni && <span className="text-text-muted">, {uni.city}</span>}
@@ -219,7 +219,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
         </div>
         <div className="flex flex-col items-end gap-1.5 shrink-0">
           <div className="flex gap-1.5">
-            <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+            <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
               {prog.degree}
             </span>
             <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
@@ -232,7 +232,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <div className="flex items-center gap-3 text-xs text-text-secondary">
           <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
+            <Euro className="w-3 h-3 text-brand/70" />
             €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
           </span>
           <span className="inline-flex items-center gap-1">
@@ -278,7 +278,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           href={prog.programmeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-amber hover:underline shrink-0"
+          className="inline-flex items-center gap-1 text-xs text-brand hover:underline shrink-0"
         >
           {l.checkOfficialPage}
           <ExternalLink className="w-3 h-3" />
@@ -380,15 +380,15 @@ export default function DeadlinesClient() {
             <p className="text-base text-text-secondary max-w-2xl">{l.subtitle}</p>
           </motion.div>
 
-          <div className="rounded-xl border border-amber/20 bg-amber/5 p-4 mb-6 flex items-start gap-3">
-            <Info className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+          <div className="rounded-xl border border-brand/20 bg-brand/5 p-4 mb-6 flex items-start gap-3">
+            <Info className="w-5 h-5 text-brand shrink-0 mt-0.5" />
             <p className="text-sm text-text-secondary">{l.deadlineNotice}</p>
           </div>
 
           <div className="mb-6">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-amber transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-brand transition-colors"
             >
               <Filter className="w-4 h-4" />
               {l.filters}
@@ -447,7 +447,7 @@ export default function DeadlinesClient() {
             {hasFilters && (
               <button
                 onClick={() => { setDegree(""); setField(""); setCity(""); setUniversity(""); setMaxTuition(""); }}
-                className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-amber transition-colors"
+                className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-brand transition-colors"
               >
                 <X className="w-3 h-3" />
                 {l.clearFilters}

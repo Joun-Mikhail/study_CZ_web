@@ -17,7 +17,7 @@ export function CertificatePDF({
 }) {
   return (
     <div
-      className="w-[794px] min-h-[1123px] mx-auto bg-white text-midnight p-16 flex flex-col"
+      className="w-[794px] min-h-[1123px] mx-auto bg-white text-bg p-16 flex flex-col"
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}

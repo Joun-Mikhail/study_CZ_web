@@ -75,7 +75,7 @@ export default function ThanksClient() {
                     {c.button}
                   </MagneticButton>
                   {product === "documentReview" && (
-                    <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Document review${ref ? ` ${ref}` : ""}`)}`} className="flex items-center justify-center gap-2 text-sm text-amber hover:underline">
+                    <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Document review${ref ? ` ${ref}` : ""}`)}`} className="flex items-center justify-center gap-2 text-sm text-brand hover:underline">
                       <Mail className="w-4 h-4" />
                       {t.orEmail} {CONTACT_EMAIL}
                     </a>

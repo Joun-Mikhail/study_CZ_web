@@ -46,7 +46,7 @@ const COPY = {
 } as const;
 
 const INPUT_CLASS =
-  "w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors";
+  "w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors";
 
 export function WaitlistSignup({
   formId = DEFAULT_FORM_ID,
@@ -91,9 +91,9 @@ export function WaitlistSignup({
 
   return (
     <div className={className}>
-      <div className="rounded-2xl border border-amber/20 bg-amber/[0.04] p-6">
+      <div className="rounded-2xl border border-brand/20 bg-brand/[0.04] p-6">
         <div className="flex items-start gap-3 mb-4">
-          <BellRing className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+          <BellRing className="w-5 h-5 text-brand shrink-0 mt-0.5" />
           <div>
             <h2 className="text-lg font-semibold text-text-primary">{copy.headline}</h2>
             <p className="text-sm text-text-secondary leading-relaxed mt-1.5">{copy.subtext}</p>
@@ -129,7 +129,7 @@ export function WaitlistSignup({
               type="checkbox"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded border-border-subtle accent-amber shrink-0"
+              className="mt-0.5 w-4 h-4 rounded border-border-subtle accent-brand shrink-0"
             />
             <span>{copy.consent}</span>
           </label>
@@ -139,7 +139,7 @@ export function WaitlistSignup({
           <button
             type="submit"
             disabled={!canSubmit}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-amber text-midnight text-sm font-medium hover:bg-amber/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
           >
             {status === "submitting" && <Loader2 className="w-4 h-4 animate-spin" />}
             {copy.button}

@@ -128,12 +128,12 @@ function SectionCard({
     >
       <div className="absolute top-0 end-0 w-20 h-20 pointer-events-none opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500">
         <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
-          <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
+          <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
         </svg>
       </div>
       <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-xl bg-amber/10 border border-amber/20">
-          <Icon className="w-5 h-5 text-amber" />
+        <div className="p-2 rounded-xl bg-brand/10 border border-brand/20">
+          <Icon className="w-5 h-5 text-brand" />
         </div>
         <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
       </div>

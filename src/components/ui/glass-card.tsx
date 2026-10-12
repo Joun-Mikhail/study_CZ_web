@@ -35,7 +35,7 @@ export function GlassCard({ children, className, href, onClick, ariaLabel }: Gla
       <div className={classes}>
         <Link
           href={href}
-          className="absolute inset-0 z-20 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
+          className="absolute inset-0 z-20 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
           <span className="sr-only">{ariaLabel}</span>
         </Link>

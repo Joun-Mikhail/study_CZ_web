@@ -49,11 +49,11 @@ export default function RecognitionIndexClient() {
             {t.guides.map((g) => (
               <GlassCard key={g.href}>
                 <div className="flex items-start gap-3">
-                  <Landmark className="w-6 h-6 text-amber shrink-0 mt-0.5" aria-hidden="true" />
+                  <Landmark className="w-6 h-6 text-brand shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="min-w-0">
                     <h2 className="text-lg font-semibold text-text-primary">{g.name}</h2>
                     <p className="text-sm text-text-secondary leading-relaxed mt-1">{g.desc}</p>
-                    <Link href={g.href} className="inline-flex items-center gap-1 text-sm text-amber font-medium mt-2 hover:underline">
+                    <Link href={g.href} className="inline-flex items-center gap-1 text-sm text-brand font-medium mt-2 hover:underline">
                       {t.open}
                       <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
                     </Link>

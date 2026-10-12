@@ -24,9 +24,9 @@ export function ContextualCTA({ service }: { service: ContextualCtaService }) {
   }, []);
 
   return (
-    <div className="my-8 rounded-2xl border border-amber/20 bg-amber/[0.04] p-5 sm:p-6">
+    <div className="my-8 rounded-2xl border border-brand/20 bg-brand/[0.04] p-5 sm:p-6">
       <div className="flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+        <ShieldAlert className="w-5 h-5 text-brand shrink-0 mt-0.5" />
         <div className="flex-1 min-w-0">
           <p className="text-xs text-text-muted mb-1">
             {locale === "ar" ? "لو لسه واقف عند ده" : "If you're stuck on this"}
@@ -39,7 +39,7 @@ export function ContextualCTA({ service }: { service: ContextualCtaService }) {
             href={config.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-amber hover:text-amber/80 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
           >
             {config.cta[locale]}
             <span aria-hidden="true">{locale === "ar" ? "←" : "→"}</span>

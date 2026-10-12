@@ -151,7 +151,7 @@ export default function ContactPage() {
                     href={ch.href}
                     target={ch.external ? "_blank" : undefined}
                     rel={ch.external ? "noreferrer" : undefined}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-midnight text-sm font-medium transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-bg text-sm font-medium transition-colors"
                   >
                     {ch.cta}
                   </a>
@@ -170,8 +170,8 @@ export default function ContactPage() {
         >
           <GlassCard hoverEffect="border">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center">
-                <Send className="w-5 h-5 text-amber" />
+              <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
+                <Send className="w-5 h-5 text-brand" />
               </div>
               <h2 className="text-xl font-semibold text-text-primary">{t.contact.formTitle}</h2>
             </div>
@@ -189,7 +189,7 @@ export default function ContactPage() {
               </div>
             ) : formState === "error" ? (
               <div className="text-center py-8">
-                <AlertCircle className="w-12 h-12 text-amber mx-auto mb-4" />
+                <AlertCircle className="w-12 h-12 text-brand mx-auto mb-4" />
                 <p className="text-text-primary font-medium mb-2">{t.contact.formError}</p>
                 <button
                   onClick={() => setFormState("idle")}
@@ -209,7 +209,7 @@ export default function ContactPage() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors"
                     />
                   </div>
                   <div>
@@ -220,7 +220,7 @@ export default function ContactPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors"
                     />
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export default function ContactPage() {
                     aria-label={t.contact.formSubject}
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm focus:outline-none focus:border-brand/50 transition-colors"
                   >
                     <option value="" disabled>{t.contact.formSubject}</option>
                     {t.contact.formSubjectOptions.map((opt) => (
@@ -249,14 +249,14 @@ export default function ContactPage() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={t.contact.formMessagePlaceholder}
-                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors resize-none"
+                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber hover:bg-amber-hover text-midnight font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand hover:bg-brand-hover text-bg font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   {formState === "sending" ? t.contact.formSubmitting : t.contact.formSubmit}

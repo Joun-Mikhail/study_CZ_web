@@ -53,8 +53,8 @@ export function SaveProgrammeButton({
       onClick={toggle}
       className={`inline-flex items-center gap-1.5 ${padding} rounded-lg text-xs font-medium transition-all duration-200 ${
         saved
-          ? "bg-amber/15 text-amber border border-amber/30 hover:bg-amber/25"
-          : "bg-white/5 text-text-secondary border border-border-subtle hover:border-amber/30 hover:text-amber"
+          ? "bg-brand/15 text-brand border border-brand/30 hover:bg-brand/25"
+          : "bg-white/5 text-text-secondary border border-border-subtle hover:border-brand/30 hover:text-brand"
       } ${animate ? "scale-110" : ""}`}
       aria-label={saved ? (locale === "ar" ? "شيل من رحلتي" : "Remove from My Journey") : (locale === "ar" ? "احفظ في رحلتي" : "Save to My Journey")}
     >

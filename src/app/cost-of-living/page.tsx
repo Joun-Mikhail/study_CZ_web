@@ -48,7 +48,7 @@ function useChartColors() {
         tooltipBg: s.getPropertyValue("--chart-tooltip-bg").trim() || colors.tooltipBg,
         tooltipBorder: s.getPropertyValue("--chart-tooltip-border").trim() || colors.tooltipBorder,
         cursor: s.getPropertyValue("--chart-cursor").trim() || colors.cursor,
-        bar: s.getPropertyValue("--color-amber")?.trim() || "#f59e0b",
+        bar: s.getPropertyValue("--color-brand")?.trim() || "#f59e0b",
       });
     }
     read();
@@ -135,8 +135,8 @@ export default function CostOfLivingPage() {
               className={cn(
                 "px-5 py-2.5 rounded-xl text-sm font-medium border transition-colors",
                 city === c.key
-                  ? "bg-amber text-midnight border-amber"
-                  : "bg-surface text-text-secondary border-border-subtle hover:text-text-primary hover:border-amber/30"
+                  ? "bg-brand text-bg border-brand"
+                  : "bg-surface text-text-secondary border-border-subtle hover:text-text-primary hover:border-brand/30"
               )}
             >
               {c.label[locale]}
@@ -192,7 +192,7 @@ export default function CostOfLivingPage() {
           <div className="flex flex-col gap-6">
             <GlassCard hoverEffect="glow">
               <p className="text-sm text-text-secondary mb-1">{t.cost.totalLabel}</p>
-              <p className="text-3xl font-bold text-amber">
+              <p className="text-3xl font-bold text-brand">
                 {formatCzk(totalMin)} – {formatCzk(totalMax)}
               </p>
             </GlassCard>
@@ -265,13 +265,13 @@ export default function CostOfLivingPage() {
         <div className="max-w-5xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
           <GlassCard hoverEffect="border">
             <div className="flex items-center gap-2.5 mb-4">
-              <Briefcase className="w-5 h-5 text-amber" />
+              <Briefcase className="w-5 h-5 text-brand" />
               <h2 className="text-lg font-semibold text-text-primary">{t.cost.workingTitle}</h2>
             </div>
             <ul className="space-y-3">
               {t.cost.workingPoints.map((point) => (
                 <li key={point} className="flex gap-2.5 text-sm text-text-secondary leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber shrink-0 mt-2" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand shrink-0 mt-2" />
                   {point}
                 </li>
               ))}
@@ -280,7 +280,7 @@ export default function CostOfLivingPage() {
 
           <GlassCard hoverEffect="border">
             <div className="flex items-center gap-2.5 mb-5">
-              <Calculator className="w-5 h-5 text-amber" />
+              <Calculator className="w-5 h-5 text-brand" />
               <h2 className="text-lg font-semibold text-text-primary">{t.cost.calcTitle}</h2>
             </div>
 
@@ -297,7 +297,7 @@ export default function CostOfLivingPage() {
                   max={30}
                   value={hoursPerWeek}
                   onChange={(e) => setHoursPerWeek(Number(e.target.value))}
-                  className="w-full accent-amber"
+                  className="w-full accent-brand"
                 />
               </div>
               <div>
@@ -313,18 +313,18 @@ export default function CostOfLivingPage() {
                   step={10}
                   value={hourlyWage}
                   onChange={(e) => setHourlyWage(Number(e.target.value))}
-                  className="w-full accent-amber"
+                  className="w-full accent-brand"
                 />
               </div>
             </div>
 
-            <div className="rounded-xl bg-midnight-light/60 border border-border-subtle p-4">
+            <div className="rounded-xl bg-bg-subtle/60 border border-border-subtle p-4">
               <p className="text-xs text-text-muted mb-1">{t.cost.calcEarningsLabel}</p>
-              <p className="text-2xl font-bold text-amber mb-2">{formatCzk(monthlyEarnings)}</p>
+              <p className="text-2xl font-bold text-brand mb-2">{formatCzk(monthlyEarnings)}</p>
               <p className="text-xs text-text-muted mb-3">
                 {t.cost.calcVsCosts}: {formatCzk(totalMin)} – {formatCzk(totalMax)}
               </p>
-              <p className={cn("text-sm font-medium", shortfall > 0 ? "text-amber" : "text-success")}>
+              <p className={cn("text-sm font-medium", shortfall > 0 ? "text-brand" : "text-success")}>
                 {shortfall > 0
                   ? `${t.cost.calcShortfall} ${formatCzk(shortfall)}`
                   : t.cost.calcCovered}

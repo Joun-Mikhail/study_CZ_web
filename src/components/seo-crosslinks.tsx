@@ -42,14 +42,14 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             <GlassCard className="flex items-center gap-3 py-3" hoverEffect="border">
               <TrendingDown className="w-5 h-5 text-success shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">
+                <p className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">
                   {locale === "ar" ? "أرخص البرامج" : "Cheapest Programmes"}
                 </p>
                 <p className="text-xs text-text-muted">
                   {locale === "ar" ? "مرتب حسب الرسوم" : "Sorted by tuition"}
                 </p>
               </div>
-              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors" />
+              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors" />
             </GlassCard>
           </Link>
         ) : null}
@@ -58,14 +58,14 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             <GlassCard className="flex items-center gap-3 py-3" hoverEffect="border">
               <FileX className="w-5 h-5 text-accent shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">
+                <p className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">
                   {locale === "ar" ? "بدون امتحان قبول" : "No Entrance Exam"}
                 </p>
                 <p className="text-xs text-text-muted">
                   {locale === "ar" ? "تقديم بالمستندات فقط" : "Document-based admission"}
                 </p>
               </div>
-              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors" />
+              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors" />
             </GlassCard>
           </Link>
         ) : null}
@@ -83,7 +83,7 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
               <Link
                 key={d}
                 href={`/study/${degreeToSlug(d)}`}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
               >
                 <GraduationCap className="w-3 h-3" />
                 {d}
@@ -102,7 +102,7 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             <Link
               key={f}
               href={`/study/${fieldToSlug(f)}`}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
             >
               <GraduationCap className="w-3 h-3" />
               {f}
@@ -121,7 +121,7 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             <Link
               key={c}
               href={`/study/${cityToSlug(c)}`}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
             >
               <MapPin className="w-3 h-3" />
               {c}

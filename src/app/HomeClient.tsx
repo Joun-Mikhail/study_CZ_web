@@ -119,13 +119,13 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             {tasks.map(({ href, icon: Icon, title, body }) => (
               <GlassCard key={href} href={href} ariaLabel={title} className="h-full p-5 sm:p-6 shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]">
                 <div className="flex h-full gap-4 sm:flex-col sm:gap-0">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber/10 text-amber sm:mb-4">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand sm:mb-4">
                     <Icon className="w-5 h-5" aria-hidden="true" />
                   </span>
                   <div className="flex min-w-0 flex-1 flex-col">
                     <h3 className="text-lg font-semibold text-text-primary mb-1">{title}</h3>
                     <p className="text-sm leading-relaxed text-text-secondary sm:mb-4">{body}</p>
-                    <span className="mt-auto hidden items-center gap-1.5 text-sm font-semibold text-amber sm:inline-flex">
+                    <span className="mt-auto hidden items-center gap-1.5 text-sm font-semibold text-brand sm:inline-flex">
                       {c.open}
                       <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
                     </span>
@@ -144,7 +144,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
         <WaitlistSignup className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
-        <section aria-labelledby="facts" className="border-y border-border-subtle bg-midnight-light">
+        <section aria-labelledby="facts" className="border-y border-border-subtle bg-bg-subtle">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
             <div className="max-w-2xl mb-10">
               <h2 id="facts" className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3">
@@ -154,7 +154,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             </div>
             <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
               {stats.map((s) => (
-                <div key={s.label} className="grid content-start border-s-2 border-amber ps-4">
+                <div key={s.label} className="grid content-start border-s-2 border-brand ps-4">
                   <dt className="row-start-2 text-sm leading-snug text-text-secondary mt-1">{s.label}</dt>
                   <dd className="row-start-1 font-display text-3xl sm:text-4xl font-semibold text-text-primary tabular-nums" dir="ltr">
                     {s.value}
@@ -162,7 +162,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
                 </div>
               ))}
             </dl>
-            <Link href="/programmes" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-amber hover:underline underline-offset-4">
+            <Link href="/programmes" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline underline-offset-4">
               {c.factsLink}
               <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
@@ -177,7 +177,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
           <p className="text-text-secondary leading-relaxed max-w-2xl mb-10">{c.helpBody}</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <GlassCard className="flex flex-col p-7 sm:p-8">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber mb-3">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand mb-3">
                 <GraduationCap className="w-4 h-4" aria-hidden="true" />
                 {c.courseBadge}
               </span>
@@ -192,7 +192,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
               </div>
             </GlassCard>
 
-            <GlassCard className="flex flex-col p-7 sm:p-8 border-amber/30 bg-amber/[0.04]">
+            <GlassCard className="flex flex-col p-7 sm:p-8 bg-brand/[0.04]">
               <OfferBadge locale={locale} className="mb-4 self-start" />
               <h3 className="font-display text-2xl font-semibold text-text-primary mb-2">{c.servicesTitle}</h3>
               <p className="text-text-secondary leading-relaxed mb-6">{c.servicesBody}</p>
@@ -200,7 +200,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
                 <MagneticButton variant="primary" href="/services">
                   {ar ? `شوف الخدمات — تبدأ من ${price("consultation", "ar")}` : `See services — from ${price("consultation")}`}
                 </MagneticButton>
-                <Link href="/contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber hover:underline underline-offset-4">
+                <Link href="/contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline underline-offset-4">
                   <MessageCircle className="w-4 h-4" aria-hidden="true" />
                   {c.askFirst}
                 </Link>
@@ -211,7 +211,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
           <ul className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-3 text-sm text-text-secondary">
             {trust.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2.5">
-                <Icon className="w-4 h-4 text-amber shrink-0" aria-hidden="true" />
+                <Icon className="w-4 h-4 text-brand shrink-0" aria-hidden="true" />
                 {label}
               </li>
             ))}
@@ -224,11 +224,11 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
 
         <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 text-center text-sm text-text-secondary">
           {c.more}{" "}
-          <Link href="/why-czechia" className="text-amber hover:underline">{c.moreWhy}</Link>
+          <Link href="/why-czechia" className="text-brand hover:underline">{c.moreWhy}</Link>
           {" · "}
-          <Link href="/qa" className="text-amber hover:underline">{c.moreQa}</Link>
+          <Link href="/qa" className="text-brand hover:underline">{c.moreQa}</Link>
           {" · "}
-          <Link href="/for-parents" className="text-amber hover:underline">{c.moreParents}</Link>
+          <Link href="/for-parents" className="text-brand hover:underline">{c.moreParents}</Link>
         </p>
       </main>
       <Footer />

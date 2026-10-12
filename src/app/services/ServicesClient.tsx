@@ -149,7 +149,7 @@ export default function ServicesClient() {
                   key={i}
                   className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-surface/60 border border-border-subtle"
                 >
-                  <Icon className="w-4 h-4 text-amber shrink-0" />
+                  <Icon className="w-4 h-4 text-brand shrink-0" />
                   <span className="text-xs text-text-secondary leading-tight">{item}</span>
                 </div>
               );
@@ -165,9 +165,9 @@ export default function ServicesClient() {
             initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
+            className="motion-safe-fallback relative rounded-2xl border border-brand/20 bg-brand/[0.03] px-6 sm:px-8 py-7"
           >
-            <div className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none">&ldquo;</div>
+            <div className="absolute top-4 start-4 text-4xl text-brand/20 font-serif leading-none select-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-4">{t.framing.title}</h2>
             {t.framing.paragraphs.map((p, i) => (
               <p key={i} className="text-sm text-text-secondary leading-relaxed mb-3 last:mb-0">
@@ -196,11 +196,11 @@ export default function ServicesClient() {
                   transition={{ delay: i * 0.15 }}
                   className="motion-safe-fallback relative flex items-start gap-4 sm:gap-6 mb-8 last:mb-0"
                 >
-                  <div className="relative z-10 w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center shrink-0">
-                    <StepIcon className="w-5 h-5 text-amber" />
+                  <div className="relative z-10 w-12 h-12 rounded-full bg-brand/10 border border-brand/30 flex items-center justify-center shrink-0">
+                    <StepIcon className="w-5 h-5 text-brand" />
                   </div>
                   <div className="pt-1">
-                    <p className="text-xs text-amber font-medium mb-1">{step.label}</p>
+                    <p className="text-xs text-brand font-medium mb-1">{step.label}</p>
                     <h3 className="font-semibold text-text-primary mb-1">{step.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
                   </div>
@@ -282,15 +282,15 @@ export default function ServicesClient() {
             {t.transparency.subtitle}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="rounded-2xl border border-amber/30 bg-amber/[0.04] p-6">
+            <div className="rounded-2xl border border-brand/30 bg-brand/[0.04] p-6">
               <h3 className="flex items-center gap-2 font-semibold text-text-primary mb-4">
-                <CheckCircle2 className="w-5 h-5 text-amber" />
+                <CheckCircle2 className="w-5 h-5 text-brand" />
                 {t.transparency.includedTitle}
               </h3>
               <ul className="space-y-2">
                 {t.transparency.included.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -325,7 +325,7 @@ export default function ServicesClient() {
             className="motion-safe-fallback"
           >
             <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start">
-              <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
+              <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-brand/20 shadow-xl">
                 <Image
                   src="/images/john.jpg"
                   alt={`${FOUNDER_NAME}, founder of Study Czechia`}
@@ -336,7 +336,7 @@ export default function ServicesClient() {
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = "none";
-                    target.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="w-16 h-16 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg></div>';
+                    target.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="w-16 h-16 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg></div>';
                   }}
                 />
               </div>
@@ -364,7 +364,7 @@ export default function ServicesClient() {
                 <tr>
                   <th className="text-start p-3 text-text-muted font-medium"></th>
                   <th className="text-start p-3 text-text-secondary font-medium">{t.comparison.agencyHeader}</th>
-                  <th className="text-start p-3 text-amber font-semibold bg-amber/[0.04] rounded-t-xl border-t border-x border-amber/20">
+                  <th className="text-start p-3 text-brand font-semibold bg-brand/[0.04] rounded-t-xl border-t border-x border-brand/20">
                     {t.comparison.usHeader}
                   </th>
                 </tr>
@@ -374,7 +374,7 @@ export default function ServicesClient() {
                   <tr key={i} className="border-t border-border-subtle">
                     <td className="p-3 text-text-secondary font-medium">{row.label}</td>
                     <td className="p-3 text-text-muted">{row.agency}</td>
-                    <td className="p-3 text-text-primary bg-amber/[0.04] border-x border-amber/20 last:rounded-b-xl last:border-b">
+                    <td className="p-3 text-text-primary bg-brand/[0.04] border-x border-brand/20 last:rounded-b-xl last:border-b">
                       {row.us}
                     </td>
                   </tr>
@@ -393,8 +393,8 @@ export default function ServicesClient() {
                     <p className="text-xs text-text-muted mb-1">{t.comparison.agencyHeader}</p>
                     <p className="text-sm text-text-secondary">{row.agency}</p>
                   </div>
-                  <div className="bg-amber/[0.04] rounded-lg p-2 border border-amber/20">
-                    <p className="text-xs text-amber mb-1">{t.comparison.usHeader}</p>
+                  <div className="bg-brand/[0.04] rounded-lg p-2 border border-brand/20">
+                    <p className="text-xs text-brand mb-1">{t.comparison.usHeader}</p>
                     <p className="text-sm text-text-primary">{row.us}</p>
                   </div>
                 </div>
@@ -409,8 +409,8 @@ export default function ServicesClient() {
 
         {/* Scam warning */}
         <section className="max-w-4xl mx-auto mb-16">
-          <div className="flex items-start gap-3 rounded-2xl border border-amber/25 bg-amber/[0.06] px-5 py-4">
-            <ShieldAlert className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 rounded-2xl border border-brand/25 bg-brand/[0.06] px-5 py-4">
+            <ShieldAlert className="w-5 h-5 text-brand shrink-0 mt-0.5" />
             <p className="text-sm text-text-secondary leading-relaxed">{t.scamWarning}</p>
           </div>
         </section>
@@ -503,26 +503,26 @@ function ServiceCard({
         className={cn(
           "relative rounded-2xl border bg-surface/80 backdrop-blur-sm p-6 h-full flex flex-col transition-shadow hover:shadow-lg",
           svc.featured
-            ? "border-amber/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
+            ? "border-brand/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
             : "border-border-subtle"
         )}
       >
         {svc.featured && (
-          <div className="absolute -top-3 start-4 px-3 py-1 rounded-full bg-amber text-midnight text-xs font-semibold">
+          <div className="absolute -top-3 start-4 px-3 py-1 rounded-full bg-brand text-bg text-xs font-semibold">
             {t.bestValue}
           </div>
         )}
 
         <div className="flex items-start gap-3 mb-3">
           <div className="w-10 h-10 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center shrink-0">
-            <Icon className="w-5 h-5 text-amber" />
+            <Icon className="w-5 h-5 text-brand" />
           </div>
           <div>
             <h3 className="font-semibold text-text-primary">{content.title}</h3>
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               {svc.key === "fullPackage" ? (
                 <>
-                  <span className="text-2xl font-bold text-amber" data-price-current data-price-regular-value={eur(fullPackageTotal(false), locale)}>
+                  <span className="text-2xl font-bold text-brand" data-price-current data-price-regular-value={eur(fullPackageTotal(false), locale)}>
                     {eur(fullPackageTotal(), locale)}
                   </span>
                   {OFFER_ACTIVE && (
@@ -530,7 +530,7 @@ function ServiceCard({
                   )}
                 </>
               ) : (
-                <PriceTag k={svc.priceKey} locale={locale} className="text-2xl font-bold text-amber" />
+                <PriceTag k={svc.priceKey} locale={locale} className="text-2xl font-bold text-brand" />
               )}
               <span className="text-xs text-text-muted">
                 {svc.key === "fullPackage" ? t.twoStepsNote : czk(priceOf(svc.priceKey))}
@@ -543,13 +543,13 @@ function ServiceCard({
         <p className="text-sm text-text-secondary leading-relaxed mb-4">{content.description}</p>
 
         <details className="group mb-4 flex-1">
-          <summary className="cursor-pointer list-none text-sm font-medium text-amber hover:underline mb-2">
+          <summary className="cursor-pointer list-none text-sm font-medium text-brand hover:underline mb-2">
             {locale === "ar" ? `إيه اللي هتاخده (${content.included.length})` : `What's included (${content.included.length})`}
           </summary>
         <ul className="space-y-1.5 mb-4 flex-1">
           {content.included.map((item, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
               <span className="text-xs">{item}</span>
             </li>
           ))}
@@ -569,8 +569,8 @@ function ServiceCard({
           <p className="text-xs text-text-muted leading-relaxed mb-4">{content.bundledNote}</p>
         )}
 
-        <div className="flex items-start gap-2 rounded-lg bg-amber/[0.04] border border-amber/15 px-3 py-2 mb-4">
-          <TriggerIcon className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 rounded-lg bg-brand/[0.04] border border-brand/15 px-3 py-2 mb-4">
+          <TriggerIcon className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
           <p className="text-xs text-text-secondary leading-relaxed">{content.triggerLine}</p>
         </div>
 
@@ -652,7 +652,7 @@ function PriceLadder({ locale }: { locale: "en" | "ar" }) {
               key={key}
               className={cn(
                 "rounded-2xl border bg-surface/70 px-4 py-3 grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 items-center",
-                isFull ? "border-amber/40" : "border-border-subtle"
+                isFull ? "border-brand/40" : "border-border-subtle"
               )}
             >
               <div className="min-w-0">
@@ -660,7 +660,7 @@ function PriceLadder({ locale }: { locale: "en" | "ar" }) {
                 <p className="text-xs text-text-secondary leading-snug mt-0.5">{c.bestFor[key]}</p>
               </div>
               <div className="text-end">
-                <PriceTag k={svc.priceKey} locale={locale} className="text-lg font-bold text-amber" regularClassName="text-xs" />
+                <PriceTag k={svc.priceKey} locale={locale} className="text-lg font-bold text-brand" regularClassName="text-xs" />
                 {isFull && (
                   <p className="text-[11px] text-text-secondary leading-tight">
                     {locale === "ar" ? `+ ${price("fullPackageStep2", "ar")} بعد القبول بس` : `+ ${price("fullPackageStep2")} only after acceptance`}
@@ -671,7 +671,7 @@ function PriceLadder({ locale }: { locale: "en" | "ar" }) {
                 <MagneticButton variant="primary" size="sm" href={svc.paymentLink} className="flex-1">
                   {key === "interviewPrep" ? c.interviewBuy : c.buy}
                 </MagneticButton>
-                <a href={`#svc-${key}`} className="text-xs text-amber hover:underline shrink-0">
+                <a href={`#svc-${key}`} className="text-xs text-brand hover:underline shrink-0">
                   {c.details}
                 </a>
               </div>

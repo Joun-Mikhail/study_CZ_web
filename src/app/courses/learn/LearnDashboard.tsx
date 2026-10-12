@@ -71,7 +71,7 @@ export default function LearnDashboard() {
       <div className="relative min-h-screen">
         <Navbar />
         <main className="pt-32 pb-20 px-4 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
       </div>
@@ -90,8 +90,8 @@ export default function LearnDashboard() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
-              <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-                <Lock className="w-8 h-8 text-amber" />
+              <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                <Lock className="w-8 h-8 text-brand" />
               </div>
               <h1 className="text-2xl font-bold text-text-primary mb-2">{t.gate.title}</h1>
               <p className="text-text-secondary text-sm">{t.gate.subtitle}</p>
@@ -108,7 +108,7 @@ export default function LearnDashboard() {
                     onKeyDown={(e) => e.key === "Enter" && handleUnlock()}
                     placeholder={t.gate.codePlaceholder}
                     className={cn(
-                      "w-full px-4 py-3 rounded-xl bg-midnight/50 border text-text-primary placeholder-text-muted text-sm focus:outline-none focus:ring-2 focus:ring-amber/50 transition-colors",
+                      "w-full px-4 py-3 rounded-xl bg-bg/50 border text-text-primary placeholder-text-muted text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 transition-colors",
                       codeError ? "border-red-500/50" : "border-border-subtle"
                     )}
                   />
@@ -143,7 +143,7 @@ export default function LearnDashboard() {
 
                 <p className="text-xs text-text-muted text-center">
                   {t.gate.help}{" "}
-                  <a href={whatsappWithContext("course access")} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">
+                  <a href={whatsappWithContext("course access")} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
                     {t.gate.helpLink}
                   </a>
                 </p>
@@ -174,7 +174,7 @@ export default function LearnDashboard() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <div className="flex items-center gap-2 text-amber text-sm font-medium mb-2">
+            <div className="flex items-center gap-2 text-brand text-sm font-medium mb-2">
               <GraduationCap className="w-4 h-4" />
               {t.dashboard.badge}
             </div>
@@ -194,14 +194,14 @@ export default function LearnDashboard() {
                 <div className="flex-1 w-full">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-text-primary">{t.dashboard.progress}</span>
-                    <span className="text-sm font-bold text-amber">{overallPercent}%</span>
+                    <span className="text-sm font-bold text-brand">{overallPercent}%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-midnight/50 overflow-hidden">
+                  <div className="w-full h-2.5 rounded-full bg-bg/50 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${overallPercent}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400"
+                      className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400"
                     />
                   </div>
                   <p className="text-xs text-text-muted mt-1.5">
@@ -244,17 +244,17 @@ export default function LearnDashboard() {
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                          isModuleComplete ? "bg-green-500/10" : "bg-amber/10"
+                          isModuleComplete ? "bg-green-500/10" : "bg-brand/10"
                         )}>
                           {isModuleComplete ? (
                             <CheckCircle2 className="w-5 h-5 text-success" />
                           ) : (
-                            <Icon className="w-5 h-5 text-amber" />
+                            <Icon className="w-5 h-5 text-brand" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
-                            <span className="text-xs text-amber font-medium">
+                            <span className="text-xs text-brand font-medium">
                               {t.dashboard.moduleLabel} {mi + 1}
                             </span>
                             {quizScore !== null && quizScore >= 70 && (
@@ -270,9 +270,9 @@ export default function LearnDashboard() {
                         </div>
                         <div className="text-right shrink-0">
                           <span className="text-xs text-text-muted">{modProgress}%</span>
-                          <div className="w-16 h-1.5 rounded-full bg-midnight/50 mt-1 overflow-hidden">
+                          <div className="w-16 h-1.5 rounded-full bg-bg/50 mt-1 overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400 transition-all duration-300"
+                              className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400 transition-all duration-300"
                               style={{ width: `${modProgress}%` }}
                             />
                           </div>
@@ -318,7 +318,7 @@ export default function LearnDashboard() {
                                 )}
                               </div>
                             </div>
-                            <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors shrink-0" />
+                            <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors shrink-0" />
                           </Link>
                         );
                       })}
@@ -326,18 +326,18 @@ export default function LearnDashboard() {
                       {/* Quiz link */}
                       <Link
                         href={`/courses/learn/${mod.id}/quiz`}
-                        className="flex items-center gap-3 px-5 py-3 hover:bg-surface-hover/50 transition-colors group bg-amber/[0.02]"
+                        className="flex items-center gap-3 px-5 py-3 hover:bg-surface-hover/50 transition-colors group bg-brand/[0.02]"
                       >
                         <div className={cn(
                           "w-7 h-7 rounded-lg flex items-center justify-center shrink-0",
                           quizScore !== null && quizScore >= 70
                             ? "bg-green-500/10"
-                            : "bg-amber/10"
+                            : "bg-brand/10"
                         )}>
                           {quizScore !== null && quizScore >= 70 ? (
                             <Award className="w-4 h-4 text-success" />
                           ) : (
-                            <Trophy className="w-4 h-4 text-amber" />
+                            <Trophy className="w-4 h-4 text-brand" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -349,7 +349,7 @@ export default function LearnDashboard() {
                             {quizScore !== null && ` · ${t.dashboard.bestScore}: ${quizScore}%`}
                           </p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors shrink-0" />
                       </Link>
                     </div>
                   </GlassCard>

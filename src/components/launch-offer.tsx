@@ -55,7 +55,7 @@ export function OfferBadge({ locale, className }: { locale: Locale; className?: 
     <span
       data-launch-offer
       className={cn(
-        "inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-1.5 rounded-full bg-amber text-midnight text-sm font-semibold",
+        "inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-1.5 rounded-full bg-brand text-bg text-sm font-semibold",
         className
       )}
     >

@@ -60,7 +60,7 @@ export default function InterviewPrepClient() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-amber font-medium mb-4">
+            <p className="text-lg text-brand font-medium mb-4">
               {t.hero.subtitle}
             </p>
             <p className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8">
@@ -88,12 +88,12 @@ export default function InterviewPrepClient() {
                 <GlassCard key={i} hoverEffect="border">
                   <div className="flex gap-4">
                     <div className="shrink-0">
-                      <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                        <step.icon className="w-5 h-5 text-amber" />
+                      <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                        <step.icon className="w-5 h-5 text-brand" />
                       </div>
                     </div>
                     <div>
-                      <p className="text-xs text-amber font-medium mb-1">{step.time}</p>
+                      <p className="text-xs text-brand font-medium mb-1">{step.time}</p>
                       <h3 className="text-sm font-semibold text-text-primary mb-1">{step.title}</h3>
                       <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
                     </div>
@@ -130,9 +130,9 @@ export default function InterviewPrepClient() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="rounded-2xl border border-amber/20 bg-amber/5 p-6 sm:p-8">
+            <div className="rounded-2xl border border-brand/20 bg-brand/5 p-6 sm:p-8">
               <div className="flex gap-3 mb-3">
-                <AlertTriangle className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+                <AlertTriangle className="w-5 h-5 text-brand shrink-0 mt-0.5" />
                 <h2 className="text-lg font-bold text-text-primary">{t.failure.heading}</h2>
               </div>
               <p className="text-text-secondary leading-relaxed">{t.failure.body}</p>
@@ -160,7 +160,7 @@ export default function InterviewPrepClient() {
             transition={{ delay: 0.4 }}
           >
             <GlassCard hoverEffect="glow" className="text-center">
-              <Shield className="w-8 h-8 text-amber mx-auto mb-3" />
+              <Shield className="w-8 h-8 text-brand mx-auto mb-3" />
               <h2 className="text-xl font-bold text-text-primary mb-2">{t.finalCta.title}</h2>
               <p className="text-sm text-text-secondary mb-5">{t.finalCta.body}</p>
               <MagneticButton variant="primary" size="lg" href={PAYMENT_LINKS.interviewPrep}>
@@ -195,7 +195,7 @@ function QuestionCard({ question, testing }: { question: string; testing: string
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-3 px-4 py-3.5 text-start"
       >
-        <Target className="w-4 h-4 text-amber shrink-0" />
+        <Target className="w-4 h-4 text-brand shrink-0" />
         <span className="flex-1 text-sm font-medium text-text-primary">{question}</span>
         {open ? (
           <ChevronUp className="w-4 h-4 text-text-muted shrink-0" />

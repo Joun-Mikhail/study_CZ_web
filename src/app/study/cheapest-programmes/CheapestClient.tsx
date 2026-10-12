@@ -98,7 +98,7 @@ export default function CheapestClient() {
             </div>
           </GlassCard>
           <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
-            <div className="text-2xl font-bold text-amber">{sorted.length}</div>
+            <div className="text-2xl font-bold text-brand">{sorted.length}</div>
             <div className="text-xs text-text-muted">
               {locale === "ar" ? "برامج موثقة" : "Verified programmes"}
             </div>
@@ -128,7 +128,7 @@ export default function CheapestClient() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
                         <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-                          <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+                          <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
                             {prog.name[locale] || prog.name.en}
                           </h3>
                           <p className="text-xs text-text-secondary mt-0.5">
@@ -159,7 +159,7 @@ export default function CheapestClient() {
                         />
                         <Link
                           href={`/programmes/${prog.id}`}
-                          className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                          className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
                         >
                           {locale === "ar" ? "التفاصيل" : "Details"}
                           <ArrowRight className="w-3 h-3" />

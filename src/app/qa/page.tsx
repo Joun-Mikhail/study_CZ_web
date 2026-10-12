@@ -150,7 +150,7 @@ export default function QaPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t.qa.searchPlaceholder}
-              className="w-full ps-11 pe-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 transition-colors"
+              className="w-full ps-11 pe-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand/40 transition-colors"
             />
           </div>
 
@@ -160,8 +160,8 @@ export default function QaPage() {
               className={cn(
                 "px-3.5 py-1.5 rounded-full text-sm border transition-colors",
                 category === "all"
-                  ? "bg-amber text-midnight border-amber font-medium"
-                  : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-amber/30"
+                  ? "bg-brand text-bg border-brand font-medium"
+                  : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-brand/30"
               )}
             >
               {t.qa.allCategories}
@@ -173,8 +173,8 @@ export default function QaPage() {
                 className={cn(
                   "px-3.5 py-1.5 rounded-full text-sm border transition-colors",
                   category === c.key
-                    ? "bg-amber text-midnight border-amber font-medium"
-                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-amber/30"
+                    ? "bg-brand text-bg border-brand font-medium"
+                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-brand/30"
                 )}
               >
                 {c.label[locale]}

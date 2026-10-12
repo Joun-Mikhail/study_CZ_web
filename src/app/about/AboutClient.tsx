@@ -130,7 +130,7 @@ export default function AboutClient() {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-medium text-amber mb-4">
+          <span className="inline-block text-xs font-medium text-brand mb-4">
             {l.badge}
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
@@ -143,7 +143,7 @@ export default function AboutClient() {
           {/* Not official disclaimer */}
           <GlassCard hoverEffect="border" className="mb-8">
             <div className="flex items-start gap-3 mb-4">
-              <ShieldCheck className="w-6 h-6 text-amber shrink-0 mt-0.5" />
+              <ShieldCheck className="w-6 h-6 text-brand shrink-0 mt-0.5" />
               <div>
                 <h2 className="text-lg font-semibold text-text-primary mb-2">
                   {l.notOfficialTitle}
@@ -229,7 +229,7 @@ export default function AboutClient() {
                     href={src.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-amber transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-brand transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     {src.name}
@@ -247,7 +247,7 @@ export default function AboutClient() {
             <p className="text-sm text-text-secondary mb-3">{l.contactBody}</p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="text-sm text-accent hover:text-amber transition-colors"
+              className="text-sm text-accent hover:text-brand transition-colors"
             >
               {CONTACT_EMAIL}
             </a>

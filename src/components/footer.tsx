@@ -57,7 +57,7 @@ export function Footer() {
               </a>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="w-10 h-10 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center text-text-muted hover:text-amber hover:border-amber/30 hover:bg-amber/5 transition-all"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center text-text-muted hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all"
                 aria-label="Email"
               >
                 <SocialIcon type="email" />
@@ -68,61 +68,61 @@ export function Footer() {
           {/* Explore column */}
           <div>
             <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
-              <span className="w-5 h-px bg-amber/40" />
+              <span className="w-5 h-px bg-brand/40" />
               {t.footer.exploreLabel}
             </h2>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/courses" className="text-text-secondary hover:text-amber transition-colors">{t.nav.courses}</Link></li>
-              <li><Link href="/universities" className="text-text-secondary hover:text-amber transition-colors">{t.nav.universities}</Link></li>
-              <li><Link href="/university-matcher" className="text-text-secondary hover:text-amber transition-colors">{t.nav.matcher}</Link></li>
-              <li><Link href="/scholarships" className="text-text-secondary hover:text-amber transition-colors">{t.nav.scholarships}</Link></li>
-              <li><Link href="/preparatory-year" className="text-text-secondary hover:text-amber transition-colors">{t.nav.prep}</Link></li>
+              <li><Link href="/courses" className="text-text-secondary hover:text-brand transition-colors">{t.nav.courses}</Link></li>
+              <li><Link href="/universities" className="text-text-secondary hover:text-brand transition-colors">{t.nav.universities}</Link></li>
+              <li><Link href="/university-matcher" className="text-text-secondary hover:text-brand transition-colors">{t.nav.matcher}</Link></li>
+              <li><Link href="/scholarships" className="text-text-secondary hover:text-brand transition-colors">{t.nav.scholarships}</Link></li>
+              <li><Link href="/preparatory-year" className="text-text-secondary hover:text-brand transition-colors">{t.nav.prep}</Link></li>
             </ul>
           </div>
 
           {/* Resources column */}
           <div>
             <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
-              <span className="w-5 h-px bg-amber/40" />
+              <span className="w-5 h-px bg-brand/40" />
               {t.footer.resourcesLabel}
             </h2>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/why-czechia" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
-              <li><Link href="/cost-of-living" className="text-text-secondary hover:text-amber transition-colors">{t.nav.costOfLiving}</Link></li>
-              <li><Link href="/application-guide" className="text-text-secondary hover:text-amber transition-colors">{t.nav.guide}</Link></li>
-              <li><Link href="/recognition" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "معادلة الشهادة" : "Degree Recognition"}</Link></li>
-              <li><Link href="/qa" className="text-text-secondary hover:text-amber transition-colors">{t.nav.qa}</Link></li>
-              <li><Link href="/services" className="text-text-secondary hover:text-amber transition-colors">{t.nav.services}</Link></li>
-              <li><Link href="/for-parents" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "لأولياء الأمور" : "For Parents"}</Link></li>
-              <li><Link href="/eligibility" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "أقدر أقدم؟" : "Eligibility Check"}</Link></li>
-              <li><Link href="/verify" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "التحقق من شهادة" : "Verify Certificate"}</Link></li>
+              <li><Link href="/why-czechia" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
+              <li><Link href="/cost-of-living" className="text-text-secondary hover:text-brand transition-colors">{t.nav.costOfLiving}</Link></li>
+              <li><Link href="/application-guide" className="text-text-secondary hover:text-brand transition-colors">{t.nav.guide}</Link></li>
+              <li><Link href="/recognition" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "معادلة الشهادة" : "Degree Recognition"}</Link></li>
+              <li><Link href="/qa" className="text-text-secondary hover:text-brand transition-colors">{t.nav.qa}</Link></li>
+              <li><Link href="/services" className="text-text-secondary hover:text-brand transition-colors">{t.nav.services}</Link></li>
+              <li><Link href="/for-parents" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "لأولياء الأمور" : "For Parents"}</Link></li>
+              <li><Link href="/eligibility" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "أقدر أقدم؟" : "Eligibility Check"}</Link></li>
+              <li><Link href="/verify" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "التحقق من شهادة" : "Verify Certificate"}</Link></li>
             </ul>
           </div>
 
           {/* Contact column */}
           <div>
             <h2 className="font-sans text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
-              <span className="w-5 h-px bg-amber/40" />
+              <span className="w-5 h-px bg-brand/40" />
               {t.footer.connectLabel}
             </h2>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="text-text-secondary hover:text-amber transition-colors">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-text-secondary hover:text-brand transition-colors">
                   {CONTACT_EMAIL}
                 </a>
               </li>
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-amber transition-colors">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-brand transition-colors">
                   WhatsApp
                 </a>
               </li>
               <li>
-                <a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-amber transition-colors">
+                <a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-brand transition-colors">
                   Facebook
                 </a>
               </li>
               <li>
-                <Link href="/contact" className="text-text-secondary hover:text-amber transition-colors">
+                <Link href="/contact" className="text-text-secondary hover:text-brand transition-colors">
                   {t.footer.contactLink}
                 </Link>
               </li>
@@ -141,15 +141,15 @@ export function Footer() {
             © {new Date().getFullYear()} Study Czechia. {t.footer.rights}
           </p>
           <div className="flex items-center gap-4 text-xs">
-            <Link href="/about" className="text-text-muted hover:text-amber transition-colors">
+            <Link href="/about" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "عن المنصة" : "About"}
             </Link>
             <span className="text-border-subtle">·</span>
-            <Link href="/terms" className="text-text-muted hover:text-amber transition-colors">
+            <Link href="/terms" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "الشروط" : "Terms"}
             </Link>
             <span className="text-border-subtle">·</span>
-            <Link href="/privacy" className="text-text-muted hover:text-amber transition-colors">
+            <Link href="/privacy" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "الخصوصية" : "Privacy"}
             </Link>
           </div>

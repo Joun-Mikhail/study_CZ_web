@@ -118,9 +118,9 @@ export default function EligibilityClient() {
                     className={cn(
                       "w-9 h-9 rounded-full flex items-center justify-center border transition-colors",
                       i === step
-                        ? "bg-amber/20 border-amber text-amber"
+                        ? "bg-brand/20 border-brand text-brand"
                         : i < step
-                        ? "bg-amber border-amber text-midnight"
+                        ? "bg-brand border-brand text-bg"
                         : "bg-surface border-border-subtle text-text-muted"
                     )}
                   >
@@ -218,7 +218,7 @@ function Input({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors"
     />
   );
 }
@@ -238,7 +238,7 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors appearance-none"
+      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm focus:outline-none focus:border-brand/50 transition-colors appearance-none"
     >
       {placeholder && <option value="">{placeholder}</option>}
       {options.map((o) => (
@@ -266,8 +266,8 @@ function RadioGroup({
           className={cn(
             "px-4 py-2 rounded-xl text-sm border transition-colors",
             value === o.value
-              ? "bg-amber/10 border-amber/50 text-text-primary font-medium"
-              : "bg-surface border-border-subtle text-text-secondary hover:border-amber/30"
+              ? "bg-brand/10 border-brand/50 text-text-primary font-medium"
+              : "bg-surface border-border-subtle text-text-secondary hover:border-brand/30"
           )}
         >
           {o.label}
@@ -465,12 +465,12 @@ function ResultsView({
 
   const statusIcon = (s: Status) => {
     if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-success shrink-0" />;
-    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-amber shrink-0" />;
+    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-brand shrink-0" />;
     return <XCircle className="w-5 h-5 text-error shrink-0" />;
   };
 
-  const pctColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-amber" : "text-error";
-  const strokeColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-amber" : "text-error";
+  const pctColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-brand" : "text-error";
+  const strokeColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-brand" : "text-error";
 
   return (
     <div className="relative min-h-screen">
@@ -565,16 +565,16 @@ function ResultsView({
                         <div className="space-y-2">
                           <Link
                             href={advice.freeLink}
-                            className="flex items-center gap-2 text-sm text-text-primary hover:text-amber transition-colors"
+                            className="flex items-center gap-2 text-sm text-text-primary hover:text-brand transition-colors"
                           >
                             <BookOpen className="w-4 h-4 text-success" />
                             {advice.freeLabel}
                           </Link>
                           <Link
                             href={advice.paidLink}
-                            className="flex items-center gap-2 text-sm text-text-secondary hover:text-amber transition-colors"
+                            className="flex items-center gap-2 text-sm text-text-secondary hover:text-brand transition-colors"
                           >
-                            <Briefcase className="w-4 h-4 text-amber" />
+                            <Briefcase className="w-4 h-4 text-brand" />
                             {advice.paidLabel}
                           </Link>
                         </div>
@@ -596,14 +596,14 @@ function ResultsView({
           <div className="space-y-3 mb-8">
             <Link
               href="/qa"
-              className="block w-full px-5 py-3.5 rounded-2xl border border-border-subtle text-center text-sm text-text-secondary hover:text-text-primary hover:border-amber/30 transition-colors"
+              className="block w-full px-5 py-3.5 rounded-2xl border border-border-subtle text-center text-sm text-text-secondary hover:text-text-primary hover:border-brand/30 transition-colors"
             >
               {t.ctaPaths.selfLabel}
               <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.selfSub}</span>
             </Link>
             <Link
               href="/services"
-              className="block w-full px-5 py-3.5 rounded-2xl border border-amber/30 bg-amber/5 text-center text-sm text-text-primary hover:bg-amber/10 transition-colors"
+              className="block w-full px-5 py-3.5 rounded-2xl border border-brand/30 bg-brand/5 text-center text-sm text-text-primary hover:bg-brand/10 transition-colors"
             >
               {t.ctaPaths.specificLabel}
               <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.specificSub}</span>
@@ -612,10 +612,10 @@ function ResultsView({
               href={PAYMENT_LINKS.fullPackageStep1}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full px-5 py-3.5 rounded-2xl bg-amber text-midnight text-center text-sm font-medium hover:bg-amber/90 transition-colors"
+              className="block w-full px-5 py-3.5 rounded-2xl bg-brand text-bg text-center text-sm font-medium hover:bg-brand/90 transition-colors"
             >
               {t.ctaPaths.fullLabel}
-              <span className="block text-xs text-midnight/70 mt-0.5">{t.ctaPaths.fullSub}</span>
+              <span className="block text-xs text-bg/70 mt-0.5">{t.ctaPaths.fullSub}</span>
             </a>
           </div>
 
