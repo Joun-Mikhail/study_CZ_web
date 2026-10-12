@@ -58,8 +58,6 @@ export default function CheapestClient() {
               sizes="(max-width: 768px) 100vw, 800px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-            <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-            <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-success/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-4 start-4 z-10">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/20 backdrop-blur-sm border border-success/20 text-success text-[11px] font-medium mb-2">
                 <TrendingDown className="w-3 h-3" />

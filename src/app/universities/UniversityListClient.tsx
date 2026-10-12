@@ -27,6 +27,7 @@ import { filterProgrammes, getDeadlineStatus, PROGRAMME_FIELDS } from "@/data/pr
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
+import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -209,21 +210,21 @@ function ProgrammeCard({
       {uni && (
         <div className="flex items-center gap-1.5 mt-1.5 text-sm text-text-secondary">
           <Building2 className="w-3.5 h-3.5 text-text-muted shrink-0" />
-          <span className="truncate">{uni.name}</span>
+          <span className="truncate" dir="auto">{uni.name}</span>
         </div>
       )}
 
       <div className="flex flex-wrap items-center gap-2 mt-3">
         <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
-          {prog.degree}
+          {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
         </span>
         <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-          {prog.language}
+          {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
         </span>
         {uni && (
           <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
             <MapPin className="w-3 h-3" />
-            {uni.city}
+            {locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
           </span>
         )}
       </div>
@@ -235,7 +236,7 @@ function ProgrammeCard({
         </span>
         <span className="inline-flex items-center gap-1">
           <Clock className="w-3 h-3 text-text-muted" />
-          {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+          {prog.durationYears} {locale === "ar" ? (prog.durationYears === 1 ? "سنة" : prog.durationYears === 2 ? "سنتين" : "سنوات") : prog.durationYears === 1 ? "year" : "years"}
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
@@ -301,7 +302,7 @@ function UniversityCard({
         <div className="flex items-center gap-3 mt-2 text-sm text-text-secondary">
           <span className="inline-flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5 text-amber/70" />
-            {uni.city}
+            {locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
           </span>
           {uni.founded && (
             <span className="text-text-muted text-xs">{l.est} {uni.founded}</span>
@@ -473,8 +474,6 @@ export default function UniversityListClient() {
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-          <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-          <div className="absolute -bottom-6 start-1/3 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">
             <div>
               <p className="text-xs text-white/60 mb-1">
@@ -483,6 +482,9 @@ export default function UniversityListClient() {
               <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
                 {mode === "programmes" ? l.programmes : l.universities}
               </h1>
+              <p className="mt-1 text-sm text-white/80 max-w-md">
+                {locale === "ar" ? "ابحث في البرامج المدرّسة بالإنجليزية في الجامعات التشيكية وصفّيها." : "Search and filter English-taught programmes at Czech universities."}
+              </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
               <Sparkles className="w-3.5 h-3.5 text-amber" />
@@ -708,8 +710,6 @@ export default function UniversityListClient() {
       {/* Matcher CTA */}
       <FadeIn>
         <div className="relative mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02] overflow-hidden">
-          <div className="absolute inset-0 noise-overlay opacity-[0.02]" />
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-60 h-20 bg-amber/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber/10 mb-4">
               <Sparkles className="w-6 h-6 text-amber" />

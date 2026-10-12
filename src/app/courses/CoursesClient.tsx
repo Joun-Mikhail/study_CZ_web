@@ -71,7 +71,7 @@ export default function CoursesClient() {
         )}
 
         {/* Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl py-2">
+        <section className="surface-ink max-w-4xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl px-5 py-10 sm:px-12 sm:py-14">
           {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -81,7 +81,7 @@ export default function CoursesClient() {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/80 to-midnight/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/75 to-ink/90" />
           </div>
           <div className="relative z-10 mb-3">
             <OfferBadge locale={locale} />

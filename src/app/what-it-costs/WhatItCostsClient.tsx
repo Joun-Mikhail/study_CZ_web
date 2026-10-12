@@ -167,8 +167,6 @@ export default function WhatItCostsClient() {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-ink/10" />
-              <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-              <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
             </div>
           </FadeIn>
 

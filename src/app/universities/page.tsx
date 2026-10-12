@@ -16,11 +16,6 @@ export default function Page() {
     <div className="min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <div className="pt-4 pb-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-text-secondary">Search and filter English-taught programmes at Czech universities.</p>
-        </div>
-      </div>
       <UniversityListClient />
       <Footer />
     </div>
