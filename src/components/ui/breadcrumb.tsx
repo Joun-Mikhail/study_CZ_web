@@ -44,6 +44,8 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   "for-parents": { en: "For Parents", ar: "لأولياء الأمور" },
   recognition: { en: "Degree Recognition", ar: "معادلة الشهادات" },
   egypt: { en: "Egypt", ar: "مصر" },
+  jordan: { en: "Jordan", ar: "الأردن" },
+  "saudi-arabia": { en: "Saudi Arabia", ar: "السعودية" },
 };
 
 const SITE_URL = "https://studyczechia.com";
