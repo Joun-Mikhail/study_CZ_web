@@ -197,6 +197,14 @@ html:not(.hydrated) [style*="opacity: 0"] {
   transition: none !important;
 }
 
+/*
+ * Pages pad <main> to clear the fixed header. When the breadcrumb bar already
+ * did that, the page starts right below it instead of after a second gap.
+ */
+.breadcrumb-bar + main {
+  padding-top: 1.25rem;
+}
+
 /* Subtle dot grid, used sparingly behind section intros. */
 .dot-grid {
   background-image: radial-gradient(circle, var(--color-border-subtle) 1px, transparent 1px);
