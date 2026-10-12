@@ -10,6 +10,10 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { EmailSignup } from "@/components/email-signup";
+import { HelpLink } from "@/components/help-sheet";
+import { buttonClasses } from "@/components/ui/magnetic-button";
+import Link from "@/components/locale-link";
+import { addProgrammeToJourney } from "@/lib/journey-store";
 import { filterProgrammes, programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, City } from "@/data/types";
@@ -24,6 +28,8 @@ import {
   Clock,
   GraduationCap,
   ShieldCheck,
+  CheckCircle2,
+  Bookmark,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CITY_AR } from "@/i18n/ar-metadata";
@@ -379,6 +385,8 @@ export default function MatcherPage() {
                   </div>
                 )}
 
+                {results.length > 0 && <MatcherPlan ids={results.slice(0, 5).map((m) => m.programme.id)} locale={locale} />}
+
                 <GlassCard hoverEffect="border" className="text-center mb-4" href="/eligibility">
                   <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-3">
                     <Sparkles className="w-5 h-5 text-brand" />
@@ -523,5 +531,39 @@ function OptionCard({
     >
       {label}
     </button>
+  );
+}
+
+/** Keep the results, and one quiet offer: picking between them together. */
+function MatcherPlan({ ids, locale }: { ids: string[]; locale: "en" | "ar" }) {
+  const [saved, setSaved] = useState(false);
+  const ar = locale === "ar";
+  return (
+    <div className="mb-6 space-y-3" data-source="matcher">
+      {saved ? (
+        <Link href="/my-journey" className={buttonClasses("secondary", "md", "w-full")}>
+          <CheckCircle2 className="w-4 h-4 text-success" aria-hidden="true" />
+          {ar ? "اتحفظوا. افتح رحلتي" : "Saved. Open My Journey"}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className={buttonClasses("secondary", "md", "w-full")}
+          onClick={() => {
+            ids.forEach((id) => addProgrammeToJourney(id));
+            setSaved(true);
+            track("plan_saved", { tool: "matcher" });
+          }}
+        >
+          <Bookmark className="w-4 h-4" aria-hidden="true" />
+          {ar ? "احفظهم في رحلتي" : "Save these to My Journey"}
+        </button>
+      )}
+      <p className="text-center text-sm text-text-secondary">
+        <HelpLink service="consultation" source="matcher" className="font-medium text-brand hover:underline">
+          {ar ? "محتار بينهم؟ يلا نختار مع بعض في 30 دقيقة." : "Not sure between these? Let's pick together in 30 minutes."}
+        </HelpLink>
+      </p>
+    </div>
   );
 }
