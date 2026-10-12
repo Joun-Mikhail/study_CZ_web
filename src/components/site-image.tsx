@@ -84,7 +84,7 @@ export function PhotoCredits({ className }: { className?: string }) {
       <p className="mb-2">
         {ar
           ? "ØµÙˆØ± Ø§Ù„Ù…Ø¯Ù† Ù…Ù† ÙˆÙŠÙƒÙŠÙ…ÙŠØ¯ÙŠØ§ ÙƒÙˆÙ…Ù†Ø²ØŒ Ù…Ø¹ Ø°ÙƒØ± Ø§Ù„Ù…ØµÙˆÙ‘Ø± ÙˆØ§Ù„Ø±Ø®ØµØ©. Ø¨Ø§Ù‚ÙŠ Ø§Ù„ØµÙˆØ± Ù…Ù† Unsplash ÙˆPexels (Ø±Ø®ØµØ© Ù…Ø¬Ø§Ù†ÙŠØ©)."
-          : "City photos are from Wikimedia Commons, credited below with their licences. Other photos are from Unsplash and Pexels (free licence)."}
+          : "City and university photos are from Wikimedia Commons, credited below with their licences. Other photos are from Unsplash and Pexels (free licence)."}
       </p>
       <ul className="space-y-1">
         {creditedImages().map((img) => (
