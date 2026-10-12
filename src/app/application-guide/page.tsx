@@ -88,8 +88,8 @@ export default function ApplicationGuidePage() {
         <div className="max-w-6xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-old-town.jpg"
-              alt="Prague at golden hour"
+              src="/images/study/desk-flatlay.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

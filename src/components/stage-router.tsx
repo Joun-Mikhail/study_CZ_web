@@ -126,7 +126,7 @@ export function StageRouter() {
                     {stage[locale]}
                   </p>
                   {current === stage.slug && (
-                    <span className="sm:absolute sm:top-2 sm:end-2 shrink-0 rounded-full bg-accent-red px-2 py-0.5 text-[11px] font-semibold text-white shadow">
+                    <span className="sm:absolute sm:top-2 sm:end-2 shrink-0 rounded-full bg-[#c8102e] px-2 py-0.5 text-[11px] font-semibold text-white shadow">
                       {locale === "ar" ? "إنت هنا" : "You are here"}
                     </span>
                   )}

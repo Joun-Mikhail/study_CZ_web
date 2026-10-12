@@ -272,8 +272,8 @@ export default function MatcherPage() {
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-architecture.jpg"
-              alt="Prague river and bridge view"
+              src="/images/study/library-hall.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

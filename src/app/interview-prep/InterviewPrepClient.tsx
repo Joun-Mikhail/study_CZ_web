@@ -39,8 +39,8 @@ export default function InterviewPrepClient() {
         <div className="max-w-3xl mx-auto mb-10">
           <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-bridge.jpg"
-              alt="Charles Bridge in Prague"
+              src="/images/study/passport.jpg"
+              alt=""
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"

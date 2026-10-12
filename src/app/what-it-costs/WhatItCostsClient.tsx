@@ -159,8 +159,8 @@ export default function WhatItCostsClient() {
           <FadeIn>
             <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden mb-8">
               <Image
-                src="/images/prague-architecture.jpg"
-                alt="Prague architecture"
+                src="/images/study/laptop-top.jpg"
+                alt=""
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"

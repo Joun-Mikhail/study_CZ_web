@@ -1,6 +1,8 @@
 ﻿"use client";
 
 import { useState } from "react";
+import { SiteImage } from "@/components/site-image";
+import type { ImageId } from "@/data/images";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -82,8 +84,8 @@ export default function ServicesClient() {
           {/* Hero background image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/students-group.jpg"
-              alt="International students celebrating together"
+              src="/images/study/karolinum-graduation.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"
@@ -475,6 +477,15 @@ export default function ServicesClient() {
   );
 }
 
+/** A photo and colour per service, as static class strings. */
+const SERVICE_LOOK: Record<string, { photo: ImageId; fill: string; border: string }> = {
+  documentReview: { photo: "study-paperwork", fill: "bg-gold", border: "border-t-gold" },
+  consultation: { photo: "study-laptop-notes", fill: "bg-sky", border: "border-t-sky" },
+  interviewPrep: { photo: "study-class-hijab", fill: "bg-violet", border: "border-t-violet" },
+  arrivalSupport: { photo: "study-travel-map", fill: "bg-teal", border: "border-t-teal" },
+  fullPackage: { photo: "study-graduates-walking", fill: "bg-coral", border: "border-t-coral" },
+};
+
 function ServiceCard({
   svc,
   t,
@@ -489,6 +500,7 @@ function ServiceCard({
   const content = t.services[svc.key];
   const Icon = svc.icon;
   const TriggerIcon = svc.triggerIcon;
+  const look = SERVICE_LOOK[svc.key];
 
   return (
     <motion.div
@@ -501,21 +513,26 @@ function ServiceCard({
     >
       <div
         className={cn(
-          "relative rounded-2xl border bg-surface/80 backdrop-blur-sm p-6 h-full flex flex-col transition-shadow hover:shadow-lg",
+          "card-lift relative rounded-2xl border border-t-4 bg-surface p-6 pt-0 h-full flex flex-col transition-shadow hover:shadow-lg",
+          look.border,
           svc.featured
             ? "border-brand/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
             : "border-border-subtle"
         )}
       >
         {svc.featured && (
-          <div className="absolute -top-3 start-4 px-3 py-1 rounded-full bg-brand text-bg text-xs font-semibold">
+          <div className="absolute -top-3 start-4 z-10 px-3 py-1 rounded-full bg-[#c8102e] text-white text-xs font-semibold shadow">
             {t.bestValue}
           </div>
         )}
 
+        <div className="relative -mx-6 mb-5 h-40 overflow-hidden rounded-t-xl">
+          <SiteImage id={look.photo} sizes="(max-width: 768px) 100vw, 420px" whenNear decorative />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent" />
+        </div>
         <div className="flex items-start gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center shrink-0">
-            <Icon className="w-5 h-5 text-brand" />
+          <div className={`-mt-11 w-12 h-12 rounded-xl ${look.fill} text-white ring-4 ring-surface shadow-md flex items-center justify-center shrink-0 relative`}>
+            <Icon className="w-5 h-5" aria-hidden="true" />
           </div>
           <div>
             <h3 className="font-semibold text-text-primary">{content.title}</h3>

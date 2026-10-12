@@ -53,8 +53,8 @@ export default function CheapestClient() {
         <FadeIn>
           <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
             <Image
-              src="/images/university-campus.jpg"
-              alt="University campus"
+              src="/images/study/laptop-notes.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

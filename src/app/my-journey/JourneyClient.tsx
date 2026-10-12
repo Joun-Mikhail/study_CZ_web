@@ -469,8 +469,8 @@ export default function JourneyClient() {
 
         <div className="relative w-full h-[120px] sm:h-[160px] rounded-2xl overflow-hidden mb-6">
           <Image
-            src="/images/prague-bridge.jpg"
-            alt="Prague cityscape"
+            src="/images/study/reading-outdoors.jpg"
+            alt=""
             fill
             loading="eager"
             fetchPriority="high"

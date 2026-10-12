@@ -367,8 +367,8 @@ export default function DeadlinesClient() {
           {/* Hero banner */}
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden mb-6">
             <Image
-              src="/images/prague-cityscape.jpg"
-              alt="Prague Charles Bridge aerial view"
+              src="/images/study/notebook.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"
