@@ -6,19 +6,26 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
-import { MagneticButton } from "@/components/ui/magnetic-button";
+import { MagneticButton, buttonClasses } from "@/components/ui/magnetic-button";
+import { HelpLink } from "@/components/help-sheet";
+import { EmailSignup } from "@/components/email-signup";
+import { track } from "@/components/umami";
+import { whatsappWithText } from "@/config/contact";
+import { stageOrder, type StageSlug } from "@/data/stages";
+import { STAGE_LABELS, nextStep, journeySummary, eligibilityForm, type NextStep } from "@/lib/journey-plan";
+import { scoreForm, topRisks, verdictFor, en as eligEn, ar as eligAr } from "@/app/eligibility/eligibility-logic";
+import { cn } from "@/lib/utils";
 import {
   loadJourney,
-  saveJourney,
-  initJourney,
   toggleChecklistItem,
   removeProgrammeFromJourney,
   getJourneyProgress,
   getDaysUntilDeadline,
+  setJourneyStage,
   type JourneyData,
   type SavedProgramme,
 } from "@/lib/journey-store";
-import { getProgrammeById, programmes } from "@/data/programmes";
+import { getProgrammeById } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import {
   Bookmark,
@@ -30,16 +37,14 @@ import {
   GraduationCap,
   Compass,
   ArrowRight,
-  Sparkles,
-  FileText,
+  BookOpen,
+  MessageCircle,
   Euro,
-  ExternalLink,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
-import type { Programme } from "@/data/types";
 
 function ProgressRing({ percent, size = 56 }: { percent: number; size?: number }) {
   const stroke = 4;
@@ -196,23 +201,6 @@ function ProgrammeJourneyCard({
         </div>
       )}
 
-      {progress >= 60 && progress < 100 && (
-        <div className="mt-4 p-3 rounded-xl bg-brand/5 border border-brand/15">
-          <p className="text-xs text-brand">
-            <Sparkles className="w-3 h-3 inline me-1" />
-            {locale === "ar"
-              ? "أنت قريب! محتاج مساعدة في مراجعة المستندات قبل التقديم؟"
-              : "You're almost there! Need help reviewing your documents before you submit?"}
-          </p>
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-1 text-xs font-medium text-brand mt-1.5 hover:underline"
-          >
-            {locale === "ar" ? "مراجعة المستندات" : "Document Review"}
-            <ArrowRight className="w-3 h-3" />
-          </Link>
-        </div>
-      )}
     </GlassCard>
   );
 }
@@ -255,49 +243,228 @@ function EmptyJourney({ locale }: { locale: "en" | "ar" }) {
   );
 }
 
+// ── The hub ──────────────────────────────────────────────────────────────────
+// Everything the visitor has done on the site, in one place: where they are,
+// their next step, their eligibility plan, their programmes. No account:
+// localStorage, plus an optional email once Brevo is on. docs/JOURNEY.md, 2.6.
+
+const HUB = {
+  en: {
+    title: "My Journey",
+    intro: "Everything you've saved on this site, in one place. It stays in this browser; nothing is sent anywhere.",
+    stageQ: "Where are you now?",
+    nextTitle: "Your next step",
+    diy: "Do it yourself",
+    withJohn: "Do it with John",
+    planTitle: "Your eligibility plan",
+    planUpdate: "Update my answers",
+    noPlan: "You haven't checked your eligibility yet.",
+    risksNone: "Nothing stands in your way.",
+    budgetTitle: "Your budget",
+    budgetPerMonth: "a month in",
+    progTitle: "Your programmes",
+    noProgs: "No programmes saved yet. Save them from any programme page or the matcher.",
+    send: "Send my plan to John",
+    sendHint: "Opens WhatsApp with a short summary. Nothing is sent until you press send.",
+    johnHelp: {
+      consultation: "A 30-minute call with me",
+      documentReview: "I check your documents",
+      interviewPrep: "A mock interview with me",
+      arrivalSupport: "Your arrival plan with me",
+      fullPackage: "The Full Journey with me",
+    },
+  },
+  ar: {
+    title: "رحلتي",
+    intro: "كل اللي حفظته على الموقع في مكان واحد. متخزن في المتصفح ده بس، ومفيش حاجة بتتبعت لأي حد.",
+    stageQ: "إنت فين دلوقتي؟",
+    nextTitle: "خطوتك الجاية",
+    diy: "اعملها بنفسك",
+    withJohn: "اعملها مع جون",
+    planTitle: "خطة الأهلية بتاعتك",
+    planUpdate: "عدّل إجاباتي",
+    noPlan: "لسه ماشفتش وضعك في اختبار الأهلية.",
+    risksNone: "مفيش حاجة واقفة قدامك.",
+    budgetTitle: "ميزانيتك",
+    budgetPerMonth: "في الشهر في",
+    progTitle: "برامجك",
+    noProgs: "لسه ماحفظتش برامج. احفظها من أي صفحة برنامج أو من مطابق البرامج.",
+    send: "ابعت خطتي لجون",
+    sendHint: "هيفتح واتساب بملخص قصير. مفيش حاجة بتتبعت غير لما تدوس إرسال.",
+    johnHelp: {
+      consultation: "مكالمة 30 دقيقة معايا",
+      documentReview: "أراجعلك أوراقك",
+      interviewPrep: "مقابلة تجريبية معايا",
+      arrivalSupport: "خطة وصولك معايا",
+      fullPackage: "الرحلة الكاملة معايا",
+    },
+  },
+};
+
+function NextStepCard({ step, locale }: { step: NextStep; locale: "en" | "ar" }) {
+  const h = HUB[locale];
+  return (
+    <section aria-labelledby="next-step" className="mb-8 rounded-2xl border border-brand/30 bg-brand/[0.04] p-5 sm:p-6" data-source={`journey:${step.id}`}>
+      <p id="next-step" className="text-xs font-semibold uppercase tracking-wide text-brand mb-1.5">
+        {h.nextTitle}
+      </p>
+      <h2 className="text-xl font-bold text-text-primary mb-4">{step.title}</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {step.diy && (
+          <Link href={step.diy.href} className="flex items-start gap-3 rounded-xl border border-border-subtle bg-surface p-4 hover:border-brand transition-colors">
+            <BookOpen className="w-5 h-5 text-success shrink-0 mt-0.5" aria-hidden="true" />
+            <span>
+              <span className="block text-xs text-text-muted">{h.diy}</span>
+              <span className="block text-sm font-semibold text-text-primary">{step.diy.label}</span>
+            </span>
+          </Link>
+        )}
+        {step.john && (
+          <HelpLink
+            service={step.john}
+            source={`journey:${step.id}`}
+            className="flex items-start gap-3 rounded-xl border border-border-subtle bg-surface p-4 hover:border-brand transition-colors"
+          >
+            <Image src="/images/john.jpg" alt="" width={32} height={32} sizes="32px" className="w-8 h-8 rounded-full object-cover shrink-0" />
+            <span>
+              <span className="block text-xs text-text-muted">{h.withJohn}</span>
+              <span className="block text-sm font-semibold text-text-primary">{h.johnHelp[step.john]}</span>
+            </span>
+          </HelpLink>
+        )}
+      </div>
+      {step.extra && (
+        <Link href={step.extra.href} className="mt-3 inline-flex items-center gap-1 text-sm text-brand hover:underline">
+          {step.extra.label}
+          <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden="true" />
+        </Link>
+      )}
+    </section>
+  );
+}
+
+function StagePicker({ value, onChange, locale }: { value?: StageSlug; onChange: (s: StageSlug) => void; locale: "en" | "ar" }) {
+  return (
+    <fieldset className="mb-6">
+      <legend className="text-sm font-semibold text-text-primary mb-2">{HUB[locale].stageQ}</legend>
+      <div className="flex flex-wrap gap-2">
+        {stageOrder.map((s) => (
+          <button
+            key={s}
+            type="button"
+            aria-pressed={value === s}
+            onClick={() => onChange(s)}
+            className={cn(
+              "min-h-10 px-3.5 py-2 rounded-full border text-sm transition-colors",
+              value === s ? "border-brand bg-brand text-bg font-medium" : "border-border-subtle bg-surface text-text-secondary hover:border-brand hover:text-brand"
+            )}
+          >
+            {STAGE_LABELS[s][locale]}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+function EligibilityPlan({ journey, locale }: { journey: JourneyData; locale: "en" | "ar" }) {
+  const h = HUB[locale];
+  const form = eligibilityForm(journey);
+  if (!form) {
+    return (
+      <GlassCard className="mb-8">
+        <h2 className="text-lg font-semibold text-text-primary mb-1">{h.planTitle}</h2>
+        <p className="text-sm text-text-secondary mb-3">{h.noPlan}</p>
+        <Link href="/eligibility" className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline">
+          {locale === "ar" ? "اختبار الأهلية" : "The eligibility check"}
+          <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden="true" />
+        </Link>
+      </GlassCard>
+    );
+  }
+  const copy = locale === "ar" ? eligAr : eligEn;
+  const { categories, pct } = scoreForm(form);
+  const verdict = verdictFor(categories);
+  const risks = topRisks(categories);
+  return (
+    <GlassCard className="mb-8">
+      <div className="flex items-center gap-4 mb-4">
+        <ProgressRing percent={pct} />
+        <div className="min-w-0">
+          <h2 className="text-lg font-semibold text-text-primary">{h.planTitle}</h2>
+          <p className="text-sm text-text-secondary">{copy.plan.verdicts[verdict]}</p>
+        </div>
+      </div>
+      {risks.length === 0 ? (
+        <p className="text-sm text-text-secondary">{h.risksNone}</p>
+      ) : (
+        <ul className="space-y-3">
+          {risks.map((r) => {
+            const info = copy.resultCategories[r.key as keyof typeof copy.resultCategories];
+            const advice = info.advice[r.status];
+            return (
+              <li key={r.key} className="border-t border-border-subtle pt-3">
+                <p className="text-sm font-semibold text-text-primary">{info.title}</p>
+                <p className="text-xs text-text-muted mb-1.5">{info[r.status]}</p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
+                  {advice && (
+                    <Link href={advice.freeLink} className="text-text-primary hover:text-brand">
+                      <span className="text-text-muted">{h.diy}:</span> {advice.freeLabel}
+                    </Link>
+                  )}
+                  {r.service && (
+                    <HelpLink service={r.service} source={`journey:${r.key}`} className="text-brand hover:underline">
+                      {h.withJohn}
+                    </HelpLink>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <Link href="/eligibility" className="mt-4 inline-block text-xs text-text-muted hover:text-brand underline underline-offset-2">
+        {h.planUpdate}
+      </Link>
+    </GlassCard>
+  );
+}
+
 export default function JourneyClient() {
-  const { t, locale } = useTranslation();
+  const { locale } = useTranslation();
+  const h = HUB[locale];
   const [journey, setJourney] = useState<JourneyData | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [now, setNow] = useState(0);
 
   useEffect(() => {
-    const data = loadJourney();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
-    setJourney(data);
+    setJourney(loadJourney());
+    setNow(Date.now());
     setLoaded(true);
   }, []);
 
   const handleToggle = useCallback((programmeId: string, itemId: string) => {
-    const updated = toggleChecklistItem(programmeId, itemId);
-    setJourney({ ...updated });
+    setJourney({ ...toggleChecklistItem(programmeId, itemId) });
   }, []);
 
   const handleRemove = useCallback((programmeId: string) => {
-    const updated = removeProgrammeFromJourney(programmeId);
-    setJourney({ ...updated });
+    setJourney({ ...removeProgrammeFromJourney(programmeId) });
+  }, []);
+
+  const handleStage = useCallback((stage: StageSlug) => {
+    setJourney({ ...setJourneyStage(stage) });
   }, []);
 
   const saved = journey?.savedProgrammes || [];
-  const totalItems = saved.reduce((sum, s) => sum + s.checklist.length, 0);
-  const doneItems = saved.reduce((sum, s) => sum + s.checklist.filter((c) => c.done).length, 0);
-  const overallProgress = totalItems > 0 ? Math.round((doneItems / totalItems) * 100) : 0;
-
-  const urgentDeadlines = saved
-    .map((s) => {
-      const prog = getProgrammeById(s.programmeId);
-      if (!prog) return null;
-      const days = getDaysUntilDeadline(prog.applicationDeadline);
-      if (days === null || days < 0) return null;
-      return { prog, days };
-    })
-    .filter(Boolean)
-    .sort((a, b) => a!.days - b!.days) as { prog: Programme; days: number }[];
+  const step = loaded ? nextStep(journey, locale, getProgrammeById, now) : null;
+  const eligibilityAnswers = eligibilityForm(journey);
 
   return (
     <div className="min-h-screen">
       <Navbar />
       <main id="main-content" className="max-w-4xl mx-auto px-4 pt-24 pb-16">
-        <Breadcrumbs items={[{ label: locale === "ar" ? "رحلتي" : "My Journey" }]} />
+        <Breadcrumbs items={[{ label: h.title }]} />
 
         <div className="relative w-full h-[120px] sm:h-[160px] rounded-2xl overflow-hidden mb-6">
           <Image
@@ -311,90 +478,77 @@ export default function JourneyClient() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
           <div className="absolute bottom-4 start-4 z-10">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">
-              {locale === "ar" ? "رحلتي" : "My Journey"}
-            </h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">{h.title}</h1>
           </div>
         </div>
+        <p className="text-sm text-text-secondary mb-6">{h.intro}</p>
 
-        {!loaded ? (
+        {!loaded || !step ? (
           <JourneySkeleton locale={locale} />
-        ) : saved.length === 0 ? (
-          <EmptyJourney locale={locale} />
         ) : (
           <>
-            {/* Stats bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <GlassCard className="text-center py-3">
-                <div className="text-2xl font-bold text-brand">{saved.length}</div>
-                <div className="text-xs text-text-muted">
-                  {locale === "ar" ? "برامج محفوظة" : "Saved"}
-                </div>
-              </GlassCard>
-              <GlassCard className="text-center py-3">
-                <div className="text-2xl font-bold text-text-primary">{overallProgress}%</div>
-                <div className="text-xs text-text-muted">
-                  {locale === "ar" ? "مكتمل" : "Complete"}
-                </div>
-              </GlassCard>
-              <GlassCard className="text-center py-3">
-                <div className="text-2xl font-bold text-success">{doneItems}</div>
-                <div className="text-xs text-text-muted">
-                  {locale === "ar" ? "مهام منجزة" : "Tasks Done"}
-                </div>
-              </GlassCard>
-              <GlassCard className="text-center py-3">
-                <div className="text-2xl font-bold text-text-secondary">{totalItems - doneItems}</div>
-                <div className="text-xs text-text-muted">
-                  {locale === "ar" ? "مهام متبقية" : "Remaining"}
-                </div>
-              </GlassCard>
-            </div>
+            <StagePicker value={journey?.stage} onChange={handleStage} locale={locale} />
+            <NextStepCard step={step} locale={locale} />
+            <EligibilityPlan journey={journey ?? initialJourneyShape()} locale={locale} />
 
-            {/* Urgent deadlines alert */}
-            {urgentDeadlines.length > 0 && urgentDeadlines[0].days <= 30 && (
-              <div className="mb-6 p-4 rounded-xl bg-brand/5 border border-brand/20">
-                <h3 className="text-sm font-semibold text-brand mb-2 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" />
-                  {locale === "ar" ? "مواعيد قريبة" : "Upcoming Deadlines"}
-                </h3>
-                <div className="space-y-1.5">
-                  {urgentDeadlines.filter((d) => d.days <= 30).map((d) => (
-                    <div key={d.prog.id} className="flex items-center justify-between text-sm">
-                      <span className="text-text-secondary">{d.prog.name[locale] || d.prog.name.en}</span>
-                      <span className={`font-medium ${d.days <= 7 ? "text-error" : "text-brand"}`}>
-                        {d.days} {locale === "ar" ? "يوم" : d.days === 1 ? "day" : "days"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {journey?.budget && (
+              <GlassCard className="mb-8">
+                <h2 className="text-lg font-semibold text-text-primary mb-1">{h.budgetTitle}</h2>
+                <p className="text-sm text-text-secondary">
+                  {journey.budget.monthlyCzk.toLocaleString("en-US")} Kč {h.budgetPerMonth} {journey.budget.city}
+                </p>
+              </GlassCard>
             )}
 
-            {/* Programme cards */}
-            <div className="space-y-4">
-              {saved.map((s) => (
-                <ProgrammeJourneyCard
-                  key={s.programmeId}
-                  saved={s}
-                  locale={locale}
-                  onToggle={handleToggle}
-                  onRemove={handleRemove}
-                />
-              ))}
-            </div>
+            <section aria-labelledby="my-programmes" className="mb-8">
+              <h2 id="my-programmes" className="text-lg font-semibold text-text-primary mb-3">
+                {h.progTitle}
+              </h2>
+              {saved.length === 0 ? (
+                <EmptyJourney locale={locale} />
+              ) : (
+                <>
+                  <div className="space-y-4">
+                    {saved.map((s) => (
+                      <ProgrammeJourneyCard key={s.programmeId} saved={s} locale={locale} onToggle={handleToggle} onRemove={handleRemove} />
+                    ))}
+                  </div>
+                  <div className="mt-6 text-center">
+                    <MagneticButton variant="secondary" size="md" href="/programmes">
+                      <GraduationCap className="w-4 h-4" />
+                      {locale === "ar" ? "أضف المزيد من البرامج" : "Add More Programmes"}
+                    </MagneticButton>
+                  </div>
+                </>
+              )}
+            </section>
 
-            {/* CTA */}
-            <div className="mt-8 text-center">
-              <MagneticButton variant="secondary" size="md" href="/programmes">
-                <GraduationCap className="w-4 h-4" />
-                {locale === "ar" ? "أضف المزيد من البرامج" : "Add More Programmes"}
-              </MagneticButton>
-            </div>
+            <section className="space-y-3">
+              <a
+                href={whatsappWithText(journeySummary(journey, locale, getProgrammeById))}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("plan_sent_whatsapp", { tool: "journey" })}
+                className={buttonClasses("primary", "md", "w-full")}
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                {h.send}
+              </a>
+              <p className="text-xs text-text-muted text-center">{h.sendHint}</p>
+              {eligibilityAnswers ? (
+                <EmailSignup source="eligibility" answers={{ ...eligibilityAnswers, firstName: "", country: "", whatsapp: "", email: "" }} />
+              ) : saved.length > 0 ? (
+                <EmailSignup source="matcher" programmeIds={saved.slice(0, 5).map((s) => s.programmeId)} />
+              ) : null}
+            </section>
           </>
         )}
       </main>
       <Footer />
     </div>
   );
+}
+
+function initialJourneyShape(): JourneyData {
+  return { version: 1, name: "", savedProgrammes: [], eligibilityDone: false, updatedAt: "" };
 }
