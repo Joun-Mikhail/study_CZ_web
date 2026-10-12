@@ -76,9 +76,9 @@ export default function ServicesClient() {
       <Navbar />
       <Breadcrumb />
 
-      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative rounded-3xl py-4 overflow-hidden">
+        <section className="max-w-3xl mx-auto text-center mb-8 sm:mb-16 relative rounded-3xl py-4 overflow-hidden">
           {/* Hero background image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -106,7 +106,7 @@ export default function ServicesClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-white/80 leading-relaxed max-w-2xl mx-auto mb-8 relative z-10"
+            className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 relative z-10"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -115,12 +115,12 @@ export default function ServicesClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 relative z-10"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 sm:mb-8 relative z-10"
           >
             <MagneticButton
               variant="primary"
               size="lg"
-              href="#paid-services"
+              href="#prices"
               onClick={() => {
                 document.getElementById("paid-services")?.scrollIntoView({ behavior: "smooth" });
               }}
@@ -155,6 +155,8 @@ export default function ServicesClient() {
             })}
           </motion.div>
         </section>
+
+        <PriceLadder locale={locale} />
 
         {/* SECTION 2: Free vs Personal framing */}
         <section className="max-w-2xl mx-auto mb-16">
@@ -493,7 +495,8 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="motion-safe-fallback"
+      className="motion-safe-fallback scroll-mt-24"
+      id={`svc-${svc.key}`}
     >
       <div
         className={cn(
@@ -535,9 +538,13 @@ function ServiceCard({
           </div>
         </div>
 
-        <p className="text-xs text-text-muted italic mb-3">{content.fearTrigger}</p>
+        <p className="text-xs text-text-secondary italic mb-3">{content.fearTrigger}</p>
         <p className="text-sm text-text-secondary leading-relaxed mb-4">{content.description}</p>
 
+        <details className="group mb-4 flex-1">
+          <summary className="cursor-pointer list-none text-sm font-medium text-amber hover:underline mb-2">
+            {locale === "ar" ? `إيه اللي هتاخده (${content.included.length})` : `What's included (${content.included.length})`}
+          </summary>
         <ul className="space-y-1.5 mb-4 flex-1">
           {content.included.map((item, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -546,6 +553,7 @@ function ServiceCard({
             </li>
           ))}
         </ul>
+        </details>
 
         {svc.key === "fullPackage" && "paymentStructure" in content && (
           <div className="rounded-xl bg-white/[0.03] border border-border-subtle p-3 mb-4">
@@ -576,6 +584,101 @@ function ServiceCard({
         <p className="text-center text-xs text-text-muted mt-2">{content.postButton}</p>
       </div>
     </motion.div>
+  );
+}
+
+// ─── Price ladder ───────────────────────────────────────────────────────────
+
+const LADDER_ORDER: (typeof services)[number]["key"][] = ["consultation", "documentReview", "arrivalSupport", "interviewPrep", "fullPackage"];
+
+const LADDER_COPY = {
+  en: {
+    title: "Prices",
+    subtitle: "Pick the one that fits where you are. Details for each are below.",
+    details: "Details",
+    names: {
+      consultation: "30-minute call",
+      documentReview: "Document review",
+      arrivalSupport: "Arrival plan",
+      interviewPrep: "Embassy mock interview",
+      fullPackage: "Full Journey",
+    },
+    bestFor: {
+      consultation: "You're stuck on one question and want a clear answer.",
+      documentReview: "Your documents are ready and you want them checked before you submit.",
+      arrivalSupport: "You have your visa and you're about to land.",
+      interviewPrep: "Your embassy interview is coming up.",
+      fullPackage: "You want someone with you from choosing a university to the visa.",
+    },
+    buy: "Book",
+    interviewBuy: "See how it works",
+  },
+  ar: {
+    title: "الأسعار",
+    subtitle: "اختار اللي يناسب المرحلة اللي أنت فيها. التفاصيل تحت.",
+    details: "التفاصيل",
+    names: {
+      consultation: "مكالمة 30 دقيقة",
+      documentReview: "مراجعة الأوراق",
+      arrivalSupport: "خطة الوصول",
+      interviewPrep: "مقابلة السفارة التجريبية",
+      fullPackage: "المرافقة الكاملة",
+    },
+    bestFor: {
+      consultation: "واقف عند سؤال واحد وعايز إجابة واضحة.",
+      documentReview: "أوراقك جاهزة وعايز حد يراجعها قبل ما تقدم.",
+      arrivalSupport: "خدت الفيزا وقربت تسافر.",
+      interviewPrep: "مقابلة السفارة قربت.",
+      fullPackage: "عايز حد معاك من اختيار الجامعة لحد الفيزا.",
+    },
+    buy: "احجز",
+    interviewBuy: "شوف التفاصيل",
+  },
+} as const;
+
+function PriceLadder({ locale }: { locale: "en" | "ar" }) {
+  const c = LADDER_COPY[locale];
+  return (
+    <section id="prices" className="max-w-3xl mx-auto mb-12 sm:mb-16 scroll-mt-24">
+      <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-1">{c.title}</h2>
+      <p className="text-sm text-text-secondary text-center mb-5">{c.subtitle}</p>
+      <ol className="space-y-2.5">
+        {LADDER_ORDER.map((key) => {
+          const svc = services.find((s) => s.key === key)!;
+          const isFull = key === "fullPackage";
+          return (
+            <li
+              key={key}
+              className={cn(
+                "rounded-2xl border bg-surface/70 px-4 py-3 grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 items-center",
+                isFull ? "border-amber/40" : "border-border-subtle"
+              )}
+            >
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-text-primary">{c.names[key]}</p>
+                <p className="text-xs text-text-secondary leading-snug mt-0.5">{c.bestFor[key]}</p>
+              </div>
+              <div className="text-end">
+                <PriceTag k={svc.priceKey} locale={locale} className="text-lg font-bold text-amber" regularClassName="text-xs" />
+                {isFull && (
+                  <p className="text-[11px] text-text-secondary leading-tight">
+                    {locale === "ar" ? `+ ${price("fullPackageStep2", "ar")} بعد القبول بس` : `+ ${price("fullPackageStep2")} only after acceptance`}
+                  </p>
+                )}
+              </div>
+              <div className="col-span-2 flex items-center gap-3 mt-1.5">
+                <MagneticButton variant="primary" size="sm" href={svc.paymentLink} className="flex-1">
+                  {key === "interviewPrep" ? c.interviewBuy : c.buy}
+                </MagneticButton>
+                <a href={`#svc-${key}`} className="text-xs text-amber hover:underline shrink-0">
+                  {c.details}
+                </a>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
   );
 }
 
