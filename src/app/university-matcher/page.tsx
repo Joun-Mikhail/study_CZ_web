@@ -26,6 +26,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CITY_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
@@ -60,7 +61,13 @@ const fieldLabels: { key: string; en: string; ar: string }[] = [
   { key: "Chemistry", en: "Chemistry", ar: "الكيمياء" },
   { key: "Social Sciences", en: "Social Sciences", ar: "العلوم الاجتماعية" },
   { key: "International Relations", en: "International Relations", ar: "العلاقات الدولية" },
+  { key: "Agriculture", en: "Agriculture", ar: "الزراعة" },
+  { key: "Development Studies", en: "Development Studies", ar: "دراسات التنمية" },
+  { key: "Psychology", en: "Psychology", ar: "علم النفس" },
 ];
+
+/** A matcher choice can cover more than one data field. */
+const FIELD_MATCHES: Record<string, string[]> = { IT: ["IT", "Computer Science"] };
 
 type MatchResult = {
   programme: Programme;
@@ -82,10 +89,12 @@ function computeMatches(
     const [, hi] = budgetRanges[budget];
     if (hi !== Infinity) hardFilters.maxTuition = hi;
   }
-  if (field !== "any") hardFilters.field = field;
   if (city !== "any") hardFilters.city = city;
 
-  const eligible = filterProgrammes(hardFilters, universitiesV2);
+  const fields = FIELD_MATCHES[field] ?? [field];
+  const eligible = filterProgrammes(hardFilters, universitiesV2).filter(
+    (p) => field === "any" || fields.some((f) => p.field === f || p.subfield === f)
+  );
 
   return eligible
     .map((prog) => {
@@ -96,14 +105,15 @@ function computeMatches(
       const reasons: { en: string; ar: string }[] = [];
 
       if (city !== "any") {
-        reasons.push({ en: `Located in ${city}`, ar: `في ${city}` });
+        reasons.push({ en: `Located in ${city}`, ar: `في ${CITY_AR[city] ?? city}` });
       }
 
       if (field !== "any") {
         score += 30;
+        const label = fieldLabels.find((f) => f.key === field);
         reasons.push({
-          en: `Matches your field: ${field}`,
-          ar: `يطابق مجالك: ${field}`,
+          en: `Matches your field: ${label?.en ?? field}`,
+          ar: `يطابق مجالك: ${label?.ar ?? field}`,
         });
       }
 
@@ -190,7 +200,7 @@ export default function MatcherPage() {
             label={t.matcher.anyCity}
           />
           {cityOptions.map((c) => (
-            <OptionCard key={c} active={city === c} onClick={() => setCity(c)} label={c} />
+            <OptionCard key={c} active={city === c} onClick={() => setCity(c)} label={locale === "ar" ? CITY_AR[c] ?? c : c} />
           ))}
         </div>
       ),
@@ -438,7 +448,7 @@ function MatchCard({
       <div className="flex items-center gap-2 text-xs text-text-secondary ms-8 mb-2">
         <span className="inline-flex items-center gap-1">
           <MapPin className="w-3 h-3 text-text-muted" />
-          {universityName}, {city}
+          {universityName}{locale === "ar" ? "، " : ", "}{locale === "ar" ? CITY_AR[city] ?? city : city}
         </span>
       </div>
 
