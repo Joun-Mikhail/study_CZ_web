@@ -51,3 +51,6 @@ next-env.d.ts
 
 # page measurements (tools/measure-pages.mjs)
 /measurements/
+
+# Lighthouse CI output
+.lighthouseci/

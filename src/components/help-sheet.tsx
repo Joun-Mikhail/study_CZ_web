@@ -121,7 +121,13 @@ function HelpSheet({ service, source, onClose }: { service: HelpService; source:
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5">
+        {/* Focusable so keyboard users can scroll it when the details are long. */}
+        <div
+          tabIndex={0}
+          role="region"
+          aria-labelledby={titleId}
+          className="flex-1 overflow-y-auto px-5 py-5 space-y-5 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand"
+        >
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 id={titleId} className="text-xl font-bold text-text-primary">
               {c.name}
