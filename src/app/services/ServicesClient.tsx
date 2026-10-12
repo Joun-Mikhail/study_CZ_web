@@ -72,7 +72,7 @@ export default function ServicesClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-clip">
       <Navbar />
       <Breadcrumb />
 
