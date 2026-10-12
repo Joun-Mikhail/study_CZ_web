@@ -116,6 +116,7 @@ export const AR_PAGE_META: Record<string, { title: string; description: string }
 export const FIELD_AR: Record<string, string> = {
   Medicine: "الطب",
   "Veterinary Medicine": "الطب البيطري",
+  Pharmacy: "الصيدلة",
   Business: "إدارة الأعمال",
   Economics: "الاقتصاد",
   Finance: "المالية",

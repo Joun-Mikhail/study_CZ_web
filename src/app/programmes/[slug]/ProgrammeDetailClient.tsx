@@ -267,7 +267,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
         {p.entranceExamDate && (
           <Row icon={CalendarDays} label={c.examDate} value={p.entranceExamDate} />
         )}
-        <Row icon={GraduationCap} label={c.field} value={field + (p.subfield ? `, ${p.subfield}` : "")} />
+        <Row icon={GraduationCap} label={c.field} value={field + (p.subfield ? `${ar ? "، " : ", "}${ar ? FIELD_AR[p.subfield] ?? p.subfield : p.subfield}` : "")} />
       </Section>
 
       {/* ── Application ───────────────────────────────────────── */}
