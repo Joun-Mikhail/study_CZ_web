@@ -18,6 +18,7 @@ export type JourneyData = {
   name: string;
   savedProgrammes: SavedProgramme[];
   eligibilityDone: boolean;
+  eligibility?: SavedEligibility;
   updatedAt: string;
 };
 
@@ -120,4 +121,21 @@ export function getDaysUntilDeadline(deadline: string | undefined): number | nul
   const now = new Date();
   const diff = d.getTime() - now.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * The eligibility answers, without name, WhatsApp or email. My Journey
+ * recomputes the verdict and risks from them with eligibility-logic, so the
+ * plan always matches the current scoring.
+ */
+export type SavedEligibility = { answers: Record<string, string>; savedAt: string };
+
+export function saveEligibilityToJourney(answers: Record<string, string>): JourneyData {
+  const data = loadJourney() || initJourney();
+  const { firstName: _n, whatsapp: _w, email: _e, ...rest } = answers;
+  void _n; void _w; void _e;
+  data.eligibility = { answers: rest, savedAt: new Date().toISOString() };
+  data.eligibilityDone = true;
+  saveJourney(data);
+  return data;
 }
