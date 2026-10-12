@@ -97,6 +97,7 @@ export function Footer() {
               <li><Link href="/why-czechia" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
               <li><Link href="/cost-of-living" className="text-text-secondary hover:text-amber transition-colors">{t.nav.costOfLiving}</Link></li>
               <li><Link href="/application-guide" className="text-text-secondary hover:text-amber transition-colors">{t.nav.guide}</Link></li>
+              <li><Link href="/recognition" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "معادلة الشهادة" : "Degree Recognition"}</Link></li>
               <li><Link href="/qa" className="text-text-secondary hover:text-amber transition-colors">{t.nav.qa}</Link></li>
               <li><Link href="/services" className="text-text-secondary hover:text-amber transition-colors">{t.nav.services}</Link></li>
               <li><Link href="/for-parents" className="text-text-secondary hover:text-amber transition-colors">{locale === "ar" ? "لأولياء الأمور" : "For Parents"}</Link></li>

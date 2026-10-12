@@ -42,6 +42,8 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   quiz: { en: "Quiz", ar: "الاختبار" },
   verify: { en: "Verify Certificate", ar: "التحقق من الشهادة" },
   "for-parents": { en: "For Parents", ar: "لأولياء الأمور" },
+  recognition: { en: "Degree Recognition", ar: "معادلة الشهادات" },
+  egypt: { en: "Egypt", ar: "مصر" },
 };
 
 const SITE_URL = "https://studyczechia.com";
@@ -96,7 +98,7 @@ export function Breadcrumb() {
 
           return (
             <li key={href} className="flex items-center gap-1.5">
-              <ChevronRight className="w-3 h-3 text-text-muted/50" />
+              <ChevronRight className="w-3 h-3 text-text-muted/50 rtl:rotate-180" />
               {isLast ? (
                 <span className="text-text-secondary font-medium capitalize">{name}</span>
               ) : (

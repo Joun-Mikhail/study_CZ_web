@@ -76,6 +76,8 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/interview-prep", priority: 0.8, sources: ["src/app/interview-prep"] },
   { route: "/arrival", priority: 0.8, sources: ["src/app/arrival"] },
   { route: "/for-parents", priority: 0.8, sources: ["src/app/for-parents"] },
+  { route: "/recognition", priority: 0.7, sources: ["src/app/recognition/page.tsx", "src/app/recognition/RecognitionIndexClient.tsx"] },
+  { route: "/recognition/egypt", priority: 0.8, sources: ["src/app/recognition/egypt"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
   { route: "/my-journey", priority: 0.8, sources: ["src/app/my-journey"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },
