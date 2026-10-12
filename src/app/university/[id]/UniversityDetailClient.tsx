@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { universityImage } from "@/data/images";
 import { motion } from "framer-motion";
 import type { Programme } from "@/data/types";
 import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
@@ -145,16 +147,20 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
     <div>
       {/* Hero banner with parallax-like gradient */}
       <FadeIn>
-        <div className="relative w-full h-[160px] sm:h-[200px] rounded-2xl overflow-hidden mb-6">
-          <Image
-            src="/images/prague-bridge.jpg"
-            alt={`${uni.name} in ${uni.city}`}
-            fill
-            loading="eager"
-            fetchPriority="high"
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
-          />
+        <div className="relative w-full h-[200px] sm:h-[280px] rounded-2xl overflow-hidden mb-6">
+          {universityImage(uni.id, uni.city) ? (
+            <SiteImage id={universityImage(uni.id, uni.city)!} sizes="(max-width: 768px) 100vw, 800px" priority />
+          ) : (
+            <Image
+              src="/images/prague-bridge.jpg"
+              alt={`${uni.name} in ${uni.city}`}
+              fill
+              loading="eager"
+              fetchPriority="high"
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
 
           {/* Decorative glow */}
