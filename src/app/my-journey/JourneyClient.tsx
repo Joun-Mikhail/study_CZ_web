@@ -78,7 +78,7 @@ function DeadlineBadge({ deadline, locale }: { deadline: string | undefined; loc
   }
   if (days < 0) {
     return (
-      <span className="inline-flex items-center gap-1 text-xs text-red-400">
+      <span className="inline-flex items-center gap-1 text-xs text-error">
         <AlertTriangle className="w-3 h-3" />
         {locale === "ar" ? "انتهى الموعد" : "Deadline passed"}
       </span>
@@ -86,7 +86,7 @@ function DeadlineBadge({ deadline, locale }: { deadline: string | undefined; loc
   }
   if (days <= 14) {
     return (
-      <span className="inline-flex items-center gap-1 text-xs text-red-400 font-medium">
+      <span className="inline-flex items-center gap-1 text-xs text-error font-medium">
         <AlertTriangle className="w-3 h-3" />
         {days} {locale === "ar" ? "يوم متبقي!" : days === 1 ? "day left!" : "days left!"}
       </span>
@@ -148,7 +148,7 @@ function ProgrammeJourneyCard({
             </div>
             <button
               onClick={() => onRemove(saved.programmeId)}
-              className="p-1.5 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
+              className="p-1.5 rounded-lg text-text-muted hover:text-error hover:bg-error/10 transition-colors"
               aria-label={locale === "ar" ? "إزالة" : "Remove"}
             >
               <Trash2 className="w-4 h-4" />
@@ -360,7 +360,7 @@ export default function JourneyClient() {
                   {urgentDeadlines.filter((d) => d.days <= 30).map((d) => (
                     <div key={d.prog.id} className="flex items-center justify-between text-sm">
                       <span className="text-text-secondary">{d.prog.name[locale] || d.prog.name.en}</span>
-                      <span className={`font-medium ${d.days <= 7 ? "text-red-400" : "text-amber"}`}>
+                      <span className={`font-medium ${d.days <= 7 ? "text-error" : "text-amber"}`}>
                         {d.days} {locale === "ar" ? "يوم" : d.days === 1 ? "day" : "days"}
                       </span>
                     </div>

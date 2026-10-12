@@ -462,7 +462,7 @@ export default function CompareClient() {
                           className="p-1.5 rounded-lg hover:bg-white/10 transition-colors shrink-0 group/remove"
                           aria-label={c.remove(nameOf(p))}
                         >
-                          <X className="w-3.5 h-3.5 text-text-muted group-hover/remove:text-red-400 transition-colors" />
+                          <X className="w-3.5 h-3.5 text-text-muted group-hover/remove:text-error transition-colors" />
                         </button>
                       </div>
                       <p className="text-xs text-text-muted mt-1">

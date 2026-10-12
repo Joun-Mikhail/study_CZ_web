@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import { useTranslation } from "@/i18n/context";
 
+/** Light is the default; dark is remembered once chosen. */
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<string>("dark");
+  const { locale } = useTranslation();
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const saved = window.localStorage.getItem("theme");
-    const initial = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    let saved: string | null = null;
+    try {
+      saved = window.localStorage.getItem("theme");
+    } catch {
+      /* storage blocked */
+    }
+    const initial = saved === "dark" ? "dark" : "light";
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser-only state after mount so the static HTML hydrates cleanly
     setTheme(initial);
     document.documentElement.dataset.theme = initial;
@@ -22,29 +28,25 @@ export default function ThemeToggle() {
     document.documentElement.dataset.theme = next;
     try {
       window.localStorage.setItem("theme", next);
-    } catch (e) {
+    } catch {
       /* ignore */
     }
   }
 
+  const label =
+    theme === "dark"
+      ? locale === "ar" ? "الوضع الفاتح" : "Switch to light mode"
+      : locale === "ar" ? "الوضع الداكن" : "Switch to dark mode";
+
   return (
     <button
+      type="button"
       onClick={toggle}
-      aria-label="Toggle theme"
-      className="relative flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle overflow-hidden"
+      aria-label={label}
+      title={label}
+      className="flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors"
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={theme}
-          initial={{ y: -20, rotate: -90, opacity: 0 }}
-          animate={{ y: 0, rotate: 0, opacity: 1 }}
-          exit={{ y: 20, rotate: 90, opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="absolute"
-        >
-          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </motion.span>
-      </AnimatePresence>
+      {theme === "dark" ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
     </button>
   );
 }

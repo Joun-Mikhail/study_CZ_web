@@ -171,7 +171,7 @@ export default function InterviewPrepClient() {
                   href={whatsappWithContext("embassy interview prep")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-success hover:text-success transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   {t.finalCta.whatsapp}

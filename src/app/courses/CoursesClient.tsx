@@ -62,7 +62,7 @@ export default function CoursesClient() {
           <div className="max-w-3xl mx-auto mb-4">
             <a
               href={localizeHref("/courses/learn", locale)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium hover:bg-green-500/15 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-success text-sm font-medium hover:bg-green-500/15 transition-colors"
             >
               <PlayCircle className="w-4 h-4" />
               {locale === "ar" ? "عندك الكورس بالفعل — روح للوحة التحكم" : "You already have the course — Go to Dashboard →"}
@@ -83,7 +83,6 @@ export default function CoursesClient() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/80 to-midnight/90" />
           </div>
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 mb-3">
             <OfferBadge locale={locale} />
           </div>
@@ -264,7 +263,7 @@ export default function CoursesClient() {
                   <span data-price-current data-price-regular-value={b.regular}>{b.price}</span>
                   {OFFER_ACTIVE && <s data-launch-offer className="text-sm font-normal text-text-muted">{b.regular}</s>}
                 </p>
-                {b.save && <p className="text-xs text-green-400 mb-2">{b.save}</p>}
+                {b.save && <p className="text-xs text-success mb-2">{b.save}</p>}
                 <p className="text-xs text-text-muted mb-4 flex-1">{b.desc}</p>
                 <MagneticButton
                   variant={i === 1 ? "primary" : "secondary"}
@@ -282,7 +281,7 @@ export default function CoursesClient() {
         {/* Delivery guarantee */}
         <section className="max-w-2xl mx-auto mb-16">
           <div className="rounded-2xl border border-green-500/20 bg-green-500/[0.04] p-6 flex items-start gap-4">
-            <ShieldCheck className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
+            <ShieldCheck className="w-6 h-6 text-success shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-text-primary mb-1">{t.guarantee.title.replace("[DATE]", locale === "ar" ? DELIVERY_DATE_AR : DELIVERY_DATE)}</h3>
               <p className="text-sm text-text-secondary leading-relaxed">{t.guarantee.body}</p>

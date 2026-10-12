@@ -166,7 +166,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                 {lesson.duration}
               </span>
               {completed && (
-                <span className="flex items-center gap-1 text-green-400">
+                <span className="flex items-center gap-1 text-success">
                   <CheckCircle2 className="w-3 h-3" />
                   {t.completed}
                 </span>
@@ -281,8 +281,8 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
               </MagneticButton>
             ) : (
               <div className="flex items-center justify-center gap-2 py-3 rounded-xl bg-green-500/10 border border-green-500/20">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium text-green-400">{t.lessonDone}</span>
+                <CheckCircle2 className="w-5 h-5 text-success" />
+                <span className="text-sm font-medium text-success">{t.lessonDone}</span>
               </div>
             )}
 

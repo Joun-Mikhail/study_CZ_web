@@ -1,118 +1,76 @@
 "use client";
 
-import { type ReactNode, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import Link from "@/components/locale-link";
 import { cn } from "@/lib/utils";
 
 type GlassCardProps = {
   children: ReactNode;
   className?: string;
+  /** Kept for compatibility; every interactive card now uses the same quiet hover. */
   hoverEffect?: "glow" | "lift" | "border";
   href?: string;
   onClick?: () => void;
   ariaLabel?: string;
 };
 
-export function GlassCard({
-  children,
-  className,
-  hoverEffect = "glow",
-  href,
-  onClick,
-  ariaLabel,
-}: GlassCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  }, []);
-
-  const hoverVariants = {
-    glow: {
-      boxShadow: "0 0 40px rgba(245, 158, 11, 0.15), 0 8px 32px rgba(0,0,0,0.12)",
-    },
-    lift: {
-      y: -6,
-      boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-    },
-    border: {
-      borderColor: "rgba(245, 158, 11, 0.5)",
-    },
-  };
-
+/**
+ * The site's card: a solid surface with a hairline border. Clickable cards
+ * (href or onClick) lift slightly and take the brand border on hover/focus.
+ * The name is historical; there is no glass effect any more.
+ */
+export function GlassCard({ children, className, href, onClick, ariaLabel }: GlassCardProps) {
+  const interactive = Boolean(href || onClick);
   const classes = cn(
-    "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-sm p-6",
-    (href || onClick) && "cursor-pointer",
-    "transition-colors shadow-sm",
+    "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface p-6",
+    "shadow-[0_1px_2px_rgba(11,31,58,0.05)]",
+    interactive &&
+      "cursor-pointer transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-border-accent hover:shadow-[0_12px_28px_-16px_rgba(11,31,58,0.35)] focus-within:border-border-accent",
     className
   );
+  const inner = <div className="relative z-10">{children}</div>;
 
-  const inner = (
-    <>
-      {/* Cursor-aware ambient glow */}
-      {isHovered && (
-        <div
-          className="absolute pointer-events-none z-0 transition-opacity duration-300"
-          style={{
-            left: mousePos.x - 150,
-            top: mousePos.y - 150,
-            width: 300,
-            height: 300,
-            background: "radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%)",
-            opacity: isHovered ? 1 : 0,
-          }}
-        />
-      )}
-      <div className="relative z-10">{children}</div>
-    </>
-  );
-
-  const isInternal = href && href.startsWith("/");
-
-  if (isInternal) {
+  if (href && href.startsWith("/")) {
     return (
-      <motion.div
-        ref={cardRef}
-        className={classes}
-        whileHover={hoverVariants[hoverEffect]}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Link href={href} className="absolute inset-0 z-20">
+      <div className={classes}>
+        <Link
+          href={href}
+          className="absolute inset-0 z-20 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
+        >
           <span className="sr-only">{ariaLabel}</span>
         </Link>
         {inner}
-      </motion.div>
+      </div>
     );
   }
 
-  const Component = href ? motion.a : motion.div;
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" aria-label={ariaLabel} className={cn(classes, "block")}>
+        {inner}
+      </a>
+    );
+  }
 
-  return (
-    <Component
-      ref={cardRef as React.RefObject<never>}
-      href={href}
-      target={href ? "_blank" : undefined}
-      rel={href ? "noreferrer" : undefined}
-      onClick={onClick}
-      className={classes}
-      whileHover={hoverVariants[hoverEffect]}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {inner}
-    </Component>
-  );
+  if (onClick) {
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={ariaLabel}
+        onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        className={classes}
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  return <div className={classes}>{inner}</div>;
 }

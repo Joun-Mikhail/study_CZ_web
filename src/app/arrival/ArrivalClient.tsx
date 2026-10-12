@@ -119,7 +119,7 @@ export default function ArrivalClient() {
                     <ul className="text-sm text-text-secondary space-y-1.5">
                       {t.free.whatToBring.items.map((item, i) => (
                         <li key={i} className="flex gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                           <span className="leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -150,7 +150,7 @@ export default function ArrivalClient() {
               <ul className="text-sm text-text-secondary text-start space-y-2 mb-6 max-w-md mx-auto">
                 {t.paid.included.map((item, i) => (
                   <li key={i} className="flex gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -165,7 +165,7 @@ export default function ArrivalClient() {
                   href={whatsappWithContext("arrival support")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-success hover:text-success transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   {t.paid.whatsapp}

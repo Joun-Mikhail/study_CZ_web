@@ -50,7 +50,7 @@ export default function ThanksClient() {
           <GlassCard>
             <div className="space-y-5">
               <div className="text-center">
-                <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-3" aria-hidden="true" />
+                <CheckCircle2 className="w-12 h-12 text-success mx-auto mb-3" aria-hidden="true" />
                 <h1 className="text-2xl font-bold text-text-primary">{t.title}</h1>
                 {c && <p className="text-sm text-text-secondary mt-2">{c.name}</p>}
                 {ref && (

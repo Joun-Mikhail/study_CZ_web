@@ -265,9 +265,9 @@ export default function QuizClient({ moduleId }: Props) {
                         className={cn(
                           "w-full text-start px-4 py-3 rounded-xl border text-sm transition-all",
                           showResult && isAnswer
-                            ? "border-green-500/50 bg-green-500/10 text-green-300"
+                            ? "border-green-500/50 bg-green-500/10 text-success"
                             : showResult && isSelected && !isAnswer
-                            ? "border-red-500/50 bg-red-500/10 text-red-300"
+                            ? "border-red-500/50 bg-red-500/10 text-error"
                             : isSelected
                             ? "border-amber/50 bg-amber/10 text-text-primary"
                             : "border-border-subtle bg-surface/60 text-text-secondary hover:border-amber/30 hover:bg-surface-hover/50"
@@ -277,9 +277,9 @@ export default function QuizClient({ moduleId }: Props) {
                           <div className={cn(
                             "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0 border",
                             showResult && isAnswer
-                              ? "border-green-500 bg-green-500/20 text-green-300"
+                              ? "border-green-500 bg-green-500/20 text-success"
                               : showResult && isSelected && !isAnswer
-                              ? "border-red-500 bg-red-500/20 text-red-300"
+                              ? "border-red-500 bg-red-500/20 text-error"
                               : isSelected
                               ? "border-amber bg-amber/20 text-amber"
                               : "border-border-subtle text-text-muted"
@@ -316,13 +316,13 @@ export default function QuizClient({ moduleId }: Props) {
                       )}>
                         <div className="flex items-center gap-2 mb-1">
                           {isCorrect ? (
-                            <CheckCircle2 className="w-4 h-4 text-green-400" />
+                            <CheckCircle2 className="w-4 h-4 text-success" />
                           ) : (
-                            <XCircle className="w-4 h-4 text-red-400" />
+                            <XCircle className="w-4 h-4 text-error" />
                           )}
                           <span className={cn(
                             "text-sm font-medium",
-                            isCorrect ? "text-green-400" : "text-red-400"
+                            isCorrect ? "text-success" : "text-error"
                           )}>
                             {isCorrect ? t.correct : t.incorrect}
                           </span>
@@ -372,9 +372,9 @@ export default function QuizClient({ moduleId }: Props) {
                 passed ? "bg-green-500/10" : "bg-red-500/10"
               )}>
                 {passed ? (
-                  <Trophy className="w-10 h-10 text-green-400" />
+                  <Trophy className="w-10 h-10 text-success" />
                 ) : (
-                  <RotateCcw className="w-10 h-10 text-red-400" />
+                  <RotateCcw className="w-10 h-10 text-error" />
                 )}
               </div>
 
@@ -394,13 +394,13 @@ export default function QuizClient({ moduleId }: Props) {
                     return (
                       <div key={i} className="flex items-center gap-2 text-sm">
                         {correct ? (
-                          <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                          <XCircle className="w-4 h-4 text-error shrink-0" />
                         )}
                         <span className={cn(
                           "truncate",
-                          correct ? "text-text-secondary" : "text-red-300"
+                          correct ? "text-text-secondary" : "text-error"
                         )}>
                           {isAr ? q.question.ar : q.question.en}
                         </span>

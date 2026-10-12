@@ -245,7 +245,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
               {l.entranceExam}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 text-success/80">
+            <span className="inline-flex items-center gap-1 text-success">
               <GraduationCap className="w-3 h-3" />
               {l.noEntranceExam}
             </span>
@@ -264,7 +264,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           {status === "verified" && daysLeft !== null && daysLeft >= 0 && (
             <span className={cn(
               "inline-flex items-center gap-1 text-xs font-semibold",
-              isUrgent ? "text-red-400" : "text-text-secondary"
+              isUrgent ? "text-error" : "text-text-secondary"
             )}>
               {isUrgent && <AlertTriangle className="w-3.5 h-3.5" />}
               {daysLeft} {l.daysLeft}

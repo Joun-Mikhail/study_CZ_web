@@ -222,7 +222,7 @@ export default function ProgrammesClient({
           >
             <SlidersHorizontal className="w-4 h-4" />
             {activeFilters > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full bg-amber text-white text-[10px] font-bold">
+              <span className="px-1.5 py-0.5 rounded-full bg-amber text-midnight text-[10px] font-bold">
                 {activeFilters}
               </span>
             )}

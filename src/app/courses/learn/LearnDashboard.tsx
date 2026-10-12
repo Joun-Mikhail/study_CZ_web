@@ -118,7 +118,7 @@ export default function LearnDashboard() {
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className="text-red-400 text-xs mt-1.5"
+                        className="text-error text-xs mt-1.5"
                       >
                         {t.gate.codeError}
                       </motion.p>
@@ -247,7 +247,7 @@ export default function LearnDashboard() {
                           isModuleComplete ? "bg-green-500/10" : "bg-amber/10"
                         )}>
                           {isModuleComplete ? (
-                            <CheckCircle2 className="w-5 h-5 text-green-400" />
+                            <CheckCircle2 className="w-5 h-5 text-success" />
                           ) : (
                             <Icon className="w-5 h-5 text-amber" />
                           )}
@@ -258,7 +258,7 @@ export default function LearnDashboard() {
                               {t.dashboard.moduleLabel} {mi + 1}
                             </span>
                             {quizScore !== null && quizScore >= 70 && (
-                              <span className="inline-flex items-center gap-1 text-xs text-green-400">
+                              <span className="inline-flex items-center gap-1 text-xs text-success">
                                 <Trophy className="w-3 h-3" />
                                 {quizScore}%
                               </span>
@@ -293,7 +293,7 @@ export default function LearnDashboard() {
                             <div className={cn(
                               "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-medium",
                               completed
-                                ? "bg-green-500/10 text-green-400"
+                                ? "bg-green-500/10 text-success"
                                 : "bg-surface text-text-muted"
                             )}>
                               {completed ? <CheckCircle2 className="w-4 h-4" /> : li + 1}
@@ -311,7 +311,7 @@ export default function LearnDashboard() {
                                   {lesson.duration}
                                 </span>
                                 {lesson.isFree && (
-                                  <span className="text-xs text-green-400 font-medium">{t.dashboard.free}</span>
+                                  <span className="text-xs text-success font-medium">{t.dashboard.free}</span>
                                 )}
                                 {!lesson.videoUrl && (
                                   <span className="text-xs text-text-muted/70 italic">{t.dashboard.comingSoon}</span>
@@ -335,7 +335,7 @@ export default function LearnDashboard() {
                             : "bg-amber/10"
                         )}>
                           {quizScore !== null && quizScore >= 70 ? (
-                            <Award className="w-4 h-4 text-green-400" />
+                            <Award className="w-4 h-4 text-success" />
                           ) : (
                             <Trophy className="w-4 h-4 text-amber" />
                           )}
