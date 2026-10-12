@@ -9,6 +9,7 @@ import { getDeadlineStatus } from "@/data/programmes";
 import type { Programme, UniversityV2, DeadlineStatus } from "@/data/types";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import { EmailSignup } from "@/components/email-signup";
+import { HelpLink } from "@/components/help-sheet";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import {
@@ -231,6 +232,8 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
         <EmailSignup source="deadline" programmeIds={[p.id]} compact className="mb-8" />
       )}
 
+      {deadlineStatus === "verified" && <DeadlineSoonOffer deadline={p.applicationDeadline} programmeId={p.id} ar={ar} />}
+
       {/* ── Key Facts ─────────────────────────────────────────── */}
       <Section title={c.keyFacts} icon={ClipboardList}>
         <Row icon={GraduationCap} label={c.degree} value={value(p.degree)} />
@@ -369,6 +372,30 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
 
       {/* ── Database notice ───────────────────────────────────── */}
       <p className="text-xs text-text-muted mt-8 text-center">{c.database(total)}</p>
+    </div>
+  );
+}
+
+/**
+ * Only when a verified deadline is under 8 weeks away: the one moment a
+ * document check really helps. Days are counted after mount, so the static
+ * HTML never carries a stale number. docs/JOURNEY.md, 2.5.
+ */
+function DeadlineSoonOffer({ deadline, programmeId, ar }: { deadline?: string; programmeId: string; ar: boolean }) {
+  const [days, setDays] = React.useState<number | null>(null);
+  React.useEffect(() => {
+    if (!deadline) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- the date is only known in the browser
+    setDays(Math.ceil((new Date(deadline).getTime() - Date.now()) / 86_400_000));
+  }, [deadline]);
+  if (days === null || days < 0 || days >= 56) return null;
+  return (
+    <div className="mb-8 rounded-2xl border border-border-subtle bg-surface-raised p-4 text-sm">
+      <HelpLink service="documentReview" source={`programme:${programmeId}`} className="font-medium text-brand hover:underline">
+        {ar
+          ? `فاضل ${days} يوم على آخر ميعاد. تحب أراجع أوراقك قبل ما تقدم؟`
+          : `${days} days to the deadline. Want me to check your documents before you submit?`}
+      </HelpLink>
     </div>
   );
 }

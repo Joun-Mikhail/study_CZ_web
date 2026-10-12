@@ -151,3 +151,10 @@ export function setJourneyStage(stage: StageSlug): JourneyData {
   saveJourney(data);
   return data;
 }
+
+export function saveBudgetToJourney(city: string, monthlyCzk: number): JourneyData {
+  const data = loadJourney() || initJourney();
+  data.budget = { city, monthlyCzk, savedAt: new Date().toISOString() };
+  saveJourney(data);
+  return data;
+}

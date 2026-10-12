@@ -23,7 +23,7 @@ import { Info, Briefcase, Calculator } from "lucide-react";
 import { cityGuides } from "@/data/city-guides";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import Image from "next/image";
-import { ContextualCTA } from "@/components/contextual-cta";
+import { BudgetCheck } from "./budget-check";
 import { trackToolStarted } from "@/components/umami";
 
 function useChartColors() {
@@ -198,6 +198,8 @@ export default function CostOfLivingPage() {
               </p>
             </GlassCard>
 
+            <BudgetCheck city={city} totalMin={totalMin} locale={locale} onCity={setCity} />
+
             <GlassCard className="flex gap-3 items-start">
               <Info className="w-5 h-5 text-info shrink-0 mt-0.5" />
               <p className="text-sm text-text-secondary leading-relaxed">{t.cost.disclaimer}</p>
@@ -228,10 +230,6 @@ export default function CostOfLivingPage() {
               </p>
             </GlassCard>
           </div>
-        </div>
-
-        <div className="max-w-5xl mx-auto">
-          <ContextualCTA service="consultation" />
         </div>
 
         {/* City guide for selected city */}
@@ -282,7 +280,7 @@ export default function CostOfLivingPage() {
           <GlassCard hoverEffect="border">
             <div className="flex items-center gap-2.5 mb-5">
               <Calculator className="w-5 h-5 text-brand" />
-              <h2 className="text-lg font-semibold text-text-primary">{t.cost.calcTitle}</h2>
+              <h2 id="work-calculator" className="text-lg font-semibold text-text-primary scroll-mt-24">{t.cost.calcTitle}</h2>
             </div>
 
             <div className="space-y-4 mb-5">

@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -218,6 +219,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           </a>
         </div>
         <div className="flex flex-col items-end gap-1.5 shrink-0">
+          <SaveProgrammeButton programmeId={prog.id} locale={locale} />
           <div className="flex gap-1.5">
             <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
               {prog.degree}
