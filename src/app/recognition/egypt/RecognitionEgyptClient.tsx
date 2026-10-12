@@ -1,12 +1,6 @@
 "use client";
 
-import Link from "@/components/locale-link";
-import { useTranslation } from "@/i18n/context";
-import { Navbar } from "@/components/navbar";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Footer } from "@/components/footer";
-import { GlassCard } from "@/components/ui/glass-card";
-import { CalendarCheck, ExternalLink, FileCheck2, GraduationCap, Landmark, Plane, AlertTriangle } from "lucide-react";
+import { RecognitionGuide, type GuideCopy } from "../RecognitionGuide";
 
 /** Every fact on this page comes from one of these official pages. */
 const SOURCES = {
@@ -19,13 +13,11 @@ const SOURCES = {
   czNostrification: "https://portal.gov.cz/en/sluzby-vs/recognition-of-foreign-education-nostrification-provided-by-a-foreign-school-in-agreement-with-the-ministry-S5904",
 } as const;
 
-type Source = keyof typeof SOURCES;
-type Item = { text: string; source?: Source };
-type Section = { id: string; title: string; intro?: string; items: Item[] };
+const QA_LINK = { en: "Nostrification documents (Q&A)", ar: "أوراق النوستريفيكاتسي (الأسئلة الشائعة)" };
 
 const CHECKED = { en: "12 October 2026", ar: "12 أكتوبر 2026" };
 
-const en = {
+const en: GuideCopy = {
   title: "Will my Czech degree count in Egypt?",
   subtitle: "Recognition of Czech university degrees in Egypt, step by step, from official sources only.",
   checked: `Checked against the official pages on ${CHECKED.en}. Rules can change, so open the source links before you act.`,
@@ -35,7 +27,7 @@ const en = {
     { text: "It decides case by case, after you graduate and apply with your documents. Nobody can promise the result in advance, including us.", source: "scuFaq" },
     { text: "The SCU requires the university to be recognised by the education ministry of its own country. In Czechia, that is the Ministry of Education's register of universities.", source: "scuFaq" },
     { text: "For practical (scientific) subjects, the SCU requires full-time study.", source: "scuFaq" },
-  ] as Item[],
+  ],
   sections: [
     {
       id: "before",
@@ -47,7 +39,7 @@ const en = {
         { text: "Book by email to the embassy's consular department; requests are taken on Sundays, 9:00 to 11:30, and usually take about a week.", source: "embassyLegalisation" },
         { text: "Documents in Arabic need a Czech translation. English documents that are not for the visa don't.", source: "embassyLegalisation" },
         { text: "For the student visa, your criminal record extract from the Ministry of Interior must be translated into Czech and superlegalised. Arabic or English versions are not accepted.", source: "embassyStudyVisa" },
-        { text: "Your secondary school certificate is recognised in Czechia by nostrification at a Czech regional authority. Our Q&A lists the documents it needs.", source: "czNostrification" },
+        { text: "Your secondary school certificate is recognised in Czechia by nostrification at a Czech regional authority. Our Q&A lists the documents it needs.", source: "czNostrification", link: { href: "/qa/#docs-nostrification", label: QA_LINK.en } },
       ],
     },
     {
@@ -71,11 +63,10 @@ const en = {
         { text: "Someone else can handle it for you: a relative whose name shows the relationship, or anyone with a power of attorney.", source: "scuFaq" },
       ],
     },
-  ] as Section[],
-  medicineTitle: "Medicine and other licensed professions",
-  medicine:
+  ],
+  noteTitle: "Medicine and other licensed professions",
+  note:
     "Equivalency is about the degree. Working as a doctor, dentist or pharmacist in Egypt also needs a licence, with its own rules set by the Egyptian health authorities. Check their current requirements before you choose a programme.",
-  qaLink: "Nostrification documents (Q&A)",
   reviewTitle: "Want your documents checked before you send them?",
   reviewBody: "I go through every page the way the embassy officer will, before you submit.",
   reviewCta: "See the document review",
@@ -88,11 +79,11 @@ const en = {
     embassyStudyVisa: "Czech Embassy in Cairo: long-term study visa",
     czRegister: "Czech Ministry of Education: register of universities",
     czNostrification: "Czech government portal: who recognises foreign secondary certificates",
-  } as Record<Source, string>,
+  },
   source: "Source",
 };
 
-const ar: typeof en = {
+const ar: GuideCopy = {
   title: "هل تُعادَل شهادتي التشيكية في مصر؟",
   subtitle: "معادلة شهادات الجامعات التشيكية في مصر خطوة بخطوة، من المصادر الرسمية فقط.",
   checked: `راجعنا هذه المعلومات على الصفحات الرسمية بتاريخ ${CHECKED.ar}. القواعد قد تتغير، لذا افتح روابط المصادر قبل أي خطوة.`,
@@ -114,7 +105,7 @@ const ar: typeof en = {
         { text: "الحجز بالبريد الإلكتروني لقسم القنصلية بالسفارة، والطلبات تُستقبل يوم الأحد من 9:00 إلى 11:30، وتستغرق عادةً نحو أسبوع.", source: "embassyLegalisation" },
         { text: "المستندات العربية تحتاج ترجمة إلى التشيكية، أما المستندات الإنجليزية التي ليست للتأشيرة فلا تحتاج.", source: "embassyLegalisation" },
         { text: "للتأشيرة الدراسية، يجب ترجمة صحيفة الحالة الجنائية الصادرة من وزارة الداخلية إلى التشيكية وتصديقها. النسخة العربية أو الإنجليزية غير مقبولة.", source: "embassyStudyVisa" },
-        { text: "شهادة الثانوية تُعادَل في التشيك عن طريق النوستريفيكاتسي لدى مكتب الإقليم التشيكي. صفحة الأسئلة عندنا فيها قائمة الأوراق المطلوبة.", source: "czNostrification" },
+        { text: "شهادة الثانوية تُعادَل في التشيك عن طريق النوستريفيكاتسي لدى مكتب الإقليم التشيكي. صفحة الأسئلة عندنا فيها قائمة الأوراق المطلوبة.", source: "czNostrification", link: { href: "/qa/#docs-nostrification", label: QA_LINK.ar } },
       ],
     },
     {
@@ -139,10 +130,9 @@ const ar: typeof en = {
       ],
     },
   ],
-  medicineTitle: "الطب والمهن التي تحتاج ترخيصًا",
-  medicine:
+  noteTitle: "الطب والمهن التي تحتاج ترخيصًا",
+  note:
     "المعادلة تخص الشهادة نفسها. أما العمل طبيبًا أو طبيب أسنان أو صيدليًا في مصر فيحتاج أيضًا إلى ترخيص له قواعده الخاصة لدى الجهات الصحية المصرية. راجع شروطها الحالية قبل أن تختار البرنامج.",
-  qaLink: "أوراق النوستريفيكاتسي (الأسئلة الشائعة)",
   reviewTitle: "هل تريد مراجعة أوراقك قبل إرسالها؟",
   reviewBody: "أراجع كل صفحة كما سيراجعها موظف السفارة، قبل أن تقدّم.",
   reviewCta: "تفاصيل خدمة مراجعة الأوراق",
@@ -159,121 +149,6 @@ const ar: typeof en = {
   source: "المصدر",
 };
 
-const ICONS = { before: Plane, during: GraduationCap, after: Landmark } as const;
-
-function SourceLink({ k, label }: { k: Source; label: string }) {
-  return (
-    <a
-      href={SOURCES[k]}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-xs text-amber hover:underline ms-1 whitespace-nowrap"
-    >
-      {label}
-      <ExternalLink className="w-3 h-3" aria-hidden="true" />
-    </a>
-  );
-}
-
 export default function RecognitionEgyptClient() {
-  const { locale } = useTranslation();
-  const t = locale === "ar" ? ar : en;
-
-  return (
-    <div className="relative min-h-screen">
-      <Navbar />
-      <Breadcrumb />
-      <main id="main-content" className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <header className="mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.title}</h1>
-            <p className="text-lg text-text-secondary leading-relaxed mb-4">{t.subtitle}</p>
-            <p className="flex items-start gap-2 text-sm text-text-muted">
-              <CalendarCheck className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
-              {t.checked}
-            </p>
-          </header>
-
-          <GlassCard className="mb-8 border border-amber/30">
-            <h2 className="text-lg font-semibold text-text-primary mb-3">{t.shortTitle}</h2>
-            <ul className="space-y-2.5">
-              {t.short.map((item) => (
-                <li key={item.text} className="flex items-start gap-2 text-sm text-text-secondary leading-relaxed">
-                  <FileCheck2 className="w-4 h-4 text-amber mt-0.5 shrink-0" aria-hidden="true" />
-                  <span>
-                    {item.text}
-                    {item.source && <SourceLink k={item.source} label={t.source} />}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
-
-          {t.sections.map((section) => {
-            const Icon = ICONS[section.id as keyof typeof ICONS] ?? FileCheck2;
-            return (
-              <section key={section.id} id={section.id} className="mb-8 scroll-mt-24">
-                <h2 className="text-xl font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <Icon className="w-5 h-5 text-amber shrink-0" aria-hidden="true" />
-                  {section.title}
-                </h2>
-                {section.intro && <p className="text-sm text-text-secondary leading-relaxed mb-3">{section.intro}</p>}
-                <ol className="space-y-3 list-decimal ps-5 marker:text-text-muted">
-                  {section.items.map((item) => (
-                    <li key={item.text} className="text-sm text-text-secondary leading-relaxed ps-1">
-                      {item.text}
-                      {item.source && <SourceLink k={item.source} label={t.source} />}
-                      {item.source === "czNostrification" && (
-                        <>
-                          {" "}
-                          <Link href="/qa/#docs-nostrification" className="text-xs text-amber hover:underline whitespace-nowrap">
-                            {t.qaLink}
-                          </Link>
-                        </>
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </section>
-            );
-          })}
-
-          <GlassCard className="mb-8">
-            <h2 className="text-lg font-semibold text-text-primary mb-2 flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber shrink-0" aria-hidden="true" />
-              {t.medicineTitle}
-            </h2>
-            <p className="text-sm text-text-secondary leading-relaxed">{t.medicine}</p>
-          </GlassCard>
-
-          <GlassCard className="mb-10 text-center">
-            <h2 className="text-lg font-semibold text-text-primary mb-1">{t.reviewTitle}</h2>
-            <p className="text-sm text-text-secondary mb-4">{t.reviewBody}</p>
-            <Link
-              href="/services/#svc-documentReview"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors"
-            >
-              {t.reviewCta}
-            </Link>
-          </GlassCard>
-
-          <section aria-labelledby="sources">
-            <h2 id="sources" className="text-base font-semibold text-text-primary mb-2">
-              {t.sourcesTitle}
-            </h2>
-            <ul className="space-y-1.5 text-xs">
-              {(Object.keys(SOURCES) as Source[]).map((k) => (
-                <li key={k}>
-                  <a href={SOURCES[k]} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-amber underline underline-offset-2">
-                    {t.sourceNames[k]}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+  return <RecognitionGuide sources={SOURCES} en={en} ar={ar} />;
 }

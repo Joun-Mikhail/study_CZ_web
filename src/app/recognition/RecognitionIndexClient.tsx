@@ -12,17 +12,25 @@ const en = {
   title: "Will my Czech degree be recognised at home?",
   subtitle:
     "Country-by-country guides to getting a Czech university degree recognised, built only from official ministry and embassy pages, each with the date it was checked.",
-  guides: [{ href: "/recognition/egypt", name: "Egypt", desc: "Equivalency by the Supreme Council of Universities: conditions, legalisation, fees, where to send it." }],
+  guides: [
+    { href: "/recognition/egypt", name: "Egypt", desc: "Equivalency by the Supreme Council of Universities: conditions, legalisation, fees, where to send it." },
+    { href: "/recognition/jordan", name: "Jordan", desc: "Recognised Czech universities, the language and residence rules, documents and fees." },
+    { href: "/recognition/saudi-arabia", name: "Saudi Arabia", desc: "Prior approval for self-funded study, classified universities, and the online equivalency service." },
+  ],
   open: "Read the guide",
-  soon: "Guides for Saudi Arabia, Jordan and Iraq are in preparation.",
+  soon: "A guide for Iraq is in preparation.",
 };
 
 const ar: typeof en = {
   title: "هل ستُعادَل شهادتي التشيكية في بلدي؟",
   subtitle: "أدلة لكل دولة عن معادلة شهادة الجامعة التشيكية، مبنية فقط على صفحات الوزارات والسفارات الرسمية، ومع كل دليل تاريخ مراجعته.",
-  guides: [{ href: "/recognition/egypt", name: "مصر", desc: "المعادلة عن طريق المجلس الأعلى للجامعات: الشروط، والتصديقات، والرسوم، وعنوان الإرسال." }],
+  guides: [
+    { href: "/recognition/egypt", name: "مصر", desc: "المعادلة عن طريق المجلس الأعلى للجامعات: الشروط، والتصديقات، والرسوم، وعنوان الإرسال." },
+    { href: "/recognition/jordan", name: "الأردن", desc: "الجامعات التشيكية المعترف بها، وشرطا لغة الدراسة والإقامة، والوثائق، والرسوم." },
+    { href: "/recognition/saudi-arabia", name: "السعودية", desc: "الموافقة المسبقة للدراسة على الحساب الخاص، والجامعات المصنفة، وخدمة المعادلة الإلكترونية." },
+  ],
   open: "اقرأ الدليل",
-  soon: "أدلة السعودية والأردن والعراق قيد الإعداد.",
+  soon: "دليل العراق قيد الإعداد.",
 };
 
 export default function RecognitionIndexClient() {
