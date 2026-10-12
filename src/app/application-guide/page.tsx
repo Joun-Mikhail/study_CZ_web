@@ -119,12 +119,12 @@ export default function ApplicationGuidePage() {
               </div>
             ))}
 
-            {/* Monetization hook */}
+            {/* Next step: turn the guide into a plan */}
             <GlassCard hoverEffect="glow" className="text-center">
               <FileCheck className="w-7 h-7 text-brand mx-auto mb-3" />
               <h3 className="font-semibold text-text-primary mb-1.5">{t.guide.ctaTitle}</h3>
               <p className="text-sm text-text-secondary mb-5">{t.guide.ctaSubtitle}</p>
-              <MagneticButton variant="primary" href="/services">
+              <MagneticButton variant="primary" href="/eligibility">
                 {t.guide.ctaButton}
               </MagneticButton>
             </GlassCard>

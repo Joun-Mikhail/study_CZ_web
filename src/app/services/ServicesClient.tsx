@@ -539,7 +539,7 @@ function ServiceCard({
           </div>
         </div>
 
-        <p className="text-xs text-text-secondary italic mb-3">{content.fearTrigger}</p>
+        <p className="text-xs text-text-secondary italic mb-3">{content.stuckLine}</p>
         <p className="text-sm text-text-secondary leading-relaxed mb-4">{content.description}</p>
 
         <details className="group mb-4 flex-1">
@@ -744,7 +744,7 @@ const en = {
   services: {
     consultation: {
       title: "Ask Me Anything: 30 Minutes",
-      fearTrigger: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
+      stuckLine: "Stuck on one question you can't get a straight answer to? Ask me in a 30-minute call, and I'll tell you what I'd do in your place.",
       description:
         "A focused call about YOUR specific situation. Not generic advice. I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on something specific, like which university to pick, whether their documents look right, or what to expect at the embassy.",
       included: [
@@ -755,14 +755,14 @@ const en = {
         "Credited in full toward any larger service if you upgrade later",
       ],
       triggerLine:
-        "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
+        "Not sure about one thing? Asking is usually faster than searching.",
       cta: `Book a Call (${price("consultation")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.consultation}`,
     },
     documentReview: {
       title: "Document Check: Before You Submit",
-      fearTrigger:
-        "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
+      stuckLine:
+        "Stuck on the apostille or the translations? Send me your documents and I'll check every page before you submit.",
       description:
         `You send me everything you're planning to submit: university application, visa documents, translations, bank statements. I go through every page the way the embassy officer will and tell you what's wrong, what's missing, and what could get flagged. A ${price("documentReview")} review can save you from a rejection that costs you an entire semester.`,
       included: [
@@ -773,13 +773,13 @@ const en = {
         "One follow-up round: fix the issues, send back, I confirm you're good",
       ],
       triggerLine:
-        "The embassy doesn't tell you what's wrong, they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
+        "It's much easier to fix a document before you submit it than after.",
       cta: `Get My Documents Reviewed (${price("documentReview")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.documentReview}`,
     },
     interviewPrep: {
-      title: "Embassy Interview Prep: Don't Walk In Unprepared",
-      fearTrigger: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
+      title: "Embassy interview: let's practise it first",
+      stuckLine: "Nervous about the embassy interview? Let's practise it together with the questions embassies ask, so nothing on the day surprises you.",
       description:
         "Embassy interviews follow a pattern. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
       included: [
@@ -791,14 +791,14 @@ const en = {
         "WhatsApp support until your interview date",
       ],
       triggerLine:
-        "Last year, a student was rejected because he couldn't explain his study plan clearly. His grades were perfect. His documents were perfect. He just wasn't ready for question 6.",
+        "Interview questions usually centre on your study plan: why this programme, why Czechia, how you'll pay. That's exactly what we practise.",
       cta: `See How It Works (${price("interviewPrep")}) →`,
       postButton: REFUND_COPY.en.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "Landed in Czechia? I've Got You.",
-      fearTrigger:
-        "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
+      stuckLine:
+        "The first two weeks are a lot: foreign police, bank, insurance, transport, a SIM card, mostly in Czech. I'll give you a checklist for your city and answer your questions while you settle in.",
       description:
         "You just landed. You don't speak Czech. Every sign is confusing. You need to register at the foreign police within 3 days but you don't know where it is or what to bring. Your university sent you 4 emails in Czech and you have no idea what they say. I've been through all of this. I live here. I'll give you a complete first-week plan and be available on WhatsApp to answer every question you're afraid to ask.",
       included: [
@@ -811,13 +811,13 @@ const en = {
         "14 days of WhatsApp support, ask me anything, anytime",
       ],
       triggerLine:
-        "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
+        "You have 3 working days after arrival to report your address to the foreign police. I'll tell you where to go and what to bring.",
       cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "Full Journey: From Zero to Visa",
-      fearTrigger:
+      stuckLine:
         "For students who don't want to figure it out alone. I'll be with you from your first question to your first day in Czechia.",
       description:
         "This is everything. We start from wherever you are, even if you haven't picked a country yet, and I walk you through every step until you have your visa and a plan for your first week. You're not buying a service. You're getting someone who's been through this, speaks your language, lives here, and will answer your WhatsApp at midnight when you're panicking about a deadline. Agencies often charge €1,500–€3,000. I'm in Brno, 20 minutes from the foreign police office.",
@@ -834,7 +834,7 @@ const en = {
         '"Your First 90 Days in Czechia" course, included free',
       ],
       triggerLine:
-        "Students who go through this process alone spend an average of 3 months longer figuring things out, and many apply to the wrong program or miss a deadline they didn't know existed.",
+        "For when several things need work at once and you'd rather have one person with you for all of it.",
       cta: `Start My Application (${price("fullPackageStep1")})`,
       postButton: `🔒 Secure payment via Stripe · Also via InstaPay 🇪🇬 · ${REFUND_COPY.en.perService.fullPackage}`,
       paymentStructure: {
@@ -1020,7 +1020,7 @@ const ar: typeof en = {
   services: {
     consultation: {
       title: "اسألني أي حاجة: 30 دقيقة",
-      fearTrigger: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
+      stuckLine: "واقف عند سؤال مش لاقيله إجابة واضحة؟ اسألني في مكالمة 30 دقيقة، وهقولك أنا كنت هعمل إيه مكانك.",
       description: "مكالمة مركزة عن وضعك أنت تحديدًا. مش نصايح عامة. هبص على وضعك وهقولك بالظبط تعمل إيه. معظم الطلاب بيحجزوا لما بيكونوا واقفين عند حاجة معينة.",
       included: [
         "مكالمة فيديو أو صوت 30 دقيقة (اختيارك)",
@@ -1029,13 +1029,13 @@ const ar: typeof en = {
         "48 ساعة متابعة على واتساب لأسئلة سريعة",
         "بتتحسب بالكامل لو حجزت خدمة أكبر بعدين",
       ],
-      triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
+      triggerLine: "مش متأكد من حاجة واحدة؟ السؤال غالبًا أسرع من البحث.",
       cta: `احجز مكالمة (${price("consultation", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.consultation}`,
     },
     documentReview: {
       title: "مراجعة الأوراق: قبل ما تقدم",
-      fearTrigger: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
+      stuckLine: "واقف عند الأبوستيل أو الترجمة؟ ابعتلي أوراقك وأنا أراجع كل صفحة قبل ما تقدم.",
       description: `ابعتلي كل حاجة ناوي تقدمها. طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ ${price("documentReview", "ar")} ممكن تنقذك من رفض بيكلفك فصل كامل.`,
       included: [
         "مراجعة كاملة لكل الأوراق",
@@ -1044,13 +1044,13 @@ const ar: typeof en = {
         "توجيه خاص للترجمات والابوستيل والتنسيق",
         "جولة متابعة: صلح المشاكل، ابعت تاني، بأكدلك إن كله تمام",
       ],
-      triggerLine: 'السفارة مش بتقولك إيه الغلط. بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
+      triggerLine: 'تصليح الورقة قبل ما تقدمها أسهل بكتير من بعدها.',
       cta: `راجع أوراقي (${price("documentReview", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.documentReview}`,
     },
     interviewPrep: {
-      title: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير",
-      fearTrigger: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
+      title: "مقابلة السفارة: نتدرب عليها الأول",
+      stuckLine: "قلقان من مقابلة السفارة؟ يلا نتدرب عليها مع بعض بالأسئلة اللي السفارات بتسألها، عشان مافيش حاجة تفاجئك يومها.",
       description: "مقابلات السفارة ليها نمط ثابت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
       included: [
         "جلسة مقابلة تجريبية 45 دقيقة (فيديو)",
@@ -1060,13 +1060,13 @@ const ar: typeof en = {
         "تدريب خاص على نقاط ضعفك أنت",
         "دعم واتساب لحد موعد مقابلتك",
       ],
-      triggerLine: "السنة اللي فاتت، طالب اترفض عشان ماعرفش يشرح خطته الدراسية بوضوح. درجاته كانت ممتازة. أوراقه كانت كاملة. بس ماكانش جاهز للسؤال رقم 6.",
+      triggerLine: "أسئلة المقابلة غالبًا بتدور حوالين خطتك الدراسية: ليه البرنامج ده، ليه التشيك، وهتصرف إزاي. وده بالظبط اللي هنتدرب عليه.",
       cta: `شوف التفاصيل (${price("interviewPrep", "ar")}) →`,
       postButton: REFUND_COPY.ar.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "وصلت التشيك؟ أنا معاك.",
-      fearTrigger: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
+      stuckLine: "أول أسبوعين فيهم حاجات كتير: شرطة الأجانب، البنك، التأمين، المواصلات، الشريحة، ومعظمها بالتشيكي. هديك قائمة لمدينتك وهرد على أسئلتك وأنت بتستقر.",
       description: "لسه واصل. مش بتتكلم تشيكي. كل لافتة محيرة. أنا عديت كل ده. أنا ساكن هنا. هديك خطة كاملة لأول أسبوع وهكون متاح على واتساب أجاوب على كل سؤال.",
       included: [
         `قائمة "أول أسبوعين" مخصصة لمدينتك`,
@@ -1077,13 +1077,13 @@ const ar: typeof en = {
         "تحقق من التأمين الصحي",
         "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
       ],
-      triggerLine: "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      triggerLine: "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
       cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "الرحلة الكاملة: من الصفر للفيزا",
-      fearTrigger: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
+      stuckLine: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
       description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه، حتى لو لسه مااخترتش بلد، وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك وساكن هنا. المكاتب غالبًا بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
       included: [
         "اختيار الجامعة والتخصص (حسب درجاتك وميزانيتك وأهدافك)",
@@ -1097,7 +1097,7 @@ const ar: typeof en = {
         "30 يوم دعم بعد وصولك التشيك",
         `كورس "أول 90 يوم في التشيك". مجانًا`,
       ],
-      triggerLine: "الطلاب اللي بيعملوا العملية لوحدهم بياخدوا في المتوسط 3 شهور أكتر. وكتير بيقدموا على البرنامج الغلط أو بيفوتهم موعد ماكانوش يعرفوا بيه.",
+      triggerLine: "لما يكون في كذا حاجة محتاجة شغل في نفس الوقت، وتحب يكون معاك شخص واحد في كل ده.",
       cta: `ابدأ طلبي (${price("fullPackageStep1", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · ${REFUND_COPY.ar.perService.fullPackage}`,
       paymentStructure: {

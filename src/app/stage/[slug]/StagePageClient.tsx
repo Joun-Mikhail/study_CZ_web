@@ -8,7 +8,9 @@ import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { buttonClasses } from "@/components/ui/magnetic-button";
 import { HelpLink } from "@/components/help-sheet";
-import { ArrowRight, ShieldAlert } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { FOUNDER_NAME, FOUNDER_NAME_AR } from "@/config/contact";
 import { stages, type StageSlug } from "@/data/stages";
 import { qaEntries } from "@/data/qa";
 import { WaitlistSignup } from "@/components/waitlist-signup";
@@ -84,7 +86,7 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
           {config.paidService && (
             <section>
               <GlassCard hoverEffect="glow" className="text-center">
-                <ShieldAlert className="w-8 h-8 text-brand mx-auto mb-3" />
+                <Image src="/images/john.jpg" alt={locale === "ar" ? FOUNDER_NAME_AR : FOUNDER_NAME} width={56} height={56} sizes="56px" className="w-14 h-14 rounded-full object-cover mx-auto mb-3" />
                 <p className="text-xs text-text-muted mb-2">
                   {locale === "ar" ? "لو لسه واقف عند ده" : "If you're still stuck here"}
                 </p>
@@ -92,7 +94,7 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                   {config.paidService.title[locale]}
                 </h2>
                 <p className="text-sm text-brand font-medium mb-5">
-                  {config.paidService.fearTrigger[locale]}
+                  {config.paidService.stuckLine[locale]}
                 </p>
                 <HelpLink
                   service={config.paidService.service}

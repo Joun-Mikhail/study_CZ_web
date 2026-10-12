@@ -144,7 +144,7 @@ export default function ArrivalClient() {
             <GlassCard hoverEffect="glow" className="text-center">
               <ShieldAlert className="w-8 h-8 text-brand mx-auto mb-3" />
               <h2 className="text-xl font-bold text-text-primary mb-2">{t.paid.title}</h2>
-              <p className="text-sm text-brand font-medium mb-3">{t.paid.fearTrigger}</p>
+              <p className="text-sm text-brand font-medium mb-3">{t.paid.stuckLine}</p>
               <p className="text-sm text-text-secondary leading-relaxed mb-5 text-start">
                 {t.paid.description}
               </p>
@@ -218,12 +218,12 @@ const en = {
       note: "The registration form itself is provided at the office — you don't need to bring it filled out. Just bring a pen.",
     },
     warning:
-      "A student last semester missed his foreign police deadline because nobody told him it was 3 working days, not 3 calendar days. He spent 2 months fixing it.",
+      "You have 3 working days after arrival to report your address to the foreign police: working days, not calendar days. Dorms and hotels usually do it for you.",
   },
   paid: {
     title: "Landed in Czechia? I've Got You.",
-    fearTrigger:
-      "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
+    stuckLine:
+      "The first two weeks are a lot: foreign police, bank, insurance, transport, a SIM card, mostly in Czech. I'll give you a checklist for your city and answer your questions while you settle in.",
     description:
       "You just landed. You don't speak Czech. Every sign is confusing. You need to register at the foreign police within 3 days but you don't know where it is or what to bring. Your university sent you 4 emails in Czech and you have no idea what they say. I've been through all of this. I live here. I'll give you a complete first-week plan and be available on WhatsApp to answer every question you're afraid to ask.",
     included: [
@@ -236,7 +236,7 @@ const en = {
       "14 days of WhatsApp support, ask me anything, anytime",
     ],
     triggerLine:
-      "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
+      "You have 3 working days after arrival to report your address to the foreign police. I'll tell you where to go and what to bring.",
     cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
     postButton: "🔒 Secure payment via Stripe",
     whatsapp: "Ask on WhatsApp instead",
@@ -280,12 +280,12 @@ const ar = {
       note: "استمارة التسجيل نفسها موجودة في المكتب — مش لازم تجيبها معبأة. بس جيب معاك قلم.",
     },
     warning:
-      "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
   },
   paid: {
     title: "وصلت التشيك؟ أنا معاك.",
-    fearTrigger:
-      "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
+    stuckLine:
+      "أول أسبوعين فيهم حاجات كتير: شرطة الأجانب، البنك، التأمين، المواصلات، الشريحة، ومعظمها بالتشيكي. هديك قائمة لمدينتك وهرد على أسئلتك وأنت بتستقر.",
     description:
       "لسه واصل. مش بتتكلم تشيكي. كل لافتة محيرة. أنا عديت كل ده. أنا ساكن هنا. هديك خطة كاملة لأول أسبوع وهكون متاح على واتساب أجاوب على كل سؤال.",
     included: [
@@ -298,7 +298,7 @@ const ar = {
       "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
     ],
     triggerLine:
-      "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
     cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
     postButton: "🔒 دفع آمن عبر Stripe",
     whatsapp: "اسأل على واتساب بدل ده",
