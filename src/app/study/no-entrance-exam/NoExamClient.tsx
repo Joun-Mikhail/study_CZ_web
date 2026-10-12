@@ -12,6 +12,8 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { SeoCrosslinks } from "@/components/seo-crosslinks";
+import { EmailSignup, followProps } from "@/components/email-signup";
+import { programmeLabel } from "@/lib/programme-label";
 import {
   GraduationCap,
   Euro,
@@ -179,6 +181,14 @@ export default function NoExamClient() {
             );
           })}
         </div>
+
+        <EmailSignup
+          source="deadline"
+          variant="field"
+          placement="no-exam-page"
+          className="mt-6 max-w-2xl mx-auto"
+          {...followProps(noExam, (p) => programmeLabel(p, locale))}
+        />
 
         <SeoCrosslinks locale={locale} exclude={{ type: "intent", value: "no-exam" }} />
 

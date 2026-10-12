@@ -5,6 +5,7 @@ import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { FadeIn } from "@/components/ui/fade-in";
+import { EmailSignup } from "@/components/email-signup";
 import { programmes, getDeadlineStatus } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme } from "@/data/types";
@@ -533,6 +534,14 @@ export default function CompareClient() {
           </div>
         </GlassCard>
       </FadeIn>
+
+      <EmailSignup
+        source="deadline"
+        variant="compare"
+        placement="compare"
+        className="mt-6 max-w-2xl mx-auto"
+        programmeIds={selected.map((p) => p.id)}
+      />
 
       <FadeIn delay={0.2}>
         <p className="text-xs text-text-muted mt-8 text-center">{c.database(programmes.length)}</p>

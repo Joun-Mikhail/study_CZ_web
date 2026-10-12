@@ -15,6 +15,8 @@ import { programmes, filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme } from "@/data/types";
 import { SeoCrosslinks } from "@/components/seo-crosslinks";
+import { EmailSignup, followProps } from "@/components/email-signup";
+import { programmeLabel } from "@/lib/programme-label";
 import {
   GraduationCap,
   Euro,
@@ -269,6 +271,15 @@ export default function StudyPageClient({ type, value, slug }: Props) {
                 : "No programmes in this category yet. Our database is growing."}
             </p>
           </div>
+        )}
+        {filtered.length > 0 && (
+          <EmailSignup
+            source="deadline"
+            variant="field"
+            placement="study-page"
+            className="mt-6 max-w-2xl mx-auto"
+            {...followProps(filtered, (p) => programmeLabel(p, locale))}
+          />
         )}
 
         <SeoCrosslinks locale={locale} exclude={{ type, value }} />

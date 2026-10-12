@@ -12,6 +12,9 @@ export const EMAIL_ENABLED = process.env.NEXT_PUBLIC_EMAIL_ENABLED === "true";
 
 export type EmailSource = "eligibility" | "deadline" | "matcher" | "checklist";
 
+/** Wording for a placement; the source still decides which email is sent. */
+export type EmailVariant = "university" | "compare" | "field" | "guide";
+
 const COPY = {
   en: {
     eligibility: { title: "Email me my result", text: "Your result and the next steps, in your inbox to keep.", button: "Email my result" },
@@ -26,7 +29,30 @@ const COPY = {
       button: "Remind me",
     },
     checklist: { title: "Get the free document checklist", text: "The document steps from the guide, sent to your inbox.", button: "Send it to me" },
+    university: {
+      title: "Get deadline reminders for this university",
+      text: "I'll email you when each programme's deadline is confirmed, then 30, 7 and 1 days before it.",
+      button: "Remind me",
+    },
+    compare: {
+      title: "Remind me about these programmes",
+      text: "One email when each deadline is confirmed, then 30, 7 and 1 days before it.",
+      button: "Remind me",
+    },
+    field: {
+      title: "Follow the deadlines for these programmes",
+      text: "I'll email you when each deadline is confirmed, then 30, 7 and 1 days before it.",
+      button: "Remind me",
+    },
+    guide: {
+      title: "Get the application document checklist",
+      text: "Every document a Czech university asks for, in one email you can come back to.",
+      button: "Send it to me",
+    },
     placeholder: "your@email.com",
+    emailLabel: "Email address",
+    pickLegend: "Choose up to 5 programmes to follow",
+    nonePicked: "Choose at least one programme.",
     tips: "Also send me occasional tips and offers. Unsubscribe anytime.",
     privacy: "We send emails with Brevo. See the",
     privacyLink: "privacy policy",
@@ -47,7 +73,30 @@ const COPY = {
       button: "فكرني",
     },
     checklist: { title: "قائمة الأوراق ببلاش", text: "خطوات الأوراق من الدليل، على الإيميل.", button: "ابعتهالي" },
+    university: {
+      title: "تذكير بمواعيد التقديم في الجامعة دي",
+      text: "هبعتلك أول ما ميعاد كل برنامج يتأكد، وبعدين قبله بـ30 يوم و7 أيام ويوم.",
+      button: "فكرني",
+    },
+    compare: {
+      title: "فكرني بمواعيد البرامج دي",
+      text: "إيميل أول ما كل ميعاد يتأكد، وبعدين قبله بـ30 يوم و7 أيام ويوم.",
+      button: "فكرني",
+    },
+    field: {
+      title: "تابع مواعيد التقديم للبرامج دي",
+      text: "هبعتلك أول ما كل ميعاد يتأكد، وبعدين قبله بـ30 يوم و7 أيام ويوم.",
+      button: "فكرني",
+    },
+    guide: {
+      title: "قائمة أوراق التقديم على الإيميل",
+      text: "كل الأوراق اللي الجامعة التشيكية بتطلبها، في إيميل واحد ترجعله وقت ما تحتاج.",
+      button: "ابعتهالي",
+    },
     placeholder: "your@email.com",
+    emailLabel: "عنوان الإيميل",
+    pickLegend: "اختار لحد 5 برامج تتابعها",
+    nonePicked: "اختار برنامج واحد على الأقل.",
     tips: "وابعتلي كمان نصايح وعروض من وقت للتاني. تقدر تلغي في أي وقت.",
     privacy: "بنبعت الإيميلات عن طريق Brevo. شوف",
     privacyLink: "سياسة الخصوصية",
@@ -65,31 +114,58 @@ type Props = {
   programmeIds?: string[];
   className?: string;
   compact?: boolean;
+  /** Placement wording (defaults to the source's own). */
+  variant?: EmailVariant;
+  /** Where the box is, sent with the email_signup event (e.g. "university"). */
+  placement?: string;
+  /**
+   * Programmes the visitor picks from (none ticked to start). Use when there
+   * are more than MAX_FOLLOW; otherwise pass them all as programmeIds.
+   */
+  choices?: { id: string; label: string }[];
 };
 
-export function EmailSignup({ source, answers, programmeIds, className, compact }: Props) {
+/** Most programmes one sign-up can follow (the subscribe function's limit). */
+export const MAX_FOLLOW = 5;
+
+/** Follow them all when there are few; otherwise let the visitor choose. */
+export function followProps<T extends { id: string }>(items: T[], label: (item: T) => string) {
+  return items.length <= MAX_FOLLOW
+    ? { programmeIds: items.map((i) => i.id) }
+    : { choices: items.map((i) => ({ id: i.id, label: label(i) })) };
+}
+
+export function EmailSignup({ source, answers, programmeIds, className, compact, variant, placement, choices }: Props) {
   const { locale } = useTranslation();
   const t = COPY[locale];
-  const c = t[source];
+  const c = t[variant ?? source];
   const [email, setEmail] = useState("");
   const [marketing, setMarketing] = useState(false);
   const [website, setWebsite] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error" | "badEmail">("idle");
+  const [picked, setPicked] = useState<string[]>([]);
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error" | "badEmail" | "nonePicked">("idle");
 
   if (!EMAIL_ENABLED) return null;
 
+  const togglePick = (id: string) =>
+    setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : p.length < MAX_FOLLOW ? [...p, id] : p));
+
   async function submit(e: FormEvent) {
     e.preventDefault();
+    if (choices && picked.length === 0) {
+      setStatus("nonePicked");
+      return;
+    }
     setStatus("sending");
     try {
       const res = await fetch("/api/email/subscribe", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, locale, source, marketing, answers, programmeIds, website }),
+        body: JSON.stringify({ email, locale, source, marketing, answers, programmeIds: choices ? picked : programmeIds, website }),
       });
       if (res.ok) {
         setStatus("done");
-        track("email_signup", { source, tips: marketing ? "yes" : "no" });
+        track("email_signup", { source, placement: placement ?? source, tips: marketing ? "yes" : "no" });
       } else {
         setStatus(res.status === 400 ? "badEmail" : "error");
       }
@@ -99,6 +175,7 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
   }
 
   const Icon = source === "deadline" || source === "matcher" ? Bell : Mail;
+  const inputId = `email-${placement ?? source}`;
 
   if (status === "done") {
     return (
@@ -118,12 +195,36 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
           {!compact && <p className="text-xs text-text-secondary mt-1">{c.text}</p>}
         </div>
       </div>
+      {choices && (
+        <fieldset className="mb-3">
+          <legend className="text-xs font-medium text-text-primary mb-1.5">
+            {t.pickLegend} <span className="text-text-muted font-normal">({picked.length}/{MAX_FOLLOW})</span>
+          </legend>
+          <div className="max-h-48 overflow-y-auto rounded-xl border border-border-subtle bg-surface divide-y divide-border-subtle">
+            {choices.map((ch) => {
+              const on = picked.includes(ch.id);
+              return (
+                <label key={ch.id} className="flex items-start gap-2 px-3 py-2 text-xs text-text-secondary cursor-pointer has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-60">
+                  <input
+                    type="checkbox"
+                    checked={on}
+                    disabled={!on && picked.length >= MAX_FOLLOW}
+                    onChange={() => togglePick(ch.id)}
+                    className="mt-0.5 accent-brand"
+                  />
+                  <span>{ch.label}</span>
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      )}
       <div className="flex flex-col sm:flex-row gap-2">
-        <label className="sr-only" htmlFor={`email-${source}`}>
-          Email
+        <label className="sr-only" htmlFor={inputId}>
+          {t.emailLabel}
         </label>
         <input
-          id={`email-${source}`}
+          id={inputId}
           type="email"
           required
           autoComplete="email"
@@ -164,9 +265,9 @@ export function EmailSignup({ source, answers, programmeIds, className, compact 
         </Link>
         .
       </p>
-      {(status === "error" || status === "badEmail") && (
+      {(status === "error" || status === "badEmail" || status === "nonePicked") && (
         <p className="text-xs text-error mt-2" role="alert">
-          {status === "badEmail" ? t.badEmail : t.error}
+          {status === "badEmail" ? t.badEmail : status === "nonePicked" ? t.nonePicked : t.error}
         </p>
       )}
     </form>
