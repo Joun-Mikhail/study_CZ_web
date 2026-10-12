@@ -8,13 +8,13 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { programmes, getDeadlineStatus } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme } from "@/data/types";
+import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import {
   X,
   Plus,
   ExternalLink,
   Search,
   ArrowRight,
-  Sparkles,
   Scale,
   GraduationCap,
 } from "lucide-react";
@@ -22,105 +22,203 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const MAX_COMPARE = 3;
 
+const COPY = {
+  en: {
+    title: "Compare Programmes",
+    intro: `Select up to ${MAX_COMPARE} programmes to compare side by side: tuition, deadlines, exams, and more.`,
+    addAProgramme: "Add a programme",
+    orBrowse: "Or",
+    browse: "browse programmes",
+    orBrowseEnd: "and use the compare button on each card.",
+    selected: (n: number) => `${n} of ${MAX_COMPARE} selected`,
+    add: "Add",
+    addProgramme: "Add programme",
+    addToCompare: "Add programme to compare",
+    close: "Close",
+    search: "Search programmes...",
+    noResults: "No programmes found.",
+    remove: (name: string) => `Remove ${name}`,
+    viewDetails: "View details",
+    officialPage: "Official page",
+    database: (n: number) => `Our database is growing, currently covering ${n} verified programmes.`,
+    perYear: "per year",
+    rows: {
+      university: "University",
+      faculty: "Faculty",
+      city: "City",
+      type: "Type",
+      language: "Language",
+      degree: "Degree",
+      duration: "Duration",
+      tuition: "Tuition",
+      entranceExam: "Entrance exam",
+      applicationFee: "Application fee",
+      deadline: "Deadline",
+      field: "Field",
+      verified: "Verified",
+    },
+    public: "Public",
+    private: "Private",
+    yes: "Yes",
+    no: "No",
+    years: (n: number) => `${n} year${n > 1 ? "s" : ""}`,
+    rolling: "Rolling",
+    passed: (d: string) => `${d} (passed)`,
+    notPublished: "Not published",
+  },
+  ar: {
+    title: "قارن بين البرامج",
+    intro: `اختر حتى ${MAX_COMPARE} برامج وقارن بينها جنبًا إلى جنب: الرسوم، والمواعيد، والامتحانات، وغيرها.`,
+    addAProgramme: "أضف برنامجًا",
+    orBrowse: "أو",
+    browse: "تصفح البرامج",
+    orBrowseEnd: "واستخدم زر المقارنة في كل بطاقة.",
+    selected: (n: number) => `تم اختيار ${n} من ${MAX_COMPARE}`,
+    add: "أضف",
+    addProgramme: "أضف برنامجًا",
+    addToCompare: "أضف برنامجًا للمقارنة",
+    close: "إغلاق",
+    search: "ابحث عن برنامج...",
+    noResults: "لا توجد برامج مطابقة.",
+    remove: (name: string) => `إزالة ${name}`,
+    viewDetails: "التفاصيل",
+    officialPage: "الصفحة الرسمية",
+    database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا تم التحقق منه.`,
+    perYear: "في السنة",
+    rows: {
+      university: "الجامعة",
+      faculty: "الكلية",
+      city: "المدينة",
+      type: "النوع",
+      language: "لغة الدراسة",
+      degree: "الدرجة",
+      duration: "المدة",
+      tuition: "الرسوم الدراسية",
+      entranceExam: "امتحان القبول",
+      applicationFee: "رسوم التقديم",
+      deadline: "آخر موعد",
+      field: "المجال",
+      verified: "آخر تحقق",
+    },
+    public: "حكومية",
+    private: "خاصة",
+    yes: "نعم",
+    no: "لا",
+    years: (n: number) => (n === 1 ? "سنة واحدة" : n === 2 ? "سنتان" : `${n} سنوات`),
+    rolling: "مفتوح طوال العام",
+    passed: (d: string) => `${d} (انتهى)`,
+    notPublished: "لم يُعلَن بعد",
+  },
+};
+
+type Copy = (typeof COPY)["en"];
+
 function getUni(id: string) {
   return universitiesV2.find((u) => u.id === id);
 }
 
-function deadlineLabel(p: Programme): string {
+function deadlineLabel(p: Programme, c: Copy): string {
   const status = getDeadlineStatus(p);
-  if (status === "rolling") return "Rolling";
-  if (status === "passed") return `${p.applicationDeadline} (passed)`;
+  if (status === "rolling") return c.rolling;
+  if (status === "passed") return c.passed(p.applicationDeadline ?? "");
   if (status === "verified") return p.applicationDeadline ?? "—";
-  return "Not published";
+  return c.notPublished;
 }
 
 type RowDef = {
+  key: string;
   label: string;
   render: (p: Programme) => React.ReactNode;
   highlight?: boolean;
 };
 
-const rows: RowDef[] = [
-  {
-    label: "University",
-    render: (p) => {
-      const uni = getUni(p.universityId);
-      return uni ? (
-        <Link href={`/university/${uni.id}`} className="text-accent hover:underline underline-offset-2 text-sm">
-          {uni.name}
-        </Link>
-      ) : p.universityId;
+function buildRows(c: Copy, ar: boolean): RowDef[] {
+  const money = (n: number) => n.toLocaleString("en-US");
+  return [
+    {
+      key: "university",
+      label: c.rows.university,
+      render: (p) => {
+        const uni = getUni(p.universityId);
+        return uni ? (
+          <Link href={`/university/${uni.id}`} className="text-accent hover:underline underline-offset-2 text-sm">
+            {uni.name}
+          </Link>
+        ) : p.universityId;
+      },
     },
-  },
-  { label: "Faculty", render: (p) => p.faculty ?? "—" },
-  {
-    label: "City",
-    render: (p) => {
-      const uni = getUni(p.universityId);
-      return uni ? `${uni.city}` : "—";
+    { key: "faculty", label: c.rows.faculty, render: (p) => p.faculty ?? "—" },
+    {
+      key: "city",
+      label: c.rows.city,
+      render: (p) => {
+        const uni = getUni(p.universityId);
+        return uni ? (ar ? CITY_AR[uni.city] ?? uni.city : uni.city) : "—";
+      },
     },
-  },
-  {
-    label: "Type",
-    render: (p) => {
-      const uni = getUni(p.universityId);
-      return uni ? (uni.type === "public" ? "Public" : "Private") : "—";
+    {
+      key: "type",
+      label: c.rows.type,
+      render: (p) => {
+        const uni = getUni(p.universityId);
+        return uni ? (uni.type === "private" ? c.private : c.public) : "—";
+      },
     },
-  },
-  { label: "Language", render: (p) => p.language },
-  { label: "Degree", render: (p) => p.degree },
-  {
-    label: "Duration",
-    render: (p) => `${p.durationYears} year${p.durationYears > 1 ? "s" : ""}`,
-  },
-  {
-    label: "Tuition",
-    render: (p) => (
-      <span>
-        €{p.tuitionEurPerYear.toLocaleString()} per year
-        {p.tuitionCzkPerYear && (
-          <span className="block text-text-muted text-xs">
-            CZK {p.tuitionCzkPerYear.toLocaleString()}
-          </span>
-        )}
-      </span>
-    ),
-    highlight: true,
-  },
-  {
-    label: "Entrance exam",
-    render: (p) => (
-      <span>
-        {p.entranceExam ? "Yes" : "No"}
-        {p.entranceExamDetails && (
-          <span className="block text-text-muted text-xs mt-0.5">
-            {p.entranceExamDetails.en}
-          </span>
-        )}
-      </span>
-    ),
-  },
-  {
-    label: "Application fee",
-    render: (p) =>
-      p.applicationFeeEur !== undefined ? `€${p.applicationFeeEur}` : "—",
-  },
-  { label: "Deadline", render: (p) => deadlineLabel(p), highlight: true },
-  { label: "Field", render: (p) => p.field },
-  {
-    label: "Verified",
-    render: (p) => p.verification.lastVerified,
-  },
-];
+    { key: "language", label: c.rows.language, render: (p) => (ar ? LANGUAGE_AR[p.language] ?? p.language : p.language) },
+    { key: "degree", label: c.rows.degree, render: (p) => (ar ? DEGREE_VALUE_AR[p.degree] ?? p.degree : p.degree) },
+    { key: "duration", label: c.rows.duration, render: (p) => c.years(p.durationYears) },
+    {
+      key: "tuition",
+      label: c.rows.tuition,
+      render: (p) => (
+        <span>
+          €{money(p.tuitionEurPerYear)} {c.perYear}
+          {p.tuitionCzkPerYear && (
+            <span className="block text-text-muted text-xs">
+              CZK {money(p.tuitionCzkPerYear)}
+            </span>
+          )}
+        </span>
+      ),
+      highlight: true,
+    },
+    {
+      key: "entranceExam",
+      label: c.rows.entranceExam,
+      render: (p) => (
+        <span>
+          {p.entranceExam ? c.yes : c.no}
+          {p.entranceExamDetails && (
+            <span className="block text-text-muted text-xs mt-0.5">
+              {ar && p.entranceExamDetails.ar ? p.entranceExamDetails.ar : p.entranceExamDetails.en}
+            </span>
+          )}
+        </span>
+      ),
+    },
+    {
+      key: "applicationFee",
+      label: c.rows.applicationFee,
+      render: (p) => (p.applicationFeeEur !== undefined ? `€${p.applicationFeeEur}` : "—"),
+    },
+    { key: "deadline", label: c.rows.deadline, render: (p) => deadlineLabel(p, c), highlight: true },
+    { key: "field", label: c.rows.field, render: (p) => (ar ? FIELD_AR[p.field] ?? p.field : p.field) },
+    { key: "verified", label: c.rows.verified, render: (p) => p.verification.lastVerified },
+  ];
+}
 
 function ProgrammeSelector({
   exclude,
   onSelect,
   onClose,
+  c,
+  ar,
 }: {
   exclude: string[];
   onSelect: (id: string) => void;
   onClose: () => void;
+  c: Copy;
+  ar: boolean;
 }) {
   const [q, setQ] = useState("");
   const filtered = useMemo(() => {
@@ -129,7 +227,7 @@ function ProgrammeSelector({
       if (exclude.includes(p.id)) return false;
       if (!term) return true;
       const uni = getUni(p.universityId);
-      const hay = [p.name.en, p.field, p.degree, p.faculty, uni?.name, uni?.city]
+      const hay = [p.name.en, p.name.ar, p.field, FIELD_AR[p.field], p.degree, p.faculty, uni?.name, uni?.city, uni && CITY_AR[uni.city]]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
@@ -159,9 +257,9 @@ function ProgrammeSelector({
                 <div className="p-1.5 rounded-lg bg-amber/10 border border-amber/20">
                   <Plus className="w-3.5 h-3.5 text-amber" />
                 </div>
-                <h3 className="font-semibold text-text-primary">Add programme to compare</h3>
+                <h3 className="font-semibold text-text-primary">{c.addToCompare}</h3>
               </div>
-              <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-raised transition-colors">
+              <button onClick={onClose} aria-label={c.close} className="p-1.5 rounded-lg hover:bg-surface-raised transition-colors">
                 <X className="w-4 h-4 text-text-muted" />
               </button>
             </div>
@@ -171,7 +269,8 @@ function ProgrammeSelector({
                 type="text"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search programmes..."
+                placeholder={c.search}
+                aria-label={c.search}
                 className="w-full ps-9 pe-3 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
                 autoFocus
               />
@@ -180,7 +279,7 @@ function ProgrammeSelector({
               {filtered.length === 0 && (
                 <div className="text-center py-8">
                   <GraduationCap className="w-8 h-8 text-text-muted mx-auto mb-2" />
-                  <p className="text-sm text-text-muted">No programmes found.</p>
+                  <p className="text-sm text-text-muted">{c.noResults}</p>
                 </div>
               )}
               {filtered.map((p, i) => {
@@ -194,9 +293,12 @@ function ProgrammeSelector({
                     onClick={() => onSelect(p.id)}
                     className="w-full text-start px-3 py-3 rounded-xl hover:bg-white/5 transition-all duration-200 group/item border border-transparent hover:border-border-subtle"
                   >
-                    <p className="text-sm font-medium text-text-primary group-hover/item:text-amber transition-colors duration-200">{p.name.en}</p>
+                    <p className="text-sm font-medium text-text-primary group-hover/item:text-amber transition-colors duration-200">
+                      {ar && p.name.ar ? p.name.ar : p.name.en}
+                    </p>
                     <p className="text-xs text-text-muted mt-0.5">
-                      {uni?.name ?? p.universityId} · {p.degree} · {p.language} · €{p.tuitionEurPerYear.toLocaleString()} per year
+                      {uni?.name ?? p.universityId} · {ar ? DEGREE_VALUE_AR[p.degree] ?? p.degree : p.degree} ·{" "}
+                      {ar ? LANGUAGE_AR[p.language] ?? p.language : p.language} · €{p.tuitionEurPerYear.toLocaleString("en-US")} {c.perYear}
                     </p>
                   </motion.button>
                 );
@@ -210,6 +312,10 @@ function ProgrammeSelector({
 }
 
 export default function CompareClient() {
+  const { locale } = useTranslation();
+  const ar = locale === "ar";
+  const c: Copy = ar ? COPY.ar : COPY.en;
+  const rows = useMemo(() => buildRows(c, ar), [c, ar]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showSelector, setShowSelector] = useState(false);
 
@@ -227,6 +333,7 @@ export default function CompareClient() {
     () => selectedIds.map((id) => programmes.find((p) => p.id === id)).filter(Boolean) as Programme[],
     [selectedIds]
   );
+  const nameOf = (p: Programme) => (ar && p.name.ar ? p.name.ar : p.name.en);
 
   function addProgramme(id: string) {
     setSelectedIds((prev) => {
@@ -256,6 +363,10 @@ export default function CompareClient() {
     window.history.replaceState({}, "", url.toString());
   }
 
+  const selector = showSelector && (
+    <ProgrammeSelector exclude={selectedIds} onSelect={addProgramme} onClose={() => setShowSelector(false)} c={c} ar={ar} />
+  );
+
   if (selected.length === 0) {
     return (
       <FadeIn>
@@ -271,10 +382,8 @@ export default function CompareClient() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber/10 border border-amber/20 mb-4">
                 <Scale className="w-7 h-7 text-amber" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">Compare Programmes</h1>
-              <p className="text-text-secondary mb-6 max-w-md mx-auto text-sm leading-relaxed">
-                Select up to {MAX_COMPARE} programmes to compare side by side: tuition, deadlines, exams, and more.
-              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3">{c.title}</h1>
+              <p className="text-text-secondary mb-6 max-w-md mx-auto text-sm leading-relaxed">{c.intro}</p>
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -282,24 +391,18 @@ export default function CompareClient() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors shadow-lg shadow-amber/20"
               >
                 <Plus className="w-4 h-4" />
-                Add a programme
+                {c.addAProgramme}
               </motion.button>
               <p className="text-xs text-text-muted mt-6">
-                Or{" "}
+                {c.orBrowse}{" "}
                 <Link href="/programmes" className="text-amber hover:underline underline-offset-2">
-                  browse programmes
+                  {c.browse}
                 </Link>{" "}
-                and use the compare button on each card.
+                {c.orBrowseEnd}
               </p>
             </div>
           </GlassCard>
-          {showSelector && (
-            <ProgrammeSelector
-              exclude={selectedIds}
-              onSelect={addProgramme}
-              onClose={() => setShowSelector(false)}
-            />
-          )}
+          {selector}
         </div>
       </FadeIn>
     );
@@ -314,8 +417,8 @@ export default function CompareClient() {
               <Scale className="w-5 h-5 text-amber" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Compare Programmes</h1>
-              <p className="text-xs text-text-muted mt-0.5">{selected.length} of {MAX_COMPARE} selected</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">{c.title}</h1>
+              <p className="text-xs text-text-muted mt-0.5">{c.selected(selected.length)}</p>
             </div>
           </div>
           {selected.length < MAX_COMPARE && (
@@ -326,7 +429,7 @@ export default function CompareClient() {
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-amber text-midnight font-semibold text-sm hover:bg-amber/90 transition-colors shadow-lg shadow-amber/20"
             >
               <Plus className="w-4 h-4" />
-              Add
+              {c.add}
             </motion.button>
           )}
         </div>
@@ -352,12 +455,12 @@ export default function CompareClient() {
                           href={`/programmes/${p.id}`}
                           className="font-semibold text-text-primary hover:text-amber transition-colors text-base leading-snug"
                         >
-                          {p.name.en}
+                          {nameOf(p)}
                         </Link>
                         <button
                           onClick={() => removeProgramme(p.id)}
                           className="p-1.5 rounded-lg hover:bg-white/10 transition-colors shrink-0 group/remove"
-                          aria-label={`Remove ${p.name.en}`}
+                          aria-label={c.remove(nameOf(p))}
                         >
                           <X className="w-3.5 h-3.5 text-text-muted group-hover/remove:text-red-400 transition-colors" />
                         </button>
@@ -374,7 +477,7 @@ export default function CompareClient() {
                         className="w-full h-20 rounded-xl border-2 border-dashed border-border-subtle hover:border-amber/40 transition-all duration-300 flex items-center justify-center gap-2 text-text-muted hover:text-amber group/add"
                       >
                         <Plus className="w-4 h-4 group-hover/add:rotate-90 transition-transform duration-300" />
-                        <span className="text-sm">Add programme</span>
+                        <span className="text-sm">{c.addProgramme}</span>
                       </button>
                     </th>
                   )}
@@ -383,7 +486,7 @@ export default function CompareClient() {
               <tbody>
                 {rows.map((row, ri) => (
                   <motion.tr
-                    key={row.label}
+                    key={row.key}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.15 + ri * 0.03, duration: 0.3 }}
@@ -409,7 +512,8 @@ export default function CompareClient() {
                           href={`/programmes/${p.id}`}
                           className="inline-flex items-center gap-1.5 text-xs text-amber font-medium hover:underline underline-offset-2 group/link"
                         >
-                          View details <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                          {c.viewDetails}{" "}
+                          <ArrowRight className="w-3 h-3 rtl:rotate-180 group-hover/link:translate-x-0.5 rtl:group-hover/link:-translate-x-0.5 transition-transform" />
                         </Link>
                         <a
                           href={p.programmeUrl}
@@ -417,7 +521,7 @@ export default function CompareClient() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text-secondary transition-colors"
                         >
-                          Official page <ExternalLink className="w-3 h-3" />
+                          {c.officialPage} <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
                     </td>
@@ -431,18 +535,10 @@ export default function CompareClient() {
       </FadeIn>
 
       <FadeIn delay={0.2}>
-        <p className="text-xs text-text-muted mt-8 text-center">
-          Our database is growing — currently covering {programmes.length} verified programmes.
-        </p>
+        <p className="text-xs text-text-muted mt-8 text-center">{c.database(programmes.length)}</p>
       </FadeIn>
 
-      {showSelector && (
-        <ProgrammeSelector
-          exclude={selectedIds}
-          onSelect={addProgramme}
-          onClose={() => setShowSelector(false)}
-        />
-      )}
+      {selector}
     </div>
   );
 }
