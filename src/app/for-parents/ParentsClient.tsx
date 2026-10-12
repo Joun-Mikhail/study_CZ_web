@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "@/components/locale-link";
+import { FounderCard } from "@/components/founder-card";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -173,6 +174,8 @@ export default function ParentsClient() {
             <h3 className="text-sm font-semibold text-text-primary pt-2">{t.docsTitle}</h3>
             <p>{t.docs}</p>
           </Block>
+
+          <FounderCard whatsapp={false} register="formal" />
 
           <GlassCard className="text-center">
             <h2 className="text-lg font-semibold text-text-primary mb-1">{t.contactTitle}</h2>

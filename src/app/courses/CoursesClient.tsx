@@ -33,6 +33,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FounderCard } from "@/components/founder-card";
 
 const DELIVERY_DATE = "January 1, 2027";
 const DELIVERY_DATE_AR = "1 يناير 2027";
@@ -363,6 +364,8 @@ export default function CoursesClient() {
             </div>
           </GlassCard>
         </section>
+
+        <FounderCard topic="the First 90 Days course" className="max-w-xl mx-auto mb-12" />
 
         {/* Bottom CTA */}
         <section className="max-w-xl mx-auto text-center">
