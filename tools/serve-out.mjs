@@ -29,6 +29,17 @@ async function fileFor(urlPath) {
     if (s.isDirectory()) return path.join(p, "index.html");
     return p;
   } catch {
+    // Next.js link prefetches ask for "__next.a.b.__PAGE__.txt"; the export
+    // writes "__next.a/b/__PAGE__.txt". Netlify maps one to the other.
+    const base = path.basename(p);
+    if (base.startsWith("__next.") && base.endsWith(".txt")) {
+      const parts = base.slice("__next.".length, -".txt".length).split(".");
+      const nested = path.join(path.dirname(p), `__next.${parts[0]}`, ...parts.slice(1)) + ".txt";
+      try {
+        await stat(nested);
+        return nested;
+      } catch {}
+    }
     return null;
   }
 }

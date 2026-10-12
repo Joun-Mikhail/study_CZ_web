@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslation } from "@/i18n/context";
+import { useTranslation } from "@/i18n/context";
+import { PhotoCredits } from "@/components/site-image";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Navbar } from "@/components/navbar";
@@ -364,6 +365,7 @@ export default function WhyCzechiaClient() {
           </GlassCard>
         </motion.div>
       </section>
+        <PhotoCredits className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" />
       </main>
 
       <Footer />

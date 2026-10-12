@@ -47,3 +47,39 @@ Save the new photo over the old file with the same name (for example
 `src="/images/..."` paths listed above. Netlify resizes and compresses images
 automatically, so the original can be large. Once no stock photo is left, remove
 the credit line in `src/app/why-czechia/WhyCzechiaClient.tsx` and this table.
+
+## The registry (`src/data/images.ts`)
+
+Every photo now has one entry in `src/data/images.ts`: file, size, alt text in English and Arabic, credit, licence, source URL and origin (`own`, `stock` or `commons`). Pages show photos with `<SiteImage id="...">`, which adds the right alt text, a blur placeholder and lazy loading.
+
+- **City photos** (`public/images/cities/`): one for each of the 14 university cities, from Wikimedia Commons (CC0, public domain, CC BY or CC BY-SA). Each author and licence is credited in `<PhotoCredits />` on `/why-czechia/` and `/about/`, as those licences require. Don't remove that list while a Commons photo is in use.
+- **Adding your own photo:** put the file in `public/images/`, add an entry with `origin: "own"` and `credit: "John"`, then switch the page to its id.
+
+## Shot list: 20 photos to take in Brno and Prague
+
+Landscape unless noted, at least 1400 px wide. No readable faces without permission; no readable documents, names or number plates.
+
+| # | Photo | Page and section it's for |
+|---|---|---|
+| 1 | VUT campus (Brno University of Technology), a main building from outside | `/university/but/` hero; programme pages for VUT (Brno University of Technology) |
+| 2 | Masaryk University, the main faculty building | `/university/muni/` hero; Brno programme pages |
+| 3 | Charles University, a faculty building in Prague | `/university/cuni/` hero; Prague programme pages |
+| 4 | A dorm room (made bed, desk, window) | Cost of living, "Dorm rent"; What it costs; parents page |
+| 5 | A shared dorm kitchen | Cost of living, groceries; arrival guide |
+| 6 | A supermarket shelf with price tags visible (Albert, Lidl or Billa) | Cost of living, groceries row |
+| 7 | A Brno tram at a stop | Arrival guide, transport; cost of living, transport row |
+| 8 | A Prague metro station | Prague city page; arrival guide |
+| 9 | The foreign police office (OAMP) in Brno, from outside only | Arrival guide, "Register within 3 working days"; stage page "arrived" |
+| 10 | A student desk with documents and folders (nothing readable) | Application guide hero; document review help sheet |
+| 11 | An apostille stamp on a blank or blurred document | Application guide, "Authenticate and translate"; recognition guides |
+| 12 | A university library reading room | Eligibility plan; why Czechia |
+| 13 | A lecture hall (empty, or a crowd seen from behind) | Programmes list; why Czechia |
+| 14 | Brno's Náměstí Svobody or Zelný trh on a weekday | Brno city page (replaces the Commons photo) |
+| 15 | Prague street near a campus (Albertov or Dejvice) | Prague city page |
+| 16 | A Czech SIM card shop or a bank branch front | Arrival guide, bank and SIM |
+| 17 | A student canteen (menza) with a tray and prices | Cost of living, food; parents page |
+| 18 | A train between cities (České dráhy or RegioJet) | Why Czechia, "travel cheaply" |
+| 19 | You working with a student on WhatsApp or a call (your photo, portrait) | Help sheet, founder card, services |
+| 20 | An embassy-style waiting room or queue (no faces) | Interview prep, stage page "visa" |
+
+Send them in any order; each one replaces the stock or Commons photo in that spot.

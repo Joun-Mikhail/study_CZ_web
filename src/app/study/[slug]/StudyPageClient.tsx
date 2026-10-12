@@ -30,6 +30,8 @@ import {
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { cityImage } from "@/data/images";
 import { motion } from "framer-motion";
 
 function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
@@ -180,16 +182,20 @@ export default function StudyPageClient({ type, value, slug }: Props) {
         />
 
         <FadeIn>
-          <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
-            <Image
-              src="/images/university-campus.jpg"
-              alt={heading}
-              fill
-              loading="eager"
-              fetchPriority="high"
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 800px"
-            />
+          <div className={`relative w-full ${type === "city" ? "h-[200px] sm:h-[280px]" : "h-[140px] sm:h-[180px]"} rounded-2xl overflow-hidden mb-6`}>
+            {type === "city" && cityImage(value) ? (
+              <SiteImage id={cityImage(value)!} sizes="(max-width: 768px) 100vw, 800px" priority />
+            ) : (
+              <Image
+                src="/images/university-campus.jpg"
+                alt={heading}
+                fill
+                loading="eager"
+                fetchPriority="high"
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
             <div className="absolute bottom-4 start-4 z-10">
               <h1 className="text-2xl sm:text-3xl font-bold text-white">{heading}</h1>
@@ -214,7 +220,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
           </GlassCard>
           {tuitionRange && (
             <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-lg font-bold text-text-primary" dir="ltr">
                 €{tuitionRange.min.toLocaleString()} – €{tuitionRange.max.toLocaleString()}
               </div>
               <div className="text-xs text-text-muted">
