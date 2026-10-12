@@ -18,14 +18,12 @@ type MagneticButtonProps = {
  * open in a new tab, and no href renders a <button>. The name is historical;
  * it no longer follows the cursor.
  */
-export function MagneticButton({
-  children,
-  className,
-  variant = "primary",
-  size = "md",
-  onClick,
-  href,
-}: MagneticButtonProps) {
+/** The button look, for links with their own behaviour (e.g. <HelpLink>). */
+export function buttonClasses(
+  variant: "primary" | "secondary" | "ghost" = "primary",
+  size: "sm" | "md" | "lg" = "md",
+  className?: string
+): string {
   const base =
     "inline-flex items-center justify-center text-center font-semibold leading-tight transition-[background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:translate-y-px disabled:opacity-60";
 
@@ -41,7 +39,18 @@ export function MagneticButton({
     lg: "min-h-14 px-8 py-3.5 text-base rounded-xl gap-2.5",
   };
 
-  const classes = cn(base, variants[variant], sizes[size], className);
+  return cn(base, variants[variant], sizes[size], className);
+}
+
+export function MagneticButton({
+  children,
+  className,
+  variant = "primary",
+  size = "md",
+  onClick,
+  href,
+}: MagneticButtonProps) {
+  const classes = buttonClasses(variant, size, className);
 
   if (href && href.startsWith("/")) {
     return (

@@ -35,9 +35,12 @@ export default function Umami() {
       if (!link) return;
       const href = link.href;
       const page = window.location.pathname;
+      // `data-source` on the link or a parent names the tool or section the
+      // click came from (e.g. "eligibility:documents"); otherwise the page.
+      const source = (link.closest("[data-source]") as HTMLElement | null)?.dataset.source ?? page;
       if (href.includes("buy.stripe.com")) {
         const base = href.split("?")[0];
-        track("checkout_click", { product: STRIPE_PRODUCT_BY_URL.get(base) ?? "unknown", page });
+        track("checkout_click", { product: STRIPE_PRODUCT_BY_URL.get(base) ?? "unknown", page, source });
       } else if (href.includes("wa.me/")) {
         track("whatsapp_click", { page });
       }

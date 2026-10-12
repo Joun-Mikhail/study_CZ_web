@@ -6,7 +6,8 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { MagneticButton } from "@/components/ui/magnetic-button";
+import { buttonClasses } from "@/components/ui/magnetic-button";
+import { HelpLink } from "@/components/help-sheet";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { stages, type StageSlug } from "@/data/stages";
 import { qaEntries } from "@/data/qa";
@@ -93,9 +94,13 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                 <p className="text-sm text-brand font-medium mb-5">
                   {config.paidService.fearTrigger[locale]}
                 </p>
-                <MagneticButton variant="primary" size="lg" href={config.paidService.href}>
+                <HelpLink
+                  service={config.paidService.service}
+                  source={`stage:${config.slug}`}
+                  className={buttonClasses("primary", "lg")}
+                >
                   {config.paidService.cta[locale]}
-                </MagneticButton>
+                </HelpLink>
                 {config.paidService.postButton[locale] && (
                   <p className="text-xs text-text-muted mt-3">
                     {config.paidService.postButton[locale]}

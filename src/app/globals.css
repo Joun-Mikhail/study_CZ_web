@@ -282,3 +282,25 @@ html:not(.hydrated) [style*="opacity: 0"] {
     filter: none !important;
   }
 }
+
+/* Help sheet (components/help-sheet.tsx): rises from the bottom on phones,
+   slides in from the side on wider screens. Moves only; never starts hidden. */
+.help-sheet[open] {
+  animation: help-sheet-up 220ms ease-out;
+}
+@keyframes help-sheet-up {
+  from { transform: translateY(24px); opacity: 0.6; }
+}
+@keyframes help-sheet-side {
+  from { transform: translateX(24px); opacity: 0.6; }
+}
+@keyframes help-sheet-side-rtl {
+  from { transform: translateX(-24px); opacity: 0.6; }
+}
+@media (min-width: 48rem) {
+  .help-sheet[open] { animation-name: help-sheet-side; }
+  [dir="rtl"] .help-sheet[open] { animation-name: help-sheet-side-rtl; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .help-sheet[open] { animation: none; }
+}
