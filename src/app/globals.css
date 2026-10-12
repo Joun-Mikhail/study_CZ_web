@@ -348,7 +348,8 @@ html:not(.hydrated) [style*="opacity: 0"] {
   }
 }
 @keyframes reveal-rise {
-  from { transform: translateY(24px); opacity: 0.6; }
+  /* Movement only: text keeps full contrast at every frame. */
+  from { transform: translateY(28px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .card-lift, .card-lift:hover { transition: none; transform: none; }
@@ -370,4 +371,27 @@ html:not(.hydrated) [style*="opacity: 0"] {
 }
 @keyframes map-card-rise {
   from { transform: translateY(12px); opacity: 0.6; }
+}
+
+/* Score rings fill from empty to their value (eligibility, My Journey). */
+@media (prefers-reduced-motion: no-preference) {
+  .ring-fill {
+    animation: ring-fill 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: 150ms;
+  }
+}
+@keyframes ring-fill {
+  from { stroke-dashoffset: var(--ring); }
+}
+
+/* Stage router: the progress line grows to the visitor's stage. */
+@media (prefers-reduced-motion: no-preference) {
+  .stage-progress {
+    animation: stage-grow 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    transform-origin: left;
+  }
+  [dir="rtl"] .stage-progress { transform-origin: right; }
+}
+@keyframes stage-grow {
+  from { transform: scaleX(0.05); }
 }
