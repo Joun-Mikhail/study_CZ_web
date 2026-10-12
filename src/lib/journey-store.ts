@@ -1,4 +1,5 @@
 import type { Programme } from "@/data/types";
+import type { StageSlug } from "@/data/stages";
 
 export type ChecklistItem = {
   id: string;
@@ -19,6 +20,10 @@ export type JourneyData = {
   savedProgrammes: SavedProgramme[];
   eligibilityDone: boolean;
   eligibility?: SavedEligibility;
+  /** Where the visitor says they are. */
+  stage?: StageSlug;
+  /** Monthly budget from the cost of living calculator. */
+  budget?: { city: string; monthlyCzk: number; savedAt: string };
   updatedAt: string;
 };
 
@@ -136,6 +141,13 @@ export function saveEligibilityToJourney(answers: Record<string, string>): Journ
   void _n; void _w; void _e;
   data.eligibility = { answers: rest, savedAt: new Date().toISOString() };
   data.eligibilityDone = true;
+  saveJourney(data);
+  return data;
+}
+
+export function setJourneyStage(stage: StageSlug): JourneyData {
+  const data = loadJourney() || initJourney();
+  data.stage = stage;
   saveJourney(data);
   return data;
 }
