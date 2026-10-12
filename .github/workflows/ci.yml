@@ -24,3 +24,29 @@ jobs:
       - run: npm run lint
       - run: npx vitest run
       - run: npm run build
+
+  quality:
+    name: Lighthouse budgets and accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm install -g npm@10
+      - run: npm ci
+      - run: npm run build
+      # Mobile Lighthouse on five pages, 3 runs each; budgets in lighthouserc.cjs.
+      - run: npx lhci autorun --config=lighthouserc.cjs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      # axe WCAG 2.1 A/AA on 15 pages, EN + AR, light + dark, plus the open help sheet.
+      - run: node tools/a11y-check.mjs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/reports

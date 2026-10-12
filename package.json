@@ -9,7 +9,9 @@
     "lint": "eslint",
     "test": "vitest",
     "gen:ar": "node tools/gen-ar-routes.mjs",
-    "gen:og": "node tools/gen-og.mjs"
+    "gen:og": "node tools/gen-og.mjs",
+    "perf": "lhci autorun --config=lighthouserc.cjs",
+    "a11y": "node tools/a11y-check.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",
@@ -21,16 +23,19 @@
     "recharts": "^3.10.1"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.10.3",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "jsdom": "^25.0.0",
     "playwright-core": "^1.56.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^1.0.0"
