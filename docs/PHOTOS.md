@@ -50,7 +50,7 @@ the credit line in `src/app/why-czechia/WhyCzechiaClient.tsx` and this table.
 
 ## The registry (`src/data/images.ts`)
 
-Every photo now has one entry in `src/data/images.ts`: file, size, alt text in English and Arabic, credit, licence, source URL and origin (`own`, `stock` or `commons`). Pages show photos with `<SiteImage id="...">`, which adds the right alt text, a blur placeholder and lazy loading.
+Every photo now has one entry in `src/data/images.ts`: file, size, alt text in English and Arabic, credit, licence, source URL and origin (`own`, `stock` or `commons`). Pages show photos with `<SiteImage id="...">`, which adds the right alt text, the photo's dominant colour while it loads, and lazy loading.
 
 - **City photos** (`public/images/cities/`): one for each of the 14 university cities, from Wikimedia Commons (CC0, public domain, CC BY or CC BY-SA). Each author and licence is credited in `<PhotoCredits />` on `/why-czechia/` and `/about/`, as those licences require. Don't remove that list while a Commons photo is in use.
 - **Adding your own photo:** put the file in `public/images/`, add an entry with `origin: "own"` and `credit: "John"`, then switch the page to its id.
