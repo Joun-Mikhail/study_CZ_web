@@ -19,7 +19,27 @@ import {
   CartesianGrid,
 } from "recharts";
 import { cn } from "@/lib/utils";
-import { Info, Briefcase, Calculator } from "lucide-react";
+import {
+  Info,
+  Briefcase,
+  Calculator,
+  BedDouble,
+  ShoppingBasket,
+  TramFront,
+  HeartPulse,
+  Smartphone,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  dorm: BedDouble,
+  food: ShoppingBasket,
+  transport: TramFront,
+  insurance: HeartPulse,
+  phone: Smartphone,
+  misc: Sparkles,
+};
 import { cityGuides } from "@/data/city-guides";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { SiteImage } from "@/components/site-image";
@@ -204,6 +224,25 @@ export default function CostOfLivingPage() {
             </GlassCard>
           </div>
         </div>
+
+        {/* Each category with its icon and this city's range */}
+        <ul className="max-w-5xl mx-auto mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" aria-label={locale === "ar" ? "التكاليف الشهرية حسب البند" : "Monthly costs by category"}>
+          {costCategories.map((cat) => {
+            const Icon = CATEGORY_ICONS[cat.key] ?? Sparkles;
+            const [min, max] = cat.monthlyCzk[city];
+            return (
+              <li key={cat.key} className="reveal rounded-2xl border border-border-subtle bg-surface p-4">
+                <span className="mb-2 inline-grid h-9 w-9 place-items-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <p className="text-sm font-medium text-text-primary leading-snug">{cat.label[locale]}</p>
+                <p className="mt-1 text-xs text-text-muted tabular-nums" dir="ltr">
+                  {formatCzk(min)} – {formatCzk(max)}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
 
         {/* One-time costs */}
         <div className="max-w-5xl mx-auto mt-10">

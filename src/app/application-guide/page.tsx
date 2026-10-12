@@ -10,7 +10,48 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { guideSteps } from "@/data/guide";
 import { cn } from "@/lib/utils";
-import { Lightbulb, FileCheck } from "lucide-react";
+import {
+  Lightbulb,
+  FileCheck,
+  GraduationCap,
+  Languages,
+  BookOpen,
+  Wallet,
+  Search,
+  Landmark,
+  FileText,
+  Stamp,
+  ShieldCheck,
+  PenLine,
+  House,
+  MailCheck,
+  Building2,
+  FileSignature,
+  MessagesSquare,
+  BadgeCheck,
+  PlaneLanding,
+  type LucideIcon,
+} from "lucide-react";
+
+const STEP_ICONS: Record<string, LucideIcon> = {
+  major: GraduationCap,
+  language: Languages,
+  "language-czech-path": BookOpen,
+  budget: Wallet,
+  research: Search,
+  bank: Landmark,
+  documents: FileText,
+  authenticate: Stamp,
+  "criminal-record": ShieldCheck,
+  "apply-exams": PenLine,
+  housing: House,
+  acceptance: MailCheck,
+  "embassy-legalize": Building2,
+  "visa-apply": FileSignature,
+  interview: MessagesSquare,
+  "post-approval": BadgeCheck,
+  arrival: PlaneLanding,
+};
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
 
@@ -95,8 +136,20 @@ export default function ApplicationGuidePage() {
 
           {/* Steps */}
           <div className="space-y-10">
-            {guideSteps.map((step) => (
-              <div key={step.id}>
+            {guideSteps.map((step, i) => {
+              const Icon = STEP_ICONS[step.id] ?? FileText;
+              return (
+              <div key={step.id} className="relative ps-14 sm:ps-16">
+                {/* Timeline: an icon per step, joined by a line down the start edge. */}
+                <span
+                  aria-hidden="true"
+                  className="reveal absolute start-0 top-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-xl bg-brand text-bg shadow-[0_8px_20px_-10px_rgba(17,69,126,0.7)] ring-4 ring-bg"
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                {i < guideSteps.length - 1 && (
+                  <span aria-hidden="true" className="absolute start-5 sm:start-[22px] top-12 -bottom-10 w-0.5 rounded-full bg-brand/15" />
+                )}
                 <section
                   id={step.id}
                   ref={(el) => {
@@ -118,7 +171,8 @@ export default function ApplicationGuidePage() {
                 </section>
                 {step.id === "authenticate" && <ContextualCTA service="documentCheck" />}
               </div>
-            ))}
+              );
+            })}
 
             <EmailSignup source="checklist" variant="guide" placement="application-guide" />
 
