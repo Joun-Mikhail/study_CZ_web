@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { useTranslation } from "@/i18n/context";
+import { useTranslation } from "@/i18n/context";
+import { PhotoCredits } from "@/components/site-image";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
@@ -253,6 +254,7 @@ export default function AboutClient() {
             </a>
           </GlassCard>
         </div>
+        <PhotoCredits className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" />
       </main>
       <Footer />
     </div>

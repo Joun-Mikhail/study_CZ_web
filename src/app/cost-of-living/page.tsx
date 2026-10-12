@@ -22,7 +22,8 @@ import { cn } from "@/lib/utils";
 import { Info, Briefcase, Calculator } from "lucide-react";
 import { cityGuides } from "@/data/city-guides";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
-import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { CITY_IMAGE } from "@/data/images";
 import { BudgetCheck } from "./budget-check";
 import { trackToolStarted } from "@/components/umami";
 
@@ -101,14 +102,11 @@ export default function CostOfLivingPage() {
         {/* Hero banner */}
         <div className="max-w-5xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
-            <Image
-              src="/images/prague-architecture.jpg"
-              alt="Prague riverside with historic architecture"
-              fill
-              loading="eager"
-              fetchPriority="high"
-              className="object-cover"
+            <SiteImage
+              key={city}
+              id={CITY_IMAGE[cities.find((c) => c.key === city)?.label.en ?? "Prague"] ?? "prague-architecture"}
               sizes="(max-width: 768px) 100vw, 1024px"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
