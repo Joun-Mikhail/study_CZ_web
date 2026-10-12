@@ -624,7 +624,7 @@ export const programmes: Programme[] = [
   {
     id: "vsb-msc-advanced-eng-materials",
     universityId: "vsb",
-    name: { en: "Advanced Engineering Materials" },
+    name: { en: "Advanced Engineering Materials", ar: "المواد الهندسية المتقدمة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Engineering",
@@ -642,7 +642,7 @@ export const programmes: Programme[] = [
   {
     id: "vsb-bsc-applied-geology",
     universityId: "vsb",
-    name: { en: "Applied Geology" },
+    name: { en: "Applied Geology", ar: "الجيولوجيا التطبيقية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Geology",
@@ -662,7 +662,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-economics-mgmt",
     universityId: "mendelu",
-    name: { en: "Economics and Management" },
+    name: { en: "Economics and Management", ar: "الاقتصاد والإدارة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -680,7 +680,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-economics-mgmt",
     universityId: "mendelu",
-    name: { en: "Economics and Management" },
+    name: { en: "Economics and Management", ar: "الاقتصاد والإدارة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Business",
@@ -698,7 +698,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-economics-stats",
     universityId: "mendelu",
-    name: { en: "Economics Modelling and Applied Statistics" },
+    name: { en: "Economics Modelling and Applied Statistics", ar: "النمذجة الاقتصادية والإحصاء التطبيقي" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -716,7 +716,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-european-forestry",
     universityId: "mendelu",
-    name: { en: "European Forestry" },
+    name: { en: "European Forestry", ar: "علوم الغابات الأوروبية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -734,7 +734,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-finance",
     universityId: "mendelu",
-    name: { en: "Finance" },
+    name: { en: "Finance", ar: "المالية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Economics",
@@ -752,7 +752,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-general-agriculture",
     universityId: "mendelu",
-    name: { en: "General Agriculture" },
+    name: { en: "General Agriculture", ar: "الزراعة العامة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -770,7 +770,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-general-agriculture",
     universityId: "mendelu",
-    name: { en: "General Agriculture" },
+    name: { en: "General Agriculture", ar: "الزراعة العامة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -788,7 +788,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-intl-horticulture",
     universityId: "mendelu",
-    name: { en: "International Master of Horticultural Science" },
+    name: { en: "International Master of Horticultural Science", ar: "الماجستير الدولي في علوم البساتين" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -806,7 +806,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-intl-territorial",
     universityId: "mendelu",
-    name: { en: "International Territorial Studies" },
+    name: { en: "International Territorial Studies", ar: "الدراسات الإقليمية الدولية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Development Studies",
@@ -824,7 +824,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-intl-territorial",
     universityId: "mendelu",
-    name: { en: "International Territorial Studies" },
+    name: { en: "International Territorial Studies", ar: "الدراسات الإقليمية الدولية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Development Studies",
@@ -842,7 +842,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-open-informatics",
     universityId: "mendelu",
-    name: { en: "Open Informatics" },
+    name: { en: "Open Informatics", ar: "المعلوماتية المفتوحة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -860,7 +860,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-open-informatics",
     universityId: "mendelu",
-    name: { en: "Open Informatics" },
+    name: { en: "Open Informatics", ar: "المعلوماتية المفتوحة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -878,7 +878,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-regional-development",
     universityId: "mendelu",
-    name: { en: "Regional Development" },
+    name: { en: "Regional Development", ar: "التنمية الإقليمية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Development Studies",
@@ -896,7 +896,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-msc-regional-development",
     universityId: "mendelu",
-    name: { en: "Regional Development" },
+    name: { en: "Regional Development", ar: "التنمية الإقليمية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Development Studies",
@@ -914,7 +914,7 @@ export const programmes: Programme[] = [
   {
     id: "mendelu-bsc-zootechnika",
     universityId: "mendelu",
-    name: { en: "Zootechnika" },
+    name: { en: "Zootechnika", ar: "الإنتاج الحيواني" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -934,7 +934,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-bsc-applied-informatics",
     universityId: "tbu",
-    name: { en: "Applied Informatics in Industrial Automation" },
+    name: { en: "Applied Informatics in Industrial Automation", ar: "المعلوماتية التطبيقية في الأتمتة الصناعية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -952,7 +952,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-biomaterials-cosmetics",
     universityId: "tbu",
-    name: { en: "Biomaterials and Cosmetics" },
+    name: { en: "Biomaterials and Cosmetics", ar: "المواد الحيوية ومستحضرات التجميل" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Engineering",
@@ -970,7 +970,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-chemistry-food",
     universityId: "tbu",
-    name: { en: "Chemistry of Food and Bioactive Compounds" },
+    name: { en: "Chemistry of Food and Bioactive Compounds", ar: "كيمياء الأغذية والمركبات النشطة حيويًا" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Chemistry",
@@ -988,7 +988,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-bsc-economics-mgmt",
     universityId: "tbu",
-    name: { en: "Economics and Management" },
+    name: { en: "Economics and Management", ar: "الاقتصاد والإدارة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1006,7 +1006,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-environmental-eng",
     universityId: "tbu",
-    name: { en: "Environmental Engineering" },
+    name: { en: "Environmental Engineering", ar: "الهندسة البيئية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Environmental Science",
@@ -1024,7 +1024,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-finance",
     universityId: "tbu",
-    name: { en: "Finance" },
+    name: { en: "Finance", ar: "المالية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -1042,7 +1042,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-bsc-finance-fintech",
     universityId: "tbu",
-    name: { en: "Finance and Financial Technologies" },
+    name: { en: "Finance and Financial Technologies", ar: "المالية والتكنولوجيا المالية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Economics",
@@ -1060,7 +1060,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-food-biotech",
     universityId: "tbu",
-    name: { en: "Food Biotechnology and Applied Microbiology" },
+    name: { en: "Food Biotechnology and Applied Microbiology", ar: "التكنولوجيا الحيوية للأغذية والأحياء الدقيقة التطبيقية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -1078,7 +1078,7 @@ export const programmes: Programme[] = [
   {
     id: "tbu-msc-food-technology",
     universityId: "tbu",
-    name: { en: "Food Technology" },
+    name: { en: "Food Technology", ar: "تكنولوجيا الأغذية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -1098,7 +1098,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-msc-development-global",
     universityId: "zcu",
-    name: { en: "Development and Globalization" },
+    name: { en: "Development and Globalization", ar: "التنمية والعولمة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Development Studies",
@@ -1116,7 +1116,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-bsc-electrical-eng",
     universityId: "zcu",
-    name: { en: "Electrical Engineering and Information Technology" },
+    name: { en: "Electrical Engineering and Information Technology", ar: "الهندسة الكهربائية وتكنولوجيا المعلومات" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Engineering",
@@ -1134,7 +1134,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-msc-electrical-power",
     universityId: "zcu",
-    name: { en: "Electrical Power Engineering" },
+    name: { en: "Electrical Power Engineering", ar: "هندسة القوى الكهربائية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Engineering",
@@ -1152,7 +1152,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-msc-electronics-it",
     universityId: "zcu",
-    name: { en: "Electronics and Information Technology" },
+    name: { en: "Electronics and Information Technology", ar: "الإلكترونيات وتكنولوجيا المعلومات" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Engineering",
@@ -1170,7 +1170,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-bsc-mgmt-digital-tech",
     universityId: "zcu",
-    name: { en: "Management and Digital Technology" },
+    name: { en: "Management and Digital Technology", ar: "الإدارة والتكنولوجيا الرقمية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1188,7 +1188,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-msc-materials-electrical",
     universityId: "zcu",
-    name: { en: "Materials and Technologies for Electrical Engineering" },
+    name: { en: "Materials and Technologies for Electrical Engineering", ar: "المواد والتقنيات في الهندسة الكهربائية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Engineering",
@@ -1206,7 +1206,7 @@ export const programmes: Programme[] = [
   {
     id: "zcu-msc-philosophy-ai",
     universityId: "zcu",
-    name: { en: "Philosophy for Artificial Intelligence" },
+    name: { en: "Philosophy for Artificial Intelligence", ar: "فلسفة الذكاء الاصطناعي" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -1226,7 +1226,7 @@ export const programmes: Programme[] = [
   {
     id: "uvb-bsc-animal-protection",
     universityId: "uvb",
-    name: { en: "Animal Protection and Welfare" },
+    name: { en: "Animal Protection and Welfare", ar: "حماية الحيوان ورفاهيته" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -1244,7 +1244,7 @@ export const programmes: Programme[] = [
   {
     id: "uvb-msc-animal-protection",
     universityId: "uvb",
-    name: { en: "Animal Protection and Welfare" },
+    name: { en: "Animal Protection and Welfare", ar: "حماية الحيوان ورفاهيته" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Agriculture",
@@ -1262,7 +1262,7 @@ export const programmes: Programme[] = [
   {
     id: "uvb-msc-vet-hygiene",
     universityId: "uvb",
-    name: { en: "Veterinary Hygiene and Ecology" },
+    name: { en: "Veterinary Hygiene and Ecology", ar: "الصحة البيطرية والبيئة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Veterinary Medicine",
@@ -1280,7 +1280,7 @@ export const programmes: Programme[] = [
   {
     id: "uvb-msc-vet-medicine",
     universityId: "uvb",
-    name: { en: "Veterinary Medicine" },
+    name: { en: "Veterinary Medicine", ar: "الطب البيطري" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Veterinary Medicine",
@@ -1300,7 +1300,7 @@ export const programmes: Programme[] = [
   {
     id: "unyp-bsc-business-admin",
     universityId: "unyp",
-    name: { en: "Business Administration" },
+    name: { en: "Business Administration", ar: "إدارة الأعمال" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1318,7 +1318,7 @@ export const programmes: Programme[] = [
   {
     id: "unyp-bsc-communication-media",
     universityId: "unyp",
-    name: { en: "Communication and Media Studies" },
+    name: { en: "Communication and Media Studies", ar: "دراسات الاتصال والإعلام" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Media Studies",
@@ -1336,7 +1336,7 @@ export const programmes: Programme[] = [
   {
     id: "unyp-bsc-intl-relations",
     universityId: "unyp",
-    name: { en: "International Relations" },
+    name: { en: "International Relations", ar: "العلاقات الدولية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "International Relations",
@@ -1354,7 +1354,7 @@ export const programmes: Programme[] = [
   {
     id: "unyp-msc-psychology",
     universityId: "unyp",
-    name: { en: "Psychology" },
+    name: { en: "Psychology", ar: "علم النفس" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Psychology",
@@ -1372,7 +1372,7 @@ export const programmes: Programme[] = [
   {
     id: "unyp-bsc-psychology",
     universityId: "unyp",
-    name: { en: "Psychology" },
+    name: { en: "Psychology", ar: "علم النفس" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Psychology",
@@ -1392,7 +1392,7 @@ export const programmes: Programme[] = [
   {
     id: "ambis-bsc-business-economics",
     universityId: "ambis",
-    name: { en: "Business Economics and Management" },
+    name: { en: "Business Economics and Management", ar: "اقتصاديات الأعمال والإدارة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1410,7 +1410,7 @@ export const programmes: Programme[] = [
   {
     id: "ambis-bsc-hospitality",
     universityId: "ambis",
-    name: { en: "Hospitality Management" },
+    name: { en: "Hospitality Management", ar: "إدارة الضيافة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1430,7 +1430,7 @@ export const programmes: Programme[] = [
   {
     id: "cevro-bsc-economics-business",
     universityId: "cevro",
-    name: { en: "Economics, Business, Politics" },
+    name: { en: "Economics, Business, Politics", ar: "الاقتصاد والأعمال والسياسة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1448,7 +1448,7 @@ export const programmes: Programme[] = [
   {
     id: "cevro-msc-economics-philosophy",
     universityId: "cevro",
-    name: { en: "Economics, Philosophy, Politics" },
+    name: { en: "Economics, Philosophy, Politics", ar: "الاقتصاد والفلسفة والسياسة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -1468,7 +1468,7 @@ export const programmes: Programme[] = [
   {
     id: "mvso-bsc-economics-mgmt",
     universityId: "mvso",
-    name: { en: "Economics and Management" },
+    name: { en: "Economics and Management", ar: "الاقتصاد والإدارة" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1488,7 +1488,7 @@ export const programmes: Programme[] = [
   {
     id: "jamu-msc-historical-performance",
     universityId: "jamu",
-    name: { en: "Historical Performance" },
+    name: { en: "Historical Performance", ar: "الأداء الموسيقي التاريخي" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Art",
@@ -1508,7 +1508,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-bsc-bba",
     universityId: "vse",
-    name: { en: "Bachelor of Business Administration" },
+    name: { en: "Bachelor of Business Administration", ar: "بكالوريوس إدارة الأعمال" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Business",
@@ -1526,7 +1526,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-econ-data-analysis",
     universityId: "vse",
-    name: { en: "Economic Data Analysis" },
+    name: { en: "Economic Data Analysis", ar: "تحليل البيانات الاقتصادية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -1544,7 +1544,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-bsc-econ-data-science",
     universityId: "vse",
-    name: { en: "Economic Data Science" },
+    name: { en: "Economic Data Science", ar: "علم البيانات الاقتصادية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -1573,7 +1573,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-bsc-economics",
     universityId: "vse",
-    name: { en: "Economics" },
+    name: { en: "Economics", ar: "الاقتصاد" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Economics",
@@ -1591,7 +1591,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-econ-public-policy",
     universityId: "vse",
-    name: { en: "Economics and Public Policy" },
+    name: { en: "Economics and Public Policy", ar: "الاقتصاد والسياسات العامة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -1609,7 +1609,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-econ-globalization",
     universityId: "vse",
-    name: { en: "Economics of Globalization and European Integration" },
+    name: { en: "Economics of Globalization and European Integration", ar: "اقتصاديات العولمة والتكامل الأوروبي" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -1627,7 +1627,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-bsc-econ-markets",
     universityId: "vse",
-    name: { en: "Economics of Markets and Organizations" },
+    name: { en: "Economics of Markets and Organizations", ar: "اقتصاديات الأسواق والمؤسسات" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "Economics",
@@ -1645,7 +1645,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-info-systems",
     universityId: "vse",
-    name: { en: "Information Systems Management" },
+    name: { en: "Information Systems Management", ar: "إدارة نظم المعلومات" },
     degree: "Master" as const,
     language: "English" as const,
     field: "IT",
@@ -1663,7 +1663,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-bsc-intl-diplomatic",
     universityId: "vse",
-    name: { en: "International and Diplomatic Studies" },
+    name: { en: "International and Diplomatic Studies", ar: "الدراسات الدولية والدبلوماسية" },
     degree: "Bachelor" as const,
     language: "English" as const,
     field: "International Relations",
@@ -1681,7 +1681,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-intl-diplomatic",
     universityId: "vse",
-    name: { en: "International and Diplomatic Studies" },
+    name: { en: "International and Diplomatic Studies", ar: "الدراسات الدولية والدبلوماسية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "International Relations",
@@ -1699,7 +1699,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-intl-management",
     universityId: "vse",
-    name: { en: "International Management" },
+    name: { en: "International Management", ar: "الإدارة الدولية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Business",
@@ -1717,7 +1717,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-master-in-mgmt",
     universityId: "vse",
-    name: { en: "Master in Management" },
+    name: { en: "Master in Management", ar: "ماجستير الإدارة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Business",
@@ -1735,7 +1735,7 @@ export const programmes: Programme[] = [
   {
     id: "vse-msc-sustainability-mgmt",
     universityId: "vse",
-    name: { en: "Sustainability Management" },
+    name: { en: "Sustainability Management", ar: "إدارة الاستدامة" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Business",
@@ -1755,7 +1755,7 @@ export const programmes: Programme[] = [
   {
     id: "muni-msc-health-economics",
     universityId: "muni",
-    name: { en: "Applied Health Economics" },
+    name: { en: "Applied Health Economics", ar: "اقتصاديات الصحة التطبيقية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Economics",
@@ -1773,7 +1773,7 @@ export const programmes: Programme[] = [
   {
     id: "muni-msc-ai-data",
     universityId: "muni",
-    name: { en: "Artificial Intelligence and Data Processing" },
+    name: { en: "Artificial Intelligence and Data Processing", ar: "الذكاء الاصطناعي ومعالجة البيانات" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Computer Science",
@@ -1791,7 +1791,7 @@ export const programmes: Programme[] = [
   {
     id: "muni-msc-biochem-cellular",
     universityId: "muni",
-    name: { en: "Biochemical and Cellular Technologies" },
+    name: { en: "Biochemical and Cellular Technologies", ar: "التقنيات الكيميائية الحيوية والخلوية" },
     degree: "Master" as const,
     language: "English" as const,
     field: "Chemistry",
