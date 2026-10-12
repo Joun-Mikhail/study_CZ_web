@@ -23,14 +23,7 @@ export function Footer() {
   const { t, locale } = useTranslation();
 
   return (
-    <footer className="relative mt-24 overflow-hidden">
-      {/* Top gradient border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-amber/30 to-transparent" />
-
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-surface/50 to-midnight pointer-events-none" />
-      <div className="absolute top-0 start-1/4 w-[400px] h-[400px] bg-amber/[0.03] rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 end-1/4 w-[300px] h-[300px] bg-info/[0.02] rounded-full blur-[80px] pointer-events-none" />
+    <footer className="surface-ink relative mt-24 overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* Main grid */}
@@ -38,7 +31,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block text-xl font-extrabold tracking-tight text-text-primary mb-3">
-              <span className="text-[#11457e]">Study</span> <span className="text-[#d42127]">Czechia</span>
+              <span className="text-white">Study</span> <span className="text-[#f2545b]">Czechia</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-5">{t.footer.tagline}</p>
 

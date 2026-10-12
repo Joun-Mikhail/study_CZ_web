@@ -245,7 +245,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
               {l.entranceExam}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 text-success/80">
+            <span className="inline-flex items-center gap-1 text-success">
               <GraduationCap className="w-3 h-3" />
               {l.noEntranceExam}
             </span>
@@ -264,7 +264,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           {status === "verified" && daysLeft !== null && daysLeft >= 0 && (
             <span className={cn(
               "inline-flex items-center gap-1 text-xs font-semibold",
-              isUrgent ? "text-red-400" : "text-text-secondary"
+              isUrgent ? "text-error" : "text-text-secondary"
             )}>
               {isUrgent && <AlertTriangle className="w-3.5 h-3.5" />}
               {daysLeft} {l.daysLeft}
@@ -371,7 +371,7 @@ export default function DeadlinesClient() {
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 896px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-3">{l.title}</h1>

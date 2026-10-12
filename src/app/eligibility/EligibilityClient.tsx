@@ -90,7 +90,7 @@ export default function EligibilityClient() {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
         <div className="max-w-2xl mx-auto text-center mb-8">
@@ -462,13 +462,13 @@ function ResultsView({
   const [expanded, setExpanded] = useState<string | null>(null);
 
   const statusIcon = (s: Status) => {
-    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />;
+    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-success shrink-0" />;
     if (s === "warning") return <AlertTriangle className="w-5 h-5 text-amber shrink-0" />;
-    return <XCircle className="w-5 h-5 text-red-400 shrink-0" />;
+    return <XCircle className="w-5 h-5 text-error shrink-0" />;
   };
 
-  const pctColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
-  const strokeColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
+  const pctColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-amber" : "text-error";
+  const strokeColor = pct >= 80 ? "text-success" : pct >= 50 ? "text-amber" : "text-error";
 
   return (
     <div className="relative min-h-screen">
@@ -565,7 +565,7 @@ function ResultsView({
                             href={advice.freeLink}
                             className="flex items-center gap-2 text-sm text-text-primary hover:text-amber transition-colors"
                           >
-                            <BookOpen className="w-4 h-4 text-green-400" />
+                            <BookOpen className="w-4 h-4 text-success" />
                             {advice.freeLabel}
                           </Link>
                           <Link
@@ -626,7 +626,7 @@ function ResultsView({
               href={whatsappWithContext("my eligibility results")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-success hover:text-success transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
               {t.whatsappButton}

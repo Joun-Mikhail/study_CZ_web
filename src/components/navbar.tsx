@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
@@ -59,7 +59,7 @@ function DesktopDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full start-0 mt-2 min-w-[220px] rounded-xl border border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-2xl py-1.5 z-50"
+            className="absolute top-full start-0 mt-3 min-w-[240px] rounded-xl border border-border-subtle bg-surface shadow-[0_18px_40px_-18px_rgba(11,31,58,0.35)] py-2 z-50"
           >
             {items.map((item, i) => (
               <motion.div
@@ -74,7 +74,7 @@ function DesktopDropdown({
                   className={`block px-4 py-2.5 text-sm transition-all whitespace-nowrap ${
                     currentPath === item.href
                       ? "text-amber bg-amber/5 font-medium"
-                      : "text-text-secondary hover:text-text-primary hover:bg-white/5 hover:ps-5"
+                      : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                   }`}
                 >
                   {item.label}
@@ -108,7 +108,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="fixed inset-0 z-[60] bg-midnight/80 backdrop-blur-sm flex items-start justify-center pt-24"
+      className="fixed inset-0 z-[60] bg-[#0b1f3a]/55 flex items-start justify-center pt-24"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
@@ -127,12 +127,12 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
               ref={inputRef}
               name="q"
               placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
-              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-amber/50 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.1)] transition-all"
+              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-amber focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
               autoComplete="off"
             />
           </div>
           <div className="flex items-center justify-center gap-3 mt-3">
-            <kbd className="px-2 py-0.5 rounded-md bg-white/5 border border-border-subtle text-[10px] text-text-muted font-mono">ESC</kbd>
+            <kbd className="px-2 py-0.5 rounded-md bg-surface border border-border-subtle text-[10px] text-text-muted font-mono">ESC</kbd>
             <span className="text-xs text-text-muted">
               {locale === "ar" ? "للإغلاق" : "to close"}
             </span>
@@ -154,9 +154,6 @@ export function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     function onScroll() {
@@ -240,24 +237,22 @@ export function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
-          scrolled
-            ? "border-border-subtle bg-midnight/95 backdrop-blur-xl shadow-lg shadow-black/10"
-            : "border-transparent bg-midnight/70 backdrop-blur-md"
+        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-midnight transition-shadow duration-200 ${
+          scrolled ? "shadow-[0_10px_30px_-22px_rgba(11,31,58,0.45)]" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-[72px] flex items-center">
           {/* Logo */}
           <Link
             href="/"
             onClick={handleNavigate}
-            className="text-2xl font-extrabold tracking-tight text-text-primary shrink-0 min-w-[160px] hover:opacity-90 transition-opacity"
+            className="font-sans text-[22px] font-extrabold tracking-tight text-text-primary shrink-0 hover:opacity-90 transition-opacity"
           >
-            <span className="text-[#11457e]">Study</span> <span className="text-[#d42127]">Czechia</span>
+            <span className="text-[#11457e] dark:text-[#9cc3f5]">Study</span> <span className="text-[#d42127] dark:text-[#f2545b]">Czechia</span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-6 ms-10 text-sm">
+          <div className="hidden lg:flex items-center gap-7 ms-10 text-[15px] font-medium">
             {Object.entries(dropdowns).map(([key, group]) => (
               <DesktopDropdown
                 key={key}
@@ -300,7 +295,7 @@ export function Navbar() {
             <button
               onClick={() => setSearchOpen(true)}
               aria-label={locale === "ar" ? "بحث" : "Search"}
-              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
+              className="hidden sm:flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors"
             >
               <Search className="w-4 h-4" />
             </button>
@@ -312,15 +307,23 @@ export function Navbar() {
               onClick={toggleLang}
               hrefLang={otherLocale}
               aria-label={locale === "en" ? "Switch to Arabic" : "Switch to English"}
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle"
+              className="flex items-center justify-center min-w-10 h-10 px-2 rounded-lg text-sm font-semibold text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors"
             >
               {locale === "en" ? "ع" : "EN"}
             </NextLink>
 
+            <Link
+              href="/eligibility"
+              onClick={handleNavigate}
+              className="hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg bg-amber text-midnight text-sm font-semibold hover:bg-amber-hover transition-colors"
+            >
+              {locale === "ar" ? "أقدر أقدم؟" : "Check eligibility"}
+            </Link>
+
             <button
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
-              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors border border-border-subtle ms-1"
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-text-primary hover:bg-surface-hover transition-colors border border-border-subtle ms-1"
             >
               <AnimatePresence mode="wait">
                 <motion.span
@@ -337,12 +340,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Scroll progress bar */}
-        <motion.div
-          className="scroll-progress absolute bottom-0 inset-x-0 h-[2px]"
-          style={{ scaleX }}
-        />
-
         {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
@@ -351,7 +348,7 @@ export function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight/95 backdrop-blur-xl"
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-midnight shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
@@ -361,7 +358,7 @@ export function Navbar() {
                     <input
                       name="q"
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/50 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.1)] transition-all"
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
                     />
                   </div>
                 </form>
@@ -378,7 +375,7 @@ export function Navbar() {
                       href={item.href}
                       onClick={handleNavigate}
                       className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                        isActive(item.href) ? "text-amber bg-amber/5" : "text-text-primary hover:bg-white/5"
+                        isActive(item.href) ? "text-amber bg-amber/5" : "text-text-primary hover:bg-surface-hover"
                       }`}
                     >
                       {item.label}
@@ -390,7 +387,7 @@ export function Navbar() {
                 {/* Grouped nav items */}
                 {Object.entries(dropdowns).map(([key, group]) => (
                   <div key={key} className="mb-3">
-                    <p className="px-3 py-1.5 text-xs font-semibold text-amber uppercase tracking-wider">
+                    <p className="px-3 py-1.5 text-xs font-semibold text-text-muted uppercase tracking-wider">
                       {group.label}
                     </p>
                     {group.items.filter((item) => !MOBILE_TOP.has(item.href)).map((item) => (
@@ -401,7 +398,7 @@ export function Navbar() {
                         className={`block px-3 py-2.5 rounded-lg text-sm transition-colors ${
                           isActive(item.href)
                             ? "text-amber bg-amber/5 font-medium"
-                            : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                            : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                         }`}
                       >
                         {item.label}

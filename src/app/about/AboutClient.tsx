@@ -124,7 +124,7 @@ export default function AboutClient() {
               sizes="(max-width: 768px) 100vw, 768px"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
           </div>
         </div>
 
@@ -178,7 +178,7 @@ export default function AboutClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <GlassCard>
               <div className="flex items-center gap-2 mb-3">
-                <BookOpen className="w-5 h-5 text-green-400" />
+                <BookOpen className="w-5 h-5 text-success" />
                 <h2 className="text-base font-semibold text-text-primary">
                   {l.whatWeDoTitle}
                 </h2>
@@ -186,7 +186,7 @@ export default function AboutClient() {
               <ul className="space-y-2">
                 {l.whatWeDo.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-text-secondary">
-                    <span className="text-green-400 shrink-0">+</span>
+                    <span className="text-success shrink-0">+</span>
                     {item}
                   </li>
                 ))}
@@ -194,7 +194,7 @@ export default function AboutClient() {
             </GlassCard>
             <GlassCard>
               <div className="flex items-center gap-2 mb-3">
-                <AlertTriangle className="w-5 h-5 text-red-400" />
+                <AlertTriangle className="w-5 h-5 text-error" />
                 <h2 className="text-base font-semibold text-text-primary">
                   {l.whatWeDontTitle}
                 </h2>
@@ -202,7 +202,7 @@ export default function AboutClient() {
               <ul className="space-y-2">
                 {l.whatWeDont.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-text-secondary">
-                    <span className="text-red-400 shrink-0">&times;</span>
+                    <span className="text-error shrink-0">&times;</span>
                     {item}
                   </li>
                 ))}

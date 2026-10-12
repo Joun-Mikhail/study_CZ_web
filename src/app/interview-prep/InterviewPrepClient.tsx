@@ -46,7 +46,7 @@ export default function InterviewPrepClient() {
               sizes="(max-width: 768px) 100vw, 768px"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
         </div>
 
@@ -171,7 +171,7 @@ export default function InterviewPrepClient() {
                   href={whatsappWithContext("embassy interview prep")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-success hover:text-success transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   {t.finalCta.whatsapp}

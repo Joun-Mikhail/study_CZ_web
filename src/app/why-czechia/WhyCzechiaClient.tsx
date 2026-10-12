@@ -49,7 +49,6 @@ export default function WhyCzechiaClient() {
       {/* Why Study in Czechia */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden">
         <div className="relative rounded-3xl p-8 sm:p-12 noise-overlay aurora-bg">
-          <div className="absolute top-0 end-0 w-[300px] h-[300px] bg-amber/[0.04] rounded-full blur-[80px] pointer-events-none" />
 
           <motion.div
             initial={{ y: 20 }}
@@ -65,10 +64,10 @@ export default function WhyCzechiaClient() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 relative z-10">
             {[
-              { icon: BookOpen, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
-              { icon: Banknote, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
+              { icon: BookOpen, color: "text-success", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
+              { icon: Banknote, color: "text-info", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
               { icon: Award, color: "text-amber", bg: "bg-amber/10 border-amber/20", ...t.whyCzechia.reasons[2] },
-              { icon: Plane, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
+              { icon: Plane, color: "text-violet-700 dark:text-violet-300", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -120,7 +119,7 @@ export default function WhyCzechiaClient() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 50vw, 45vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Corner accent on hover */}
               <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-bl-lg" />
               <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-tr-lg" />
@@ -293,11 +292,11 @@ export default function WhyCzechiaClient() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { key: "universities", icon: Users, color: "text-amber" },
-            { key: "programs", icon: BarChart3, color: "text-blue-400" },
-            { key: "students", icon: Users, color: "text-emerald-400" },
-            { key: "cost", icon: BarChart3, color: "text-purple-400" },
-            { key: "safety", icon: ShieldAlert, color: "text-teal-400" },
-            { key: "location", icon: Compass, color: "text-rose-400" },
+            { key: "programs", icon: BarChart3, color: "text-info" },
+            { key: "students", icon: Users, color: "text-success" },
+            { key: "cost", icon: BarChart3, color: "text-violet-700 dark:text-violet-300" },
+            { key: "safety", icon: ShieldAlert, color: "text-success" },
+            { key: "location", icon: Compass, color: "text-error" },
           ].map((s, i) => (
             <motion.div
               key={s.key}
@@ -339,7 +338,6 @@ export default function WhyCzechiaClient() {
           className="motion-safe-fallback"
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden noise-overlay aurora-bg">
-            <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
             <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
               <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
               <Image

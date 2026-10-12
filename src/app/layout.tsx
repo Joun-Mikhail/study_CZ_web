@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Tajawal } from "next/font/google";
+import { Public_Sans, Source_Serif_4, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Analytics from "@/components/analytics";
 import Clarity from "@/components/clarity";
@@ -13,16 +13,27 @@ import { ToastProvider } from "@/components/ui/toast";
 import { FOUNDER_NAME } from "@/config/contact";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+// Text and interface.
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
 });
 
-const tajawal = Tajawal({
-  variable: "--font-tajawal",
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "700"],
+// Page and section headings.
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+});
+
+// Arabic pages. Not preloaded, so English pages don't download it.
+const plexArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-plex-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
@@ -61,11 +72,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" className={`${jakarta.variable} ${tajawal.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" dir="ltr" className={`${publicSans.variable} ${sourceSerif.variable} ${plexArabic.variable} antialiased`} suppressHydrationWarning>
       <head>
         <HreflangDefault />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(/^\\/ar(\\/|$)/.test(location.pathname)){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}})()` }} />
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("theme");if(t){document.documentElement.dataset.theme=t}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme:light)").matches){document.documentElement.dataset.theme="light"}}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){}})()` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -97,7 +108,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-midnight text-text-primary">
-        <a href="#main-content" className="sr-only top-0 start-0 focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-amber focus:text-white focus:text-sm focus:font-medium">
+        <a href="#main-content" className="sr-only top-0 start-0 focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-amber focus:text-midnight focus:text-sm focus:font-semibold">
           Skip to content
         </a>
         <MotionProvider>

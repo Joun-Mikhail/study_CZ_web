@@ -82,7 +82,7 @@ export function WaitlistSignup({
     return (
       <div className={className}>
         <div className="rounded-2xl border border-green-500/20 bg-green-500/5 p-6 flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
+          <CheckCircle2 className="w-5 h-5 text-success shrink-0 mt-0.5" />
           <p className="text-sm text-text-primary leading-relaxed">{copy.success}</p>
         </div>
       </div>
@@ -134,7 +134,7 @@ export function WaitlistSignup({
             <span>{copy.consent}</span>
           </label>
   
-          {status === "error" && <p className="text-xs text-red-400">{copy.error}</p>}
+          {status === "error" && <p className="text-xs text-error">{copy.error}</p>}
   
           <button
             type="submit"

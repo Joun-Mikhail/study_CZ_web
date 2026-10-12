@@ -90,7 +90,6 @@ export default function ServicesClient() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/75 to-midnight/90" />
           </div>
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 mb-5">
             <OfferBadge locale={locale} />
           </div>

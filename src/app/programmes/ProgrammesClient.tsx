@@ -187,7 +187,7 @@ export default function ProgrammesClient({
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 900px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
           <div className="absolute bottom-4 start-4 z-10">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">
               {locale === "ar" ? "استكشف البرامج" : "Explore Programmes"}
@@ -222,7 +222,7 @@ export default function ProgrammesClient({
           >
             <SlidersHorizontal className="w-4 h-4" />
             {activeFilters > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full bg-amber text-white text-[10px] font-bold">
+              <span className="px-1.5 py-0.5 rounded-full bg-amber text-midnight text-[10px] font-bold">
                 {activeFilters}
               </span>
             )}

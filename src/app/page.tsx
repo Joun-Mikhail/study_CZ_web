@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import HomeClient from "./HomeClient";
+import HomeClient, { type HomeFacts } from "./HomeClient";
+import { programmes } from "@/data/programmes";
+import { universitiesV2 } from "@/data/universities-v2";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -23,6 +25,13 @@ const organizationJsonLd = {
   sameAs: ["https://www.facebook.com/groups/czechiastudents"],
 };
 
+// Computed at build time, so the client bundle never loads the full data files.
+const facts: HomeFacts = {
+  programmeCount: programmes.length,
+  universityCount: universitiesV2.length,
+  lowestTuition: Math.min(...programmes.filter((p) => p.language === "English").map((p) => p.tuitionEurPerYear)),
+};
+
 export default function Home() {
   return (
     <>
@@ -30,7 +39,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
-      <HomeClient />
+      <HomeClient facts={facts} />
     </>
   );
 }

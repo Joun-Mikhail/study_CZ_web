@@ -90,7 +90,7 @@ export default function ContactPage() {
               sizes="(max-width: 1024px) 100vw, 1024px"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
         </div>
 
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     href={ch.href}
                     target={ch.external ? "_blank" : undefined}
                     rel={ch.external ? "noreferrer" : undefined}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-white text-sm font-medium transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-midnight text-sm font-medium transition-colors"
                   >
                     {ch.cta}
                   </a>
@@ -252,7 +252,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber hover:bg-amber-hover text-white font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber hover:bg-amber-hover text-midnight font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   {formState === "sending" ? t.contact.formSubmitting : t.contact.formSubmit}

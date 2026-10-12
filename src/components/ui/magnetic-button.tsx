@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode, type MouseEvent } from "react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import Link from "@/components/locale-link";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +13,11 @@ type MagneticButtonProps = {
   href?: string;
 };
 
+/**
+ * The site's button. Internal hrefs render a locale-aware link, external ones
+ * open in a new tab, and no href renders a <button>. The name is historical;
+ * it no longer follows the cursor.
+ */
 export function MagneticButton({
   children,
   className,
@@ -22,92 +26,42 @@ export function MagneticButton({
   onClick,
   href,
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouse = (e: MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const { left, top, width, height } = el.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) * 0.3;
-    const y = (e.clientY - top - height / 2) * 0.3;
-    setPosition({ x, y });
-  };
-
-  const reset = () => setPosition({ x: 0, y: 0 });
-
-  const baseStyles =
-    "relative inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight overflow-hidden";
+  const base =
+    "inline-flex items-center justify-center text-center font-semibold leading-tight transition-[background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-midnight active:translate-y-px disabled:opacity-60";
 
   const variants = {
-    primary:
-      "bg-gradient-to-r from-amber via-amber to-orange-400 text-midnight shadow-[0_4px_24px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_32px_rgba(245,158,11,0.5)] hover:brightness-110 active:brightness-95",
-    secondary:
-      "bg-surface text-text-primary border border-border-subtle hover:border-amber/50 hover:bg-surface-hover hover:shadow-[0_2px_16px_rgba(245,158,11,0.1)] backdrop-blur-sm",
-    ghost:
-      "text-text-secondary hover:text-text-primary hover:bg-white/5",
+    primary: "bg-amber text-midnight shadow-[0_1px_2px_rgba(11,31,58,0.12)] hover:bg-amber-hover",
+    secondary: "bg-surface text-text-primary border border-border-subtle hover:border-amber hover:text-amber",
+    ghost: "text-text-secondary hover:text-text-primary hover:bg-surface-hover",
   };
 
   const sizes = {
-    sm: "px-5 py-2.5 text-sm rounded-xl gap-2",
-    md: "px-7 py-3.5 text-base rounded-xl gap-2.5",
-    lg: "px-9 py-4.5 text-lg rounded-2xl gap-3",
+    sm: "min-h-10 px-4 py-2 text-sm rounded-lg gap-2",
+    md: "min-h-12 px-6 py-3 text-[15px] rounded-lg gap-2",
+    lg: "min-h-14 px-8 py-3.5 text-base rounded-xl gap-2.5",
   };
 
-  const classes = cn(baseStyles, variants[variant], sizes[size], className);
-  const motionProps = {
-    onMouseMove: handleMouse,
-    onMouseLeave: reset,
-    animate: { x: position.x, y: position.y },
-    transition: { type: "spring" as const, stiffness: 150, damping: 15, mass: 0.1 },
-    whileTap: { scale: 0.97 },
-    whileHover: { scale: 1.02 },
-  };
+  const classes = cn(base, variants[variant], sizes[size], className);
 
-  const shimmer = variant === "primary" ? (
-    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover-shimmer pointer-events-none" />
-  ) : null;
-
-  const isInternal = href && href.startsWith("/");
-  const isExternal = href && !isInternal;
-
-  if (isInternal) {
+  if (href && href.startsWith("/")) {
     return (
-      <motion.div {...motionProps} className="inline-flex">
-        <Link ref={ref as React.RefObject<HTMLAnchorElement>} href={href} onClick={onClick} className={classes}>
-          {shimmer}
-          {children}
-        </Link>
-      </motion.div>
+      <Link href={href} onClick={onClick} className={classes}>
+        {children}
+      </Link>
     );
   }
 
-  if (isExternal) {
+  if (href) {
     return (
-      <motion.a
-        ref={ref as React.RefObject<HTMLAnchorElement>}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={onClick}
-        className={classes}
-        {...motionProps}
-      >
-        {shimmer}
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} className={classes}>
         {children}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button
-      ref={ref as React.RefObject<HTMLButtonElement>}
-      onClick={onClick}
-      className={classes}
-      {...motionProps}
-    >
-      {shimmer}
+    <button type="button" onClick={onClick} className={classes}>
       {children}
-    </motion.button>
+    </button>
   );
 }
