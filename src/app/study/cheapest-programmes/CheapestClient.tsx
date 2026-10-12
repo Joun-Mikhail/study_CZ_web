@@ -12,6 +12,8 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { SeoCrosslinks } from "@/components/seo-crosslinks";
+import { EmailSignup, followProps } from "@/components/email-signup";
+import { programmeLabel } from "@/lib/programme-label";
 import {
   GraduationCap,
   Euro,
@@ -172,6 +174,14 @@ export default function CheapestClient() {
             );
           })}
         </div>
+
+        <EmailSignup
+          source="deadline"
+          variant="field"
+          placement="cheapest-page"
+          className="mt-6 max-w-2xl mx-auto"
+          {...followProps(sorted.slice(0, 20), (p) => programmeLabel(p, locale))}
+        />
 
         <SeoCrosslinks locale={locale} exclude={{ type: "intent", value: "cheapest" }} />
 

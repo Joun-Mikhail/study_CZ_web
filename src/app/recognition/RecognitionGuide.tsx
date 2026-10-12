@@ -8,6 +8,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
+import { EmailSignup } from "@/components/email-signup";
 import { CalendarCheck, ExternalLink, FileCheck2, GraduationCap, Landmark, Plane, AlertTriangle } from "lucide-react";
 
 /** One fact on a recognition guide. `source` is a key of the guide's sources. */
@@ -131,6 +132,8 @@ export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, 
             </h2>
             <p className="text-sm text-text-secondary leading-relaxed">{t.note}</p>
           </GlassCard>
+
+          <EmailSignup source="checklist" variant="guide" placement="recognition" className="mb-8" />
 
           <GlassCard className="mb-10 text-center">
             <h2 className="text-lg font-semibold text-text-primary mb-1">{t.reviewTitle}</h2>

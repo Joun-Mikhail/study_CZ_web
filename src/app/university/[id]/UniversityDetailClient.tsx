@@ -9,6 +9,7 @@ import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { GlassCard } from "@/components/ui/glass-card";
 import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
+import { EmailSignup, followProps } from "@/components/email-signup";
 import UniversityCorrectionForm from "./UniversityCorrectionForm";
 import {
   Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText,
@@ -288,6 +289,13 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
               {progs.map((p, i) => (
                 <ProgrammeCard key={p.id} prog={p} locale={locale} index={i} />
               ))}
+              <EmailSignup
+                source="deadline"
+                variant="university"
+                placement="university"
+                className="mt-2"
+                {...followProps(progs, (p) => `${p.name[locale] || p.name.en} (${locale === "ar" ? DEGREE_VALUE_AR[p.degree] ?? p.degree : p.degree})`)}
+              />
             </div>
           ) : uni.programs && uni.programs.length > 0 ? (
             <div className="space-y-2">

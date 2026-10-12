@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "@/i18n/context";
+import { EmailSignup } from "@/components/email-signup";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
@@ -118,6 +119,8 @@ export default function ApplicationGuidePage() {
                 {step.id === "authenticate" && <ContextualCTA service="documentCheck" />}
               </div>
             ))}
+
+            <EmailSignup source="checklist" variant="guide" placement="application-guide" />
 
             {/* Next step: turn the guide into a plan */}
             <GlassCard hoverEffect="glow" className="text-center">
