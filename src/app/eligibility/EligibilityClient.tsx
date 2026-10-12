@@ -11,6 +11,7 @@ import { MagneticButton, buttonClasses } from "@/components/ui/magnetic-button";
 import { whatsappWithText } from "@/config/contact";
 import { price } from "@/config/pricing";
 import { HelpLink } from "@/components/help-sheet";
+import { FounderCard } from "@/components/founder-card";
 import { saveEligibilityToJourney } from "@/lib/journey-store";
 import { EmailSignup } from "@/components/email-signup";
 import { motion, AnimatePresence } from "framer-motion";
@@ -665,6 +666,8 @@ function ResultsView({
               ))}
             </ol>
           </section>
+
+          <FounderCard whatsapp={false} className="mb-6" />
 
           {/* 4. Keep it, and hand it to John */}
           <section className="mb-8 space-y-3">
