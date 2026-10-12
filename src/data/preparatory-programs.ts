@@ -39,7 +39,7 @@ export const universityPrograms: PrepProgram[] = [
     ],
     contact: { email: "studujop@ujop.cuni.cz", phone: "+420 778 754 481" },
     website: { url: "https://ujop.cuni.cz/UJOPEN-1.html", label: "ujop.cuni.cz" },
-    note: { en: "The largest and most established foundation program in Czechia. 90%+ success rate.", ar: "أكبر وأعرق برنامج تحضيري في التشيك. نسبة نجاح أكثر من 90%." },
+    note: { en: "The largest and most established foundation program in Czechia. ÚJOP reports a success rate of 90%+, based on results its students report.", ar: "أكبر وأعرق برنامج تحضيري في التشيك. تقول ÚJOP إن نسبة نجاح طلابها أكثر من 90%، حسب النتائج التي يبلغ عنها الطلاب." },
   },
   {
     id: "ujop-english",
