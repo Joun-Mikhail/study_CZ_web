@@ -368,12 +368,14 @@ export default function DeadlinesClient() {
               src="/images/prague-cityscape.jpg"
               alt="Prague Charles Bridge aerial view"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 896px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
           </div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-3">{l.title}</h1>
             <p className="text-base text-text-secondary max-w-2xl">{l.subtitle}</p>
           </motion.div>
@@ -395,7 +397,7 @@ export default function DeadlinesClient() {
 
             {showFilters && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
+                initial={{ height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"
               >
@@ -459,7 +461,7 @@ export default function DeadlinesClient() {
 
           {filtered.length === 0 ? (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
               className="rounded-2xl border border-border-subtle bg-surface/60 p-8 text-center space-y-6"
             >

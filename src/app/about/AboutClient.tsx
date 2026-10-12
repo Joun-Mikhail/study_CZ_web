@@ -122,7 +122,8 @@ export default function AboutClient() {
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
           </div>

@@ -23,7 +23,7 @@ import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.06, 0.5), duration: 0.4 }}
     >
@@ -149,6 +149,8 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
             src="/images/prague-bridge.jpg"
             alt={`${uni.name} in ${uni.city}`}
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />
@@ -292,7 +294,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
               {uni.programs.map((p, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -8 }}
+                  initial={{ x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.3 }}
                   className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-border-subtle hover:border-amber/20 transition-colors"

@@ -128,7 +128,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
         <div className="max-w-3xl mx-auto">
           {/* Breadcrumb nav */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 text-xs text-text-muted mb-6 flex-wrap"
           >
@@ -148,7 +148,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Lesson header */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
             className="mb-6"
@@ -176,7 +176,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Video player */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="mb-8"
@@ -202,7 +202,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Lesson content */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
             className="mb-8"
@@ -235,7 +235,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
           {/* Resources */}
           {lesson.resources.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="mb-8"
@@ -268,7 +268,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Complete + Navigation */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
             className="space-y-4"

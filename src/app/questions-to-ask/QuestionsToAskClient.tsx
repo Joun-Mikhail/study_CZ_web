@@ -172,6 +172,8 @@ export default function QuestionsToAskClient() {
               src="/images/students-group.jpg"
               alt="Students discussing together"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
             />
@@ -179,7 +181,7 @@ export default function QuestionsToAskClient() {
           </div>
 
           {/* Hero */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">{l.title}</h1>
             <blockquote className="border-s-4 border-accent ps-6 py-3 text-text-secondary italic text-lg">
               {l.intro}

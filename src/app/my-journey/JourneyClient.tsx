@@ -304,6 +304,8 @@ export default function JourneyClient() {
             src="/images/prague-bridge.jpg"
             alt="Prague cityscape"
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />

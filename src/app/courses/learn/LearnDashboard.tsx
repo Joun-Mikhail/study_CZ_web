@@ -86,7 +86,7 @@ export default function LearnDashboard() {
         <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
@@ -115,7 +115,7 @@ export default function LearnDashboard() {
                   <AnimatePresence>
                     {codeError && (
                       <motion.p
-                        initial={{ opacity: 0, y: -5 }}
+                        initial={{ y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         className="text-error text-xs mt-1.5"
@@ -170,7 +170,7 @@ export default function LearnDashboard() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
@@ -184,7 +184,7 @@ export default function LearnDashboard() {
 
           {/* Progress overview bar */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="mb-8"
@@ -234,7 +234,7 @@ export default function LearnDashboard() {
               return (
                 <motion.div
                   key={mod.id}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + mi * 0.05 }}
                 >

@@ -238,14 +238,14 @@ function ProgrammeSelector({
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md p-4"
         onClick={onClose}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 12 }}
+          initial={{ scale: 0.95, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 12 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
@@ -287,7 +287,7 @@ function ProgrammeSelector({
                 return (
                   <motion.button
                     key={p.id}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(i * 0.03, 0.3), duration: 0.3 }}
                     onClick={() => onSelect(p.id)}
@@ -395,7 +395,7 @@ export default function CompareClient() {
               </motion.button>
               <p className="text-xs text-text-muted mt-6">
                 {c.orBrowse}{" "}
-                <Link href="/programmes" className="text-amber hover:underline underline-offset-2">
+                <Link href="/programmes" className="text-amber underline underline-offset-2">
                   {c.browse}
                 </Link>{" "}
                 {c.orBrowseEnd}
@@ -445,7 +445,7 @@ export default function CompareClient() {
                   {selected.map((p, i) => (
                     <motion.th
                       key={p.id}
-                      initial={{ opacity: 0, y: -8 }}
+                      initial={{ y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1, duration: 0.3 }}
                       className="text-start p-4 min-w-[220px] align-top"
@@ -487,7 +487,7 @@ export default function CompareClient() {
                 {rows.map((row, ri) => (
                   <motion.tr
                     key={row.key}
-                    initial={{ opacity: 0 }}
+                    initial={false}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.15 + ri * 0.03, duration: 0.3 }}
                     className="border-t border-border-subtle hover:bg-white/[0.02] transition-colors duration-200"

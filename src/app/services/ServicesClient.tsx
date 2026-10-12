@@ -85,6 +85,8 @@ export default function ServicesClient() {
               src="/images/students-group.jpg"
               alt="International students celebrating together"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
             />
@@ -94,7 +96,7 @@ export default function ServicesClient() {
             <OfferBadge locale={locale} />
           </div>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-5 relative z-10"
@@ -102,7 +104,7 @@ export default function ServicesClient() {
             {t.hero.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 relative z-10"
@@ -111,7 +113,7 @@ export default function ServicesClient() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 sm:mb-8 relative z-10"
@@ -134,7 +136,7 @@ export default function ServicesClient() {
 
           {/* Trust bar */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 relative z-10"

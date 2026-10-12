@@ -78,6 +78,8 @@ export default function CoursesClient() {
               src="/images/prague-scenic.jpg"
               alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
             />
@@ -87,14 +89,14 @@ export default function CoursesClient() {
             <OfferBadge locale={locale} />
           </div>
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-6 relative z-10"
           >
             {t.badge}
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4 relative z-10"
@@ -102,7 +104,7 @@ export default function CoursesClient() {
             {t.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-6 relative z-10"
@@ -110,7 +112,7 @@ export default function CoursesClient() {
             {t.subtitle}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10"

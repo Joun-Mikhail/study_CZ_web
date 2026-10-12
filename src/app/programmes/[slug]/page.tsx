@@ -78,7 +78,8 @@ export default async function ProgrammePage({ params }: Props) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 900px"
-            priority
+            loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
         </div>

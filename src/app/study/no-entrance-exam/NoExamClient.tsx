@@ -52,6 +52,8 @@ export default function NoExamClient() {
             src="/images/university-campus.jpg"
             alt="University campus"
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />

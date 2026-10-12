@@ -267,6 +267,8 @@ export default function MatcherPage() {
               src="/images/prague-architecture.jpg"
               alt="Prague river and bridge view"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
             />
@@ -302,7 +304,7 @@ export default function MatcherPage() {
             {step < steps.length ? (
               <motion.div
                 key={step}
-                initial={{ opacity: 0, x: 24 }}
+                initial={{ x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -24 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -344,7 +346,7 @@ export default function MatcherPage() {
             ) : (
               <motion.div
                 key="results"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
@@ -366,7 +368,7 @@ export default function MatcherPage() {
                     {results.map((match, i) => (
                       <motion.div
                         key={match.programme.id}
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={{ y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.06, duration: 0.4 }}
                       >

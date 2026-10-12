@@ -104,6 +104,8 @@ export default function CostOfLivingPage() {
               src="/images/prague-architecture.jpg"
               alt="Prague riverside with historic architecture"
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 1024px"
             />
@@ -146,7 +148,7 @@ export default function CostOfLivingPage() {
           {/* Chart */}
           <motion.div
             key={city}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
@@ -290,6 +292,7 @@ export default function CostOfLivingPage() {
                 </div>
                 <input
                   type="range"
+                  aria-label={t.cost.calcHoursLabel}
                   min={0}
                   max={30}
                   value={hoursPerWeek}
@@ -304,6 +307,7 @@ export default function CostOfLivingPage() {
                 </div>
                 <input
                   type="range"
+                  aria-label={t.cost.calcWageLabel}
                   min={120}
                   max={220}
                   step={10}

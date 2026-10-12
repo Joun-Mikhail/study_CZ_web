@@ -38,7 +38,8 @@ export default function ArrivalClient() {
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
@@ -46,7 +47,7 @@ export default function ArrivalClient() {
 
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
               {t.hero.title}
             </h1>
@@ -59,7 +60,7 @@ export default function ArrivalClient() {
 
         {/* Free: what registration is + the deadline */}
         <section className="max-w-3xl mx-auto mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <h2 className="text-2xl font-bold text-text-primary mb-6 text-center">
               {t.free.heading}
             </h2>
@@ -139,7 +140,7 @@ export default function ArrivalClient() {
 
         {/* Paid: arrival plan, copy sourced from the Services page */}
         <section className="max-w-3xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <GlassCard hoverEffect="glow" className="text-center">
               <ShieldAlert className="w-8 h-8 text-amber mx-auto mb-3" />
               <h2 className="text-xl font-bold text-text-primary mb-2">{t.paid.title}</h2>

@@ -34,7 +34,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4 }}
     >
@@ -183,6 +183,8 @@ export default function StudyPageClient({ type, value, slug }: Props) {
               src="/images/university-campus.jpg"
               alt={heading}
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 800px"
             />

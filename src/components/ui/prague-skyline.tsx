@@ -7,7 +7,7 @@ export function PragueSkyline({ className }: { className?: string }) {
     <motion.svg
       viewBox="0 0 1200 200"
       className={className}
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 1.2 }}
       preserveAspectRatio="xMidYMax slice"

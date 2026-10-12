@@ -88,7 +88,8 @@ export default function ContactPage() {
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 1024px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
@@ -96,14 +97,14 @@ export default function ContactPage() {
 
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl sm:text-4xl font-bold text-text-primary mb-3"
           >
             {t.contact.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-text-secondary leading-relaxed"
@@ -119,7 +120,7 @@ export default function ContactPage() {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.1 }}
               >
@@ -162,7 +163,7 @@ export default function ContactPage() {
 
         {/* Contact form */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="max-w-2xl mx-auto"
@@ -204,6 +205,7 @@ export default function ContactPage() {
                     <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formName}</label>
                     <input
                       type="text"
+                      aria-label={t.contact.formName}
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -214,6 +216,7 @@ export default function ContactPage() {
                     <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formEmail}</label>
                     <input
                       type="email"
+                      aria-label={t.contact.formEmail}
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -226,6 +229,7 @@ export default function ContactPage() {
                   <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formSubject}</label>
                   <select
                     required
+                    aria-label={t.contact.formSubject}
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors"
