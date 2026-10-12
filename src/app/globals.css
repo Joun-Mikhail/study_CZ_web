@@ -33,6 +33,27 @@
   --color-error: #b91c1c;
   --color-accent-red: #c8102e;
   --color-ink: #0b1f3a;
+  /* Accent families: fill (icons, bars), soft (tinted backgrounds), ink
+     (text on soft, AA or better). Use them to give each tool and stage its
+     own colour; brand blue and Czech red stay the identity. */
+  --color-teal: #0d9488;
+  --color-teal-soft: #ccfbf1;
+  --color-teal-ink: #115e59;
+  --color-violet: #7c3aed;
+  --color-violet-soft: #ede9fe;
+  --color-violet-ink: #5b21b6;
+  --color-gold: #f59e0b;
+  --color-gold-soft: #fef3c7;
+  --color-gold-ink: #92400e;
+  --color-coral: #f97316;
+  --color-coral-soft: #ffedd5;
+  --color-coral-ink: #9a3412;
+  --color-sky: #0ea5e9;
+  --color-sky-soft: #e0f2fe;
+  --color-sky-ink: #075985;
+  --color-rose: #e11d48;
+  --color-rose-soft: #ffe4e6;
+  --color-rose-ink: #9f1239;
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-zen-antique), Georgia, "Times New Roman", serif;
   --font-display-ar: var(--font-lalezar), var(--font-plex-arabic), "Segoe UI", Tahoma, sans-serif;
@@ -76,6 +97,24 @@
   --color-warning: #facc15;
   --color-error: #f87171;
   --color-accent-red: #f2545b;
+  --color-teal: #2dd4bf;
+  --color-teal-soft: rgba(45, 212, 191, 0.14);
+  --color-teal-ink: #5eead4;
+  --color-violet: #a78bfa;
+  --color-violet-soft: rgba(167, 139, 250, 0.16);
+  --color-violet-ink: #c4b5fd;
+  --color-gold: #fbbf24;
+  --color-gold-soft: rgba(251, 191, 36, 0.14);
+  --color-gold-ink: #fcd34d;
+  --color-coral: #fb923c;
+  --color-coral-soft: rgba(251, 146, 60, 0.14);
+  --color-coral-ink: #fdba74;
+  --color-sky: #38bdf8;
+  --color-sky-soft: rgba(56, 189, 248, 0.14);
+  --color-sky-ink: #7dd3fc;
+  --color-rose: #fb7185;
+  --color-rose-soft: rgba(251, 113, 133, 0.14);
+  --color-rose-ink: #fda4af;
   --chart-grid: rgba(255, 255, 255, 0.06);
   --chart-axis: rgba(255, 255, 255, 0.12);
   --chart-tick: #b4bfcf;
@@ -394,4 +433,35 @@ html:not(.hydrated) [style*="opacity: 0"] {
 }
 @keyframes stage-grow {
   from { transform: scaleX(0.05); }
+}
+
+/* Soft multi-colour wash for section backgrounds (light and dark). */
+.bg-mesh {
+  background:
+    radial-gradient(40rem 22rem at 12% 0%, color-mix(in srgb, var(--color-sky) 14%, transparent), transparent 70%),
+    radial-gradient(34rem 20rem at 88% 10%, color-mix(in srgb, var(--color-violet) 12%, transparent), transparent 70%),
+    radial-gradient(36rem 22rem at 50% 100%, color-mix(in srgb, var(--color-gold) 12%, transparent), transparent 70%),
+    var(--color-bg-subtle);
+}
+/* Decorative blurred colour blobs (aria-hidden spans). */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blob { animation: blob-drift 14s ease-in-out infinite alternate; }
+}
+@keyframes blob-drift {
+  to { transform: translate3d(18px, -14px, 0) scale(1.08); }
+}
+
+/* Hero collage cards float gently. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-float { animation: hero-float 7s ease-in-out infinite alternate; }
+}
+@keyframes hero-float {
+  to { translate: 0 -10px; }
 }

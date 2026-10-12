@@ -10,6 +10,8 @@ import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
 import { CityStrip, type CityCard } from "@/components/city-strip";
 import { JourneyGlobe } from "@/components/journey-globe";
+import { SiteImage } from "@/components/site-image";
+import { EligibilityArt, MatcherArt, CostArt, GuideArt } from "@/components/illustrations";
 import { CountUp } from "@/components/ui/count-up";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { EmailSignup } from "@/components/email-signup";
@@ -45,11 +47,12 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
   const ar = locale === "ar";
 
   const tasks = [
-    { href: "/eligibility", icon: ClipboardCheck, title: t.bento.eligibility.title, body: t.bento.eligibility.description },
-    { href: "/university-matcher", icon: Compass, title: t.bento.matcher.title, body: t.bento.matcher.description },
-    { href: "/cost-of-living", icon: BarChart3, title: t.bento.cost.title, body: t.bento.cost.description },
-    { href: "/application-guide", icon: FileText, title: c.guideTitle, body: c.guideBody },
+    { href: "/eligibility", icon: ClipboardCheck, art: EligibilityArt, theme: THEMES.teal, title: t.bento.eligibility.title, body: t.bento.eligibility.description },
+    { href: "/university-matcher", icon: Compass, art: MatcherArt, theme: THEMES.violet, title: t.bento.matcher.title, body: t.bento.matcher.description },
+    { href: "/cost-of-living", icon: BarChart3, art: CostArt, theme: THEMES.gold, title: t.bento.cost.title, body: t.bento.cost.description },
+    { href: "/application-guide", icon: FileText, art: GuideArt, theme: THEMES.coral, title: c.guideTitle, body: c.guideBody },
   ];
+  const statColors = ["border-teal", "border-violet", "border-gold", "border-coral"];
 
   const stats = [
     { value: n(facts.programmeCount), label: c.statProgrammes },
@@ -71,7 +74,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
         {/* ── Hero ─────────────────────────────────────────────── */}
         <section className="surface-ink relative isolate overflow-hidden">
           <Image
-            src="/images/prague-cityscape.jpg"
+            src="/images/study/reading-room.jpg"
             alt=""
             fill
             loading="eager"
@@ -81,9 +84,13 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b1f3a] via-[#0b1f3a]/85 to-[#0b1f3a]/45 md:bg-gradient-to-r md:rtl:bg-gradient-to-l md:from-[#0b1f3a] md:via-[#0b1f3a]/80 md:to-[#0b1f3a]/15"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b1f3a] via-[#0b1f3a]/85 to-[#11457e]/55 md:bg-gradient-to-r md:rtl:bg-gradient-to-l md:from-[#0b1f3a] md:via-[#0b1f3a]/80 md:to-[#11457e]/35"
           />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 sm:pt-36 md:pt-44 md:pb-44">
+          {/* Colour light behind the text: teal, violet and gold, drifting slowly. */}
+          <span aria-hidden="true" className="blob -z-10 h-72 w-72 bg-teal/60 -top-10 start-[-4rem]" />
+          <span aria-hidden="true" className="blob -z-10 h-80 w-80 bg-violet/50 top-1/3 end-[-6rem] [animation-delay:-5s]" />
+          <span aria-hidden="true" className="blob -z-10 h-64 w-64 bg-gold/40 bottom-0 start-1/3 [animation-delay:-9s]" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 sm:pt-36 md:pt-44 md:pb-44 lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
             <div className="max-w-2xl">
               <p className="flex items-center gap-3 text-sm font-semibold tracking-wide text-white/85 mb-5">
                 <span aria-hidden="true" className="inline-block w-8 h-[3px] rounded-full bg-[#f2545b]" />
@@ -96,14 +103,14 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/eligibility"
-                  className="inline-flex min-h-14 items-center justify-center gap-2.5 rounded-xl bg-white px-7 text-base font-semibold text-[#0b1f3a] shadow-sm transition-colors hover:bg-[#e8eff8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="inline-flex min-h-14 items-center justify-center gap-2.5 lg:whitespace-nowrap rounded-xl bg-white px-7 text-base font-semibold text-[#0b1f3a] shadow-sm transition-colors hover:bg-[#e8eff8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <ClipboardCheck className="w-5 h-5" aria-hidden="true" />
                   {c.heroCta}
                 </Link>
                 <Link
                   href="/programmes"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-white/40 px-7 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="inline-flex min-h-14 items-center justify-center gap-2 lg:whitespace-nowrap rounded-xl border border-white/40 px-7 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   {c.heroSecondary}
                   <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
@@ -111,6 +118,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
               </div>
               <p className="mt-4 text-sm text-white/70">{c.heroNote}</p>
             </div>
+            <HeroCollage facts={facts} ar={ar} />
           </div>
         </section>
 
@@ -120,16 +128,19 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             {c.startHere}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {tasks.map(({ href, icon: Icon, title, body }) => (
-              <GlassCard key={href} href={href} ariaLabel={title} className="h-full p-5 sm:p-6 shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]">
-                <div className="flex h-full gap-4 sm:flex-col sm:gap-0">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand sm:mb-4">
-                    <Icon className="w-5 h-5" aria-hidden="true" />
-                  </span>
-                  <div className="flex min-w-0 flex-1 flex-col">
+            {tasks.map(({ href, icon: Icon, art: Art, theme, title, body }) => (
+              <GlassCard key={href} href={href} ariaLabel={title} className={`group h-full p-0 border-t-4 ${theme.border} shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]`}>
+                <div className="flex h-full flex-col">
+                  <div className={`relative flex h-24 sm:h-32 items-center justify-center ${theme.soft}`}>
+                    <Art className="h-20 sm:h-28 w-auto transition-transform duration-300 group-hover:scale-105" />
+                    <span className={`absolute start-4 -bottom-5 inline-flex h-11 w-11 items-center justify-center rounded-xl ${theme.fill} text-white shadow-md ring-4 ring-surface`}>
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col p-5 pt-8 sm:p-6 sm:pt-9">
                     <h3 className="text-lg font-semibold text-text-primary mb-1">{title}</h3>
-                    <p className="text-sm leading-relaxed text-text-secondary sm:mb-4">{body}</p>
-                    <span className="mt-auto hidden items-center gap-1.5 text-sm font-semibold text-brand sm:inline-flex">
+                    <p className="text-sm leading-relaxed text-text-secondary mb-4">{body}</p>
+                    <span className={`mt-auto inline-flex items-center gap-1.5 text-sm font-semibold ${theme.ink}`}>
                       {c.open}
                       <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
                     </span>
@@ -156,7 +167,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
         <CityStrip cities={facts.cities} />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
-        <section aria-labelledby="facts" className="border-y border-border-subtle bg-bg-subtle">
+        <section aria-labelledby="facts" className="border-y border-border-subtle bg-mesh">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
             <div className="max-w-2xl mb-10">
               <h2 id="facts" className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3">
@@ -165,8 +176,8 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
               <p className="text-text-secondary leading-relaxed">{c.factsBody}</p>
             </div>
             <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
-              {stats.map((s) => (
-                <div key={s.label} className="grid content-start border-s-2 border-brand ps-4">
+              {stats.map((s, i) => (
+                <div key={s.label} className={`grid content-start border-s-4 ${statColors[i]} ps-4`}>
                   <dt className="row-start-2 text-sm leading-snug text-text-secondary mt-1">{s.label}</dt>
                   <dd className="row-start-1 font-display text-3xl sm:text-4xl font-semibold text-text-primary tabular-nums" dir="ltr">
                     <CountUp value={s.value} />
@@ -188,8 +199,12 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-2xl mb-10">{c.helpBody}</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <GlassCard className="flex flex-col p-7 sm:p-8">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand mb-3">
+            <GlassCard className="flex flex-col p-7 sm:p-8 pt-0 sm:pt-0">
+              <div className="relative -mx-7 sm:-mx-8 mb-6 h-44 sm:h-52">
+                <SiteImage id="study-desk-flatlay" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative />
+                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-teal-ink mb-3">
                 <GraduationCap className="w-4 h-4" aria-hidden="true" />
                 {c.courseBadge}
               </span>
@@ -204,7 +219,11 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
               </div>
             </GlassCard>
 
-            <GlassCard className="flex flex-col p-7 sm:p-8 bg-brand/[0.04]">
+            <GlassCard className="flex flex-col p-7 sm:p-8 pt-0 sm:pt-0 bg-brand/[0.04]">
+              <div className="relative -mx-7 sm:-mx-8 mb-6 h-44 sm:h-52">
+                <SiteImage id="study-laptop-notes" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative />
+                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+              </div>
               <OfferBadge locale={locale} className="mb-4 self-start" />
               <h3 className="font-display text-2xl font-semibold text-text-primary mb-2">{c.servicesTitle}</h3>
               <p className="text-text-secondary leading-relaxed mb-6">{c.servicesBody}</p>
@@ -306,3 +325,39 @@ const HOME_COPY = {
     moreParents: "لأولياء الأمور",
   },
 } as const;
+
+/** Colour themes for cards: static class strings so Tailwind keeps them. */
+const THEMES = {
+  teal: { soft: "bg-teal-soft", fill: "bg-teal", ink: "text-teal-ink", border: "border-t-teal" },
+  violet: { soft: "bg-violet-soft", fill: "bg-violet", ink: "text-violet-ink", border: "border-t-violet" },
+  gold: { soft: "bg-gold-soft", fill: "bg-gold", ink: "text-gold-ink", border: "border-t-gold" },
+  coral: { soft: "bg-coral-soft", fill: "bg-coral", ink: "text-coral-ink", border: "border-t-coral" },
+};
+
+/**
+ * Desktop only: a floating collage of study photos with two true figures.
+ * The photos are lazy and low-priority, so the hero background stays the
+ * page's main image; on phones the collage is display:none, so its lazy
+ * photos are never requested.
+ */
+function HeroCollage({ facts, ar }: { facts: HomeFacts; ar: boolean }) {
+  return (
+    <div aria-hidden="true" className="relative hidden lg:block h-[460px]">
+      <div className="hero-float absolute top-0 end-0 w-[62%] h-[58%] overflow-hidden rounded-3xl border-4 border-white/90 shadow-2xl rotate-2">
+        <SiteImage id="study-karolinum-graduation" sizes="360px" decorative />
+      </div>
+      <div className="hero-float absolute bottom-0 start-0 w-[58%] h-[52%] overflow-hidden rounded-3xl border-4 border-white/90 shadow-2xl -rotate-3 [animation-delay:-3s]">
+        <SiteImage id="study-group-study" sizes="340px" decorative />
+      </div>
+      <div className="hero-float absolute bottom-8 end-4 w-[34%] h-[34%] overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl rotate-6 [animation-delay:-6s]">
+        <SiteImage id="study-graduate-smile" sizes="200px" decorative />
+      </div>
+      <span className="absolute top-[50%] start-[4%] rounded-full bg-[#0f766e] px-4 py-2 text-sm font-semibold text-white shadow-lg">
+        {ar ? `${facts.universityCount} جامعة` : `${facts.universityCount} universities`}
+      </span>
+      <span className="absolute top-6 start-[8%] rounded-full bg-gold px-4 py-2 text-sm font-semibold text-[#3b2400] shadow-lg">
+        {ar ? `${facts.programmeCount} برنامج` : `${facts.programmeCount} programmes`}
+      </span>
+    </div>
+  );
+}
