@@ -304,3 +304,25 @@ html:not(.hydrated) [style*="opacity: 0"] {
 @media (prefers-reduced-motion: reduce) {
   .help-sheet[open] { animation: none; }
 }
+
+/* ── PROTOTYPE (phase 3 B1): never merged ─────────────────────────── */
+.duotone { background: var(--color-brand); }
+.duotone img { filter: grayscale(1) contrast(1.05); mix-blend-mode: multiply; opacity: 0.9; }
+.proto-press { transition: transform 120ms ease-out, box-shadow 150ms ease-out; }
+.proto-press:hover { transform: translateY(-1px); }
+.proto-press:active { transform: translateY(1px); }
+.proto-lift { transition: transform 180ms ease-out, box-shadow 180ms ease-out; }
+.proto-lift:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -20px rgba(11,31,58,.45); }
+.proto-lift:active { transform: translateY(0); }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .proto-a-zoom { animation: proto-zoom linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    .proto-c-drift { animation: proto-drift linear both; animation-timeline: view(); }
+  }
+  .proto-b-card { animation: proto-rise 600ms cubic-bezier(.2,.7,.2,1) both; }
+  .proto-pulse { animation: proto-pulse 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+}
+@keyframes proto-zoom { to { transform: scale(1.12); } }
+@keyframes proto-drift { from { transform: translateY(12px); } to { transform: translateY(-12px); } }
+@keyframes proto-rise { from { transform: translateY(18px); opacity: .6; } }
+@keyframes proto-pulse { 50% { transform: scale(1.35); opacity: .35; } }
