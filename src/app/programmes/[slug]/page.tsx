@@ -6,7 +6,6 @@ import { universitiesV2 } from "@/data/universities-v2";
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
 
 type Props = {
@@ -75,7 +74,7 @@ export default async function ProgrammePage({ params }: Props) {
         <div className="relative w-full h-[160px] sm:h-[200px] rounded-2xl overflow-hidden mb-6">
           <Image
             src="/images/university-campus.jpg"
-            alt="University campus"
+            alt=""
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 900px"
@@ -83,13 +82,7 @@ export default async function ProgrammePage({ params }: Props) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
         </div>
-        <Breadcrumbs
-          items={[
-            { label: "Programmes", href: "/programmes" },
-            { label: prog.name.en },
-          ]}
-        />
-        <ProgrammeDetailClient programme={prog} university={uni ?? null} />
+        <ProgrammeDetailClient programme={prog} university={uni ?? null} total={programmes.length} />
       </main>
       <Footer />
     </div>

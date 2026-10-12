@@ -18,6 +18,7 @@ import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Programme } from "@/data/types";
+import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
   return (
@@ -46,10 +47,10 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
             <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
-              {prog.degree}
+              {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
             </span>
             <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-              {prog.language}
+              {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
             </span>
             <SaveProgrammeButton programmeId={prog.id} locale={locale} />
           </div>
@@ -62,7 +63,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3 h-3 text-text-muted" />
-            {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+            {prog.durationYears} {locale === "ar" ? (prog.durationYears === 1 ? "سنة" : prog.durationYears === 2 ? "سنتين" : "سنوات") : prog.durationYears === 1 ? "year" : "years"}
           </span>
           {prog.entranceExam && (
             <span className="inline-flex items-center gap-1">
@@ -162,7 +163,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <MapPin className="w-3.5 h-3.5 text-white/70" />
-                  <span className="text-xs text-white/70">{uni.city}</span>
+                  <span className="text-xs text-white/70">{locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}</span>
                   {uni.founded && (
                     <>
                       <span className="text-white/30">·</span>
@@ -212,7 +213,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
           <QuickStat
             icon={MapPin}
             label={locale === "ar" ? "المدينة" : "City"}
-            value={uni.city}
+            value={locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
           />
           <QuickStat
             icon={Euro}

@@ -154,6 +154,9 @@ export const CITY_AR: Record<string, string> = {
 };
 
 export const DEGREE_AR: Record<string, string> = { Bachelor: "البكالوريوس", Master: "الماجستير" };
+/** Degree and language as plain labels (no article), for badges and table cells. */
+export const DEGREE_VALUE_AR: Record<string, string> = { Bachelor: "بكالوريوس", Master: "ماجستير", PhD: "دكتوراه" };
+export const LANGUAGE_AR: Record<string, string> = { English: "الإنجليزية", Czech: "التشيكية" };
 
 function withSlash(path: string): string {
   return path.endsWith("/") ? path : `${path}/`;

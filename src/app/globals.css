@@ -18,6 +18,10 @@
   --color-text-muted: #64748b;
   --color-success: #22c55e;
   --color-info: #3b82f6;
+  --color-accent: #f59e0b;
+  --color-warning: #eab308;
+  --color-error: #f87171;
+  --color-surface-raised: #273548;
   --font-sans: var(--font-jakarta);
   --font-mono: ui-monospace, SFMono-Regular, monospace;
   --font-arabic: var(--font-tajawal), "Segoe UI", sans-serif;
@@ -47,6 +51,10 @@
   --color-text-muted: #64748b;
   --color-success: #16a34a;
   --color-info: #2563eb;
+  --color-accent: #b45309;
+  --color-warning: #a16207;
+  --color-error: #dc2626;
+  --color-surface-raised: #e2e8f0;
 }
 
 /* Dark theme explicit selector (matches current defaults) */
@@ -129,6 +137,10 @@ body {
     --color-text-muted: #64748b;
     --color-success: #16a34a;
     --color-info: #2563eb;
+    --color-accent: #b45309;
+    --color-warning: #a16207;
+    --color-error: #dc2626;
+    --color-surface-raised: #e2e8f0;
     --chart-grid: rgba(15, 23, 42, 0.08);
     --chart-axis: rgba(15, 23, 42, 0.15);
     --chart-tick: #475569;
