@@ -261,3 +261,19 @@ Funnel: `tool_completed → help_sheet_open → checkout_click → purchase`. Tr
 9. **Stage pages:** use the help sheet there too (my recommendation)?
 
 When 2, 3, 4 and 9 are answered I'll start B0 (token rename) and A1 (help sheet). Questions 5–8 can come later, before the copy PR.
+
+---
+
+## Decisions taken (12 October 2026)
+
+John asked me to continue without waiting for answers, so the build follows these defaults. Any of them can be reversed in a later PR.
+
+1. #54: merged.
+2. Copy and mapping: built as proposed in 2.1–2.6.
+3. Course: offered only at the visa and arrived stages, never right after the eligibility quiz.
+4. Eligibility gets an optional last question, "How would you like to do this?" Its third answer unlocks the Full Journey block.
+5. Delivery times: the sheet says "at a time we agree on WhatsApp". No new promises.
+6. Founder card: only facts already on `/about/` (the Facebook group and its size; built by a student who has been through it).
+7. Unsourced stories and statistics on `/services/`: replaced with the factual lines in 2.4. The agency price range is dropped.
+8. Interview-prep and arrival pages: keep their direct buttons.
+9. Stage pages: use the help sheet.
