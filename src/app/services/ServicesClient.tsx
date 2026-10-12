@@ -78,7 +78,7 @@ export default function ServicesClient() {
 
       <main id="main-content" className="pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-8 sm:mb-16 relative rounded-3xl py-4 overflow-hidden">
+        <section className="surface-ink max-w-4xl mx-auto text-center mb-8 sm:mb-16 relative rounded-3xl px-5 py-10 sm:px-12 sm:py-14 overflow-hidden">
           {/* Hero background image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -88,7 +88,7 @@ export default function ServicesClient() {
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/75 to-midnight/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/70 to-ink/90" />
           </div>
           <div className="relative z-10 mb-5">
             <OfferBadge locale={locale} />

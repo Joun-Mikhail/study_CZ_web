@@ -153,10 +153,8 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
             sizes="(max-width: 768px) 100vw, 800px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-          <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
 
           {/* Decorative glow */}
-          <div className="absolute -bottom-8 start-1/4 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="absolute bottom-4 start-4 end-4 z-10">
             <div className="flex items-end justify-between gap-3">

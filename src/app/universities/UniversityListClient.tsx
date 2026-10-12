@@ -473,8 +473,6 @@ export default function UniversityListClient() {
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-          <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-          <div className="absolute -bottom-6 start-1/3 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">
             <div>
               <p className="text-xs text-white/60 mb-1">
@@ -483,6 +481,9 @@ export default function UniversityListClient() {
               <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
                 {mode === "programmes" ? l.programmes : l.universities}
               </h1>
+              <p className="mt-1 text-sm text-white/80 max-w-md">
+                {locale === "ar" ? "ابحث في البرامج المدرّسة بالإنجليزية في الجامعات التشيكية وصفّيها." : "Search and filter English-taught programmes at Czech universities."}
+              </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
               <Sparkles className="w-3.5 h-3.5 text-amber" />
@@ -708,8 +709,6 @@ export default function UniversityListClient() {
       {/* Matcher CTA */}
       <FadeIn>
         <div className="relative mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02] overflow-hidden">
-          <div className="absolute inset-0 noise-overlay opacity-[0.02]" />
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-60 h-20 bg-amber/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber/10 mb-4">
               <Sparkles className="w-6 h-6 text-amber" />

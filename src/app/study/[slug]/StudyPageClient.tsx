@@ -187,8 +187,6 @@ export default function StudyPageClient({ type, value, slug }: Props) {
               sizes="(max-width: 768px) 100vw, 800px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-            <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-            <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-4 start-4 z-10">
               <h1 className="text-2xl sm:text-3xl font-bold text-white">{heading}</h1>
               <p className="text-xs text-white/70 mt-1">{description}</p>

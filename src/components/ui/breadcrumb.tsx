@@ -95,14 +95,16 @@ export function Breadcrumb() {
           const href = "/" + segments.slice(0, i + 1).join("/");
           const name = pathNames[segment]?.[locale] || segment.replace(/-/g, " ");
           const isLast = i === segments.length - 1;
+          // Known labels are already cased; only raw slugs get title case.
+          const caseClass = pathNames[segment] ? "" : " capitalize";
 
           return (
             <li key={href} className="flex items-center gap-1.5">
               <ChevronRight className="w-3 h-3 text-text-muted/50 rtl:rotate-180" />
               {isLast ? (
-                <span className="text-text-secondary font-medium capitalize">{name}</span>
+                <span className={`text-text-secondary font-medium${caseClass}`}>{name}</span>
               ) : (
-                <Link href={href} className="hover:text-text-secondary transition-colors capitalize">
+                <Link href={href} className={`hover:text-text-secondary transition-colors${caseClass}`}>
                   {name}
                 </Link>
               )}
