@@ -53,8 +53,8 @@ export default function PreparatoryYearPage() {
         <div className="max-w-4xl mx-auto">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-scenic.jpg"
-              alt="Aerial view of Prague Old Town"
+              src="/images/study/class-hijab.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

@@ -187,8 +187,8 @@ export default function StudyPageClient({ type, value, slug }: Props) {
               <SiteImage id={cityImage(value)!} sizes="(max-width: 768px) 100vw, 800px" priority />
             ) : (
               <Image
-                src="/images/university-campus.jpg"
-                alt={heading}
+                src="/images/study/lecture-hall.jpg"
+                alt=""
                 fill
                 loading="eager"
                 fetchPriority="high"

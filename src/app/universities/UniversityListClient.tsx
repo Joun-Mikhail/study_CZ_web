@@ -467,8 +467,8 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
       <FadeIn>
         <div className="relative w-full h-[160px] sm:h-[220px] rounded-2xl overflow-hidden mb-8">
           <Image
-            src="/images/university-campus.jpg"
-            alt="University graduation celebration"
+            src="/images/study/lecture-hall.jpg"
+            alt=""
             fill
             className="object-cover object-center"
             sizes="(max-width: 768px) 100vw, 1200px"

@@ -169,8 +169,8 @@ export default function QuestionsToAskClient() {
           {/* Hero banner */}
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden mb-8">
             <Image
-              src="/images/students-group.jpg"
-              alt="Students discussing together"
+              src="/images/study/group-study.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

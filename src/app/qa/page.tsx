@@ -118,8 +118,8 @@ export default function QaPage() {
         <div className="max-w-3xl mx-auto mb-8">
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/students-studying.jpg"
-              alt="Students collaborating in a library"
+              src="/images/study/library-aisle.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

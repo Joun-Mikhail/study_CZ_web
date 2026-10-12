@@ -100,8 +100,8 @@ export default function EligibilityClient() {
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
             <Image
-              src="/images/prague-bridge.jpg"
-              alt="Prague panoramic rooftops view"
+              src="/images/study/notes-writing.jpg"
+              alt=""
               fill
               loading="eager"
               fetchPriority="high"

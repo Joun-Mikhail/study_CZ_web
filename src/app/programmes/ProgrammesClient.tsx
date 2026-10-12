@@ -181,8 +181,8 @@ export default function ProgrammesClient({
 
         <div className="relative w-full h-[120px] sm:h-[160px] rounded-2xl overflow-hidden mb-6">
           <Image
-            src="/images/university-campus.jpg"
-            alt="University campus"
+            src="/images/study/open-book.jpg"
+            alt=""
             fill
             loading="eager"
             fetchPriority="high"

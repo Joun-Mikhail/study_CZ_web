@@ -22,8 +22,8 @@ export default function Page() {
         {/* Hero banner */}
         <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden mb-8">
           <Image
-            src="/images/university-campus.jpg"
-            alt="University graduation celebration"
+            src="/images/study/graduate-smile.jpg"
+            alt=""
             fill
             loading="eager"
             fetchPriority="high"
