@@ -34,6 +34,8 @@ import {
 import { cn } from "@/lib/utils";
 import { CITY_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { cityImage } from "@/data/images";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
 const budgetRanges: Record<Exclude<BudgetBucket, "any">, [number, number]> = {
@@ -437,9 +439,16 @@ function MatchCard({
   rank: number;
 }) {
   const { programme: prog, universityName, city, reasons } = match;
+  const photo = cityImage(city);
 
   return (
-    <GlassCard hoverEffect="glow" href={`/programmes/${prog.id}`}>
+    <GlassCard hoverEffect="glow" href={`/programmes/${prog.id}`} className="overflow-hidden">
+      {photo && (
+        <div className="relative -mx-6 -mt-6 mb-4 h-28 sm:h-32">
+          <SiteImage id={photo} sizes="(max-width: 672px) 100vw, 672px" decorative />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" aria-hidden="true" />
+        </div>
+      )}
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="min-w-0">
           <div className="flex items-center gap-2 mb-1">

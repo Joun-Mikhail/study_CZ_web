@@ -8,6 +8,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
+import { CityStrip, type CityCard } from "@/components/city-strip";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -31,6 +32,7 @@ export type HomeFacts = {
   programmeCount: number;
   universityCount: number;
   lowestTuition: number;
+  cities: CityCard[];
 };
 
 const n = (x: number) => x.toLocaleString("en-US");
@@ -142,6 +144,9 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
         </div>
 
         <WaitlistSignup className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" />
+
+        {/* ── Where students live: the 14 university cities ────── */}
+        <CityStrip cities={facts.cities} />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
         <section aria-labelledby="facts" className="border-y border-border-subtle bg-bg-subtle">
