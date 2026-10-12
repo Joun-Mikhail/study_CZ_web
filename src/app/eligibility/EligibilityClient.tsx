@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { track } from "@/components/umami";
+import { track, trackToolStarted } from "@/components/umami";
 import { useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -55,8 +55,10 @@ export default function EligibilityClient() {
   const [form, setForm] = useState<FormData>(initial);
   const [showResults, setShowResults] = useState(false);
 
-  const set = (key: keyof FormData, value: string) =>
+  const set = (key: keyof FormData, value: string) => {
+    trackToolStarted("eligibility");
     setForm((prev) => ({ ...prev, [key]: value }));
+  };
 
   const stepDefs = [
     { title: t.steps[0], icon: GraduationCap },
@@ -75,7 +77,7 @@ export default function EligibilityClient() {
     if (finished.current) return; // count a double tap once
     finished.current = true;
     setShowResults(true);
-    track("eligibility_completed");
+    track("tool_completed", { tool: "eligibility" });
   };
   const reset = () => {
     finished.current = false;

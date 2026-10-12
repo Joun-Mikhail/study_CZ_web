@@ -25,6 +25,15 @@ export function track(event: string, data?: Record<string, string | number>) {
   } catch {}
 }
 
+const startedTools = new Set<string>();
+
+/** First real interaction with a tool; counted once per page load. */
+export function trackToolStarted(tool: string) {
+  if (startedTools.has(tool)) return;
+  startedTools.add(tool);
+  track("tool_started", { tool });
+}
+
 export default function Umami() {
   const id = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
@@ -32,7 +41,9 @@ export default function Umami() {
     if (!id) return;
     const onClick = (e: MouseEvent) => {
       const link = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!link) return;
+      // Help-sheet triggers are Stripe links only as a no-JS fallback; with JS
+      // they open the sheet (help_sheet_open), so they aren't a checkout click.
+      if (!link || link.getAttribute("aria-haspopup") === "dialog") return;
       const href = link.href;
       const page = window.location.pathname;
       // `data-source` on the link or a parent names the tool or section the
