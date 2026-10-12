@@ -38,9 +38,9 @@ export function SiteImage({
 }) {
   const { locale } = useTranslation();
   const img = IMAGES[id] as SiteImageEntry;
-  const near = useNear(whenNear && fill);
-  if (!near.ready) {
-    return <span ref={near.ref} aria-hidden="true" className={cn("absolute inset-0", className)} style={{ backgroundColor: img.color }} />;
+  const [nearRef, ready] = useNear(whenNear && fill);
+  if (!ready) {
+    return <span ref={nearRef} aria-hidden="true" className={cn("absolute inset-0", className)} style={{ backgroundColor: img.color }} />;
   }
   return (
     <Image
@@ -69,7 +69,7 @@ function useNear(enabled: boolean | undefined) {
     io.observe(ref.current);
     return () => io.disconnect();
   }, [near]);
-  return { ref, ready: near };
+  return [ref, near] as const;
 }
 
 /** Credit lines for every Creative Commons photo, as their licences require. */
