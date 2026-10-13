@@ -4,6 +4,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "vse",
     name: "Prague University of Economics and Business (VŠE)",
+    nameAr: "جامعة براغ للاقتصاد والأعمال (VŠE)",
     nameLocal: "Vysoká škola ekonomická v Praze",
     city: "Prague",
     type: "public",
@@ -25,6 +26,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni",
     name: "Charles University",
+    nameAr: "جامعة تشارلز (جامعة كارلوفا)",
+    searchName: "Univerzita Karlova",
     nameLocal: "Univerzita Karlova",
     city: "Prague",
     type: "public",
@@ -46,6 +49,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "ctu",
     name: "Czech Technical University in Prague (CTU)",
+    nameAr: "الجامعة التقنية التشيكية في براغ (ČVUT)",
+    searchName: "ČVUT",
     nameLocal: "České vysoké učení technické v Praze",
     city: "Prague",
     type: "public",
@@ -88,6 +93,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "muni",
     name: "Masaryk University",
+    nameAr: "جامعة ماساريك في برنو",
+    searchName: "MUNI",
     nameLocal: "Masarykova univerzita",
     city: "Brno",
     type: "public",
@@ -108,7 +115,9 @@ export const universitiesV2: UniversityV2[] = [
   },
   {
     id: "but",
-    name: "Brno University of Technology (BUT)",
+    name: "Brno University of Technology (VUT / BUT)",
+    nameAr: "جامعة برنو التقنية (VUT)",
+    searchName: "VUT Brno",
     nameLocal: "Vysoké učení technické v Brně",
     city: "Brno",
     type: "public",
