@@ -33,6 +33,10 @@ export type UniversityV2 = {
   id: string;
   name: string;
   nameLocal?: string;
+  /** Name in Arabic, used in /ar/ page titles. */
+  nameAr?: string;
+  /** Short name students search for (e.g. "VUT Brno"), used in page titles. */
+  searchName?: string;
   city: City;
   type: UniversityType;
   founded?: number;
