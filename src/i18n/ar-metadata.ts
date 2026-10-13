@@ -83,8 +83,8 @@ export const AR_PAGE_META: Record<string, { title: string; description: string }
     description: "التأشيرة، والأوراق، والسكن، ومقابلة السفارة: إجابات من طلاب عاشوا التجربة.",
   },
   "/questions-to-ask/": {
-    title: "أسئلة اسألها لأي وكالة قبل أن تدفع",
-    description: "قائمة الأسئلة التي تكشف إن كانت وكالة الدراسة في التشيك تستحق أموالك.",
+    title: "توب اديو أو MSM Academy أو أي وكالة: 8 أسئلة قبل أن تدفع",
+    description: "تقارن بين وكالات الدراسة في التشيك مثل توب اديو (Top Edu) وMSM Academy؟ ثمانية أسئلة اسألها لأي وكالة قبل أن تدفع، بما فيها نحن. Study Czechia لا علاقة لها بهذه الشركات.",
   },
   "/scholarships/": {
     title: "المنح الدراسية في التشيك",
