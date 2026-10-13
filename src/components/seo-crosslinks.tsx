@@ -9,7 +9,6 @@ import {
   GraduationCap,
   MapPin,
   TrendingDown,
-  FileX,
   ArrowRight,
 } from "lucide-react";
 
@@ -47,22 +46,6 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
                 </p>
                 <p className="text-xs text-text-muted">
                   {locale === "ar" ? "مرتب حسب الرسوم" : "Sorted by tuition"}
-                </p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors" />
-            </GlassCard>
-          </Link>
-        ) : null}
-        {exclude?.type !== "intent" || exclude.value !== "no-exam" ? (
-          <Link href="/study/no-entrance-exam" className="group">
-            <GlassCard className="flex items-center gap-3 py-3" hoverEffect="border">
-              <FileX className="w-5 h-5 text-accent shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">
-                  {locale === "ar" ? "بدون امتحان قبول" : "No Entrance Exam"}
-                </p>
-                <p className="text-xs text-text-muted">
-                  {locale === "ar" ? "تقديم بالمستندات فقط" : "Document-based admission"}
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors" />

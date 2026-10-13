@@ -100,10 +100,6 @@ export const AR_PAGE_META: Record<string, { title: string; description: string }
     title: "أرخص البرامج الإنجليزية في التشيك",
     description: "برامج إنجليزية في الجامعات التشيكية مرتبة حسب الرسوم الدراسية.",
   },
-  "/study/no-entrance-exam/": {
-    title: "برامج في التشيك بدون امتحان قبول",
-    description: "برامج إنجليزية في الجامعات التشيكية تقبل الطلاب بناءً على الأوراق فقط.",
-  },
   "/terms/": { title: "شروط الخدمة", description: "الأسعار وقواعد الاسترداد وحقوقك." },
   "/universities/": {
     title: "الجامعات التشيكية",

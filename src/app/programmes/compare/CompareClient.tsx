@@ -65,7 +65,7 @@ const COPY = {
     years: (n: number) => `${n} year${n > 1 ? "s" : ""}`,
     rolling: "Rolling",
     passed: (d: string) => `${d} (passed)`,
-    notPublished: "Not published",
+    notPublished: "Usually end of February",
   },
   ar: {
     title: "قارن بين البرامج",
@@ -108,7 +108,7 @@ const COPY = {
     years: (n: number) => (n === 1 ? "سنة واحدة" : n === 2 ? "سنتان" : `${n} سنوات`),
     rolling: "مفتوح طوال العام",
     passed: (d: string) => `${d} (انتهى)`,
-    notPublished: "لم يُعلَن بعد",
+    notPublished: "عادةً نهاية فبراير",
   },
 };
 

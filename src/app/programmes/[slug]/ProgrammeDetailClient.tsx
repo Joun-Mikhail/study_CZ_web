@@ -37,7 +37,7 @@ const COPY = {
     deadlineNotVerified: "Deadline not verified",
     deadlinePassed: "Deadline passed",
     rolling: "Rolling admissions",
-    deadlineNotPublished: "Deadline not published yet",
+    deadlineNotPublished: "Usual deadline: end of February",
     czechia: "Czech Republic",
     public: "Public",
     private: "Private",
@@ -51,11 +51,10 @@ const COPY = {
     perYear: "/ year",
     applicationFee: "Application fee",
     applicationDeadline: "Application deadline",
-    notPublished: "Not published yet",
+    notPublished: "Usually end of February (the university hasn't confirmed its date yet)",
     applicationsOpen: "Applications open",
     entranceExam: "Entrance exam",
     yes: "Yes",
-    checkWithUni: "Check with university",
     examDate: "Exam date",
     field: "Field",
     application: "Application",
@@ -82,7 +81,7 @@ const COPY = {
     deadlineNotVerified: "آخر موعد غير مؤكَّد",
     deadlinePassed: "انتهى موعد التقديم",
     rolling: "التقديم مفتوح طوال العام",
-    deadlineNotPublished: "لم يُعلَن آخر موعد بعد",
+    deadlineNotPublished: "الموعد المعتاد: نهاية فبراير",
     czechia: "التشيك",
     public: "حكومية",
     private: "خاصة",
@@ -96,11 +95,10 @@ const COPY = {
     perYear: "في السنة",
     applicationFee: "رسوم التقديم",
     applicationDeadline: "آخر موعد للتقديم",
-    notPublished: "لم يُعلَن بعد",
+    notPublished: "عادةً نهاية فبراير (لم تؤكد الجامعة موعدها بعد)",
     applicationsOpen: "بداية التقديم",
     entranceExam: "امتحان القبول",
     yes: "نعم",
-    checkWithUni: "راجع الجامعة",
     examDate: "موعد الامتحان",
     field: "المجال",
     application: "التقديم",
@@ -259,7 +257,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
         )}
         <Row icon={FileText} label={c.entranceExam} value={
           <span>
-            {p.entranceExam ? c.yes : c.checkWithUni}
+            {c.yes}
             {p.entranceExamDetails && (
               <span className="text-text-muted block mt-0.5">
                 {ar && p.entranceExamDetails.ar ? p.entranceExamDetails.ar : p.entranceExamDetails.en}

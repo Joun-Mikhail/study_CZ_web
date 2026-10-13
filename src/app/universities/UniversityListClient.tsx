@@ -46,13 +46,10 @@ const labels = {
     allFields: "All fields",
     allCities: "All cities",
     allTypes: "Public & Private",
-    allExam: "Any exam status",
     allDeadlines: "Any deadline status",
     maxTuition: "Max tuition",
     publicUni: "Public",
     privateUni: "Private",
-    noExam: "No entrance exam",
-    hasExam: "Entrance exam",
     clearFilters: "Clear all filters",
     filters: "Filters",
     perYear: " per year",
@@ -62,7 +59,6 @@ const labels = {
     showing: "programmes",
     showingUnis: "universities",
     entranceExam: "Entrance exam",
-    noEntranceExam: "Exam required",
     verified: "Verified",
     notSure: "Not sure which programme fits you?",
     tryMatcher: "Try Programme Matcher",
@@ -84,13 +80,10 @@ const labels = {
     allFields: "كل المجالات",
     allCities: "كل المدن",
     allTypes: "حكومي وخاص",
-    allExam: "أي حالة امتحان",
     allDeadlines: "أي حالة موعد",
     maxTuition: "أعلى مصاريف",
     publicUni: "حكومي",
     privateUni: "خاص",
-    noExam: "بدون امتحان قبول",
-    hasExam: "امتحان قبول",
     clearFilters: "امسح الفلتر",
     filters: "فلتر",
     perYear: " في السنة",
@@ -100,7 +93,6 @@ const labels = {
     showing: "برنامج",
     showingUnis: "جامعة",
     entranceExam: "امتحان قبول",
-    noEntranceExam: "بدون امتحان",
     verified: "تم التحقق",
     notSure: "مش متأكد أي برنامج يناسبك؟",
     tryMatcher: "جرّب مطابقة البرامج",
@@ -120,7 +112,7 @@ const deadlineStatusLabel: Record<DeadlineStatus, { en: string; ar: string }> = 
   "not-verified": { en: "Not yet verified", ar: "لم يتم التحقق" },
   passed: { en: "Deadline passed", ar: "الموعد انتهى" },
   rolling: { en: "Rolling admissions", ar: "قبول مستمر" },
-  "not-published": { en: "Not published yet", ar: "لم يُنشر بعد" },
+  "not-published": { en: "Usually end of February", ar: "عادةً آخر فبراير" },
 };
 
 const deadlineStatusColor: Record<DeadlineStatus, string> = {
@@ -241,7 +233,7 @@ function ProgrammeCard({
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
-          {prog.entranceExam ? l.entranceExam : l.noEntranceExam}
+          {l.entranceExam}
         </span>
       </div>
 
@@ -355,7 +347,6 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
   const [language, setLanguage] = useState("");
   const [city, setCity] = useState("");
   const [uniType, setUniType] = useState("");
-  const [examFilter, setExamFilter] = useState("");
   const [deadlineFilter, setDeadlineFilter] = useState("");
   const [maxTuition, setMaxTuition] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -402,7 +393,7 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
     return Array.from(set).sort();
   }, []);
 
-  const hasFilters = search || degree || field || language || city || uniType || examFilter || deadlineFilter || maxTuition;
+  const hasFilters = search || degree || field || language || city || uniType || deadlineFilter || maxTuition;
 
   const clearFilters = () => {
     setSearch("");
@@ -411,7 +402,6 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
     setLanguage("");
     setCity("");
     setUniType("");
-    setExamFilter("");
     setDeadlineFilter("");
     setMaxTuition("");
   };
@@ -427,7 +417,6 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
         language: language || undefined,
         city: city || undefined,
         universityType: (uniType as "public" | "private") || undefined,
-        entranceExam: examFilter === "no" ? false : examFilter === "yes" ? true : undefined,
         deadlineStatus: (deadlineFilter as DeadlineStatus) || undefined,
         maxTuition: maxTuition ? Number(maxTuition) : undefined,
       },
@@ -435,7 +424,7 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
     ).sort((a, b) => {
       return a.tuitionEurPerYear - b.tuitionEurPerYear;
     });
-  }, [mode, search, degree, field, language, city, uniType, examFilter, deadlineFilter, maxTuition]);
+  }, [mode, search, degree, field, language, city, uniType, deadlineFilter, maxTuition]);
 
   // University view
   const filteredUniversities = useMemo(() => {
@@ -636,22 +625,13 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
                   ]}
                 />
                 <FilterSelect
-                  value={examFilter}
-                  onChange={setExamFilter}
-                  placeholder={l.allExam}
-                  options={[
-                    { value: "no", label: l.noExam },
-                    { value: "yes", label: l.hasExam },
-                  ]}
-                />
-                <FilterSelect
                   value={deadlineFilter}
                   onChange={setDeadlineFilter}
                   placeholder={l.allDeadlines}
                   options={[
                     { value: "verified", label: locale === "ar" ? "متحقق" : "Verified" },
                     { value: "rolling", label: locale === "ar" ? "قبول مستمر" : "Rolling" },
-                    { value: "not-published", label: locale === "ar" ? "لم يُنشر" : "Not published" },
+                    { value: "not-published", label: locale === "ar" ? "عادةً آخر فبراير" : "Usually end of February" },
                   ]}
                 />
               </>

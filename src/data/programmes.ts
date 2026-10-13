@@ -8,6 +8,9 @@ import type { Programme, DeadlineStatus } from "./types";
  * 3. Tuition values come from official university fee schedules only.
  * 4. Deadlines come from official admissions pages only.
  * 5. When a value is unknown, omit the field — never guess.
+ * 6. Every programme has an entrance exam (admission test), so
+ *    `entranceExam` is always true. Without `applicationDeadline` the
+ *    site shows the usual end-of-February deadline (see `usualDeadline`).
  *
  * To add programmes: verify on the university's official English-language pages,
  * add the programme with a sourceUrl pointing to the specific page, and set
@@ -630,7 +633,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 2,
     tuitionEurPerYear: 2000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vsb.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -648,7 +651,7 @@ export const programmes: Programme[] = [
     field: "Geology",
     durationYears: 3,
     tuitionEurPerYear: 2000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vsb.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -668,7 +671,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -686,7 +689,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -704,7 +707,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -722,7 +725,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -740,7 +743,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -758,7 +761,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -776,7 +779,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -794,7 +797,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -812,7 +815,7 @@ export const programmes: Programme[] = [
     field: "Development Studies",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -830,7 +833,7 @@ export const programmes: Programme[] = [
     field: "Development Studies",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -848,7 +851,7 @@ export const programmes: Programme[] = [
     field: "Computer Science",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -866,7 +869,7 @@ export const programmes: Programme[] = [
     field: "Computer Science",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -884,7 +887,7 @@ export const programmes: Programme[] = [
     field: "Development Studies",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -902,7 +905,7 @@ export const programmes: Programme[] = [
     field: "Development Studies",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -920,7 +923,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 3,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://mendelu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -940,7 +943,7 @@ export const programmes: Programme[] = [
     field: "Computer Science",
     durationYears: 3,
     tuitionEurPerYear: 2400,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -958,7 +961,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 2,
     tuitionEurPerYear: 2600,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -976,7 +979,7 @@ export const programmes: Programme[] = [
     field: "Chemistry",
     durationYears: 2,
     tuitionEurPerYear: 2600,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -994,7 +997,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 2160,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1012,7 +1015,7 @@ export const programmes: Programme[] = [
     field: "Environmental Science",
     durationYears: 2,
     tuitionEurPerYear: 2600,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1030,7 +1033,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 2,
     tuitionEurPerYear: 2160,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1048,7 +1051,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 3,
     tuitionEurPerYear: 2160,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1066,7 +1069,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 2600,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1084,7 +1087,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 2600,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.utb.cz/en/university/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1104,7 +1107,7 @@ export const programmes: Programme[] = [
     field: "Development Studies",
     durationYears: 2,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1122,7 +1125,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 3,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1140,7 +1143,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 2,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1158,7 +1161,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 2,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1176,7 +1179,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1194,7 +1197,7 @@ export const programmes: Programme[] = [
     field: "Engineering",
     durationYears: 2,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1212,7 +1215,7 @@ export const programmes: Programme[] = [
     field: "Computer Science",
     durationYears: 2,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.zcu.cz/en/study/study-programmes/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1232,7 +1235,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 3,
     tuitionEurPerYear: 4200,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vfu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1250,7 +1253,7 @@ export const programmes: Programme[] = [
     field: "Agriculture",
     durationYears: 2,
     tuitionEurPerYear: 4200,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.vfu.cz/en/study/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1306,7 +1309,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 10340,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.unyp.cz/programs/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1324,7 +1327,7 @@ export const programmes: Programme[] = [
     field: "Media Studies",
     durationYears: 3,
     tuitionEurPerYear: 10340,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.unyp.cz/programs/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1342,7 +1345,7 @@ export const programmes: Programme[] = [
     field: "International Relations",
     durationYears: 3,
     tuitionEurPerYear: 10340,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.unyp.cz/programs/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1360,7 +1363,7 @@ export const programmes: Programme[] = [
     field: "Psychology",
     durationYears: 2,
     tuitionEurPerYear: 16400,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.unyp.cz/programs/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1378,7 +1381,7 @@ export const programmes: Programme[] = [
     field: "Psychology",
     durationYears: 3,
     tuitionEurPerYear: 10340,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.unyp.cz/programs/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1398,7 +1401,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 3900,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.ambis.cz/en/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1416,7 +1419,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 3900,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.ambis.cz/en/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1436,7 +1439,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 2236,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.cevroinstitut.cz/en/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1454,7 +1457,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 2,
     tuitionEurPerYear: 2540,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.cevroinstitut.cz/en/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1474,7 +1477,7 @@ export const programmes: Programme[] = [
     field: "Business",
     durationYears: 3,
     tuitionEurPerYear: 4000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.mvso.cz/en/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1761,7 +1764,7 @@ export const programmes: Programme[] = [
     field: "Economics",
     durationYears: 2,
     tuitionEurPerYear: 4800,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.muni.cz/en/study-at-muni/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1779,7 +1782,7 @@ export const programmes: Programme[] = [
     field: "Computer Science",
     durationYears: 2,
     tuitionEurPerYear: 4500,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.muni.cz/en/study-at-muni/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1797,7 +1800,7 @@ export const programmes: Programme[] = [
     field: "Chemistry",
     durationYears: 2,
     tuitionEurPerYear: 3000,
-    entranceExam: false,
+    entranceExam: true,
     programmeUrl: "https://www.muni.cz/en/study-at-muni/",
     verification: {
       lastVerified: "2026-08-30",
@@ -1821,6 +1824,18 @@ export function getDeadlineStatus(prog: Programme): DeadlineStatus {
   const now = new Date();
   if (d.getTime() < now.getTime()) return "passed";
   return "verified";
+}
+
+/**
+ * Most Czech universities close applications at the end of February. A
+ * programme without its own published date ("not-published") is shown with
+ * this usual deadline, always next to a link to confirm on the official page.
+ * Returns the next end of February as YYYY-MM-DD.
+ */
+export function usualDeadline(now: Date = new Date()): string {
+  const year = now.getMonth() >= 2 ? now.getFullYear() + 1 : now.getFullYear();
+  const lastDay = new Date(Date.UTC(year, 2, 0)).getUTCDate();
+  return `${year}-02-${lastDay}`;
 }
 
 export function getUpcomingDeadlines(): (Programme & { university?: string })[] {
