@@ -237,7 +237,7 @@ export function EmailSignup({ source, answers, programmeIds, className, compact,
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand text-bg text-sm font-semibold hover:bg-brand/90 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          className="btn-solid inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand/90 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
           {status === "sending" && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
           {c.button}

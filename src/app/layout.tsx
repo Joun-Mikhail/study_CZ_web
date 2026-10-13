@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Public_Sans, Zen_Antique, Lalezar, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Inter, Fraunces, Noto_Naskh_Arabic, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { TranslationProvider } from "@/i18n/context";
 import Umami from "@/components/umami";
 import { MotionProvider } from "@/components/motion-provider";
@@ -8,29 +8,35 @@ import { HreflangDefault } from "@/components/hreflang-default";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
+import { BackToTop } from "@/components/back-to-top";
 import { FOUNDER_NAME } from "@/config/contact";
 import "./globals.css";
 
-// Text and interface.
-const publicSans = Public_Sans({
-  variable: "--font-public-sans",
+// Fonts are self-hosted by next/font at build time: no request to Google
+// from the visitor's browser (cookieless/privacy rule) and no render-blocking
+// stylesheet.
+
+// Text and interface. SIL Open Font License.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
-// English display face for headings (one weight). SIL Open Font License.
-const zenAntique = Zen_Antique({
-  variable: "--font-zen-antique",
-  weight: "400",
-  subsets: ["latin"],
+// English headings: an editorial serif with an optical-size axis, so large
+// headlines get finer detail. Variable weight. SIL Open Font License.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin", "latin-ext"],
+  axes: ["opsz"],
   display: "swap",
 });
 
-// Arabic display face for headings (one weight). SIL Open Font License.
-// Not preloaded, so English pages don't download it.
-const lalezar = Lalezar({
-  variable: "--font-lalezar",
-  weight: "400",
+// Arabic headings: a book Naskh that pairs with Fraunces. Not preloaded, so
+// English pages don't download it (postbuild-ar preloads it on /ar/ pages).
+// SIL Open Font License.
+const naskh = Noto_Naskh_Arabic({
+  variable: "--font-naskh",
   subsets: ["arabic"],
   display: "swap",
   preload: false,
@@ -81,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" className={`${publicSans.variable} ${zenAntique.variable} ${lalezar.variable} ${plexArabic.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" dir="ltr" className={`${inter.variable} ${fraunces.variable} ${naskh.variable} ${plexArabic.variable} antialiased`} suppressHydrationWarning>
       <head>
         <HreflangDefault />
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(/^\\/ar(\\/|$)/.test(location.pathname)){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}})()` }} />
@@ -125,6 +131,7 @@ export default function RootLayout({
           <ToastProvider>
             {children}
             <WhatsAppFloat />
+            <BackToTop />
             <MotionFallback />
             <OfferExpiryGuard />
           </ToastProvider>

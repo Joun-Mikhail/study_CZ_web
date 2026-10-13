@@ -67,6 +67,11 @@ for (const route of ["/stage/documents/", "/ar/stage/documents/"]) {
   await page.goto(`http://localhost:${PORT}${route}`, { waitUntil: "networkidle" });
   await page.locator("a[aria-haspopup=dialog]").first().click();
   await page.waitForSelector("dialog[open]");
+  // Audit the sheet at rest: it fades in from 0.6 opacity, and measuring
+  // mid-animation reported false contrast failures about half the time.
+  await page.evaluate(() =>
+    Promise.all(document.querySelector("dialog[open]").getAnimations({ subtree: true }).map((a) => a.finished))
+  );
   await page.addScriptTag({ content: AXE });
   const { violations } = await page.evaluate(() =>
     window.axe.run(document.querySelector("dialog[open]"), { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] } })

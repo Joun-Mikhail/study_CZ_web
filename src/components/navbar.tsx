@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
@@ -39,7 +39,8 @@ function DesktopDropdown({
           e.stopPropagation();
           onToggle();
         }}
-        className={`flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
+        data-active={hasActiveItem || undefined}
+        className={`nav-underline flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
           hasActiveItem
             ? "text-brand font-medium"
             : "text-text-secondary hover:text-text-primary"
@@ -55,19 +56,14 @@ function DesktopDropdown({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -4, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.98 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full start-0 mt-3 min-w-[240px] rounded-xl border border-border-subtle bg-surface shadow-[0_18px_40px_-18px_rgba(11,31,58,0.35)] py-2 z-50"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-full start-0 mt-3 min-w-[240px] rounded-md border border-border-subtle bg-surface shadow-[0_18px_40px_-18px_rgba(26,25,24,0.35)] py-2 z-50"
           >
-            {items.map((item, i) => (
-              <motion.div
-                key={item.href}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.03, duration: 0.15 }}
-              >
+            {items.map((item) => (
+              <div key={item.href}>
                 <Link
                   href={item.href}
                   onClick={onNavigate}
@@ -79,7 +75,7 @@ function DesktopDropdown({
                 >
                   {item.label}
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         )}
@@ -108,7 +104,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="fixed inset-0 z-[60] bg-[#0b1f3a]/55 flex items-start justify-center pt-24"
+      className="fixed inset-0 z-[60] bg-[#1c1a18]/55 flex items-start justify-center pt-24"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
@@ -127,7 +123,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
               ref={inputRef}
               name="q"
               placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
-              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(154,79,51,0.12)] transition-all"
               autoComplete="off"
             />
           </div>
@@ -142,6 +138,12 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
     </motion.div>
   );
 }
+
+/** Mobile menu: the panel unfolds and fades in, slowly and all at once. */
+const MENU_PANEL: Variants = {
+  closed: { height: 0, opacity: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+  open: { height: "auto", opacity: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+};
 
 /** Shown at the top of the mobile menu, so not repeated in its groups. */
 const MOBILE_TOP = new Set(["/courses", "/services", "/university-matcher", "/eligibility"]);
@@ -237,8 +239,8 @@ export function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-bg transition-shadow duration-200 ${
-          scrolled ? "shadow-[0_10px_30px_-22px_rgba(11,31,58,0.45)]" : ""
+        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-bg transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_10px_30px_-22px_rgba(26,25,24,0.45)]" : ""
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-[72px] flex items-center">
@@ -267,7 +269,8 @@ export function Navbar() {
             <Link
               href="/courses"
               onClick={handleNavigate}
-              className={`whitespace-nowrap transition-colors py-1 ${
+              data-active={isActive("/courses") || undefined}
+              className={`nav-underline whitespace-nowrap transition-colors py-1 ${
                 isActive("/courses")
                   ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
@@ -278,7 +281,8 @@ export function Navbar() {
             <Link
               href="/services"
               onClick={handleNavigate}
-              className={`whitespace-nowrap transition-colors py-1 ${
+              data-active={isActive("/services") || undefined}
+              className={`nav-underline whitespace-nowrap transition-colors py-1 ${
                 isActive("/services")
                   ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
@@ -315,7 +319,7 @@ export function Navbar() {
             <Link
               href="/eligibility"
               onClick={handleNavigate}
-              className="hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg bg-brand text-bg text-sm font-semibold hover:bg-brand-hover transition-colors"
+              className="btn-solid hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-md text-sm font-medium"
             >
               {locale === "ar" ? "أقدر أقدم؟" : "Check eligibility"}
             </Link>
@@ -344,11 +348,11 @@ export function Navbar() {
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
+              variants={MENU_PANEL}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg shadow-[0_20px_30px_-20px_rgba(26,25,24,0.4)]"
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
@@ -358,7 +362,7 @@ export function Navbar() {
                     <input
                       name="q"
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(154,79,51,0.12)] transition-all"
                     />
                   </div>
                 </form>
@@ -382,7 +386,6 @@ export function Navbar() {
                     </Link>
                   ))}
                 </div>
-
 
                 {/* Grouped nav items */}
                 {Object.entries(dropdowns).map(([key, group]) => (

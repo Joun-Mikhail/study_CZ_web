@@ -1,16 +1,18 @@
 "use client";
 
+import type { ComponentType, CSSProperties } from "react";
 import Image from "next/image";
 import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { GlassCard } from "@/components/ui/glass-card";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
 import { CityStrip, type CityCard } from "@/components/city-strip";
 import { JourneyGlobe } from "@/components/journey-globe";
 import { SiteImage } from "@/components/site-image";
+import { TexturedBackground } from "@/components/textured-background";
+import { SectionReveal } from "@/components/section-reveal";
 import { EligibilityArt, MatcherArt, CostArt, GuideArt } from "@/components/illustrations";
 import { CountUp } from "@/components/ui/count-up";
 import { WaitlistSignup } from "@/components/waitlist-signup";
@@ -18,18 +20,7 @@ import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
 import { price } from "@/config/pricing";
 import { COMMUNITY_SIZE, COMMUNITY_SIZE_AR } from "@/config/contact";
-import {
-  ArrowRight,
-  BarChart3,
-  BookOpen,
-  ClipboardCheck,
-  Compass,
-  FileText,
-  GraduationCap,
-  MapPin,
-  MessageCircle,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BookOpen, MapPin, MessageCircle, Users } from "lucide-react";
 
 /** Figures computed from the site's own data at build time (see page.tsx). */
 export type HomeFacts = {
@@ -46,19 +37,26 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
   const c = HOME_COPY[locale];
   const ar = locale === "ar";
 
-  const tasks = [
-    { href: "/eligibility", icon: ClipboardCheck, art: EligibilityArt, theme: THEMES.teal, title: t.bento.eligibility.title, body: t.bento.eligibility.description },
-    { href: "/university-matcher", icon: Compass, art: MatcherArt, theme: THEMES.violet, title: t.bento.matcher.title, body: t.bento.matcher.description },
-    { href: "/cost-of-living", icon: BarChart3, art: CostArt, theme: THEMES.gold, title: t.bento.cost.title, body: t.bento.cost.description },
-    { href: "/application-guide", icon: FileText, art: GuideArt, theme: THEMES.coral, title: c.guideTitle, body: c.guideBody },
+  // Each tool keeps the colour its illustration is drawn in.
+  const tasks: ToolCardProps[] = [
+    { href: "/eligibility", art: EligibilityArt, theme: THEMES.forest, title: t.bento.eligibility.title, body: t.bento.eligibility.description },
+    { href: "/university-matcher", art: MatcherArt, theme: THEMES.plum, title: t.bento.matcher.title, body: t.bento.matcher.description },
+    { href: "/cost-of-living", art: CostArt, theme: THEMES.gold, title: t.bento.cost.title, body: t.bento.cost.description },
+    { href: "/application-guide", art: GuideArt, theme: THEMES.clay, title: c.guideTitle, body: c.guideBody },
   ];
-  const statColors = ["border-teal", "border-violet", "border-gold", "border-coral"];
 
+  const lowest = ar ? `${n(facts.lowestTuition)}€` : `€${n(facts.lowestTuition)}`;
   const stats = [
     { value: n(facts.programmeCount), label: c.statProgrammes },
     { value: n(facts.universityCount), label: c.statUniversities },
-    { value: ar ? `${n(facts.lowestTuition)}€` : `€${n(facts.lowestTuition)}`, label: c.statLowest },
+    { value: lowest, label: c.statLowest },
     { value: ar ? "0€" : "€0", label: c.statCzech },
+  ];
+  // The same true figures, short, for the hero.
+  const heroStats = [
+    { value: n(facts.programmeCount), label: c.heroStatProgrammes },
+    { value: n(facts.universityCount), label: c.heroStatUniversities },
+    { value: lowest, label: c.heroStatLowest },
   ];
 
   const trust = [
@@ -82,184 +80,187 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             sizes="100vw"
             className="-z-20 object-cover object-center"
           />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b1f3a] via-[#0b1f3a]/85 to-[#11457e]/55 md:bg-gradient-to-r md:rtl:bg-gradient-to-l md:from-[#0b1f3a] md:via-[#0b1f3a]/80 md:to-[#11457e]/35"
-          />
-          {/* Colour light behind the text: teal, violet and gold, drifting slowly. */}
-          <span aria-hidden="true" className="blob -z-10 h-72 w-72 bg-teal/60 -top-10 start-[-4rem]" />
-          <span aria-hidden="true" className="blob -z-10 h-80 w-80 bg-violet/50 top-1/3 end-[-6rem] [animation-delay:-5s]" />
-          <span aria-hidden="true" className="blob -z-10 h-64 w-64 bg-gold/40 bottom-0 start-1/3 [animation-delay:-9s]" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 sm:pt-36 md:pt-44 md:pb-44 lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
+          <TexturedBackground variant="hero" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:pt-40 md:pt-48 md:pb-28 lg:grid lg:grid-cols-[1.25fr_1fr] lg:items-end lg:gap-16">
             <div className="max-w-2xl">
-              <p className="flex items-center gap-3 text-sm font-semibold tracking-wide text-white/85 mb-5">
-                <span aria-hidden="true" className="inline-block w-8 h-[3px] rounded-full bg-[#f2545b]" />
+              <p className="eyebrow rise flex items-center gap-4 text-[#e6ad94] mb-7">
+                <span aria-hidden="true" className="h-px w-10 bg-[#c67b5c]" />
                 {c.eyebrow}
               </p>
-              <h1 className="text-[2.5rem] leading-[1.08] rtl:leading-[1.35] sm:text-5xl lg:text-6xl font-semibold text-white mb-5">
+              <h1 className="rise text-[2.6rem] leading-[1.06] rtl:leading-[1.45] sm:text-6xl lg:text-[4.25rem] text-[#f5f3f0] mb-7" style={{ "--d": "80ms" } as CSSProperties}>
                 {t.hero.title}
               </h1>
-              <p className="text-lg sm:text-xl leading-relaxed text-white/85 max-w-xl mb-8">{t.hero.subtitle}</p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <p className="rise text-lg sm:text-xl leading-relaxed text-[#f5f3f0]/80 max-w-xl mb-10" style={{ "--d": "160ms" } as CSSProperties}>
+                {t.hero.subtitle}
+              </p>
+              <div className="rise flex flex-col sm:flex-row gap-3" style={{ "--d": "240ms" } as CSSProperties}>
                 <Link
                   href="/eligibility"
-                  className="inline-flex min-h-14 items-center justify-center gap-2.5 lg:whitespace-nowrap rounded-xl bg-white px-7 text-base font-semibold text-[#0b1f3a] shadow-sm transition-colors hover:bg-[#e8eff8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="btn-solid inline-flex min-h-13 items-center justify-center lg:whitespace-nowrap rounded-md px-7 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5f3f0]"
                 >
-                  <ClipboardCheck className="w-5 h-5" aria-hidden="true" />
                   {c.heroCta}
                 </Link>
                 <Link
                   href="/programmes"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 lg:whitespace-nowrap rounded-xl border border-white/40 px-7 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="group btn-fill inline-flex min-h-13 items-center justify-center gap-2 lg:whitespace-nowrap rounded-md border border-[#f5f3f0]/35 px-7 text-base font-medium text-[#f5f3f0] transition-colors duration-300 hover:border-[#f5f3f0]/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5f3f0]"
                 >
                   {c.heroSecondary}
-                  <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
+                  <ArrowRight className="w-4 h-4 rtl:rotate-180 transition-transform duration-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" strokeWidth={1.75} aria-hidden="true" />
                 </Link>
               </div>
-              <p className="mt-4 text-sm text-white/70">{c.heroNote}</p>
+              <p className="mt-4 text-sm text-[#f5f3f0]/70">{c.heroNote}</p>
+
+              {/* True figures from our own data, set like a table of contents. */}
+              <dl className="rise mt-14 grid grid-cols-3 border-t border-[#f5f3f0]/15 pt-6 max-w-lg" style={{ "--d": "320ms" } as CSSProperties}>
+                {heroStats.map((s, i) => (
+                  <div key={s.label} className={`grid content-start ${i > 0 ? "border-s border-[#f5f3f0]/15 ps-4 sm:ps-6" : "pe-4"}`}>
+                    <dt className="row-start-2 mt-1 text-xs leading-snug text-[#f5f3f0]/70">{s.label}</dt>
+                    <dd className="row-start-1 font-display text-2xl sm:text-3xl text-[#f5f3f0] tabular-nums" dir="ltr">
+                      {s.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-            <HeroCollage facts={facts} ar={ar} />
+            <HeroFigure caption={c.heroCzech} />
           </div>
         </section>
 
-        {/* ── Start here: task cards over the hero ─────────────── */}
-        <section aria-labelledby="start-here" className="relative z-10 -mt-20 md:-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 id="start-here" className="sr-only">
-            {c.startHere}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {tasks.map(({ href, icon: Icon, art: Art, theme, title, body }) => (
-              <GlassCard key={href} href={href} ariaLabel={title} className={`group h-full p-0 border-t-4 ${theme.border} shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]`}>
-                <div className="flex h-full flex-col">
-                  <div className={`relative flex h-24 sm:h-32 items-center justify-center ${theme.soft}`}>
-                    <Art className="h-20 sm:h-28 w-auto transition-transform duration-300 group-hover:scale-105" />
-                    <span className={`absolute start-4 -bottom-5 inline-flex h-11 w-11 items-center justify-center rounded-xl ${theme.fill} text-white shadow-md ring-4 ring-surface`}>
-                      <Icon className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col p-5 pt-8 sm:p-6 sm:pt-9">
-                    <h3 className="text-lg font-semibold text-text-primary mb-1">{title}</h3>
-                    <p className="text-sm leading-relaxed text-text-secondary mb-4">{body}</p>
-                    <span className={`mt-auto inline-flex items-center gap-1.5 text-sm font-semibold ${theme.ink}`}>
-                      {c.open}
-                      <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
-                    </span>
-                  </div>
-                </div>
-              </GlassCard>
+        {/* ── Start here: the four free tools ──────────────────── */}
+        <section aria-labelledby="start-here" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28">
+          <SectionReveal className="mb-10 sm:mb-14 grid gap-4 lg:grid-cols-[1fr_1.4fr] lg:items-end">
+            <div>
+              <p className="eyebrow text-brand mb-4">{c.startHere}</p>
+              <h2 id="start-here" className="text-3xl sm:text-[2.75rem] leading-tight text-text-primary">
+                {c.toolsTitle}
+              </h2>
+            </div>
+            <p className="text-text-secondary leading-relaxed max-w-xl lg:justify-self-end">{c.toolsBody}</p>
+          </SectionReveal>
+          <SectionReveal delay={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            {tasks.map((task, i) => (
+              <ToolCard key={task.href} {...task} index={i} cta={c.open} />
             ))}
-          </div>
+          </SectionReveal>
         </section>
 
         {/* ── 3D: from your city to Czechia ───────────────────── */}
-        <div className="pt-16 sm:pt-20">
+        <SectionReveal className="pt-20 sm:pt-28">
           <JourneyGlobe />
-        </div>
+        </SectionReveal>
 
-        {/* ── Where are you right now? ─────────────────────────── */}
+        {/* ── Where are you right now? (has its own entrance) ─── */}
         <div className="pt-16 sm:pt-20">
           <StageRouter />
         </div>
 
+        {/* Renders nothing until a form is configured, so it keeps its own spacing. */}
         <WaitlistSignup className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" />
 
-        {/* ── Where students live: the 14 university cities ────── */}
+        {/* ── Where students live (has its own entrance) ───────── */}
         <CityStrip cities={facts.cities} />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
-        <section aria-labelledby="facts" className="border-y border-border-subtle bg-mesh">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-            <div className="max-w-2xl mb-10">
-              <h2 id="facts" className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3">
+        <section aria-labelledby="facts" className="relative isolate overflow-hidden border-y border-border-subtle">
+          <TexturedBackground variant="section" />
+          <SectionReveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+            <div className="max-w-2xl mb-12 sm:mb-16">
+              <p className="eyebrow text-brand mb-4">{c.factsEyebrow}</p>
+              <h2 id="facts" className="text-3xl sm:text-[2.75rem] leading-tight text-text-primary mb-4">
                 {c.factsTitle}
               </h2>
               <p className="text-text-secondary leading-relaxed">{c.factsBody}</p>
             </div>
-            <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
-              {stats.map((s, i) => (
-                <div key={s.label} className={`grid content-start border-s-4 ${statColors[i]} ps-4`}>
-                  <dt className="row-start-2 text-sm leading-snug text-text-secondary mt-1">{s.label}</dt>
-                  <dd className="row-start-1 font-display text-3xl sm:text-4xl font-semibold text-text-primary tabular-nums" dir="ltr">
+            <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-10">
+              {stats.map((s) => (
+                <div key={s.label} className="grid content-start border-t border-border-subtle pt-6">
+                  <dt className="row-start-2 mt-2 text-sm leading-snug text-text-secondary">{s.label}</dt>
+                  <dd className="row-start-1 font-display text-4xl sm:text-5xl text-text-primary tabular-nums" dir="ltr">
                     <CountUp value={s.value} />
                   </dd>
                 </div>
               ))}
             </dl>
-            <Link href="/programmes" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline underline-offset-4">
-              {c.factsLink}
-              <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
+            <Link href="/programmes" className="mt-12 inline-flex items-center gap-2 font-medium text-brand">
+              <span className="link-rule">{c.factsLink}</span>
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" strokeWidth={1.75} aria-hidden="true" />
             </Link>
+          </SectionReveal>
+        </section>
+
+        {/* ── Course and personal help, on a charcoal band ─────── */}
+        <section aria-labelledby="help" className="surface-ink relative isolate overflow-hidden">
+          <TexturedBackground variant="dark" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+            <SectionReveal className="max-w-2xl mb-12">
+              <p className="eyebrow text-[#e6ad94] mb-4">{c.helpEyebrow}</p>
+              <h2 id="help" className="text-3xl sm:text-[2.75rem] leading-tight text-[#f5f3f0] mb-4">
+                {c.helpTitle}
+              </h2>
+              <p className="text-[#f5f3f0]/80 leading-relaxed">{c.helpBody}</p>
+            </SectionReveal>
+            <SectionReveal delay={0.1} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <article className="flex h-full flex-col overflow-hidden rounded-lg border border-[#f5f3f0]/12 bg-[#f5f3f0]/[0.03]">
+                <div className="relative h-48 sm:h-56">
+                  <SiteImage id="study-desk-flatlay" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative className="saturate-[0.8]" />
+                </div>
+                <div className="flex flex-1 flex-col p-7 sm:p-9">
+                  <p className="eyebrow text-[#dcc29c] mb-4">{c.courseBadge}</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-[#f5f3f0] mb-3">{t.bento.courses.title}</h3>
+                  <p className="text-[#f5f3f0]/80 leading-relaxed mb-8">{t.bento.courses.description}</p>
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-[#f5f3f0]/12 pt-6">
+                    <PriceTag k="course" locale={locale} className="font-display text-2xl text-[#f5f3f0]" />
+                    <MagneticButton variant="primary" href="/courses">
+                      {c.courseCta}
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" strokeWidth={1.75} aria-hidden="true" />
+                    </MagneticButton>
+                  </div>
+                </div>
+              </article>
+
+              <article className="flex h-full flex-col overflow-hidden rounded-lg border border-[#f5f3f0]/12 bg-[#f5f3f0]/[0.03]">
+                <div className="relative h-48 sm:h-56">
+                  <SiteImage id="study-laptop-notes" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative className="saturate-[0.8]" />
+                </div>
+                <div className="flex flex-1 flex-col p-7 sm:p-9">
+                  <OfferBadge locale={locale} className="mb-5 self-start" />
+                  <h3 className="font-display text-2xl sm:text-3xl text-[#f5f3f0] mb-3">{c.servicesTitle}</h3>
+                  <p className="text-[#f5f3f0]/80 leading-relaxed mb-8">{c.servicesBody}</p>
+                  <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-[#f5f3f0]/12 pt-6">
+                    <MagneticButton variant="primary" href="/services">
+                      {ar ? `شوف الخدمات — تبدأ من ${price("consultation", "ar")}` : `See services — from ${price("consultation")}`}
+                    </MagneticButton>
+                    <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-[#f5f3f0]">
+                      <MessageCircle className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
+                      <span className="link-rule">{c.askFirst}</span>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </SectionReveal>
+
+            <ul className="mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-x-10 gap-y-3 text-sm text-[#f5f3f0]/80">
+              {trust.map(({ icon: Icon, label }) => (
+                <li key={label} className="flex items-center gap-3">
+                  <Icon className="w-4 h-4 text-[#c9a77a] shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                  {label}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* ── Course and personal help ─────────────────────────── */}
-        <section aria-labelledby="help" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <h2 id="help" className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3 max-w-2xl">
-            {c.helpTitle}
-          </h2>
-          <p className="text-text-secondary leading-relaxed max-w-2xl mb-10">{c.helpBody}</p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <GlassCard className="flex flex-col p-7 sm:p-8 pt-0 sm:pt-0">
-              <div className="relative -mx-7 sm:-mx-8 mb-6 h-44 sm:h-52">
-                <SiteImage id="study-desk-flatlay" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative />
-                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-teal-ink mb-3">
-                <GraduationCap className="w-4 h-4" aria-hidden="true" />
-                {c.courseBadge}
-              </span>
-              <h3 className="font-display text-2xl font-semibold text-text-primary mb-2">{t.bento.courses.title}</h3>
-              <p className="text-text-secondary leading-relaxed mb-6">{t.bento.courses.description}</p>
-              <div className="mt-auto flex flex-wrap items-center justify-between gap-4">
-                <PriceTag k="course" locale={locale} className="text-2xl font-bold text-text-primary" />
-                <MagneticButton variant="primary" href="/courses">
-                  {c.courseCta}
-                  <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
-                </MagneticButton>
-              </div>
-            </GlassCard>
-
-            <GlassCard className="flex flex-col p-7 sm:p-8 pt-0 sm:pt-0 bg-brand/[0.04]">
-              <div className="relative -mx-7 sm:-mx-8 mb-6 h-44 sm:h-52">
-                <SiteImage id="study-laptop-notes" sizes="(max-width: 1024px) 100vw, 600px" whenNear decorative />
-                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-              </div>
-              <OfferBadge locale={locale} className="mb-4 self-start" />
-              <h3 className="font-display text-2xl font-semibold text-text-primary mb-2">{c.servicesTitle}</h3>
-              <p className="text-text-secondary leading-relaxed mb-6">{c.servicesBody}</p>
-              <div className="mt-auto flex flex-wrap items-center gap-3">
-                <MagneticButton variant="primary" href="/services">
-                  {ar ? `شوف الخدمات — تبدأ من ${price("consultation", "ar")}` : `See services — from ${price("consultation")}`}
-                </MagneticButton>
-                <Link href="/contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline underline-offset-4">
-                  <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                  {c.askFirst}
-                </Link>
-              </div>
-            </GlassCard>
-          </div>
-
-          <ul className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-3 text-sm text-text-secondary">
-            {trust.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2.5">
-                <Icon className="w-4 h-4 text-brand shrink-0" aria-hidden="true" />
-                {label}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <SectionReveal className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
           <EmailSignup source="checklist" />
-        </div>
+        </SectionReveal>
 
-        <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 text-center text-sm text-text-secondary">
+        <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 text-center text-sm text-text-secondary">
           {c.more}{" "}
-          <Link href="/why-czechia" className="text-brand hover:underline">{c.moreWhy}</Link>
+          <Link href="/why-czechia" className="text-brand hover:underline underline-offset-4">{c.moreWhy}</Link>
           {" · "}
-          <Link href="/qa" className="text-brand hover:underline">{c.moreQa}</Link>
+          <Link href="/qa" className="text-brand hover:underline underline-offset-4">{c.moreQa}</Link>
           {" · "}
-          <Link href="/for-parents" className="text-brand hover:underline">{c.moreParents}</Link>
+          <Link href="/for-parents" className="text-brand hover:underline underline-offset-4">{c.moreParents}</Link>
         </p>
       </main>
       <Footer />
@@ -273,10 +274,17 @@ const HOME_COPY = {
     heroCta: "Can I study in Czechia? 5-minute check",
     heroSecondary: "Browse programmes",
     heroNote: "Free, no sign-up.",
+    heroStatProgrammes: "programmes",
+    heroStatUniversities: "universities",
+    heroStatLowest: "lowest tuition a year",
+    heroCzech: "€0 tuition when you study in Czech",
     startHere: "Start here",
+    toolsTitle: "Four free tools to plan your studies",
+    toolsBody: "Check whether you can apply, find programmes that fit your grades and budget, see what a month really costs, and follow every step to your visa.",
     open: "Start",
     guideTitle: "Application Guide",
     guideBody: "Every step from choosing a programme to your visa, in order.",
+    factsEyebrow: "From our own data",
     factsTitle: "Czechia in numbers",
     factsBody: "Counted from the programmes and universities on this site, each with its fee and official source.",
     statProgrammes: "programmes with verified fees",
@@ -284,6 +292,7 @@ const HOME_COPY = {
     statLowest: "lowest yearly tuition in English on our list",
     statCzech: "tuition at public universities when you study in Czech",
     factsLink: "Browse every programme",
+    helpEyebrow: "Course and personal help",
     helpTitle: "Prefer some help along the way?",
     helpBody: "The guides and tools are free and always will be. When you want a person to look at your own situation, there's a course and a few personal services.",
     courseBadge: "Pre-order · opens 1 January 2027",
@@ -301,10 +310,17 @@ const HOME_COPY = {
     heroCta: "أقدر أدرس في التشيك؟ اختبار 5 دقايق",
     heroSecondary: "تصفح البرامج",
     heroNote: "مجاني ومن غير تسجيل.",
+    heroStatProgrammes: "برنامج",
+    heroStatUniversities: "جامعة",
+    heroStatLowest: "أقل رسوم في السنة",
+    heroCzech: "0€ رسوم لو درست بالتشيكي",
     startHere: "ابدأ من هنا",
+    toolsTitle: "أربع أدوات مجانية تخطط بيها دراستك",
+    toolsBody: "اعرف إذا كنت تقدر تقدم، ولاقي برامج تناسب درجاتك وميزانيتك، وشوف الشهر بيتكلف كام فعلًا، وامشي خطوة بخطوة لحد الفيزا.",
     open: "ابدأ",
     guideTitle: "دليل التقديم",
     guideBody: "كل الخطوات من اختيار البرنامج لحد الفيزا، بالترتيب.",
+    factsEyebrow: "من بياناتنا",
     factsTitle: "التشيك بالأرقام",
     factsBody: "محسوبة من البرامج والجامعات اللي على الموقع، وكل برنامج معاه رسومه ومصدره الرسمي.",
     statProgrammes: "برنامج برسوم متأكدين منها",
@@ -312,6 +328,7 @@ const HOME_COPY = {
     statLowest: "أقل رسوم سنوية لبرنامج بالإنجليزي عندنا",
     statCzech: "رسوم الجامعات الحكومية لو درست بالتشيكي",
     factsLink: "تصفح كل البرامج",
+    helpEyebrow: "كورس ومساعدة شخصية",
     helpTitle: "محتاج مساعدة في الطريق؟",
     helpBody: "الأدلة والأدوات مجانية وهتفضل مجانية. ولو عايز حد يبص على وضعك أنت بالتحديد، فيه كورس وكام خدمة شخصية.",
     courseBadge: "حجز مسبق · بيفتح 1 يناير 2027",
@@ -326,38 +343,67 @@ const HOME_COPY = {
   },
 } as const;
 
-/** Colour themes for cards: static class strings so Tailwind keeps them. */
+/** Muted tool colours: static class strings so Tailwind keeps them. */
+type Theme = { soft: string; ink: string };
 const THEMES = {
-  teal: { soft: "bg-teal-soft", fill: "bg-teal", ink: "text-teal-ink", border: "border-t-teal" },
-  violet: { soft: "bg-violet-soft", fill: "bg-violet", ink: "text-violet-ink", border: "border-t-violet" },
-  gold: { soft: "bg-gold-soft", fill: "bg-gold", ink: "text-gold-ink", border: "border-t-gold" },
-  coral: { soft: "bg-coral-soft", fill: "bg-coral", ink: "text-coral-ink", border: "border-t-coral" },
+  forest: { soft: "bg-teal-soft", ink: "text-teal-ink" },
+  plum: { soft: "bg-violet-soft", ink: "text-violet-ink" },
+  gold: { soft: "bg-gold-soft", ink: "text-gold-ink" },
+  clay: { soft: "bg-coral-soft", ink: "text-coral-ink" },
+} satisfies Record<string, Theme>;
+
+type ToolCardProps = {
+  href: string;
+  art: ComponentType<{ className?: string }>;
+  theme: Theme;
+  title: string;
+  body: string;
 };
 
 /**
- * Desktop only: a floating collage of study photos with two true figures.
- * The photos are lazy and low-priority, so the hero background stays the
- * page's main image; on phones the collage is display:none, so its lazy
- * photos are never requested.
+ * A tool, set like an entry in a printed guide: its number, a quiet
+ * illustration, title and one line. Hairline border that warms on hover or
+ * focus. The whole card is one link.
  */
-function HeroCollage({ facts, ar }: { facts: HomeFacts; ar: boolean }) {
+function ToolCard({ href, art: Art, theme, title, body, cta, index }: ToolCardProps & { cta: string; index: number }) {
   return (
-    <div aria-hidden="true" className="relative hidden lg:block h-[460px]">
-      <div className="hero-float absolute top-0 end-0 w-[62%] h-[58%] overflow-hidden rounded-3xl border-4 border-white/90 shadow-2xl rotate-2">
-        <SiteImage id="study-karolinum-graduation" sizes="360px" decorative />
+    <Link href={href} className="card-quiet group flex h-full flex-col overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+      <div className={`flex h-28 sm:h-36 items-center justify-center ${theme.soft}`}>
+        <Art className="h-20 sm:h-28 w-auto transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
       </div>
-      <div className="hero-float absolute bottom-0 start-0 w-[58%] h-[52%] overflow-hidden rounded-3xl border-4 border-white/90 shadow-2xl -rotate-3 [animation-delay:-3s]">
-        <SiteImage id="study-group-study" sizes="340px" decorative />
+      <div className="flex min-w-0 flex-1 flex-col p-6">
+        <p className={`font-display text-sm tabular-nums mb-3 ${theme.ink}`} dir="ltr">
+          {String(index + 1).padStart(2, "0")}
+        </p>
+        <h3 className="text-xl text-text-primary mb-2">{title}</h3>
+        <p className="text-sm leading-relaxed text-text-secondary mb-6">{body}</p>
+        <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-text-primary">
+          <span className="link-rule">{cta}</span>
+          <ArrowRight className="w-4 h-4 rtl:rotate-180 transition-transform duration-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" strokeWidth={1.75} aria-hidden="true" />
+        </span>
       </div>
-      <div className="hero-float absolute bottom-8 end-4 w-[34%] h-[34%] overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl rotate-6 [animation-delay:-6s]">
-        <SiteImage id="study-graduate-smile" sizes="200px" decorative />
+    </Link>
+  );
+}
+
+/**
+ * Desktop only: two study photos set square, like plates in a book, with a
+ * true figure as the caption. The photos are lazy and low-priority, so the
+ * hero background stays the page's main image; on phones the figure is
+ * display:none, so its photos are never requested.
+ */
+function HeroFigure({ caption }: { caption: string }) {
+  return (
+    <div aria-hidden="true" className="relative hidden lg:block h-[480px]">
+      <div className="absolute top-0 end-0 w-[72%] h-[72%] overflow-hidden rounded-sm border border-[#f5f3f0]/20">
+        <SiteImage id="study-karolinum-graduation" sizes="400px" decorative className="saturate-[0.85]" />
       </div>
-      <span className="absolute top-[50%] start-[4%] rounded-full bg-[#0f766e] px-4 py-2 text-sm font-semibold text-white shadow-lg">
-        {ar ? `${facts.universityCount} جامعة` : `${facts.universityCount} universities`}
-      </span>
-      <span className="absolute top-6 start-[8%] rounded-full bg-gold px-4 py-2 text-sm font-semibold text-[#3b2400] shadow-lg">
-        {ar ? `${facts.programmeCount} برنامج` : `${facts.programmeCount} programmes`}
-      </span>
+      <div className="absolute bottom-0 start-0 w-[48%] h-[46%] overflow-hidden rounded-sm border-4 border-[#1c1a18]">
+        <SiteImage id="study-group-study" sizes="260px" decorative className="saturate-[0.85]" />
+      </div>
+      <p className="absolute bottom-6 end-0 w-[44%] border-t border-[#c67b5c] pt-3 text-sm leading-snug text-[#f5f3f0]/80">
+        {caption}
+      </p>
     </div>
   );
 }

@@ -87,7 +87,7 @@ export function StageRouter() {
           <div className="mb-4 sm:mb-6" aria-hidden="true">
             <div className="h-1.5 rounded-full bg-brand/10 overflow-hidden">
               <div
-                className="stage-progress h-full rounded-full bg-gradient-to-r rtl:bg-gradient-to-l from-sky via-violet to-teal"
+                className="stage-progress h-full rounded-full bg-brand-light"
                 style={{ width: `${((currentIndex + 1) / STAGES.length) * 100}%` }}
               />
             </div>

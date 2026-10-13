@@ -64,7 +64,7 @@ export default function VerifyIndexClient() {
               <button
                 type="submit"
                 disabled={!certId.trim()}
-                className="w-full px-5 py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="btn-solid w-full px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t.button}
               </button>

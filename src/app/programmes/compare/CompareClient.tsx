@@ -389,7 +389,7 @@ export default function CompareClient() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setShowSelector(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
+                className="btn-solid inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
               >
                 <Plus className="w-4 h-4" />
                 {c.addAProgramme}
@@ -427,7 +427,7 @@ export default function CompareClient() {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => setShowSelector(true)}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
+              className="btn-solid inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand/90 transition-colors shadow-lg shadow-brand/20"
             >
               <Plus className="w-4 h-4" />
               {c.add}

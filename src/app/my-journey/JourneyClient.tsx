@@ -135,7 +135,7 @@ function ProgrammeJourneyCard({
   return (
     <GlassCard className="relative overflow-hidden">
       {days !== null && days <= 14 && days >= 0 && (
-        <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-red-500 via-brand to-red-500" />
+        <div className="absolute top-0 inset-x-0 h-0.5 bg-accent-red" />
       )}
       <div className="flex items-start gap-4">
         <ProgressRing percent={progress} />

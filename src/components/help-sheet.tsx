@@ -178,7 +178,7 @@ function HelpSheet({ service, source, onClose }: { service: HelpService; source:
             href={checkoutLink(cfg.product)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full min-h-12 px-5 py-3 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand-hover transition-colors"
+            className="btn-solid flex items-center justify-center gap-2 w-full min-h-12 px-5 py-3 rounded-xl font-semibold text-sm hover:bg-brand-hover transition-colors"
           >
             {t.pay}
           </a>

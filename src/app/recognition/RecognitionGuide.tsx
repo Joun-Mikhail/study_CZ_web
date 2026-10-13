@@ -141,7 +141,7 @@ export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, 
             <HelpLink
               service="documentReview"
               source={`recognition:${pathname}`}
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors"
+              className="btn-solid inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand/90 transition-colors"
             >
               {t.reviewCta}
             </HelpLink>
