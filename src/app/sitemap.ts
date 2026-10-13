@@ -113,7 +113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(`/study/${degreeToSlug(d)}`, 0.7, studySources)
   );
 
-  const intentRoutes = ["/study/cheapest-programmes", "/study/no-entrance-exam"].flatMap((route) =>
+  const intentRoutes = ["/study/cheapest-programmes"].flatMap((route) =>
     entry(route, 0.7, studySources)
   );
 

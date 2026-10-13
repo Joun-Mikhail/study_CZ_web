@@ -71,7 +71,6 @@ export const stages: Record<StageSlug, StageConfig> = {
       { href: "/programmes", label: { en: "Programmes", ar: "البرامج" } },
       { href: "/programmes/compare", label: { en: "Compare Programmes", ar: "مقارنة البرامج" } },
       { href: "/study/cheapest-programmes", label: { en: "Cheapest Programmes", ar: "أرخص البرامج" } },
-      { href: "/study/no-entrance-exam", label: { en: "No Entrance Exam", ar: "بدون امتحان قبول" } },
       { href: "/deadlines", label: { en: "Deadline Tracker", ar: "متتبع المواعيد" } },
       { href: "/my-journey", label: { en: "My Journey", ar: "رحلتي" } },
     ],

@@ -24,7 +24,7 @@ import {
   Euro,
   GraduationCap,
 } from "lucide-react";
-import { programmes, filterProgrammes, PROGRAMME_FIELDS, getDeadlineStatus } from "@/data/programmes";
+import { filterProgrammes, PROGRAMME_FIELDS, getDeadlineStatus, usualDeadline } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -33,7 +33,7 @@ import Image from "next/image";
 const labels = {
   en: {
     title: "Deadline Tracker",
-    subtitle: "Track application deadlines for English-taught programmes at Czech universities. Only verified deadlines from official sources are shown.",
+    subtitle: "Track application deadlines for English-taught programmes at Czech universities. Where a university hasn't published its own date yet, we show the usual Czech deadline: the end of February.",
     filters: "Filters",
     clearFilters: "Clear filters",
     degree: "Degree",
@@ -55,23 +55,23 @@ const labels = {
     statusNotVerified: "Not yet verified",
     statusPassed: "Passed",
     statusRolling: "Rolling admissions",
-    statusNotPublished: "Not published yet",
+    statusNotPublished: "Usual deadline",
+    endOfFebruary: "End of February",
     noResults: "No programmes match your filters.",
     noDeadlinesYet: "We're building our deadline database from official university sources. No deadlines have been verified yet. Check back soon, or visit each university's admissions page directly.",
-    deadlineNotice: "Deadlines without verification are not displayed. We only show dates confirmed from official university websites.",
+    deadlineNotice: "Most Czech universities close applications at the end of February. Dates marked \"Usual deadline\" are not yet confirmed by the university, so check the official page before you apply. Every programme has an entrance exam.",
     checkOfficialPage: "Check official page",
     eligibilityCta: "Check my eligibility",
     browseUnis: "Browse universities",
     showingCount: "programmes",
     entranceExam: "Entrance exam",
-    noEntranceExam: "No entrance exam",
     daysLeft: "days left",
     verified: "Verified",
     urgentWarning: "Under 30 days",
   },
   ar: {
     title: "متتبع المواعيد",
-    subtitle: "تابع مواعيد التقديم للبرامج بالإنجليزي في التشيك. بنعرض بس المواعيد اللي اتأكدنا منها من المصادر الرسمية.",
+    subtitle: "تابع مواعيد التقديم للبرامج بالإنجليزي في جامعات التشيك. لو الجامعة لسه منزلتش ميعادها، بنعرضلك الميعاد المعتاد في التشيك: آخر فبراير.",
     filters: "فلتر",
     clearFilters: "امسح الفلتر",
     degree: "الدرجة",
@@ -93,16 +93,16 @@ const labels = {
     statusNotVerified: "لسه ماتأكدناش",
     statusPassed: "فات",
     statusRolling: "قبول مفتوح",
-    statusNotPublished: "لسه ماتنزلش",
+    statusNotPublished: "الميعاد المعتاد",
+    endOfFebruary: "آخر فبراير",
     noResults: "مفيش برامج مطابقة للفلتر ده.",
     noDeadlinesYet: "بنبني قاعدة بيانات المواعيد من مصادر الجامعات الرسمية. لسه ماتأكدنا من أي مواعيد. ارجع قريب، أو روح لصفحة القبول بتاعة كل جامعة.",
-    deadlineNotice: "المواعيد اللي ماتأكدناش منها مش بتظهر. بنعرض بس التواريخ المأكدة من المواقع الرسمية.",
+    deadlineNotice: "أغلب جامعات التشيك بتقفل التقديم آخر فبراير. المواعيد المكتوب عليها \"الميعاد المعتاد\" الجامعة لسه ما أكدتهاش، فاتأكد من الصفحة الرسمية قبل ما تقدم. كل البرامج فيها امتحان قبول.",
     checkOfficialPage: "شوف الصفحة الرسمية",
     eligibilityCta: "شوف لو تقدر تقدم",
     browseUnis: "شوف الجامعات",
     showingCount: "برنامج",
     entranceExam: "امتحان قبول",
-    noEntranceExam: "بدون امتحان قبول",
     daysLeft: "يوم متبقي",
     verified: "تم التحقق",
     urgentWarning: "أقل من 30 يوم",
@@ -186,9 +186,11 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
   locale: "en" | "ar";
 }) {
   const l = labels[locale] || labels.en;
-  const daysLeft = prog.applicationDeadline
+  // Programmes without their own date count down to the usual end-of-February deadline.
+  const deadline = status === "verified" ? prog.applicationDeadline : status === "not-published" ? usualDeadline() : undefined;
+  const daysLeft = deadline
     // eslint-disable-next-line react-hooks/purity -- days left is meant to reflect the current date
-    ? Math.ceil((new Date(prog.applicationDeadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+    ? Math.ceil((new Date(deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : null;
   const isUrgent = daysLeft !== null && daysLeft >= 0 && daysLeft <= 30;
 
@@ -241,29 +243,27 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
             <Clock className="w-3 h-3 text-text-muted" />
             {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
           </span>
-          {prog.entranceExam ? (
-            <span className="inline-flex items-center gap-1">
-              <GraduationCap className="w-3 h-3 text-text-muted" />
-              {l.entranceExam}
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 text-success">
-              <GraduationCap className="w-3 h-3" />
-              {l.noEntranceExam}
-            </span>
-          )}
+          <span className="inline-flex items-center gap-1">
+            <GraduationCap className="w-3 h-3 text-text-muted" />
+            {l.entranceExam}
+          </span>
         </div>
       </div>
 
       <div className="flex items-center justify-between pt-1 border-t border-border-subtle/50">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <StatusBadge status={status} locale={locale} />
           {status === "verified" && prog.applicationDeadline && (
             <span className="text-sm font-medium text-text-primary">
               {prog.applicationDeadline}
             </span>
           )}
-          {status === "verified" && daysLeft !== null && daysLeft >= 0 && (
+          {status === "not-published" && deadline && (
+            <span className="text-sm font-medium text-text-primary">
+              {l.endOfFebruary} {deadline.slice(0, 4)}
+            </span>
+          )}
+          {(status === "verified" || status === "not-published") && daysLeft !== null && daysLeft >= 0 && (
             <span className={cn(
               "inline-flex items-center gap-1 text-xs font-semibold",
               isUrgent ? "text-error" : "text-text-secondary"

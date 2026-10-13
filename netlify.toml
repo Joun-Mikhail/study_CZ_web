@@ -14,6 +14,20 @@
 
 # City pages used to drop accented letters (Plzeň -> "plze"). Old URLs now
 # redirect permanently to the transliterated slugs.
+# Every programme has an entrance exam, so the old "no entrance exam" list
+# was removed. Its URLs now point to the full programme list.
+[[redirects]]
+  from = "/study/no-entrance-exam/"
+  to = "/programmes/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ar/study/no-entrance-exam/"
+  to = "/ar/programmes/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/study/in-zl-n/"
   to = "/study/in-zlin/"
