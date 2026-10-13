@@ -27,9 +27,9 @@ export function GlassCard({ children, className, href, onClick, ariaLabel }: Gla
   const classes = cn(
     "reveal relative overflow-hidden rounded-2xl border border-border-subtle bg-surface",
     !ownPadding && "p-6",
-    "shadow-[0_1px_2px_rgba(11,31,58,0.05)]",
+    "shadow-[0_1px_2px_rgba(26,25,24,0.05)]",
     interactive &&
-      "cursor-pointer transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-border-accent hover:shadow-[0_12px_28px_-16px_rgba(11,31,58,0.35)] focus-within:border-border-accent",
+      "cursor-pointer transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-border-accent hover:shadow-[0_12px_28px_-16px_rgba(26,25,24,0.35)] focus-within:border-border-accent",
     className
   );
   const inner = <div className="relative z-10">{children}</div>;

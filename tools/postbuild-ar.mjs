@@ -11,8 +11,10 @@ if (!existsSync(ROOT)) {
   process.exit(0);
 }
 
-// The Lalezar file name is hashed: read it from the built CSS.
-function lalezarFont() {
+// The Arabic heading face (largest text on /ar/ pages) is preloaded there
+// only. Its file name is hashed: read it from the built CSS.
+const HEADING_FAMILY = "Noto Naskh Arabic";
+function headingFont() {
   const cssDir = join("out", "_next", "static");
   const files = [];
   const collect = (d) => {
@@ -26,7 +28,7 @@ function lalezarFont() {
   for (const file of files) {
     const css = readFileSync(file, "utf8");
     for (const block of css.split("@font-face").slice(1)) {
-      if (!/font-family:\s*["']?Lalezar["']?\s*[;}]/.test(block)) continue;
+      if (!new RegExp(`font-family:\\s*["']?${HEADING_FAMILY}["']?\\s*[;}]`).test(block)) continue;
       const url = /url\(\s*["']?([^)"']+\.woff2)["']?\s*\)/.exec(block)?.[1];
       // next/font writes it relative to the CSS file (../media/…).
       if (url) return url.startsWith("/") ? url : "/" + posix.relative("out", posix.join(dirname(file).split(sep).join("/"), url));
@@ -34,7 +36,7 @@ function lalezarFont() {
   }
   return null;
 }
-const FONT = lalezarFont();
+const FONT = headingFont();
 const PRELOAD = FONT ? `<link rel="preload" href="${FONT}" as="font" type="font/woff2" crossorigin=""/>` : "";
 
 let changed = 0;
@@ -54,4 +56,4 @@ function walk(dir) {
   }
 }
 walk(ROOT);
-console.log(`postbuild-ar: set lang="ar" dir="rtl" on ${changed} pages${FONT ? `, preloading ${FONT}` : ", Lalezar not found"}`);
+console.log(`postbuild-ar: set lang="ar" dir="rtl" on ${changed} pages${FONT ? `, preloading ${FONT}` : `, ${HEADING_FAMILY} not found`}`);

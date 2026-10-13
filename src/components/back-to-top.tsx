@@ -13,8 +13,9 @@ function subscribe(onChange: () => void) {
 }
 
 /**
- * "Back to top": appears once the page has scrolled 500 px, sits above the
- * WhatsApp button, and scrolls smoothly up (instantly with reduced motion).
+ * "Back to top": a quiet round button that fades in once the page has
+ * scrolled 500 px, sits above the WhatsApp button, and scrolls smoothly up
+ * (instantly with reduced motion).
  */
 export function BackToTop() {
   const { locale } = useTranslation();
@@ -33,15 +34,13 @@ export function BackToTop() {
           type="button"
           onClick={goTop}
           aria-label={locale === "ar" ? "ارجع لأول الصفحة" : "Back to top"}
-          initial={{ opacity: 0, scale: 0.6, y: 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 16 }}
-          whileHover={{ y: -3 }}
-          whileTap={{ scale: 0.92 }}
-          transition={{ type: "spring", stiffness: 380, damping: 24 }}
-          className="btn-vivid fixed bottom-[5.75rem] end-6 z-40 flex h-12 w-12 items-center justify-center rounded-full shadow-[0_12px_30px_-10px_rgba(124,58,237,0.7)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed bottom-[5.75rem] end-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border-subtle bg-surface text-text-primary shadow-[0_8px_24px_-14px_rgba(26,25,24,0.45)] transition-colors duration-300 hover:border-border-accent hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
-          <ArrowUp className="h-5 w-5" aria-hidden="true" />
+          <ArrowUp className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
         </motion.button>
       )}
     </AnimatePresence>

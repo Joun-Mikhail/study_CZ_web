@@ -56,19 +56,14 @@ function DesktopDropdown({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -4, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.98 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="glass absolute top-full start-0 mt-3 min-w-[240px] rounded-xl shadow-[0_18px_40px_-18px_rgba(11,31,58,0.35)] py-2 z-50"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-full start-0 mt-3 min-w-[240px] rounded-md border border-border-subtle bg-surface shadow-[0_18px_40px_-18px_rgba(26,25,24,0.35)] py-2 z-50"
           >
-            {items.map((item, i) => (
-              <motion.div
-                key={item.href}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.03, duration: 0.15 }}
-              >
+            {items.map((item) => (
+              <div key={item.href}>
                 <Link
                   href={item.href}
                   onClick={onNavigate}
@@ -80,7 +75,7 @@ function DesktopDropdown({
                 >
                   {item.label}
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         )}
@@ -109,7 +104,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="fixed inset-0 z-[60] bg-[#0b1f3a]/55 flex items-start justify-center pt-24"
+      className="fixed inset-0 z-[60] bg-[#1c1a18]/55 flex items-start justify-center pt-24"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
@@ -128,7 +123,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
               ref={inputRef}
               name="q"
               placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
-              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+              className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(154,79,51,0.12)] transition-all"
               autoComplete="off"
             />
           </div>
@@ -144,22 +139,10 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
   );
 }
 
-/** The header slides in on the first page load only, not on every navigation. */
-let headerHasEntered = false;
-
-/** Mobile menu: the panel slides down and fades in, then its links follow. */
+/** Mobile menu: the panel unfolds and fades in, slowly and all at once. */
 const MENU_PANEL: Variants = {
-  closed: { height: 0, opacity: 0, y: -8, transition: { duration: 0.2, ease: "easeIn" } },
-  open: {
-    height: "auto",
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94], staggerChildren: 0.035, delayChildren: 0.08 },
-  },
-};
-const MENU_ITEM: Variants = {
-  closed: { opacity: 0, y: -6 },
-  open: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" } },
+  closed: { height: 0, opacity: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+  open: { height: "auto", opacity: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
 /** Shown at the top of the mobile menu, so not repeated in its groups. */
@@ -173,11 +156,6 @@ export function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const [enter] = useState(() => !headerHasEntered);
-
-  useEffect(() => {
-    headerHasEntered = true;
-  }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -261,9 +239,9 @@ export function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className={`glass glass-strong fixed top-0 inset-x-0 z-50 border-x-0 border-t-0 transition-shadow duration-200 ${
-          scrolled ? "shadow-[0_10px_30px_-22px_rgba(11,31,58,0.45)]" : ""
-        } ${enter ? "nav-enter" : ""}`}
+        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-bg transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_10px_30px_-22px_rgba(26,25,24,0.45)]" : ""
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-[72px] flex items-center">
           {/* Logo */}
@@ -341,7 +319,7 @@ export function Navbar() {
             <Link
               href="/eligibility"
               onClick={handleNavigate}
-              className="btn-vivid hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg text-sm font-semibold"
+              className="btn-solid hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-md text-sm font-medium"
             >
               {locale === "ar" ? "أقدر أقدم؟" : "Check eligibility"}
             </Link>
@@ -374,22 +352,22 @@ export function Navbar() {
               initial="closed"
               animate="open"
               exit="closed"
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg/95 shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg shadow-[0_20px_30px_-20px_rgba(26,25,24,0.4)]"
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
-                <motion.form variants={MENU_ITEM} action="/search" method="get" role="search" className="mb-4">
+                <form action="/search" method="get" role="search" className="mb-4">
                   <div className="relative group">
                     <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors" />
                     <input
                       name="q"
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
-                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
+                      className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(154,79,51,0.12)] transition-all"
                     />
                   </div>
-                </motion.form>
+                </form>
                 {/* Most-used first: Course, Services, Matcher, Eligibility */}
-                <motion.div variants={MENU_ITEM} className="mb-3 pb-3 border-b border-border-subtle">
+                <div className="mb-3 pb-3 border-b border-border-subtle">
                   {[
                     { href: "/courses", label: locale === "ar" ? "الكورس" : "The Course" },
                     { href: "/services", label: t.nav.services },
@@ -407,11 +385,11 @@ export function Navbar() {
                       {item.label}
                     </Link>
                   ))}
-                </motion.div>
+                </div>
 
                 {/* Grouped nav items */}
                 {Object.entries(dropdowns).map(([key, group]) => (
-                  <motion.div key={key} variants={MENU_ITEM} className="mb-3">
+                  <div key={key} className="mb-3">
                     <p className="px-3 py-1.5 text-xs font-semibold text-text-muted uppercase tracking-wider">
                       {group.label}
                     </p>
@@ -429,7 +407,7 @@ export function Navbar() {
                         {item.label}
                       </Link>
                     ))}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </motion.div>

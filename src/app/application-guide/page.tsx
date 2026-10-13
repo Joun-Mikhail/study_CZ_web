@@ -143,7 +143,7 @@ export default function ApplicationGuidePage() {
                 {/* Timeline: an icon per step, joined by a line down the start edge. */}
                 <span
                   aria-hidden="true"
-                  className="reveal absolute start-0 top-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-xl bg-brand text-bg shadow-[0_8px_20px_-10px_rgba(17,69,126,0.7)] ring-4 ring-bg"
+                  className="reveal absolute start-0 top-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-xl bg-brand text-bg shadow-[0_8px_20px_-12px_rgba(154,79,51,0.6)] ring-4 ring-bg"
                 >
                   <Icon className="h-5 w-5" />
                 </span>

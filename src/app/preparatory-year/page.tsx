@@ -319,7 +319,7 @@ export default function PreparatoryYearPage() {
             {brnoPrograms.map((prog) => (
               <GlassCard key={prog.id} hoverEffect="lift" className="h-full flex flex-col">
                 <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="w-4 h-4 text-[#d42127]" />
+                  <MapPin className="w-4 h-4 text-accent-red" />
                   <h3 className="font-semibold text-text-primary text-sm">{prog.university}</h3>
                 </div>
                 {prog.note && (
