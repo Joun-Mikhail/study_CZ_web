@@ -103,6 +103,9 @@ const t = {
     title: "Before You Pay Any Agency, Ask These 8 Questions",
     intro:
       "I'm not going to tell you which agency to use. I'm going to give you the questions I wish someone had given me before I paid anyone. Ask these of any agency, including me. If someone can't answer clearly, that tells you what you need to know.",
+    compareTitle: "Comparing Top Edu, MSM Academy or another agency?",
+    compareBody:
+      "Whether you're looking at Top Edu, MSM Academy or any other agency for studying in Czechia, ask each of them these eight questions and compare the answers in writing. Study Czechia has no connection to these companies, and this page makes no claims about their services.",
     closing:
       "If you're wondering how I'd answer: I'm a student living in Brno, I do live mock interviews, my prices are on the site, I refund within 48 hours, I support you for 30 days after you land, and yes, you can absolutely do this without me. The free guides here are for exactly that.",
   },
@@ -110,6 +113,9 @@ const t = {
     title: "قبل ما تدفع لأي وكالة، اسأل الـ 8 أسئلة دول",
     intro:
       "مش هقولك تستخدم أنهي وكالة. هديك الأسئلة اللي كنت اتمنى حد يديهالي قبل ما ادفع لحد. اسأل أي وكالة، بما فيهم أنا. لو حد مش قادر يجاوب بوضوح، ده بيقولك كل اللي محتاج تعرفه.",
+    compareTitle: "بتقارن بين توب اديو أو MSM Academy أو أي وكالة تانية؟",
+    compareBody:
+      "سواء بتفكر في توب اديو (Top Edu) أو MSM Academy أو أي وكالة تانية للدراسة في التشيك، اسأل كل واحدة فيهم الـ 8 أسئلة دول وقارن الإجابات مكتوبة. Study Czechia ملهاش أي علاقة بالشركات دي، والصفحة دي مش بتقول أي حاجة عن خدماتهم.",
     closing:
       "لو بتسأل ازاي انا هجاوب: انا طالب عايش في برنو، بعمل مقابلات تجريبية لايف، اسعاري على الموقع، برجع الفلوس خلال 48 ساعة، بساعدك 30 يوم بعد ما توصل، وأيوه، تقدر تعمل كل ده لوحدك. الأدلة المجانية هنا عشان كده بالظبط.",
   },
@@ -187,6 +193,11 @@ export default function QuestionsToAskClient() {
               {l.intro}
             </blockquote>
           </motion.div>
+
+          <section className="rounded-2xl border border-border-subtle bg-surface/60 p-5 mb-8">
+            <h2 className="text-lg font-semibold text-text-primary mb-2">{l.compareTitle}</h2>
+            <p className="text-text-secondary">{l.compareBody}</p>
+          </section>
 
           {/* Questions */}
           <div className="space-y-4 mb-12">
