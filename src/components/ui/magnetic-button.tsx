@@ -27,9 +27,12 @@ export function buttonClasses(
   const base =
     "inline-flex items-center justify-center text-center font-semibold leading-tight transition-[background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:translate-y-px disabled:opacity-60";
 
+  // Primary: gradient that slides and a slight scale on hover (.btn-vivid).
+  // Secondary: border turns brand while a tint fills in from the reading
+  // side (.btn-fill). Both live in globals.css.
   const variants = {
-    primary: "bg-brand text-bg shadow-[0_1px_2px_rgba(11,31,58,0.12)] hover:bg-brand-hover",
-    secondary: "bg-surface text-text-primary border border-border-subtle hover:border-brand hover:text-brand",
+    primary: "btn-vivid shadow-[0_1px_2px_rgba(11,31,58,0.12)]",
+    secondary: "btn-fill bg-surface text-text-primary border border-border-subtle hover:border-brand hover:text-brand",
     ghost: "text-text-secondary hover:text-text-primary hover:bg-surface-hover",
   };
 

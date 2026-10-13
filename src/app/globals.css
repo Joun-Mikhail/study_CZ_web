@@ -54,6 +54,19 @@
   --color-rose: #e11d48;
   --color-rose-soft: #ffe4e6;
   --color-rose-ink: #9f1239;
+  /* Vibrant palette: royal → electric blue, orchid → magenta, jade. Gold
+     (#f59e0b) and coral (#f97316) above are the amber/orange pair. Fills are
+     for gradients, glows and icons; put text on them only via the -ink
+     shades (AA) or white on royal/electric-ink. */
+  --color-royal: #1e3a8a;
+  --color-electric: #3b82f6;
+  --color-electric-soft: #dbeafe;
+  --color-electric-ink: #1e40af;
+  --color-orchid: #8b5cf6;
+  --color-magenta: #ec4899;
+  --color-jade: #10b981;
+  --color-jade-soft: #d1fae5;
+  --color-jade-ink: #065f46;
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-zen-antique), Georgia, "Times New Roman", serif;
   --font-display-ar: var(--font-lalezar), var(--font-plex-arabic), "Segoe UI", Tahoma, sans-serif;
@@ -115,6 +128,15 @@
   --color-rose: #fb7185;
   --color-rose-soft: rgba(251, 113, 133, 0.14);
   --color-rose-ink: #fda4af;
+  --color-royal: #3b5bdb;
+  --color-electric: #60a5fa;
+  --color-electric-soft: rgba(96, 165, 250, 0.16);
+  --color-electric-ink: #93c5fd;
+  --color-orchid: #a78bfa;
+  --color-magenta: #f472b6;
+  --color-jade: #34d399;
+  --color-jade-soft: rgba(52, 211, 153, 0.14);
+  --color-jade-ink: #6ee7b7;
   --chart-grid: rgba(255, 255, 255, 0.06);
   --chart-axis: rgba(255, 255, 255, 0.12);
   --chart-tick: #b4bfcf;
@@ -464,4 +486,387 @@ html:not(.hydrated) [style*="opacity: 0"] {
 }
 @keyframes hero-float {
   to { translate: 0 -10px; }
+}
+
+/* ══ Vibrant layer ════════════════════════════════════════════════════
+   Colour, glass and motion for the homepage, header, footer and buttons.
+   The house rules still hold: content is visible without JavaScript (the
+   entrance animations below move things and never start from opacity 0),
+   every animation stops with prefers-reduced-motion (the global rule above
+   ends them on their final frame), and phones get fewer, cheaper effects. */
+
+/* Multi-stop brand gradient: royal blue → orchid → magenta → orange. */
+@utility bg-vibrant-gradient {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-royal) 0%,
+    var(--color-orchid) 38%,
+    var(--color-magenta) 68%,
+    var(--color-coral) 100%
+  );
+}
+/* Centred radial gradient: pair with from-/via-/to- colour stops. */
+@utility bg-gradient-radial {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+}
+/* A brighter mesh than .bg-mesh, for feature bands. */
+@utility bg-mesh-vivid {
+  background:
+    radial-gradient(38rem 24rem at 8% 10%, color-mix(in srgb, var(--color-electric) 22%, transparent), transparent 70%),
+    radial-gradient(34rem 22rem at 92% 0%, color-mix(in srgb, var(--color-orchid) 20%, transparent), transparent 70%),
+    radial-gradient(30rem 20rem at 70% 100%, color-mix(in srgb, var(--color-magenta) 14%, transparent), transparent 70%),
+    radial-gradient(30rem 20rem at 10% 100%, color-mix(in srgb, var(--color-gold) 16%, transparent), transparent 70%),
+    var(--color-bg-subtle);
+}
+
+@layer components {
+  /* Frosted glass. Solid fallback where backdrop-filter isn't supported,
+     so text never sits on an unreadable see-through panel. */
+  .glass {
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  }
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+      -webkit-backdrop-filter: blur(16px) saturate(170%);
+      backdrop-filter: blur(16px) saturate(170%);
+    }
+  }
+  /* Header glass: nearly opaque, so the red "Czechia" in the logo stays AA
+     even over the dark hero; the blur still softens what scrolls under. */
+  .glass.glass-strong {
+    background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  }
+  /* Glass for dark panels (hero, ink sections): white tint on colour. */
+  .glass-dark {
+    background: rgba(11, 31, 58, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-dark {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      backdrop-filter: blur(16px) saturate(160%);
+    }
+  }
+
+  /* Soft coloured halo for headings on dark backgrounds. */
+  .text-glow {
+    text-shadow:
+      0 0 24px rgba(139, 92, 246, 0.45),
+      0 0 48px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Light gradient text for dark backgrounds (every stop is AA on navy and
+     purple). Plain white where background-clip:text isn't supported. */
+  .text-gradient-vivid {
+    color: #fff;
+  }
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .text-gradient-vivid {
+      background-image: linear-gradient(100deg, #ffffff 0%, #c7d2fe 30%, #f9a8d4 65%, #fcd34d 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    /* One gradient across a heading split into words: each word shows its
+       own slice (--n words, this one at --p; set by HeroTitle). */
+    .text-gradient-vivid[style*="--p"] {
+      background-size: calc(var(--n) * 100%) 100%;
+      background-position: var(--p) 0;
+    }
+  }
+}
+
+/* ── Keyframes and animation helpers ──────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -12px, 0); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+/* Loading placeholder: a light sweep across a muted block. */
+.shimmer {
+  background: linear-gradient(
+      90deg,
+      var(--color-bg-muted) 0%,
+      color-mix(in srgb, var(--color-bg-muted) 40%, var(--color-surface)) 50%,
+      var(--color-bg-muted) 100%
+    )
+    0 0 / 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Hero entrance (pure CSS, so it plays before the app hydrates and never
+   delays the largest paint). Words rise one by one; text stays visible. */
+@keyframes word-rise {
+  from { transform: translate3d(0, 0.55em, 0) rotate(2deg); opacity: 0.35; }
+}
+/* Words keep the heading's display face: the Arabic rule `[dir="rtl"] *`
+   would otherwise put each word span back in the body font. */
+[dir="rtl"] .word-rise {
+  font-family: inherit;
+}
+.word-rise {
+  display: inline-block;
+  animation: word-rise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+}
+@keyframes blur-in {
+  from { filter: blur(8px); opacity: 0.5; transform: translate3d(0, 8px, 0); }
+}
+.blur-in {
+  animation: blur-in 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s both;
+}
+@keyframes pop-in {
+  from { transform: scale(0.88); opacity: 0.6; }
+}
+.pop-in {
+  animation: pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 650ms);
+}
+
+/* Scroll hint at the bottom of the hero: a mouse whose wheel rolls. */
+@keyframes scroll-wheel {
+  0% { transform: translateY(0); opacity: 1; }
+  80%, 100% { transform: translateY(10px); opacity: 0; }
+}
+@keyframes hint-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.scroll-hint { animation: hint-bounce 2.2s ease-in-out infinite; }
+.scroll-hint-wheel { animation: scroll-wheel 1.6s ease-in-out infinite; }
+
+/* ── Animated background (components/animated-background.tsx) ─────── */
+.ab-root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -10;
+  contain: strict;
+}
+.ab-layer {
+  position: absolute;
+  inset: 0;
+}
+/* Layer 1: oversized colour mesh that slowly turns and breathes (transform
+   only, so the GPU does the work). */
+.ab-shift {
+  inset: -30%;
+  animation: ab-shift 20s ease-in-out infinite alternate;
+  will-change: transform;
+  transform: translateZ(0);
+}
+@keyframes ab-shift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(3%, -2%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(-3%, 2%, 0) rotate(-6deg) scale(1.02); }
+}
+/* Layer 2: glowing orbs. The blur is rasterised once; only transform moves. */
+.ab-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(40px);
+  will-change: transform;
+  transform: translateZ(0);
+}
+.ab-orb-1 { animation: ab-orb-1 15s ease-in-out infinite alternate; }
+.ab-orb-2 { animation: ab-orb-2 20s ease-in-out infinite alternate; }
+.ab-orb-3 { animation: ab-orb-3 25s ease-in-out infinite alternate; }
+.ab-orb-4 { animation: ab-orb-1 22s ease-in-out infinite alternate-reverse; }
+.ab-orb-5 { animation: ab-orb-2 18s ease-in-out infinite alternate-reverse; }
+@keyframes ab-orb-1 {
+  to { transform: translate3d(12vw, 8vh, 0) scale(1.15); }
+}
+@keyframes ab-orb-2 {
+  to { transform: translate3d(-10vw, 12vh, 0) scale(0.9); }
+}
+@keyframes ab-orb-3 {
+  50% { transform: translate3d(8vw, -10vh, 0) scale(1.1); }
+  to { transform: translate3d(-6vw, 6vh, 0) scale(1); }
+}
+/* Layer 3: dot grid for depth. */
+.ab-grid {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+}
+/* Layer 4: fine grain. A static SVG, so it costs one raster. */
+.ab-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+/* Off screen (set by the component): stop spending frames. */
+.ab-root[data-paused="true"] *,
+.ab-root[data-paused="true"] {
+  animation-play-state: paused !important;
+}
+/* Phones: fewer orbs, smaller blur, no slow mesh turn. */
+@media (max-width: 767px) {
+  .ab-orb { filter: blur(28px); }
+  .ab-orb-4, .ab-orb-5 { display: none; }
+  .ab-shift { animation: none; }
+}
+
+/* ── Rotating gradient border (tool cards) ────────────────────────── */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--border-angle),
+    var(--gb-1, var(--color-electric)),
+    var(--gb-2, var(--color-orchid)),
+    var(--gb-3, var(--color-magenta)),
+    var(--gb-1, var(--color-electric))
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before,
+.gradient-border:focus-within::before {
+  opacity: 1;
+}
+/* The border turns only where there's a mouse and room for it. */
+@media (hover: hover) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .gradient-border::before {
+    animation: border-spin 8s linear infinite;
+  }
+}
+@keyframes border-spin {
+  to { --border-angle: 360deg; }
+}
+
+/* ── Header links: a gradient underline grows from the reading side ── */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-electric), var(--color-orchid), var(--color-magenta));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+[dir="rtl"] .nav-underline::after {
+  transform-origin: right;
+}
+.nav-underline:hover::after,
+.nav-underline:focus-visible::after,
+.nav-underline[data-active="true"]::after {
+  transform: scaleX(1);
+}
+/* Header slides in once, on the first page load. */
+@keyframes nav-slide {
+  from { transform: translate3d(0, -100%, 0); }
+}
+.nav-enter {
+  animation: nav-slide 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+/* Primary: a blue-to-violet gradient that slides on hover. White text is
+   AA on every stop. */
+.btn-vivid {
+  background-color: #11457e;
+  background-image: linear-gradient(110deg, #11457e 0%, #2563eb 50%, #7c3aed 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  color: #fff;
+  transition:
+    background-position 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+}
+.btn-vivid:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 12px 28px -12px rgba(124, 58, 237, 0.65);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-vivid:hover { transform: scale(1.03); }
+  .btn-vivid:active { transform: scale(0.98); }
+}
+/* Secondary: the border takes the brand colour while a tint fills in from
+   the reading side. */
+.btn-fill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--color-brand) 10%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+[dir="rtl"] .btn-fill::before {
+  transform-origin: right;
+}
+.btn-fill:hover::before,
+.btn-fill:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* Launch-offer badge: a ring pulses outwards. */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid var(--color-gold);
+  animation: pulse-ring 2.2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes pulse-ring {
+  from { transform: scale(0.97); opacity: 0.9; }
+  to { transform: scale(1.12); opacity: 0; }
+}
+
+/* Footer: deep blue to purple, with drifting dots. */
+.footer-vivid {
+  background-image:
+    radial-gradient(40rem 20rem at 85% 0%, rgba(139, 92, 246, 0.28), transparent 70%),
+    radial-gradient(30rem 18rem at 10% 100%, rgba(236, 72, 153, 0.16), transparent 70%),
+    linear-gradient(160deg, #0b1f3a 0%, #172554 45%, #2e1065 100%);
 }

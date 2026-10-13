@@ -8,6 +8,8 @@ import { HreflangDefault } from "@/components/hreflang-default";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
+import { CursorGlow } from "@/components/cursor-glow";
+import { BackToTop } from "@/components/back-to-top";
 import { FOUNDER_NAME } from "@/config/contact";
 import "./globals.css";
 
@@ -125,6 +127,8 @@ export default function RootLayout({
           <ToastProvider>
             {children}
             <WhatsAppFloat />
+            <BackToTop />
+            <CursorGlow />
             <MotionFallback />
             <OfferExpiryGuard />
           </ToastProvider>

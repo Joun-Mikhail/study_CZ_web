@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
@@ -39,7 +39,8 @@ function DesktopDropdown({
           e.stopPropagation();
           onToggle();
         }}
-        className={`flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
+        data-active={hasActiveItem || undefined}
+        className={`nav-underline flex items-center gap-1 whitespace-nowrap transition-colors py-1 ${
           hasActiveItem
             ? "text-brand font-medium"
             : "text-text-secondary hover:text-text-primary"
@@ -59,7 +60,7 @@ function DesktopDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full start-0 mt-3 min-w-[240px] rounded-xl border border-border-subtle bg-surface shadow-[0_18px_40px_-18px_rgba(11,31,58,0.35)] py-2 z-50"
+            className="glass absolute top-full start-0 mt-3 min-w-[240px] rounded-xl shadow-[0_18px_40px_-18px_rgba(11,31,58,0.35)] py-2 z-50"
           >
             {items.map((item, i) => (
               <motion.div
@@ -143,6 +144,24 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
   );
 }
 
+/** The header slides in on the first page load only, not on every navigation. */
+let headerHasEntered = false;
+
+/** Mobile menu: the panel slides down and fades in, then its links follow. */
+const MENU_PANEL: Variants = {
+  closed: { height: 0, opacity: 0, y: -8, transition: { duration: 0.2, ease: "easeIn" } },
+  open: {
+    height: "auto",
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94], staggerChildren: 0.035, delayChildren: 0.08 },
+  },
+};
+const MENU_ITEM: Variants = {
+  closed: { opacity: 0, y: -6 },
+  open: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" } },
+};
+
 /** Shown at the top of the mobile menu, so not repeated in its groups. */
 const MOBILE_TOP = new Set(["/courses", "/services", "/university-matcher", "/eligibility"]);
 
@@ -154,6 +173,11 @@ export function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const [enter] = useState(() => !headerHasEntered);
+
+  useEffect(() => {
+    headerHasEntered = true;
+  }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -237,9 +261,9 @@ export function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className={`fixed top-0 inset-x-0 z-50 border-b border-border-subtle bg-bg transition-shadow duration-200 ${
+        className={`glass glass-strong fixed top-0 inset-x-0 z-50 border-x-0 border-t-0 transition-shadow duration-200 ${
           scrolled ? "shadow-[0_10px_30px_-22px_rgba(11,31,58,0.45)]" : ""
-        }`}
+        } ${enter ? "nav-enter" : ""}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-[72px] flex items-center">
           {/* Logo */}
@@ -267,7 +291,8 @@ export function Navbar() {
             <Link
               href="/courses"
               onClick={handleNavigate}
-              className={`whitespace-nowrap transition-colors py-1 ${
+              data-active={isActive("/courses") || undefined}
+              className={`nav-underline whitespace-nowrap transition-colors py-1 ${
                 isActive("/courses")
                   ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
@@ -278,7 +303,8 @@ export function Navbar() {
             <Link
               href="/services"
               onClick={handleNavigate}
-              className={`whitespace-nowrap transition-colors py-1 ${
+              data-active={isActive("/services") || undefined}
+              className={`nav-underline whitespace-nowrap transition-colors py-1 ${
                 isActive("/services")
                   ? "text-brand font-medium"
                   : "text-text-secondary hover:text-text-primary"
@@ -315,7 +341,7 @@ export function Navbar() {
             <Link
               href="/eligibility"
               onClick={handleNavigate}
-              className="hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg bg-brand text-bg text-sm font-semibold hover:bg-brand-hover transition-colors"
+              className="btn-vivid hidden md:inline-flex items-center h-10 px-4 ms-2 rounded-lg text-sm font-semibold"
             >
               {locale === "ar" ? "أقدر أقدم؟" : "Check eligibility"}
             </Link>
@@ -344,15 +370,15 @@ export function Navbar() {
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
+              variants={MENU_PANEL}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="lg:hidden overflow-hidden border-t border-border-subtle bg-bg/95 shadow-[0_20px_30px_-20px_rgba(11,31,58,0.4)]"
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
-                <form action="/search" method="get" role="search" className="mb-4">
+                <motion.form variants={MENU_ITEM} action="/search" method="get" role="search" className="mb-4">
                   <div className="relative group">
                     <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors" />
                     <input
@@ -361,9 +387,9 @@ export function Navbar() {
                       className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
                     />
                   </div>
-                </form>
+                </motion.form>
                 {/* Most-used first: Course, Services, Matcher, Eligibility */}
-                <div className="mb-3 pb-3 border-b border-border-subtle">
+                <motion.div variants={MENU_ITEM} className="mb-3 pb-3 border-b border-border-subtle">
                   {[
                     { href: "/courses", label: locale === "ar" ? "الكورس" : "The Course" },
                     { href: "/services", label: t.nav.services },
@@ -381,12 +407,11 @@ export function Navbar() {
                       {item.label}
                     </Link>
                   ))}
-                </div>
-
+                </motion.div>
 
                 {/* Grouped nav items */}
                 {Object.entries(dropdowns).map(([key, group]) => (
-                  <div key={key} className="mb-3">
+                  <motion.div key={key} variants={MENU_ITEM} className="mb-3">
                     <p className="px-3 py-1.5 text-xs font-semibold text-text-muted uppercase tracking-wider">
                       {group.label}
                     </p>
@@ -404,7 +429,7 @@ export function Navbar() {
                         {item.label}
                       </Link>
                     ))}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
