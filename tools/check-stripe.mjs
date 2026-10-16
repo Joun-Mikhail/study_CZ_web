@@ -1,4 +1,6 @@
-#!/usr/bin/env node
+// No shebang: test/check-stripe.test.ts imports this file, and Vite's SSR
+// transform can't strip a "#!" line ending in CRLF (Windows checkouts).
+//
 // Checks every Stripe Payment Link in stripe-links.json against the prices in
 // src/config/pricing.ts, through the Stripe API (read-only key, no SDK).
 //
