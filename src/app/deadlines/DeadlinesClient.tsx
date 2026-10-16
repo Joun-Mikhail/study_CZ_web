@@ -33,7 +33,7 @@ import Image from "next/image";
 const labels = {
   en: {
     title: "Deadline Tracker",
-    subtitle: "Track application deadlines for English-taught programmes at Czech universities. Where a university hasn't published its own date yet, we show the usual Czech deadline: the end of February.",
+    subtitle: "Track application deadlines for English-taught programmes at Czech universities. Where a university hasn't published its own date yet, we show the general Czech deadline: the end of February.",
     filters: "Filters",
     clearFilters: "Clear filters",
     degree: "Degree",
@@ -55,11 +55,11 @@ const labels = {
     statusNotVerified: "Not yet verified",
     statusPassed: "Passed",
     statusRolling: "Rolling admissions",
-    statusNotPublished: "Usual deadline",
+    statusNotPublished: "General deadline",
     endOfFebruary: "End of February",
     noResults: "No programmes match your filters.",
     noDeadlinesYet: "We're building our deadline database from official university sources. No deadlines have been verified yet. Check back soon, or visit each university's admissions page directly.",
-    deadlineNotice: "Most Czech universities close applications at the end of February. Dates marked \"Usual deadline\" are not yet confirmed by the university, so check the official page before you apply. Every programme has an entrance exam.",
+    deadlineNotice: "Most Czech universities close applications at the end of February. Dates marked \"General deadline\" are not yet confirmed by the university, so check the official page before you apply. Every programme has an entrance exam.",
     checkOfficialPage: "Check official page",
     eligibilityCta: "Check my eligibility",
     browseUnis: "Browse universities",
@@ -71,7 +71,7 @@ const labels = {
   },
   ar: {
     title: "متتبع المواعيد",
-    subtitle: "تابع مواعيد التقديم للبرامج بالإنجليزي في جامعات التشيك. لو الجامعة لسه منزلتش ميعادها، بنعرضلك الميعاد المعتاد في التشيك: آخر فبراير.",
+    subtitle: "تابع مواعيد التقديم للبرامج بالإنجليزي في جامعات التشيك. لو الجامعة لسه منزلتش ميعادها، بنعرضلك الموعد العام في التشيك: نهاية فبراير.",
     filters: "فلتر",
     clearFilters: "امسح الفلتر",
     degree: "الدرجة",
@@ -93,11 +93,11 @@ const labels = {
     statusNotVerified: "لسه ماتأكدناش",
     statusPassed: "فات",
     statusRolling: "قبول مفتوح",
-    statusNotPublished: "الميعاد المعتاد",
-    endOfFebruary: "آخر فبراير",
+    statusNotPublished: "الموعد العام",
+    endOfFebruary: "نهاية فبراير",
     noResults: "مفيش برامج مطابقة للفلتر ده.",
     noDeadlinesYet: "بنبني قاعدة بيانات المواعيد من مصادر الجامعات الرسمية. لسه ماتأكدنا من أي مواعيد. ارجع قريب، أو روح لصفحة القبول بتاعة كل جامعة.",
-    deadlineNotice: "أغلب جامعات التشيك بتقفل التقديم آخر فبراير. المواعيد المكتوب عليها \"الميعاد المعتاد\" الجامعة لسه ما أكدتهاش، فاتأكد من الصفحة الرسمية قبل ما تقدم. كل البرامج فيها امتحان قبول.",
+    deadlineNotice: "أغلب جامعات التشيك بتقفل التقديم نهاية فبراير. المواعيد المكتوب عليها \"الموعد العام\" الجامعة لسه ما أكدتهاش، فاتأكد من الصفحة الرسمية قبل ما تقدم. كل البرامج فيها امتحان قبول.",
     checkOfficialPage: "شوف الصفحة الرسمية",
     eligibilityCta: "شوف لو تقدر تقدم",
     browseUnis: "شوف الجامعات",
@@ -186,7 +186,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
   locale: "en" | "ar";
 }) {
   const l = labels[locale] || labels.en;
-  // Programmes without their own date count down to the usual end-of-February deadline.
+  // Programmes without their own date count down to the general end-of-February deadline.
   const deadline = status === "verified" ? prog.applicationDeadline : status === "not-published" ? usualDeadline() : undefined;
   const daysLeft = deadline
     // eslint-disable-next-line react-hooks/purity -- days left is meant to reflect the current date
