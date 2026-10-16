@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
-import { pathForLocale, stripLocale } from "@/i18n/paths";
+import { localizeHref, pathForLocale, stripLocale } from "@/i18n/paths";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
@@ -120,13 +120,15 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
         transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-lg mx-4"
       >
-        <form action="/search" method="get" role="search">
+        <form action={localizeHref("/search/", locale === "ar" ? "ar" : "en")} method="get" role="search">
           <div className="relative group">
             <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-brand transition-colors" />
             <input
               ref={inputRef}
               name="q"
-              placeholder={locale === "ar" ? "ابحث عن الجامعات، الأدلة، الخدمات..." : "Search universities, guides, services..."}
+              type="search"
+              aria-label={locale === "ar" ? "بحث" : "Search"}
+              placeholder={locale === "ar" ? "ابحث عن الجامعات، البرامج، المدن..." : "Search universities, programmes, cities..."}
               className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
               autoComplete="off"
             />
@@ -352,11 +354,13 @@ export function Navbar() {
             >
               <div className="px-4 py-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                 {/* Mobile search */}
-                <form action="/search" method="get" role="search" className="mb-4">
+                <form action={localizeHref("/search/", locale)} method="get" role="search" className="mb-4">
                   <div className="relative group">
                     <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors" />
                     <input
                       name="q"
+                      type="search"
+                      aria-label={locale === "ar" ? "بحث" : "Search"}
                       placeholder={locale === "ar" ? "ابحث..." : "Search..."}
                       className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-transparent border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
                     />
