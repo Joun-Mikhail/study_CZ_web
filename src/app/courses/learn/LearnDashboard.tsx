@@ -268,7 +268,7 @@ export default function LearnDashboard() {
                             {isAr ? mod.title.ar : mod.title.en}
                           </h2>
                         </div>
-                        <div className="text-right shrink-0">
+                        <div className="text-end shrink-0">
                           <span className="text-xs text-text-muted">{modProgress}%</span>
                           <div className="w-16 h-1.5 rounded-full bg-bg/50 mt-1 overflow-hidden">
                             <div
