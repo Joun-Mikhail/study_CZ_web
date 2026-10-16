@@ -1,10 +1,14 @@
 import { universitiesV2 } from "@/data/universities-v2";
 import { programmes } from "@/data/programmes";
 import type { Programme, UniversityV2 } from "@/data/types";
-import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import { qaCategories, qaEntries } from "@/data/qa";
+import { stageOrder, stages } from "@/data/stages";
+import { QA_CATEGORY_KEYWORDS, SITE_PAGES, STAGE_KEYWORDS } from "@/data/site-pages";
+import { AR_PAGE_META, CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 /**
- * Site search over universities and programmes, in English and Arabic.
+ * Site search over universities, programmes, guide pages and Q&A answers,
+ * in English and Arabic.
  *
  * Text is folded before matching so that "Plzen" finds "Plzeň", "PRAGUE"
  * finds "Prague", and "جامعة" finds "جامعه". A query matches when every word
@@ -80,6 +84,57 @@ const programmeIndex = programmes.map((p) => {
   };
 });
 
+/** A guide, tool or service page, or one Q&A answer, as shown in search results. */
+export type PageResult = {
+  /** Internal URL ending in "/" (Q&A answers add "#<id>"). */
+  href: string;
+  title: { en: string; ar: string };
+  description: { en: string; ar: string };
+};
+
+/** "Deadlines | Study in CZ Deadline Tracker" -> "Deadlines": the site name is noise in a result list. */
+function shortTitle(title: string): string {
+  return title.split(" | ")[0];
+}
+
+const pageIndex = [
+  ...SITE_PAGES.map((p) => {
+    const ar = AR_PAGE_META[p.path];
+    return {
+      item: {
+        href: p.path,
+        title: { en: shortTitle(p.title), ar: shortTitle(ar?.title ?? p.title) },
+        description: { en: p.description, ar: ar?.description ?? p.description },
+      },
+      hay: hay([p.title, ar?.title], [...p.keywords.en, ...p.keywords.ar], [p.description, ar?.description]),
+    };
+  }),
+  ...stageOrder.map((slug) => {
+    const s = stages[slug];
+    const kw = STAGE_KEYWORDS[slug];
+    return {
+      item: { href: `/stage/${slug}/`, title: s.h1, description: s.intro },
+      hay: hay(
+        [s.h1.en, s.h1.ar],
+        [...kw.en, ...kw.ar, ...s.tools.flatMap((t) => [t.label.en, t.label.ar])],
+        [s.intro.en, s.intro.ar]
+      ),
+    };
+  }),
+];
+
+const categoryLabel = new Map(qaCategories.map((c) => [c.key, c.label]));
+
+// One entry per answer, linking to its anchor on /qa/ (the accordion opens it).
+const qaIndex = qaEntries.map((e) => {
+  const label = categoryLabel.get(e.category) ?? { en: "", ar: "" };
+  const kw = QA_CATEGORY_KEYWORDS[e.category];
+  return {
+    item: { href: `/qa/#${e.id}`, title: e.q, description: label },
+    hay: hay([e.q.en, e.q.ar], [label.en, label.ar, ...kw.en, ...kw.ar], [e.a.en, e.a.ar]),
+  };
+});
+
 function rank<T>(index: { item: T; hay: Haystack }[], terms: string[]): T[] {
   return index
     .map((e) => ({ item: e.item, s: score(e.hay, terms) }))
@@ -91,14 +146,18 @@ function rank<T>(index: { item: T; hay: Haystack }[], terms: string[]): T[] {
 export type SiteSearchResults = {
   universities: UniversityV2[];
   programmes: Programme[];
+  pages: PageResult[];
+  qa: PageResult[];
 };
 
 export function searchSite(query: string): SiteSearchResults {
   const terms = searchTerms(query);
-  if (terms.length === 0) return { universities: [], programmes: [] };
+  if (terms.length === 0) return { universities: [], programmes: [], pages: [], qa: [] };
   return {
     universities: rank(universityIndex, terms),
     programmes: rank(programmeIndex, terms),
+    pages: rank(pageIndex, terms),
+    qa: rank(qaIndex, terms),
   };
 }
 

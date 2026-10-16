@@ -7,8 +7,39 @@ import { GlassCard } from "@/components/ui/glass-card";
 import Link from "@/components/locale-link";
 import { localizeHref } from "@/i18n/paths";
 import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
-import { searchSite, universityOf } from "@/lib/site-search";
-import { Search, MapPin, GraduationCap } from "lucide-react";
+import { searchSite, universityOf, type PageResult } from "@/lib/site-search";
+import { Search, MapPin, GraduationCap, FileText, CircleHelp } from "lucide-react";
+
+/** Results that are plain pages (guides, services, Q&A answers): title plus one line of context. */
+function PageResults({ id, heading, items, isAr, icon: Icon }: {
+  id: string;
+  heading: string;
+  items: PageResult[];
+  isAr: boolean;
+  icon: typeof FileText;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <section aria-labelledby={id}>
+      <h2 id={id} className="text-lg font-semibold text-text-primary mb-3">
+        {heading} ({items.length})
+      </h2>
+      <div className="grid gap-3">
+        {items.map((p) => (
+          <Link key={p.href} href={p.href} className="no-underline">
+            <GlassCard hoverEffect="border">
+              <h3 className="flex items-start gap-2 text-base font-semibold text-text-primary">
+                <Icon className="w-4 h-4 mt-1 shrink-0 text-text-muted" aria-hidden="true" />
+                {isAr ? p.title.ar : p.title.en}
+              </h3>
+              <p className="mt-1 ps-6 text-text-muted text-sm line-clamp-2">{isAr ? p.description.ar : p.description.en}</p>
+            </GlassCard>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 /** Search box that reloads this page with ?q=, so results work without client routing. */
 function SearchForm({ query, isAr }: { query: string; isAr: boolean }) {
@@ -26,7 +57,7 @@ function SearchForm({ query, isAr }: { query: string; isAr: boolean }) {
           name="q"
           type="search"
           defaultValue={query}
-          placeholder={isAr ? "جامعة، برنامج، مدينة أو تخصص..." : "University, programme, city or field..."}
+          placeholder={isAr ? "جامعة، برنامج، مدينة، تأشيرة، سكن..." : "University, programme, city, visa, housing..."}
           className="w-full ps-12 pe-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)]"
           autoComplete="off"
         />
@@ -43,7 +74,7 @@ export default function SearchClient() {
 
   // Filtering is cheap, but memoise so typing elsewhere on the page doesn't redo it.
   const results = useMemo(() => searchSite(query), [query]);
-  const total = results.universities.length + results.programmes.length;
+  const total = results.universities.length + results.programmes.length + results.pages.length + results.qa.length;
 
   return (
     <main id="main-content" className="max-w-5xl mx-auto px-4 pt-24 pb-16">
@@ -64,7 +95,7 @@ export default function SearchClient() {
         <div className="text-center py-16">
           <Search className="w-10 h-10 text-text-muted mx-auto mb-4" aria-hidden="true" />
           <p className="text-text-secondary">
-            {isAr ? "اكتب اسم جامعة أو برنامج أو مدينة للبحث." : "Type a university, programme or city to search."}
+            {isAr ? "اكتب اسم جامعة أو برنامج أو مدينة، أو موضوع زي التأشيرة أو السكن." : "Type a university, programme or city, or a topic like visa or housing."}
           </p>
         </div>
       ) : total === 0 ? (
@@ -72,8 +103,8 @@ export default function SearchClient() {
           <p className="text-text-secondary mb-2">{isAr ? "مفيش نتائج." : "No results found."}</p>
           <p className="text-text-muted text-sm mb-6">
             {isAr
-              ? "جرب اسم مدينة (برنو)، تخصص (الطب) أو اسم جامعة."
-              : "Try a city (Brno), a field (Medicine) or a university name."}
+              ? "جرب اسم مدينة (برنو)، تخصص (الطب)، اسم جامعة أو موضوع (السكن)."
+              : "Try a city (Brno), a field (Medicine), a university name or a topic (housing)."}
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-sm">
             <Link href="/universities/" className="text-brand underline underline-offset-4">
@@ -81,6 +112,9 @@ export default function SearchClient() {
             </Link>
             <Link href="/programmes/" className="text-brand underline underline-offset-4">
               {isAr ? "كل البرامج" : "All programmes"}
+            </Link>
+            <Link href="/qa/" className="text-brand underline underline-offset-4">
+              {isAr ? "أسئلة وأجوبة" : "Q&A"}
             </Link>
           </div>
         </div>
@@ -148,6 +182,21 @@ export default function SearchClient() {
               </div>
             </section>
           )}
+
+          <PageResults
+            id="results-pages"
+            heading={isAr ? "الصفحات والأدلة" : "Pages"}
+            items={results.pages}
+            isAr={isAr}
+            icon={FileText}
+          />
+          <PageResults
+            id="results-qa"
+            heading={isAr ? "أسئلة وأجوبة" : "Q&A"}
+            items={results.qa}
+            isAr={isAr}
+            icon={CircleHelp}
+          />
         </div>
       )}
     </main>

@@ -128,7 +128,7 @@ function SearchOverlay({ onClose, locale }: { onClose: () => void; locale: strin
               name="q"
               type="search"
               aria-label={locale === "ar" ? "بحث" : "Search"}
-              placeholder={locale === "ar" ? "ابحث عن الجامعات، البرامج، المدن..." : "Search universities, programmes, cities..."}
+              placeholder={locale === "ar" ? "ابحث عن الجامعات، البرامج، الأدلة..." : "Search universities, programmes, guides..."}
               className="w-full ps-12 pe-4 py-4 rounded-2xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-base focus:outline-none focus:border-brand focus:shadow-[0_0_0_4px_rgba(17,69,126,0.12)] transition-all"
               autoComplete="off"
             />
