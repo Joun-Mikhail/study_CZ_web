@@ -49,11 +49,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "Study Czechia: Study in Czechia (Czech Republic) Without an Agency",
+    default: "Study in Czechia | Free Universities, Deadlines & Eligibility",
     template: "%s | Study Czechia",
   },
   description:
-    "Study in the Czech Republic without an agency: free guides to Czech universities like Charles University and VUT Brno, studying for free in Czech, fees, deadlines and visas, from a student who lives in Czechia. Help in Arabic.",
+    "Your complete guide to study in Czech Republic. Explore free programs in Czechia, Charles University, VUT, CTU, and Mendel University. Check deadlines, costs, and eligibility.",
   authors: [{ name: "Study Czechia" }],
   openGraph: {
     siteName: "Study Czechia",

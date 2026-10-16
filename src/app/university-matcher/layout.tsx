@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Programme Matcher: Find Your Czech University Programme",
-  description: "Answer a few questions to find the right English-taught programme at a Czech university. Matched by field, budget, city, and language.",
+  title: "University Matcher: Find Your Programme at Czech Universities | Study in CZ",
+  description: "Answer a few questions to find your programme at Czech universities, matched by field, budget, city and language: English-taught, or Czech-taught (free at public universities, usually after a Czech language preparatory or foundation year). A first step to study in Europe.",
   alternates: { canonical: "/university-matcher" },
 };
 

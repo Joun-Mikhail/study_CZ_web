@@ -112,7 +112,7 @@ const deadlineStatusLabel: Record<DeadlineStatus, { en: string; ar: string }> = 
   "not-verified": { en: "Not yet verified", ar: "لم يتم التحقق" },
   passed: { en: "Deadline passed", ar: "الموعد انتهى" },
   rolling: { en: "Rolling admissions", ar: "قبول مستمر" },
-  "not-published": { en: "Usually end of February", ar: "عادةً آخر فبراير" },
+  "not-published": { en: "End of February (General Deadline)", ar: "نهاية فبراير (الموعد العام)" },
 };
 
 const deadlineStatusColor: Record<DeadlineStatus, string> = {
@@ -631,7 +631,7 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
                   options={[
                     { value: "verified", label: locale === "ar" ? "متحقق" : "Verified" },
                     { value: "rolling", label: locale === "ar" ? "قبول مستمر" : "Rolling" },
-                    { value: "not-published", label: locale === "ar" ? "عادةً آخر فبراير" : "Usually end of February" },
+                    { value: "not-published", label: locale === "ar" ? "نهاية فبراير (الموعد العام)" : "End of February (General Deadline)" },
                   ]}
                 />
               </>

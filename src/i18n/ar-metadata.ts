@@ -5,9 +5,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 /** Arabic titles and descriptions for the static pages (Modern Standard Arabic for search). */
 export const AR_PAGE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "الدراسة في التشيك (جمهورية التشيك) بدون وكالة",
+    title: "الدراسة في التشيك | جامعات مجانية، مواعيد التقديم، وشروط القبول",
     description:
-      "دليلك للدراسة في جمهورية التشيك بدون وكالة: جامعات التشيك مثل جامعة تشارلز وVUT، والدراسة بالمجان باللغة التشيكية، والمصاريف والمواعيد والفيزا، من طالب يعيش في التشيك. مراجعة الأوراق والتحضير لمقابلة السفارة والمساعدة في التقديم.",
+      "دليلك الشامل للدراسة في جمهورية التشيك. اعرف شروط الدراسة في تشيكيا، الجامعات المجانية، جامعة تشارلز، VUT، و CTU. مواعيد التقديم والتكاليف.",
   },
   "/about/": {
     title: "من نحن",
@@ -56,8 +56,8 @@ export const AR_PAGE_META: Record<string, { title: string; description: string }
   },
   "/courses/learn/": { title: "لوحة الكورس", description: "دروس كورس أول 90 يوم في التشيك." },
   "/deadlines/": {
-    title: "مواعيد التقديم للجامعات التشيكية",
-    description: "تابع مواعيد التقديم للبرامج الإنجليزية في الجامعات التشيكية.",
+    title: "مواعيد التقديم في جامعات التشيك | الدراسة في التشيك",
+    description: "مواعيد التقديم في جامعات التشيك للدراسة في تشيكيا، وأغلبها نهاية فبراير. البرامج بالإنجليزية، والدراسة بالمجان باللغة التشيكية في الجامعات الحكومية، وخطوات السفر للتشيك. الدراسة بالمجان في أوروبا تبدأ بمعرفة المواعيد.",
   },
   "/eligibility/": {
     title: "هل يمكنني الدراسة في التشيك؟ اختبار الأهلية",
@@ -106,8 +106,8 @@ export const AR_PAGE_META: Record<string, { title: string; description: string }
     description: "جامعات التشيك الحكومية والخاصة، مثل جامعة تشارلز وVUT وČVUT: البرامج بالإنجليزي، والمصاريف من مواقع الجامعات الرسمية، ومواعيد التقديم.",
   },
   "/university-matcher/": {
-    title: "اختر جامعتك في التشيك",
-    description: "أجب عن أسئلة قليلة واحصل على برامج تناسب تخصصك وميزانيتك ومدينتك.",
+    title: "اختر جامعتك في التشيك | جامعات التشيك المجانية والإنجليزية",
+    description: "أجب عن أسئلة قليلة لتجد برنامجك في جامعات التشيك حسب تخصصك وميزانيتك ومدينتك: برامج بالإنجليزية، أو برامج باللغة التشيكية مجانية في الجامعات الحكومية. خطوتك الأولى للدراسة في تشيكيا والسفر للتشيك والدراسة بالمجان في أوروبا.",
   },
   "/verify/": { title: "التحقق من الشهادة", description: "تحقق من شهادة إتمام كورس Study Czechia." },
   "/why-czechia/": {
@@ -197,7 +197,7 @@ export function arabicMetadata(
   const isHome = path === "/";
   return {
     ...en,
-    title: isHome ? { absolute: `Study Czechia: ${title}` } : title,
+    title: isHome ? { absolute: String(title) } : title,
     description,
     alternates: { canonical: arPath },
     openGraph: {
@@ -205,7 +205,7 @@ export function arabicMetadata(
       type: "website",
       locale: "ar_AR",
       url: arPath,
-      ...(typeof title === "string" ? { title: isHome ? `Study Czechia: ${title}` : title } : {}),
+      ...(typeof title === "string" ? { title } : {}),
       ...(description ? { description } : {}),
       images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
     },
