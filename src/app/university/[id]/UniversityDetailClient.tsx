@@ -180,7 +180,12 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                     </>
                   )}
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white leading-tight">{uni.name}</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                  {locale === "ar" && uniV2?.nameAr ? uniV2.nameAr : uni.name}
+                </h1>
+                {locale === "ar" && uniV2?.nameAr && (
+                  <p lang="en" dir="ltr" className="text-xs text-white/80 mt-0.5 text-end">{uni.name}</p>
+                )}
               </div>
               {uniV2 && (
                 <span className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold border backdrop-blur-sm ${

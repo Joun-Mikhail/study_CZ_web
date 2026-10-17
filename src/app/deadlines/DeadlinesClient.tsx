@@ -32,7 +32,7 @@ import Image from "next/image";
 
 const labels = {
   en: {
-    title: "Deadline Tracker",
+    title: "Czech University Application Deadlines",
     subtitle: "Track application deadlines for English-taught programmes at Czech universities. Where a university hasn't published its own date yet, we show the general Czech deadline: the end of February.",
     filters: "Filters",
     clearFilters: "Clear filters",
@@ -70,7 +70,7 @@ const labels = {
     urgentWarning: "Under 30 days",
   },
   ar: {
-    title: "متتبع المواعيد",
+    title: "مواعيد التقديم في جامعات التشيك",
     subtitle: "تابع مواعيد التقديم للبرامج بالإنجليزي في جامعات التشيك. لو الجامعة لسه منزلتش ميعادها، بنعرضلك الموعد العام في التشيك: نهاية فبراير.",
     filters: "فلتر",
     clearFilters: "امسح الفلتر",
