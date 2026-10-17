@@ -23,10 +23,10 @@ export type SitePage = {
 export const SITE_PAGES: SitePage[] = [
   {
     path: "/application-guide/",
-    title: "Application Guide",
+    title: "How to Apply to Czech Universities, Step by Step",
     description: "Step-by-step guide to applying to Czech universities. Documents, deadlines, and visa requirements.",
     keywords: {
-      en: ["how to apply", "admission", "visa", "documents", "accommodation", "housing", "insurance", "foreign police", "bank account"],
+      en: ["application guide", "how to apply", "admission", "visa", "documents", "accommodation", "housing", "insurance", "foreign police", "bank account"],
       ar: ["تقديم", "قبول", "تأشيرة", "فيزا", "أوراق", "مستندات", "سكن", "تأمين"],
     },
   },
@@ -61,15 +61,15 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/interview-prep/",
-    title: "Embassy Interview Prep",
+    title: "Czech Embassy Student Visa Interview Prep",
     description:
       "Live 45-minute mock embassy interview with real questions, feedback, and a cheat sheet. Coached by a student who lives in Czechia and knows what officers actually test.",
     keywords: { en: ["visa interview", "embassy questions"], ar: ["مقابلة", "سفارة", "تأشيرة", "فيزا"] },
   },
   {
     path: "/cost-of-living/",
-    title: "Cost of Living",
-    description: "Compare monthly living costs across Czech cities. Rent, food, transport, and more for international students.",
+    title: "Cost of Living in Czechia for Students",
+    description: "Monthly student living costs in Prague, Brno and other Czech cities: rent, food, transport and more, from a student who lives in Czechia.",
     keywords: {
       en: ["accommodation", "housing", "dorm", "budget", "insurance", "Prague", "Brno", "Ostrava"],
       ar: ["سكن", "إيجار", "مصاريف", "ميزانية", "أكل", "مواصلات", "معيشة"],
@@ -84,29 +84,29 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/eligibility/",
-    title: "Eligibility Assessment: Study in Czechia",
+    title: "Admission Requirements: Can I Study in Czechia?",
     description:
       "Check your eligibility for Czech university admission in 5 minutes. Free assessment covering academics, documents, finances, and visa timeline.",
     keywords: { en: ["requirements", "grades", "can I study"], ar: ["أهلية", "شروط", "قبول", "درجات", "تأشيرة", "فيزا"] },
   },
   {
     path: "/deadlines/",
-    title: "Czech Universities Application Deadlines | Study in CZ Deadline Tracker",
+    title: "Czech University Application Deadlines 2027",
     description:
-      "Application deadlines for Czech universities, most at the end of February. Track English-taught programmes, and plan a Czech language year (preparatory or foundation year) if you want to study in Czech for free. Study in Europe without missing a date.",
-    keywords: { en: ["dates", "when to apply", "entrance exam"], ar: ["مواعيد", "موعد", "تقديم", "امتحان القبول"] },
+      "Application deadlines for Czech universities, most at the end of February. Track English-taught programmes and plan a Czech language (foundation) year to study in Czech for free.",
+    keywords: { en: ["deadline tracker", "dates", "when to apply", "entrance exam"], ar: ["مواعيد", "موعد", "تقديم", "امتحان القبول"] },
   },
   {
     path: "/preparatory-year/",
-    title: "Study for Free in Czechia: Preparatory & Czech Language Year",
+    title: "Free Study in Czechia: Czech Language Preparatory Year",
     description:
-      "Public Czech universities are free when you study in Czech. Guide to the preparatory language year: providers, prices, visa and enrolment steps for international students.",
+      "Public Czech universities are free when you study in Czech. Guide to the preparatory language year: providers, prices, visa and enrolment steps.",
     keywords: { en: ["foundation year", "free tuition"], ar: ["سنة تحضيرية", "لغة تشيكية", "مجاني", "فيزا"] },
   },
   {
     path: "/scholarships/",
-    title: "Scholarships & Funding",
-    description: "Explore scholarship opportunities and funding options for studying in the Czech Republic.",
+    title: "Scholarships in Czechia for International Students",
+    description: "Scholarships and funding for studying in the Czech Republic: Czech government scholarships, university scholarships and other options for international students.",
     keywords: { en: ["grant", "funding"], ar: ["منحة", "منح", "تمويل"] },
   },
   {
@@ -167,9 +167,9 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/university-matcher/",
-    title: "University Matcher: Find Your Programme at Czech Universities | Study in CZ",
+    title: "Czech University Matcher: Find Your Programme",
     description:
-      "Answer a few questions to find your programme at Czech universities, matched by field, budget, city and language: English-taught, or Czech-taught (free at public universities, usually after a Czech language preparatory or foundation year). A first step to study in Europe.",
+      "Find your programme at Czech universities in a few questions, matched by field, budget, city and language: English-taught, or Czech-taught and free at public universities.",
     keywords: { en: ["quiz", "which university"], ar: ["اختبار", "اختيار", "جامعة"] },
   },
   {
@@ -181,7 +181,7 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/programmes/",
-    title: "Browse Programmes",
+    title: "English-Taught Programmes at Czech Universities",
     description:
       "Explore verified English-taught university programmes in the Czech Republic. Filter by field, city, degree level, and tuition.",
     keywords: { en: ["courses", "degrees"], ar: ["برامج", "تخصصات"] },

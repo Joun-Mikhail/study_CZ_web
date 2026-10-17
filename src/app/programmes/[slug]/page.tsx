@@ -9,6 +9,7 @@ import { universityImage } from "@/data/images";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
+import { programmeTitle } from "@/lib/programme-title";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
   const uniName = uni?.name ?? "";
   return {
-    title: `${prog.name.en} | ${uniName}`,
+    title: { absolute: programmeTitle(prog, "en") },
     description: `${prog.degree} in ${prog.name.en} at ${uniName}, ${uni?.city ?? "Czech Republic"}. ${prog.language}-taught, ${prog.durationYears} years, €${prog.tuitionEurPerYear.toLocaleString()} per year.`,
     alternates: { canonical: `/programmes/${slug}` },
   };

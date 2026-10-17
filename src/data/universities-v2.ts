@@ -72,6 +72,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "czu",
     name: "Czech University of Life Sciences Prague (CZU)",
+    nameAr: "جامعة التشيك لعلوم الحياة في براغ",
+    searchName: "ČZU",
     nameLocal: "Česká zemědělská univerzita v Praze",
     city: "Prague",
     type: "public",
@@ -139,6 +141,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "mendelu",
     name: "Mendel University in Brno",
+    nameAr: "جامعة مندل في برنو",
+    searchName: "MENDELU",
     nameLocal: "Mendelova univerzita v Brně",
     city: "Brno",
     type: "public",
@@ -160,6 +164,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "upol",
     name: "Palacký University Olomouc",
+    nameAr: "جامعة بالاتسكي في أولوموتس",
+    searchName: "UPOL",
     nameLocal: "Univerzita Palackého v Olomouci",
     city: "Olomouc",
     type: "public",
@@ -181,6 +187,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "tbu",
     name: "Tomas Bata University in Zlín",
+    nameAr: "جامعة توماس باتا في زلين",
+    searchName: "UTB",
     nameLocal: "Univerzita Tomáše Bati ve Zlíně",
     city: "Zlín",
     type: "public",
@@ -202,6 +210,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni-plzen",
     name: "Charles University — Faculty of Medicine in Plzeň",
+    nameAr: "جامعة تشارلز: كلية الطب في بلزن",
     nameLocal: "Univerzita Karlova — Lékařská fakulta v Plzni",
     city: "Plzeň",
     type: "public",
@@ -222,6 +231,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni-hradec",
     name: "Charles University — Faculty of Medicine in Hradec Králové",
+    nameAr: "جامعة تشارلز: كلية الطب في هراديتس كرالوفيه",
     nameLocal: "Univerzita Karlova — Lékařská fakulta v Hradci Králové",
     city: "Hradec Králové",
     type: "public",
@@ -242,6 +252,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni-faf",
     name: "Charles University — Faculty of Pharmacy in Hradec Králové",
+    nameAr: "جامعة تشارلز: كلية الصيدلة في هراديتس كرالوفيه",
     nameLocal: "Univerzita Karlova — Farmaceutická fakulta v Hradci Králové",
     city: "Hradec Králové",
     type: "public",
@@ -262,6 +273,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "osu",
     name: "University of Ostrava",
+    nameAr: "جامعة أوسترافا",
     nameLocal: "Ostravská univerzita",
     city: "Ostrava",
     type: "public",
@@ -283,6 +295,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "tul",
     name: "Technical University of Liberec",
+    nameAr: "الجامعة التقنية في ليبيريتس",
     nameLocal: "Technická univerzita v Liberci",
     city: "Liberec",
     type: "public",
@@ -303,6 +316,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uct",
     name: "University of Chemistry and Technology Prague",
+    nameAr: "جامعة الكيمياء والتكنولوجيا في براغ",
+    searchName: "VŠCHT",
     nameLocal: "Vysoká škola chemicko-technologická v Praze",
     city: "Prague",
     type: "public",
@@ -323,6 +338,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "ujep",
     name: "Jan Evangelista Purkyně University",
+    nameAr: "جامعة يان إيفانجليستا بوركينيه في أوستي ناد لابم",
     nameLocal: "Univerzita Jana Evangelisty Purkyně",
     city: "Ústí nad Labem",
     type: "public",
@@ -343,6 +359,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "upce",
     name: "University of Pardubice",
+    nameAr: "جامعة باردوبيتسه",
     nameLocal: "Univerzita Pardubice",
     city: "Pardubice",
     type: "public",
@@ -363,6 +380,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "jcu",
     name: "University of South Bohemia",
+    nameAr: "جامعة جنوب بوهيميا في تشيسكي بوديوفيتسه",
     nameLocal: "Jihočeská univerzita v Českých Budějovicích",
     city: "České Budějovice",
     type: "public",
@@ -383,6 +401,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "vsb",
     name: "VSB - Technical University of Ostrava",
+    nameAr: "الجامعة التقنية في أوسترافا (VŠB)",
+    searchName: "VŠB",
     nameLocal: "Vysoká škola báňská – Technická univerzita Ostrava",
     city: "Ostrava",
     type: "public",
@@ -466,6 +486,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "slu",
     name: "Silesian University in Opava",
+    nameAr: "جامعة سيليزيا في أوبافا",
     nameLocal: "Slezská univerzita v Opavě",
     city: "Opava",
     type: "public",
@@ -486,6 +507,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uhk",
     name: "University of Hradec Králové",
+    nameAr: "جامعة هراديتس كرالوفيه",
     nameLocal: "Univerzita Hradec Králové",
     city: "Hradec Králové",
     type: "public",
@@ -715,6 +737,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uvb",
     name: "University of Veterinary Science Brno",
+    nameAr: "جامعة العلوم البيطرية في برنو",
     nameLocal: "Veterinární univerzita Brno",
     city: "Brno",
     type: "public",
@@ -815,6 +838,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "zcu",
     name: "University of West Bohemia",
+    nameAr: "جامعة غرب بوهيميا في بلزن",
+    searchName: "ZČU",
     nameLocal: "Západočeská univerzita v Plzni",
     city: "Plzeň",
     type: "public",

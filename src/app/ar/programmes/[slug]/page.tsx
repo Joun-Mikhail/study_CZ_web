@@ -4,6 +4,7 @@ import { generateMetadata as en } from "@/app/programmes/[slug]/page";
 import { arabicMetadata, CITY_AR, DEGREE_AR } from "@/i18n/ar-metadata";
 import { getProgrammeById } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
+import { programmeTitle } from "@/lib/programme-title";
 export { default, generateStaticParams } from "@/app/programmes/[slug]/page";
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -16,7 +17,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const city = uni ? CITY_AR[uni.city] ?? uni.city : "التشيك";
   const degree = DEGREE_AR[prog.degree] ?? prog.degree;
   return arabicMetadata(`/programmes/${slug}/`, base, {
-    title: `${name} | ${uni?.name ?? ""}`,
-    description: `${degree} في ${name} في ${uni?.name ?? ""}، ${city}. مدة الدراسة ${prog.durationYears} سنوات، والرسوم نحو ${prog.tuitionEurPerYear.toLocaleString("en-US")}€ في السنة.`,
+    title: programmeTitle(prog, "ar"),
+    absolute: true,
+    description: `${degree} في ${name} في ${uni?.nameAr ?? uni?.name ?? ""}، ${city}. مدة الدراسة ${prog.durationYears} سنوات، والرسوم نحو ${prog.tuitionEurPerYear.toLocaleString("en-US")}€ في السنة.`,
   });
 }
