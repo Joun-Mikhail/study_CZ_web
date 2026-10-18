@@ -2,9 +2,9 @@ import WhatItCostsClient from "./WhatItCostsClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "What Studying in Czechia Actually Costs",
+  title: "Cost of Studying in Czechia in 2027: Tuition, Living and Visa",
   description:
-    "Real tuition fees, living costs, visa fees, and document costs for studying in the Czech Republic. No invented numbers. Every figure verified with a date.",
+    "What studying in the Czech Republic costs: verified English tuition by degree, monthly living costs in Prague, Brno and Ostrava, the visa money and fees, and a whole-degree estimate. Every figure says where it comes from.",
   alternates: { canonical: "/what-it-costs" },
 };
 
