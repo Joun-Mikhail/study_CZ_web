@@ -1,7 +1,7 @@
 import { priceOf, fullPackageTotal, checkoutLink } from "./pricing";
 
-// TODO: switch to a domain address (e.g. john@studyczechia.com) once the mailbox exists.
-export const CONTACT_EMAIL = "Study.Czechia1@gmail.com";
+// Forwarded to the owner's inbox by ImprovMX (MX records on the domain).
+export const CONTACT_EMAIL = "john@studyczechia.com";
 
 export const WHATSAPP_URL = "https://wa.me/420703982237";
 

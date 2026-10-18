@@ -163,7 +163,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
 
         <WaitlistSignup className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" />
 
-        {/* ── Where students live: the 14 university cities ────── */}
+        {/* ── Where students live: cities with programmes on the site ── */}
         <CityStrip cities={facts.cities} />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
