@@ -70,7 +70,7 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/preparatory-year", priority: 0.8, sources: ["src/app/preparatory-year", "src/data/preparatory-programs.ts"] },
   { route: "/contact", priority: 0.8, sources: ["src/app/contact"] },
   { route: "/eligibility", priority: 0.8, sources: ["src/app/eligibility"] },
-  { route: "/what-it-costs", priority: 0.8, sources: ["src/app/what-it-costs"] },
+  { route: "/what-it-costs", priority: 0.8, sources: ["src/app/what-it-costs", "src/lib/study-costs.ts", "src/data/programmes.ts", "src/data/costs.ts"] },
   { route: "/why-czechia", priority: 0.7, sources: ["src/app/why-czechia"] },
   { route: "/deadlines", priority: 0.8, sources: ["src/app/deadlines", "src/data/programmes.ts"] },
   { route: "/interview-prep", priority: 0.8, sources: ["src/app/interview-prep"] },

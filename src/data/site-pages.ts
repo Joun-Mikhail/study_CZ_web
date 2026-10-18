@@ -77,10 +77,13 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/what-it-costs/",
-    title: "What Studying in Czechia Actually Costs",
+    title: "Cost of Studying in Czechia in 2027: Tuition, Living and Visa",
     description:
-      "Real tuition fees, living costs, visa fees, and document costs for studying in the Czech Republic. No invented numbers. Every figure verified with a date.",
-    keywords: { en: ["price", "budget", "insurance", "dorm"], ar: ["تكلفة", "رسوم", "مصاريف", "تأشيرة", "فيزا", "ميزانية"] },
+      "What studying in the Czech Republic costs: verified English tuition by degree, monthly living costs in Prague, Brno and Ostrava, the visa money and fees, and a whole-degree estimate. Every figure says where it comes from.",
+    keywords: {
+      en: ["price", "budget", "insurance", "dorm", "fees", "calculator", "total"],
+      ar: ["تكلفة", "تكاليف", "رسوم", "مصاريف", "تأشيرة", "فيزا", "ميزانية", "مصاريف الدراسة"],
+    },
   },
   {
     path: "/eligibility/",
