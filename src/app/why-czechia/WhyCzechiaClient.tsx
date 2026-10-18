@@ -10,7 +10,6 @@ import { Footer } from "@/components/footer";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CountUp } from "@/components/ui/count-up";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { FACEBOOK_GROUP_URL, FOUNDER_NAME } from "@/config/contact";
@@ -328,7 +327,7 @@ export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }
                   <div>
                     <div className="text-sm text-text-secondary">{t.glance.labels[s.key as keyof typeof t.glance.labels]}</div>
                     <span className="text-lg font-semibold text-text-primary block">
-                      <CountUp value={t.glance.stats[s.key as keyof typeof t.glance.stats]} />
+                      {t.glance.stats[s.key as keyof typeof t.glance.stats]}
                     </span>
                   </div>
                 </div>

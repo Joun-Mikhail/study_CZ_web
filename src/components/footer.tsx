@@ -144,11 +144,11 @@ export function Footer() {
             <Link href="/about" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "عن المنصة" : "About"}
             </Link>
-            <span className="text-border-subtle">·</span>
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-border-subtle" />
             <Link href="/terms" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "الشروط" : "Terms"}
             </Link>
-            <span className="text-border-subtle">·</span>
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-border-subtle" />
             <Link href="/privacy" className="text-text-muted hover:text-brand transition-colors">
               {locale === "ar" ? "الخصوصية" : "Privacy"}
             </Link>

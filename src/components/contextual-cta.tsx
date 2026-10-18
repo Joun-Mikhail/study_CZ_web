@@ -7,6 +7,7 @@ import { useTranslation } from "@/i18n/context";
 import { usePathname } from "next/navigation";
 import { contextualCtas, type ContextualCtaService } from "@/data/contextual-ctas";
 import { HelpLink } from "@/components/help-sheet";
+import { ArrowRight } from "lucide-react";
 
 let mountedCount = 0;
 
@@ -45,7 +46,7 @@ export function ContextualCTA({ service }: { service: ContextualCtaService }) {
             className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
           >
             {config.cta[locale]}
-            <span aria-hidden="true">{locale === "ar" ? "←" : "→"}</span>
+            <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
           </HelpLink>
         </div>
       </div>

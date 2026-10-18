@@ -33,7 +33,7 @@ import Image from "next/image";
 import { SiteImage } from "@/components/site-image";
 import { cityImage } from "@/data/images";
 import { motion } from "framer-motion";
-import { CardPhoto, PhotoPill, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
 import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import { MedicineGuide } from "./MedicineGuide";
 
@@ -62,10 +62,10 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
           }
           bottom={
             uni && (
-              <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+              <PhotoTag>
                 <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
                 {cityName(uni.city, locale)}
-              </span>
+              </PhotoTag>
             )
           }
         />

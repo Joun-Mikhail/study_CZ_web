@@ -33,7 +33,7 @@ import {
 import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { CardPhoto, PhotoPill, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
 import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 const CITIES: City[] = [
@@ -75,10 +75,10 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           }
           bottom={
             uni && (
-              <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+              <PhotoTag>
                 <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
                 {cityName(uni.city, locale)}
-              </span>
+              </PhotoTag>
             )
           }
         />

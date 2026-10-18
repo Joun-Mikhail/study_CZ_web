@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/translations";
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
-import { CardPhoto, PhotoPill, cityName } from "@/components/card-photo";
+import { CardPhoto, PhotoPill, PhotoTag, cityName } from "@/components/card-photo";
 import { cityImage, type ImageId } from "@/data/images";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
@@ -69,7 +69,7 @@ export default function PreparatoryYearPage() {
     <div className="min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <main>
+      <main id="main-content">
 
       {/* Hero banner */}
       <section className="pt-28 pb-4 px-4 sm:px-6 lg:px-8">
@@ -346,10 +346,10 @@ export default function PreparatoryYearPage() {
                   id={prepPhoto(prog.id, prog.city)}
                   className="-mx-6 -mt-6 mb-4"
                   bottom={
-                    <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+                    <PhotoTag>
                       <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
                       {cityName(prog.city, locale)}
-                    </span>
+                    </PhotoTag>
                   }
                 />
                 <h3 className="font-semibold text-text-primary text-sm mb-3">{prog.university}</h3>
@@ -522,10 +522,10 @@ function ProgramCard({
           </>
         }
         bottom={
-          <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+          <PhotoTag>
             <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
             {cityName(prog.city, locale)}
-          </span>
+          </PhotoTag>
         }
       />
       <h3 className="font-semibold text-text-primary mb-3">{prog.university}</h3>

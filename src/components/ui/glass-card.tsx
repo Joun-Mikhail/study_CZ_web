@@ -34,17 +34,18 @@ export function GlassCard({ children, className, href, onClick, ariaLabel }: Gla
   );
   const inner = <div className="relative z-10">{children}</div>;
 
+  // The whole card is the link. (An invisible link stretched over the card
+  // hid the text from contrast checkers: axe reported every line as "needs
+  // review".) So don't put other links or buttons inside a card with href.
   if (href && href.startsWith("/")) {
     return (
-      <div className={classes}>
-        <Link
-          href={href}
-          className="absolute inset-0 z-20 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-        >
-          <span className="sr-only">{ariaLabel}</span>
-        </Link>
+      <Link
+        href={href}
+        aria-label={ariaLabel}
+        className={cn(classes, "block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand")}
+      >
         {inner}
-      </div>
+      </Link>
     );
   }
 

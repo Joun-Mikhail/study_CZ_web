@@ -218,9 +218,9 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
       <div className="min-w-0 flex-1 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="font-semibold text-text-primary text-sm sm:text-base leading-snug group-hover:text-brand transition-colors">
+          <h2 className="font-semibold text-text-primary text-sm sm:text-base leading-snug group-hover:text-brand transition-colors">
             {prog.name[locale] || prog.name.en}
-          </h3>
+          </h2>
           {prog.faculty && (
             <p className="text-xs text-text-muted mt-0.5 truncate">{prog.faculty}</p>
           )}
@@ -333,7 +333,10 @@ function DaysRing({ days, urgent }: { days: number; urgent: boolean }) {
           style={{ "--ring": `${c}` } as React.CSSProperties}
         />
       </svg>
-      <span className="relative text-[13px] font-bold text-text-primary" dir="ltr">{days}</span>
+      {/* Solid disc under the number, so its contrast can be measured. */}
+      <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-surface text-[13px] font-bold text-text-primary" dir="ltr">
+        {days}
+      </span>
     </span>
   );
 }

@@ -13,6 +13,15 @@ export function photoForUniversity(universityId: string): ImageId | undefined {
   return universityImage(universityId, uni?.city);
 }
 
+/** Dark pill for the bottom of a photo (city, year): white on solid navy. */
+export function PhotoTag({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+      {children}
+    </span>
+  );
+}
+
 /** "3 years" / "3 سنوات", with the Arabic dual and singular. */
 export function yearsLabel(n: number, locale: "en" | "ar"): string {
   if (locale === "ar") return n === 1 ? "سنة" : n === 2 ? "سنتين" : n <= 10 ? `${n} سنوات` : `${n} سنة`;
@@ -23,12 +32,15 @@ export function cityName(city: string, locale: "en" | "ar"): string {
   return locale === "ar" ? CITY_AR[city] ?? city : city;
 }
 
-/** Light pill that sits on a photo: dark text on white, readable over any picture. */
+/**
+ * Pill that sits on a photo: navy text on solid white. Solid (not see-through)
+ * so contrast checkers can measure it; text straight on a photo can't be.
+ */
 export function PhotoPill({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-0.5 text-[11px] font-semibold text-ink shadow-sm backdrop-blur-sm",
+        "inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-ink shadow-sm",
         className
       )}
     >
