@@ -100,7 +100,7 @@ describe("searchSite: pages and Q&A", () => {
     const guide = searchSite("application guide").pages.find((p) => p.href === "/application-guide/")!;
     expect(guide.title.ar).toBe(AR_PAGE_META["/application-guide/"].title);
     const deadlines = searchSite("deadlines").pages.find((p) => p.href === "/deadlines/")!;
-    expect(deadlines.title.en).toBe("Czech Universities Application Deadlines");
+    expect(deadlines.title.en).toBe("Czech University Application Deadlines 2027");
     expect(deadlines.title.ar).not.toContain("|");
   });
 

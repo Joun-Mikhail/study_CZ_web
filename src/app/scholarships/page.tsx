@@ -39,7 +39,7 @@ export default function Page() {
           className="text-center mb-10"
         >
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
-            {locale === "ar" ? "المنح الدراسية والتمويل" : "Scholarships & Funding"}
+            {locale === "ar" ? "منح دراسية في التشيك" : "Scholarships in Czechia"}
           </h1>
           <p className="text-text-secondary max-w-2xl mx-auto leading-relaxed">
             {locale === "ar"
