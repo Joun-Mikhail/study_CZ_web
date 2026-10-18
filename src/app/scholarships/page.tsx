@@ -7,9 +7,19 @@ import { scholarships } from "@/data/scholarships";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
-import { GraduationCap, Clock } from "lucide-react";
+import { GraduationCap, Clock, Landmark, Languages, Globe2, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { CardPhoto } from "@/components/card-photo";
+import type { ImageId } from "@/data/images";
+
+/** Header photo (decorative) and icon for each scholarship route. */
+const LOOK: Record<string, { photo: ImageId; icon: React.ElementType }> = {
+  "cz-gov-scholarship": { photo: "uni-cuni", icon: Landmark },
+  "study-in-czech-free-path": { photo: "city-brno", icon: Languages },
+  erasmus: { photo: "city-prague", icon: Globe2 },
+  "university-merit": { photo: "uni-muni", icon: Trophy },
+};
 
 export default function Page() {
   const { t, locale } = useTranslation();
@@ -56,15 +66,24 @@ export default function Page() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.08 }}
             >
-              <GlassCard href={s.link || "#"} hoverEffect="lift" className="h-full flex flex-col">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-5 h-5 text-brand" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-semibold text-text-primary mb-0.5">{s.name[locale]}</h2>
-                    <p className="text-xs text-text-muted">{s.provider[locale]}</p>
-                  </div>
+              <GlassCard href={s.link || "#"} hoverEffect="lift" className="group h-full flex flex-col">
+                <CardPhoto
+                  id={LOOK[s.id]?.photo}
+                  height="h-36"
+                  className="-mx-6 -mt-6 mb-4"
+                  sizes="(max-width: 768px) 100vw, 500px"
+                  bottom={(() => {
+                    const Icon = LOOK[s.id]?.icon ?? GraduationCap;
+                    return (
+                      <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white/90 text-ink shadow-sm motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:-translate-y-1">
+                        <Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                    );
+                  })()}
+                />
+                <div className="mb-3">
+                  <h2 className="text-lg font-semibold text-text-primary mb-0.5">{s.name[locale]}</h2>
+                  <p className="text-xs text-text-muted">{s.provider[locale]}</p>
                 </div>
 
                 <p className="text-sm text-text-secondary leading-relaxed mb-3 flex-1">{s.eligibility[locale]}</p>

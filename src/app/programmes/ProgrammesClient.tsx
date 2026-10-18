@@ -28,10 +28,13 @@ import {
   X,
   Bookmark,
   ArrowRight,
+  MapPin,
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { CardPhoto, PhotoPill, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 const CITIES: City[] = [
   "Prague", "Brno", "Olomouc", "Ostrava", "Plzeň",
@@ -54,49 +57,51 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
       initial={{ y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4 }}
+      className="card-lift group h-full rounded-2xl"
     >
-      <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
-        <div className="absolute top-0 end-0 w-20 h-20 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-          <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
-            <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
-            <circle cx="60" cy="20" r="30" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
-          </svg>
-        </div>
+      <GlassCard className="relative overflow-hidden h-full">
+        <CardPhoto
+          id={photoForUniversity(prog.universityId)}
+          className="-mx-6 -mt-6 mb-4"
+          top={
+            <>
+              <PhotoPill>{locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}</PhotoPill>
+              <PhotoPill>
+                <Euro className="w-3 h-3" aria-hidden="true" />
+                <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>
+                {locale === "ar" ? " في السنة" : " per year"}
+              </PhotoPill>
+            </>
+          }
+          bottom={
+            uni && (
+              <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                {cityName(uni.city, locale)}
+              </span>
+            )
+          }
+        />
 
         <div className="flex items-start justify-between gap-3">
           <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
             <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
               {prog.name[locale] || prog.name.en}
             </h3>
-            <p className="text-xs text-text-secondary mt-0.5">
-              {uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
+            <p className="text-xs text-text-secondary mt-0.5" dir="auto">
+              {(locale === "ar" && uni?.nameAr?.split(" (")[0]) || uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
             </p>
           </Link>
           <SaveProgrammeButton programmeId={prog.id} locale={locale} />
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
           <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
-            {prog.degree}
-          </span>
-          <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-            {prog.language}
-          </span>
-          {uni && (
-            <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-              {uni.city}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
-          <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-brand/70" />
-            €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
+            {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3 h-3 text-text-muted" />
-            {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+            {yearsLabel(prog.durationYears, locale)}
           </span>
           {prog.entranceExam && (
             <span className="inline-flex items-center gap-1">
@@ -120,10 +125,10 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
           />
           <Link
             href={`/programmes/${prog.id}`}
-            className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
+            className="text-xs font-medium text-brand hover:underline inline-flex items-center gap-1"
           >
             {locale === "ar" ? "التفاصيل" : "Details"}
-            <ArrowRight className="w-3 h-3" />
+            <ArrowRight className="w-3 h-3 rtl:rotate-180" aria-hidden="true" />
           </Link>
         </div>
       </GlassCard>

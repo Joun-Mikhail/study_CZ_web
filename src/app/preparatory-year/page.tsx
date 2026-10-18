@@ -17,8 +17,31 @@ import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/translations";
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
+import { CardPhoto, PhotoPill, cityName } from "@/components/card-photo";
+import { cityImage, type ImageId } from "@/data/images";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
+
+/** The provider's own university building where we have it, else its city. */
+const PREP_PHOTO: Record<string, ImageId> = {
+  "ujop-czech": "uni-cuni",
+  "ujop-english": "uni-cuni",
+  "muni-kabcest": "uni-muni",
+  "muni-cjv": "uni-muni",
+  vut: "uni-but",
+  cvut: "uni-ctu",
+  vse: "uni-vse",
+  uwb: "uni-zcu",
+};
+
+function prepPhoto(id: string, city: string): ImageId | undefined {
+  return PREP_PHOTO[id] ?? cityImage(city);
+}
+
+/** "20 hours per week" → "20 ساعة في الأسبوع" on Arabic pages. */
+function intensityLabel(text: string, locale: Locale): string {
+  return locale === "ar" ? text.replace(/hours per week/, "ساعة في الأسبوع") : text;
+}
 
 export default function PreparatoryYearPage() {
   const { t, locale } = useTranslation();
@@ -317,11 +340,19 @@ export default function PreparatoryYearPage() {
           <p className="text-sm text-text-secondary text-center mb-6 -mt-4">{t.prep.brnoSubtitle}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {brnoPrograms.map((prog) => (
-              <GlassCard key={prog.id} hoverEffect="lift" className="h-full flex flex-col">
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="w-4 h-4 text-[#d42127]" />
-                  <h3 className="font-semibold text-text-primary text-sm">{prog.university}</h3>
-                </div>
+              <div key={prog.id} className="card-lift group h-full rounded-2xl">
+              <GlassCard className="h-full flex flex-col">
+                <CardPhoto
+                  id={prepPhoto(prog.id, prog.city)}
+                  className="-mx-6 -mt-6 mb-4"
+                  bottom={
+                    <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+                      <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                      {cityName(prog.city, locale)}
+                    </span>
+                  }
+                />
+                <h3 className="font-semibold text-text-primary text-sm mb-3">{prog.university}</h3>
                 {prog.note && (
                   <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
                 )}
@@ -350,6 +381,7 @@ export default function PreparatoryYearPage() {
                   {prog.website.label}
                 </a>
               </GlassCard>
+              </div>
             ))}
           </div>
         </div>
@@ -474,22 +506,29 @@ function ProgramCard({
   isPrivate?: boolean;
 }) {
   return (
-    <GlassCard hoverEffect="border">
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <h3 className="font-semibold text-text-primary">{prog.university}</h3>
-          <div className="flex items-center gap-2 mt-1">
-            <MapPin className="w-3 h-3 text-text-muted" />
-            <span className="text-xs text-text-muted">{prog.city}</span>
-            {isPrivate && (
-              <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[10px] font-medium border border-brand/20">
-                {locale === "ar" ? "خاص" : "Private"}
-              </span>
-            )}
-          </div>
-        </div>
-        <Languages className="w-5 h-5 text-brand shrink-0" />
-      </div>
+    <div className="card-lift group rounded-2xl">
+    <GlassCard>
+      <CardPhoto
+        id={prepPhoto(prog.id, prog.city)}
+        height="h-28 sm:h-36"
+        className="-mx-6 -mt-6 mb-4"
+        sizes="(max-width: 768px) 100vw, 900px"
+        top={
+          <>
+            {isPrivate ? <PhotoPill>{locale === "ar" ? "خاص" : "Private"}</PhotoPill> : <span />}
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/90 text-ink shadow-sm">
+              <Languages className="w-4.5 h-4.5" aria-hidden="true" />
+            </span>
+          </>
+        }
+        bottom={
+          <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+            {cityName(prog.city, locale)}
+          </span>
+        }
+      />
+      <h3 className="font-semibold text-text-primary mb-3">{prog.university}</h3>
 
       {prog.note && (
         <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
@@ -516,7 +555,7 @@ function ProgramCard({
               <tr key={i} className="border-b border-border-subtle/50 last:border-0">
                 <td className="py-2 px-2 text-text-primary font-medium">{p.name[locale]}</td>
                 {prog.programs.some((pp) => pp.intensity) && (
-                  <td className="py-2 px-2 text-text-secondary">{p.intensity || "—"}</td>
+                  <td className="py-2 px-2 text-text-secondary">{p.intensity ? intensityLabel(p.intensity, locale) : "—"}</td>
                 )}
                 <td className="py-2 px-2 text-end font-semibold text-brand">
                   {p.priceEur ? `€${p.priceEur.toLocaleString()}` : p.priceNote || "—"}
@@ -543,5 +582,6 @@ function ProgramCard({
         </a>
       </div>
     </GlassCard>
+    </div>
   );
 }

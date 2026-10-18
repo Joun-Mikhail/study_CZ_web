@@ -27,9 +27,10 @@ import { filterProgrammes, getDeadlineStatus, PROGRAMME_FIELDS } from "@/data/pr
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
-import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
 import { CityMap, type MapCity } from "@/components/city-map";
+import { CardPhoto, PhotoPill, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ViewMode = "programmes" | "universities";
@@ -172,13 +173,30 @@ function ProgrammeCard({
   const status = getDeadlineStatus(prog);
 
   return (
-    <GlassCard hoverEffect="lift" className={cn("group relative card-shine p-5 h-full flex flex-col overflow-hidden", isComparing && "ring-2 ring-accent")}>
-      {/* Decorative corner element */}
-      <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-        <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-          <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
-        </svg>
-      </div>
+    <div className="card-lift group h-full rounded-2xl">
+    <GlassCard className={cn("relative p-5 h-full flex flex-col overflow-hidden", isComparing && "ring-2 ring-accent")}>
+      <CardPhoto
+        id={photoForUniversity(prog.universityId)}
+        className="-mx-5 -mt-5 mb-4"
+        top={
+          <>
+            <PhotoPill>{locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}</PhotoPill>
+            <PhotoPill>
+              <Euro className="w-3 h-3" aria-hidden="true" />
+              <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>
+              {l.perYear}
+            </PhotoPill>
+          </>
+        }
+        bottom={
+          uni && (
+            <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+              {cityName(uni.city, locale)}
+            </span>
+          )
+        }
+      />
 
       <div className="flex items-start justify-between gap-2">
         <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-brand transition-colors duration-300">
@@ -203,33 +221,17 @@ function ProgrammeCard({
       {uni && (
         <div className="flex items-center gap-1.5 mt-1.5 text-sm text-text-secondary">
           <Building2 className="w-3.5 h-3.5 text-text-muted shrink-0" />
-          <span className="truncate" dir="auto">{uni.name}</span>
+          <span className="truncate" dir="auto">{(locale === "ar" && uni.nameAr?.split(" (")[0]) || uni.name}</span>
         </div>
       )}
 
-      <div className="flex flex-wrap items-center gap-2 mt-3">
-        <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
-          {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
-        </span>
-        <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-          {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
-        </span>
-        {uni && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
-            <MapPin className="w-3 h-3" />
-            {locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
-          </span>
-        )}
-      </div>
-
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs text-text-secondary">
-        <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-brand/70" />
-          €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
+        <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+          {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
         </span>
         <span className="inline-flex items-center gap-1">
           <Clock className="w-3 h-3 text-text-muted" />
-          {prog.durationYears} {locale === "ar" ? (prog.durationYears === 1 ? "سنة" : prog.durationYears === 2 ? "سنتين" : "سنوات") : prog.durationYears === 1 ? "year" : "years"}
+          {yearsLabel(prog.durationYears, locale)}
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
@@ -252,12 +254,13 @@ function ProgrammeCard({
           sourceUrl={prog.verification.sourceUrl}
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
-        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-brand hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline">
           {l.viewProgramme}
-          <ArrowRight className="w-3 h-3" />
+          <ArrowRight className="w-3 h-3 rtl:rotate-180 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5 rtl:motion-safe:group-hover:-translate-x-0.5" aria-hidden="true" />
         </Link>
       </div>
     </GlassCard>
+    </div>
   );
 }
 
@@ -273,34 +276,32 @@ function UniversityCard({
   const l = labels[locale] || labels.en;
 
   return (
-    <Link href={`/university/${uni.id}`} className="no-underline">
-      <GlassCard hoverEffect="lift" className="group relative card-shine p-5 h-full flex flex-col overflow-hidden">
-        {/* Decorative gradient corner */}
-        <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="w-full h-full bg-gradient-to-bl from-brand/5 to-transparent rounded-bl-full" />
-        </div>
+    <Link href={`/university/${uni.id}`} className="card-lift group block h-full rounded-2xl no-underline">
+      <GlassCard className="relative p-5 h-full flex flex-col overflow-hidden">
+        <CardPhoto
+          id={photoForUniversity(uni.id)}
+          height="h-36"
+          className="-mx-5 -mt-5 mb-4"
+          top={
+            <PhotoPill>
+              <span aria-hidden="true" className={cn("w-1.5 h-1.5 rounded-full", uni.type === "public" ? "bg-success" : "bg-brand")} />
+              {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
+            </PhotoPill>
+          }
+          bottom={
+            <>
+              <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                {cityName(uni.city, locale)}
+              </span>
+              {uni.founded && <span className="text-[11px] text-white/85 drop-shadow">{l.est} {uni.founded}</span>}
+            </>
+          }
+        />
 
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-brand transition-colors duration-300">{uni.name}</h3>
-          <span className={cn(
-            "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
-            uni.type === "public"
-              ? "bg-success/10 text-success border-success/20"
-              : "bg-brand/10 text-brand border-brand/20"
-          )}>
-            {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3 mt-2 text-sm text-text-secondary">
-          <span className="inline-flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-brand/70" />
-            {locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}
-          </span>
-          {uni.founded && (
-            <span className="text-text-muted text-xs">{l.est} {uni.founded}</span>
-          )}
-        </div>
+        <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-brand transition-colors duration-300">
+          {(locale === "ar" && uni.nameAr?.split(" (")[0]) || uni.name}
+        </h3>
 
         <p className="mt-2.5 text-text-muted text-sm line-clamp-2 flex-grow">
           {uni.blurb[locale] || uni.blurb.en}
@@ -326,7 +327,7 @@ function UniversityCard({
               {locale === "ar" ? "البرامج قريبًا" : "Programmes coming soon"}
             </span>
           )}
-          <span className="inline-flex items-center gap-1 text-xs text-brand opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-brand">
             {locale === "ar" ? "التفاصيل" : "View details"}
             <ArrowRight className="w-3 h-3" />
           </span>
