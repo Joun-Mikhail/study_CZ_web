@@ -12,7 +12,6 @@ import { CityStrip, type CityCard } from "@/components/city-strip";
 import { JourneyGlobe } from "@/components/journey-globe";
 import { SiteImage } from "@/components/site-image";
 import { EligibilityArt, MatcherArt, CostArt, GuideArt } from "@/components/illustrations";
-import { CountUp } from "@/components/ui/count-up";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 import { EmailSignup } from "@/components/email-signup";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -52,7 +51,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
     { href: "/cost-of-living", icon: BarChart3, art: CostArt, theme: THEMES.gold, title: t.bento.cost.title, body: t.bento.cost.description },
     { href: "/application-guide", icon: FileText, art: GuideArt, theme: THEMES.coral, title: c.guideTitle, body: c.guideBody },
   ];
-  const statColors = ["border-teal", "border-violet", "border-gold", "border-coral"];
+  const statColors = ["border-s-teal", "border-s-violet", "border-s-gold", "border-s-coral"];
 
   const stats = [
     { value: n(facts.programmeCount), label: c.statProgrammes },
@@ -167,7 +166,8 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
         <CityStrip cities={facts.cities} />
 
         {/* ── Facts, from our own data ─────────────────────────── */}
-        <section aria-labelledby="facts" className="border-y border-border-subtle bg-mesh">
+        {/* Solid background (not the gradient wash) so contrast checkers can measure every line. */}
+        <section aria-labelledby="facts" className="border-y border-border-subtle bg-bg-subtle">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
             <div className="max-w-2xl mb-10">
               <h2 id="facts" className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3">
@@ -177,10 +177,10 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             </div>
             <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
               {stats.map((s, i) => (
-                <div key={s.label} className={`grid content-start border-s-4 ${statColors[i]} ps-4`}>
+                <div key={s.label} className={`card-lift grid content-start rounded-xl border border-border-subtle border-s-4 ${statColors[i]} bg-surface p-4`}>
                   <dt className="row-start-2 text-sm leading-snug text-text-secondary mt-1">{s.label}</dt>
                   <dd className="row-start-1 font-display text-3xl sm:text-4xl font-semibold text-text-primary tabular-nums" dir="ltr">
-                    <CountUp value={s.value} />
+                    {s.value}
                   </dd>
                 </div>
               ))}

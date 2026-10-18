@@ -130,7 +130,7 @@ function SourceLink({ href, label }: { href: string; label: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-xs text-brand hover:underline whitespace-nowrap"
+      className="inline-flex items-center gap-1 text-xs text-brand underline underline-offset-2 whitespace-nowrap"
     >
       {label}
       <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -248,7 +248,7 @@ export default function WhatItCostsClient() {
                   label={c.medicine}
                   value={`${eur(medicine.min, l)} – ${eur(medicine.max, l)}`}
                   note={
-                    <Link href="/study/medicine-in-czech-republic" className="text-brand hover:underline">
+                    <Link href="/study/medicine-in-czech-republic" className="text-brand underline underline-offset-2">
                       {c.medicineGuide}
                     </Link>
                   }
@@ -256,7 +256,7 @@ export default function WhatItCostsClient() {
               )}
               <p className="text-xs text-text-muted mt-3">
                 {c.tuitionNote(tuition.all.count, tuition.lastVerified)}{" "}
-                <Link href="/study/cheapest-programmes" className="text-brand hover:underline">
+                <Link href="/study/cheapest-programmes" className="text-brand underline underline-offset-2">
                   {c.cheapest}
                 </Link>
               </p>
@@ -273,7 +273,7 @@ export default function WhatItCostsClient() {
               ))}
               <p className="text-xs text-text-muted mt-3">
                 {c.livingNote}{" "}
-                <Link href="/cost-of-living" className="text-brand hover:underline">
+                <Link href="/cost-of-living" className="text-brand underline underline-offset-2">
                   {c.calculatorLink}
                 </Link>
               </p>

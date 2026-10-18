@@ -364,7 +364,9 @@ export default function ServicesClient() {
             <table className="w-full text-sm">
               <thead>
                 <tr>
-                  <th className="text-start p-3 text-text-muted font-medium"></th>
+                  <th className="text-start p-3 text-text-muted font-medium">
+                    <span className="sr-only">{t.comparison.aspectHeader}</span>
+                  </th>
                   <th className="text-start p-3 text-text-secondary font-medium">{t.comparison.agencyHeader}</th>
                   <th className="text-start p-3 text-brand font-semibold bg-brand/[0.04] rounded-t-xl border-t border-x border-brand/20">
                     {t.comparison.usHeader}
@@ -897,6 +899,7 @@ const en = {
   },
   comparison: {
     title: "Why Students Choose Us Over Traditional Agencies",
+    aspectHeader: "What you get",
     agencyHeader: "Typical Agency",
     usHeader: "Study Czechia",
     rows: [
@@ -1160,6 +1163,7 @@ const ar: typeof en = {
   },
   comparison: {
     title: "ليه الطلاب بيختارونا عن المكاتب التقليدية",
+    aspectHeader: "اللي بتاخده",
     agencyHeader: "وكالة عادية",
     usHeader: "Study Czechia",
     rows: [

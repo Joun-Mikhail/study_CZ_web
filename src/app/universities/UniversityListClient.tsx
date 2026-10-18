@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
 import { CityMap, type MapCity } from "@/components/city-map";
-import { CardPhoto, PhotoPill, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ViewMode = "programmes" | "universities";
@@ -190,10 +190,10 @@ function ProgrammeCard({
         }
         bottom={
           uni && (
-            <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+            <PhotoTag>
               <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
               {cityName(uni.city, locale)}
-            </span>
+            </PhotoTag>
           )
         }
       />
@@ -290,11 +290,11 @@ function UniversityCard({
           }
           bottom={
             <>
-              <span className="inline-flex items-center gap-1 text-xs font-medium drop-shadow">
+              <PhotoTag>
                 <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
                 {cityName(uni.city, locale)}
-              </span>
-              {uni.founded && <span className="text-[11px] text-white/85 drop-shadow">{l.est} {uni.founded}</span>}
+              </PhotoTag>
+              {uni.founded && <PhotoTag>{l.est} {uni.founded}</PhotoTag>}
             </>
           }
         />
