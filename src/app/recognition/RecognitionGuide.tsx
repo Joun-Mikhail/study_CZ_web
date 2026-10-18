@@ -9,7 +9,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { EmailSignup } from "@/components/email-signup";
-import { CalendarCheck, ExternalLink, FileCheck2, GraduationCap, Landmark, Plane, AlertTriangle } from "lucide-react";
+import { Banknote, CalendarCheck, ExternalLink, FileCheck2, GraduationCap, Landmark, Mail, Plane, AlertTriangle } from "lucide-react";
 
 /** One fact on a recognition guide. `source` is a key of the guide's sources. */
 export type GuideItem = { text: string; source?: string; link?: { href: string; label: string } };
@@ -32,7 +32,13 @@ export type GuideCopy = {
   source: string;
 };
 
-const ICONS: Record<string, React.ElementType> = { before: Plane, during: GraduationCap, after: Landmark };
+const ICONS: Record<string, React.ElementType> = {
+  before: Plane,
+  during: GraduationCap,
+  after: Landmark,
+  money: Banknote,
+  appointment: Mail,
+};
 
 function SourceLink({ href, label }: { href: string; label: string }) {
   return (
@@ -65,11 +71,22 @@ function ItemExtras({ item, sources, label }: { item: GuideItem; sources: Record
 }
 
 /**
- * Layout shared by the degree recognition guides (/recognition/<country>/).
+ * Layout shared by the official-source guides: degree recognition
+ * (/recognition/<country>/) and the student visa (/student-visa-egypt/).
  * Every line links one of the guide's official sources; the page shows the
- * date the sources were checked.
+ * date the sources were checked. `placement` labels the guide in analytics.
  */
-export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, string>; en: GuideCopy; ar: GuideCopy }) {
+export function RecognitionGuide({
+  sources,
+  en,
+  ar,
+  placement = "recognition",
+}: {
+  sources: Record<string, string>;
+  en: GuideCopy;
+  ar: GuideCopy;
+  placement?: string;
+}) {
   const { locale } = useTranslation();
   const pathname = usePathname();
   const t = locale === "ar" ? ar : en;
@@ -133,14 +150,14 @@ export function RecognitionGuide({ sources, en, ar }: { sources: Record<string, 
             <p className="text-sm text-text-secondary leading-relaxed">{t.note}</p>
           </GlassCard>
 
-          <EmailSignup source="checklist" variant="guide" placement="recognition" className="mb-8" />
+          <EmailSignup source="checklist" variant="guide" placement={placement} className="mb-8" />
 
           <GlassCard className="mb-10 text-center">
             <h2 className="text-lg font-semibold text-text-primary mb-1">{t.reviewTitle}</h2>
             <p className="text-sm text-text-secondary mb-4">{t.reviewBody}</p>
             <HelpLink
               service="documentReview"
-              source={`recognition:${pathname}`}
+              source={`${placement}:${pathname}`}
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand text-bg font-semibold text-sm hover:bg-brand/90 transition-colors"
             >
               {t.reviewCta}

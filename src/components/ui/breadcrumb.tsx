@@ -46,6 +46,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   egypt: { en: "Egypt", ar: "مصر" },
   jordan: { en: "Jordan", ar: "الأردن" },
   "saudi-arabia": { en: "Saudi Arabia", ar: "السعودية" },
+  "student-visa-egypt": { en: "Student Visa from Egypt", ar: "تأشيرة الدراسة من مصر" },
 };
 
 const SITE_URL = "https://studyczechia.com";
