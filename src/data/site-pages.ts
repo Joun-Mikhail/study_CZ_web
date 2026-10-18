@@ -124,6 +124,16 @@ export const SITE_PAGES: SitePage[] = [
     keywords: { en: ["recognition", "nostrification", "recognized"], ar: ["معادلة", "اعتراف"] },
   },
   {
+    path: "/student-visa-egypt/",
+    title: "Czech Student Visa from Egypt: Documents, Money and Appointment",
+    description:
+      "How to apply for a Czech long-term study visa at the embassy in Cairo: documents, the 115,810 CZK proof of funds, the email appointment rules, fee and processing time. From official sources only, with the date checked.",
+    keywords: {
+      en: ["visa", "embassy", "Cairo", "Egypt", "criminal record", "bank statement", "proof of funds"],
+      ar: ["فيزا", "تأشيرة", "السفارة", "القاهرة", "مصر", "فيش جنائي", "كشف حساب"],
+    },
+  },
+  {
     path: "/recognition/jordan/",
     title: "Is a Czech Degree Recognised in Jordan? Equivalency Step by Step",
     description:

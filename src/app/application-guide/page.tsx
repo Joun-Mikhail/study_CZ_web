@@ -54,6 +54,7 @@ const STEP_ICONS: Record<string, LucideIcon> = {
 };
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
+import Link from "@/components/locale-link";
 
 export default function ApplicationGuidePage() {
   const { t, locale } = useTranslation();
@@ -159,6 +160,15 @@ export default function ApplicationGuidePage() {
                 >
                   <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
                   <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
+                  {step.id === "visa-apply" && (
+                    <p className="text-sm mb-4">
+                      <Link href="/student-visa-egypt" className="font-medium text-brand hover:underline">
+                        {locale === "ar"
+                          ? "بتقدّم من مصر؟ دليل الفيزا خطوة بخطوة من المصادر الرسمية ←"
+                          : "Applying from Egypt? The visa step by step, from official sources →"}
+                      </Link>
+                    </p>
+                  )}
                   {step.tip && (
                     <div className="flex gap-3 items-start rounded-xl border border-brand/20 bg-brand/[0.05] px-4 py-3">
                       <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />
