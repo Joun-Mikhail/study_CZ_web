@@ -9,7 +9,7 @@ import { CITY_AR } from "@/i18n/ar-metadata";
 
 export type CityCard = { name: string; slug: string; programmes: number };
 
-/** "Where students live": every university city with its photo and programme count. */
+/** "Where students live": university cities with their photo and programme count. */
 export function CityStrip({ cities }: { cities: CityCard[] }) {
   const { locale } = useTranslation();
   const ar = locale === "ar";
@@ -22,8 +22,8 @@ export function CityStrip({ cities }: { cities: CityCard[] }) {
           </h2>
           <p className="text-text-secondary">
             {ar
-              ? `${cities.length} مدينة فيها جامعات. اختار مدينة وشوف برامجها.`
-              : `${cities.length} university cities. Pick one to see its programmes.`}
+              ? `${cities.length} ${cities.length <= 10 ? "مدن" : "مدينة"} ليها برامج على الموقع. اختار مدينة وشوف برامجها.`
+              : `${cities.length} cities with programmes on this site. Pick one to see them.`}
           </p>
         </div>
         <Link href="/universities" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline">
