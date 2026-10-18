@@ -51,7 +51,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
     { href: "/cost-of-living", icon: BarChart3, art: CostArt, theme: THEMES.gold, title: t.bento.cost.title, body: t.bento.cost.description },
     { href: "/application-guide", icon: FileText, art: GuideArt, theme: THEMES.coral, title: c.guideTitle, body: c.guideBody },
   ];
-  const statColors = ["border-teal", "border-violet", "border-gold", "border-coral"];
+  const statColors = ["border-s-teal", "border-s-violet", "border-s-gold", "border-s-coral"];
 
   const stats = [
     { value: n(facts.programmeCount), label: c.statProgrammes },
