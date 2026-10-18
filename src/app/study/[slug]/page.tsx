@@ -8,6 +8,7 @@ import {
   slugToCity,
   slugToDegree,
 } from "@/lib/seo-utils";
+import { medicineRows } from "@/lib/medicine-guide";
 import StudyPageClient from "./StudyPageClient";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -20,6 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
   const field = slugToField(slug);
+  if (field === "Medicine") {
+    const rows = medicineRows();
+    const from = Math.min(...rows.map((r) => r.programme.tuitionEurPerYear));
+    return {
+      title: "Study Medicine in Czech Republic in English: Fees & Exams",
+      description: `General Medicine and Dentistry in English at Czech universities: ${rows.length} programmes from €${from.toLocaleString("en-US")} a year, entrance exam subjects and official fee sources.`,
+      alternates: { canonical: `/study/${slug}` },
+    };
+  }
   if (field) {
     return {
       title: `Study ${field} in Czech Republic`,

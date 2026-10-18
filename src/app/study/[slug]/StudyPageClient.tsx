@@ -33,6 +33,7 @@ import Image from "next/image";
 import { SiteImage } from "@/components/site-image";
 import { cityImage } from "@/data/images";
 import { motion } from "framer-motion";
+import { MedicineGuide } from "./MedicineGuide";
 
 function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
@@ -230,16 +231,18 @@ export default function StudyPageClient({ type, value, slug }: Props) {
           )}
         </div>
 
+        {type === "field" && value === "Medicine" && <MedicineGuide locale={locale} />}
+
         {/* Universities in this scope */}
         {unisInScope.length > 0 && (
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-text-primary mb-3">
               {type === "city"
                 ? locale === "ar"
-                  ? `جامعات في ${value}`
+                  ? `جامعات في ${valueAr}`
                   : `Universities in ${value}`
                 : locale === "ar"
-                ? `جامعات تقدم ${value}`
+                ? `جامعات تقدم ${valueAr}`
                 : `Universities offering ${value}`}
             </h2>
             <div className="flex flex-wrap gap-2">
