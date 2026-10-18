@@ -29,6 +29,9 @@ import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 const labels = {
   en: {
@@ -194,19 +197,28 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
     : null;
   const isUrgent = daysLeft !== null && daysLeft >= 0 && daysLeft <= 30;
 
+  const photo = photoForUniversity(prog.universityId);
+
   return (
     <motion.div
       initial={{ y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       className={cn(
-        "motion-safe-fallback rounded-xl border border-border-subtle bg-white/[0.02] p-4 space-y-3",
+        "motion-safe-fallback card-lift group flex gap-3 sm:gap-4 rounded-2xl border border-border-subtle bg-surface p-4",
         status === "passed" && "opacity-50"
       )}
     >
+      <div className="relative w-16 h-16 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-xl bg-bg-subtle">
+        {photo && <SiteImage id={photo} sizes="96px" decorative whenNear className="card-photo-img" />}
+        <span aria-hidden="true" className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl" />
+        <span aria-hidden="true" className="card-photo-shine" />
+      </div>
+
+      <div className="min-w-0 flex-1 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="font-medium text-text-primary text-sm truncate">
+          <h3 className="font-semibold text-text-primary text-sm sm:text-base leading-snug group-hover:text-brand transition-colors">
             {prog.name[locale] || prog.name.en}
           </h3>
           {prog.faculty && (
@@ -215,33 +227,32 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           <a
             href={localizeHref(`/programmes/${prog.id}`, locale)}
             className="text-xs text-brand hover:underline mt-0.5 inline-block"
+            dir="auto"
           >
-            {uni?.name || prog.universityId}
-            {uni && <span className="text-text-muted">, {uni.city}</span>}
+            {(locale === "ar" && uni?.nameAr?.split(" (")[0]) || uni?.name || prog.universityId}
+            {uni && <span className="text-text-muted">{locale === "ar" ? "، " : ", "}{cityName(uni.city, locale)}</span>}
           </a>
         </div>
-        <div className="flex flex-col items-end gap-1.5 shrink-0">
+        <div className="shrink-0">
           <SaveProgrammeButton programmeId={prog.id} locale={locale} />
-          <div className="flex gap-1.5">
-            <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
-              {prog.degree}
-            </span>
-            <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-              {prog.language}
-            </span>
-          </div>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <div className="flex items-center gap-3 text-xs text-text-secondary">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-text-secondary">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+            {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
+          </span>
+          <span className="px-2 py-0.5 rounded-full bg-bg-subtle text-text-secondary text-[11px] border border-border-subtle">
+            {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
+          </span>
           <span className="inline-flex items-center gap-1">
             <Euro className="w-3 h-3 text-brand/70" />
-            €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
+            <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>{l.perYear}
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3 h-3 text-text-muted" />
-            {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+            {yearsLabel(prog.durationYears, locale)}
           </span>
           <span className="inline-flex items-center gap-1">
             <GraduationCap className="w-3 h-3 text-text-muted" />
@@ -250,7 +261,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-1 border-t border-border-subtle/50">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border-subtle/50">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <StatusBadge status={status} locale={locale} />
           {status === "verified" && prog.applicationDeadline && (
@@ -265,11 +276,12 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           )}
           {(status === "verified" || status === "not-published") && daysLeft !== null && daysLeft >= 0 && (
             <span className={cn(
-              "inline-flex items-center gap-1 text-xs font-semibold",
+              "inline-flex items-center gap-1.5 text-xs font-semibold",
               isUrgent ? "text-error" : "text-text-secondary"
             )}>
-              {isUrgent && <AlertTriangle className="w-3.5 h-3.5" />}
-              {daysLeft} {l.daysLeft}
+              <DaysRing days={daysLeft} urgent={isUrgent} />
+              {isUrgent && <AlertTriangle className="w-3.5 h-3.5" aria-hidden="true" />}
+              {l.daysLeft}
             </span>
           )}
           {status === "rolling" && (
@@ -294,7 +306,35 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
           label={locale === "ar" ? "تم التحقق:" : "Verified:"}
         />
       )}
+      </div>
     </motion.div>
+  );
+}
+
+/** Ring around the days-left number: full at six months or more, emptying as the deadline nears. */
+function DaysRing({ days, urgent }: { days: number; urgent: boolean }) {
+  const r = 17;
+  const c = 2 * Math.PI * r;
+  const share = Math.min(Math.max(days, 0), 180) / 180;
+  return (
+    <span className="relative inline-flex items-center justify-center w-11 h-11 shrink-0">
+      <svg viewBox="0 0 40 40" className="absolute inset-0 -rotate-90" aria-hidden="true">
+        <circle cx="20" cy="20" r={r} fill="none" strokeWidth="3" className="stroke-border-subtle" />
+        <circle
+          cx="20"
+          cy="20"
+          r={r}
+          fill="none"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - share)}
+          className={cn("days-ring", urgent ? "stroke-error" : "stroke-brand")}
+          style={{ "--ring": `${c}` } as React.CSSProperties}
+        />
+      </svg>
+      <span className="relative text-[13px] font-bold text-text-primary" dir="ltr">{days}</span>
+    </span>
   );
 }
 
