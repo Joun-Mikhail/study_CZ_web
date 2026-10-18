@@ -534,7 +534,27 @@ function ProgramCard({
         <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
       )}
 
-      <div className="overflow-x-auto -mx-2" tabIndex={0}>
+      {/* Phones: one small row per course, so prices never sit off-screen. */}
+      <ul className="sm:hidden space-y-2">
+        {prog.programs.map((p, i) => (
+          <li key={i} className="rounded-xl border border-border-subtle bg-bg-subtle px-3 py-2.5">
+            <p className="text-xs font-medium text-text-primary">{p.name[locale]}</p>
+            <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-xs">
+              <span className="text-text-secondary">{p.intensity ? intensityLabel(p.intensity, locale) : ""}</span>
+              <span className="whitespace-nowrap">
+                <span className="font-semibold text-brand" dir="ltr">
+                  {p.priceEur ? `€${p.priceEur.toLocaleString("en-US")}` : p.priceNote || "—"}
+                </span>
+                {p.priceCzk ? (
+                  <span className="text-text-muted" dir="ltr"> · {p.priceCzk.toLocaleString("en-US")} CZK</span>
+                ) : null}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="hidden sm:block overflow-x-auto -mx-2" tabIndex={0}>
         <table className="w-full text-xs min-w-[400px]">
           <thead>
             <tr className="border-b border-border-subtle">

@@ -233,21 +233,19 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
             {uni && <span className="text-text-muted">{locale === "ar" ? "، " : ", "}{cityName(uni.city, locale)}</span>}
           </a>
         </div>
-        <div className="flex flex-col items-end gap-1.5 shrink-0">
+        <div className="shrink-0">
           <SaveProgrammeButton programmeId={prog.id} locale={locale} />
-          <div className="flex flex-wrap justify-end gap-1.5">
-            <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
-              {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
-            </span>
-            <span className="px-2 py-0.5 rounded-full bg-bg-subtle text-text-secondary text-[11px] border border-border-subtle">
-              {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
-            </span>
-          </div>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-secondary">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-text-secondary">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+            {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
+          </span>
+          <span className="px-2 py-0.5 rounded-full bg-bg-subtle text-text-secondary text-[11px] border border-border-subtle">
+            {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
+          </span>
           <span className="inline-flex items-center gap-1">
             <Euro className="w-3 h-3 text-brand/70" />
             <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>{l.perYear}
