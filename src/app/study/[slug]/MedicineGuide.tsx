@@ -9,6 +9,10 @@ import { examSubjects, feeRange, medicineRows } from "@/lib/medicine-guide";
 import { fieldToSlug } from "@/lib/seo-utils";
 
 /** Western digits; the euro sign goes after the number in Arabic, as elsewhere on the site. */
+/** Official Study in Czechia page: Czech-taught degrees at public universities are free for all nationalities. */
+const CZECH_FREE_SOURCE = "https://studyin.gov.cz/plan-your-studies/learn-czech-study-tuition-free/";
+const qClass = "text-base font-semibold text-text-primary mb-1";
+
 const eur = (n: number, locale: "en" | "ar" = "en") =>
   locale === "ar" ? `${n.toLocaleString("en-US")}€` : `€${n.toLocaleString("en-US")}`;
 
@@ -79,12 +83,12 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
       </ul>
 
       <h2 className="text-xl font-semibold text-text-primary mt-10 mb-4">
-        {ar ? "ما يجب معرفته قبل التقديم" : "What to know before you apply"}
+        {ar ? "أسئلة شائعة عن دراسة الطب في التشيك" : "Common questions about studying medicine in Czechia"}
       </h2>
-      <ul className="space-y-4 text-sm text-text-secondary leading-relaxed">
+      <ul className="space-y-6 text-sm text-text-secondary leading-relaxed">
         {medicine && (
           <li>
-            <strong className="text-text-primary">{ar ? "التكلفة. " : "Cost. "}</strong>
+            <h3 className={qClass}>{ar ? "كم تكلفة دراسة الطب في التشيك؟" : "How much does it cost to study medicine in Czechia?"}</h3>
             {ar ? (
               <>
                 رسوم الطب العام بين <span dir="ltr">{eur(medicine.min, "ar")}</span> و<span dir="ltr">{eur(medicine.max, "ar")}</span> في
@@ -115,9 +119,44 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
             )}
           </li>
         )}
+        {medicine && (
+          <li>
+            <h3 className={qClass}>{ar ? "كم سنة مدة دراسة الطب في التشيك؟" : "How many years does it take?"}</h3>
+            {ar ? (
+              <>
+                الطب العام {medicine.years} سنوات{dentistry ? `، وطب الأسنان ${dentistry.years} سنوات` : ""}. البرامج في الجدول أعلاه كلها
+                بالإنجليزية من أول سنة لآخر سنة.
+              </>
+            ) : (
+              <>
+                General Medicine takes {medicine.years} years{dentistry ? ` and Dentistry ${dentistry.years}` : ""}. Every programme in the table
+                above is taught in English from the first year to the last.
+              </>
+            )}
+          </li>
+        )}
+        <li>
+          <h3 className={qClass}>{ar ? "هل يمكن دراسة الطب في التشيك مجانًا؟" : "Can I study medicine in Czechia for free?"}</h3>
+          {ar ? (
+            <>
+              نعم، إذا درست بالتشيكية: البرامج التي تُدرَّس بالتشيكية في الجامعات الحكومية مجانية لكل الجنسيات{" "}
+              <a href={CZECH_FREE_SOURCE} target="_blank" rel="noopener noreferrer" className={linkClass}>(المصدر)</a>. تقدّم على امتحان
+              القبول بالتشيكية، والسنة التحضيرية تُعلّمك اللغة ومواد الامتحان:{" "}
+              <Link href="/preparatory-year" className={linkClass}>دليل السنة التحضيرية</Link>.
+            </>
+          ) : (
+            <>
+              Yes, if you study in Czech: degree programmes taught in Czech at public universities are free of charge for every
+              nationality{" "}
+              <a href={CZECH_FREE_SOURCE} target="_blank" rel="noopener noreferrer" className={linkClass}>(source)</a>. You take the
+              faculty&apos;s admission in Czech, and a preparatory year teaches the language and the exam subjects:{" "}
+              <Link href="/preparatory-year" className={linkClass}>preparatory year guide</Link>.
+            </>
+          )}
+        </li>
         {exams.withSubjects > 0 && (
           <li>
-            <strong className="text-text-primary">{ar ? "امتحان القبول. " : "Entrance exam. "}</strong>
+            <h3 className={qClass}>{ar ? "هل يوجد امتحان قبول لدراسة الطب في التشيك؟" : "Is there an entrance exam?"}</h3>
             {ar ? (
               <>
                 كل كلية تضع امتحانها الخاص. من {exams.withSubjects} برامج نُشرت مواد امتحانها، {exams.biology} تختبر الأحياء و
@@ -136,7 +175,7 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
           </li>
         )}
         <li>
-          <strong className="text-text-primary">{ar ? "المواعيد. " : "Deadlines. "}</strong>
+          <h3 className={qClass}>{ar ? "متى آخر موعد للتقديم؟" : "When are the application deadlines?"}</h3>
           {ar ? (
             <>
               مواعيد التقديم والامتحانات تختلف من كلية لأخرى.{" "}
@@ -150,7 +189,7 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
           )}
         </li>
         <li>
-          <strong className="text-text-primary">{ar ? "معادلة الشهادة. " : "Recognition at home. "}</strong>
+          <h3 className={qClass}>{ar ? "هل تُعادَل شهادة الطب التشيكية في بلدي؟" : "Will my medical degree be recognised at home?"}</h3>
           {ar ? (
             <>
               قبل التقديم، تأكد كيف تعادل بلدك شهادة الطب الأجنبية وما المطلوب لتمارس المهنة هناك:{" "}
