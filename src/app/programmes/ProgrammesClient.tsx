@@ -195,11 +195,11 @@ export default function ProgrammesClient({
             sizes="(max-width: 768px) 100vw, 900px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
-          <div className="absolute bottom-4 start-4 z-10">
+          <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">
               {locale === "ar" ? "استكشف البرامج" : "Explore Programmes"}
             </h1>
-            <p className="text-xs text-white/70 mt-1">
+            <p className="text-xs text-white/80 mt-1">
               {locale === "ar"
                 ? `قاعدة بياناتنا تنمو — حاليًا ${programmes.length} برنامج موثق`
                 : `Our database is growing — currently covering ${programmes.length} verified programmes`}

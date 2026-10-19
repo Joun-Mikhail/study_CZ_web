@@ -308,7 +308,7 @@ export function Navbar() {
               href={switchHref}
               onClick={toggleLang}
               hrefLang={otherLocale}
-              aria-label={locale === "en" ? "Switch to Arabic" : "Switch to English"}
+              aria-label={locale === "en" ? "ع: العربية (Switch to Arabic)" : "EN: Switch to English"}
               className="flex items-center justify-center min-w-10 h-10 px-2 rounded-lg text-sm font-semibold text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors"
             >
               {locale === "en" ? "ع" : "EN"}

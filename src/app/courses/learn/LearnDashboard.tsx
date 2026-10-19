@@ -70,7 +70,7 @@ export default function LearnDashboard() {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 flex items-center justify-center">
+        <main id="main-content" className="pt-32 pb-20 px-4 flex items-center justify-center">
           <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
@@ -83,7 +83,7 @@ export default function LearnDashboard() {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <motion.div
               initial={{ y: 20 }}
@@ -166,7 +166,7 @@ export default function LearnDashboard() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div

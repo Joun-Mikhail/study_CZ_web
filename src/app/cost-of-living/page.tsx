@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -9,15 +9,6 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { cities, costCategories, totalRange, oneTimeCosts, type CityKey } from "@/data/costs";
 import { motion } from "framer-motion";
 import { EmailSignup } from "@/components/email-signup";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
 import { cn } from "@/lib/utils";
 import {
   Info,
@@ -47,41 +38,6 @@ import { CITY_IMAGE } from "@/data/images";
 import { BudgetCheck } from "./budget-check";
 import { trackToolStarted } from "@/components/umami";
 
-function useChartColors() {
-  const [colors, setColors] = useState({
-    grid: "rgba(255,255,255,0.06)",
-    axis: "rgba(255,255,255,0.1)",
-    tick: "#94a3b8",
-    label: "#f8fafc",
-    tooltipBg: "#1e293b",
-    tooltipBorder: "rgba(255,255,255,0.1)",
-    cursor: "rgba(245,158,11,0.06)",
-    bar: "#f59e0b",
-  });
-
-  useEffect(() => {
-    function read() {
-      const s = getComputedStyle(document.documentElement);
-      setColors({
-        grid: s.getPropertyValue("--chart-grid").trim() || colors.grid,
-        axis: s.getPropertyValue("--chart-axis").trim() || colors.axis,
-        tick: s.getPropertyValue("--chart-tick").trim() || colors.tick,
-        label: s.getPropertyValue("--chart-label").trim() || colors.label,
-        tooltipBg: s.getPropertyValue("--chart-tooltip-bg").trim() || colors.tooltipBg,
-        tooltipBorder: s.getPropertyValue("--chart-tooltip-border").trim() || colors.tooltipBorder,
-        cursor: s.getPropertyValue("--chart-cursor").trim() || colors.cursor,
-        bar: s.getPropertyValue("--color-brand")?.trim() || "#f59e0b",
-      });
-    }
-    read();
-    const observer = new MutationObserver(read);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => observer.disconnect();
-  }, []);
-
-  return colors;
-}
-
 function formatCzk(n: number) {
   return new Intl.NumberFormat("en-US").format(Math.round(n)) + " CZK";
 }
@@ -108,7 +64,7 @@ export default function CostOfLivingPage() {
     [city, locale]
   );
 
-  const chartColors = useChartColors();
+  const chartMax = Math.max(...chartData.map((r) => r.avg), 1);
   const [totalMin, totalMax] = totalRange(city);
   const monthlyEarnings = hoursPerWeek * hourlyWage * WEEKS_PER_MONTH;
   const shortfall = totalMin - monthlyEarnings;
@@ -172,38 +128,33 @@ export default function CostOfLivingPage() {
             transition={{ duration: 0.4 }}
           >
             <GlassCard hoverEffect="border" className="h-full">
-              <div className="h-[340px] w-full" dir="ltr">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} horizontal={false} />
-                    <XAxis
-                      type="number"
-                      tick={{ fill: chartColors.tick, fontSize: 12 }}
-                      axisLine={{ stroke: chartColors.axis }}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      type="category"
-                      dataKey="name"
-                      width={150}
-                      tick={{ fill: chartColors.label, fontSize: 12 }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <Tooltip
-                      cursor={{ fill: chartColors.cursor }}
-                      contentStyle={{
-                        background: chartColors.tooltipBg,
-                        border: `1px solid ${chartColors.tooltipBorder}`,
-                        borderRadius: 12,
-                        color: chartColors.label,
-                      }}
-                      formatter={(value) => [formatCzk(Number(value)), locale === "ar" ? "متوسط / شهر" : "avg / month"]}
-                    />
-                    <Bar dataKey="avg" fill={chartColors.bar} radius={[0, 8, 8, 0]} barSize={22} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Plain HTML bars: every label and figure is real text that
+                  screen readers and contrast checkers can read (chart text
+                  drawn inside an SVG can't be contrast-checked). */}
+              <p className="text-xs font-medium text-text-muted mb-4">
+                {locale === "ar" ? "متوسط الشهر لكل بند" : "Average per month, by item"}
+              </p>
+              <ul className="space-y-4">
+                {chartData.map((row) => (
+                  <li key={row.name}>
+                    <div className="flex items-baseline justify-between gap-3 text-sm">
+                      <span className="font-medium text-text-primary">{row.name}</span>
+                      <span className="shrink-0 font-semibold text-text-primary tabular-nums" dir="ltr">
+                        {formatCzk(row.avg)}
+                      </span>
+                    </div>
+                    <div className="mt-1.5 h-3 overflow-hidden rounded-full bg-bg-subtle" aria-hidden="true">
+                      <div
+                        className="stage-progress h-full rounded-full bg-brand"
+                        style={{ width: `${Math.max((row.avg / chartMax) * 100, 2)}%` }}
+                      />
+                    </div>
+                    <p className="mt-1 text-xs text-text-muted tabular-nums" dir="ltr">
+                      {formatCzk(row.min)} – {formatCzk(row.max)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </GlassCard>
           </motion.div>
 
@@ -211,7 +162,7 @@ export default function CostOfLivingPage() {
           <div className="flex flex-col gap-6">
             <GlassCard hoverEffect="glow">
               <p className="text-sm text-text-secondary mb-1">{t.cost.totalLabel}</p>
-              <p className="text-3xl font-bold text-brand">
+              <p className="text-3xl font-bold text-brand" dir="ltr">
                 {formatCzk(totalMin)} – {formatCzk(totalMax)}
               </p>
             </GlassCard>
@@ -358,7 +309,7 @@ export default function CostOfLivingPage() {
               <p className="text-xs text-text-muted mb-1">{t.cost.calcEarningsLabel}</p>
               <p className="text-2xl font-bold text-brand mb-2">{formatCzk(monthlyEarnings)}</p>
               <p className="text-xs text-text-muted mb-3">
-                {t.cost.calcVsCosts}: {formatCzk(totalMin)} – {formatCzk(totalMax)}
+                {t.cost.calcVsCosts}: <span dir="ltr">{formatCzk(totalMin)} – {formatCzk(totalMax)}</span>
               </p>
               <p className={cn("text-sm font-medium", shortfall > 0 ? "text-brand" : "text-success")}>
                 {shortfall > 0

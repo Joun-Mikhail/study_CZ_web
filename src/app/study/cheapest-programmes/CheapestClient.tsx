@@ -62,8 +62,8 @@ export default function CheapestClient() {
               sizes="(max-width: 768px) 100vw, 800px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-            <div className="absolute bottom-4 start-4 z-10">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/20 backdrop-blur-sm border border-success/20 text-success text-[11px] font-medium mb-2">
+            <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white text-ink text-[11px] font-semibold mb-2">
                 <TrendingDown className="w-3 h-3" />
                 {locale === "ar" ? "مرتب حسب السعر" : "Sorted by price"}
               </div>
@@ -72,7 +72,7 @@ export default function CheapestClient() {
                   ? "أرخص البرامج باللغة الإنجليزية"
                   : "Cheapest English-Taught Programmes"}
               </h1>
-              <p className="text-xs text-white/70 mt-1">
+              <p className="text-xs text-white/80 mt-1">
                 {locale === "ar"
                   ? `${sorted.length} برنامج — من الأرخص للأغلى`
                   : `${sorted.length} programmes — lowest tuition first`}
@@ -130,9 +130,9 @@ export default function CheapestClient() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
                         <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-                          <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
+                          <h2 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
                             {prog.name[locale] || prog.name.en}
-                          </h3>
+                          </h2>
                           <p className="text-xs text-text-secondary mt-0.5">
                             {uni?.name} · {uni?.city} · {prog.degree}
                           </p>

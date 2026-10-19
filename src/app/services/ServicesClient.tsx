@@ -81,8 +81,8 @@ export default function ServicesClient() {
       <main id="main-content" className="pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
         <section className="surface-ink max-w-4xl mx-auto text-center mb-8 sm:mb-16 relative rounded-3xl px-5 py-10 sm:px-12 sm:py-14 overflow-hidden">
-          {/* Hero background image */}
-          <div className="absolute inset-0 z-0">
+          {/* Photo band above the text: text on a photo can't be contrast-checked, text on the solid navy can. */}
+          <div aria-hidden="true" className="relative -mx-5 -mt-10 sm:-mx-12 sm:-mt-14 mb-8 h-32 sm:h-44 overflow-hidden">
             <Image
               src="/images/study/karolinum-graduation.jpg"
               alt=""
@@ -92,7 +92,7 @@ export default function ServicesClient() {
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/70 to-ink/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/20 to-ink" />
           </div>
           <div className="relative z-10 mb-5">
             <OfferBadge locale={locale} />

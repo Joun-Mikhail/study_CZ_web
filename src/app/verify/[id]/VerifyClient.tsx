@@ -50,7 +50,7 @@ export default function VerifyClient({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 px-4">
+      <main id="main-content" className="min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-xl mx-auto">
           <Breadcrumb />
 
