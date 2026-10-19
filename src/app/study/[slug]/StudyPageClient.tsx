@@ -208,9 +208,9 @@ export default function StudyPageClient({ type, value, slug }: Props) {
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-            <div className="absolute bottom-4 start-4 z-10">
+            <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
               <h1 className="text-2xl sm:text-3xl font-bold text-white">{heading}</h1>
-              <p className="text-xs text-white/70 mt-1">{description}</p>
+              <p className="text-xs text-white/80 mt-1">{description}</p>
             </div>
           </div>
         </FadeIn>

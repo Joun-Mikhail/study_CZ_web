@@ -168,10 +168,10 @@ export function RecognitionGuide({
             <h2 id="sources" className="text-base font-semibold text-text-primary mb-2">
               {t.sourcesTitle}
             </h2>
-            <ul className="space-y-1.5 text-xs">
+            <ul className="space-y-0.5 text-xs">
               {Object.keys(sources).map((k) => (
                 <li key={k}>
-                  <a href={sources[k]} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-brand underline underline-offset-2">
+                  <a href={sources[k]} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 text-text-muted hover:text-brand underline underline-offset-2">
                     {t.sourceNames[k] ?? sources[k]}
                   </a>
                 </li>

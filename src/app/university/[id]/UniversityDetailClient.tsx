@@ -30,19 +30,13 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.06, 0.5), duration: 0.4 }}
     >
-      <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
-        <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-          <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-brand" />
-          </svg>
-        </div>
-
+      <GlassCard className="group relative overflow-hidden" hoverEffect="border">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <Link href={`/programmes/${prog.id}`} className="block">
-              <h4 className="font-medium text-text-primary text-sm group-hover:text-brand transition-colors duration-300">
+              <h3 className="font-medium text-text-primary text-sm group-hover:text-brand transition-colors duration-300">
                 {prog.name[locale] || prog.name.en}
-              </h4>
+              </h3>
             </Link>
             {prog.faculty && (
               <p className="text-xs text-text-muted mt-0.5">{prog.faculty}</p>
@@ -52,7 +46,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
             <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
               {locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}
             </span>
-            <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
+            <span className="px-2 py-0.5 rounded-full bg-surface text-text-secondary text-[11px] border border-border-subtle">
               {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
             </span>
             <SaveProgrammeButton programmeId={prog.id} locale={locale} />
@@ -167,14 +161,14 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
 
           <div className="absolute bottom-4 start-4 end-4 z-10">
             <div className="flex items-end justify-between gap-3">
-              <div>
+              <div className="min-w-0 rounded-xl bg-ink px-4 py-3 shadow-lg">
                 <div className="flex items-center gap-2 mb-1">
-                  <MapPin className="w-3.5 h-3.5 text-white/70" />
-                  <span className="text-xs text-white/70">{locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}</span>
+                  <MapPin className="w-3.5 h-3.5 text-white/80" aria-hidden="true" />
+                  <span className="text-xs text-white/80">{locale === "ar" ? CITY_AR[uni.city] ?? uni.city : uni.city}</span>
                   {uni.founded && (
                     <>
-                      <span className="text-white/30">·</span>
-                      <span className="text-xs text-white/70">
+                      <span aria-hidden="true" className="h-1 w-1 rounded-full bg-white/40" />
+                      <span className="text-xs text-white/80">
                         {t.university.established} {uni.founded}
                       </span>
                     </>
@@ -188,13 +182,8 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                 )}
               </div>
               {uniV2 && (
-                <span className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold border backdrop-blur-sm ${
-                  uniV2.type === "public"
-                    ? "bg-success/20 text-success border-success/30"
-                    : uniV2.type === "state"
-                    ? "bg-info/20 text-info border-info/30"
-                    : "bg-brand/20 text-brand border-brand/30"
-                }`}>
+                <span className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white text-ink text-[11px] font-semibold shadow-sm">
+                  <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${uniV2.type === "public" ? "bg-success" : uniV2.type === "state" ? "bg-info" : "bg-brand"}`} />
                   {uniV2.type === "public"
                     ? (locale === "ar" ? "حكومية" : "Public")
                     : uniV2.type === "state"
@@ -248,10 +237,10 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       {/* Overview section */}
       <FadeIn delay={0.2}>
         <GlassCard className="mb-6">
-          <h3 className="text-sm font-semibold text-text-primary mb-2 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-text-primary mb-2 flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-brand" />
             {t.university.overviewLabel}
-          </h3>
+          </h2>
           <p className="text-sm text-text-secondary leading-relaxed">{uni.blurb[locale] || uni.blurb.en}</p>
 
           {/* Quick links */}
@@ -284,7 +273,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       {/* Programme cards */}
       <FadeIn delay={0.25}>
         <div className="mb-6">
-          <h3 className="text-base font-semibold text-text-primary mb-4 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-text-primary mb-4 flex items-center gap-2">
             <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-brand/10">
               <GraduationCap className="w-4 h-4 text-brand" />
             </div>
@@ -294,7 +283,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                 {progs.length}
               </span>
             )}
-          </h3>
+          </h2>
           {progs.length > 0 ? (
             <div className="space-y-3">
               {progs.map((p, i) => (
@@ -322,7 +311,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
                     <span className="font-medium text-text-primary text-sm">{p.name[locale] || p.name.en}</span>
                     <div className="flex gap-1.5 mt-1">
                       <span className="px-1.5 py-0.5 rounded bg-brand/10 text-brand text-[10px] font-medium">{p.degree}</span>
-                      <span className="px-1.5 py-0.5 rounded bg-white/5 text-text-muted text-[10px]">{p.language}</span>
+                      <span className="px-1.5 py-0.5 rounded bg-surface text-text-muted text-[10px]">{p.language}</span>
                     </div>
                   </div>
                   <ArrowRight className="w-3.5 h-3.5 text-text-muted" />

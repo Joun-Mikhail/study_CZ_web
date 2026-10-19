@@ -129,7 +129,7 @@ export default function ContactPage() {
                     <div className={`w-10 h-10 rounded-xl ${ch.bgColor} flex items-center justify-center`}>
                       <Icon className={`w-5 h-5 ${ch.color}`} />
                     </div>
-                    <h3 className="text-lg font-semibold text-text-primary">{ch.title}</h3>
+                    <h2 className="text-lg font-semibold text-text-primary">{ch.title}</h2>
                   </div>
 
                   <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1">

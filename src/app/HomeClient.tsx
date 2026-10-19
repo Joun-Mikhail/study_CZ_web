@@ -85,10 +85,12 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             aria-hidden="true"
             className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b1f3a] via-[#0b1f3a]/85 to-[#11457e]/55 md:bg-gradient-to-r md:rtl:bg-gradient-to-l md:from-[#0b1f3a] md:via-[#0b1f3a]/80 md:to-[#11457e]/35"
           />
-          {/* Colour light behind the text: teal, violet and gold, drifting slowly. */}
-          <span aria-hidden="true" className="blob -z-10 h-72 w-72 bg-teal/60 -top-10 start-[-4rem]" />
-          <span aria-hidden="true" className="blob -z-10 h-80 w-80 bg-violet/50 top-1/3 end-[-6rem] [animation-delay:-5s]" />
-          <span aria-hidden="true" className="blob -z-10 h-64 w-64 bg-gold/40 bottom-0 start-1/3 [animation-delay:-9s]" />
+          {/* Colour light behind the text: teal, violet and gold, drifting slowly.
+              Large screens only: on phones the blobs drift under the heading and
+              buttons, which contrast checkers can't measure, and blur is costly there. */}
+          <span aria-hidden="true" className="blob hidden lg:block -z-10 h-72 w-72 bg-teal/60 -top-10 start-[-4rem]" />
+          <span aria-hidden="true" className="blob hidden lg:block -z-10 h-80 w-80 bg-violet/50 top-1/3 end-[-6rem] [animation-delay:-5s]" />
+          <span aria-hidden="true" className="blob hidden lg:block -z-10 h-64 w-64 bg-gold/40 bottom-0 start-1/3 [animation-delay:-9s]" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 sm:pt-36 md:pt-44 md:pb-44 lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
             <div className="max-w-2xl">
               <p className="flex items-center gap-3 text-sm font-semibold tracking-wide text-white/85 mb-5">
@@ -128,7 +130,7 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {tasks.map(({ href, icon: Icon, art: Art, theme, title, body }) => (
-              <GlassCard key={href} href={href} ariaLabel={title} className={`group h-full p-0 border-t-4 ${theme.border} shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]`}>
+              <GlassCard key={href} href={href} className={`group h-full p-0 border-t-4 ${theme.border} shadow-[0_18px_40px_-24px_rgba(11,31,58,0.45)]`}>
                 <div className="flex h-full flex-col">
                   <div className={`relative flex h-24 sm:h-32 items-center justify-center ${theme.soft}`}>
                     <Art className="h-20 sm:h-28 w-auto transition-transform duration-300 group-hover:scale-105" />

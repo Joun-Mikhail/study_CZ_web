@@ -11,6 +11,10 @@ import { CITY_AR } from "@/i18n/ar-metadata";
 import { cityToSlug } from "@/lib/seo-utils";
 import { cn } from "@/lib/utils";
 
+/** The SVG's viewBox size (it starts at -24, -34), for placing HTML labels over it. */
+const VIEW_W = CZ_MAP.width + 48;
+const VIEW_H = CZ_MAP.height + 58;
+
 export type MapCity = {
   name: string;
   programmes: number;
@@ -34,8 +38,9 @@ export function CityMap({ cities, className }: { cities: MapCity[]; className?: 
 
   return (
     <div className={cn("relative rounded-3xl border border-border-subtle bg-surface p-3 sm:p-6", className)}>
+      <div className="relative">
       <svg
-        viewBox={`-24 -34 ${CZ_MAP.width + 48} ${CZ_MAP.height + 58}`}
+        viewBox={`-24 -34 ${VIEW_W} ${VIEW_H}`}
         className="w-full h-auto"
         role="group"
         aria-label={ar ? "خريطة مدن الجامعات في التشيك" : "Map of Czech university cities"}
@@ -72,21 +77,32 @@ export function CityMap({ cities, className }: { cities: MapCity[]; className?: 
                 )}
                 strokeWidth="3"
               />
-              {(c.programmes >= max / 4 || active) && (
-                <text
-                  x={x}
-                  y={y - r - 8}
-                  textAnchor="middle"
-                  className="fill-text-primary text-[17px] font-semibold pointer-events-none"
-                  style={{ fontFamily: ar ? "var(--font-arabic)" : "var(--font-sans)" }}
-                >
-                  {name(c.name)}
-                </text>
-              )}
             </g>
           );
         })}
       </svg>
+      {/* City names as HTML over the map, not SVG text: contrast checkers
+          treat anything inside an SVG as an image and can't measure it. The
+          circles above are the accessible buttons; these just echo the name. */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        {cities.map((c) => {
+          const coords = CITY_COORDS[c.name];
+          if (!coords || !(c.programmes >= max / 4 || sel === c.name)) return null;
+          const [x, y] = project(coords[0], coords[1]);
+          const r = 6 + Math.sqrt(c.programmes / max) * 14;
+          return (
+            <span
+              key={c.name}
+              onClick={() => setSel(sel === c.name ? null : c.name)}
+              className="pointer-events-auto absolute -translate-x-1/2 -translate-y-full cursor-pointer whitespace-nowrap rounded-lg bg-surface px-2 py-0.5 text-xs sm:text-sm font-semibold text-text-primary"
+              style={{ left: `${((x + 24) / VIEW_W) * 100}%`, top: `${((y - r - 4 + 34) / VIEW_H) * 100}%` }}
+            >
+              {name(c.name)}
+            </span>
+          );
+        })}
+      </div>
+      </div>
 
       <p className="mt-2 text-xs text-text-muted text-center">
         {ar ? "دوس على مدينة عشان تشوف تفاصيلها. حجم الدايرة على قد عدد البرامج." : "Tap a city for details. Bigger dots, more programmes."}

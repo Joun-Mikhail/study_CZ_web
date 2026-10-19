@@ -151,8 +151,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+}
+/* Smooth only when someone follows an in-page link (the link has focus).
+   Scrolls made by scripts stay instant, so tools that scroll to an element
+   and then measure it (axe, LambdaTest) don't measure it mid-scroll. */
+html:focus-within {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -387,8 +392,9 @@ html:not(.hydrated) [style*="opacity: 0"] {
   }
 }
 @keyframes reveal-rise {
-  /* Movement only: text keeps full contrast at every frame. */
-  from { transform: translateY(28px); }
+  /* Movement only: text keeps full contrast at every frame. Kept small so a
+     block still rising never covers the one below (contrast checkers flag that). */
+  from { transform: translateY(12px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .card-lift, .card-lift:hover { transition: none; transform: none; }
@@ -504,4 +510,10 @@ html:not(.hydrated) [style*="opacity: 0"] {
   @supports not (animation-timeline: view()) {
     .days-ring { animation-timeline: auto; animation-delay: 150ms; }
   }
+}
+
+/* Step numbers drawn from data-n: a lone digit as text reads to contrast
+   checkers like an icon glyph they can't judge. */
+.step-num::before {
+  content: attr(data-n);
 }

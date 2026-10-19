@@ -63,7 +63,7 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 text-center">
+        <main id="main-content" className="pt-32 pb-20 px-4 text-center">
           <h1 className="text-2xl font-bold text-text-primary">{t.notFound}</h1>
         </main>
         <Footer />
@@ -75,7 +75,7 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 flex items-center justify-center">
+        <main id="main-content" className="pt-32 pb-20 px-4 flex items-center justify-center">
           <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
@@ -87,7 +87,7 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-lg mx-auto text-center">
             <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
               <Lock className="w-8 h-8 text-brand" />
@@ -160,7 +160,7 @@ export default function QuizClient({ moduleId }: Props) {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs text-text-muted mb-6 flex-wrap">

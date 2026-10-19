@@ -25,7 +25,7 @@ export function GlassCard({ children, className, href, onClick, ariaLabel }: Gla
   // default out so CSS order can't silently pick the wrong one.
   const ownPadding = /(^|\s)(sm:|md:|lg:)?p-/.test(className ?? "");
   const classes = cn(
-    "reveal relative overflow-hidden rounded-2xl border border-border-subtle bg-surface",
+    "relative overflow-hidden rounded-2xl border border-border-subtle bg-surface",
     !ownPadding && "p-6",
     "shadow-[0_1px_2px_rgba(11,31,58,0.05)]",
     interactive &&

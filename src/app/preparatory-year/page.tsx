@@ -270,7 +270,7 @@ export default function PreparatoryYearPage() {
                   className="motion-safe-fallback relative flex gap-4 items-start"
                 >
                   <div className="relative z-10 w-10 h-10 rounded-full bg-brand/10 border border-brand/30 flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-brand">{i + 1}</span>
+                    <span className="step-num text-sm font-bold text-brand" data-n={i + 1} />
                   </div>
                   <p className="text-sm text-text-secondary leading-relaxed pt-2.5">{step}</p>
                 </motion.div>

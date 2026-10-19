@@ -466,21 +466,21 @@ export default function UniversityListClient({ mapCities }: { mapCities?: MapCit
             fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
-          <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">
-            <div>
-              <p className="text-xs text-white/60 mb-1">
+          <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between gap-3">
+            <div className="rounded-xl bg-ink px-4 py-3 shadow-lg">
+              <p className="text-xs text-white/80 mb-1">
                 {locale === "ar" ? "استكشف" : "Explore"}
               </p>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white">
                 {mode === "programmes" ? l.programmes : l.universities}
               </h1>
               <p className="mt-1 text-sm text-white/80 max-w-md">
                 {locale === "ar" ? "ابحث في البرامج المدرّسة بالإنجليزية في الجامعات التشيكية وصفّيها." : "Search and filter English-taught programmes at Czech universities."}
               </p>
             </div>
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span className="text-xs text-white/80">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink shadow-lg">
+              <Sparkles className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+              <span className="text-xs text-white">
                 {mode === "programmes"
                   ? `${filteredProgrammes.length} ${l.showing}`
                   : `${filteredUniversities.length} ${l.showingUnis}`}
