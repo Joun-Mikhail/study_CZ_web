@@ -319,11 +319,12 @@ export default function CostOfLivingPage() {
             </div>
           </GlassCard>
         </div>
-      </main>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <EmailSignup source="checklist" />
-      </div>
+        {/* Inside <main>, so the box belongs to a landmark (axe "region"). */}
+        <div className="max-w-3xl mx-auto mt-12">
+          <EmailSignup source="checklist" />
+        </div>
+      </main>
 
       <Footer />
     </div>
