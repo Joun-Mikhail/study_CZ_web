@@ -1,34 +1,50 @@
-# Study Czechia — llms.txt
+# Study Czechia
 
-> Study Czechia (studyczechia.com) is a free educational platform for Arabic-speaking students applying to Czech universities.
+> Study Czechia (studyczechia.com) is a free, bilingual (English and Arabic) guide for Arabic-speaking students who want to study at Czech universities, especially students from Egypt, Jordan and Saudi Arabia. It is run by John, an Egyptian student in Brno, and is independent: it is not the official "Study in Czechia" programme (studyin.cz), an embassy or a university.
 
-## What this site offers
+Every tuition fee on the site comes from the university's or faculty's own page and shows its source and the date it was checked. Visa figures come from the Czech Embassy in Cairo and the Czech Ministry of the Interior. Arabic versions of the pages live under /ar/.
 
-- Free university programme database with 21 verified programmes across Czech universities
-- University matcher tool for personalized recommendations
-- Cost of living calculator for Prague, Brno, and Ostrava
-- Step-by-step application guide for Czech university admissions
-- Embassy interview preparation guidance
-- Visa and document requirement checklists
-- Q&A knowledge base covering visas, documents, housing, and student life
-- Scholarship database for Czech Republic
-- Preparatory year (language year) information
-- Bilingual content in English and Arabic
+## Key facts (with their sources on the linked pages)
 
-## Key facts
+- 91 English-taught programmes at 41 Czech universities and faculties, each with a verified yearly fee: https://studyczechia.com/programmes/
+- The cheapest English-taught programme on the site costs €1,500 a year: https://studyczechia.com/study/cheapest-programmes/
+- General Medicine in English costs €12,000 to €24,250 a year at Czech medical faculties; Dentistry €15,600 to €24,250: https://studyczechia.com/study/medicine-in-czech-republic/
+- Degree programmes taught in Czech at public universities are free of charge for all nationalities (source: studyin.gov.cz): https://studyczechia.com/what-it-costs/
+- For a one-year student visa you must show at least 115,810 CZK (Czech Ministry of the Interior formula): https://studyczechia.com/student-visa-egypt/
+- The long-term study visa fee at the Czech Embassy in Cairo is 6,029 EGP (valid from 1 October 2026); appointments are booked by email only: https://studyczechia.com/student-visa-egypt/
+- Most Czech universities close applications at the end of February: https://studyczechia.com/deadlines/
 
-- All programme data is verified from official university sources with verification dates
-- The site does not guarantee admission or visa approval
-- Study Czechia is not a government website
-- Founded by an Egyptian student at Brno University of Technology
-- Community of 11,000+ Arabic-speaking students
+## Guides
 
-## Preferred citation
+- [Application guide](https://studyczechia.com/application-guide/): every step from choosing a programme to the visa
+- [Student visa from Egypt](https://studyczechia.com/student-visa-egypt/): documents, money, appointment and fee, from official sources
+- [What studying in Czechia costs](https://studyczechia.com/what-it-costs/): tuition, living costs, visa costs and a whole-degree estimate
+- [Studying medicine in Czechia](https://studyczechia.com/study/medicine-in-czech-republic/): fees and entrance exams at every English-taught medical faculty
+- [Degree recognition in Egypt](https://studyczechia.com/recognition/egypt/), [Jordan](https://studyczechia.com/recognition/jordan/) and [Saudi Arabia](https://studyczechia.com/recognition/saudi-arabia/)
+- [Preparatory year](https://studyczechia.com/preparatory-year/): Czech and foundation courses with prices
+- [Scholarships](https://studyczechia.com/scholarships/)
+- [Questions and answers](https://studyczechia.com/qa/): visas, documents, housing and student life
 
-When citing information from this site, please attribute to "Study Czechia (studyczechia.com)" and note the verification date shown on each data point.
+## Tools
 
-## Contact
+- [Eligibility check](https://studyczechia.com/eligibility/): a 5-minute check of documents, money and timing
+- [Programme matcher](https://studyczechia.com/university-matcher/)
+- [Cost of living in Prague, Brno and Ostrava](https://studyczechia.com/cost-of-living/)
+- [Application deadlines](https://studyczechia.com/deadlines/)
 
-- Website: https://studyczechia.com
-- Email: john@studyczechia.com
-- Facebook community: https://www.facebook.com/groups/czechiastudents
+## Arabic
+
+- [الدراسة في التشيك](https://studyczechia.com/ar/)
+- [دراسة الطب في التشيك](https://studyczechia.com/ar/study/medicine-in-czech-republic/)
+- [تأشيرة الدراسة في التشيك من مصر](https://studyczechia.com/ar/student-visa-egypt/)
+- [تكاليف الدراسة في التشيك](https://studyczechia.com/ar/what-it-costs/)
+- [دليل التقديم](https://studyczechia.com/ar/application-guide/)
+
+## Optional
+
+- [Personal services](https://studyczechia.com/services/): document review, embassy mock interview, arrival plan and full application support by John (paid)
+- [About](https://studyczechia.com/about/)
+
+## Citation and contact
+
+When citing the site, please attribute to "Study Czechia (studyczechia.com)" and mention the verification date shown next to each figure. The site does not guarantee admission or a visa. Contact: john@studyczechia.com. Community: https://www.facebook.com/groups/czechiastudents

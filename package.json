@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node tools/postbuild-ar.mjs && node tools/postbuild-og.mjs",
+    "build": "next build && node tools/postbuild-ar.mjs && node tools/postbuild-og.mjs && node tools/indexnow.mjs --from-build",
+    "indexnow": "node tools/indexnow.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
