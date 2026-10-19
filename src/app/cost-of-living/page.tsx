@@ -162,7 +162,7 @@ export default function CostOfLivingPage() {
           <div className="flex flex-col gap-6">
             <GlassCard hoverEffect="glow">
               <p className="text-sm text-text-secondary mb-1">{t.cost.totalLabel}</p>
-              <p className="text-3xl font-bold text-brand">
+              <p className="text-3xl font-bold text-brand" dir="ltr">
                 {formatCzk(totalMin)} – {formatCzk(totalMax)}
               </p>
             </GlassCard>
@@ -309,7 +309,7 @@ export default function CostOfLivingPage() {
               <p className="text-xs text-text-muted mb-1">{t.cost.calcEarningsLabel}</p>
               <p className="text-2xl font-bold text-brand mb-2">{formatCzk(monthlyEarnings)}</p>
               <p className="text-xs text-text-muted mb-3">
-                {t.cost.calcVsCosts}: {formatCzk(totalMin)} – {formatCzk(totalMax)}
+                {t.cost.calcVsCosts}: <span dir="ltr">{formatCzk(totalMin)} – {formatCzk(totalMax)}</span>
               </p>
               <p className={cn("text-sm font-medium", shortfall > 0 ? "text-brand" : "text-success")}>
                 {shortfall > 0
