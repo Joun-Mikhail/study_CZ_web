@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { programmes } from "@/data/programmes";
-import { universitiesV2 } from "@/data/universities-v2";
 import { englishTuition, medicineTuition, OFFICIAL } from "@/lib/study-costs";
 import { feeRange, medicineRows } from "@/lib/medicine-guide";
+import { feeVerified } from "@/lib/fee-source";
 // @ts-expect-error: plain JS build tool
 import { KEY, changedFrom, changedSince, sitemapEntries } from "../tools/indexnow.mjs";
 
@@ -13,14 +13,32 @@ describe("llms.txt", () => {
   const text = readFileSync("public/llms.txt", "utf8");
 
   it("states the current programme and university counts", () => {
-    const english = programmes.filter((p) => p.language === "English").length;
-    expect(text).toContain(`${english} English-taught programmes at ${universitiesV2.length} Czech universities`);
+    const english = programmes.filter((p) => p.language === "English");
+    const unis = new Set(english.map((p) => p.universityId)).size;
+    expect(text).toContain(`${english.length} English-taught programmes at ${unis} Czech universities`);
+  });
+
+  it("claims only as many verified fees as the data supports", () => {
+    const english = programmes.filter((p) => p.language === "English");
+    const verified = english.filter(feeVerified).length;
+    expect(text).toContain(`${verified} of the ${english.length} fees are verified`);
+    expect(text).toContain(`${verified} of those fees are verified on the university's own fee page`);
+    expect(text).not.toMatch(/every tuition fee on the site comes from the university/i);
+  });
+
+  it("flags the cheapest and medicine fees that are not verified", () => {
+    const cheapest = [...programmes].filter((p) => p.language === "English").sort((a, b) => a.tuitionEurPerYear - b.tuitionEurPerYear)[0];
+    const line = text.split("\n").find((l) => l.includes("cheapest English-taught programme"))!;
+    if (!feeVerified(cheapest)) expect(line).toContain("still being re-checked");
+    const verifiedMed = [...new Set(medicineRows().filter((r) => feeVerified(r.programme)).map((r) => r.programme.tuitionEurPerYear))];
+    expect(verifiedMed).toHaveLength(1);
+    expect(text).toContain(`Only the €${n(verifiedMed[0])} fees at Charles University's First Faculty of Medicine are verified so far`);
   });
 
   it("states fees and visa figures that match the site's data", () => {
     const med = medicineTuition()!;
     const dent = feeRange(medicineRows(), "Dentistry")!;
-    expect(text).toContain(`costs €${n(englishTuition().all.min)} a year`);
+    expect(text).toContain(`listed at €${n(englishTuition().all.min)} a year`);
     expect(text).toContain(`€${n(med.min)} to €${n(med.max)} a year`);
     expect(text).toContain(`Dentistry €${n(dent.min)} to €${n(dent.max)}`);
     expect(text).toContain(`${n(OFFICIAL.proofOfFundsYearCzk.value)} CZK`);

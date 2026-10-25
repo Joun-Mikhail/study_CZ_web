@@ -4,7 +4,8 @@ import React from "react";
 import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
+import { feeVerified } from "@/lib/fee-source";
 import { getDeadlineStatus } from "@/data/programmes";
 import type { Programme, UniversityV2, DeadlineStatus } from "@/data/types";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
@@ -27,6 +28,7 @@ import {
   Globe,
   AlertCircle,
   GitCompareArrows,
+  Info,
 } from "lucide-react";
 
 
@@ -41,7 +43,6 @@ const COPY = {
     czechia: "Czech Republic",
     public: "Public",
     private: "Private",
-    verified: "Verified:",
     keyFacts: "Key Facts",
     degree: "Degree",
     language: "Language",
@@ -65,6 +66,10 @@ const COPY = {
     trustTitle: "Data Sources & Verification",
     officialSource: "Official university source",
     officialSourceText: "All information on this page comes from the university's official website.",
+    feeRecheckTitle: "Fee being re-checked",
+    feeRecheckText:
+      "We have not yet matched this fee to the university's own fee page. Check the fee on the university's website before you apply or pay.",
+    listedOn: "Listed on:",
     lastVerified: "Last verified:",
     verifiedBy: (who: "studyczechia" | "community") =>
       `Verified by ${who === "studyczechia" ? "Study Czechia" : "a community contributor"}.`,
@@ -73,7 +78,7 @@ const COPY = {
       "Universities may update their programmes, fees, or deadlines at any time. Always confirm details on the official programme page before applying.",
     apply: "Apply / Visit official programme",
     compare: "Compare with others",
-    database: (n: number) => `Our database is growing, currently covering ${n} verified programmes.`,
+    database: (n: number) => `Our database is growing, currently covering ${n} programmes.`,
   },
   ar: {
     deadline: (d: string) => `آخر موعد: ${d}`,
@@ -85,7 +90,6 @@ const COPY = {
     czechia: "التشيك",
     public: "حكومية",
     private: "خاصة",
-    verified: "تم التحقق:",
     keyFacts: "أهم المعلومات",
     degree: "الدرجة",
     language: "لغة الدراسة",
@@ -109,6 +113,10 @@ const COPY = {
     trustTitle: "مصادر البيانات والتحقق",
     officialSource: "مصدر رسمي من الجامعة",
     officialSourceText: "كل المعلومات في هذه الصفحة مأخوذة من الموقع الرسمي للجامعة.",
+    feeRecheckTitle: "نراجع الرسوم حاليًا",
+    feeRecheckText:
+      "لم نطابق هذه الرسوم بعد مع صفحة الرسوم في موقع الجامعة. تأكد من الرسوم على موقع الجامعة قبل التقديم أو الدفع.",
+    listedOn: "أُضيف في:",
     lastVerified: "آخر تحقق:",
     verifiedBy: (who: "studyczechia" | "community") =>
       who === "studyczechia" ? "تحقق منها فريق Study Czechia." : "تحقق منها أحد أفراد المجتمع.",
@@ -117,7 +125,7 @@ const COPY = {
       "قد تغيّر الجامعات برامجها أو رسومها أو مواعيدها في أي وقت. تأكد دائمًا من التفاصيل في صفحة البرنامج الرسمية قبل التقديم.",
     apply: "قدّم / صفحة البرنامج الرسمية",
     compare: "قارن مع برامج أخرى",
-    database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا تم التحقق منه.`,
+    database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا.`,
   },
 };
 
@@ -221,7 +229,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
         </div>
 
         <div className="flex items-center gap-3 mt-4">
-          <VerifiedBadge date={p.verification.lastVerified} sourceUrl={p.verification.sourceUrl} label={c.verified} />
+          <ProgrammeSourceBadge programme={p} locale={locale} />
           <SaveProgrammeButton programmeId={p.id} locale={locale} size="md" />
         </div>
       </div>
@@ -308,22 +316,42 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
       {/* ── Trust ─────────────────────────────────────────────── */}
       <Section title={c.trustTitle} icon={ShieldCheck}>
         <div className="space-y-3 text-sm">
-          <div className="flex items-start gap-2">
-            <ShieldCheck className="w-4 h-4 text-success mt-0.5 shrink-0" />
-            <div>
-              <span className="text-text-primary font-medium">{c.officialSource}</span>
-              <p className="text-text-muted mt-0.5">{c.officialSourceText}</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
-            <div>
-              <span className="text-text-primary font-medium">
-                {c.lastVerified} {p.verification.lastVerified}
-              </span>
-              <p className="text-text-muted mt-0.5">{c.verifiedBy(p.verification.verifiedBy)}</p>
-            </div>
-          </div>
+          {feeVerified(p) ? (
+            <>
+              <div className="flex items-start gap-2">
+                <ShieldCheck className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                <div>
+                  <span className="text-text-primary font-medium">{c.officialSource}</span>
+                  <p className="text-text-muted mt-0.5">{c.officialSourceText}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+                <div>
+                  <span className="text-text-primary font-medium">
+                    {c.lastVerified} {p.verification.lastVerified}
+                  </span>
+                  <p className="text-text-muted mt-0.5">{c.verifiedBy(p.verification.verifiedBy)}</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-start gap-2">
+                <Info className="w-4 h-4 text-text-muted mt-0.5 shrink-0" />
+                <div>
+                  <span className="text-text-primary font-medium">{c.feeRecheckTitle}</span>
+                  <p className="text-text-muted mt-0.5">{c.feeRecheckText}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+                <span className="text-text-primary font-medium">
+                  {c.listedOn} <span dir="ltr">{p.verification.lastVerified}</span>
+                </span>
+              </div>
+            </>
+          )}
           <div className="flex items-start gap-2">
             <ExternalLink className="w-4 h-4 text-accent mt-0.5 shrink-0" />
             <div className="min-w-0">

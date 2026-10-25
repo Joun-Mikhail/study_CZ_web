@@ -41,7 +41,7 @@ const COPY = {
     remove: (name: string) => `Remove ${name}`,
     viewDetails: "View details",
     officialPage: "Official page",
-    database: (n: number) => `Our database is growing, currently covering ${n} verified programmes.`,
+    database: (n: number) => `Our database is growing, currently covering ${n} programmes.`,
     perYear: "per year",
     rows: {
       university: "University",
@@ -84,7 +84,7 @@ const COPY = {
     remove: (name: string) => `إزالة ${name}`,
     viewDetails: "التفاصيل",
     officialPage: "الصفحة الرسمية",
-    database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا تم التحقق منه.`,
+    database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا.`,
     perYear: "في السنة",
     rows: {
       university: "الجامعة",

@@ -8,7 +8,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { EmailSignup } from "@/components/email-signup";
 import { HelpLink } from "@/components/help-sheet";
 import { buttonClasses } from "@/components/ui/magnetic-button";
@@ -290,8 +290,8 @@ export default function MatcherPage() {
           <p className="text-text-secondary leading-relaxed">{t.matcher.subtitle}</p>
           <p className="text-xs text-text-muted mt-2">
             {locale === "ar"
-              ? `بيدور في ${programmes.length} برنامج اتأكدنا منهم من مواقع الجامعات نفسها.`
-              : `Searches the ${programmes.length} programmes we've checked on each university's own website.`}
+              ? `بيدور في ${programmes.length} برنامج موجودين على الموقع.`
+              : `Searches the ${programmes.length} programmes listed on this site.`}
           </p>
         </div>
 
@@ -505,11 +505,7 @@ function MatchCard({
       </div>
 
       <div className="ms-8 flex items-center justify-between">
-        <VerifiedBadge
-          date={prog.verification.lastVerified}
-          sourceUrl={prog.verification.sourceUrl}
-          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-        />
+        <ProgrammeSourceBadge programme={prog} locale={locale} />
         <span className="inline-flex items-center gap-1 text-xs text-brand">
           <ExternalLink className="w-3 h-3" />
           {locale === "ar" ? "التفاصيل" : "Details"}

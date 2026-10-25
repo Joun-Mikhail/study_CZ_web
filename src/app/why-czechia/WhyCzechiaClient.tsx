@@ -160,8 +160,8 @@ export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }
           </h2>
           <p className="text-text-secondary max-w-lg mx-auto">
             {locale === "en"
-              ? "Explore verified programmes by field of study, city, or budget."
-              : "استكشف البرامج الموثقة حسب مجال الدراسة أو المدينة أو الميزانية."}
+              ? "Explore programmes by field of study, city, or budget."
+              : "استكشف البرامج حسب مجال الدراسة أو المدينة أو الميزانية."}
           </p>
         </motion.div>
 

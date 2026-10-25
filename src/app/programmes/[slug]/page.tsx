@@ -10,6 +10,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
 import { programmeTitle } from "@/lib/programme-title";
+import { feeVerified } from "@/lib/fee-source";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -57,12 +58,17 @@ export default async function ProgrammePage({ params }: Props) {
     inLanguage: prog.language === "English" ? "en" : "cs",
     timeToComplete: `P${prog.durationYears}Y`,
     educationalLevel: prog.degree,
-    offers: {
-      "@type": "Offer",
-      price: prog.tuitionEurPerYear,
-      priceCurrency: "EUR",
-      category: "Tuition per academic year",
-    },
+    // State a price only when the linked source shows it.
+    ...(feeVerified(prog)
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: prog.tuitionEurPerYear,
+            priceCurrency: "EUR",
+            category: "Tuition per academic year",
+          },
+        }
+      : {}),
     url: `${SITE_URL}/programmes/${prog.id}`,
   };
 

@@ -18,6 +18,8 @@ import {
   medicineTuition,
   toEur,
 } from "@/lib/study-costs";
+import { programmes } from "@/data/programmes";
+import { feeVerified } from "@/lib/fee-source";
 
 type Locale = "en" | "ar";
 
@@ -41,8 +43,8 @@ const t = {
     englishMaster: "Taught in English, master's",
     medicine: "General Medicine in English",
     typical: (v: string) => `half cost ${v} or less`,
-    tuitionNote: (count: number, date: string) =>
-      `From the ${count} English-taught programmes on this site, each checked against the university's own page on ${date} or later.`,
+    tuitionNote: (count: number, matched: number) =>
+      `From the ${count} English-taught programmes on this site. ${matched} of these fees are already verified on the university's own fee page for this academic year; the others are being re-checked, so confirm the fee on the university's website before you pay.`,
     cheapest: "Cheapest programmes",
     medicineGuide: "Medicine fees and exams",
     livingTitle: "Living costs per month",
@@ -88,8 +90,8 @@ const t = {
     englishMaster: "بالإنجليزي، ماجستير",
     medicine: "الطب العام بالإنجليزي",
     typical: (v: string) => `نصهم بـ${v} أو أقل`,
-    tuitionNote: (count: number, date: string) =>
-      `من ${count} برنامج بالإنجليزي على الموقع، كل واحد اتراجع على صفحة الجامعة نفسها يوم ${date} أو بعده.`,
+    tuitionNote: (count: number, matched: number) =>
+      `من ${count} برنامج بالإنجليزي على الموقع. ${matched} منهم رسومه اتأكدنا منها على صفحة الرسوم في موقع الجامعة للسنة دي، والباقي بنراجعه، فاتأكد من الرسوم على موقع الجامعة قبل ما تدفع.`,
     cheapest: "أرخص البرامج",
     medicineGuide: "مصاريف الطب وامتحاناته",
     livingTitle: "تكاليف المعيشة في الشهر",
@@ -172,6 +174,7 @@ export default function WhatItCostsClient() {
   const c = t[l];
 
   const tuition = useMemo(() => englishTuition(), []);
+  const matchedFees = useMemo(() => programmes.filter((p) => p.language === "English" && feeVerified(p)).length, []);
   const medicine = useMemo(() => medicineTuition(), []);
   const living = useMemo(() => livingByCity(), []);
 
@@ -255,7 +258,7 @@ export default function WhatItCostsClient() {
                 />
               )}
               <p className="text-xs text-text-muted mt-3">
-                {c.tuitionNote(tuition.all.count, tuition.lastVerified)}{" "}
+                {c.tuitionNote(tuition.all.count, matchedFees)}{" "}
                 <Link href="/study/cheapest-programmes" className="text-brand underline underline-offset-2">
                   {c.cheapest}
                 </Link>

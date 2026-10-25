@@ -4,7 +4,7 @@ import ProgrammesClient from "./ProgrammesClient";
 export const metadata: Metadata = {
   title: "English-Taught Programmes at Czech Universities",
   description:
-    "Explore verified English-taught university programmes in the Czech Republic. Filter by field, city, degree level, and tuition.",
+    "Explore English-taught university programmes in the Czech Republic. Filter by field, city, degree level, and tuition.",
   alternates: { canonical: "/programmes" },
 };
 

@@ -6,6 +6,7 @@ import Link from "@/components/locale-link";
 import { ContextualCTA } from "@/components/contextual-cta";
 import { CITY_AR } from "@/i18n/ar-metadata";
 import { examSubjects, feeRange, medicineRows } from "@/lib/medicine-guide";
+import { feeVerified } from "@/lib/fee-source";
 import { fieldToSlug } from "@/lib/seo-utils";
 
 /** Western digits; the euro sign goes after the number in Arabic, as elsewhere on the site. */
@@ -27,7 +28,7 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
   const dentistry = feeRange(rows, "Dentistry");
   const exams = examSubjects(rows);
   const mathsOption = rows.some((r) => r.programme.entranceExamDetails?.en.toLowerCase().includes("mathematics"));
-  const lastVerified = rows.map((r) => r.programme.verification.lastVerified).sort()[0];
+  const verified = rows.filter((r) => feeVerified(r.programme)).length;
 
   const linkClass = "font-medium text-brand hover:underline";
 
@@ -39,11 +40,11 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
       <p className="text-sm text-text-secondary mb-4">
         {ar ? (
           <>
-            رسوم السنة الأولى كما تنشرها كل كلية، من الأرخص للأغلى. تم التحقق من كل رسم في{" "}
-            <span dir="ltr">{lastVerified}</span> أو بعده. اضغط على أي برنامج لترى المصدر.
+            رسوم السنة الأولى كما تنشرها كل كلية، من الأرخص للأغلى. تحققنا من {verified} من أصل {rows.length} رسوم على صفحة
+            الرسوم في موقع الكلية لهذه السنة الدراسية، ونراجع الباقي حاليًا. اضغط على أي برنامج لترى حالته.
           </>
         ) : (
-          `First-year tuition as each faculty publishes it, cheapest first. Each fee was checked on ${lastVerified} or later. Tap a programme to see its source.`
+          `First-year tuition as each faculty publishes it, cheapest first. ${verified} of these ${rows.length} fees are verified on the faculty's own fee page for this academic year; the others are being re-checked. Tap a programme to see its status.`
         )}
       </p>
 
