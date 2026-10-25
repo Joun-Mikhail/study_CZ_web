@@ -104,6 +104,7 @@ describe("ProgrammeDetailClient source section", () => {
       expect(container.textContent).toContain("We have not yet matched this fee to the university's own fee page");
       expect(container.textContent).not.toContain("All information on this page comes from the university's official website");
       expect(container.textContent).not.toContain("Verified by Study Czechia");
+      expect(container.textContent).toContain(`Last updated: ${prog.verification.lastVerified}`);
     });
   }
 

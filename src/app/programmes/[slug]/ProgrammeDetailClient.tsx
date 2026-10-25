@@ -69,7 +69,7 @@ const COPY = {
     feeRecheckTitle: "Fee being re-checked",
     feeRecheckText:
       "We have not yet matched this fee to the university's own fee page. Check the fee on the university's website before you apply or pay.",
-    listedOn: "Listed on:",
+    lastUpdated: "Last updated:",
     lastVerified: "Last verified:",
     verifiedBy: (who: "studyczechia" | "community") =>
       `Verified by ${who === "studyczechia" ? "Study Czechia" : "a community contributor"}.`,
@@ -116,7 +116,7 @@ const COPY = {
     feeRecheckTitle: "نراجع الرسوم حاليًا",
     feeRecheckText:
       "لم نطابق هذه الرسوم بعد مع صفحة الرسوم في موقع الجامعة. تأكد من الرسوم على موقع الجامعة قبل التقديم أو الدفع.",
-    listedOn: "أُضيف في:",
+    lastUpdated: "آخر تحديث:",
     lastVerified: "آخر تحقق:",
     verifiedBy: (who: "studyczechia" | "community") =>
       who === "studyczechia" ? "تحقق منها فريق Study Czechia." : "تحقق منها أحد أفراد المجتمع.",
@@ -347,7 +347,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
               <div className="flex items-start gap-2">
                 <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
                 <span className="text-text-primary font-medium">
-                  {c.listedOn} <span dir="ltr">{p.verification.lastVerified}</span>
+                  {c.lastUpdated} <span dir="ltr">{p.verification.lastVerified}</span>
                 </span>
               </div>
             </>
