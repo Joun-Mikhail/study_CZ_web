@@ -133,7 +133,9 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
   const progs = getProgrammesByUniversity(uni.id);
 
   const tuitionRange = uni.tuitionEurPerYear;
-  const tuitionText = tuitionRange[0] === tuitionRange[1]
+  const tuitionText = !tuitionRange
+    ? (locale === "ar" ? "لم تُدرج بعد" : "Not listed yet")
+    : tuitionRange[0] === tuitionRange[1]
     ? `€${tuitionRange[0].toLocaleString()}`
     : `€${tuitionRange[0].toLocaleString()} – €${tuitionRange[1].toLocaleString()}`;
 
