@@ -52,6 +52,7 @@ const en: GuideCopy = {
         { text: "One academic year (1 September to 31 August): (15 × 3,130) + (11 × 2 × 3,130) = 115,810 CZK. One semester (September to February): 78,250 CZK.", source: "fundsInterior" },
         { text: "Applicants under 18 show half these amounts.", source: "fundsForeign" },
         { text: "A scholarship or grant under an international agreement the Czech Republic is bound by can replace this proof. If it doesn't cover the full amount, you prove the difference.", source: "fundsForeign" },
+        { text: "This is the amount the embassy asks you to prove. For tuition, living costs and the other expenses, see our cost guide.", link: { href: "/what-it-costs/", label: "What studying in Czechia costs" } },
       ],
     },
     {
@@ -135,6 +136,7 @@ const ar: GuideCopy = {
         { text: "سنة دراسية كاملة (من 1 سبتمبر إلى 31 أغسطس): ‎(15 × 3,130) + (11 × 2 × 3,130) = 115,810 كرونة. فصل دراسي واحد (من سبتمبر إلى فبراير): 78,250 كرونة.", source: "fundsInterior" },
         { text: "من هم دون 18 عامًا يُثبتون نصف هذه المبالغ.", source: "fundsForeign" },
         { text: "يمكن أن تحل محل هذا الإثبات منحة دراسية بموجب اتفاقية دولية تلتزم بها التشيك. إذا لم تغطِّ المبلغ كاملًا، تُثبت الفرق.", source: "fundsForeign" },
+        { text: "هذا هو المبلغ الذي تطلب السفارة إثباته. للرسوم الدراسية ومصاريف المعيشة وباقي التكاليف، اقرأ دليل التكاليف.", link: { href: "/what-it-costs/", label: "تكاليف الدراسة في التشيك" } },
       ],
     },
     {
