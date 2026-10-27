@@ -6,6 +6,7 @@ import Link from "@/components/locale-link";
 import { ContextualCTA } from "@/components/contextual-cta";
 import { CITY_AR } from "@/i18n/ar-metadata";
 import { examSubjects, feeRange, medicineRows } from "@/lib/medicine-guide";
+import { feeStatus, feeVerified } from "@/lib/fee-source";
 import { fieldToSlug } from "@/lib/seo-utils";
 
 /** Western digits; the euro sign goes after the number in Arabic, as elsewhere on the site. */
@@ -27,7 +28,7 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
   const dentistry = feeRange(rows, "Dentistry");
   const exams = examSubjects(rows);
   const mathsOption = rows.some((r) => r.programme.entranceExamDetails?.en.toLowerCase().includes("mathematics"));
-  const lastVerified = rows.map((r) => r.programme.verification.lastVerified).sort()[0];
+  const verified = rows.filter((r) => feeVerified(r.programme)).length;
 
   const linkClass = "font-medium text-brand hover:underline";
 
@@ -39,48 +40,91 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
       <p className="text-sm text-text-secondary mb-4">
         {ar ? (
           <>
-            رسوم السنة الأولى كما تنشرها كل كلية، من الأرخص للأغلى. تم التحقق من كل رسم في{" "}
-            <span dir="ltr">{lastVerified}</span> أو بعده. اضغط على أي برنامج لترى المصدر.
+            رسوم السنة الأولى كما تنشرها كل كلية، من الأرخص للأغلى. تحققنا من {verified} من أصل {rows.length} رسوم على صفحة
+            الرسوم في موقع الكلية لهذه السنة الدراسية، ونراجع الباقي حاليًا. العمود الأخير يوضح حالة كل رسم ويربطك بمصدره.
           </>
         ) : (
-          `First-year tuition as each faculty publishes it, cheapest first. Each fee was checked on ${lastVerified} or later. Tap a programme to see its source.`
+          `First-year tuition as each faculty publishes it, cheapest first. ${verified} of these ${rows.length} fees are verified on the faculty's own fee page for this academic year; the others are being re-checked. The last column shows each fee's status and links to its source.`
         )}
       </p>
 
-      <ul className="divide-y divide-border-subtle rounded-2xl border border-border-subtle bg-surface">
-        {rows.map(({ programme: p, where, city }) => (
-          <li key={p.id}>
-            <Link href={`/programmes/${p.id}`} className="flex items-start justify-between gap-3 p-4 hover:bg-brand/[0.04] transition-colors">
-              <div className="min-w-0">
-                <p className="font-semibold text-text-primary">{p.name[locale] || p.name.en}</p>
-                <p className="text-xs text-text-secondary mt-0.5">{ar ? where.ar : where.en}</p>
-                <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-muted mt-1.5">
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="w-3 h-3" aria-hidden="true" />
-                    {ar ? CITY_AR[city] ?? city : city}
+      {/* A real table, so search engines and AI answers can read the fees as data, not as card fragments. */}
+      <div className="rounded-2xl border border-border-subtle bg-surface overflow-hidden">
+        <table className="w-full text-start text-sm">
+          <caption className="sr-only">
+            {ar
+              ? "برامج الطب العام وطب الأسنان بالإنجليزية في التشيك: رسوم السنة الأولى، وهل تحققنا من كل رسم على صفحة الرسوم في موقع الكلية، من الأرخص للأغلى"
+              : "English-taught General Medicine and Dentistry programmes in Czechia: first-year tuition and whether each fee is verified on the faculty's own fee page, cheapest first"}
+          </caption>
+          <thead className="border-b border-border-subtle text-xs text-text-muted">
+            <tr>
+              <th scope="col" className="px-3 sm:px-4 py-2.5 text-start font-medium">{ar ? "البرنامج" : "Programme"}</th>
+              <th scope="col" className="px-2 sm:px-4 py-2.5 text-end font-medium">{ar ? "الرسوم في السنة" : "Tuition per year"}</th>
+              <th scope="col" className="ps-2 pe-3 sm:px-4 py-2.5 text-end font-medium">{ar ? "حالة الرسوم" : "Fee status"}</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border-subtle">
+            {rows.map(({ programme: p, where, city }) => (
+              <tr key={p.id} className="align-top hover:bg-brand/[0.04] transition-colors">
+                <th scope="row" className="px-3 sm:px-4 py-3 sm:py-4 text-start font-normal">
+                  <Link href={`/programmes/${p.id}`} className="font-semibold text-text-primary hover:text-brand">
+                    {p.name[locale] || p.name.en}
+                  </Link>
+                  <span className="block text-xs text-text-secondary mt-0.5">{ar ? where.ar : where.en}</span>
+                  <span className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-muted mt-1.5">
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="w-3 h-3" aria-hidden="true" />
+                      {ar ? CITY_AR[city] ?? city : city}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-3 h-3" aria-hidden="true" />
+                      {p.durationYears} {ar ? "سنوات" : "years"}
+                    </span>
+                    <span className="inline-flex items-start gap-1">
+                      <FileText className="w-3 h-3 mt-0.5 shrink-0" aria-hidden="true" />
+                      {p.entranceExamDetails
+                        ? p.entranceExamDetails[locale] ?? p.entranceExamDetails.en
+                        : ar
+                        ? "امتحان قبول، لم تُنشر مواده بعد"
+                        : "Entrance exam, subjects not published yet"}
+                    </span>
                   </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="w-3 h-3" aria-hidden="true" />
-                    {p.durationYears} {ar ? "سنوات" : "years"}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <FileText className="w-3 h-3" aria-hidden="true" />
-                    {p.entranceExamDetails
-                      ? p.entranceExamDetails[locale] ?? p.entranceExamDetails.en
-                      : ar
-                      ? "امتحان قبول، لم تُنشر مواده بعد"
-                      : "Entrance exam, subjects not published yet"}
-                  </span>
-                </p>
-              </div>
-              <p className="shrink-0 text-end">
-                <span className="block font-bold text-text-primary" dir="ltr">{eur(p.tuitionEurPerYear, locale)}</span>
-                <span className="block text-[11px] text-text-muted">{ar ? "في السنة" : "per year"}</span>
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+                </th>
+                <td className="px-2 sm:px-4 py-3 sm:py-4 text-end whitespace-nowrap">
+                  <span className="font-bold text-text-primary" dir="ltr">{eur(p.tuitionEurPerYear, locale)}</span>
+                </td>
+                <td className="ps-2 pe-3 sm:px-4 py-3 sm:py-4 text-end text-xs">
+                  {/* Same status as the programme's badge: only a verified fee shows a check date. */}
+                  {feeStatus(p) === "verified" ? (
+                    <a
+                      href={p.verification.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text-secondary underline decoration-border-subtle underline-offset-2 hover:text-brand"
+                    >
+                      <span className="block">{ar ? "تم التحقق" : "Verified"}</span>
+                      <time dateTime={p.verification.lastVerified} dir="ltr" className="whitespace-nowrap">
+                        {p.verification.lastVerified}
+                      </time>
+                      <span className="sr-only">{ar ? " (مصدر الرسم، يفتح في نافذة جديدة)" : " (fee source, opens in a new tab)"}</span>
+                    </a>
+                  ) : (
+                    <a
+                      href={feeStatus(p) === "pending" ? p.verification.sourceUrl : p.programmeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text-muted underline decoration-border-subtle underline-offset-2 hover:text-brand"
+                    >
+                      {ar ? "قيد المراجعة" : "Being re-checked"}
+                      <span className="sr-only">{ar ? " (يفتح في نافذة جديدة)" : " (opens in a new tab)"}</span>
+                    </a>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <h2 className="text-xl font-semibold text-text-primary mt-10 mb-4">
         {ar ? "أسئلة شائعة عن دراسة الطب في التشيك" : "Common questions about studying medicine in Czechia"}

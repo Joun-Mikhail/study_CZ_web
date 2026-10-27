@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import {
   programmes,
@@ -118,11 +118,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         )}
 
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-subtle">
-          <VerifiedBadge
-            date={prog.verification.lastVerified}
-            sourceUrl={prog.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-          />
+          <ProgrammeSourceBadge programme={prog} locale={locale} />
           <Link
             href={`/programmes/${prog.id}`}
             className="text-xs font-medium text-brand hover:underline inline-flex items-center gap-1"
@@ -201,8 +197,8 @@ export default function ProgrammesClient({
             </h1>
             <p className="text-xs text-white/80 mt-1">
               {locale === "ar"
-                ? `قاعدة بياناتنا تنمو — حاليًا ${programmes.length} برنامج موثق`
-                : `Our database is growing — currently covering ${programmes.length} verified programmes`}
+                ? `قاعدة بياناتنا تنمو — حاليًا ${programmes.length} برنامج`
+                : `Our database is growing — currently covering ${programmes.length} programmes`}
             </p>
           </div>
         </div>

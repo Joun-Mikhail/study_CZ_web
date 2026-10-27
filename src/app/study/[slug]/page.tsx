@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (field) {
     return {
       title: `Study ${field} in Czech Republic`,
-      description: `Explore verified English-taught ${field} programmes at Czech universities. Compare tuition, deadlines, and entry requirements.`,
+      description: `Explore English-taught ${field} programmes at Czech universities. Compare tuition, deadlines, and entry requirements.`,
       alternates: { canonical: `/study/${slug}` },
     };
   }
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (degree) {
     return {
       title: `${degree} Programmes in Czech Republic`,
-      description: `Browse verified English-taught ${degree}'s degree programmes at Czech universities. Compare tuition, deadlines, and application requirements.`,
+      description: `Browse English-taught ${degree}'s degree programmes at Czech universities. Compare tuition, deadlines, and application requirements.`,
       alternates: { canonical: `/study/${slug}` },
     };
   }

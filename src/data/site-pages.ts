@@ -79,7 +79,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/what-it-costs/",
     title: "Cost of Studying in Czechia in 2027: Tuition, Living and Visa",
     description:
-      "What studying in the Czech Republic costs: verified English tuition by degree, monthly living costs in Prague, Brno and Ostrava, the visa money and fees, and a whole-degree estimate. Every figure says where it comes from.",
+      "What studying in the Czech Republic costs: English tuition by degree, monthly living costs in Prague, Brno and Ostrava, the visa money and fees, and a whole-degree estimate. Every figure says where it comes from.",
     keywords: {
       en: ["price", "budget", "insurance", "dorm", "fees", "calculator", "total"],
       ar: ["تكلفة", "تكاليف", "رسوم", "مصاريف", "تأشيرة", "فيزا", "ميزانية", "مصاريف الدراسة"],
@@ -196,7 +196,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/programmes/",
     title: "English-Taught Programmes at Czech Universities",
     description:
-      "Explore verified English-taught university programmes in the Czech Republic. Filter by field, city, degree level, and tuition.",
+      "Explore English-taught university programmes in the Czech Republic. Filter by field, city, degree level, and tuition.",
     keywords: { en: ["courses", "degrees"], ar: ["برامج", "تخصصات"] },
   },
   {

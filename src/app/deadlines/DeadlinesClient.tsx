@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { feeVerified } from "@/lib/fee-source";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import { motion } from "framer-motion";
 import {
@@ -299,7 +300,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
         </a>
       </div>
 
-      {status === "verified" && (
+      {status === "verified" && feeVerified(prog) && (
         <VerifiedBadge
           date={prog.verification.lastVerified}
           sourceUrl={prog.verification.sourceUrl}

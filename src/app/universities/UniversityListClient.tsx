@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import Link from "@/components/locale-link";
@@ -249,11 +249,7 @@ function ProgrammeCard({
       </div>
 
       <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
-        <VerifiedBadge
-          date={prog.verification.lastVerified}
-          sourceUrl={prog.verification.sourceUrl}
-          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-        />
+        <ProgrammeSourceBadge programme={prog} locale={locale} />
         <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline">
           {l.viewProgramme}
           <ArrowRight className="w-3 h-3 rtl:rotate-180 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5 rtl:motion-safe:group-hover:-translate-x-0.5" aria-hidden="true" />

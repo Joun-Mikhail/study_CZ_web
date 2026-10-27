@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes, filterProgrammes } from "@/data/programmes";
@@ -104,11 +104,7 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
           </p>
         )}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-subtle">
-          <VerifiedBadge
-            date={prog.verification.lastVerified}
-            sourceUrl={prog.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-          />
+          <ProgrammeSourceBadge programme={prog} locale={locale} />
           <Link
             href={`/programmes/${prog.id}`}
             className="text-xs font-medium text-brand hover:underline inline-flex items-center gap-1"
@@ -160,8 +156,8 @@ export default function StudyPageClient({ type, value, slug }: Props) {
   const description =
     type === "field"
       ? locale === "ar"
-        ? `${filtered.length} برنامج موثّق في ${valueAr} باللغة الإنجليزية في الجامعات التشيكية.`
-        : `${filtered.length} verified ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
+        ? `${filtered.length} برنامج في ${valueAr} باللغة الإنجليزية في الجامعات التشيكية.`
+        : `${filtered.length} ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
       : type === "degree"
       ? locale === "ar"
         ? `${filtered.length} برنامج ${valueAr} باللغة الإنجليزية.`

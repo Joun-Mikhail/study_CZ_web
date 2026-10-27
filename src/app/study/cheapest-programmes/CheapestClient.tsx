@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
@@ -102,7 +102,7 @@ export default function CheapestClient() {
           <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
             <div className="text-2xl font-bold text-brand">{sorted.length}</div>
             <div className="text-xs text-text-muted">
-              {locale === "ar" ? "برامج موثقة" : "Verified programmes"}
+              {locale === "ar" ? "البرامج" : "Programmes"}
             </div>
           </GlassCard>
         </div>
@@ -154,11 +154,7 @@ export default function CheapestClient() {
                         </span>
                       </div>
                       <div className="flex items-center justify-between mt-2">
-                        <VerifiedBadge
-                          date={prog.verification.lastVerified}
-                          sourceUrl={prog.verification.sourceUrl}
-                          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-                        />
+                        <ProgrammeSourceBadge programme={prog} locale={locale} />
                         <Link
                           href={`/programmes/${prog.id}`}
                           className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"

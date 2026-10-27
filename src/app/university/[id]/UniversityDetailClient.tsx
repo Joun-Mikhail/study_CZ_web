@@ -6,6 +6,7 @@ import { University } from "@/data/universities";
 import { getProgrammesByUniversity } from "@/data/programmes";
 import { getUniversityV2 } from "@/data/compat";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { GlassCard } from "@/components/ui/glass-card";
 import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
@@ -84,11 +85,7 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         )}
 
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-subtle">
-          <VerifiedBadge
-            date={prog.verification.lastVerified}
-            sourceUrl={prog.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-          />
+          <ProgrammeSourceBadge programme={prog} locale={locale} />
           <div className="flex items-center gap-3">
             <Link
               href={`/programmes/${prog.id}`}
@@ -202,7 +199,7 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
           <VerifiedBadge
             date={uniV2.verification.lastVerified}
             sourceUrl={uniV2.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
+            label={locale === "ar" ? "تم التحقق من بيانات الجامعة:" : "University details checked:"}
             className="mb-5"
           />
         </FadeIn>
