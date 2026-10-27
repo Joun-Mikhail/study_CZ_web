@@ -77,7 +77,10 @@ export function PopularGuides() {
                   {title[ar ? "ar" : "en"]}
                 </span>
                 <span className="mt-1 block text-sm text-text-secondary leading-relaxed">{body[ar ? "ar" : "en"]}</span>
-                <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand">
+                {/* font-semibold like the home page's other card links. A weight
+                    the rest of the server-rendered page doesn't use makes /ar/
+                    fetch two more Arabic font files before the hero renders. */}
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand">
                   {ar ? "اقرأ الدليل" : "Read the guide"}
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
                 </span>
