@@ -62,5 +62,15 @@ export function feeStatus(p: Programme): FeeStatus {
   return matches ? "verified" : "pending";
 }
 
+/**
+ * Date of a recorded review of this programme's current source, or null when
+ * there is none. Display only: it says the source was reviewed, never that the
+ * fee was confirmed, and it plays no part in feeStatus.
+ */
+export function feeReviewedOn(p: Programme): string | null {
+  const check = FEE_CHECKS[p.id];
+  return check && check.sourceUrl === p.verification.sourceUrl ? check.checkedOn : null;
+}
+
 /** Only these fees may be labelled "Verified" or stated as a price in structured data. */
 export const feeVerified = (p: Programme) => feeStatus(p) === "verified";

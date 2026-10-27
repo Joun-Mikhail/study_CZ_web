@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { FEE_CHECKS } from "@/data/fee-checks";
-import { APPLICABLE_ACADEMIC_YEARS, DIRECTORY_SOURCES, feeStatus, feeVerified } from "@/lib/fee-source";
+import { APPLICABLE_ACADEMIC_YEARS, DIRECTORY_SOURCES, feeReviewedOn, feeStatus, feeVerified } from "@/lib/fee-source";
 import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import ProgrammeDetailClient from "@/app/programmes/[slug]/ProgrammeDetailClient";
 import { renderAt } from "./render";
@@ -66,6 +66,36 @@ describe("fee status", () => {
   });
 });
 
+describe("fee review records", () => {
+  it("document what was reviewed for every record", () => {
+    for (const [id, check] of Object.entries(FEE_CHECKS)) {
+      expect(programmes.some((p) => p.id === id), `${id} is a programme`).toBe(true);
+      expect(() => new URL(check.sourceUrl), id).not.toThrow();
+      expect(check.checkedOn, id).toMatch(/^20\d\d-\d\d-\d\d$/);
+      expect(check.note.length, `${id} note`).toBeGreaterThan(30);
+    }
+  });
+
+  it("count 2 verified and 17 reviewed-but-unconfirmed fees, derived from the records", () => {
+    const reviewed = programmes.filter((p) => feeReviewedOn(p));
+    expect(reviewed.filter(feeVerified)).toHaveLength(2);
+    expect(reviewed.filter((p) => !feeVerified(p))).toHaveLength(17);
+  });
+
+  it("keep the review date separate from the fee status", () => {
+    const prog = programmes.find((p) => feeStatus(p) === "pending" && feeReviewedOn(p))!;
+    const moved = { ...prog, verification: { ...prog.verification, sourceUrl: "https://example.org/other" } };
+    expect(feeReviewedOn(moved)).toBeNull();
+    const original = FEE_CHECKS[prog.id];
+    FEE_CHECKS[prog.id] = { ...original, checkedOn: "2030-01-01" };
+    try {
+      expect(feeStatus(prog)).toBe("pending");
+    } finally {
+      FEE_CHECKS[prog.id] = original;
+    }
+  });
+});
+
 describe("ProgrammeSourceBadge", () => {
   it("labels a verified fee as verified, linking its source", () => {
     renderAt(<ProgrammeSourceBadge programme={verified} locale="en" />, "/");
@@ -104,9 +134,33 @@ describe("ProgrammeDetailClient source section", () => {
       expect(container.textContent).toContain("We have not yet matched this fee to the university's own fee page");
       expect(container.textContent).not.toContain("All information on this page comes from the university's official website");
       expect(container.textContent).not.toContain("Verified by Study Czechia");
-      expect(container.textContent).toContain(`Last updated: ${prog.verification.lastVerified}`);
+      expect(container.textContent).not.toContain("Last updated");
+      const reviewed = feeReviewedOn(prog);
+      if (reviewed) expect(container.textContent).toContain(`Source last reviewed: ${reviewed}`);
+      else expect(container.textContent).not.toContain("Source last reviewed");
     });
   }
+
+  it("shows no date at all for an unconfirmed fee without a review record", () => {
+    const prog = programmes.find((p) => feeStatus(p) !== "verified" && !feeReviewedOn(p))!;
+    const { container } = renderAt(
+      <ProgrammeDetailClient programme={prog} university={uniOf(prog.universityId)} total={programmes.length} />,
+      `/programmes/${prog.id}/`,
+    );
+    expect(container.textContent).not.toMatch(/Source last reviewed|Last updated|Last verified|Listed on/);
+  });
+
+  it("shows the review date for a reviewed but unconfirmed fee, without calling it verified (EN/AR)", () => {
+    const prog = programmes.find((p) => feeStatus(p) === "pending" && feeReviewedOn(p))!;
+    const en = renderAt(<ProgrammeDetailClient programme={prog} university={uniOf(prog.universityId)} total={programmes.length} />, `/programmes/${prog.id}/`);
+    expect(en.container.textContent).toContain(`Source last reviewed: ${FEE_CHECKS[prog.id].checkedOn}`);
+    expect(en.container.textContent).toContain("Fee being re-checked");
+    expect(en.container.textContent).not.toMatch(/Verified:|Last verified/);
+    en.unmount();
+    const ar = renderAt(<ProgrammeDetailClient programme={prog} university={uniOf(prog.universityId)} total={programmes.length} />, `/ar/programmes/${prog.id}/`);
+    expect(ar.container.textContent).toContain(`آخر مراجعة للمصدر: ${FEE_CHECKS[prog.id].checkedOn}`);
+    expect(ar.container.textContent).not.toMatch(/تم التحقق:|آخر تحقق/);
+  });
 
   it("keeps it for a verified fee", () => {
     const { container } = renderAt(

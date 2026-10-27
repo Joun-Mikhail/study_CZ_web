@@ -5,7 +5,7 @@ import Link from "@/components/locale-link";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
 import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
-import { feeVerified } from "@/lib/fee-source";
+import { feeReviewedOn, feeVerified } from "@/lib/fee-source";
 import { getDeadlineStatus } from "@/data/programmes";
 import type { Programme, UniversityV2, DeadlineStatus } from "@/data/types";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
@@ -69,7 +69,7 @@ const COPY = {
     feeRecheckTitle: "Fee being re-checked",
     feeRecheckText:
       "We have not yet matched this fee to the university's own fee page. Check the fee on the university's website before you apply or pay.",
-    lastUpdated: "Last updated:",
+    sourceReviewed: "Source last reviewed:",
     lastVerified: "Last verified:",
     verifiedBy: (who: "studyczechia" | "community") =>
       `Verified by ${who === "studyczechia" ? "Study Czechia" : "a community contributor"}.`,
@@ -116,7 +116,7 @@ const COPY = {
     feeRecheckTitle: "نراجع الرسوم حاليًا",
     feeRecheckText:
       "لم نطابق هذه الرسوم بعد مع صفحة الرسوم في موقع الجامعة. تأكد من الرسوم على موقع الجامعة قبل التقديم أو الدفع.",
-    lastUpdated: "آخر تحديث:",
+    sourceReviewed: "آخر مراجعة للمصدر:",
     lastVerified: "آخر تحقق:",
     verifiedBy: (who: "studyczechia" | "community") =>
       who === "studyczechia" ? "تحقق منها فريق Study Czechia." : "تحقق منها أحد أفراد المجتمع.",
@@ -182,6 +182,7 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
   const { locale } = useTranslation();
   const ar = locale === "ar";
   const c: Copy = ar ? COPY.ar : COPY.en;
+  const reviewedOn = feeReviewedOn(p);
   const deadlineStatus = getDeadlineStatus(p);
   const name = ar && p.name.ar ? p.name.ar : p.name.en;
   const uniName = uni?.name ?? p.universityId;
@@ -344,12 +345,15 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
                   <p className="text-text-muted mt-0.5">{c.feeRecheckText}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
-                <span className="text-text-primary font-medium">
-                  {c.lastUpdated} <span dir="ltr">{p.verification.lastVerified}</span>
-                </span>
-              </div>
+              {/* A date only where a recorded review of this source exists; it never confirms the fee. */}
+              {reviewedOn && (
+                <div className="flex items-start gap-2">
+                  <CalendarDays className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+                  <span className="text-text-primary font-medium">
+                    {c.sourceReviewed} <span dir="ltr">{reviewedOn}</span>
+                  </span>
+                </div>
+              )}
             </>
           )}
           <div className="flex items-start gap-2">
