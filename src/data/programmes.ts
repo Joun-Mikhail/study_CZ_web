@@ -102,7 +102,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry, physics or mathematics",
       ar: "امتحان كتابي: أحياء، كيمياء، فيزياء أو رياضيات",
     },
-    programmeUrl: "https://www.lf1.cuni.cz/general-medicine-in-english",
+    programmeUrl: "https://en.lf1.cuni.cz/applicants",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://en.lf1.cuni.cz/the-tuition-fee-for-the-academic-year-20252026",
@@ -126,7 +126,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry, physics or mathematics",
       ar: "امتحان كتابي: أحياء، كيمياء، فيزياء أو رياضيات",
     },
-    programmeUrl: "https://www.lf1.cuni.cz/dentistry-in-english",
+    programmeUrl: "https://en.lf1.cuni.cz/applicants",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://en.lf1.cuni.cz/the-tuition-fee-for-the-academic-year-20252026",
@@ -169,7 +169,7 @@ export const programmes: Programme[] = [
     tuitionCzkPerYear: 390000,
     tuitionNote: "Charged in CZK (390,000 CZK for 2026/27, Dean's Measure No. 3/2026); EUR figure is approximate.",
     entranceExam: true,
-    programmeUrl: "https://lfp.cuni.cz/en/",
+    programmeUrl: "https://lfp.cuni.cz/en/faculty-of-medicine-in-pilsen/admission-procedure/",
     verification: {
       lastVerified: "2026-10-12",
       sourceUrl: "https://lfp.cuni.cz/wp-content/uploads/2026/03/OD_3_2026_poplatky_en.pdf",
@@ -189,7 +189,7 @@ export const programmes: Programme[] = [
     tuitionCzkPerYear: 390000,
     tuitionNote: "Charged in CZK (390,000 CZK for 2026/27, Dean's Measure No. 3/2026); EUR figure is approximate.",
     entranceExam: true,
-    programmeUrl: "https://lfp.cuni.cz/en/",
+    programmeUrl: "https://lfp.cuni.cz/en/faculty-of-medicine-in-pilsen/admission-procedure/",
     verification: {
       lastVerified: "2026-10-12",
       sourceUrl: "https://lfp.cuni.cz/wp-content/uploads/2026/03/OD_3_2026_poplatky_en.pdf",
@@ -395,7 +395,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry, physics",
       ar: "امتحان كتابي: أحياء، كيمياء، فيزياء",
     },
-    programmeUrl: "https://www.med.muni.cz/en/admission",
+    programmeUrl: "https://www.med.muni.cz/en/admissions/general-medicine",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://www.muni.cz/en/about-us/official-notice-board/study-related-fees",
@@ -420,7 +420,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry, physics",
       ar: "امتحان كتابي: أحياء، كيمياء، فيزياء",
     },
-    programmeUrl: "https://www.med.muni.cz/en/admission",
+    programmeUrl: "https://www.med.muni.cz/en/admissions/dentistry",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://www.muni.cz/en/about-us/official-notice-board/study-related-fees",
@@ -508,7 +508,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry",
       ar: "امتحان كتابي: أحياء، كيمياء",
     },
-    programmeUrl: "https://www.lf.upol.cz/en/study/international-students/",
+    programmeUrl: "https://www.lf.upol.cz/en/studyat-our-faculty/general-medicine-mudr/",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://www.lf.upol.cz/en/studyat-our-faculty/general-medicine-mudr/",
@@ -534,7 +534,7 @@ export const programmes: Programme[] = [
       en: "Written exam: biology, chemistry, physics",
       ar: "امتحان كتابي: أحياء، كيمياء، فيزياء",
     },
-    programmeUrl: "https://www.osu.cz/en/applicants/",
+    programmeUrl: "https://lf.osu.eu/21563/masters-degree-programme-general-medicine-in-english/",
     verification: {
       lastVerified: "2026-10-11",
       sourceUrl: "https://lf.osu.eu/28769/tuition-fee",
