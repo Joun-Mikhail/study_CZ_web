@@ -2,11 +2,11 @@
 
 > Study Czechia (studyczechia.com) is a free, bilingual (English and Arabic) guide for Arabic-speaking students who want to study at Czech universities, especially students from Egypt, Jordan and Saudi Arabia. It is run by John, an Egyptian student in Brno, and is independent: it is not the official "Study in Czechia" programme (studyin.cz), an embassy or a university.
 
-Every tuition fee on the site shows a source link. 2 of the 91 fees are verified: the university's or faculty's own fee page states that exact amount, currency and academic year. The other fees are marked on the site as being re-checked, because their source is a general directory, a page that has moved, or a page that does not state the exact fee, so confirm those on the university's website. Visa figures come from the Czech Embassy in Cairo and the Czech Ministry of the Interior. Arabic versions of the pages live under /ar/.
+Every tuition fee on the site shows a source link. 3 of the 91 fees are verified: the university's or faculty's own fee page states that exact amount, currency and academic year. The other fees are marked on the site as being re-checked, because their source is a general directory, a page that has moved, or a page that does not state the exact fee, so confirm those on the university's website. Visa figures come from the Czech Embassy in Cairo and the Czech Ministry of the Interior. Arabic versions of the pages live under /ar/.
 
 ## Key facts (with their sources on the linked pages)
 
-- 91 English-taught programmes at 23 Czech universities, each with a yearly fee; 2 of those fees are verified on the university's own fee page: https://studyczechia.com/programmes/
+- 91 English-taught programmes at 23 Czech universities, each with a yearly fee; 3 of those fees are verified on the university's own fee page: https://studyczechia.com/programmes/
 - The cheapest English-taught programme on the site is listed at €1,500 a year; that fee is still being re-checked: https://studyczechia.com/study/cheapest-programmes/
 - General Medicine in English is listed at €12,000 to €24,250 a year at Czech medical faculties; Dentistry €15,600 to €24,250. Only the €24,250 fees at Charles University's First Faculty of Medicine are verified so far; the others are being re-checked: https://studyczechia.com/study/medicine-in-czech-republic/
 - Degree programmes taught in Czech at public universities are free of charge for all nationalities (source: studyin.gov.cz): https://studyczechia.com/what-it-costs/

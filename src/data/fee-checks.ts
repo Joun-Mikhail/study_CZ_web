@@ -31,6 +31,8 @@ export const FEE_CHECKS: Record<string, FeeCheck> = {
   "cuni-md-general-medicine": { status: "verified", checkedOn: D, sourceUrl: LF1, amount: 24250, currency: "EUR", academicYear: "2026/2027", note: "Page states 24 250 € (EUR) for General Medicine in English, first-year students, academic year 2026/2027." },
   "cuni-md-dentistry": { status: "verified", checkedOn: D, sourceUrl: LF1, amount: 24250, currency: "EUR", academicYear: "2026/2027", note: "Page states 24 250 € (EUR) for Dentistry in English, first-year students, academic year 2026/2027." },
 
+  "uvb-msc-vet-medicine": { status: "verified", checkedOn: "2026-10-27", sourceUrl: "https://fvl.vetuni.cz/newsletter/fees-for-the-veterinary-medicine-programme-taught-in-english", amount: 7900, currency: "EUR", academicYear: "2026/2027", note: "Faculty page states EUR 7,900 a year for Veterinary Medicine in English, new students in academic year 2026/2027 (four instalments of EUR 1,975). Read in a browser; vetuni.cz blocks automated fetches." },
+
   "cuni-lf2-md-general-medicine": { status: "pending", checkedOn: D, sourceUrl: "https://www.lf2.cuni.cz/en/applicants/fees-and-funding", note: "Fee page for 2026/2027, but the amount does not appear on it (rendered page checked)." },
   "cuni-plzen-md-general-medicine": { status: "pending", checkedOn: D, sourceUrl: PLZEN, note: "Dean's Measure 3/2026 states 390 000 CZK; the EUR figure shown on the site is a conversion, not on the source." },
   "cuni-plzen-md-dentistry": { status: "pending", checkedOn: D, sourceUrl: PLZEN, note: "Dean's Measure 3/2026 states 390 000 CZK; the EUR figure shown on the site is a conversion, not on the source." },

@@ -1292,8 +1292,8 @@ export const programmes: Programme[] = [
     entranceExam: true,
     programmeUrl: "https://www.vfu.cz/en/study/",
     verification: {
-      lastVerified: "2026-08-30",
-      sourceUrl: "https://studyin.gov.cz/plan-your-studies/universities/",
+      lastVerified: "2026-10-27",
+      sourceUrl: "https://fvl.vetuni.cz/newsletter/fees-for-the-veterinary-medicine-programme-taught-in-english",
       sourceType: "official" as const,
       verifiedBy: "studyczechia" as const,
     },
