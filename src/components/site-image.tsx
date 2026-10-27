@@ -79,11 +79,11 @@ export function PhotoCredits({ className }: { className?: string }) {
   return (
     <section className={cn("text-xs text-text-muted", className)} aria-labelledby="photo-credits">
       <h2 id="photo-credits" className="font-sans text-sm font-semibold text-text-secondary mb-2">
-        {ar ? "Ù…ØµØ§Ø¯Ø± Ø§Ù„ØµÙˆØ±" : "Photo credits"}
+        {ar ? "مصادر الصور" : "Photo credits"}
       </h2>
       <p className="mb-2">
         {ar
-          ? "ØµÙˆØ± Ø§Ù„Ù…Ø¯Ù† Ù…Ù† ÙˆÙŠÙƒÙŠÙ…ÙŠØ¯ÙŠØ§ ÙƒÙˆÙ…Ù†Ø²ØŒ Ù…Ø¹ Ø°ÙƒØ± Ø§Ù„Ù…ØµÙˆÙ‘Ø± ÙˆØ§Ù„Ø±Ø®ØµØ©. Ø¨Ø§Ù‚ÙŠ Ø§Ù„ØµÙˆØ± Ù…Ù† Unsplash ÙˆPexels (Ø±Ø®ØµØ© Ù…Ø¬Ø§Ù†ÙŠØ©)."
+          ? "صور المدن والجامعات من ويكيميديا كومنز، وصور الدراسة من StockSnap وrawpixel (رخصة CC0)، وكلها مذكورة أدناه. صور الأشخاص للتوضيح فقط، وليست لطلابنا."
           : "City and university photos are from Wikimedia Commons; study photos from StockSnap and rawpixel (CC0). All credited below. Photos of people are illustrations, not our students."}
       </p>
       <ul className="space-y-1">
