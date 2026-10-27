@@ -226,7 +226,7 @@ function ProgrammeDeadlineCard({ prog, uni, status, locale }: {
             <p className="text-xs text-text-muted mt-0.5 truncate">{prog.faculty}</p>
           )}
           <a
-            href={localizeHref(`/programmes/${prog.id}`, locale)}
+            href={localizeHref(`/programmes/${prog.id}/`, locale)}
             className="text-xs text-brand hover:underline mt-0.5 inline-block"
             dir="auto"
           >

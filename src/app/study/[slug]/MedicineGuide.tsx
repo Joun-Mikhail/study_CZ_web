@@ -145,7 +145,8 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
                   </>
                 )}{" "}
                 تحدد الكليات رسومها كل سنة، ومصاريف المعيشة تُضاف فوقها:{" "}
-                <Link href="/cost-of-living" className={linkClass}>حاسبة تكلفة المعيشة</Link>.
+                <Link href="/cost-of-living" className={linkClass}>حاسبة تكلفة المعيشة</Link>. وكل المصاريف، من الرسوم إلى
+                التأشيرة، في <Link href="/what-it-costs/" className={linkClass}>دليل تكاليف الدراسة في التشيك</Link>.
               </>
             ) : (
               <>
@@ -158,7 +159,8 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
                   </>
                 )}{" "}
                 Faculties set their fees every year, and living costs come on top:{" "}
-                <Link href="/cost-of-living" className={linkClass}>cost of living calculator</Link>.
+                <Link href="/cost-of-living" className={linkClass}>cost of living calculator</Link>. For every cost from
+                tuition to the visa, see <Link href="/what-it-costs/" className={linkClass}>what studying in Czechia costs</Link>.
               </>
             )}
           </li>
@@ -223,12 +225,14 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
           {ar ? (
             <>
               مواعيد التقديم والامتحانات تختلف من كلية لأخرى.{" "}
-              <Link href="/deadlines" className={linkClass}>متتبع المواعيد</Link> يعرض كل موعد بمجرد أن تنشره الكلية.
+              <Link href="/deadlines" className={linkClass}>متتبع المواعيد</Link> يعرض كل موعد بمجرد أن تنشره الكلية، و
+              <Link href="/application-guide/" className={linkClass}>دليل التقديم</Link> يشرح الخطوات كلها بالترتيب.
             </>
           ) : (
             <>
               Application and exam dates differ by faculty. The <Link href="/deadlines" className={linkClass}>deadline tracker</Link>{" "}
-              shows each one as soon as the faculty publishes it.
+              shows each one as soon as the faculty publishes it, and the{" "}
+              <Link href="/application-guide/" className={linkClass}>application guide</Link> walks through every step in order.
             </>
           )}
         </li>
