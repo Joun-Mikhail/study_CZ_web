@@ -29,6 +29,11 @@ export const OFFICIAL = {
     url: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_and_visa_fees/index.html",
     checked: "2026-10-18",
   },
+  /** Full-time students of an accredited university programme need no separate work permit. */
+  workFreeAccess: {
+    url: "https://frs.gov.cz/en/life-in-the-czech-republic/free-access-to-the-labour-market/",
+    checked: "2026-10-27",
+  },
 } as const;
 
 export type TuitionStats = { count: number; min: number; median: number; max: number };
