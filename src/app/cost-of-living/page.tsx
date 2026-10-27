@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
+import Link from "@/components/locale-link";
 import { cities, costCategories, totalRange, oneTimeCosts, type CityKey } from "@/data/costs";
 import { motion } from "framer-motion";
 import { EmailSignup } from "@/components/email-signup";
@@ -218,6 +219,11 @@ export default function CostOfLivingPage() {
               </p>
             </GlassCard>
           </div>
+          <p className="text-sm mt-4">
+            <Link href="/what-it-costs/" className="font-medium text-brand hover:underline">
+              {t.cost.fullCostLink}
+            </Link>
+          </p>
         </div>
 
         {/* City guide for selected city */}

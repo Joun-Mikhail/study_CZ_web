@@ -19,7 +19,9 @@ import {
   toEur,
 } from "@/lib/study-costs";
 import { programmes } from "@/data/programmes";
+import { ADMISSIONS_INTAKE, MEDICINE_ADMISSIONS } from "@/data/medicine-admissions";
 import { feeVerified } from "@/lib/fee-source";
+import { formatDate, formatMoney, medicineRows } from "@/lib/medicine-guide";
 
 type Locale = "en" | "ar";
 
@@ -74,6 +76,30 @@ const t = {
       topMedicine: "Most expensive General Medicine",
     },
     perYear: "a year",
+    shortTitle: "The short answer",
+    short: (a: { median: string; medicine: string | null; brno: string; prague: string; proof: string; matched: number; count: number }) =>
+      `A degree taught in Czech at a public university is free. In English, half of the bachelor's programmes on this site cost ${a.median} a year or less${a.medicine ? `, and General Medicine costs ${a.medicine}` : ""}. ${a.matched} of the ${a.count} English-taught fees on this site are verified so far. Students report living costs of ${a.brno} a month in Brno and ${a.prague} in Prague. For a one-year visa you must show ${a.proof}.`,
+    appFeesTitle: (intake: string) => `Medicine application fees for ${intake}`,
+    appFeesNote: (checked: string) => `As each faculty publishes them, checked on ${checked}. Other programmes set their own fee.`,
+    appFeesLink: "Medicine admission dates",
+    faqTitle: "Common questions about the cost of studying in Czechia",
+    faq: {
+      totalQ: "How much does it cost to study in Czechia?",
+      totalA: (a: { median: string; total: string }) =>
+        `A typical English-taught bachelor's (${a.median} a year for 3 years) plus living costs in Brno comes to about ${a.total}, if fees stay the same. In Czech at a public university the tuition is free, so you pay only living costs. Try other cases in the calculator above.`,
+      freeQ: "Is studying in Czechia free?",
+      freeA: "Degrees taught in Czech at public universities are free for every nationality. Programmes taught in English charge tuition. Many Czech-taught programmes need at least B2 Czech, which the preparatory year prepares you for.",
+      prepLink: "Preparatory year guide",
+      livingQ: "Is living in Czechia expensive?",
+      livingA: (a: { cities: string }) =>
+        `Students report ${a.cities} a month for a dorm room, food, transport, health insurance and phone. These are averages from students, not official figures, and your housing makes the biggest difference.`,
+      workQ: "Can I work while I study?",
+      workA:
+        "Yes, if you study an accredited university programme full-time: you then have free access to the Czech labour market and need only a valid residence permit, not a separate work permit. To stay and work after you graduate, you need a new residence permit for that purpose.",
+      medicineQ: "How much does it cost to study medicine in Czechia?",
+      medicineA: (a: { range: string; total: string; years: number }) =>
+        `General Medicine in English costs ${a.range} a year, so ${a.total} over ${a.years} years if fees stay the same. The medicine guide shows which of these fees are verified, plus the admission dates and exams.`,
+    },
     closing:
       "Most agencies won't publish these numbers, because if you know what things actually cost you might realise you can do this yourself. You can. Everything on this site is free, and Czech public universities accept direct applications.",
   },
@@ -121,6 +147,30 @@ const t = {
       topMedicine: "أغلى طب عام",
     },
     perYear: "في السنة",
+    shortTitle: "الخلاصة",
+    short: (a: { median: string; medicine: string | null; brno: string; prague: string; proof: string; matched: number; count: number }) =>
+      `الدراسة بالتشيكي في جامعة حكومية مجانية. بالإنجليزي، نص برامج البكالوريوس على الموقع رسومها ${a.median} في السنة أو أقل${a.medicine ? `، والطب العام من ${a.medicine}` : ""}. واتأكدنا من ${a.matched} من أصل ${a.count} رسوم للبرامج بالإنجليزي على الموقع لحد دلوقتي. المعيشة حسب كلام الطلبة ${a.brno} في الشهر في برنو، و${a.prague} في براغ. وعشان فيزا سنة لازم تثبت ${a.proof}.`,
+    appFeesTitle: (intake: string) => `رسوم التقديم على الطب لسنة ${intake}`,
+    appFeesNote: (checked: string) => `زي ما كل كلية بتنشرها، وراجعناها يوم ${checked}. باقي البرامج كل واحد له رسومه.`,
+    appFeesLink: "مواعيد القبول في الطب",
+    faqTitle: "أسئلة شائعة عن تكاليف الدراسة في التشيك",
+    faq: {
+      totalQ: "تكلفة الدراسة في التشيك كام؟",
+      totalA: (a: { median: string; total: string }) =>
+        `بكالوريوس بالإنجليزي متوسط (${a.median} في السنة لمدة 3 سنين) مع المعيشة في برنو بيوصل تقريبًا لـ${a.total}، لو الرسوم فضلت زي ما هي. بالتشيكي في جامعة حكومية الدراسة مجانية، فبتدفع المعيشة بس. جرّب حالات تانية في الحاسبة اللي فوق.`,
+      freeQ: "هل الدراسة في التشيك مجانية؟",
+      freeA: "الدراسة بالتشيكي في الجامعات الحكومية مجانية لكل الجنسيات، أما البرامج بالإنجليزي فبرسوم. وكتير من البرامج بالتشيكي محتاجة مستوى B2 على الأقل في اللغة، والسنة التحضيرية بتجهزك له.",
+      prepLink: "دليل السنة التحضيرية",
+      livingQ: "هل المعيشة في التشيك غالية؟",
+      livingA: (a: { cities: string }) =>
+        `الطلبة بيصرفوا ${a.cities} في الشهر على السكن الجامعي والأكل والمواصلات والتأمين الصحي والموبايل. دي متوسطات من الطلبة مش أرقام رسمية، وأكتر حاجة بتفرق هي السكن.`,
+      workQ: "أقدر أشتغل وأنا بدرس؟",
+      workA:
+        "أيوه، لو بتدرس برنامج جامعي معتمد بانتظام كامل: ساعتها من حقك تشتغل في التشيك وكل اللي محتاجه تصريح إقامة ساري، من غير تصريح عمل منفصل. ولو عايز تفضل تشتغل بعد التخرج، محتاج تصريح إقامة جديد للغرض ده.",
+      medicineQ: "دراسة الطب في التشيك تكلف كام؟",
+      medicineA: (a: { range: string; total: string; years: number }) =>
+        `الطب العام بالإنجليزي رسومه ${a.range} في السنة، يعني ${a.total} على ${a.years} سنين لو الرسوم فضلت زي ما هي. دليل الطب بيوضح الرسوم اللي اتأكدنا منها ومواعيد القبول والامتحانات.`,
+    },
     closing:
       "أغلب الوكالات مش هتنشر الأرقام دي، لأن لو عرفت التكلفة الحقيقية ممكن تكتشف إنك تقدر تعمل كل ده لوحدك. وفعلًا تقدر. كل حاجة على الموقع ده مجانية، والجامعات الحكومية التشيكية بتقبل طلبات مباشرة.",
   },
@@ -177,6 +227,29 @@ export default function WhatItCostsClient() {
   const matchedFees = useMemo(() => programmes.filter((p) => p.language === "English" && feeVerified(p)).length, []);
   const medicine = useMemo(() => medicineTuition(), []);
   const living = useMemo(() => livingByCity(), []);
+  const appFees = useMemo(() => {
+    const rows = medicineRows();
+    return MEDICINE_ADMISSIONS.filter((r) => r.applicationFee).map((r) => ({
+      where: rows.find((row) => row.programme.id === r.programmeIds[0])?.where ?? { en: r.programmeIds[0], ar: r.programmeIds[0] },
+      fee: r.applicationFee!,
+      url: r.sourceUrl,
+    }));
+  }, []);
+  const livingIn = (key: CityKey) => czkRange(living.find((ct) => ct.key === key)!.monthlyCzk, l);
+  const range = (lo: number, hi: number) => (l === "ar" ? `${eur(lo, l)} لـ${eur(hi, l)}` : `${eur(lo, l)} to ${eur(hi, l)}`);
+  const typicalTotal = degreeTotalEur(tuition.bachelor.median, 3, "brno");
+  const shortAnswer = c.short({
+    median: eur(tuition.bachelor.median, l),
+    medicine: medicine ? range(medicine.min, medicine.max) : null,
+    brno: livingIn("brno"),
+    prague: livingIn("prague"),
+    proof: czk(OFFICIAL.proofOfFundsYearCzk.value, l),
+    matched: matchedFees,
+    count: tuition.all.count,
+  });
+  const citiesLiving = living
+    .map((ct) => (l === "ar" ? `${czkRange(ct.monthlyCzk, l)} في ${ct.label.ar}` : `${czkRange(ct.monthlyCzk, l)} in ${ct.label.en}`))
+    .join(l === "ar" ? "، و" : ", ");
 
   const presets = useMemo(() => {
     const list = [
@@ -228,6 +301,13 @@ export default function WhatItCostsClient() {
               {c.checked}
             </p>
           </header>
+
+          <section aria-labelledby="cost-short-answer" className="mb-6 rounded-2xl border border-brand/20 bg-brand/[0.06] p-5 sm:p-6">
+            <h2 id="cost-short-answer" className="text-lg font-semibold text-text-primary mb-2">
+              {c.shortTitle}
+            </h2>
+            <p className="text-sm text-text-secondary leading-relaxed">{shortAnswer}</p>
+          </section>
 
           <div className="space-y-6">
             <Card icon={GraduationCap} title={c.tuitionTitle}>
@@ -312,6 +392,25 @@ export default function WhatItCostsClient() {
                 value={czkRange(accommodationDepositCzk, l)}
                 note={c.depositNote}
               />
+              <h3 className="text-sm font-semibold text-text-primary mt-4 mb-1">{c.appFeesTitle(ADMISSIONS_INTAKE)}</h3>
+              <ul className="text-sm divide-y divide-border-subtle">
+                {appFees.map((f) => (
+                  <li key={f.url} className="flex items-baseline justify-between gap-4 py-2">
+                    <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-brand underline decoration-border-subtle underline-offset-2">
+                      {f.where[l]}
+                    </a>
+                    <span className="font-semibold text-text-primary shrink-0" dir={f.fee.currency === "EUR" ? "ltr" : undefined}>
+                      {formatMoney(f.fee.amount, f.fee.currency, l)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-text-muted mt-1">
+                {c.appFeesNote(formatDate(MEDICINE_ADMISSIONS[0].checkedOn, l))}{" "}
+                <Link href="/study/medicine-in-czech-republic/#medicine-timeline" className="text-brand underline underline-offset-2">
+                  {c.appFeesLink}
+                </Link>
+              </p>
               <p className="text-sm mt-3">
                 <Link href="/student-visa-egypt" className="font-medium text-brand hover:underline">
                   {c.visaGuide}
@@ -376,6 +475,57 @@ export default function WhatItCostsClient() {
               </div>
             </Card>
           </div>
+
+          <section aria-labelledby="cost-faq" className="mt-10">
+            <h2 id="cost-faq" className="text-xl font-semibold text-text-primary mb-4">
+              {c.faqTitle}
+            </h2>
+            <div className="space-y-5 text-sm text-text-secondary leading-relaxed">
+              <div>
+                <h3 className="text-base font-semibold text-text-primary mb-1">{c.faq.totalQ}</h3>
+                <p>{c.faq.totalA({ median: eur(tuition.bachelor.median, l), total: range(typicalTotal[0], typicalTotal[1]) })}</p>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-text-primary mb-1">{c.faq.freeQ}</h3>
+                <p>
+                  {c.faq.freeA} <SourceLink href={OFFICIAL.czechFree.url} label={c.source} />{" "}
+                  <Link href="/preparatory-year/" className="text-brand underline underline-offset-2">
+                    {c.faq.prepLink}
+                  </Link>
+                </p>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-text-primary mb-1">{c.faq.livingQ}</h3>
+                <p>
+                  {c.faq.livingA({ cities: citiesLiving })}{" "}
+                  <Link href="/cost-of-living/" className="text-brand underline underline-offset-2">
+                    {c.calculatorLink}
+                  </Link>
+                </p>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-text-primary mb-1">{c.faq.workQ}</h3>
+                <p>
+                  {c.faq.workA} <SourceLink href={OFFICIAL.workFreeAccess.url} label={c.source} />
+                </p>
+              </div>
+              {medicine && (
+                <div>
+                  <h3 className="text-base font-semibold text-text-primary mb-1">{c.faq.medicineQ}</h3>
+                  <p>
+                    {c.faq.medicineA({
+                      range: range(medicine.min, medicine.max),
+                      total: range(medicine.min * medicine.years, medicine.max * medicine.years),
+                      years: medicine.years,
+                    })}{" "}
+                    <Link href="/study/medicine-in-czech-republic/" className="text-brand underline underline-offset-2">
+                      {c.medicineGuide}
+                    </Link>
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
 
           <blockquote className="mt-12 border-s-4 border-accent ps-6 py-4 text-text-secondary italic">{c.closing}</blockquote>
         </div>

@@ -235,6 +235,7 @@ export const translations = {
       accommodationDeposit: "Accommodation deposit",
       minBankBalance: "Minimum bank balance required (embassy)",
       tuitionRange: "Tuition (English-taught programs, per year)",
+      fullCostLink: "Tuition, visa costs and a whole degree, with sources: what studying in Czechia costs",
       workingTitle: "Working in the Czech Republic",
       workingPoints: [
         "Students with a residence permit for the purpose of study have free access to the Czech labour market. No work permit needed and no fixed hour limit. Verify your specific visa type, as other residence purposes may carry restrictions.",
@@ -586,6 +587,7 @@ export const translations = {
       accommodationDeposit: "تأمين السكن",
       minBankBalance: "أقل مبلغ لازم يكون في حسابك (للسفارة)",
       tuitionRange: "المصاريف الدراسية (برامج إنجليزي، في السنة)",
+      fullCostLink: "الرسوم ومصاريف الفيزا وتكلفة الدراسة كلها بالمصادر: تكاليف الدراسة في التشيك",
       workingTitle: "الشغل في التشيك",
       workingPoints: [
         "لو عندك إقامة بغرض دراسة تقدر تشتغل في التشيك بحرية — مش محتاج تصريح شغل ومفيش حد ساعات. بس اتأكد من نوع فيزتك لأن أنواع الإقامة التانية ممكن يكون فيها قيود.",
