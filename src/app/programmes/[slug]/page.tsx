@@ -69,7 +69,7 @@ export default async function ProgrammePage({ params }: Props) {
           },
         }
       : {}),
-    url: `${SITE_URL}/programmes/${prog.id}`,
+    url: `${SITE_URL}/programmes/${prog.id}/`,
   };
 
   return (

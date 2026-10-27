@@ -27,13 +27,14 @@ export function Breadcrumbs({ items: rawItems }: { items: Crumb[] }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // The current page has no href but must still end the trail; Google allows the last ListItem to omit `item`.
     itemListElement: jsonLdItems
-      .filter((item) => item.url)
+      .filter((item, i, all) => item.url || i === all.length - 1)
       .map((item, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: item.name,
-        item: item.url,
+        ...(item.url && { item: item.url }),
       })),
   };
 

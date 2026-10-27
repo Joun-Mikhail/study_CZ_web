@@ -5,9 +5,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 /** Arabic titles and descriptions for the static pages (Modern Standard Arabic for search). */
 export const AR_PAGE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "الدراسة في التشيك 2027 | جامعات مجانية، شروط القبول، والمواعيد النهائية",
+    title: "الدراسة في التشيك: شروط القبول والمواعيد والتكاليف",
     description:
-      "دليلك الشامل والموثوق للدراسة في جمهورية التشيك. اعرف شروط القبول، مواعيد التقديم، الدراسة المجانية باللغة التشيكية في جامعات مثل جامعة تشارلز و VUT، وتكاليف المعيشة. بدون رسوم وكالات.",
+      "دليل مستقل ومجاني للدراسة في التشيك: القبول والمواعيد والتكاليف. الدراسة بالتشيكية في الجامعات العامة بلا رسوم دراسية مع استثناءات ورسوم أخرى، وبالإنجليزية غالبًا برسوم.",
   },
   "/about/": {
     title: "من نحن",
