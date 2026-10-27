@@ -21,7 +21,8 @@ export type University = {
     | "Přerov";
   languages: ("English" | "Czech")[];
   fields: string[];
-  tuitionEurPerYear: [number, number];
+  /** [min, max] over the listed programmes; null when none is listed yet. */
+  tuitionEurPerYear: [number, number] | null;
   degreeLevels: ("Bachelor" | "Master")[];
   blurb: { en: string; ar: string };
   founded?: number;

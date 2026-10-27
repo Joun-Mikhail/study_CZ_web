@@ -9,10 +9,11 @@ export function toV1(uni: UniversityV2): University {
     new Set(progs.length > 0 ? progs.map((p) => p.language) : ["English", "Czech"] as const)
   ) as ("English" | "Czech")[];
 
+  // No listed programme means no verified fee: null, never 0 (a €0 tuition would be a false claim).
   const tuitions = progs.map((p) => p.tuitionEurPerYear);
-  const tuitionRange: [number, number] = tuitions.length > 0
+  const tuitionRange: [number, number] | null = tuitions.length > 0
     ? [Math.min(...tuitions), Math.max(...tuitions)]
-    : [0, 0];
+    : null;
 
   const degrees = Array.from(
     new Set(progs.length > 0 ? progs.map((p) => p.degree) : ["Bachelor", "Master"] as const)
