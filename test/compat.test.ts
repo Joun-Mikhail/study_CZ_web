@@ -20,3 +20,23 @@ describe("university tuition range", () => {
     }
   });
 });
+
+describe("university languages and degree levels", () => {
+  it("are empty, never guessed, when a university has no listed programme", () => {
+    const empty = universitiesV2.filter((u) => getProgrammesByUniversity(u.id).length === 0);
+    expect(empty.length).toBeGreaterThan(0);
+    for (const u of empty) {
+      expect(toV1(u).languages, u.id).toEqual([]);
+      expect(toV1(u).degreeLevels, u.id).toEqual([]);
+    }
+  });
+
+  it("come only from the listed programmes otherwise", () => {
+    const listed = universitiesV2.filter((u) => getProgrammesByUniversity(u.id).length > 0);
+    for (const u of listed) {
+      const progs = getProgrammesByUniversity(u.id);
+      expect(new Set(toV1(u).languages), u.id).toEqual(new Set(progs.map((p) => p.language)));
+      expect(new Set(toV1(u).degreeLevels), u.id).toEqual(new Set(progs.map((p) => p.degree)));
+    }
+  });
+});

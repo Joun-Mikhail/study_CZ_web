@@ -354,10 +354,13 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
       <FadeIn delay={0.3}>
         <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-border-subtle">
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-secondary">
-            <div>
-              <span className="font-medium text-text-primary">{t.university.languagesLabel}:</span>{" "}
-              {uni.languages.join(", ")}
-            </div>
+            {/* Only the listed programmes' languages: unknown (hidden) when none is listed. */}
+            {uni.languages.length > 0 && (
+              <div>
+                <span className="font-medium text-text-primary">{t.university.languagesLabel}:</span>{" "}
+                {uni.languages.map((l) => (locale === "ar" ? LANGUAGE_AR[l] ?? l : l)).join(locale === "ar" ? "، " : ", ")}
+              </div>
+            )}
             {uni.fields && uni.fields.length > 0 && (
               <div>
                 <span className="font-medium text-text-primary">{locale === "ar" ? "المجالات:" : "Fields:"}</span>{" "}

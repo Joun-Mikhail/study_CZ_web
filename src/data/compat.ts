@@ -5,9 +5,9 @@ import { programmes, getProgrammesByUniversity } from "./programmes";
 
 export function toV1(uni: UniversityV2): University {
   const progs = getProgrammesByUniversity(uni.id);
-  const languages = Array.from(
-    new Set(progs.length > 0 ? progs.map((p) => p.language) : ["English", "Czech"] as const)
-  ) as ("English" | "Czech")[];
+  // Languages and degree levels come only from listed programmes; with none listed they
+  // are unknown (empty), never a guess such as English + Czech or Bachelor + Master.
+  const languages = Array.from(new Set(progs.map((p) => p.language)));
 
   // No listed programme means no verified fee: null, never 0 (a €0 tuition would be a false claim).
   const tuitions = progs.map((p) => p.tuitionEurPerYear);
@@ -15,9 +15,9 @@ export function toV1(uni: UniversityV2): University {
     ? [Math.min(...tuitions), Math.max(...tuitions)]
     : null;
 
-  const degrees = Array.from(
-    new Set(progs.length > 0 ? progs.map((p) => p.degree) : ["Bachelor", "Master"] as const)
-  ).filter((d): d is "Bachelor" | "Master" => d === "Bachelor" || d === "Master");
+  const degrees = Array.from(new Set(progs.map((p) => p.degree))).filter(
+    (d): d is "Bachelor" | "Master" => d === "Bachelor" || d === "Master"
+  );
 
   return {
     id: uni.id,
