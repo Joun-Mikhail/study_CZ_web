@@ -25,3 +25,22 @@ describe("UniversityDetailClient tuition", () => {
     if (max !== min) expect(container.textContent).toContain(`€${max.toLocaleString()}`);
   });
 });
+
+describe("UniversityDetailClient languages", () => {
+  it("makes no language claim when no programme is listed (EN/AR)", () => {
+    const en = renderAt(<UniversityDetailClient uni={empty} />, `/university/${empty.id}/`);
+    expect(en.container.textContent).not.toMatch(/Language of listed programmes|Languages:|English, Czech/);
+    en.unmount();
+    const ar = renderAt(<UniversityDetailClient uni={empty} />, `/ar/university/${empty.id}/`);
+    expect(ar.container.textContent).not.toMatch(/لغة البرامج المدرجة|اللغات|English, Czech/);
+  });
+
+  it("names only the listed programmes' languages, in Arabic on /ar/", () => {
+    const en = renderAt(<UniversityDetailClient uni={listed} />, `/university/${listed.id}/`);
+    expect(en.container.textContent).toContain(`Language of listed programmes: ${listed.languages.join(", ")}`);
+    en.unmount();
+    const ar = renderAt(<UniversityDetailClient uni={listed} />, `/ar/university/${listed.id}/`);
+    const arNames = listed.languages.map((l) => ({ English: "الإنجليزية", Czech: "التشيكية" })[l]).join("، ");
+    expect(ar.container.textContent).toContain(`لغة البرامج المدرجة: ${arNames}`);
+  });
+});

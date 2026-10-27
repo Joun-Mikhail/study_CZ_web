@@ -19,10 +19,12 @@ export type University = {
     | "Opava"
     | "Jihlava"
     | "Přerov";
+  /** Teaching languages of the listed programmes; empty when none is listed yet. */
   languages: ("English" | "Czech")[];
   fields: string[];
   /** [min, max] over the listed programmes; null when none is listed yet. */
   tuitionEurPerYear: [number, number] | null;
+  /** Degree levels of the listed programmes; empty when none is listed yet. */
   degreeLevels: ("Bachelor" | "Master")[];
   blurb: { en: string; ar: string };
   founded?: number;
