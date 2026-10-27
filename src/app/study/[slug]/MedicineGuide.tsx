@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { ArrowRight, Clock, FileText, MapPin } from "lucide-react";
 import Link from "@/components/locale-link";
 import { ContextualCTA } from "@/components/contextual-cta";
+import { MedicineDetails } from "./MedicineDetails";
 import { CITY_AR } from "@/i18n/ar-metadata";
 import { examSubjects, feeRange, medicineRows } from "@/lib/medicine-guide";
 import { feeStatus, feeVerified } from "@/lib/fee-source";
@@ -125,6 +126,8 @@ export function MedicineGuide({ locale }: { locale: "en" | "ar" }) {
           </tbody>
         </table>
       </div>
+
+      <MedicineDetails locale={locale} rows={rows} />
 
       <h2 className="text-xl font-semibold text-text-primary mt-10 mb-4">
         {ar ? "أسئلة شائعة عن دراسة الطب في التشيك" : "Common questions about studying medicine in Czechia"}

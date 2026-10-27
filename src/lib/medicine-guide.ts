@@ -49,6 +49,24 @@ export function feeRange(rows: MedicineRow[], nameEn: string): { min: number; ma
   return { min: Math.min(...fees), max: Math.max(...fees), years: own[0].durationYears };
 }
 
+const MONTHS = {
+  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+};
+
+/** Western digits; the currency goes after the number in Arabic, as elsewhere on the site. */
+export function formatMoney(amount: number, currency: "EUR" | "CZK", locale: "en" | "ar"): string {
+  const n = amount.toLocaleString("en-US");
+  if (currency === "EUR") return locale === "ar" ? `${n}€` : `€${n}`;
+  return locale === "ar" ? `${n} كرونة` : `${n} CZK`;
+}
+
+/** "1 November 2026" / "1 نوفمبر 2026" from an ISO date. */
+export function formatDate(iso: string, locale: "en" | "ar"): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${d} ${MONTHS[locale][m - 1]} ${y}`;
+}
+
 /** How many programmes with published exam subjects test each science. */
 export function examSubjects(rows: MedicineRow[]): ExamSubjects {
   const details = rows.map((r) => r.programme.entranceExamDetails?.en.toLowerCase()).filter((d): d is string => !!d);
