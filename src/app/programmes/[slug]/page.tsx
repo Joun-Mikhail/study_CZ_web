@@ -11,6 +11,7 @@ import { Footer } from "@/components/footer";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
 import { programmeTitle } from "@/lib/programme-title";
 import { feeVerified } from "@/lib/fee-source";
+import { programmeHubs, relatedProgrammes } from "@/lib/related-programmes";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -96,7 +97,13 @@ export default async function ProgrammePage({ params }: Props) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
         </div>
-        <ProgrammeDetailClient programme={prog} university={uni ?? null} total={programmes.length} />
+        <ProgrammeDetailClient
+          programme={prog}
+          university={uni ?? null}
+          total={programmes.length}
+          related={relatedProgrammes(prog)}
+          hubs={programmeHubs(prog)}
+        />
       </main>
       <Footer />
     </div>

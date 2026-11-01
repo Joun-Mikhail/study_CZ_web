@@ -12,7 +12,8 @@ import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import { EmailSignup } from "@/components/email-signup";
 import { HelpLink } from "@/components/help-sheet";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import { CITY_AR, DEGREE_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import type { ProgrammeHubs, RelatedProgramme } from "@/lib/related-programmes";
 import {
   GraduationCap,
   MapPin,
@@ -29,6 +30,8 @@ import {
   AlertCircle,
   GitCompareArrows,
   Info,
+  Compass,
+  ArrowRight,
 } from "lucide-react";
 
 
@@ -79,6 +82,10 @@ const COPY = {
     apply: "Apply / Visit official programme",
     compare: "Compare with others",
     database: (n: number) => `Our database is growing, currently covering ${n} programmes.`,
+    related: "Related programmes",
+    fieldHub: (f: string) => `All ${f} programmes`,
+    cityHub: (c: string) => `Study in ${c}`,
+    degreeHub: (d: string) => `All ${d}'s programmes`,
   },
   ar: {
     deadline: (d: string) => `آخر موعد: ${d}`,
@@ -126,6 +133,10 @@ const COPY = {
     apply: "قدّم / صفحة البرنامج الرسمية",
     compare: "قارن مع برامج أخرى",
     database: (n: number) => `قاعدة بياناتنا تكبر باستمرار، وتضم الآن ${n} برنامجًا.`,
+    related: "برامج مشابهة",
+    fieldHub: (f: string) => `كل برامج ${f}`,
+    cityHub: (c: string) => `الدراسة في ${c}`,
+    degreeHub: (d: string) => `كل برامج ${d}`,
   },
 };
 
@@ -160,6 +171,17 @@ function Section({ title, icon: Icon, children }: { title: string; icon: React.E
   );
 }
 
+function HubLink({ slug, label }: { slug: string; label: string }) {
+  return (
+    <Link
+      href={`/study/${slug}`}
+      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-border-subtle text-xs text-text-secondary hover:text-accent hover:border-accent/40 transition-colors"
+    >
+      {label}
+    </Link>
+  );
+}
+
 function Row({ label, value, icon: Icon }: { label: string; value: React.ReactNode; icon?: React.ElementType }) {
   if (!value) return null;
   return (
@@ -176,9 +198,12 @@ type Props = {
   university: UniversityV2 | null;
   /** How many programmes the database holds, for the notice at the bottom. */
   total: number;
+  /** Other programmes and /study/ hubs to link to (src/lib/related-programmes.ts). */
+  related?: RelatedProgramme[];
+  hubs?: ProgrammeHubs;
 };
 
-export default function ProgrammeDetailClient({ programme: p, university: uni, total }: Props) {
+export default function ProgrammeDetailClient({ programme: p, university: uni, total, related = [], hubs = {} }: Props) {
   const { locale } = useTranslation();
   const ar = locale === "ar";
   const c: Copy = ar ? COPY.ar : COPY.en;
@@ -399,6 +424,42 @@ export default function ProgrammeDetailClient({ programme: p, university: uni, t
           {c.compare}
         </Link>
       </div>
+
+      {/* ── Related ───────────────────────────────────────────── */}
+      {(related.length > 0 || hubs.field || hubs.city || hubs.degree) && (
+        <div className="mt-8">
+          <Section title={c.related} icon={Compass}>
+            {related.length > 0 && (
+              <ul className="divide-y divide-border-subtle mb-4">
+                {related.map((r) => (
+                  <li key={r.id}>
+                    <Link href={`/programmes/${r.id}`} className="group flex items-center justify-between gap-3 py-2.5">
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium text-text-primary group-hover:text-accent transition-colors">
+                          {ar && r.name.ar ? r.name.ar : r.name.en}
+                        </span>
+                        <span className="block text-xs text-text-muted">{ar && r.university.ar ? r.university.ar : r.university.en}</span>
+                      </span>
+                      <ArrowRight className="w-4 h-4 shrink-0 text-text-muted group-hover:text-accent rtl:rotate-180" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="flex flex-wrap gap-2">
+              {hubs.field && (
+                <HubLink slug={hubs.field.slug} label={c.fieldHub(ar ? FIELD_AR[hubs.field.name] ?? hubs.field.name : hubs.field.name)} />
+              )}
+              {hubs.city && (
+                <HubLink slug={hubs.city.slug} label={c.cityHub(ar ? CITY_AR[hubs.city.name] ?? hubs.city.name : hubs.city.name)} />
+              )}
+              {hubs.degree && (
+                <HubLink slug={hubs.degree.slug} label={c.degreeHub(ar ? DEGREE_AR[hubs.degree.name] ?? hubs.degree.name : hubs.degree.name)} />
+              )}
+            </div>
+          </Section>
+        </div>
+      )}
 
       {/* ── Database notice ───────────────────────────────────── */}
       <p className="text-xs text-text-muted mt-8 text-center">{c.database(total)}</p>
