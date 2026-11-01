@@ -4,7 +4,13 @@ import { universities } from "@/data/universities";
 import { programmes, PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { stageOrder } from "@/data/stages";
-import { fieldToSlug, cityToSlug, degreeToSlug } from "@/lib/seo-utils";
+import {
+  fieldToSlug,
+  cityToSlug,
+  degreeToSlug,
+  studyPageIndexable,
+  universityPageIndexable,
+} from "@/lib/seo-utils";
 
 export const dynamic = "force-static";
 
@@ -95,9 +101,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(`/stage/${slug}`, 0.8, ["src/app/stage", "src/data/stages.ts", "src/data/qa.ts"])
   );
 
-  const universityRoutes = universities.flatMap((u) =>
-    entry(`/university/${u.id}`, 0.6, ["src/app/university", "src/data/universities.ts"])
-  );
+  // Universities, fields and cities with no programmes yet are noindexed
+  // empty pages (see noindexUnless in seo-utils), so they stay out of here.
+  const universityRoutes = universities
+    .filter((u) => universityPageIndexable(u.id))
+    .flatMap((u) => entry(`/university/${u.id}`, 0.6, ["src/app/university", "src/data/universities.ts"]));
 
   const programmeRoutes = programmes.flatMap((p) =>
     entry(`/programmes/${p.id}`, 0.7, ["src/app/programmes/[slug]", "src/data/programmes.ts"])
@@ -105,10 +113,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const studySources = ["src/app/study", "src/data/programmes.ts", "src/data/universities-v2.ts"];
 
-  const fieldRoutes = PROGRAMME_FIELDS.flatMap((f) => entry(`/study/${fieldToSlug(f)}`, 0.7, studySources));
+  const fieldRoutes = PROGRAMME_FIELDS.map(fieldToSlug)
+    .filter(studyPageIndexable)
+    .flatMap((slug) => entry(`/study/${slug}`, 0.7, studySources));
 
   const cities = [...new Set(universitiesV2.map((u) => u.city))];
-  const cityRoutes = cities.flatMap((c) => entry(`/study/${cityToSlug(c)}`, 0.7, studySources));
+  const cityRoutes = cities
+    .map(cityToSlug)
+    .filter(studyPageIndexable)
+    .flatMap((slug) => entry(`/study/${slug}`, 0.7, studySources));
 
   const degreeRoutes = (["Bachelor", "Master"] as const).flatMap((d) =>
     entry(`/study/${degreeToSlug(d)}`, 0.7, studySources)
