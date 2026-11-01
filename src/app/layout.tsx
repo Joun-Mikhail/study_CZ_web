@@ -66,7 +66,11 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: {
-    icon: { url: "/favicon.svg", type: "image/svg+xml" },
+    icon: [
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
   alternates: {},
   robots: process.env.CONTEXT === "production" || !process.env.CONTEXT
