@@ -14,7 +14,7 @@ import { EmailSignup, followProps } from "@/components/email-signup";
 import UniversityCorrectionForm from "./UniversityCorrectionForm";
 import {
   Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText,
-  ExternalLink, ArrowRight, MapPin, Calendar, Building2, Sparkles,
+  ExternalLink, ArrowRight, MapPin, Calendar, Building2, Sparkles, Compass,
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
@@ -22,7 +22,8 @@ import { SiteImage } from "@/components/site-image";
 import { universityImage } from "@/data/images";
 import { motion } from "framer-motion";
 import type { Programme } from "@/data/types";
-import { CITY_AR, DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import type { UniversityLinks } from "@/lib/university-links";
 
 function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
   return (
@@ -124,8 +125,22 @@ function QuickStat({ icon: Icon, label, value }: { icon: React.ElementType; labe
   );
 }
 
-export default function UniversityDetailClient({ uni }: { uni: University }) {
+function HubLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/40 transition-colors"
+    >
+      {label}
+    </Link>
+  );
+}
+
+/** `links` comes from src/lib/university-links.ts. */
+export default function UniversityDetailClient({ uni, links }: { uni: University; links?: UniversityLinks }) {
   const { t, locale } = useTranslation();
+  const ar = locale === "ar";
+  const cityName = (c: string) => (ar ? CITY_AR[c] ?? c : c);
   const uniV2 = getUniversityV2(uni.id);
   const progs = getProgrammesByUniversity(uni.id);
 
@@ -371,6 +386,54 @@ export default function UniversityDetailClient({ uni }: { uni: University }) {
           </div>
         </div>
       </FadeIn>
+
+      {/* Where to go next: other universities, the /study/ hubs and the application guides */}
+      {links && (
+        <GlassCard className="mb-6">
+          <h2 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
+            <Compass className="w-4 h-4 text-brand" aria-hidden="true" />
+            {ar ? "استكشف أكتر" : "Keep exploring"}
+          </h2>
+          {links.related.length > 0 && (
+            <ul className="divide-y divide-border-subtle mb-4">
+              {links.related.map((r) => (
+                <li key={r.id}>
+                  <Link href={`/university/${r.id}`} className="group flex items-center justify-between gap-3 py-2.5">
+                    <span className="min-w-0">
+                      <span className="block text-sm font-medium text-text-primary group-hover:text-brand transition-colors">
+                        {ar && r.name.ar ? r.name.ar : r.name.en}
+                      </span>
+                      <span className="block text-xs text-text-muted">{cityName(r.city)}</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 shrink-0 text-text-muted group-hover:text-brand rtl:rotate-180" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          {(links.city || links.fields.length > 0) && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {links.city && (
+                <HubLink href={`/study/${links.city.slug}`} label={ar ? `الدراسة في ${cityName(links.city.name)}` : `Study in ${links.city.name}`} />
+              )}
+              {links.fields.map((f) => (
+                <HubLink
+                  key={f.slug}
+                  href={`/study/${f.slug}`}
+                  label={ar ? `كل برامج ${FIELD_AR[f.name] ?? f.name}` : `All ${f.name} programmes`}
+                />
+              ))}
+            </div>
+          )}
+          <h3 className="text-xs font-semibold text-text-primary mb-2">{ar ? "الخطوات الجاية" : "Next steps"}</h3>
+          <div className="flex flex-wrap gap-2">
+            <HubLink href="/application-guide" label={t.nav.guide} />
+            <HubLink href="/deadlines" label={ar ? "مواعيد التقديم" : "Deadline Tracker"} />
+            <HubLink href="/what-it-costs" label={ar ? "التكاليف الحقيقية" : "What It Actually Costs"} />
+            <HubLink href="/recognition" label={ar ? "معادلة الشهادة" : "Degree Recognition"} />
+          </div>
+        </GlassCard>
+      )}
 
       <FadeIn delay={0.35}>
         <UniversityCorrectionForm uniId={uni.id} />
