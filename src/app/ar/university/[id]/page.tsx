@@ -13,8 +13,12 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   if (!uni) return arabicMetadata(`/university/${id}/`, base);
   const city = CITY_AR[uni.city] ?? uni.city;
   const nameAr = universitiesV2.find((u) => u.id === id)?.nameAr;
+  // Same shape as the English description (the blurb, then the city and what the page covers),
+  // unless a long blurb would push it past what search results show.
+  const full = `${uni.blurb?.ar ? `${uni.blurb.ar} ` : `معلومات عن ${uni.name}. `}${city}، التشيك: البرامج الإنجليزية والرسوم وطريقة التقديم.`;
+  const description = full.length <= 160 || !uni.blurb?.ar ? full : uni.blurb.ar;
   return arabicMetadata(`/university/${id}/`, base, {
     title: `${nameAr ?? uni.name} — البرامج والرسوم`,
-    description: uni.blurb?.ar || `معلومات عن ${uni.name} في ${city}، التشيك: البرامج الإنجليزية والرسوم والقبول.`,
+    description,
   });
 }

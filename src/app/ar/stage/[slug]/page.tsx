@@ -1,7 +1,7 @@
 // @custom-ar — Arabic twin of /stage/[slug]/.
 import type { Metadata } from "next";
 import { generateMetadata as en } from "@/app/stage/[slug]/page";
-import { arabicMetadata } from "@/i18n/ar-metadata";
+import { AR_PAGE_META, arabicMetadata } from "@/i18n/ar-metadata";
 import { stages, type StageSlug } from "@/data/stages";
 export { default, generateStaticParams } from "@/app/stage/[slug]/page";
 
@@ -12,6 +12,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   return arabicMetadata(
     `/stage/${slug}/`,
     base,
-    config ? { title: config.h1.ar, description: config.intro.ar } : undefined
+    config
+      ? { title: config.h1.ar, description: AR_PAGE_META[`/stage/${slug}/`]?.description ?? config.intro.ar }
+      : undefined
   );
 }
