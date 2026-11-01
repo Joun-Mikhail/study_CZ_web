@@ -48,6 +48,8 @@ export default async function ProgrammePage({ params }: Props) {
     description: `${prog.degree} programme in ${prog.name.en} at ${uni?.name ?? prog.universityId}`,
     provider: {
       "@type": "CollegeOrUniversity",
+      // Same entity as the university page's own JSON-LD (src/lib/university-schema.ts)
+      ...(uni ? { "@id": `${SITE_URL}/university/${uni.id}/#university` } : {}),
       name: uni?.name ?? prog.universityId,
       url: uni?.website,
       address: {
