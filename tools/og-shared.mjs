@@ -11,8 +11,9 @@ export const OUT = "out";
 export const OG_DIR = "og";
 export const MANIFEST = join("public", OG_DIR, "manifest.json");
 
-/** Pages that never get a card: private, utility or legal pages. */
-const SKIP = [/^\/(ar\/)?courses\/learn\//, /^\/(ar\/)?admin\//, /^\/(ar\/)?thanks\//, /^\/(ar\/)?404\//, /_not-found/, /^\/(ar\/)?verify\/not-found\//, /^\/(ar\/)?(privacy|terms|search)\//];
+/** Pages that never get a card: private, utility or legal pages, and the two
+ *  home pages, which share the site cover (/og-cover.jpg) instead. */
+const SKIP = [/^\/(ar\/)?$/, /^\/(ar\/)?courses\/learn\//, /^\/(ar\/)?admin\//, /^\/(ar\/)?thanks\//, /^\/(ar\/)?404\//, /_not-found/, /^\/(ar\/)?verify\/not-found\//, /^\/(ar\/)?(privacy|terms|search)\//];
 
 /** Every built page as a URL path ("/", "/ar/services/", …). */
 export function listPages() {

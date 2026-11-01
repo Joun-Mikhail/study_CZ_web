@@ -211,7 +211,7 @@ export function arabicMetadata(
       url: arPath,
       ...(typeof title === "string" ? { title } : {}),
       ...(description ? { description } : {}),
-      images: [{ url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
+      images: [{ url: `${SITE_URL}/og-cover.jpg`, width: 1200, height: 630, alt: "Study Czechia" }],
     },
   };
 }

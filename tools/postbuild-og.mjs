@@ -2,7 +2,7 @@
 // After `next build`: point each page's og:image and twitter:image at its own
 // share card in out/og/ (drawn by gen-og.mjs), if the card is up to date.
 // Pages without a card, or whose title or description changed since the card
-// was drawn, keep the default /og-image.jpg.
+// was drawn, keep the default /og-cover.jpg.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -24,7 +24,7 @@ export function rewriteShareImages() {
     }
     const alt = text.title.replace(/"/g, "&quot;");
     const next = html
-      .replace(/(<meta (?:property="og:image"|name="twitter:image") content="[^"]*?)\/og-image\.jpg"/g, `$1/${OG_DIR}/${cardName(path)}"`)
+      .replace(/(<meta (?:property="og:image"|name="twitter:image") content="[^"]*?)\/og-cover\.jpg"/g, `$1/${OG_DIR}/${cardName(path)}"`)
       .replace(/<meta property="og:image:alt" content="Study Czechia"\/>/, `<meta property="og:image:alt" content="${alt}"/>`);
     if (next !== html) {
       writeFileSync(file, next);
