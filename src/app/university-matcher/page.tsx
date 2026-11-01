@@ -422,6 +422,39 @@ export default function MatcherPage() {
             )}
           </AnimatePresence>
         </div>
+
+        <section aria-labelledby="how-matcher-works" className="max-w-2xl mx-auto mt-16">
+          <h2 id="how-matcher-works" className="text-lg font-semibold text-text-primary mb-3">
+            {locale === "ar" ? "المطابق بيشتغل إزاي" : "How the matcher works"}
+          </h2>
+          <ul className="space-y-2 text-sm text-text-secondary leading-relaxed list-disc ps-5">
+            {(locale === "ar"
+              ? [
+                  "أربع أسئلة: المدينة، والمجال، وميزانية الرسوم في السنة، ولغة الدراسة.",
+                  "بيشيل البرامج اللي في مدن تانية، أو باللغة التانية، أو رسومها أعلى من حد ميزانيتك، وبيسيب المجال اللي اخترته بس. لو اخترت إن مفيش تفضيل في سؤال، الفلتر بتاعه مش بيتطبق.",
+                  "الباقي بيترتب حسب قرب الرسوم السنوية من نص ميزانيتك، وبعدين الأرخص الأول.",
+                  "كل نتيجة فيها لينك لصفحة البرنامج، وبتوضح الرسوم جاية منين.",
+                ]
+              : [
+                  "Four questions: city, field, yearly tuition budget and teaching language.",
+                  "It drops programmes in other cities, in the other language or above the top of your budget, and keeps only the field you picked. Choosing no preference for a question skips that filter.",
+                  "The rest are ordered by how close the yearly fee is to the middle of your budget, then cheapest first.",
+                  "Each result links to its programme page and shows where the fee comes from.",
+                ]
+            ).map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-text-secondary leading-relaxed mt-3">
+            {locale === "ar"
+              ? `بيدور في ${programmes.length} برنامج موجودين على الموقع بس، مش كل البرامج في التشيك. عشان تتأكد من درجاتك وأوراقك، جرّب `
+              : `It searches only the ${programmes.length} programmes listed on this site, not every programme in Czechia. To check your grades and documents, use the `}
+            <Link href="/eligibility" className="font-medium text-brand hover:underline">
+              {locale === "ar" ? "فحص الأهلية" : "eligibility check"}
+            </Link>
+            .
+          </p>
+        </section>
       </main>
 
       <Footer />

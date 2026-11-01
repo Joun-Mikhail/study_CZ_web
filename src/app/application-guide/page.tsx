@@ -169,6 +169,13 @@ export default function ApplicationGuidePage() {
                       </Link>
                     </p>
                   )}
+                  {step.id === "arrival" && (
+                    <p className="text-sm mb-4">
+                      <Link href="/arrival" className="font-medium text-brand hover:underline">
+                        {locale === "ar" ? "لسه واصل؟ ابدأ من هنا ←" : "Just landed? Start here →"}
+                      </Link>
+                    </p>
+                  )}
                   {step.tip && (
                     <div className="flex gap-3 items-start rounded-xl border border-brand/20 bg-brand/[0.05] px-4 py-3">
                       <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />

@@ -52,6 +52,7 @@ const en = {
   refund: REFUND_COPY.en.faq,
   withdraw: "If you are a consumer in the EU, the 14-day right of withdrawal applies on top of these rules.",
   termsLink: "Read the full terms",
+  agencyQuestions: "Comparing us with an agency? Ask any of them these 8 questions first",
   receiptTitle: "Receipts and invoices",
   receipt: `Stripe processes every card payment. If you need a receipt or an invoice in a particular name, for example for your employer, tell ${FOUNDER_NAME} before you pay.`,
   docsTitle: "Your child's documents",
@@ -92,6 +93,7 @@ const ar: typeof en = {
   refund: REFUND_COPY.ar.faq,
   withdraw: "وإذا كنتم مستهلكين داخل الاتحاد الأوروبي، فحق الانسحاب خلال 14 يومًا يسري إضافةً إلى هذه القواعد.",
   termsLink: "اقرأ الشروط كاملة",
+  agencyQuestions: "تقارنوننا بوكالة أخرى؟ اطرحوا على أي منها هذه الأسئلة الثمانية أولًا",
   receiptTitle: "الإيصالات والفواتير",
   receipt: `تتم معالجة كل دفعة بالبطاقة عبر Stripe. وإذا احتجتم إيصالًا أو فاتورة باسم معيّن، مثلًا لجهة عملكم، فأخبروا ${FOUNDER_NAME_AR} قبل الدفع.`,
   docsTitle: "مستندات ابنكم أو ابنتكم",
@@ -166,6 +168,9 @@ export default function ParentsClient() {
             <p>{t.withdraw}</p>
             <Link href="/terms" className="text-brand hover:underline font-medium">
               {t.termsLink}
+            </Link>
+            <Link href="/questions-to-ask" className="block text-brand hover:underline font-medium">
+              {t.agencyQuestions}
             </Link>
           </Block>
 

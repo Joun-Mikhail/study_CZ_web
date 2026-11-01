@@ -9,6 +9,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import Link from "@/components/locale-link";
 import { PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
 import { price, priceOf, fullPackageTotal, eur, czk, OFFER_ACTIVE, type PriceKey } from "@/config/pricing";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -415,7 +416,12 @@ export default function ServicesClient() {
         <section className="max-w-4xl mx-auto mb-16">
           <div className="flex items-start gap-3 rounded-2xl border border-brand/25 bg-brand/[0.06] px-5 py-4">
             <ShieldAlert className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-            <p className="text-sm text-text-secondary leading-relaxed">{t.scamWarning}</p>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              {t.scamWarning}{" "}
+              <Link href="/questions-to-ask" className="font-medium text-brand hover:underline">
+                {t.agencyQuestions}
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -925,6 +931,7 @@ const en = {
   },
   scamWarning:
     "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
+  agencyQuestions: "Before you pay anyone, us included, ask these 8 questions",
   faq: {
     title: "Common Questions",
     items: [
@@ -1188,6 +1195,7 @@ const ar: typeof en = {
     cta: "شوف المجتمع على فيسبوك →",
   },
   scamWarning: "إحنا مش بنطلب فلوس على أي رقم واتساب غير رسمي أو رسايل خاصة بتدعي إنها منّا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
+  agencyQuestions: "قبل ما تدفع لأي حد، حتى لينا، اسأل الـ8 أسئلة دول",
   faq: {
     title: "أسئلة شائعة",
     items: [
