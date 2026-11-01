@@ -11,7 +11,7 @@ import { HelpLink } from "@/components/help-sheet";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { FOUNDER_NAME, FOUNDER_NAME_AR } from "@/config/contact";
-import { stages, type StageSlug } from "@/data/stages";
+import { stageOrder, stages, type StageSlug } from "@/data/stages";
 import { qaEntries } from "@/data/qa";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 
@@ -113,6 +113,33 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
           )}
 
           {config.waitlist && <WaitlistSignup className="mt-12" />}
+
+          {/* All five stages, so each stage page links the others (they were reachable only from the home page) */}
+          <nav aria-labelledby="all-stages" className="mt-12">
+            <h2 id="all-stages" className="text-base font-semibold text-text-primary mb-3">
+              {locale === "ar" ? "كل مراحل الرحلة" : "Every stage of the journey"}
+            </h2>
+            <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {stageOrder.map((s, i) => (
+                <li key={s}>
+                  {s === slug ? (
+                    <span aria-current="step" className="flex items-center gap-3 px-4 py-3 rounded-xl border border-brand/40 bg-brand/5 text-sm font-medium text-text-primary">
+                      <span className="text-text-muted">{i + 1}</span>
+                      {stages[s].h1[locale]}
+                    </span>
+                  ) : (
+                    <Link
+                      href={`/stage/${s}`}
+                      className="group flex items-center gap-3 px-4 py-3 rounded-xl border border-border-subtle hover:border-brand/30 hover:bg-surface text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                      <span className="text-text-muted">{i + 1}</span>
+                      {stages[s].h1[locale]}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
       </main>
       <Footer />
