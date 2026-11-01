@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { EligibilityRequirements } from "./EligibilityRequirements";
 import {
   en,
   ar,
@@ -194,6 +195,8 @@ export default function EligibilityClient() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        <EligibilityRequirements locale={locale} />
       </main>
       <Footer />
     </div>
