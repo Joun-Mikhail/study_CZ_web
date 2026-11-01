@@ -14,6 +14,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 // the data file it renders, where relevant). If git history isn't available
 // at build time we omit lastmod entirely rather than publish a made-up date:
 // Google ignores lastmod values that prove unreliable.
+// src/i18n is deliberately not a source: translations.ts and ar-metadata.ts
+// hold strings for every page and change in most commits, so counting them
+// stamped all URLs with the same date (and made IndexNow resubmit them all).
 const gitDateCache = new Map<string, Date | undefined>();
 
 function gitDate(paths: string[]): Date | undefined {
@@ -40,7 +43,7 @@ function gitDate(paths: string[]): Date | undefined {
 // entry names its twin, so search engines treat them as one page in two
 // languages rather than duplicates.
 function entry(route: string, priority: number, sources: string[]): MetadataRoute.Sitemap {
-  const lastModified = gitDate([...sources, "src/i18n"]);
+  const lastModified = gitDate(sources);
   const en = route === "" ? `${SITE_URL}/` : `${SITE_URL}${route}/`;
   const ar = route === "" ? `${SITE_URL}/ar/` : `${SITE_URL}/ar${route}/`;
   const alternates = { languages: { en, ar, "x-default": en } };
