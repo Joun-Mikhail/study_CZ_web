@@ -9,6 +9,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { noindexUnless, universityPageIndexable } from "@/lib/seo-utils";
 import UniversityDetailClient from "./UniversityDetailClient";
+import { universityLinks } from "@/lib/university-links";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -44,7 +45,7 @@ export default async function UniversityPage({ params }: Props) {
       <main id="main-content" className="max-w-4xl mx-auto px-4 pt-24 pb-16">
         <Breadcrumbs items={[{ label: "Universities", href: "/universities" }, { label: uni.name }]} />
         <GlassCard>
-          <UniversityDetailClient uni={uni} />
+          <UniversityDetailClient uni={uni} links={universityLinks(uni.id)} />
         </GlassCard>
       </main>
       <Footer />
