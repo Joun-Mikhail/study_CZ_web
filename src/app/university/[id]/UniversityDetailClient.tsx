@@ -284,6 +284,31 @@ export default function UniversityDetailClient({ uni, links }: { uni: University
         </GlassCard>
       </FadeIn>
 
+      {/* University-wide admission facts, each from the university's own page */}
+      {uniV2?.admissions && (
+        <GlassCard className="mb-6">
+          <h2 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
+            <FileText className="w-4 h-4 text-brand" aria-hidden="true" />
+            {ar ? "كيف يتم القبول" : "How admission works"}
+          </h2>
+          <ul className="space-y-2 text-sm text-text-secondary leading-relaxed list-disc ps-5">
+            {uniV2.admissions.facts.map((f) => (
+              <li key={f.en}>
+                {f[locale]}{" "}
+                <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-brand hover:underline whitespace-nowrap">
+                  {ar ? "(المصدر)" : "(source)"}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-text-muted mt-3">
+            {ar
+              ? `من صفحات الجامعة الرسمية، تمت المراجعة في ${uniV2.admissions.checkedOn}. القواعد التفصيلية تحددها كل كلية، فراجع صفحة برنامجك قبل التقديم.`
+              : `From the university's own pages, checked on ${uniV2.admissions.checkedOn}. Faculties set the detailed rules, so check your programme's page before you apply.`}
+          </p>
+        </GlassCard>
+      )}
+
       {/* Programme cards */}
       <FadeIn delay={0.25}>
         <div className="mb-6">

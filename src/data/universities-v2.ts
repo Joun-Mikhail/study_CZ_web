@@ -114,6 +114,31 @@ export const universitiesV2: UniversityV2[] = [
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
+    admissions: {
+      checkedOn: "2026-11-01",
+      facts: [
+        {
+          en: "You apply online through MUNI's e-application, which also lets you track the status of your application.",
+          ar: "يُقدَّم الطلب إلكترونيًا عبر نظام الطلب الإلكتروني في الجامعة، ويمكنك من خلاله متابعة حالة طلبك.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "Application deadlines differ from faculty to faculty, and some faculties also take applications for a February start.",
+          ar: "تختلف مواعيد التقديم من كلية إلى أخرى، وبعض الكليات تقبل طلبات للبدء في فبراير أيضًا.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "Each faculty runs its own admission: Medicine holds written tests in chemistry, biology and physics, while some other faculties use an online interview or an assessment of your motivation and language skills.",
+          ar: "لكل كلية إجراءات قبول خاصة بها: كلية الطب تعقد اختبارات كتابية في الكيمياء والأحياء والفيزياء، بينما تعتمد كليات أخرى على مقابلة عبر الإنترنت أو تقييم دوافعك ومهاراتك اللغوية.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "If you finished secondary school abroad, you must prove it: either the faculty verifies your certificate, or you get general recognition from a Czech Regional Authority.",
+          ar: "إذا أنهيت الدراسة الثانوية خارج التشيك فعليك إثبات ذلك: إما أن تتحقق الكلية من شهادتك، أو تحصل على اعتراف عام بها من إحدى السلطات الإقليمية التشيكية.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/verification-of-the-condition-for-admission",
+        },
+      ],
+    },
   },
   {
     id: "but",
@@ -845,6 +870,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1991,
     website: "https://www.zcu.cz/en/",
+    admissionsUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/index.html",
     blurb: {
       en: "A public university in Plzeň offering a broad range of programmes in engineering, sciences, humanities, and design.",
       ar: "جامعة حكومية في بلزن بتقدم برامج متنوعة في الهندسة والعلوم والإنسانيات والتصميم.",
@@ -855,6 +881,26 @@ export const universitiesV2: UniversityV2[] = [
       sourceUrl: "https://studyin.gov.cz/plan-your-studies/universities/",
       sourceType: "official",
       verifiedBy: "studyczechia",
+    },
+    admissions: {
+      checkedOn: "2026-11-01",
+      facts: [
+        {
+          en: "Most faculties prefer an online application through UWB's e-application, with the application fee receipt attached; check your faculty for any extra requirements.",
+          ar: "تفضّل معظم الكليات التقديم الإلكتروني عبر نظام الطلب الإلكتروني في الجامعة مع إرفاق إيصال دفع رسوم الطلب، وتحقّق من كليتك لمعرفة أي متطلبات إضافية.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/applying-to-uwb.html",
+        },
+        {
+          en: "Each faculty sets its own entrance exam dates, and some faculties admit students without an entrance exam, using their own criteria.",
+          ar: "تحدد كل كلية مواعيد امتحانات القبول الخاصة بها، وبعض الكليات تقبل الطلاب دون امتحان قبول وفق معايير تضعها.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/applying-to-uwb.html",
+        },
+        {
+          en: "If your previous university education is from abroad and needs recognition for admission, follow the admission procedure published for your study programme.",
+          ar: "إذا كانت دراستك الجامعية السابقة من خارج التشيك وتحتاج إلى الاعتراف بها لأغراض القبول، فاتبع إجراءات القبول المنشورة لبرنامجك الدراسي.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Nostrification/index.html",
+        },
+      ],
     },
   },
 ];
