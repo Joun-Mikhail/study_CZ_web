@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { noindexUnless, universityPageIndexable } from "@/lib/seo-utils";
 import UniversityDetailClient from "./UniversityDetailClient";
 
 type Props = {
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${name}: Programmes, Fees and Admission`,
     description: `${uni.blurb?.en || `Learn about ${uni.name}.`} ${v2?.nameLocal ? `${v2.nameLocal}, ` : ""}${uni.city}, Czech Republic: English programmes, tuition and how to apply.`,
     alternates: { canonical: `/university/${id}` },
+    ...noindexUnless(universityPageIndexable(id)),
   };
 }
 
