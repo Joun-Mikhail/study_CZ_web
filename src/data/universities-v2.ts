@@ -10,7 +10,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1953,
     website: "https://www.vse.cz/english/",
-    admissionsUrl: "https://www.vse.cz/english/admissions/",
+    admissionsUrl: "https://admissions.vse.cz/",
     blurb: {
       en: "Central Europe's top-ranked business school, EQUIS/AMBA accredited, in the heart of Prague.",
       ar: "من أفضل كليات إدارة الأعمال في وسط أوروبا، معتمدة دوليًا (EQUIS/AMBA)، في قلب براغ.",
@@ -56,7 +56,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1707,
     website: "https://www.cvut.cz/en",
-    admissionsUrl: "https://www.cvut.cz/en/admissions",
+    admissionsUrl: "https://www.cvut.cz/en/why-study-at-ctu",
     blurb: {
       en: "Established 1707, a leading technical university for engineering, robotics, and architecture.",
       ar: "تأسست 1707، من أفضل الجامعات التقنية في الهندسة والروبوتات والعمارة.",
@@ -125,7 +125,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1899,
     website: "https://www.vutbr.cz/en/",
-    admissionsUrl: "https://www.vutbr.cz/en/admission",
+    admissionsUrl: "https://www.vut.cz/en/study-options/degree-studies-en",
     blurb: {
       en: "120+ years of technical excellence with strong industry ties in Brno.",
       ar: "أكثر من 120 سنة من التميز التقني وعلاقات قوية مع الصناعة في برنو.",
@@ -148,7 +148,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1919,
     website: "https://mendelu.cz/en/",
-    admissionsUrl: "https://mendelu.cz/en/admission/",
+    admissionsUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
     blurb: {
       en: "Named after Gregor Mendel, sustainability and green-tech focused, on a serene green campus.",
       ar: "سميت على مندل مؤسس علم الوراثة، متخصصة في الاستدامة والتكنولوجيا الخضراء.",
@@ -171,7 +171,7 @@ export const universitiesV2: UniversityV2[] = [
     type: "public",
     founded: 1573,
     website: "https://www.upol.cz/en/",
-    admissionsUrl: "https://www.upol.cz/en/applicants/",
+    admissionsUrl: "https://international.upol.cz/en/admissions-office/",
     blurb: {
       en: "Established 1573, over 450 years of tradition in a picturesque, affordable university city.",
       ar: "تأسست عام 1573، أكثر من 450 سنة من التقاليد الأكاديمية في مدينة جميلة واقتصادية.",
@@ -322,7 +322,7 @@ export const universitiesV2: UniversityV2[] = [
     city: "Prague",
     type: "public",
     founded: 1952,
-    website: "https://www.vscht.cz/EN/",
+    website: "https://www.vscht.cz/?jazyk=en",
     blurb: {
       en: "Specialist technical university strong in chemistry, technology and applied sciences with industry partnerships.",
       ar: "جامعة تقنية متخصصة في الكيمياء والعلوم التطبيقية، وعندها شراكات قوية مع الصناعة.",
@@ -330,7 +330,7 @@ export const universitiesV2: UniversityV2[] = [
     fields: ["Chemistry", "Biochemistry", "Food Science", "Engineering"],
     verification: {
       lastVerified: "2026-08-27",
-      sourceUrl: "https://www.vscht.cz/EN/",
+      sourceUrl: "https://www.vscht.cz/?jazyk=en",
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
@@ -782,7 +782,7 @@ export const universitiesV2: UniversityV2[] = [
     city: "Prague",
     type: "public",
     founded: 1885,
-    website: "https://www.umprum.cz/web/en/",
+    website: "https://www.umprum.cz/en/",
     blurb: {
       en: "A top public art and design school founded in 1885, known for architecture, fashion, graphic design, and fine arts.",
       ar: "مدرسة فنون وتصميم حكومية من الأفضل، تأسست 1885، معروفة بالعمارة والأزياء والتصميم الجرافيكي.",
