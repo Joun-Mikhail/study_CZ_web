@@ -51,6 +51,9 @@ const pathNames: Record<string, { en: string; ar: string }> = {
 
 const SITE_URL = "https://studyczechia.com";
 
+// /stage/<slug>/ pages exist, /stage/ itself does not.
+const NO_PAGE = new Set(["stage"]);
+
 export function Breadcrumb() {
   const pathname = usePathname();
   const { locale } = useTranslation();
@@ -62,11 +65,17 @@ export function Breadcrumb() {
   const segments = path.split("/").filter(Boolean);
   if (segments.length === 0) return null;
 
+  // One crumb per path level, except levels that group pages but have no
+  // page of their own: a crumb there would link to a 404.
+  const crumbs = segments
+    .map((segment, i) => ({ segment, href: "/" + segments.slice(0, i + 1).join("/") }))
+    .filter((c, i) => i === segments.length - 1 || !NO_PAGE.has(c.segment));
+
   const breadcrumbItems = [
     { name: locale === "ar" ? "الرئيسية" : "Home", url: `${base}/` },
-    ...segments.map((segment, i) => ({
+    ...crumbs.map(({ segment, href }) => ({
       name: pathNames[segment]?.[locale] || segment.replace(/-/g, " "),
-      url: `${base}/${segments.slice(0, i + 1).join("/")}/`,
+      url: `${base}${href}/`,
     })),
   ];
 
@@ -94,10 +103,9 @@ export function Breadcrumb() {
             <span>{locale === "ar" ? "الرئيسية" : "Home"}</span>
           </Link>
         </li>
-        {segments.map((segment, i) => {
-          const href = "/" + segments.slice(0, i + 1).join("/");
+        {crumbs.map(({ segment, href }, i) => {
           const name = pathNames[segment]?.[locale] || segment.replace(/-/g, " ");
-          const isLast = i === segments.length - 1;
+          const isLast = i === crumbs.length - 1;
           // Known labels are already cased; only raw slugs get title case.
           const caseClass = pathNames[segment] ? "" : " capitalize";
 
