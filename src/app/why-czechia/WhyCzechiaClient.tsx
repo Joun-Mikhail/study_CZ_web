@@ -170,9 +170,9 @@ export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }
             { href: "/study/medicine-in-czech-republic", label: locale === "en" ? "Medicine" : "الطب", icon: GraduationCap },
             { href: "/study/business-in-czech-republic", label: locale === "en" ? "Business" : "إدارة الأعمال", icon: Briefcase },
             { href: "/study/engineering-in-czech-republic", label: locale === "en" ? "Engineering" : "الهندسة", icon: BarChart3 },
-            { href: "/study/it-in-czech-republic", label: locale === "en" ? "IT & Computer Science" : "تكنولوجيا المعلومات", icon: Compass },
+            { href: "/study/it-in-czech-republic", label: locale === "en" ? "IT" : "تكنولوجيا المعلومات", icon: Compass },
             { href: "/study/economics-in-czech-republic", label: locale === "en" ? "Economics" : "الاقتصاد", icon: Banknote },
-            { href: "/study/law-in-czech-republic", label: locale === "en" ? "Law" : "القانون", icon: BookOpen },
+            { href: "/study/computer-science-in-czech-republic", label: locale === "en" ? "Computer Science" : "علوم الحاسب", icon: BookOpen },
           ].map((item, i) => (
             <motion.div
               key={item.href}
