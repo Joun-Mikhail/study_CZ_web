@@ -32,6 +32,13 @@ export type GuideCopy = {
   source: string;
 };
 
+/** The country guides, so each one links the others (names as on /recognition/). */
+const COUNTRY_GUIDES = [
+  { href: "/recognition/egypt", en: "Egypt", ar: "مصر" },
+  { href: "/recognition/jordan", en: "Jordan", ar: "الأردن" },
+  { href: "/recognition/saudi-arabia", en: "Saudi Arabia", ar: "السعودية" },
+];
+
 const ICONS: Record<string, React.ElementType> = {
   before: Plane,
   during: GraduationCap,
@@ -90,6 +97,8 @@ export function RecognitionGuide({
   const { locale } = useTranslation();
   const pathname = usePathname();
   const t = locale === "ar" ? ar : en;
+  const path = pathname.replace(/^\/ar(?=\/)/, "").replace(/\/$/, "");
+  const otherCountries = path.startsWith("/recognition/") ? COUNTRY_GUIDES.filter((g) => g.href !== path) : [];
 
   return (
     <div className="relative min-h-screen">
@@ -163,6 +172,31 @@ export function RecognitionGuide({
               {t.reviewCta}
             </HelpLink>
           </GlassCard>
+
+          {otherCountries.length > 0 && (
+            <nav aria-labelledby="other-countries" className="mb-10">
+              <h2 id="other-countries" className="text-base font-semibold text-text-primary mb-2">
+                {locale === "ar" ? "أدلة المعادلة لدول أخرى" : "Recognition guides for other countries"}
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {otherCountries.map((g) => (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className="inline-flex items-center px-3 py-1.5 rounded-full border border-border-subtle text-sm text-text-secondary hover:text-brand hover:border-brand/40 transition-colors"
+                  >
+                    {g[locale]}
+                  </Link>
+                ))}
+                <Link
+                  href="/recognition"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full border border-border-subtle text-sm text-text-secondary hover:text-brand hover:border-brand/40 transition-colors"
+                >
+                  {locale === "ar" ? "كل الدول" : "All countries"}
+                </Link>
+              </div>
+            </nav>
+          )}
 
           <section aria-labelledby="sources">
             <h2 id="sources" className="text-base font-semibold text-text-primary mb-2">
