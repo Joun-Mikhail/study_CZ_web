@@ -91,7 +91,6 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/recognition/saudi-arabia", priority: 0.8, sources: ["src/app/recognition/saudi-arabia", "src/app/recognition/RecognitionGuide.tsx"] },
   { route: "/student-visa-egypt", priority: 0.8, sources: ["src/app/student-visa-egypt", "src/app/recognition/RecognitionGuide.tsx"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
-  { route: "/my-journey", priority: 0.8, sources: ["src/app/my-journey"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },
   { route: "/terms", priority: 0.8, sources: ["src/app/terms"] },
   { route: "/privacy", priority: 0.8, sources: ["src/app/privacy"] },
