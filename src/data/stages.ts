@@ -19,6 +19,8 @@ export type StageConfig = {
   slug: StageSlug;
   h1: Bilingual;
   intro: Bilingual;
+  /** English meta description, where the intro is too short for a search snippet (Arabic ones live in AR_PAGE_META). */
+  metaDescription?: string;
   tools: StageLink[];
   qaIds: string[];
   paidService: StagePaidService | null;
@@ -39,6 +41,8 @@ export const stages: Record<StageSlug, StageConfig> = {
       en: "Free tools and honest numbers to help you decide — no sign-up.",
       ar: "أدوات مجانية وأرقام حقيقية تساعدك تقرر — بدون تسجيل.",
     },
+    metaDescription:
+      "Is studying in Czechia realistic for you? Free tools, no sign-up: living costs, the full cost of a degree, scholarships, the preparatory year and agency questions.",
     tools: [
       { href: "/cost-of-living", label: { en: "Cost of Living", ar: "تكاليف المعيشة" } },
       { href: "/what-it-costs", label: { en: "What Studying in Czechia Actually Costs", ar: "التكاليف" } },

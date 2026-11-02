@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: config.h1.en,
-    description: config.intro.en,
+    description: config.metaDescription ?? config.intro.en,
     alternates: { canonical: `/stage/${slug}` },
   };
 }
