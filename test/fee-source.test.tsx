@@ -56,12 +56,12 @@ describe("fee status", () => {
     expect(feeStatus(fresh)).toBe("pending");
   });
 
-  it("matches the source checks of 27 Oct 2026 (update when sources are re-verified)", () => {
+  it("matches the source checks of 2 Nov 2026 (update when sources are re-verified)", () => {
     const count = (s: string) => programmes.filter((p) => feeStatus(p) === s).length;
     expect({ verified: count("verified"), pending: count("pending"), unverified: count("unverified") }).toEqual({
       verified: 3,
-      pending: 15,
-      unverified: 73,
+      pending: 22,
+      unverified: 66,
     });
   });
 });
@@ -76,10 +76,10 @@ describe("fee review records", () => {
     }
   });
 
-  it("count 3 verified and 17 reviewed-but-unconfirmed fees, derived from the records", () => {
+  it("count 3 verified and 24 reviewed-but-unconfirmed fees, derived from the records", () => {
     const reviewed = programmes.filter((p) => feeReviewedOn(p));
     expect(reviewed.filter(feeVerified)).toHaveLength(3);
-    expect(reviewed.filter((p) => !feeVerified(p))).toHaveLength(17);
+    expect(reviewed.filter((p) => !feeVerified(p))).toHaveLength(24);
   });
 
   it("keep the review date separate from the fee status", () => {
