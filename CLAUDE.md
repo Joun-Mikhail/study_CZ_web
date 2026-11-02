@@ -13,8 +13,9 @@ Static export (`output: "export"`, `trailingSlash: true`) published from `out/` 
    - add Arabic strings with the same keys as English;
    - add an `AR_PAGE_META` entry in `src/i18n/ar-metadata.ts` (Modern Standard Arabic title and description);
    - run `npm run gen:ar` and commit the generated files (dynamic routes need a hand-written file marked `@custom-ar`, which the generator never overwrites);
-   - add the page to `src/app/sitemap.ts`;
-   - after `npm run build`, run `npm run gen:og` and commit `public/og/` (share cards).
+   - add the page to `src/app/sitemap.ts`.
+
+   Every page shares one share image, `/og-cover.jpg`, from the root metadata; don't add per-page share images.
 4. **Links:** import `Link` from `@/components/locale-link`, never `next/link`. Plain `<a>` tags to internal pages go through `localizeHref()`. Internal URLs end with `/`.
 5. **Arabic copy:** Egyptian colloquial is fine on community and tool pages; terms, privacy and anything legal use light Modern Standard Arabic. Western digits for prices and numbers. Don't rewrite the voice of an existing page.
 6. **Accuracy:** every fee comes from the university's or faculty's own page and is stored with its source URL and verification date (`src/data/programmes.ts`). No invented statistics, testimonials or unconfirmed claims about the owner.
