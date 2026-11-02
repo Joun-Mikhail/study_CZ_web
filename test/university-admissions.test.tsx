@@ -9,7 +9,7 @@ const site = (url: string) => new URL(url).hostname.split(".").slice(-2).join(".
 describe("university admission facts", () => {
   it("come from the university's own domain, with a check date and both languages", () => {
     const withFacts = universitiesV2.filter((u) => u.admissions);
-    expect(withFacts.map((u) => u.id)).toEqual(expect.arrayContaining(["muni", "zcu"]));
+    expect(withFacts.map((u) => u.id)).toEqual(expect.arrayContaining(["muni", "zcu", "vse", "mendelu"]));
     for (const u of withFacts) {
       expect(u.admissions!.checkedOn, u.id).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       for (const f of u.admissions!.facts) {
