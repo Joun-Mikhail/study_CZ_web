@@ -51,4 +51,11 @@ export const FEE_CHECKS: Record<string, FeeCheck> = {
 
   "czu-bsc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
   "czu-msc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
+
+  // UNYP re-sourced on 2026-11-02 after unyp.cz/programs/ returned 404.
+  "unyp-bsc-business-admin": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.unyp.cz/tuition-fees/", note: "Tuition overview 2026-2027: international (non-EU/EFTA) students 299,000 CZK (12,369 EUR) a year for European and 311,000 CZK (12,863 EUR) for American bachelor programmes; EU/EFTA 258,500 CZK (10,692 EUR). Charged in CZK; tuition depends on credits taken." },
+  "unyp-bsc-communication-media": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.unyp.cz/tuition-fees/", note: "Tuition overview 2026-2027: international (non-EU/EFTA) students 299,000 CZK (12,369 EUR) a year for European and 311,000 CZK (12,863 EUR) for American bachelor programmes; EU/EFTA 258,500 CZK (10,692 EUR). Charged in CZK; tuition depends on credits taken." },
+  "unyp-bsc-intl-relations": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.unyp.cz/tuition-fees/", note: "Tuition overview 2026-2027: international (non-EU/EFTA) students 299,000 CZK (12,369 EUR) a year for European and 311,000 CZK (12,863 EUR) for American bachelor programmes; EU/EFTA 258,500 CZK (10,692 EUR). Charged in CZK; tuition depends on credits taken." },
+  "unyp-bsc-psychology": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.unyp.cz/tuition-fees/", note: "Tuition overview 2026-2027: international (non-EU/EFTA) students 299,000 CZK (12,369 EUR) a year for European and 311,000 CZK (12,863 EUR) for American bachelor programmes; EU/EFTA 258,500 CZK (10,692 EUR). Charged in CZK; tuition depends on credits taken." },
+  "unyp-msc-psychology": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.unyp.cz/tuition-fees/", note: "Tuition overview 2026-2027 states 410,000 CZK (16,961 EUR) for the full duration of the Master's in Psychology, which the programme page gives as 2 years. Charged in CZK." },
 };
