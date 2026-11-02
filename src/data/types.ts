@@ -46,6 +46,11 @@ export type UniversityV2 = {
   blurb: { en: string; ar: string };
   fields: string[];
   verification: Verification;
+  /**
+   * University-wide admission facts, each stated on the university's own page
+   * (sourceUrl) on checkedOn. Only what that page says: no inferred rules.
+   */
+  admissions?: { checkedOn: string; facts: { en: string; ar: string; sourceUrl: string }[] };
 };
 
 export type DeadlineType = "regular" | "rolling" | "multiple-rounds";
