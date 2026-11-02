@@ -22,6 +22,31 @@ export const universitiesV2: UniversityV2[] = [
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
+    admissions: {
+      checkedOn: "2026-11-02",
+      facts: [
+        {
+          en: "Applications for the 2027/28 academic year open on 1 November 2026, through the e-application.",
+          ar: "يبدأ التقديم للعام الدراسي 2027/2028 في 1 نوفمبر 2026 عبر نظام الطلب الإلكتروني.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "The application fee for all bachelor's and master's programmes is 100 EUR, paid through the university's information system after you register the e-application, and it is not refundable.",
+          ar: "رسوم الطلب لجميع برامج البكالوريوس والماجستير 100 يورو، تُدفع عبر نظام المعلومات الجامعي بعد تسجيل الطلب الإلكتروني، ولا تُسترد.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "To be admitted you must pass the entrance exams, whose requirements depend on the programme.",
+          ar: "يُشترط للقبول اجتياز امتحانات القبول، وتختلف متطلباتها حسب البرنامج.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "VŠE assesses your foreign education as part of the admission process; separate recognition (nostrification) is needed only if VŠE has doubts about the level, extent or content of that education.",
+          ar: "تقيّم الجامعة شهاداتك الأجنبية ضمن إجراءات القبول، ولا يُطلب الاعتراف المنفصل بها (المعادلة) إلا إذا كانت لدى الجامعة شكوك في مستوى تلك الدراسة أو نطاقها أو محتواها.",
+          sourceUrl: "https://www.vse.cz/english/study-at-vse/assessing-foreign-education-in-the-admissions-process/",
+        },
+      ],
+    },
   },
   {
     id: "cuni",
@@ -184,6 +209,31 @@ export const universitiesV2: UniversityV2[] = [
       sourceUrl: "https://mendelu.cz/en/",
       sourceType: "official",
       verifiedBy: "studyczechia",
+    },
+    admissions: {
+      checkedOn: "2026-11-02",
+      facts: [
+        {
+          en: "Admission requirements differ for each faculty. You apply online and pay a non-refundable application fee.",
+          ar: "تختلف شروط القبول من كلية إلى أخرى. يُقدَّم الطلب إلكترونيًا مع دفع رسوم طلب غير قابلة للاسترداد.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "You provide certified copies of your certificates and transcript, proof of English proficiency and a copy of your passport, and you take an entrance exam.",
+          ar: "تقدّم نسخًا مصدّقة من شهاداتك وكشف الدرجات، وما يثبت إتقانك للغة الإنجليزية، ونسخة من جواز سفرك، ثم تؤدي امتحان قبول.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "Deadlines and the tuition fee for each programme are shown in the faculty's application form; you can also ask the faculty's international studies officer.",
+          ar: "تظهر المواعيد النهائية والرسوم الدراسية لكل برنامج في استمارة التقديم الخاصة بالكلية، ويمكنك أيضًا سؤال مسؤول الدراسات الدولية في الكلية.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "Programmes taught in Czech are free of charge within the standard length of study; the condition is passing the entrance exam in Czech.",
+          ar: "البرامج التي تُدرَّس بالتشيكية مجانية خلال المدة النظامية للدراسة، بشرط اجتياز امتحان القبول باللغة التشيكية.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+      ],
     },
   },
   {
