@@ -51,4 +51,8 @@ export const FEE_CHECKS: Record<string, FeeCheck> = {
 
   "czu-bsc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
   "czu-msc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
+
+  // ZČU re-sourced on 2026-11-02 after the old study-programmes page stopped resolving.
+  "zcu-msc-materials-electrical": { status: "verified", checkedOn: "2026-11-02", sourceUrl: "https://www.fel.zcu.cz/en/Admission/Master-studies/applying-to-fel.html", amount: 4000, currency: "EUR", academicYear: "2026/2027", note: "Faculty of Electrical Engineering page states: the tuition fee for studying in English in the academic year 2026/27 is 4000 EUR per year. The programme is on the faculty's list of Master programmes in English." },
+  "zcu-bsc-mgmt-digital-tech": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.fek.zcu.cz/en/obory.php?id=40", note: "Programme page confirms the English Bachelor's (4 years, with OTH Amberg-Weiden) but states no tuition fee." },
 };
