@@ -10,7 +10,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
 import { programmeTitle } from "@/lib/programme-title";
-import { feeVerified } from "@/lib/fee-source";
+import { programmeJsonLd } from "@/lib/programme-schema";
 import { programmeHubs, relatedProgrammes } from "@/lib/related-programmes";
 
 type Props = {
@@ -40,40 +40,7 @@ export default async function ProgrammePage({ params }: Props) {
   if (!prog) return notFound();
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: prog.name.en,
-    description: `${prog.degree} programme in ${prog.name.en} at ${uni?.name ?? prog.universityId}`,
-    provider: {
-      "@type": "CollegeOrUniversity",
-      // Same entity as the university page's own JSON-LD (src/lib/university-schema.ts)
-      ...(uni ? { "@id": `${SITE_URL}/university/${uni.id}/#university` } : {}),
-      name: uni?.name ?? prog.universityId,
-      url: uni?.website,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: uni?.city ?? "Czech Republic",
-        addressCountry: "CZ",
-      },
-    },
-    inLanguage: prog.language === "English" ? "en" : "cs",
-    timeToComplete: `P${prog.durationYears}Y`,
-    educationalLevel: prog.degree,
-    // State a price only when the linked source shows it.
-    ...(feeVerified(prog)
-      ? {
-          offers: {
-            "@type": "Offer",
-            price: prog.tuitionEurPerYear,
-            priceCurrency: "EUR",
-            category: "Tuition per academic year",
-          },
-        }
-      : {}),
-    url: `${SITE_URL}/programmes/${prog.id}/`,
-  };
+  const jsonLd = programmeJsonLd(prog);
 
   return (
     <div className="min-h-screen">
