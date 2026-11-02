@@ -51,4 +51,12 @@ export const FEE_CHECKS: Record<string, FeeCheck> = {
 
   "czu-bsc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
   "czu-msc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
+
+  // Re-sourced on 2026-11-02 after the old programme links returned 404.
+  "muni-msc-health-economics": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.muni.cz/en/bachelors-and-masters-study-programmes/26832-applied-health-economics", note: "Programme page states 120,000 CZK per academic year, without an academic year; charged in CZK." },
+  "muni-msc-ai-data": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.muni.cz/en/bachelors-and-masters-study-programmes/27699-artificial-intelligence-and-data-processing", note: "Programme page states €4,500 per academic year, without an academic year." },
+  "muni-msc-biochem-cellular": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.muni.cz/en/bachelors-and-masters-study-programmes/27001-biochemical-and-cellular-technologies", note: "Programme page states €3,200 per academic year (was listed as €3,000), without an academic year." },
+  "vsb-bsc-it": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.vsb.cz/en/study/degree-students/degree-studies/bachelor-degree/bachelor-degree-detail/?programmeId=771", note: "Programme page states 50,000 CZK per semester; VSB's tuition page says this applies from 2026/2027 (approx. EUR 4,000 a year). Charged in CZK." },
+  "vsb-msc-advanced-eng-materials": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.vsb.cz/en/study/degree-students/degree-studies/master-degree/master-degree-detail/?programmeId=849", note: "Programme page states 50,000 CZK per semester; VSB's tuition page says this applies from 2026/2027 (approx. EUR 4,000 a year). Charged in CZK." },
+  "vsb-bsc-applied-geology": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.vsb.cz/en/study/degree-students/degree-studies/bachelor-degree/bachelor-degree-detail/?programmeId=1126", note: "Programme page states 50,000 CZK per semester; VSB's tuition page says this applies from 2026/2027 (approx. EUR 4,000 a year). Charged in CZK." },
 };

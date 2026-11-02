@@ -27,7 +27,6 @@ export const BROKEN_SOURCES = new Set([
   "https://www.vutbr.cz/en/admission",
   "https://www.fit.vut.cz/study/program/.en",
   "https://www.vscht.cz/EN/study/programs",
-  "https://www.vsb.cz/en/study/study-programmes/",
 ]);
 
 /** Academic years a verified fee may apply to; a fee checked for an older year is only pending. */
