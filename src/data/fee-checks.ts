@@ -51,4 +51,11 @@ export const FEE_CHECKS: Record<string, FeeCheck> = {
 
   "czu-bsc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
   "czu-msc-economics-management": { status: "unverified", checkedOn: D, sourceUrl: CZU, note: "Source now redirects to an unrelated research-group news page." },
+
+  // VŠE and BUT re-sourced on 2026-11-02 after the old admission pages returned 404.
+  "vse-bba-intl-business": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://admissions.vse.cz/admission-procedure/", note: "States 6,000 EUR/academic year for bachelor programmes, with footnotes: 5,000 EUR for students admitted before 2027/2028, 3,800 EUR before 2023/2024. Applications for 2027/28 open 1 Nov 2026. Another section of the same page still says 5,000 EUR." },
+  "vse-msc-intl-business": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://admissions.vse.cz/admission-procedure/", note: "States 6,000 EUR/academic year for master programmes, with footnotes: 5,000 EUR for students admitted before 2027/2028, 3,800 EUR before 2023/2024. Another section of the same page still says 5,000 EUR." },
+  "vse-msc-finance-accounting": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://admissions.vse.cz/admission-procedure/", note: "States 6,000 EUR/academic year for master programmes, with footnotes: 5,000 EUR for students admitted before 2027/2028, 3,800 EUR before 2023/2024. Another section of the same page still says 5,000 EUR." },
+  "but-msc-information-technology": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.vut.cz/en/study-options/degree-studies-en/study-programmes/programme/10337", note: "Programme page for academic year 2027/2028 states 3000 EUR/academic year for EU and non-EU students; 2027/2028 is not yet an applicable year." },
+  "but-bsc-civil-engineering": { status: "pending", checkedOn: "2026-11-02", sourceUrl: "https://www.vut.cz/en/study-options/degree-studies-en/study-programmes/programme/10052", note: "Programme page confirms a Bachelor's taught in English (2027/2028) but states no tuition fee; BUT's English-studies page says only that studies in English are paid." },
 };
