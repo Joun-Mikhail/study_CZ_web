@@ -34,7 +34,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/arrival/",
     title: "Just Landed in Czechia? Start Here",
     description:
-      "Just arrived in Czechia? Here's what foreign police registration is, your deadline, and what to do first — free. Plus a paid first-two-weeks arrival plan if you want it handled for you.",
+      "Just arrived in Czechia? What foreign police registration is, your deadline and what to do first, free. Or a paid two-week arrival plan that handles it for you.",
     keywords: {
       en: ["arrival", "foreign police", "residence", "bank account", "SIM card", "transport", "insurance", "accommodation", "dorm"],
       ar: ["وصول", "شرطة الأجانب", "تسجيل", "إقامة", "حساب بنكي", "شريحة", "مواصلات", "تأمين", "سكن"],
@@ -53,7 +53,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/services/",
     title: "Services: Study in Czechia",
     description:
-      "Personal guidance for Arabic-speaking students applying to Czech universities. Document review, embassy interview prep, arrival support, and full application packages.",
+      "Personal help for Arabic-speaking students applying to Czech universities: document review, embassy interview prep, arrival support and full application packages.",
     keywords: {
       en: ["help", "support", "consultation", "visa", "pricing"],
       ar: ["خدمات", "مساعدة", "استشارة", "مراجعة الأوراق", "مقابلة", "تأشيرة", "فيزا", "أسعار"],
@@ -63,7 +63,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/interview-prep/",
     title: "Czech Embassy Student Visa Interview Prep",
     description:
-      "Live 45-minute mock embassy interview with real questions, feedback, and a cheat sheet. Coached by a student who lives in Czechia and knows what officers actually test.",
+      "Live 45-minute mock embassy interview with real questions, feedback and a cheat sheet, coached by a student who lives in Czechia and knows what officers test.",
     keywords: { en: ["visa interview", "embassy questions"], ar: ["مقابلة", "سفارة", "تأشيرة", "فيزا"] },
   },
   {
@@ -79,7 +79,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/what-it-costs/",
     title: "Cost of Studying in Czechia in 2027: Tuition, Living and Visa",
     description:
-      "What studying in the Czech Republic costs: English tuition by degree, monthly living costs in Prague, Brno and Ostrava, the visa money and fees, and a whole-degree estimate. Every figure says where it comes from.",
+      "What studying in Czechia costs: English tuition by degree, living costs in Prague, Brno and Ostrava, visa money and fees, and a whole-degree estimate, all sourced.",
     keywords: {
       en: ["price", "budget", "insurance", "dorm", "fees", "calculator", "total"],
       ar: ["تكلفة", "تكاليف", "رسوم", "مصاريف", "تأشيرة", "فيزا", "ميزانية", "مصاريف الدراسة"],
@@ -96,7 +96,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/deadlines/",
     title: "Czech University Application Deadlines 2027",
     description:
-      "Application deadlines for Czech universities, most at the end of February. Track English-taught programmes and plan a Czech language (foundation) year to study in Czech for free.",
+      "Czech university application deadlines, most at the end of February. Track English-taught programmes and plan a Czech language year to study in Czech for free.",
     keywords: { en: ["deadline tracker", "dates", "when to apply", "entrance exam"], ar: ["مواعيد", "موعد", "تقديم", "امتحان القبول"] },
   },
   {
@@ -123,14 +123,14 @@ export const SITE_PAGES: SitePage[] = [
     path: "/recognition/egypt/",
     title: "Is a Czech Degree Recognised in Egypt? Equivalency Step by Step",
     description:
-      "How Egypt's Supreme Council of Universities makes a Czech degree equivalent: conditions, legalisation, documents, fees and where to send them. From official sources only, with the date checked.",
+      "How Egypt's Supreme Council of Universities makes a Czech degree equivalent: conditions, legalisation, documents, fees and where to send them, from official sources.",
     keywords: { en: ["recognition", "nostrification", "recognized"], ar: ["معادلة", "اعتراف"] },
   },
   {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, Money and Appointment",
     description:
-      "How to apply for a Czech long-term study visa at the embassy in Cairo: documents, the 115,810 CZK proof of funds, the email appointment rules, fee and processing time. From official sources only, with the date checked.",
+      "Czech study visa from Egypt: documents, 115,810 CZK proof of funds, booking the Cairo embassy appointment by email, fee and processing time, from official sources.",
     keywords: {
       en: ["visa", "embassy", "Cairo", "Egypt", "criminal record", "bank statement", "proof of funds"],
       ar: ["فيزا", "تأشيرة", "السفارة", "القاهرة", "مصر", "فيش جنائي", "كشف حساب"],
@@ -140,28 +140,28 @@ export const SITE_PAGES: SitePage[] = [
     path: "/recognition/jordan/",
     title: "Is a Czech Degree Recognised in Jordan? Equivalency Step by Step",
     description:
-      "How Jordan's Ministry makes a Czech degree equivalent: recognised Czech universities, the language and residence rules, documents, fees and how to apply. From official sources only, with the date checked.",
+      "How Jordan's Ministry makes a Czech degree equivalent: recognised universities, language and residence rules, documents, fees and applying, from official sources.",
     keywords: { en: ["recognition", "nostrification", "recognized"], ar: ["معادلة", "اعتراف"] },
   },
   {
     path: "/recognition/saudi-arabia/",
     title: "Is a Czech Degree Recognised in Saudi Arabia? Equivalency Step by Step",
     description:
-      "How Saudi Arabia's Ministry of Education makes a Czech degree equivalent: prior approval for self-funded study, classified universities, in-person study, and the online application. From official sources only, with the date checked.",
+      "How Saudi Arabia's Ministry of Education makes a Czech degree equivalent: prior approval, classified universities, in-person study, how to apply. Official sources.",
     keywords: { en: ["recognition", "nostrification", "recognized", "KSA"], ar: ["معادلة", "اعتراف"] },
   },
   {
     path: "/for-parents/",
     title: "For Parents: Cost, Safety and How Payment Works",
     description:
-      "What studying in Czechia costs, how safe it is, who runs Study Czechia, and how paying for help works: payment in two steps, refunds, receipts and how to reach John directly.",
+      "What studying in Czechia costs, how safe it is, who runs Study Czechia, and how paying for help works: two-step payment, refunds, receipts, direct contact with John.",
     keywords: { en: ["family", "parent"], ar: ["أولياء الأمور", "أهل", "أمان", "دفع", "استرداد"] },
   },
   {
     path: "/questions-to-ask/",
     title: "Top Edu, MSM Academy or Another Agency? Ask These 8 Questions First",
     description:
-      "Comparing Top Edu, MSM Academy or another agency for studying in Czechia? Eight questions to ask before you pay any agency, including us. Study Czechia is not connected to these companies.",
+      "Comparing Top Edu, MSM Academy or another agency for Czechia? Eight questions to ask before you pay any agency, us included. We aren't connected to these companies.",
     keywords: { en: ["agencies", "scam"], ar: ["وكالة", "وكالات", "نصب"] },
   },
   {
@@ -175,21 +175,21 @@ export const SITE_PAGES: SitePage[] = [
     path: "/why-czechia/",
     title: "Why Study in Czechia: Costs, Cities and Programmes",
     description:
-      "Why international students choose Czechia: free or low tuition, English programmes, safe cities and an EU degree. Key facts, verified figures and programmes by field and city.",
+      "Why international students choose Czechia: free or low tuition, English programmes, safe cities and an EU degree. Verified figures, programmes by field and city.",
     keywords: { en: ["Czech Republic", "Europe"], ar: ["تشيكيا", "أوروبا", "لماذا"] },
   },
   {
     path: "/university-matcher/",
     title: "Czech University Matcher: Find Your Programme",
     description:
-      "Find your programme at Czech universities in a few questions, matched by field, budget, city and language: English-taught, or Czech-taught and free at public universities.",
+      "Find your programme at Czech universities in a few questions, by field, budget, city and language: taught in English, or in Czech and free at public universities.",
     keywords: { en: ["quiz", "which university"], ar: ["اختبار", "اختيار", "جامعة"] },
   },
   {
     path: "/universities/",
     title: "Czech Universities: English Programmes, Fees and Deadlines",
     description:
-      "Czech universities such as Charles University, VUT Brno and ČVUT: search English-taught programmes by field, city, degree and tuition, with fees from official university pages.",
+      "Czech universities like Charles University, VUT Brno and ČVUT: search English-taught programmes by field, city, degree and tuition, with fees from university pages.",
     keywords: { en: [], ar: ["جامعات"] },
   },
   {

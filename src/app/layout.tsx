@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     template: "%s | Study Czechia",
   },
   description:
-    "Your complete guide to study in Czech Republic. Explore free programs in Czechia, Charles University, VUT, CTU, and Mendel University. Check deadlines, costs, and eligibility.",
+    "Free, independent guide to study in Czechia: admission, deadlines, costs. Czech-taught degrees at public universities are tuition-free; English ones usually aren't.",
   authors: [{ name: "Study Czechia" }],
   openGraph: {
     siteName: "Study Czechia",
