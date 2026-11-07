@@ -60,8 +60,8 @@ describe("fee status", () => {
     const count = (s: string) => programmes.filter((p) => feeStatus(p) === s).length;
     expect({ verified: count("verified"), pending: count("pending"), unverified: count("unverified") }).toEqual({
       verified: 4,
-      pending: 28,
-      unverified: 59,
+      pending: 34,
+      unverified: 53,
     });
   });
 });
@@ -76,10 +76,10 @@ describe("fee review records", () => {
     }
   });
 
-  it("count 4 verified and 30 reviewed-but-unconfirmed fees, derived from the records", () => {
+  it("count 4 verified and 36 reviewed-but-unconfirmed fees, derived from the records", () => {
     const reviewed = programmes.filter((p) => feeReviewedOn(p));
     expect(reviewed.filter(feeVerified)).toHaveLength(4);
-    expect(reviewed.filter((p) => !feeVerified(p))).toHaveLength(30);
+    expect(reviewed.filter((p) => !feeVerified(p))).toHaveLength(36);
   });
 
   it("keep the review date separate from the fee status", () => {
