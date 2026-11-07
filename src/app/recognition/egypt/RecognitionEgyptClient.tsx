@@ -68,7 +68,7 @@ const en: GuideCopy = {
     embassyLegalisation: "Czech Embassy in Cairo: superlegalisation",
     embassyStudyVisa: "Czech Embassy in Cairo: long-term study visa",
     czRegister: "Czech Ministry of Education: register of universities",
-    czNostrification: "Czech government portal: who recognises foreign secondary certificates",
+    czNostrification: "Czech Ministry of Education: who recognises foreign secondary certificates (in Czech)",
   },
   source: "Source",
 };
@@ -134,7 +134,7 @@ const ar: GuideCopy = {
     embassyLegalisation: "السفارة التشيكية في القاهرة: التصديق (Superlegalization)",
     embassyStudyVisa: "السفارة التشيكية في القاهرة: تأشيرة الدراسة طويلة الأجل",
     czRegister: "وزارة التعليم التشيكية: سجل الجامعات",
-    czNostrification: "البوابة الحكومية التشيكية: من يعادل شهادات الثانوية الأجنبية",
+    czNostrification: "وزارة التعليم التشيكية: من يعادل شهادات الثانوية الأجنبية (بالتشيكية)",
   },
   source: "المصدر",
 };

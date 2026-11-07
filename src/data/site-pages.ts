@@ -137,6 +137,16 @@ export const SITE_PAGES: SitePage[] = [
     },
   },
   {
+    path: "/thanaweya-amma-czech-university/",
+    title: "Thanaweya Amma to a Czech University: Legalisation and Nostrification",
+    description:
+      "Egyptian secondary certificate for Czech universities: superlegalisation in Cairo, faculty recognition or nostrification (3,000 CZK, 30 days), from official sources.",
+    keywords: {
+      en: ["Thanaweya Amma", "secondary certificate", "nostrification", "superlegalisation", "legalization", "high school"],
+      ar: ["الثانوية العامة", "معادلة", "تصديق", "نوستريفيكيشن", "السفارة", "شهادة الثانوية"],
+    },
+  },
+  {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:

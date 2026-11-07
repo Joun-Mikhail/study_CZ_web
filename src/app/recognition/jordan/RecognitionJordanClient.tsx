@@ -11,7 +11,7 @@ const SOURCES = {
   rceApp: "https://rceapp.mohe.gov.jo/",
   embassyAmman: "https://mzv.gov.cz/amman/en/visa_and_consular_information/verifications_legalizations_and/index.html",
   czRegister: "https://regvssp.msmt.cz/registrvssp/",
-  czNostrification: "https://portal.gov.cz/en/sluzby-vs/recognition-of-foreign-education-nostrification-provided-by-a-foreign-school-in-agreement-with-the-ministry-S5904",
+  czNostrification: "https://msmt.gov.cz/vzdelavani/uznavani-zahranicniho-a-ceskeho-studia/uznani-zahranicniho-vzdelani-s-vyjimkou-vs",
 } as const;
 
 const QA_LINK = { en: "Nostrification documents (Q&A)", ar: "أوراق النوستريفيكاتسي (الأسئلة الشائعة)" };
@@ -74,7 +74,7 @@ const en: GuideCopy = {
     rceApp: "Jordan Ministry: online equivalency application",
     embassyAmman: "Czech Embassy in Amman: verifications and superlegalisations",
     czRegister: "Czech Ministry of Education: register of universities",
-    czNostrification: "Czech government portal: who recognises foreign secondary certificates",
+    czNostrification: "Czech Ministry of Education: who recognises foreign secondary certificates (in Czech)",
   },
   source: "Source",
 };
@@ -137,7 +137,7 @@ const ar: GuideCopy = {
     rceApp: "الوزارة الأردنية: طلب المعادلة الإلكتروني",
     embassyAmman: "السفارة التشيكية في عمّان: التصديقات",
     czRegister: "وزارة التعليم التشيكية: سجل الجامعات",
-    czNostrification: "البوابة الحكومية التشيكية: من يعادل شهادات الثانوية الأجنبية",
+    czNostrification: "وزارة التعليم التشيكية: من يعادل شهادات الثانوية الأجنبية (بالتشيكية)",
   },
   source: "المصدر",
 };
