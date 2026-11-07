@@ -127,6 +127,16 @@ export const SITE_PAGES: SitePage[] = [
     keywords: { en: ["recognition", "nostrification", "recognized"], ar: ["معادلة", "اعتراف"] },
   },
   {
+    path: "/study-in-czechia-from-egypt/",
+    title: "Study in Czechia from Egypt: The Whole Path, Step by Step",
+    description:
+      "For Egyptian students: from Thanaweya Amma to your first week in Czechia. Eligibility, Czech or English, deadlines, costs, the Cairo visa and degree recognition.",
+    keywords: {
+      en: ["Egypt", "Egyptian", "Thanaweya Amma", "steps", "how to apply", "Cairo"],
+      ar: ["مصر", "المصريين", "الثانوية العامة", "خطوات", "إزاي أقدم", "القاهرة"],
+    },
+  },
+  {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:

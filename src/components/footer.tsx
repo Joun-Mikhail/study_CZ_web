@@ -88,6 +88,8 @@ export function Footer() {
             </h2>
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/why-czechia" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "ليه التشيك" : "Why Czechia"}</Link></li>
+              <li><Link href="/study-in-czechia-from-egypt" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "الدراسة من مصر" : "Studying from Egypt"}</Link></li>
+              <li><Link href="/student-visa-egypt" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "تأشيرة الدراسة من مصر" : "Student Visa from Egypt"}</Link></li>
               <li><Link href="/cost-of-living" className="text-text-secondary hover:text-brand transition-colors">{t.nav.costOfLiving}</Link></li>
               <li><Link href="/application-guide" className="text-text-secondary hover:text-brand transition-colors">{t.nav.guide}</Link></li>
               <li><Link href="/recognition" className="text-text-secondary hover:text-brand transition-colors">{locale === "ar" ? "معادلة الشهادة" : "Degree Recognition"}</Link></li>
