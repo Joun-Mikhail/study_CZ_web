@@ -5,7 +5,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 /** Arabic titles and descriptions for the static pages (Modern Standard Arabic for search). */
 export const AR_PAGE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "الدراسة في التشيك: شروط القبول والمواعيد والتكاليف",
+    // The homepage title skips the "| Study Czechia" template, so it names the brand itself.
+    title: "الدراسة في التشيك: شروط القبول والمواعيد والتكاليف | Study Czechia",
     description:
       "دليل مستقل ومجاني للدراسة في التشيك: القبول والمواعيد والتكاليف. الدراسة بالتشيكية في الجامعات العامة بلا رسوم دراسية مع استثناءات ورسوم أخرى، وبالإنجليزية غالبًا برسوم.",
   },

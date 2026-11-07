@@ -59,7 +59,9 @@ const ORG_ID = `${SITE_URL}/#organization`;
 
 export const metadata: Metadata = {
   title: {
-    default: "Study in Czechia | Free Universities, Deadlines & Eligibility",
+    // Starts with the brand so a search for "Study Czechia" finds this site,
+    // not the official "Study in Czechia" programme (studyin.cz) it is often confused with.
+    default: "Study Czechia: Your Guide to Studying in the Czech Republic",
     template: "%s | Study Czechia",
   },
   description:
@@ -117,7 +119,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 "@id": ORG_ID,
                 name: "Study Czechia",
-                alternateName: "studyczechia",
+                alternateName: ["StudyCzechia", "studyczechia.com"],
                 url: `${SITE_URL}/`,
                 // The Study Czechia logo (same image as the favicon and app icons).
                 logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 },
@@ -136,7 +138,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 name: "Study Czechia",
-                alternateName: "studyczechia",
+                alternateName: ["StudyCzechia", "studyczechia.com"],
                 url: `${SITE_URL}/`,
                 inLanguage: ["en", "ar"],
                 publisher: { "@id": ORG_ID },
