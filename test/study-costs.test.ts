@@ -21,7 +21,7 @@ describe("study costs", () => {
 
   it("keeps a source for every official figure", () => {
     for (const fig of Object.values(OFFICIAL)) {
-      expect(fig.url).toMatch(/^https:\/\/(studyin\.gov\.cz|frs\.gov\.cz|mzv\.gov\.cz)\//);
+      expect(fig.url).toMatch(/^https:\/\/(studyin\.gov\.cz|frs\.gov\.cz|ipc\.gov\.cz|mzv\.gov\.cz)\//);
       expect(fig.checked).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
   });

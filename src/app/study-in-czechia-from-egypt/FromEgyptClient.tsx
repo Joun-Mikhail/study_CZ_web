@@ -59,6 +59,7 @@ const en = {
         { href: "/what-it-costs", label: "What it costs" },
         { href: "/cost-of-living", label: "Cost of living" },
         { href: "/scholarships", label: "Scholarships" },
+        { href: "/work-while-studying", label: "Working while studying" },
       ],
     },
     {
@@ -130,6 +131,7 @@ const ar: typeof en = {
         { href: "/what-it-costs", label: "التكاليف الحقيقية" },
         { href: "/cost-of-living", label: "تكاليف المعيشة" },
         { href: "/scholarships", label: "المنح" },
+        { href: "/work-while-studying", label: "الشغل أثناء الدراسة" },
       ],
     },
     {

@@ -48,6 +48,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   "saudi-arabia": { en: "Saudi Arabia", ar: "السعودية" },
   "student-visa-egypt": { en: "Student Visa from Egypt", ar: "تأشيرة الدراسة من مصر" },
   "thanaweya-amma-czech-university": { en: "Thanaweya Amma", ar: "الثانوية العامة" },
+  "work-while-studying": { en: "Working While Studying", ar: "العمل أثناء الدراسة" },
   "study-in-czechia-from-egypt": { en: "Studying from Egypt", ar: "الدراسة من مصر" },
 };
 

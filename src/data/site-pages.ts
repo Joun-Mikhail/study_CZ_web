@@ -147,6 +147,16 @@ export const SITE_PAGES: SitePage[] = [
     },
   },
   {
+    path: "/work-while-studying/",
+    title: "Working While Studying in Czechia: Rules for Foreign Students",
+    description:
+      "Can international students work in Czechia? Free access to the labour market for full-time students, and the 9-month job-seeking permit after graduation.",
+    keywords: {
+      en: ["work", "job", "part-time", "work permit", "after graduation", "employment"],
+      ar: ["شغل", "عمل", "وظيفة", "تصريح عمل", "بعد التخرج", "بارت تايم"],
+    },
+  },
+  {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:
