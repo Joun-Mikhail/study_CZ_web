@@ -92,6 +92,7 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/study-in-czechia-from-egypt", priority: 0.9, sources: ["src/app/study-in-czechia-from-egypt"] },
   { route: "/thanaweya-amma-czech-university", priority: 0.8, sources: ["src/app/thanaweya-amma-czech-university", "src/app/recognition/RecognitionGuide.tsx"] },
   { route: "/work-while-studying", priority: 0.7, sources: ["src/app/work-while-studying", "src/app/recognition/RecognitionGuide.tsx"] },
+  { route: "/student-housing", priority: 0.7, sources: ["src/app/student-housing", "src/data/dorm-prices.ts"] },
   { route: "/student-visa-egypt", priority: 0.8, sources: ["src/app/student-visa-egypt", "src/app/recognition/RecognitionGuide.tsx"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },

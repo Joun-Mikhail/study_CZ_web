@@ -58,6 +58,7 @@ const en = {
       links: [
         { href: "/what-it-costs", label: "What it costs" },
         { href: "/cost-of-living", label: "Cost of living" },
+        { href: "/student-housing", label: "Dorm prices" },
         { href: "/scholarships", label: "Scholarships" },
         { href: "/work-while-studying", label: "Working while studying" },
       ],
@@ -130,6 +131,7 @@ const ar: typeof en = {
       links: [
         { href: "/what-it-costs", label: "التكاليف الحقيقية" },
         { href: "/cost-of-living", label: "تكاليف المعيشة" },
+        { href: "/student-housing", label: "أسعار السكن الجامعي" },
         { href: "/scholarships", label: "المنح" },
         { href: "/work-while-studying", label: "الشغل أثناء الدراسة" },
       ],

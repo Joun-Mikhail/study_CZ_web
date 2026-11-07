@@ -157,6 +157,16 @@ export const SITE_PAGES: SitePage[] = [
     },
   },
   {
+    path: "/student-housing/",
+    title: "Student Housing in Czechia: University Dorm Prices in Prague and Brno",
+    description:
+      "What a university dorm bed costs in Prague and Brno: Charles University, ČVUT, Masaryk and VUT price lists, per night and for a month, from official sources.",
+    keywords: {
+      en: ["dorm", "dormitory", "housing", "accommodation", "rent", "kolej"],
+      ar: ["سكن", "سكن جامعي", "إيجار", "مدينة جامعية", "إقامة"],
+    },
+  },
+  {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:
