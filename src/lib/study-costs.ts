@@ -19,20 +19,20 @@ export const OFFICIAL = {
     checked: "2026-10-18",
   },
   visaFeeCairoEgp: {
-    value: 6029,
-    validFrom: { en: "1 October 2026", ar: "1 أكتوبر 2026" },
+    value: 6412,
+    validFrom: { en: "1 November 2026", ar: "1 نوفمبر 2026" },
     url: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_and_visa_fees/index.html",
-    checked: "2026-10-18",
+    checked: "2026-11-07",
   },
   superlegalisationCairoEgp: {
-    value: 2894,
+    value: 3078,
     url: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_and_visa_fees/index.html",
-    checked: "2026-10-18",
+    checked: "2026-11-07",
   },
   /** Full-time students of an accredited university programme need no separate work permit. */
   workFreeAccess: {
-    url: "https://frs.gov.cz/en/life-in-the-czech-republic/free-access-to-the-labour-market/",
-    checked: "2026-10-27",
+    url: "https://ipc.gov.cz/en/life-in-the-czech-republic/free-access-to-the-labour-market/",
+    checked: "2026-11-07",
   },
 } as const;
 

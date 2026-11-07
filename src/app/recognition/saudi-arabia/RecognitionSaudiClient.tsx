@@ -8,7 +8,7 @@ const SOURCES = {
   moePortal: "https://eqs.moe.gov.sa/Account/Register",
   hcch: "https://www.hcch.net/en/instruments/conventions/status-table/?cid=41",
   czRegister: "https://regvssp.msmt.cz/registrvssp/",
-  czNostrification: "https://portal.gov.cz/en/sluzby-vs/recognition-of-foreign-education-nostrification-provided-by-a-foreign-school-in-agreement-with-the-ministry-S5904",
+  czNostrification: "https://msmt.gov.cz/vzdelavani/uznavani-zahranicniho-a-ceskeho-studia/uznani-zahranicniho-vzdelani-s-vyjimkou-vs",
 } as const;
 
 const QA_LINK = { en: "Nostrification documents (Q&A)", ar: "أوراق النوستريفيكاتسي (الأسئلة الشائعة)" };
@@ -65,7 +65,7 @@ const en: GuideCopy = {
     moePortal: "Saudi Ministry of Education: equivalency portal",
     hcch: "Hague Conference: Apostille Convention status table",
     czRegister: "Czech Ministry of Education: register of universities",
-    czNostrification: "Czech government portal: who recognises foreign secondary certificates",
+    czNostrification: "Czech Ministry of Education: who recognises foreign secondary certificates (in Czech)",
   },
   source: "Source",
 };
@@ -122,7 +122,7 @@ const ar: GuideCopy = {
     moePortal: "وزارة التعليم السعودية: بوابة معادلة الشهادات",
     hcch: "مؤتمر لاهاي: جدول الدول الأطراف في اتفاقية الأبوستيل",
     czRegister: "وزارة التعليم التشيكية: سجل الجامعات",
-    czNostrification: "البوابة الحكومية التشيكية: من يعادل شهادات الثانوية الأجنبية",
+    czNostrification: "وزارة التعليم التشيكية: من يعادل شهادات الثانوية الأجنبية (بالتشيكية)",
   },
   source: "المصدر",
 };

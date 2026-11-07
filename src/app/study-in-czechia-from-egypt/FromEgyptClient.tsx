@@ -22,6 +22,7 @@ const en = {
       title: "Check that you can apply",
       body: "Your Thanaweya Amma certificate has to be legalised first, then recognised in Czechia: by nostrification, or within a university's admission procedure.",
       links: [
+        { href: "/thanaweya-amma-czech-university", label: "Thanaweya Amma step by step" },
         { href: "/eligibility", label: "Eligibility check" },
         { href: "/qa/#docs-nostrification", label: "Nostrification questions" },
       ],
@@ -58,6 +59,7 @@ const en = {
         { href: "/what-it-costs", label: "What it costs" },
         { href: "/cost-of-living", label: "Cost of living" },
         { href: "/scholarships", label: "Scholarships" },
+        { href: "/work-while-studying", label: "Working while studying" },
       ],
     },
     {
@@ -92,6 +94,7 @@ const ar: typeof en = {
       title: "تأكد أنك تقدر تقدم",
       body: "شهادة الثانوية العامة لازم تتوثق الأول، وبعدها تتعادل في التشيك: إما بالنوستريفيكيشن، أو داخل إجراءات القبول في الجامعة.",
       links: [
+        { href: "/thanaweya-amma-czech-university", label: "الثانوية العامة خطوة بخطوة" },
         { href: "/eligibility", label: "أقدر أقدم؟" },
         { href: "/qa/#docs-nostrification", label: "أسئلة النوستريفيكيشن" },
       ],
@@ -128,6 +131,7 @@ const ar: typeof en = {
         { href: "/what-it-costs", label: "التكاليف الحقيقية" },
         { href: "/cost-of-living", label: "تكاليف المعيشة" },
         { href: "/scholarships", label: "المنح" },
+        { href: "/work-while-studying", label: "الشغل أثناء الدراسة" },
       ],
     },
     {
