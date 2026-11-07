@@ -8,7 +8,7 @@ import { HreflangDefault } from "@/components/hreflang-default";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { MotionFallback } from "@/components/motion-fallback";
 import { ToastProvider } from "@/components/ui/toast";
-import { FOUNDER_NAME } from "@/config/contact";
+import { CONTACT_EMAIL, FACEBOOK_GROUP_URL, FOUNDER_NAME } from "@/config/contact";
 import "./globals.css";
 
 // Text and interface.
@@ -47,6 +47,16 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 
+// Search Console / Bing Webmaster ownership tags. Optional: set them in
+// Netlify's environment variables (they are public tokens, not secrets).
+// Verifying through a DNS TXT record works too and needs neither.
+const GOOGLE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+
+// One Organization node that the WebSite and the founder both point to, so
+// search engines connect the brand name, logo and community into one entity.
+const ORG_ID = `${SITE_URL}/#organization`;
+
 export const metadata: Metadata = {
   title: {
     default: "Study in Czechia | Free Universities, Deadlines & Eligibility",
@@ -77,6 +87,14 @@ export const metadata: Metadata = {
     ? { index: true, follow: true, googleBot: { index: true, follow: true } }
     : { index: false, follow: false },
   metadataBase: new URL(SITE_URL),
+  ...(GOOGLE_VERIFICATION || BING_VERIFICATION
+    ? {
+        verification: {
+          ...(GOOGLE_VERIFICATION ? { google: GOOGLE_VERIFICATION } : {}),
+          ...(BING_VERIFICATION ? { other: { "msvalidate.01": BING_VERIFICATION } } : {}),
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({
@@ -96,10 +114,32 @@ export default function RootLayout({
             __html: JSON.stringify([
               {
                 "@context": "https://schema.org",
+                "@type": "Organization",
+                "@id": ORG_ID,
+                name: "Study Czechia",
+                alternateName: "studyczechia",
+                url: `${SITE_URL}/`,
+                // The Study Czechia logo (same image as the favicon and app icons).
+                logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 },
+                email: CONTACT_EMAIL,
+                description:
+                  "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
+                // Same wording as the footer: the name is close to the official programme's.
+                disambiguatingDescription:
+                  "Independent, student-run guide. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.cz).",
+                areaServed: { "@type": "Country", name: "Czech Republic" },
+                knowsLanguage: ["en", "ar"],
+                // The community the footer links to.
+                sameAs: [FACEBOOK_GROUP_URL],
+              },
+              {
+                "@context": "https://schema.org",
                 "@type": "WebSite",
                 name: "Study Czechia",
                 alternateName: "studyczechia",
-                url: SITE_URL,
+                url: `${SITE_URL}/`,
+                inLanguage: ["en", "ar"],
+                publisher: { "@id": ORG_ID },
                 potentialAction: {
                   "@type": "SearchAction",
                   target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/search/?q={search_term_string}` },
@@ -111,10 +151,9 @@ export default function RootLayout({
                 "@type": "Person",
                 name: FOUNDER_NAME,
                 jobTitle: "Founder",
-                worksFor: { "@type": "Organization", name: "Study Czechia", url: SITE_URL },
+                worksFor: { "@id": ORG_ID },
                 alumniOf: { "@type": "CollegeOrUniversity", name: "Brno University of Technology" },
                 knowsLanguage: ["ar", "en", "cs"],
-                sameAs: ["https://www.facebook.com/groups/czechiastudents"],
               },
             ]),
           }}
