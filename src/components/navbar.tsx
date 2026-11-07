@@ -211,6 +211,7 @@ export function Navbar() {
     guides: {
       label: locale === "ar" ? "أدلة" : "Guides",
       items: [
+        { href: "/study-in-czechia-from-egypt", label: locale === "ar" ? "الدراسة من مصر" : "Studying from Egypt" },
         { href: "/application-guide", label: t.nav.guide },
         { href: "/qa", label: t.nav.qa },
         { href: "/what-it-costs", label: locale === "ar" ? "التكاليف الحقيقية" : "What It Actually Costs" },
