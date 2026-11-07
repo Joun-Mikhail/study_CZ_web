@@ -14,6 +14,7 @@
     "a11y": "node tools/a11y-check.mjs"
   },
   "dependencies": {
+    "@netlify/blobs": "^8.2.0",
     "cobe": "^0.6.3",
     "framer-motion": "^13.0.0",
     "lucide-react": "^1.30.0",

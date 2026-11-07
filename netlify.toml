@@ -1,6 +1,10 @@
 [build]
-  command = "npm run build"
+  command = "node tools/fetch-course-content.mjs && npm run build"
   publish = "out"
+
+# Paid course content, downloaded at build time (never in the repo or out/).
+[functions]
+  included_files = ["netlify/course-content/**"]
 
 [build.environment]
   NODE_VERSION = "22"
