@@ -101,7 +101,7 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/preparatory-year/",
-    title: "Free Study in Czechia: Czech Language Preparatory Year",
+    title: "Czech Language Preparatory Year: Study Free in Czechia",
     description:
       "Public Czech universities are free when you study in Czech. Guide to the preparatory language year: providers, prices, visa and enrolment steps.",
     keywords: { en: ["foundation year", "free tuition"], ar: ["سنة تحضيرية", "لغة تشيكية", "مجاني", "فيزا"] },
@@ -128,7 +128,7 @@ export const SITE_PAGES: SitePage[] = [
   },
   {
     path: "/student-visa-egypt/",
-    title: "Czech Student Visa from Egypt: Documents, Money and Appointment",
+    title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:
       "Czech study visa from Egypt: documents, 115,810 CZK proof of funds, booking the Cairo embassy appointment by email, fee and processing time, from official sources.",
     keywords: {
