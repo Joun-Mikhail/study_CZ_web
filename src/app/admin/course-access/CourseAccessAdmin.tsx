@@ -59,9 +59,9 @@ export default function CourseAccessAdmin() {
   const copy = (text: string) => navigator.clipboard?.writeText(text).catch(() => {});
 
   const input =
-    "w-full px-4 py-3 rounded-xl bg-midnight/50 border border-border-subtle text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-amber/50";
+    "w-full px-4 py-3 rounded-xl bg-bg/50 border border-border-subtle text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand/50";
   const button =
-    "px-4 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-midnight";
+    "px-4 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
   return (
     <main className="min-h-screen px-4 py-16">
@@ -90,10 +90,10 @@ export default function CourseAccessAdmin() {
             <input type="text" maxLength={200} value={note} onChange={(e) => setNote(e.target.value)} placeholder="InstaPay 12 Oct / refunded" className={input} />
           </label>
           <div className="flex flex-wrap gap-2">
-            <button type="button" disabled={!!busy} onClick={() => run("link")} className={`${button} bg-amber text-midnight`}>
+            <button type="button" disabled={!!busy} onClick={() => run("link")} className={`${button} bg-brand text-bg`}>
               {busy === "link" ? "Checking Stripe…" : "Create link (device change)"}
             </button>
-            <button type="button" disabled={!!busy} onClick={() => run("grant")} className={`${button} border border-amber/40 text-text-primary`}>
+            <button type="button" disabled={!!busy} onClick={() => run("grant")} className={`${button} border border-brand/40 text-text-primary`}>
               Grant manually (InstaPay)
             </button>
             <button type="button" disabled={!!busy} onClick={() => run("revoke")} className={`${button} border border-red-400/40 text-red-300`}>
@@ -124,7 +124,7 @@ export default function CourseAccessAdmin() {
         <section className="space-y-3 rounded-xl border border-border-subtle p-4">
           <div className="flex items-center justify-between gap-2">
             <h2 className="text-base font-semibold text-text-primary">All buyers</h2>
-            <button type="button" disabled={!!busy} onClick={() => run("buyers")} className={`${button} border border-amber/40 text-text-primary`}>
+            <button type="button" disabled={!!busy} onClick={() => run("buyers")} className={`${button} border border-brand/40 text-text-primary`}>
               {busy === "buyers" ? "Loading…" : "Load list"}
             </button>
           </div>

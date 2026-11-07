@@ -63,7 +63,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 text-center">
+        <main id="main-content" className="pt-32 pb-20 px-4 text-center">
           <h1 className="text-2xl font-bold text-text-primary">{t.notFound}</h1>
           <MagneticButton variant="secondary" href="/courses/learn" className="mt-4">
             {t.backToDashboard}
@@ -78,8 +78,8 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+        <main id="main-content" className="pt-32 pb-20 px-4 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
       </div>
@@ -92,10 +92,10 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-amber" />
+            <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-8 h-8 text-brand" />
             </div>
             <h1 className="text-2xl font-bold text-text-primary mb-2">{copy.title}</h1>
             <p className="text-text-secondary text-sm mb-6">{copy.subtitle}</p>
@@ -131,11 +131,11 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           {/* Breadcrumb nav */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 text-xs text-text-muted mb-6 flex-wrap"
           >
@@ -155,12 +155,12 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Lesson header */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
             className="mb-6"
           >
-            <div className="flex items-center gap-2 text-amber text-sm font-medium mb-1">
+            <div className="flex items-center gap-2 text-brand text-sm font-medium mb-1">
               <BookOpen className="w-4 h-4" />
               {t.moduleLabel} {modIndex + 1} · {t.lessonLabel} {lessonIndex + 1}
             </div>
@@ -173,7 +173,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                 {lesson.duration}
               </span>
               {completed && (
-                <span className="flex items-center gap-1 text-green-400">
+                <span className="flex items-center gap-1 text-success">
                   <CheckCircle2 className="w-3 h-3" />
                   {t.completed}
                 </span>
@@ -183,13 +183,13 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Video player */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="mb-8"
           >
             {body.videoUrl ? (
-              <div className="aspect-video rounded-2xl overflow-hidden border border-border-subtle bg-midnight">
+              <div className="aspect-video rounded-2xl overflow-hidden border border-border-subtle bg-bg">
                 <iframe
                   src={body.videoUrl}
                   className="w-full h-full"
@@ -199,7 +199,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                 />
               </div>
             ) : (
-              <div className="aspect-video rounded-2xl border border-border-subtle bg-midnight/50 flex flex-col items-center justify-center">
+              <div className="aspect-video rounded-2xl border border-border-subtle bg-bg/50 flex flex-col items-center justify-center">
                 <Video className="w-12 h-12 text-text-muted/30 mb-3" />
                 <p className="text-text-muted text-sm">{t.videoComingSoon}</p>
                 <p className="text-text-muted/70 text-xs mt-1">{t.videoComingSoonSub}</p>
@@ -209,14 +209,14 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Lesson content */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
             className="mb-8"
           >
             <GlassCard>
               <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-amber" />
+                <FileText className="w-5 h-5 text-brand" />
                 {t.lessonNotes}
               </h2>
               <div className="space-y-3">
@@ -224,7 +224,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                   if (p.startsWith("•")) {
                     return (
                       <div key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-1" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-1" />
                         <span>{p.replace("• ", "")}</span>
                       </div>
                     );
@@ -242,13 +242,13 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
           {/* Resources */}
           {body.resources.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="mb-8"
             >
               <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
-                <Download className="w-4 h-4 text-amber" />
+                <Download className="w-4 h-4 text-brand" />
                 {t.resources}
               </h3>
               <div className="space-y-2">
@@ -260,9 +260,9 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
                       href={res.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-xl bg-surface/60 border border-border-subtle hover:border-amber/30 transition-colors"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-surface/60 border border-border-subtle hover:border-brand/30 transition-colors"
                     >
-                      <ResIcon className="w-4 h-4 text-amber shrink-0" />
+                      <ResIcon className="w-4 h-4 text-brand shrink-0" />
                       <span className="text-sm text-text-secondary">
                         {isAr ? res.title.ar : res.title.en}
                       </span>
@@ -275,7 +275,7 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
 
           {/* Complete + Navigation */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
             className="space-y-4"
@@ -288,8 +288,8 @@ export default function LessonClient({ moduleId, lessonId }: Props) {
               </MagneticButton>
             ) : (
               <div className="flex items-center justify-center gap-2 py-3 rounded-xl bg-green-500/10 border border-green-500/20">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium text-green-400">{t.lessonDone}</span>
+                <CheckCircle2 className="w-5 h-5 text-success" />
+                <span className="text-sm font-medium text-success">{t.lessonDone}</span>
               </div>
             )}
 

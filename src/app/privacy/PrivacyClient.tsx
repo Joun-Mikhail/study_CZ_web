@@ -12,7 +12,7 @@ const sections = {
     blocks: [
       {
         heading: "What we collect",
-        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form, and your email if you sign up for a checklist or waitlist. The eligibility checker and university matcher process your answers entirely in your browser. Nothing is sent to our servers.",
+        body: "We collect only what you voluntarily provide: your name, email, and WhatsApp number when you book a service or submit a contact form, and your email if you ask us to email you something (your eligibility result, deadline reminders or the document checklist) or join the waitlist. The eligibility checker and university matcher run in your browser. Your answers are only sent to us if you ask for your result by email, and then only your answers to the check, not your name.",
       },
       {
         heading: "Documents you send us",
@@ -24,11 +24,11 @@ const sections = {
       },
       {
         heading: "How we use it",
-        body: "Contact information is used solely to deliver the service you requested (consultation, document review, or support). We may send you a follow-up message about your booking. We never send marketing emails unless you explicitly opt in.",
+        body: "Contact information is used solely to deliver the service you requested (consultation, document review, or support). We may send you a follow-up message about your booking. Emails you ask for (your result, deadline reminders, the checklist) are sent because you requested them. Tips and offers are only sent if you tick the box for them, and every email has an unsubscribe link.",
       },
       {
         heading: "Third parties",
-        body: "Payments are processed by Stripe. We do not receive or store your card details. If you sign up for an email checklist or waitlist, your email is stored with our email provider (ConvertKit). We do not sell, rent, or share your personal data with any third party for marketing purposes.",
+        body: "Payments are processed by Stripe. We do not receive or store your card details. Emails are sent through Brevo (Sendinblue SAS, France), which stores your email address, language and the choices you made, such as which programmes to remind you about. The waitlist uses ConvertKit. We keep this until you unsubscribe or ask us to delete it. We do not sell, rent, or share your personal data with any third party for marketing purposes.",
       },
       {
         heading: "Cookies",
@@ -50,7 +50,7 @@ const sections = {
     blocks: [
       {
         heading: "إيه اللي بنجمعه",
-        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة، وإيميلك لو اشتركت في قائمة أو قائمة انتظار. أداة \"أقدر أقدم؟\" واختيار الجامعة بيشتغلوا بالكامل على جهازك. مفيش حاجة بتتبعت لسيرفراتنا.",
+        body: "بنجمع بس اللي انت بتقدمه طوعا: اسمك، إيميلك، ورقم واتسابك لما تحجز خدمة أو تبعت رسالة، وإيميلك لو طلبت مننا نبعتلك حاجة (نتيجة اختبار \"أقدر أقدم؟\"، تذكير بالمواعيد، قائمة الأوراق) أو اشتركت في قائمة الانتظار. أداة \"أقدر أقدم؟\" واختيار الجامعة بيشتغلوا على جهازك. إجاباتك مش بتتبعتلنا غير لو طلبت النتيجة على الإيميل، وساعتها بتتبعت إجاباتك على الاختبار بس، من غير اسمك.",
       },
       {
         heading: "الأوراق اللي بتبعتهالنا",
@@ -62,11 +62,11 @@ const sections = {
       },
       {
         heading: "إزاي بنستخدمه",
-        body: "بيانات التواصل بتستخدم بس لتقديم الخدمة اللي طلبتها. ممكن نبعتلك رسالة متابعة عن حجزك. مش بنبعت إيميلات تسويق غير لو وافقت صراحة.",
+        body: "بيانات التواصل بتستخدم بس لتقديم الخدمة اللي طلبتها. ممكن نبعتلك رسالة متابعة عن حجزك. الإيميلات اللي بتطلبها (النتيجة، تذكير المواعيد، قائمة الأوراق) بنبعتها لأنك طلبتها. النصايح والعروض بتوصلك بس لو علّمت على الخانة بتاعتها، وكل إيميل فيه لينك لإلغاء الاشتراك.",
       },
       {
         heading: "أطراف تالتة",
-        body: "المدفوعات بتتم من خلال Stripe. إحنا مش بنستلم أو نخزن بيانات كارتك. لو اشتركت في قائمة بالإيميل، إيميلك بيتخزن عند مزود الإيميل بتاعنا (ConvertKit). مش بنبيع أو نأجر أو نشارك بياناتك الشخصية مع أي طرف تالت.",
+        body: "المدفوعات بتتم من خلال Stripe. إحنا مش بنستلم أو نخزن بيانات كارتك. الإيميلات بتتبعت عن طريق Brevo (شركة Sendinblue SAS في فرنسا)، وبيتخزن عندهم إيميلك ولغتك واختياراتك، زي البرامج اللي عايز تذكير بمواعيدها. قائمة الانتظار بتستخدم ConvertKit. بنحتفظ بالبيانات دي لحد ما تلغي الاشتراك أو تطلب حذفها. مش بنبيع أو نأجر أو نشارك بياناتك الشخصية مع أي طرف تالت.",
       },
       {
         heading: "الكوكيز",

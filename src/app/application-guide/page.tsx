@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "@/i18n/context";
+import { EmailSignup } from "@/components/email-signup";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
@@ -9,9 +10,51 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { guideSteps } from "@/data/guide";
 import { cn } from "@/lib/utils";
-import { Lightbulb, FileCheck } from "lucide-react";
+import {
+  Lightbulb,
+  FileCheck,
+  GraduationCap,
+  Languages,
+  BookOpen,
+  Wallet,
+  Search,
+  Landmark,
+  FileText,
+  Stamp,
+  ShieldCheck,
+  PenLine,
+  House,
+  MailCheck,
+  Building2,
+  FileSignature,
+  MessagesSquare,
+  BadgeCheck,
+  PlaneLanding,
+  type LucideIcon,
+} from "lucide-react";
+
+const STEP_ICONS: Record<string, LucideIcon> = {
+  major: GraduationCap,
+  language: Languages,
+  "language-czech-path": BookOpen,
+  budget: Wallet,
+  research: Search,
+  bank: Landmark,
+  documents: FileText,
+  authenticate: Stamp,
+  "criminal-record": ShieldCheck,
+  "apply-exams": PenLine,
+  housing: House,
+  acceptance: MailCheck,
+  "embassy-legalize": Building2,
+  "visa-apply": FileSignature,
+  interview: MessagesSquare,
+  "post-approval": BadgeCheck,
+  arrival: PlaneLanding,
+};
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
+import Link from "@/components/locale-link";
 
 export default function ApplicationGuidePage() {
   const { t, locale } = useTranslation();
@@ -46,13 +89,15 @@ export default function ApplicationGuidePage() {
         <div className="max-w-6xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-old-town.jpg"
-              alt="Prague at golden hour"
+              src="/images/study/desk-flatlay.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 1200px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
 
@@ -72,14 +117,14 @@ export default function ApplicationGuidePage() {
                   className={cn(
                     "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors",
                     activeId === step.id
-                      ? "bg-amber/10 text-amber font-medium"
+                      ? "bg-brand/10 text-brand font-medium"
                       : "text-text-muted hover:text-text-secondary"
                   )}
                 >
                   <span
                     className={cn(
                       "w-5 h-5 shrink-0 rounded-full text-[11px] flex items-center justify-center border",
-                      activeId === step.id ? "border-amber text-amber" : "border-border-subtle"
+                      activeId === step.id ? "border-brand text-brand" : "border-border-subtle"
                     )}
                   >
                     {i + 1}
@@ -92,8 +137,20 @@ export default function ApplicationGuidePage() {
 
           {/* Steps */}
           <div className="space-y-10">
-            {guideSteps.map((step) => (
-              <div key={step.id}>
+            {guideSteps.map((step, i) => {
+              const Icon = STEP_ICONS[step.id] ?? FileText;
+              return (
+              <div key={step.id} className="relative ps-14 sm:ps-16">
+                {/* Timeline: an icon per step, joined by a line down the start edge. */}
+                <span
+                  aria-hidden="true"
+                  className="reveal absolute start-0 top-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-xl bg-brand text-bg shadow-[0_8px_20px_-10px_rgba(17,69,126,0.7)] ring-4 ring-bg"
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                {i < guideSteps.length - 1 && (
+                  <span aria-hidden="true" className="absolute start-5 sm:start-[22px] top-12 -bottom-10 w-0.5 rounded-full bg-brand/15" />
+                )}
                 <section
                   id={step.id}
                   ref={(el) => {
@@ -103,11 +160,27 @@ export default function ApplicationGuidePage() {
                 >
                   <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
                   <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
+                  {step.id === "visa-apply" && (
+                    <p className="text-sm mb-4">
+                      <Link href="/student-visa-egypt" className="font-medium text-brand hover:underline">
+                        {locale === "ar"
+                          ? "بتقدّم من مصر؟ دليل الفيزا خطوة بخطوة من المصادر الرسمية ←"
+                          : "Applying from Egypt? The visa step by step, from official sources →"}
+                      </Link>
+                    </p>
+                  )}
+                  {step.id === "arrival" && (
+                    <p className="text-sm mb-4">
+                      <Link href="/arrival" className="font-medium text-brand hover:underline">
+                        {locale === "ar" ? "لسه واصل؟ ابدأ من هنا ←" : "Just landed? Start here →"}
+                      </Link>
+                    </p>
+                  )}
                   {step.tip && (
-                    <div className="flex gap-3 items-start rounded-xl border border-amber/20 bg-amber/[0.05] px-4 py-3">
-                      <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                    <div className="flex gap-3 items-start rounded-xl border border-brand/20 bg-brand/[0.05] px-4 py-3">
+                      <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <p className="text-sm text-text-secondary">
-                        <span className="font-medium text-amber">{t.guide.tipLabel}: </span>
+                        <span className="font-medium text-brand">{t.guide.tipLabel}: </span>
                         {step.tip[locale]}
                       </p>
                     </div>
@@ -115,14 +188,17 @@ export default function ApplicationGuidePage() {
                 </section>
                 {step.id === "authenticate" && <ContextualCTA service="documentCheck" />}
               </div>
-            ))}
+              );
+            })}
 
-            {/* Monetization hook */}
+            <EmailSignup source="checklist" variant="guide" placement="application-guide" />
+
+            {/* Next step: turn the guide into a plan */}
             <GlassCard hoverEffect="glow" className="text-center">
-              <FileCheck className="w-7 h-7 text-amber mx-auto mb-3" />
+              <FileCheck className="w-7 h-7 text-brand mx-auto mb-3" />
               <h3 className="font-semibold text-text-primary mb-1.5">{t.guide.ctaTitle}</h3>
               <p className="text-sm text-text-secondary mb-5">{t.guide.ctaSubtitle}</p>
-              <MagneticButton variant="primary" href="/services">
+              <MagneticButton variant="primary" href="/eligibility">
                 {t.guide.ctaButton}
               </MagneticButton>
             </GlassCard>

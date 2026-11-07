@@ -51,6 +51,8 @@ GitHub Actions (`.github/workflows/ci.yml`) only runs checks. Environment variab
 4. Run `npm run gen:ar` and commit the generated files under `src/app/ar/`. Dynamic routes need a hand-written Arabic route file containing `@custom-ar`, which the generator never overwrites.
 5. Add the page to `src/app/sitemap.ts`.
 
+Every page shares the same cover, `/og-cover.jpg` (the picture WhatsApp and Facebook show with a link), so a new page needs no share image of its own.
+
 Internal links: import `Link` from `@/components/locale-link` (never `next/link`), and pass plain `<a>` hrefs through `localizeHref()`. Internal URLs end with `/`.
 
 ## Change prices or payment links

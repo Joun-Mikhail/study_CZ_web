@@ -7,11 +7,13 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { SeoCrosslinks } from "@/components/seo-crosslinks";
+import { EmailSignup, followProps } from "@/components/email-signup";
+import { programmeLabel } from "@/lib/programme-label";
 import {
   GraduationCap,
   Euro,
@@ -51,17 +53,17 @@ export default function CheapestClient() {
         <FadeIn>
           <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
             <Image
-              src="/images/university-campus.jpg"
-              alt="University campus"
+              src="/images/study/laptop-notes.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 800px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-midnight/10" />
-            <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-            <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-success/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-4 start-4 z-10">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/20 backdrop-blur-sm border border-success/20 text-success text-[11px] font-medium mb-2">
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
+            <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white text-ink text-[11px] font-semibold mb-2">
                 <TrendingDown className="w-3 h-3" />
                 {locale === "ar" ? "مرتب حسب السعر" : "Sorted by price"}
               </div>
@@ -70,7 +72,7 @@ export default function CheapestClient() {
                   ? "أرخص البرامج باللغة الإنجليزية"
                   : "Cheapest English-Taught Programmes"}
               </h1>
-              <p className="text-xs text-white/70 mt-1">
+              <p className="text-xs text-white/80 mt-1">
                 {locale === "ar"
                   ? `${sorted.length} برنامج — من الأرخص للأغلى`
                   : `${sorted.length} programmes — lowest tuition first`}
@@ -98,9 +100,9 @@ export default function CheapestClient() {
             </div>
           </GlassCard>
           <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
-            <div className="text-2xl font-bold text-amber">{sorted.length}</div>
+            <div className="text-2xl font-bold text-brand">{sorted.length}</div>
             <div className="text-xs text-text-muted">
-              {locale === "ar" ? "برامج موثقة" : "Verified programmes"}
+              {locale === "ar" ? "البرامج" : "Programmes"}
             </div>
           </GlassCard>
         </div>
@@ -112,7 +114,7 @@ export default function CheapestClient() {
             return (
               <motion.div
                 key={prog.id}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.04, 0.5), duration: 0.4 }}
               >
@@ -128,9 +130,9 @@ export default function CheapestClient() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
                         <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-                          <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+                          <h2 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
                             {prog.name[locale] || prog.name.en}
-                          </h3>
+                          </h2>
                           <p className="text-xs text-text-secondary mt-0.5">
                             {uni?.name} · {uni?.city} · {prog.degree}
                           </p>
@@ -152,14 +154,10 @@ export default function CheapestClient() {
                         </span>
                       </div>
                       <div className="flex items-center justify-between mt-2">
-                        <VerifiedBadge
-                          date={prog.verification.lastVerified}
-                          sourceUrl={prog.verification.sourceUrl}
-                          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-                        />
+                        <ProgrammeSourceBadge programme={prog} locale={locale} />
                         <Link
                           href={`/programmes/${prog.id}`}
-                          className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                          className="text-xs text-brand hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
                         >
                           {locale === "ar" ? "التفاصيل" : "Details"}
                           <ArrowRight className="w-3 h-3" />
@@ -172,6 +170,14 @@ export default function CheapestClient() {
             );
           })}
         </div>
+
+        <EmailSignup
+          source="deadline"
+          variant="field"
+          placement="cheapest-page"
+          className="mt-6 max-w-2xl mx-auto"
+          {...followProps(sorted.slice(0, 20), (p) => programmeLabel(p, locale))}
+        />
 
         <SeoCrosslinks locale={locale} exclude={{ type: "intent", value: "cheapest" }} />
 

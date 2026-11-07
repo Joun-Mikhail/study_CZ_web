@@ -6,9 +6,12 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { MagneticButton } from "@/components/ui/magnetic-button";
-import { ArrowRight, ShieldAlert } from "lucide-react";
-import { stages, type StageSlug } from "@/data/stages";
+import { buttonClasses } from "@/components/ui/magnetic-button";
+import { HelpLink } from "@/components/help-sheet";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { FOUNDER_NAME, FOUNDER_NAME_AR } from "@/config/contact";
+import { stageOrder, stages, type StageSlug } from "@/data/stages";
 import { qaEntries } from "@/data/qa";
 import { WaitlistSignup } from "@/components/waitlist-signup";
 
@@ -41,12 +44,12 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                   <Link
                     key={tool.href}
                     href={tool.href}
-                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl border border-border-subtle bg-surface/50 hover:border-amber/30 hover:bg-surface transition-colors"
+                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl border border-border-subtle bg-surface/50 hover:border-brand/30 hover:bg-surface transition-colors"
                   >
                     <span className="text-sm font-medium text-text-primary">
                       {tool.label[locale]}
                     </span>
-                    <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors rtl:rotate-180 shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors rtl:rotate-180 shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -72,7 +75,7 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
                 ))}
               </div>
               <div className="text-center mt-4">
-                <Link href="/qa" className="text-sm text-amber hover:text-amber/80 transition-colors">
+                <Link href="/qa" className="text-sm text-brand hover:text-brand/80 transition-colors">
                   {locale === "ar" ? "شوف كل الأسئلة والأجوبة ←" : "See all Q&A →"}
                 </Link>
               </div>
@@ -83,19 +86,23 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
           {config.paidService && (
             <section>
               <GlassCard hoverEffect="glow" className="text-center">
-                <ShieldAlert className="w-8 h-8 text-amber mx-auto mb-3" />
+                <Image src="/images/john.jpg" alt={locale === "ar" ? FOUNDER_NAME_AR : FOUNDER_NAME} width={56} height={56} sizes="56px" className="w-14 h-14 rounded-full object-cover mx-auto mb-3" />
                 <p className="text-xs text-text-muted mb-2">
                   {locale === "ar" ? "لو لسه واقف عند ده" : "If you're still stuck here"}
                 </p>
                 <h2 className="text-xl font-bold text-text-primary mb-2">
                   {config.paidService.title[locale]}
                 </h2>
-                <p className="text-sm text-amber font-medium mb-5">
-                  {config.paidService.fearTrigger[locale]}
+                <p className="text-sm text-brand font-medium mb-5">
+                  {config.paidService.stuckLine[locale]}
                 </p>
-                <MagneticButton variant="primary" size="lg" href={config.paidService.href}>
+                <HelpLink
+                  service={config.paidService.service}
+                  source={`stage:${config.slug}`}
+                  className={buttonClasses("primary", "lg")}
+                >
                   {config.paidService.cta[locale]}
-                </MagneticButton>
+                </HelpLink>
                 {config.paidService.postButton[locale] && (
                   <p className="text-xs text-text-muted mt-3">
                     {config.paidService.postButton[locale]}
@@ -106,6 +113,33 @@ export default function StagePageClient({ slug }: { slug: StageSlug }) {
           )}
 
           {config.waitlist && <WaitlistSignup className="mt-12" />}
+
+          {/* All five stages, so each stage page links the others (they were reachable only from the home page) */}
+          <nav aria-labelledby="all-stages" className="mt-12">
+            <h2 id="all-stages" className="text-base font-semibold text-text-primary mb-3">
+              {locale === "ar" ? "كل مراحل الرحلة" : "Every stage of the journey"}
+            </h2>
+            <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {stageOrder.map((s, i) => (
+                <li key={s}>
+                  {s === slug ? (
+                    <span aria-current="step" className="flex items-center gap-3 px-4 py-3 rounded-xl border border-brand/40 bg-brand/5 text-sm font-medium text-text-primary">
+                      <span className="text-text-muted">{i + 1}</span>
+                      {stages[s].h1[locale]}
+                    </span>
+                  ) : (
+                    <Link
+                      href={`/stage/${s}`}
+                      className="group flex items-center gap-3 px-4 py-3 rounded-xl border border-border-subtle hover:border-brand/30 hover:bg-surface text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                      <span className="text-text-muted">{i + 1}</span>
+                      {stages[s].h1[locale]}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
       </main>
       <Footer />

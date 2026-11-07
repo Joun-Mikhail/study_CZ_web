@@ -29,7 +29,7 @@ export function Testimonials() {
           return (
             <GlassCard key={i} className="flex flex-col justify-between">
               <div>
-                <Quote className="w-5 h-5 text-amber mb-3" />
+                <Quote className="w-5 h-5 text-brand mb-3" />
                 <p
                   dir={quoteDir}
                   className="text-sm text-text-secondary italic leading-relaxed mb-4 text-start"

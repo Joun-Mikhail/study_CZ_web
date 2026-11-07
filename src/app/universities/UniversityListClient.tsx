@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "@/i18n/context";
 import { GlassCard } from "@/components/ui/glass-card";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import Link from "@/components/locale-link";
@@ -27,7 +27,10 @@ import { filterProgrammes, getDeadlineStatus, PROGRAMME_FIELDS } from "@/data/pr
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, DeadlineStatus } from "@/data/types";
 import { cn } from "@/lib/utils";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
+import { CityMap, type MapCity } from "@/components/city-map";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ViewMode = "programmes" | "universities";
@@ -44,13 +47,10 @@ const labels = {
     allFields: "All fields",
     allCities: "All cities",
     allTypes: "Public & Private",
-    allExam: "Any exam status",
     allDeadlines: "Any deadline status",
     maxTuition: "Max tuition",
     publicUni: "Public",
     privateUni: "Private",
-    noExam: "No entrance exam",
-    hasExam: "Entrance exam",
     clearFilters: "Clear all filters",
     filters: "Filters",
     perYear: " per year",
@@ -60,7 +60,6 @@ const labels = {
     showing: "programmes",
     showingUnis: "universities",
     entranceExam: "Entrance exam",
-    noEntranceExam: "Exam required",
     verified: "Verified",
     notSure: "Not sure which programme fits you?",
     tryMatcher: "Try Programme Matcher",
@@ -82,13 +81,10 @@ const labels = {
     allFields: "كل المجالات",
     allCities: "كل المدن",
     allTypes: "حكومي وخاص",
-    allExam: "أي حالة امتحان",
     allDeadlines: "أي حالة موعد",
     maxTuition: "أعلى مصاريف",
     publicUni: "حكومي",
     privateUni: "خاص",
-    noExam: "بدون امتحان قبول",
-    hasExam: "امتحان قبول",
     clearFilters: "امسح الفلتر",
     filters: "فلتر",
     perYear: " في السنة",
@@ -98,7 +94,6 @@ const labels = {
     showing: "برنامج",
     showingUnis: "جامعة",
     entranceExam: "امتحان قبول",
-    noEntranceExam: "بدون امتحان",
     verified: "تم التحقق",
     notSure: "مش متأكد أي برنامج يناسبك؟",
     tryMatcher: "جرّب مطابقة البرامج",
@@ -118,7 +113,7 @@ const deadlineStatusLabel: Record<DeadlineStatus, { en: string; ar: string }> = 
   "not-verified": { en: "Not yet verified", ar: "لم يتم التحقق" },
   passed: { en: "Deadline passed", ar: "الموعد انتهى" },
   rolling: { en: "Rolling admissions", ar: "قبول مستمر" },
-  "not-published": { en: "Not published yet", ar: "لم يُنشر بعد" },
+  "not-published": { en: "End of February (General Deadline)", ar: "نهاية فبراير (الموعد العام)" },
 };
 
 const deadlineStatusColor: Record<DeadlineStatus, string> = {
@@ -147,7 +142,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-amber/40"
+        className="w-full appearance-none rounded-lg border border-border-subtle bg-surface/60 px-3 py-2 pe-8 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-brand/40"
       >
         <option value="">{placeholder}</option>
         {options.map((o) => (
@@ -178,16 +173,33 @@ function ProgrammeCard({
   const status = getDeadlineStatus(prog);
 
   return (
-    <GlassCard hoverEffect="lift" className={cn("group relative card-shine p-5 h-full flex flex-col overflow-hidden", isComparing && "ring-2 ring-accent")}>
-      {/* Decorative corner element */}
-      <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-        <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-          <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-        </svg>
-      </div>
+    <div className="card-lift group h-full rounded-2xl">
+    <GlassCard className={cn("relative p-5 h-full flex flex-col overflow-hidden", isComparing && "ring-2 ring-accent")}>
+      <CardPhoto
+        id={photoForUniversity(prog.universityId)}
+        className="-mx-5 -mt-5 mb-4"
+        top={
+          <>
+            <PhotoPill>{locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}</PhotoPill>
+            <PhotoPill>
+              <Euro className="w-3 h-3" aria-hidden="true" />
+              <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>
+              {l.perYear}
+            </PhotoPill>
+          </>
+        }
+        bottom={
+          uni && (
+            <PhotoTag>
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+              {cityName(uni.city, locale)}
+            </PhotoTag>
+          )
+        }
+      />
 
       <div className="flex items-start justify-between gap-2">
-        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-amber transition-colors duration-300">
+        <Link href={`/programmes/${prog.id}`} className="font-semibold text-text-primary text-[15px] leading-snug group-hover:text-brand transition-colors duration-300">
           {prog.name[locale] || prog.name.en}
         </Link>
         <div className="flex items-center gap-1 shrink-0">
@@ -209,37 +221,21 @@ function ProgrammeCard({
       {uni && (
         <div className="flex items-center gap-1.5 mt-1.5 text-sm text-text-secondary">
           <Building2 className="w-3.5 h-3.5 text-text-muted shrink-0" />
-          <span className="truncate">{uni.name}</span>
+          <span className="truncate" dir="auto">{(locale === "ar" && uni.nameAr?.split(" (")[0]) || uni.name}</span>
         </div>
       )}
 
-      <div className="flex flex-wrap items-center gap-2 mt-3">
-        <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
-          {prog.degree}
-        </span>
-        <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-          {prog.language}
-        </span>
-        {uni && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
-            <MapPin className="w-3 h-3" />
-            {uni.city}
-          </span>
-        )}
-      </div>
-
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs text-text-secondary">
-        <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-amber/70" />
-          €{prog.tuitionEurPerYear.toLocaleString()}{l.perYear}
+        <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+          {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
         </span>
         <span className="inline-flex items-center gap-1">
           <Clock className="w-3 h-3 text-text-muted" />
-          {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+          {yearsLabel(prog.durationYears, locale)}
         </span>
         <span className="inline-flex items-center gap-1">
           <GraduationCap className="w-3 h-3 text-text-muted" />
-          {prog.entranceExam ? l.entranceExam : l.noEntranceExam}
+          {l.entranceExam}
         </span>
       </div>
 
@@ -253,17 +249,14 @@ function ProgrammeCard({
       </div>
 
       <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
-        <VerifiedBadge
-          date={prog.verification.lastVerified}
-          sourceUrl={prog.verification.sourceUrl}
-          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-        />
-        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs text-amber hover:underline opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <ProgrammeSourceBadge programme={prog} locale={locale} />
+        <Link href={`/programmes/${prog.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline">
           {l.viewProgramme}
-          <ArrowRight className="w-3 h-3" />
+          <ArrowRight className="w-3 h-3 rtl:rotate-180 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5 rtl:motion-safe:group-hover:-translate-x-0.5" aria-hidden="true" />
         </Link>
       </div>
     </GlassCard>
+    </div>
   );
 }
 
@@ -279,34 +272,32 @@ function UniversityCard({
   const l = labels[locale] || labels.en;
 
   return (
-    <Link href={`/university/${uni.id}`} className="no-underline">
-      <GlassCard hoverEffect="lift" className="group relative card-shine p-5 h-full flex flex-col overflow-hidden">
-        {/* Decorative gradient corner */}
-        <div className="absolute top-0 end-0 w-24 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="w-full h-full bg-gradient-to-bl from-amber/5 to-transparent rounded-bl-full" />
-        </div>
+    <Link href={`/university/${uni.id}`} className="card-lift group block h-full rounded-2xl no-underline">
+      <GlassCard className="relative p-5 h-full flex flex-col overflow-hidden">
+        <CardPhoto
+          id={photoForUniversity(uni.id)}
+          height="h-36"
+          className="-mx-5 -mt-5 mb-4"
+          top={
+            <PhotoPill>
+              <span aria-hidden="true" className={cn("w-1.5 h-1.5 rounded-full", uni.type === "public" ? "bg-success" : "bg-brand")} />
+              {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
+            </PhotoPill>
+          }
+          bottom={
+            <>
+              <PhotoTag>
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                {cityName(uni.city, locale)}
+              </PhotoTag>
+              {uni.founded && <PhotoTag>{l.est} {uni.founded}</PhotoTag>}
+            </>
+          }
+        />
 
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-amber transition-colors duration-300">{uni.name}</h3>
-          <span className={cn(
-            "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
-            uni.type === "public"
-              ? "bg-success/10 text-success border-success/20"
-              : "bg-amber/10 text-amber border-amber/20"
-          )}>
-            {uni.type === "public" ? (locale === "ar" ? "حكومي" : "Public") : (locale === "ar" ? "خاص" : "Private")}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3 mt-2 text-sm text-text-secondary">
-          <span className="inline-flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-amber/70" />
-            {uni.city}
-          </span>
-          {uni.founded && (
-            <span className="text-text-muted text-xs">{l.est} {uni.founded}</span>
-          )}
-        </div>
+        <h3 className="text-lg font-semibold text-text-primary leading-snug group-hover:text-brand transition-colors duration-300">
+          {(locale === "ar" && uni.nameAr?.split(" (")[0]) || uni.name}
+        </h3>
 
         <p className="mt-2.5 text-text-muted text-sm line-clamp-2 flex-grow">
           {uni.blurb[locale] || uni.blurb.en}
@@ -323,7 +314,7 @@ function UniversityCard({
 
         <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
           {programmeCount > 0 ? (
-            <span className="inline-flex items-center gap-1.5 text-xs text-amber">
+            <span className="inline-flex items-center gap-1.5 text-xs text-brand">
               <GraduationCap className="w-3.5 h-3.5" />
               {programmeCount} {locale === "ar" ? "برنامج مسجل" : programmeCount === 1 ? "programme" : "programmes"}
             </span>
@@ -332,7 +323,7 @@ function UniversityCard({
               {locale === "ar" ? "البرامج قريبًا" : "Programmes coming soon"}
             </span>
           )}
-          <span className="inline-flex items-center gap-1 text-xs text-amber opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-brand">
             {locale === "ar" ? "التفاصيل" : "View details"}
             <ArrowRight className="w-3 h-3" />
           </span>
@@ -342,7 +333,7 @@ function UniversityCard({
   );
 }
 
-export default function UniversityListClient() {
+export default function UniversityListClient({ mapCities }: { mapCities?: MapCity[] } = {}) {
   const { locale } = useTranslation();
   const l = labels[locale] || labels.en;
 
@@ -353,7 +344,6 @@ export default function UniversityListClient() {
   const [language, setLanguage] = useState("");
   const [city, setCity] = useState("");
   const [uniType, setUniType] = useState("");
-  const [examFilter, setExamFilter] = useState("");
   const [deadlineFilter, setDeadlineFilter] = useState("");
   const [maxTuition, setMaxTuition] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -400,7 +390,7 @@ export default function UniversityListClient() {
     return Array.from(set).sort();
   }, []);
 
-  const hasFilters = search || degree || field || language || city || uniType || examFilter || deadlineFilter || maxTuition;
+  const hasFilters = search || degree || field || language || city || uniType || deadlineFilter || maxTuition;
 
   const clearFilters = () => {
     setSearch("");
@@ -409,7 +399,6 @@ export default function UniversityListClient() {
     setLanguage("");
     setCity("");
     setUniType("");
-    setExamFilter("");
     setDeadlineFilter("");
     setMaxTuition("");
   };
@@ -425,7 +414,6 @@ export default function UniversityListClient() {
         language: language || undefined,
         city: city || undefined,
         universityType: (uniType as "public" | "private") || undefined,
-        entranceExam: examFilter === "no" ? false : examFilter === "yes" ? true : undefined,
         deadlineStatus: (deadlineFilter as DeadlineStatus) || undefined,
         maxTuition: maxTuition ? Number(maxTuition) : undefined,
       },
@@ -433,7 +421,7 @@ export default function UniversityListClient() {
     ).sort((a, b) => {
       return a.tuitionEurPerYear - b.tuitionEurPerYear;
     });
-  }, [mode, search, degree, field, language, city, uniType, examFilter, deadlineFilter, maxTuition]);
+  }, [mode, search, degree, field, language, city, uniType, deadlineFilter, maxTuition]);
 
   // University view
   const filteredUniversities = useMemo(() => {
@@ -465,28 +453,30 @@ export default function UniversityListClient() {
       <FadeIn>
         <div className="relative w-full h-[160px] sm:h-[220px] rounded-2xl overflow-hidden mb-8">
           <Image
-            src="/images/university-campus.jpg"
-            alt="University graduation celebration"
+            src="/images/study/lecture-hall.jpg"
+            alt=""
             fill
             className="object-cover object-center"
             sizes="(max-width: 768px) 100vw, 1200px"
-            priority
+            loading="eager"
+            fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-midnight/10" />
-          <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-          <div className="absolute -bottom-6 start-1/3 w-40 h-20 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between">
-            <div>
-              <p className="text-xs text-white/60 mb-1">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
+          <div className="absolute bottom-4 start-5 sm:start-8 end-5 sm:end-8 z-10 flex items-end justify-between gap-3">
+            <div className="rounded-xl bg-ink px-4 py-3 shadow-lg">
+              <p className="text-xs text-white/80 mb-1">
                 {locale === "ar" ? "استكشف" : "Explore"}
               </p>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white">
                 {mode === "programmes" ? l.programmes : l.universities}
               </h1>
+              <p className="mt-1 text-sm text-white/80 max-w-md">
+                {locale === "ar" ? "ابحث في البرامج المدرّسة بالإنجليزية في الجامعات التشيكية وصفّيها." : "Search and filter English-taught programmes at Czech universities."}
+              </p>
             </div>
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-amber" />
-              <span className="text-xs text-white/80">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink shadow-lg">
+              <Sparkles className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+              <span className="text-xs text-white">
                 {mode === "programmes"
                   ? `${filteredProgrammes.length} ${l.showing}`
                   : `${filteredUniversities.length} ${l.showingUnis}`}
@@ -495,6 +485,18 @@ export default function UniversityListClient() {
           </div>
         </div>
       </FadeIn>
+      {mapCities && (
+        <section aria-labelledby="city-map-title" className="reveal mb-10">
+        <h2 id="city-map-title" className="text-2xl sm:text-3xl text-text-primary mb-1">
+          {locale === "ar" ? "مدن الجامعات على الخريطة" : "University cities on the map"}
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          {locale === "ar" ? "14 مدينة فيها جامعات بتدرّس بالإنجليزي." : "14 cities with universities teaching in English."}
+        </p>
+        <CityMap cities={mapCities} />
+      </section>
+      )}
+
       {/* Mode toggle */}
       <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.03] border border-border-subtle w-fit mb-6">
         <button
@@ -502,7 +504,7 @@ export default function UniversityListClient() {
           className={cn(
             "px-4 py-2 rounded-lg text-sm font-medium transition-all",
             mode === "programmes"
-              ? "bg-amber/10 text-amber border border-amber/30"
+              ? "bg-brand/10 text-brand border border-brand/30"
               : "text-text-secondary hover:text-text-primary border border-transparent"
           )}
         >
@@ -514,7 +516,7 @@ export default function UniversityListClient() {
           className={cn(
             "px-4 py-2 rounded-lg text-sm font-medium transition-all",
             mode === "universities"
-              ? "bg-amber/10 text-amber border border-amber/30"
+              ? "bg-brand/10 text-brand border border-brand/30"
               : "text-text-secondary hover:text-text-primary border border-transparent"
           )}
         >
@@ -525,12 +527,12 @@ export default function UniversityListClient() {
 
       {/* Search */}
       <div className="relative mb-4 group">
-        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber transition-colors duration-200" />
+        <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand transition-colors duration-200" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={mode === "programmes" ? l.search : l.searchUni}
-          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
+          className="w-full rounded-xl ps-10 pe-4 py-3 border border-border-subtle bg-surface/60 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
         />
         {search && (
           <button
@@ -546,7 +548,7 @@ export default function UniversityListClient() {
       <div className="mb-4">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-amber transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium text-text-primary hover:text-brand transition-colors"
         >
           <Filter className="w-4 h-4" />
           {l.filters}
@@ -620,22 +622,13 @@ export default function UniversityListClient() {
                   ]}
                 />
                 <FilterSelect
-                  value={examFilter}
-                  onChange={setExamFilter}
-                  placeholder={l.allExam}
-                  options={[
-                    { value: "no", label: l.noExam },
-                    { value: "yes", label: l.hasExam },
-                  ]}
-                />
-                <FilterSelect
                   value={deadlineFilter}
                   onChange={setDeadlineFilter}
                   placeholder={l.allDeadlines}
                   options={[
                     { value: "verified", label: locale === "ar" ? "متحقق" : "Verified" },
                     { value: "rolling", label: locale === "ar" ? "قبول مستمر" : "Rolling" },
-                    { value: "not-published", label: locale === "ar" ? "لم يُنشر" : "Not published" },
+                    { value: "not-published", label: locale === "ar" ? "نهاية فبراير (الموعد العام)" : "End of February (General Deadline)" },
                   ]}
                 />
               </>
@@ -648,7 +641,7 @@ export default function UniversityListClient() {
         {hasFilters && (
           <button
             onClick={clearFilters}
-            className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-amber transition-colors"
+            className="mt-2 inline-flex items-center gap-1 text-xs text-text-muted hover:text-brand transition-colors"
           >
             <X className="w-3 h-3" />
             {l.clearFilters}
@@ -708,11 +701,9 @@ export default function UniversityListClient() {
       {/* Matcher CTA */}
       <FadeIn>
         <div className="relative mt-12 text-center border border-border-subtle rounded-2xl p-8 bg-white/[0.02] overflow-hidden">
-          <div className="absolute inset-0 noise-overlay opacity-[0.02]" />
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-60 h-20 bg-amber/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber/10 mb-4">
-              <Sparkles className="w-6 h-6 text-amber" />
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand/10 mb-4">
+              <Sparkles className="w-6 h-6 text-brand" />
             </div>
             <h3 className="text-lg font-semibold text-text-primary mb-2">
               {l.notSure}
@@ -722,7 +713,7 @@ export default function UniversityListClient() {
             </p>
             <Link
               href="/university-matcher"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-amber/10 text-amber border border-amber/20 text-sm font-medium hover:bg-amber/20 hover:border-amber/40 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand/10 text-brand border border-brand/20 text-sm font-medium hover:bg-brand/20 hover:border-brand/40 transition-all duration-300"
             >
               <GraduationCap className="w-4 h-4" />
               {l.tryMatcher}

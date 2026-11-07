@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { useTranslation } from "@/i18n/context";
+import { useTranslation } from "@/i18n/context";
+import { PhotoCredits } from "@/components/site-image";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
@@ -122,14 +123,15 @@ export default function AboutClient() {
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
           </div>
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-medium text-amber mb-4">
+          <span className="inline-block text-xs font-medium text-brand mb-4">
             {l.badge}
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
@@ -142,7 +144,7 @@ export default function AboutClient() {
           {/* Not official disclaimer */}
           <GlassCard hoverEffect="border" className="mb-8">
             <div className="flex items-start gap-3 mb-4">
-              <ShieldCheck className="w-6 h-6 text-amber shrink-0 mt-0.5" />
+              <ShieldCheck className="w-6 h-6 text-brand shrink-0 mt-0.5" />
               <div>
                 <h2 className="text-lg font-semibold text-text-primary mb-2">
                   {l.notOfficialTitle}
@@ -178,7 +180,7 @@ export default function AboutClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <GlassCard>
               <div className="flex items-center gap-2 mb-3">
-                <BookOpen className="w-5 h-5 text-green-400" />
+                <BookOpen className="w-5 h-5 text-success" />
                 <h2 className="text-base font-semibold text-text-primary">
                   {l.whatWeDoTitle}
                 </h2>
@@ -186,7 +188,7 @@ export default function AboutClient() {
               <ul className="space-y-2">
                 {l.whatWeDo.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-text-secondary">
-                    <span className="text-green-400 shrink-0">+</span>
+                    <span className="text-success shrink-0">+</span>
                     {item}
                   </li>
                 ))}
@@ -194,7 +196,7 @@ export default function AboutClient() {
             </GlassCard>
             <GlassCard>
               <div className="flex items-center gap-2 mb-3">
-                <AlertTriangle className="w-5 h-5 text-red-400" />
+                <AlertTriangle className="w-5 h-5 text-error" />
                 <h2 className="text-base font-semibold text-text-primary">
                   {l.whatWeDontTitle}
                 </h2>
@@ -202,7 +204,7 @@ export default function AboutClient() {
               <ul className="space-y-2">
                 {l.whatWeDont.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-text-secondary">
-                    <span className="text-red-400 shrink-0">&times;</span>
+                    <span className="text-error shrink-0">&times;</span>
                     {item}
                   </li>
                 ))}
@@ -228,7 +230,7 @@ export default function AboutClient() {
                     href={src.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-amber transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-brand transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     {src.name}
@@ -246,12 +248,13 @@ export default function AboutClient() {
             <p className="text-sm text-text-secondary mb-3">{l.contactBody}</p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="text-sm text-accent hover:text-amber transition-colors"
+              className="text-sm text-accent hover:text-brand transition-colors"
             >
               {CONTACT_EMAIL}
             </a>
           </GlassCard>
         </div>
+        <PhotoCredits className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" />
       </main>
       <Footer />
     </div>

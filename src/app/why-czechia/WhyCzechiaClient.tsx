@@ -1,6 +1,8 @@
 "use client";
 
-import { useTranslation } from "@/i18n/context";
+import { useTranslation } from "@/i18n/context";
+import { CityMap, type MapCity } from "@/components/city-map";
+import { PhotoCredits } from "@/components/site-image";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Navbar } from "@/components/navbar";
@@ -8,7 +10,6 @@ import { Footer } from "@/components/footer";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { FACEBOOK_GROUP_URL, FOUNDER_NAME } from "@/config/contact";
@@ -32,7 +33,7 @@ import {
 } from "lucide-react";
 
 /** Background on studying in Czechia, moved from the homepage to keep it short. */
-export default function WhyCzechiaClient() {
+export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }) {
   const { t, locale } = useTranslation();
   const copy = PAGE_COPY[locale];
 
@@ -49,7 +50,6 @@ export default function WhyCzechiaClient() {
       {/* Why Study in Czechia */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden">
         <div className="relative rounded-3xl p-8 sm:p-12 noise-overlay aurora-bg">
-          <div className="absolute top-0 end-0 w-[300px] h-[300px] bg-amber/[0.04] rounded-full blur-[80px] pointer-events-none" />
 
           <motion.div
             initial={{ y: 20 }}
@@ -65,10 +65,10 @@ export default function WhyCzechiaClient() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 relative z-10">
             {[
-              { icon: BookOpen, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
-              { icon: Banknote, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
-              { icon: Award, color: "text-amber", bg: "bg-amber/10 border-amber/20", ...t.whyCzechia.reasons[2] },
-              { icon: Plane, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
+              { icon: BookOpen, color: "text-success", bg: "bg-emerald-500/10 border-emerald-500/20", ...t.whyCzechia.reasons[0] },
+              { icon: Banknote, color: "text-info", bg: "bg-blue-500/10 border-blue-500/20", ...t.whyCzechia.reasons[1] },
+              { icon: Award, color: "text-brand", bg: "bg-brand/10 border-brand/20", ...t.whyCzechia.reasons[2] },
+              { icon: Plane, color: "text-violet-700 dark:text-violet-300", bg: "bg-purple-500/10 border-purple-500/20", ...t.whyCzechia.reasons[3] },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -120,10 +120,10 @@ export default function WhyCzechiaClient() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 50vw, 45vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Corner accent on hover */}
-              <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-bl-lg" />
-              <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-amber/0 group-hover:border-amber/40 transition-all duration-500 rounded-tr-lg" />
+              <div className="absolute bottom-3 start-3 w-6 h-6 border-s-2 border-b-2 border-brand/0 group-hover:border-brand/40 transition-all duration-500 rounded-bl-lg" />
+              <div className="absolute top-3 end-3 w-6 h-6 border-e-2 border-t-2 border-brand/0 group-hover:border-brand/40 transition-all duration-500 rounded-tr-lg" />
             </motion.div>
           ))}
         </div>
@@ -131,6 +131,18 @@ export default function WhyCzechiaClient() {
           {locale === "en" ? "Photos: Unsplash & Pexels (free license)" : "الصور: Unsplash و Pexels (ترخيص مجاني)"}
         </p>
       </section>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section aria-labelledby="city-map-title" className="reveal mb-10">
+          <h2 id="city-map-title" className="text-2xl sm:text-3xl text-text-primary mb-1">
+            {locale === "ar" ? "مدن الجامعات على الخريطة" : "University cities on the map"}
+          </h2>
+          <p className="text-sm text-text-secondary mb-4">
+            {locale === "ar" ? "14 مدينة فيها جامعات بتدرّس بالإنجليزي." : "14 cities with universities teaching in English."}
+          </p>
+          <CityMap cities={mapCities} />
+        </section>
+      </div>
 
       <SectionDivider />
 
@@ -148,8 +160,8 @@ export default function WhyCzechiaClient() {
           </h2>
           <p className="text-text-secondary max-w-lg mx-auto">
             {locale === "en"
-              ? "Explore verified programmes by field of study, city, or budget."
-              : "استكشف البرامج الموثقة حسب مجال الدراسة أو المدينة أو الميزانية."}
+              ? "Explore programmes by field of study, city, or budget."
+              : "استكشف البرامج حسب مجال الدراسة أو المدينة أو الميزانية."}
           </p>
         </motion.div>
 
@@ -158,9 +170,9 @@ export default function WhyCzechiaClient() {
             { href: "/study/medicine-in-czech-republic", label: locale === "en" ? "Medicine" : "الطب", icon: GraduationCap },
             { href: "/study/business-in-czech-republic", label: locale === "en" ? "Business" : "إدارة الأعمال", icon: Briefcase },
             { href: "/study/engineering-in-czech-republic", label: locale === "en" ? "Engineering" : "الهندسة", icon: BarChart3 },
-            { href: "/study/it-in-czech-republic", label: locale === "en" ? "IT & Computer Science" : "تكنولوجيا المعلومات", icon: Compass },
+            { href: "/study/it-in-czech-republic", label: locale === "en" ? "IT" : "تكنولوجيا المعلومات", icon: Compass },
             { href: "/study/economics-in-czech-republic", label: locale === "en" ? "Economics" : "الاقتصاد", icon: Banknote },
-            { href: "/study/law-in-czech-republic", label: locale === "en" ? "Law" : "القانون", icon: BookOpen },
+            { href: "/study/computer-science-in-czech-republic", label: locale === "en" ? "Computer Science" : "علوم الحاسب", icon: BookOpen },
           ].map((item, i) => (
             <motion.div
               key={item.href}
@@ -173,10 +185,10 @@ export default function WhyCzechiaClient() {
               <Link href={item.href} className="block">
                 <GlassCard hoverEffect="border" className="group card-shine">
                   <div className="flex items-center gap-3">
-                    <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
-                      <item.icon className="w-5 h-5 text-amber" />
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-brand/5 border border-brand/20 flex items-center justify-center group-hover:bg-brand/10 group-hover:scale-105 transition-all duration-300">
+                      <item.icon className="w-5 h-5 text-brand" />
                     </div>
-                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">{item.label}</span>
+                    <span className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">{item.label}</span>
                     <ArrowRight className="w-4 h-4 text-text-muted ms-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                   </div>
                 </GlassCard>
@@ -251,11 +263,11 @@ export default function WhyCzechiaClient() {
             <Link href="/programmes" className="block">
               <GlassCard hoverEffect="glow" className="group card-shine">
                 <div className="flex items-center gap-3">
-                  <div className="shrink-0 w-10 h-10 rounded-xl bg-amber/5 border border-amber/20 flex items-center justify-center group-hover:bg-amber/10 group-hover:scale-105 transition-all duration-300">
-                    <Search className="w-5 h-5 text-amber" />
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-brand/5 border border-brand/20 flex items-center justify-center group-hover:bg-brand/10 group-hover:scale-105 transition-all duration-300">
+                    <Search className="w-5 h-5 text-brand" />
                   </div>
                   <div>
-                    <span className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors block">
+                    <span className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors block">
                       {locale === "en" ? "Browse All Programmes" : "تصفح كل البرامج"}
                     </span>
                     <span className="text-xs text-text-muted">
@@ -292,12 +304,12 @@ export default function WhyCzechiaClient() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { key: "universities", icon: Users, color: "text-amber" },
-            { key: "programs", icon: BarChart3, color: "text-blue-400" },
-            { key: "students", icon: Users, color: "text-emerald-400" },
-            { key: "cost", icon: BarChart3, color: "text-purple-400" },
-            { key: "safety", icon: ShieldAlert, color: "text-teal-400" },
-            { key: "location", icon: Compass, color: "text-rose-400" },
+            { key: "universities", icon: Users, color: "text-brand" },
+            { key: "programs", icon: BarChart3, color: "text-info" },
+            { key: "students", icon: Users, color: "text-success" },
+            { key: "cost", icon: BarChart3, color: "text-violet-700 dark:text-violet-300" },
+            { key: "safety", icon: ShieldAlert, color: "text-success" },
+            { key: "location", icon: Compass, color: "text-error" },
           ].map((s, i) => (
             <motion.div
               key={s.key}
@@ -309,15 +321,14 @@ export default function WhyCzechiaClient() {
             >
               <GlassCard className="h-full group card-shine" hoverEffect="lift">
                 <div className="flex items-center gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 group-hover:border-amber/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center group-hover:scale-105 group-hover:border-brand/20 transition-all duration-300">
                     <s.icon className={`w-6 h-6 ${s.color}`} />
                   </div>
                   <div>
                     <div className="text-sm text-text-secondary">{t.glance.labels[s.key as keyof typeof t.glance.labels]}</div>
-                    <AnimatedCounter
-                      value={t.glance.stats[s.key as keyof typeof t.glance.stats]}
-                      className="text-lg font-semibold text-text-primary block"
-                    />
+                    <span className="text-lg font-semibold text-text-primary block">
+                      {t.glance.stats[s.key as keyof typeof t.glance.stats]}
+                    </span>
                   </div>
                 </div>
               </GlassCard>
@@ -339,9 +350,7 @@ export default function WhyCzechiaClient() {
           className="motion-safe-fallback"
         >
           <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center relative overflow-hidden noise-overlay aurora-bg">
-            <div className="absolute top-0 end-0 w-[200px] h-[200px] bg-amber/[0.05] rounded-full blur-[60px] pointer-events-none" />
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl group">
-              <span className="text-3xl font-bold text-amber/60 select-none" aria-hidden="true">J</span>
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-brand/20 shadow-xl group">
               <Image
                 src="/images/john.jpg"
                 alt={`${FOUNDER_NAME}, founder of Study Czechia`}
@@ -353,7 +362,7 @@ export default function WhyCzechiaClient() {
               />
             </div>
             <div className="relative z-10">
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber mb-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand mb-2">
                 <Sparkles className="w-3 h-3" />
                 {t.founder.badge}
               </span>
@@ -366,6 +375,7 @@ export default function WhyCzechiaClient() {
           </GlassCard>
         </motion.div>
       </section>
+        <PhotoCredits className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" />
       </main>
 
       <Footer />

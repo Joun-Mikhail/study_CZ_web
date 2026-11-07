@@ -50,15 +50,15 @@ export default function VerifyClient({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 px-4">
+      <main id="main-content" className="min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-xl mx-auto">
           <Breadcrumb />
 
           {cert ? (
             <GlassCard className="mt-8 p-8">
               <div className="flex items-center gap-3 mb-6">
-                <CheckCircle2 className="w-8 h-8 text-green-400" />
-                <span className="text-lg font-semibold text-green-400">
+                <CheckCircle2 className="w-8 h-8 text-success" />
+                <span className="text-lg font-semibold text-success">
                   {t.validBadge}
                 </span>
               </div>
@@ -102,7 +102,7 @@ export default function VerifyClient({
             </GlassCard>
           ) : (
             <GlassCard className="mt-8 p-8 text-center">
-              <XCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+              <XCircle className="w-12 h-12 text-error mx-auto mb-4" />
               <h1 className="text-lg font-semibold text-text-primary mb-2">
                 {t.notFoundTitle}
               </h1>

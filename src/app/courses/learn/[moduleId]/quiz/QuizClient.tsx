@@ -64,7 +64,7 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 text-center">
+        <main id="main-content" className="pt-32 pb-20 px-4 text-center">
           <h1 className="text-2xl font-bold text-text-primary">{t.notFound}</h1>
         </main>
         <Footer />
@@ -76,8 +76,8 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+        <main id="main-content" className="pt-32 pb-20 px-4 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
       </div>
@@ -94,10 +94,10 @@ export default function QuizClient({ moduleId }: Props) {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-amber" />
+            <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-8 h-8 text-brand" />
             </div>
             <h1 className="text-2xl font-bold text-text-primary mb-2">{copy.title}</h1>
             <p className="text-text-secondary text-sm mb-6">{copy.subtitle}</p>
@@ -167,7 +167,7 @@ export default function QuizClient({ moduleId }: Props) {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs text-text-muted mb-6 flex-wrap">
@@ -184,12 +184,12 @@ export default function QuizClient({ moduleId }: Props) {
           {/* ── INTRO ── */}
           {state === "intro" && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-                <Trophy className="w-8 h-8 text-amber" />
+              <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                <Trophy className="w-8 h-8 text-brand" />
               </div>
               <h1 className="text-2xl font-bold text-text-primary mb-2">
                 {isAr ? quiz.title.ar : quiz.title.en}
@@ -198,7 +198,7 @@ export default function QuizClient({ moduleId }: Props) {
                 {questions.length} {t.questionsLabel} · {t.passingScore}: {quiz.passingScore}%
               </p>
               {bestScore !== null && (
-                <p className="text-sm text-amber mb-4 flex items-center justify-center gap-1">
+                <p className="text-sm text-brand mb-4 flex items-center justify-center gap-1">
                   <Award className="w-4 h-4" />
                   {t.bestScoreLabel}: {bestScore}%
                 </p>
@@ -207,15 +207,15 @@ export default function QuizClient({ moduleId }: Props) {
                 <GlassCard>
                   <div className="space-y-3 text-start">
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <Target className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <Target className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip1}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <Lightbulb className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <Lightbulb className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip2}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <RotateCcw className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                      <RotateCcw className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{t.introTip3}</span>
                     </div>
                   </div>
@@ -231,7 +231,7 @@ export default function QuizClient({ moduleId }: Props) {
           {state === "active" && currentQuestion && (
             <motion.div
               key={currentQ}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -245,9 +245,9 @@ export default function QuizClient({ moduleId }: Props) {
                     {Math.round(((currentQ + 1) / questions.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-midnight/50 overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-bg/50 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400 transition-all duration-300"
+                    className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400 transition-all duration-300"
                     style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
                   />
                 </div>
@@ -272,23 +272,23 @@ export default function QuizClient({ moduleId }: Props) {
                         className={cn(
                           "w-full text-start px-4 py-3 rounded-xl border text-sm transition-all",
                           showResult && isAnswer
-                            ? "border-green-500/50 bg-green-500/10 text-green-300"
+                            ? "border-green-500/50 bg-green-500/10 text-success"
                             : showResult && isSelected && !isAnswer
-                            ? "border-red-500/50 bg-red-500/10 text-red-300"
+                            ? "border-red-500/50 bg-red-500/10 text-error"
                             : isSelected
-                            ? "border-amber/50 bg-amber/10 text-text-primary"
-                            : "border-border-subtle bg-surface/60 text-text-secondary hover:border-amber/30 hover:bg-surface-hover/50"
+                            ? "border-brand/50 bg-brand/10 text-text-primary"
+                            : "border-border-subtle bg-surface/60 text-text-secondary hover:border-brand/30 hover:bg-surface-hover/50"
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <div className={cn(
                             "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0 border",
                             showResult && isAnswer
-                              ? "border-green-500 bg-green-500/20 text-green-300"
+                              ? "border-green-500 bg-green-500/20 text-success"
                               : showResult && isSelected && !isAnswer
-                              ? "border-red-500 bg-red-500/20 text-red-300"
+                              ? "border-red-500 bg-red-500/20 text-error"
                               : isSelected
-                              ? "border-amber bg-amber/20 text-amber"
+                              ? "border-brand bg-brand/20 text-brand"
                               : "border-border-subtle text-text-muted"
                           )}>
                             {showResult && isAnswer ? (
@@ -310,7 +310,7 @@ export default function QuizClient({ moduleId }: Props) {
                 <AnimatePresence>
                   {showExplanation && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
+                      initial={{ height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
@@ -323,13 +323,13 @@ export default function QuizClient({ moduleId }: Props) {
                       )}>
                         <div className="flex items-center gap-2 mb-1">
                           {isCorrect ? (
-                            <CheckCircle2 className="w-4 h-4 text-green-400" />
+                            <CheckCircle2 className="w-4 h-4 text-success" />
                           ) : (
-                            <XCircle className="w-4 h-4 text-red-400" />
+                            <XCircle className="w-4 h-4 text-error" />
                           )}
                           <span className={cn(
                             "text-sm font-medium",
-                            isCorrect ? "text-green-400" : "text-red-400"
+                            isCorrect ? "text-success" : "text-error"
                           )}>
                             {isCorrect ? t.correct : t.incorrect}
                           </span>
@@ -370,7 +370,7 @@ export default function QuizClient({ moduleId }: Props) {
           {/* ── RESULTS ── */}
           {state === "result" && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
@@ -379,16 +379,16 @@ export default function QuizClient({ moduleId }: Props) {
                 passed ? "bg-green-500/10" : "bg-red-500/10"
               )}>
                 {passed ? (
-                  <Trophy className="w-10 h-10 text-green-400" />
+                  <Trophy className="w-10 h-10 text-success" />
                 ) : (
-                  <RotateCcw className="w-10 h-10 text-red-400" />
+                  <RotateCcw className="w-10 h-10 text-error" />
                 )}
               </div>
 
               <h1 className="text-2xl font-bold text-text-primary mb-1">
                 {passed ? t.result.passTitle : t.result.failTitle}
               </h1>
-              <p className="text-4xl font-bold text-amber my-3">{score}%</p>
+              <p className="text-4xl font-bold text-brand my-3">{score}%</p>
               <p className="text-text-secondary text-sm mb-6">
                 {passed ? t.result.passMsg : t.result.failMsg}
               </p>
@@ -401,13 +401,13 @@ export default function QuizClient({ moduleId }: Props) {
                     return (
                       <div key={i} className="flex items-center gap-2 text-sm">
                         {correct ? (
-                          <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                          <XCircle className="w-4 h-4 text-error shrink-0" />
                         )}
                         <span className={cn(
                           "truncate",
-                          correct ? "text-text-secondary" : "text-red-300"
+                          correct ? "text-text-secondary" : "text-error"
                         )}>
                           {isAr ? q.question.ar : q.question.en}
                         </span>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WhyCzechiaClient from "./WhyCzechiaClient";
+import { cityMapData } from "@/lib/city-map-data";
 
 export const metadata: Metadata = {
   title: "Why Study in Czechia: Costs, Cities and Programmes",
@@ -9,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WhyCzechiaClient />;
+  return <WhyCzechiaClient mapCities={cityMapData()} />;
 }

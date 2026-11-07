@@ -4,7 +4,13 @@ import { universities } from "@/data/universities";
 import { programmes, PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { stageOrder } from "@/data/stages";
-import { fieldToSlug, cityToSlug, degreeToSlug } from "@/lib/seo-utils";
+import {
+  fieldToSlug,
+  cityToSlug,
+  degreeToSlug,
+  studyPageIndexable,
+  universityPageIndexable,
+} from "@/lib/seo-utils";
 
 export const dynamic = "force-static";
 
@@ -14,6 +20,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://studyczechia.com";
 // the data file it renders, where relevant). If git history isn't available
 // at build time we omit lastmod entirely rather than publish a made-up date:
 // Google ignores lastmod values that prove unreliable.
+// src/i18n is deliberately not a source: translations.ts and ar-metadata.ts
+// hold strings for every page and change in most commits, so counting them
+// stamped all URLs with the same date (and made IndexNow resubmit them all).
 const gitDateCache = new Map<string, Date | undefined>();
 
 function gitDate(paths: string[]): Date | undefined {
@@ -40,7 +49,7 @@ function gitDate(paths: string[]): Date | undefined {
 // entry names its twin, so search engines treat them as one page in two
 // languages rather than duplicates.
 function entry(route: string, priority: number, sources: string[]): MetadataRoute.Sitemap {
-  const lastModified = gitDate([...sources, "src/i18n"]);
+  const lastModified = gitDate(sources);
   const en = route === "" ? `${SITE_URL}/` : `${SITE_URL}${route}/`;
   const ar = route === "" ? `${SITE_URL}/ar/` : `${SITE_URL}/ar${route}/`;
   const alternates = { languages: { en, ar, "x-default": en } };
@@ -70,13 +79,18 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/preparatory-year", priority: 0.8, sources: ["src/app/preparatory-year", "src/data/preparatory-programs.ts"] },
   { route: "/contact", priority: 0.8, sources: ["src/app/contact"] },
   { route: "/eligibility", priority: 0.8, sources: ["src/app/eligibility"] },
-  { route: "/what-it-costs", priority: 0.8, sources: ["src/app/what-it-costs"] },
+  { route: "/what-it-costs", priority: 0.8, sources: ["src/app/what-it-costs", "src/lib/study-costs.ts", "src/data/programmes.ts", "src/data/costs.ts"] },
   { route: "/why-czechia", priority: 0.7, sources: ["src/app/why-czechia"] },
   { route: "/deadlines", priority: 0.8, sources: ["src/app/deadlines", "src/data/programmes.ts"] },
   { route: "/interview-prep", priority: 0.8, sources: ["src/app/interview-prep"] },
   { route: "/arrival", priority: 0.8, sources: ["src/app/arrival"] },
+  { route: "/for-parents", priority: 0.8, sources: ["src/app/for-parents"] },
+  { route: "/recognition", priority: 0.7, sources: ["src/app/recognition/page.tsx", "src/app/recognition/RecognitionIndexClient.tsx"] },
+  { route: "/recognition/egypt", priority: 0.8, sources: ["src/app/recognition/egypt", "src/app/recognition/RecognitionGuide.tsx"] },
+  { route: "/recognition/jordan", priority: 0.8, sources: ["src/app/recognition/jordan", "src/app/recognition/RecognitionGuide.tsx"] },
+  { route: "/recognition/saudi-arabia", priority: 0.8, sources: ["src/app/recognition/saudi-arabia", "src/app/recognition/RecognitionGuide.tsx"] },
+  { route: "/student-visa-egypt", priority: 0.8, sources: ["src/app/student-visa-egypt", "src/app/recognition/RecognitionGuide.tsx"] },
   { route: "/questions-to-ask", priority: 0.8, sources: ["src/app/questions-to-ask"] },
-  { route: "/my-journey", priority: 0.8, sources: ["src/app/my-journey"] },
   { route: "/about", priority: 0.8, sources: ["src/app/about"] },
   { route: "/terms", priority: 0.8, sources: ["src/app/terms"] },
   { route: "/privacy", priority: 0.8, sources: ["src/app/privacy"] },
@@ -89,9 +103,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(`/stage/${slug}`, 0.8, ["src/app/stage", "src/data/stages.ts", "src/data/qa.ts"])
   );
 
-  const universityRoutes = universities.flatMap((u) =>
-    entry(`/university/${u.id}`, 0.6, ["src/app/university", "src/data/universities.ts"])
-  );
+  // Universities, fields and cities with no programmes yet are noindexed
+  // empty pages (see noindexUnless in seo-utils), so they stay out of here.
+  const universityRoutes = universities
+    .filter((u) => universityPageIndexable(u.id))
+    .flatMap((u) => entry(`/university/${u.id}`, 0.6, ["src/app/university", "src/data/universities.ts"]));
 
   const programmeRoutes = programmes.flatMap((p) =>
     entry(`/programmes/${p.id}`, 0.7, ["src/app/programmes/[slug]", "src/data/programmes.ts"])
@@ -99,16 +115,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const studySources = ["src/app/study", "src/data/programmes.ts", "src/data/universities-v2.ts"];
 
-  const fieldRoutes = PROGRAMME_FIELDS.flatMap((f) => entry(`/study/${fieldToSlug(f)}`, 0.7, studySources));
+  const fieldRoutes = PROGRAMME_FIELDS.map(fieldToSlug)
+    .filter(studyPageIndexable)
+    .flatMap((slug) => entry(`/study/${slug}`, 0.7, studySources));
 
   const cities = [...new Set(universitiesV2.map((u) => u.city))];
-  const cityRoutes = cities.flatMap((c) => entry(`/study/${cityToSlug(c)}`, 0.7, studySources));
+  const cityRoutes = cities
+    .map(cityToSlug)
+    .filter(studyPageIndexable)
+    .flatMap((slug) => entry(`/study/${slug}`, 0.7, studySources));
 
   const degreeRoutes = (["Bachelor", "Master"] as const).flatMap((d) =>
     entry(`/study/${degreeToSlug(d)}`, 0.7, studySources)
   );
 
-  const intentRoutes = ["/study/cheapest-programmes", "/study/no-entrance-exam"].flatMap((route) =>
+  const intentRoutes = ["/study/cheapest-programmes"].flatMap((route) =>
     entry(route, 0.7, studySources)
   );
 

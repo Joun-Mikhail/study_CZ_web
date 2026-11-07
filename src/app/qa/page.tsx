@@ -118,13 +118,15 @@ export default function QaPage() {
         <div className="max-w-3xl mx-auto mb-8">
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/students-studying.jpg"
-              alt="Students collaborating in a library"
+              src="/images/study/library-aisle.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
         <div className="max-w-3xl mx-auto text-center mb-10">
@@ -148,7 +150,7 @@ export default function QaPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t.qa.searchPlaceholder}
-              className="w-full ps-11 pe-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 transition-colors"
+              className="w-full ps-11 pe-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand/40 transition-colors"
             />
           </div>
 
@@ -158,8 +160,8 @@ export default function QaPage() {
               className={cn(
                 "px-3.5 py-1.5 rounded-full text-sm border transition-colors",
                 category === "all"
-                  ? "bg-amber text-midnight border-amber font-medium"
-                  : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-amber/30"
+                  ? "bg-brand text-bg border-brand font-medium"
+                  : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-brand/30"
               )}
             >
               {t.qa.allCategories}
@@ -171,8 +173,8 @@ export default function QaPage() {
                 className={cn(
                   "px-3.5 py-1.5 rounded-full text-sm border transition-colors",
                   category === c.key
-                    ? "bg-amber text-midnight border-amber font-medium"
-                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-amber/30"
+                    ? "bg-brand text-bg border-brand font-medium"
+                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:border-brand/30"
                 )}
               >
                 {c.label[locale]}

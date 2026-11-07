@@ -17,8 +17,31 @@ import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/translations";
 import Image from "next/image";
 import { ContextualCTA } from "@/components/contextual-cta";
+import { CardPhoto, PhotoPill, PhotoTag, cityName } from "@/components/card-photo";
+import { cityImage, type ImageId } from "@/data/images";
 
 const whyIcons = [GraduationCap, BookOpen, Award, Shield, Globe, Users, Home];
+
+/** The provider's own university building where we have it, else its city. */
+const PREP_PHOTO: Record<string, ImageId> = {
+  "ujop-czech": "uni-cuni",
+  "ujop-english": "uni-cuni",
+  "muni-kabcest": "uni-muni",
+  "muni-cjv": "uni-muni",
+  vut: "uni-but",
+  cvut: "uni-ctu",
+  vse: "uni-vse",
+  uwb: "uni-zcu",
+};
+
+function prepPhoto(id: string, city: string): ImageId | undefined {
+  return PREP_PHOTO[id] ?? cityImage(city);
+}
+
+/** "20 hours per week" → "20 ساعة في الأسبوع" on Arabic pages. */
+function intensityLabel(text: string, locale: Locale): string {
+  return locale === "ar" ? text.replace(/hours per week/, "ساعة في الأسبوع") : text;
+}
 
 export default function PreparatoryYearPage() {
   const { t, locale } = useTranslation();
@@ -46,20 +69,22 @@ export default function PreparatoryYearPage() {
     <div className="min-h-screen">
       <Navbar />
       <Breadcrumb />
-      <main>
+      <main id="main-content">
 
       {/* Hero banner */}
       <section className="pt-28 pb-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="relative w-full h-[140px] sm:h-[190px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-scenic.jpg"
-              alt="Aerial view of Prague Old Town"
+              src="/images/study/class-hijab.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 900px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
       </section>
@@ -67,8 +92,8 @@ export default function PreparatoryYearPage() {
       {/* Hero */}
       <section className="pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-6">
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-sm font-medium mb-6">
               <GraduationCap className="w-4 h-4" />
               {locale === "ar" ? "السنة التحضيرية" : "Foundation Year"}
             </span>
@@ -99,8 +124,8 @@ export default function PreparatoryYearPage() {
                   className="motion-safe-fallback"
                 >
                   <GlassCard className="h-full">
-                    <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center mb-3">
-                      <Icon className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center mb-3">
+                      <Icon className="w-5 h-5 text-brand" />
                     </div>
                     <h3 className="font-semibold text-text-primary text-sm mb-1.5">{item.title}</h3>
                     <p className="text-xs text-text-secondary leading-relaxed">{item.desc}</p>
@@ -130,15 +155,15 @@ export default function PreparatoryYearPage() {
                   <h3 className="font-semibold text-text-primary mb-3">{type.title}</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2 text-text-secondary">
-                      <Clock className="w-3.5 h-3.5 text-amber shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-brand shrink-0" />
                       {type.duration}
                     </div>
                     <div className="flex items-center gap-2 text-text-secondary">
-                      <BookOpen className="w-3.5 h-3.5 text-amber shrink-0" />
+                      <BookOpen className="w-3.5 h-3.5 text-brand shrink-0" />
                       {type.intensity}
                     </div>
                     <div className="flex items-center gap-2 text-text-secondary">
-                      <Shield className="w-3.5 h-3.5 text-amber shrink-0" />
+                      <Shield className="w-3.5 h-3.5 text-brand shrink-0" />
                       {locale === "ar" ? "فيزا:" : "Visa:"} {type.visa}
                     </div>
                   </div>
@@ -160,9 +185,10 @@ export default function PreparatoryYearPage() {
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-text-muted" />
               <select
+                aria-label={locale === "ar" ? "المدينة" : "City"}
                 value={cityFilter}
                 onChange={(e) => setCityFilter(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-amber/50"
+                className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-brand/50"
               >
                 <option value="all">{t.prep.filterCity}</option>
                 {cities.map((c) => (
@@ -171,9 +197,10 @@ export default function PreparatoryYearPage() {
               </select>
             </div>
             <select
+              aria-label={locale === "ar" ? "لغة الدراسة" : "Language of study"}
               value={langFilter}
               onChange={(e) => setLangFilter(e.target.value)}
-              className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-amber/50"
+              className="px-3 py-2 rounded-xl border border-border-subtle bg-transparent text-sm text-text-secondary focus:outline-none focus:border-brand/50"
             >
               <option value="all">{t.prep.filterLang}</option>
               <option value="czech">{t.prep.filterCzech}</option>
@@ -197,9 +224,9 @@ export default function PreparatoryYearPage() {
                   href={u.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 rounded-xl border border-border-subtle bg-surface/60 hover:border-amber/30 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-border-subtle bg-surface/60 hover:border-brand/30 transition-colors"
                 >
-                  <Building2 className="w-4 h-4 text-amber shrink-0" />
+                  <Building2 className="w-4 h-4 text-brand shrink-0" />
                   <div>
                     <p className="text-sm font-medium text-text-primary">{u.name}</p>
                     <p className="text-xs text-text-muted">{u.city}</p>
@@ -213,8 +240,8 @@ export default function PreparatoryYearPage() {
           {/* Private Programs */}
           <div className="mt-10">
             <h3 className="text-lg font-semibold text-text-primary mb-3">{t.prep.privateTitle}</h3>
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-amber/5 border border-amber/20 mb-5">
-              <AlertTriangle className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-brand/5 border border-brand/20 mb-5">
+              <AlertTriangle className="w-4 h-4 text-brand shrink-0 mt-0.5" />
               <p className="text-xs text-text-secondary leading-relaxed">{t.prep.privateWarning}</p>
             </div>
             <div className="space-y-4">
@@ -242,8 +269,8 @@ export default function PreparatoryYearPage() {
                   transition={{ delay: i * 0.06 }}
                   className="motion-safe-fallback relative flex gap-4 items-start"
                 >
-                  <div className="relative z-10 w-10 h-10 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-amber">{i + 1}</span>
+                  <div className="relative z-10 w-10 h-10 rounded-full bg-brand/10 border border-brand/30 flex items-center justify-center shrink-0">
+                    <span className="step-num text-sm font-bold text-brand" data-n={i + 1} />
                   </div>
                   <p className="text-sm text-text-secondary leading-relaxed pt-2.5">{step}</p>
                 </motion.div>
@@ -271,8 +298,8 @@ export default function PreparatoryYearPage() {
             </GlassCard>
             <GlassCard hoverEffect="border">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                  <AlertTriangle className="w-4 h-4 text-amber" />
+                <div className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center">
+                  <AlertTriangle className="w-4 h-4 text-brand" />
                 </div>
                 <h3 className="font-semibold text-text-primary text-sm">
                   {locale === "ar" ? "غرض \"أخرى\" ⚠" : "Purpose: \"Other\" ⚠"}
@@ -287,13 +314,13 @@ export default function PreparatoryYearPage() {
             <ul className="space-y-2">
               {t.prep.visaDocsList.map((doc, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                  <ChevronRight className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5 rtl:rotate-180" />
+                  <ChevronRight className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5 rtl:rotate-180" />
                   {doc}
                 </li>
               ))}
             </ul>
             <p className="mt-4 text-xs text-text-muted">{t.prep.visaProcessing}</p>
-            <div className="mt-3 p-3 rounded-lg bg-amber/5 border border-amber/20">
+            <div className="mt-3 p-3 rounded-lg bg-brand/5 border border-brand/20">
               <p className="text-xs text-text-secondary">{t.prep.visaEu}</p>
             </div>
           </GlassCard>
@@ -313,11 +340,19 @@ export default function PreparatoryYearPage() {
           <p className="text-sm text-text-secondary text-center mb-6 -mt-4">{t.prep.brnoSubtitle}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {brnoPrograms.map((prog) => (
-              <GlassCard key={prog.id} hoverEffect="lift" className="h-full flex flex-col">
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="w-4 h-4 text-[#d42127]" />
-                  <h3 className="font-semibold text-text-primary text-sm">{prog.university}</h3>
-                </div>
+              <div key={prog.id} className="card-lift group h-full rounded-2xl">
+              <GlassCard className="h-full flex flex-col">
+                <CardPhoto
+                  id={prepPhoto(prog.id, prog.city)}
+                  className="-mx-6 -mt-6 mb-4"
+                  bottom={
+                    <PhotoTag>
+                      <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                      {cityName(prog.city, locale)}
+                    </PhotoTag>
+                  }
+                />
+                <h3 className="font-semibold text-text-primary text-sm mb-3">{prog.university}</h3>
                 {prog.note && (
                   <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
                 )}
@@ -327,7 +362,7 @@ export default function PreparatoryYearPage() {
                       <p className="text-xs font-medium text-text-primary">{p.name[locale]}</p>
                       <div className="flex items-center gap-3 mt-1">
                         {p.priceEur && (
-                          <span className="text-xs font-semibold text-amber">€{p.priceEur.toLocaleString()}</span>
+                          <span className="text-xs font-semibold text-brand">€{p.priceEur.toLocaleString()}</span>
                         )}
                         {p.priceCzk && (
                           <span className="text-xs text-text-muted">{p.priceCzk.toLocaleString()} CZK</span>
@@ -340,12 +375,13 @@ export default function PreparatoryYearPage() {
                   href={prog.website.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs text-amber hover:underline"
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs text-brand hover:underline"
                 >
                   <Globe className="w-3 h-3" />
                   {prog.website.label}
                 </a>
               </GlassCard>
+              </div>
             ))}
           </div>
         </div>
@@ -363,9 +399,9 @@ export default function PreparatoryYearPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.05 }}
-                className="motion-safe-fallback flex items-start gap-3 p-4 rounded-xl border border-amber/20 bg-amber/5"
+                className="motion-safe-fallback flex items-start gap-3 p-4 rounded-xl border border-brand/20 bg-brand/5"
               >
-                <Lightbulb className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+                <Lightbulb className="w-5 h-5 text-brand shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-text-primary text-sm mb-0.5">{tip.title}</p>
                   <p className="text-xs text-text-secondary leading-relaxed">{tip.desc}</p>
@@ -436,9 +472,9 @@ export default function PreparatoryYearPage() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3.5 rounded-xl border border-border-subtle bg-surface/60 hover:border-amber/30 transition-colors group"
+                className="flex items-center gap-3 p-3.5 rounded-xl border border-border-subtle bg-surface/60 hover:border-brand/30 transition-colors group"
               >
-                <ExternalLink className="w-4 h-4 text-amber shrink-0" />
+                <ExternalLink className="w-4 h-4 text-brand shrink-0" />
                 <span className="text-sm text-text-secondary group-hover:text-text-primary transition-colors">{link.label[locale]}</span>
               </a>
             ))}
@@ -470,28 +506,55 @@ function ProgramCard({
   isPrivate?: boolean;
 }) {
   return (
-    <GlassCard hoverEffect="border">
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <h3 className="font-semibold text-text-primary">{prog.university}</h3>
-          <div className="flex items-center gap-2 mt-1">
-            <MapPin className="w-3 h-3 text-text-muted" />
-            <span className="text-xs text-text-muted">{prog.city}</span>
-            {isPrivate && (
-              <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[10px] font-medium border border-amber/20">
-                {locale === "ar" ? "خاص" : "Private"}
-              </span>
-            )}
-          </div>
-        </div>
-        <Languages className="w-5 h-5 text-amber shrink-0" />
-      </div>
+    <div className="card-lift group rounded-2xl">
+    <GlassCard>
+      <CardPhoto
+        id={prepPhoto(prog.id, prog.city)}
+        height="h-28 sm:h-36"
+        className="-mx-6 -mt-6 mb-4"
+        sizes="(max-width: 768px) 100vw, 900px"
+        top={
+          <>
+            {isPrivate ? <PhotoPill>{locale === "ar" ? "خاص" : "Private"}</PhotoPill> : <span />}
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/90 text-ink shadow-sm">
+              <Languages className="w-4.5 h-4.5" aria-hidden="true" />
+            </span>
+          </>
+        }
+        bottom={
+          <PhotoTag>
+            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+            {cityName(prog.city, locale)}
+          </PhotoTag>
+        }
+      />
+      <h3 className="font-semibold text-text-primary mb-3">{prog.university}</h3>
 
       {prog.note && (
         <p className="text-xs text-text-muted leading-relaxed mb-3">{prog.note[locale]}</p>
       )}
 
-      <div className="overflow-x-auto -mx-2">
+      {/* Phones: one small row per course, so prices never sit off-screen. */}
+      <ul className="sm:hidden space-y-2">
+        {prog.programs.map((p, i) => (
+          <li key={i} className="rounded-xl border border-border-subtle bg-bg-subtle px-3 py-2.5">
+            <p className="text-xs font-medium text-text-primary">{p.name[locale]}</p>
+            <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-xs">
+              <span className="text-text-secondary">{p.intensity ? intensityLabel(p.intensity, locale) : ""}</span>
+              <span className="whitespace-nowrap">
+                <span className="font-semibold text-brand" dir="ltr">
+                  {p.priceEur ? `€${p.priceEur.toLocaleString("en-US")}` : p.priceNote || "—"}
+                </span>
+                {p.priceCzk ? (
+                  <span className="text-text-muted" dir="ltr"> · {p.priceCzk.toLocaleString("en-US")} CZK</span>
+                ) : null}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="hidden sm:block overflow-x-auto -mx-2" tabIndex={0}>
         <table className="w-full text-xs min-w-[400px]">
           <thead>
             <tr className="border-b border-border-subtle">
@@ -512,9 +575,9 @@ function ProgramCard({
               <tr key={i} className="border-b border-border-subtle/50 last:border-0">
                 <td className="py-2 px-2 text-text-primary font-medium">{p.name[locale]}</td>
                 {prog.programs.some((pp) => pp.intensity) && (
-                  <td className="py-2 px-2 text-text-secondary">{p.intensity || "—"}</td>
+                  <td className="py-2 px-2 text-text-secondary">{p.intensity ? intensityLabel(p.intensity, locale) : "—"}</td>
                 )}
-                <td className="py-2 px-2 text-end font-semibold text-amber">
+                <td className="py-2 px-2 text-end font-semibold text-brand">
                   {p.priceEur ? `€${p.priceEur.toLocaleString()}` : p.priceNote || "—"}
                 </td>
                 <td className="py-2 px-2 text-end text-text-secondary">
@@ -528,16 +591,17 @@ function ProgramCard({
 
       <div className="flex flex-wrap items-center gap-4 mt-4 pt-3 border-t border-border-subtle">
         {prog.contact.email && (
-          <a href={`mailto:${prog.contact.email}`} className="inline-flex items-center gap-1.5 text-xs text-text-secondary hover:text-amber transition-colors">
+          <a href={`mailto:${prog.contact.email}`} className="inline-flex items-center gap-1.5 text-xs text-text-secondary hover:text-brand transition-colors">
             <Mail className="w-3 h-3" />
             {prog.contact.email}
           </a>
         )}
-        <a href={prog.website.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-amber hover:underline">
+        <a href={prog.website.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-brand hover:underline">
           <Globe className="w-3 h-3" />
           {prog.website.label}
         </a>
       </div>
     </GlassCard>
+    </div>
   );
 }

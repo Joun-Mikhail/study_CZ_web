@@ -24,7 +24,7 @@ export const guideSteps: GuideStep[] = [
   },
   {
     id: "language-czech-path",
-    title: { en: "2b. Consider the Czech-language path", ar: "2ب. فكر في طريق الدراسة بالتشيكي" },
+    title: { en: "3. Consider the Czech-language path", ar: "3. فكر في طريق الدراسة بالتشيكي" },
     body: {
       en: "If you're willing to invest a year to reach B2 Czech, you can study at public universities with zero tuition. Several universities run official preparatory/foundation programmes (e.g., Charles University, Masaryk University, CTU, ILPS/UJOP). Prep-year costs range from about €2,000–€5,000.",
       ar: "لو مستعد تستثمر سنة عشان توصل مستوى B2 في التشيكي، تقدر تدرس في الجامعات الحكومية من غير رسوم. في جامعات بتقدم سنين تحضيرية رسمية (مثال: جامعة تشارلز، جامعة مساريك، CTU، ILPS/UJOP). تكلفة السنة التحضيرية تقريبًا من 2,000 لـ5,000 يورو.",

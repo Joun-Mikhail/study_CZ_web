@@ -1,14 +1,18 @@
 ﻿"use client";
 
-import { track } from "@/components/umami";
+import { track, trackToolStarted } from "@/components/umami";
 import { useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { MagneticButton } from "@/components/ui/magnetic-button";
-import { WHATSAPP_URL, PAYMENT_LINKS, whatsappWithContext } from "@/config/contact";
+import { MagneticButton, buttonClasses } from "@/components/ui/magnetic-button";
+import { whatsappWithText } from "@/config/contact";
+import { price } from "@/config/pricing";
+import { HelpLink } from "@/components/help-sheet";
+import { FounderCard } from "@/components/founder-card";
+import { saveEligibilityToJourney } from "@/lib/journey-store";
 import { EmailSignup } from "@/components/email-signup";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "@/components/locale-link";
@@ -25,14 +29,25 @@ import {
   ArrowRight,
   MessageCircle,
   RotateCcw,
-  ChevronDown,
-  ChevronUp,
   BookOpen,
-  Briefcase,
+  Bookmark,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { en, ar, initial, scoreForm, type FormData, type Status } from "./eligibility-logic";
+import { EligibilityRequirements } from "./EligibilityRequirements";
+import {
+  en,
+  ar,
+  initial,
+  scoreForm,
+  verdictFor,
+  topRisks,
+  offersFullJourney,
+  planSummary,
+  TIMELINE_SOURCES,
+  type FormData,
+  type Status,
+} from "./eligibility-logic";
 
 
 export default function EligibilityClient() {
@@ -42,8 +57,10 @@ export default function EligibilityClient() {
   const [form, setForm] = useState<FormData>(initial);
   const [showResults, setShowResults] = useState(false);
 
-  const set = (key: keyof FormData, value: string) =>
+  const set = (key: keyof FormData, value: string) => {
+    trackToolStarted("eligibility");
     setForm((prev) => ({ ...prev, [key]: value }));
+  };
 
   const stepDefs = [
     { title: t.steps[0], icon: GraduationCap },
@@ -62,7 +79,7 @@ export default function EligibilityClient() {
     if (finished.current) return; // count a double tap once
     finished.current = true;
     setShowResults(true);
-    track("eligibility_completed");
+    track("tool_completed", { tool: "eligibility" });
   };
   const reset = () => {
     finished.current = false;
@@ -84,18 +101,20 @@ export default function EligibilityClient() {
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
             <Image
-              src="/images/prague-bridge.jpg"
-              alt="Prague panoramic rooftops view"
+              src="/images/study/notes-writing.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
         <div className="max-w-2xl mx-auto text-center mb-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">
@@ -116,9 +135,9 @@ export default function EligibilityClient() {
                     className={cn(
                       "w-9 h-9 rounded-full flex items-center justify-center border transition-colors",
                       i === step
-                        ? "bg-amber/20 border-amber text-amber"
+                        ? "bg-brand/20 border-brand text-brand"
                         : i < step
-                        ? "bg-amber border-amber text-midnight"
+                        ? "bg-brand border-brand text-bg"
                         : "bg-surface border-border-subtle text-text-muted"
                     )}
                   >
@@ -141,7 +160,7 @@ export default function EligibilityClient() {
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
-              initial={{ opacity: 0, x: 24 }}
+              initial={{ x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -24 }}
               transition={{ duration: 0.25 }}
@@ -176,6 +195,8 @@ export default function EligibilityClient() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        <EligibilityRequirements locale={locale} />
       </main>
       <Footer />
     </div>
@@ -216,7 +237,7 @@ function Input({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-amber/50 transition-colors"
+      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-brand/50 transition-colors"
     />
   );
 }
@@ -236,7 +257,7 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors appearance-none"
+      className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-surface text-text-primary text-sm focus:outline-none focus:border-brand/50 transition-colors appearance-none"
     >
       {placeholder && <option value="">{placeholder}</option>}
       {options.map((o) => (
@@ -264,8 +285,8 @@ function RadioGroup({
           className={cn(
             "px-4 py-2 rounded-xl text-sm border transition-colors",
             value === o.value
-              ? "bg-amber/10 border-amber/50 text-text-primary font-medium"
-              : "bg-surface border-border-subtle text-text-secondary hover:border-amber/30"
+              ? "bg-brand/10 border-brand/50 text-text-primary font-medium"
+              : "bg-surface border-border-subtle text-text-secondary hover:border-brand/30"
           )}
         >
           {o.label}
@@ -441,11 +462,25 @@ function StepTimeline({ form, set, t }: StepProps) {
           ]}
         />
       </div>
+      <div>
+        <FieldLabel>{t.fields.helpStyle}</FieldLabel>
+        <RadioGroup
+          value={form.helpStyle}
+          onChange={(v) => set("helpStyle", v)}
+          options={[
+            { value: "myself", label: t.options.myself },
+            { value: "someHelp", label: t.options.someHelp },
+            { value: "withMe", label: t.options.withMe },
+          ]}
+        />
+      </div>
     </div>
   );
 }
 
-// ── Results ──────────────────────────────────────────────────────────────────
+// ── Results: a personal plan ─────────────────────────────────────────────────
+// Verdict → top risks (free fix first, then at most one matched service) →
+// timeline → save / email / send to John. See docs/JOURNEY.md, 2.2.
 
 function ResultsView({
   form,
@@ -455,45 +490,39 @@ function ResultsView({
 }: {
   form: FormData;
   t: typeof en;
-  locale: string;
+  locale: "en" | "ar";
   onReset: () => void;
 }) {
-  const { categories, pct, total } = scoreForm(form);
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const { categories, pct } = scoreForm(form);
+  const verdict = verdictFor(categories);
+  const risks = topRisks(categories);
+  const passed = categories.filter((c) => c.status === "pass");
+  const showFullJourney = offersFullJourney(form, categories);
+  const aimNextIntake = form.startWhen === "thisSemester" && verdict === "notYet";
+  const [saved, setSaved] = useState(false);
+  const p = t.plan;
 
   const statusIcon = (s: Status) => {
-    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />;
-    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-amber shrink-0" />;
-    return <XCircle className="w-5 h-5 text-red-400 shrink-0" />;
+    if (s === "pass") return <CheckCircle2 className="w-5 h-5 text-success shrink-0" aria-hidden="true" />;
+    if (s === "warning") return <AlertTriangle className="w-5 h-5 text-warning shrink-0" aria-hidden="true" />;
+    return <XCircle className="w-5 h-5 text-error shrink-0" aria-hidden="true" />;
   };
-
-  const pctColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
-  const strokeColor = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-amber" : "text-red-400";
+  const tone = verdict === "ready" ? "text-success" : verdict === "fixable" ? "text-warning" : "text-error";
+  const catInfo = (key: string) => t.resultCategories[key as keyof typeof t.resultCategories];
 
   return (
     <div className="relative min-h-screen">
       <Navbar />
       <Breadcrumb />
       <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-8"
-          >
+        <div className="max-w-2xl mx-auto" data-source="eligibility">
+          {/* 1. Verdict */}
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
             <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">{t.resultsTitle}</h1>
-            <p className="text-text-secondary">{t.resultsSubtitle}</p>
-          </motion.div>
-
-          {/* Circle indicator */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center mb-8"
-          >
-            <div className="relative w-36 h-36">
-              <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
+            <p className="text-sm text-text-muted mb-6">{t.resultsSubtitle}</p>
+            <div className="relative w-32 h-32 mx-auto mb-4">
+              <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90" aria-hidden="true">
+                <circle cx="60" cy="60" r="52" stroke="currentColor" strokeWidth="8" fill="none" className="text-surface-raised" />
                 <circle
                   cx="60"
                   cy="60"
@@ -501,142 +530,191 @@ function ResultsView({
                   stroke="currentColor"
                   strokeWidth="8"
                   fill="none"
-                  className="text-white/5"
-                />
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="52"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray={`${(pct / 100) * 2 * Math.PI * 52} ${2 * Math.PI * 52}`}
+                  strokeDasharray={2 * Math.PI * 52}
+                  strokeDashoffset={(1 - pct / 100) * 2 * Math.PI * 52}
                   strokeLinecap="round"
-                  className={strokeColor}
+                  className={cn("ring-fill", tone)}
+                  style={{ "--ring": `${2 * Math.PI * 52}` } as React.CSSProperties}
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className={cn("text-3xl font-bold", pctColor)}>{pct}%</span>
+                <span className={cn("text-3xl font-bold", tone)}>{pct}%</span>
                 <span className="text-xs text-text-muted">{t.readiness}</span>
               </div>
             </div>
+            <p className={cn("text-lg font-semibold", tone)}>{p.verdicts[verdict]}</p>
+            {passed.length > 0 && (
+              <p className="mt-2 text-sm text-text-secondary">
+                <CheckCircle2 className="inline w-4 h-4 text-success me-1 -mt-0.5" aria-hidden="true" />
+                {passed.map((c) => catInfo(c.key)?.title).join(" · ")}
+              </p>
+            )}
           </motion.div>
 
-          {/* Category breakdown with expandable cards */}
-          <div className="space-y-3 mb-8">
-            {categories.map((cat, i) => {
-              const catInfo = t.resultCategories[cat.key as keyof typeof t.resultCategories];
-              const isExpanded = expanded === cat.key;
-              const advice = cat.status !== "pass" ? catInfo?.advice?.[cat.status] : undefined;
-              return (
-                <motion.div
-                  key={cat.key}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                >
-                  <div
-                    className="rounded-2xl border border-border-subtle bg-surface/50 backdrop-blur-sm overflow-hidden"
-                  >
-                    <button
-                      onClick={() => setExpanded(isExpanded ? null : cat.key)}
-                      className="w-full flex items-center gap-3 px-4 py-3.5 text-start"
+          {/* 2. Top risks */}
+          <section className="mb-8" aria-labelledby="plan-risks">
+            <h2 id="plan-risks" className="text-lg font-semibold text-text-primary mb-3">
+              {p.risksTitle}
+            </h2>
+            {risks.length === 0 ? (
+              <GlassCard>
+                <p className="text-sm text-text-secondary mb-3">{p.noRisks}</p>
+                <Link href="/university-matcher" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline">
+                  <BookOpen className="w-4 h-4" aria-hidden="true" />
+                  {locale === "ar" ? "مطابق البرامج" : "Programme matcher"}
+                </Link>
+              </GlassCard>
+            ) : (
+              <ol className="space-y-3">
+                {risks.map((risk, i) => {
+                  const info = catInfo(risk.key);
+                  const advice = info?.advice?.[risk.status];
+                  return (
+                    <motion.li
+                      key={risk.key}
+                      initial={{ y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + i * 0.08 }}
+                      className="rounded-2xl border border-border-subtle bg-surface p-4 sm:p-5"
                     >
-                      {statusIcon(cat.status)}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-text-primary">
-                          {catInfo?.title}
-                        </p>
-                        <p className="text-xs text-text-muted truncate">
-                          {catInfo?.[cat.status as keyof typeof catInfo] as string}
-                        </p>
-                      </div>
-                      {(cat.status === "warning" || cat.status === "fail") && (
-                        isExpanded
-                          ? <ChevronUp className="w-4 h-4 text-text-muted shrink-0" />
-                          : <ChevronDown className="w-4 h-4 text-text-muted shrink-0" />
-                      )}
-                    </button>
-                    {isExpanded && advice && (
-                      <div className="px-4 pb-4 border-t border-border-subtle">
-                        <p className="text-sm text-text-secondary mt-3 mb-3">{advice.detail}</p>
-                        <div className="space-y-2">
-                          <Link
-                            href={advice.freeLink}
-                            className="flex items-center gap-2 text-sm text-text-primary hover:text-amber transition-colors"
-                          >
-                            <BookOpen className="w-4 h-4 text-green-400" />
-                            {advice.freeLabel}
-                          </Link>
-                          <Link
-                            href={advice.paidLink}
-                            className="flex items-center gap-2 text-sm text-text-secondary hover:text-amber transition-colors"
-                          >
-                            <Briefcase className="w-4 h-4 text-amber" />
-                            {advice.paidLabel}
-                          </Link>
+                      <div className="flex items-start gap-3">
+                        {statusIcon(risk.status)}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base font-semibold text-text-primary">{info?.title}</h3>
+                          <p className="text-sm text-text-secondary mt-0.5">{info?.[risk.status]}</p>
+                          {advice && <p className="text-sm text-text-secondary leading-relaxed mt-2">{advice.detail}</p>}
+                          <div className="mt-3 space-y-2">
+                            {advice && (
+                              <Link
+                                href={advice.freeLink}
+                                className="flex items-start gap-2 text-sm font-medium text-text-primary hover:text-brand transition-colors"
+                              >
+                                <BookOpen className="w-4 h-4 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                                <span>
+                                  <span className="text-text-muted font-normal">{p.diy}</span> {advice.freeLabel}
+                                </span>
+                              </Link>
+                            )}
+                            {risk.service && (
+                              <HelpLink
+                                service={risk.service}
+                                source={`eligibility:${risk.key}`}
+                                className="flex items-start gap-2 text-sm text-text-secondary hover:text-brand transition-colors"
+                              >
+                                <MessageCircle className="w-4 h-4 text-brand shrink-0 mt-0.5" aria-hidden="true" />
+                                {p.service[risk.service]}
+                              </HelpLink>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                    </motion.li>
+                  );
+                })}
+              </ol>
+            )}
+          </section>
 
-          <EmailSignup
-            source="eligibility"
-            answers={{ ...form, firstName: "", country: "", whatsapp: "", email: "" }}
-            className="mb-6"
-          />
+          {/* Full Journey: only for several red flags, or when asked for */}
+          {showFullJourney && (
+            <section className="mb-8 rounded-2xl border border-border-subtle bg-surface-raised p-5">
+              <h2 className="text-base font-semibold text-text-primary mb-1.5">{p.fullTitle}</h2>
+              <p className="text-sm text-text-secondary leading-relaxed mb-3">
+                {p.fullBody(price("fullPackageStep1", locale), price("fullPackageStep2", locale))}
+              </p>
+              <HelpLink
+                service="fullPackage"
+                source="eligibility:full"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+              >
+                {p.fullButton}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
+              </HelpLink>
+            </section>
+          )}
 
-          {/* Three CTA paths */}
-          <div className="space-y-3 mb-8">
-            <Link
-              href="/qa"
-              className="block w-full px-5 py-3.5 rounded-2xl border border-border-subtle text-center text-sm text-text-secondary hover:text-text-primary hover:border-amber/30 transition-colors"
-            >
-              {t.ctaPaths.selfLabel}
-              <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.selfSub}</span>
-            </Link>
-            <Link
-              href="/services"
-              className="block w-full px-5 py-3.5 rounded-2xl border border-amber/30 bg-amber/5 text-center text-sm text-text-primary hover:bg-amber/10 transition-colors"
-            >
-              {t.ctaPaths.specificLabel}
-              <span className="block text-xs text-text-muted mt-0.5">{t.ctaPaths.specificSub}</span>
-            </Link>
-            <a
-              href={PAYMENT_LINKS.fullPackageStep1}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full px-5 py-3.5 rounded-2xl bg-amber text-midnight text-center text-sm font-medium hover:bg-amber/90 transition-colors"
-            >
-              {t.ctaPaths.fullLabel}
-              <span className="block text-xs text-midnight/70 mt-0.5">{t.ctaPaths.fullSub}</span>
-            </a>
-          </div>
+          {/* 3. Timeline */}
+          <section className="mb-8" aria-labelledby="plan-timeline">
+            <h2 id="plan-timeline" className="text-lg font-semibold text-text-primary mb-3 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-brand" aria-hidden="true" />
+              {p.timelineTitle}
+            </h2>
+            {aimNextIntake && (
+              <p className="mb-3 rounded-xl bg-surface-raised px-4 py-3 text-sm font-medium text-text-primary">{p.nextIntake}</p>
+            )}
+            <ol className="space-y-2.5 list-decimal ps-5 marker:text-text-muted text-sm text-text-secondary leading-relaxed">
+              {p.timeline.map((step, i) => (
+                <li key={step} className="ps-1">
+                  {step}
+                  {i === 1 && (
+                    <>
+                      {" "}
+                      <Link href="/deadlines" className="text-brand hover:underline whitespace-nowrap">
+                        {p.deadlinesLink}
+                      </Link>
+                    </>
+                  )}
+                  {(i === 3 || i === 4) && (
+                    <>
+                      {" "}
+                      <a
+                        href={i === 3 ? TIMELINE_SOURCES.visa : TIMELINE_SOURCES.police}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-text-muted underline underline-offset-2 hover:text-brand"
+                      >
+                        {p.sourceLabel}
+                      </a>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
 
+          <FounderCard whatsapp={false} className="mb-6" />
 
-          {/* Optional contact — send report via WhatsApp */}
-          <div className="rounded-2xl border border-border-subtle bg-surface/50 p-5 mb-6">
-            <p className="text-sm font-medium text-text-primary mb-1">{t.sendReportTitle}</p>
-            <p className="text-xs text-text-muted mb-3">{t.sendReportDesc}</p>
-            <a
-              href={whatsappWithContext("my eligibility results")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
-              {t.whatsappButton}
-            </a>
-          </div>
+          {/* 4. Keep it, and hand it to John */}
+          <section className="mb-8 space-y-3">
+            {saved ? (
+              <Link href="/my-journey" className={buttonClasses("secondary", "md", "w-full")}>
+                <CheckCircle2 className="w-4 h-4 text-success" aria-hidden="true" />
+                {p.saved}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className={buttonClasses("secondary", "md", "w-full")}
+                onClick={() => {
+                  saveEligibilityToJourney({ ...form });
+                  setSaved(true);
+                  track("plan_saved", { tool: "eligibility" });
+                }}
+              >
+                <Bookmark className="w-4 h-4" aria-hidden="true" />
+                {p.save}
+              </button>
+            )}
+            <EmailSignup source="eligibility" answers={{ ...form, firstName: "", country: "", whatsapp: "", email: "" }} />
+            <div>
+              <a
+                href={whatsappWithText(planSummary(form, locale))}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("plan_sent_whatsapp", { tool: "eligibility" })}
+                className={buttonClasses("primary", "md", "w-full")}
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                {p.send}
+              </a>
+              <p className="mt-2 text-xs text-text-muted text-center">{p.sendHint}</p>
+            </div>
+          </section>
 
           <div className="text-center">
             <MagneticButton variant="ghost" onClick={onReset}>
-              <RotateCcw className="w-4 h-4" />
-              {t.startOver}
+              <RotateCcw className="w-4 h-4" aria-hidden="true" />
+              {p.startOver}
             </MagneticButton>
           </div>
         </div>
@@ -645,4 +723,3 @@ function ResultsView({
     </div>
   );
 }
-

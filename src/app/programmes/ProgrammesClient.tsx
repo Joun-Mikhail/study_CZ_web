@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import {
   programmes,
@@ -28,10 +28,13 @@ import {
   X,
   Bookmark,
   ArrowRight,
+  MapPin,
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
 
 const CITIES: City[] = [
   "Prague", "Brno", "Olomouc", "Ostrava", "Plzeň",
@@ -51,52 +54,54 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4 }}
+      className="card-lift group h-full rounded-2xl"
     >
-      <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
-        <div className="absolute top-0 end-0 w-20 h-20 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-          <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
-            <circle cx="60" cy="20" r="50" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-            <circle cx="60" cy="20" r="30" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-          </svg>
-        </div>
+      <GlassCard className="relative overflow-hidden h-full">
+        <CardPhoto
+          id={photoForUniversity(prog.universityId)}
+          className="-mx-6 -mt-6 mb-4"
+          top={
+            <>
+              <PhotoPill>{locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}</PhotoPill>
+              <PhotoPill>
+                <Euro className="w-3 h-3" aria-hidden="true" />
+                <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>
+                {locale === "ar" ? " في السنة" : " per year"}
+              </PhotoPill>
+            </>
+          }
+          bottom={
+            uni && (
+              <PhotoTag>
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                {cityName(uni.city, locale)}
+              </PhotoTag>
+            )
+          }
+        />
 
         <div className="flex items-start justify-between gap-3">
           <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+            <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
               {prog.name[locale] || prog.name.en}
             </h3>
-            <p className="text-xs text-text-secondary mt-0.5">
-              {uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
+            <p className="text-xs text-text-secondary mt-0.5" dir="auto">
+              {(locale === "ar" && uni?.nameAr?.split(" (")[0]) || uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
             </p>
           </Link>
           <SaveProgrammeButton programmeId={prog.id} locale={locale} />
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-3">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
-            {prog.degree}
-          </span>
-          <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-            {prog.language}
-          </span>
-          {uni && (
-            <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-              {uni.city}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
-          <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
-            €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+            {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3 h-3 text-text-muted" />
-            {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+            {yearsLabel(prog.durationYears, locale)}
           </span>
           {prog.entranceExam && (
             <span className="inline-flex items-center gap-1">
@@ -107,23 +112,19 @@ function ProgrammeCard({ prog, locale, index }: { prog: Programme; locale: "en" 
         </div>
 
         {prog.applicationDeadline && (
-          <p className="text-xs font-medium text-amber mt-2">
+          <p className="text-xs font-medium text-brand mt-2">
             {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
           </p>
         )}
 
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-subtle">
-          <VerifiedBadge
-            date={prog.verification.lastVerified}
-            sourceUrl={prog.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-          />
+          <ProgrammeSourceBadge programme={prog} locale={locale} />
           <Link
             href={`/programmes/${prog.id}`}
-            className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
+            className="text-xs font-medium text-brand hover:underline inline-flex items-center gap-1"
           >
             {locale === "ar" ? "التفاصيل" : "Details"}
-            <ArrowRight className="w-3 h-3" />
+            <ArrowRight className="w-3 h-3 rtl:rotate-180" aria-hidden="true" />
           </Link>
         </div>
       </GlassCard>
@@ -181,21 +182,23 @@ export default function ProgrammesClient({
 
         <div className="relative w-full h-[120px] sm:h-[160px] rounded-2xl overflow-hidden mb-6">
           <Image
-            src="/images/university-campus.jpg"
-            alt="University campus"
+            src="/images/study/open-book.jpg"
+            alt=""
             fill
+            loading="eager"
+            fetchPriority="high"
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 900px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/30 to-transparent" />
-          <div className="absolute bottom-4 start-4 z-10">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/30 to-transparent" />
+          <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">
               {locale === "ar" ? "استكشف البرامج" : "Explore Programmes"}
             </h1>
-            <p className="text-xs text-white/70 mt-1">
+            <p className="text-xs text-white/80 mt-1">
               {locale === "ar"
-                ? `قاعدة بياناتنا تنمو — حاليًا ${programmes.length} برنامج موثق`
-                : `Our database is growing — currently covering ${programmes.length} verified programmes`}
+                ? `قاعدة بياناتنا تنمو — حاليًا ${programmes.length} برنامج`
+                : `Our database is growing — currently covering ${programmes.length} programmes`}
             </p>
           </div>
         </div>
@@ -203,33 +206,36 @@ export default function ProgrammesClient({
         {/* Search + filter bar */}
         <div className="flex gap-2 mb-4">
           <div className="relative flex-1 group">
-            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-amber pointer-events-none transition-colors duration-200" />
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted group-focus-within:text-brand pointer-events-none transition-colors duration-200" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={locale === "ar" ? "ابحث عن برنامج أو جامعة..." : "Search programmes or universities..."}
-              className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
+              className="w-full ps-10 pe-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(245,158,11,0.08)] transition-all duration-200"
             />
           </div>
           <button
             onClick={() => setShowFilters(!showFilters)}
+            aria-label={locale === "ar" ? "الفلاتر" : "Filters"}
+            aria-expanded={showFilters}
             className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
               showFilters || activeFilters > 0
-                ? "bg-amber/10 text-amber border-amber/30"
-                : "bg-white/5 text-text-secondary border-border-subtle hover:border-amber/30"
+                ? "bg-brand/10 text-brand border-brand/30"
+                : "bg-white/5 text-text-secondary border-border-subtle hover:border-brand/30"
             }`}
           >
             <SlidersHorizontal className="w-4 h-4" />
             {activeFilters > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full bg-amber text-white text-[10px] font-bold">
+              <span className="px-1.5 py-0.5 rounded-full bg-brand text-bg text-[10px] font-bold">
                 {activeFilters}
               </span>
             )}
           </button>
           <Link
             href="/my-journey"
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+            aria-label={locale === "ar" ? "رحلتي" : "My Journey"}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-sm text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
           >
             <Bookmark className="w-4 h-4" />
             <span className="hidden sm:inline">{locale === "ar" ? "رحلتي" : "My Journey"}</span>
@@ -254,7 +260,7 @@ export default function ProgrammesClient({
               <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All fields"}</option>
                 {PROGRAMME_FIELDS.map((f) => (
@@ -269,7 +275,7 @@ export default function ProgrammesClient({
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All cities"}</option>
                 {CITIES.map((c) => (
@@ -284,7 +290,7 @@ export default function ProgrammesClient({
               <select
                 value={degree}
                 onChange={(e) => setDegree(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "الكل" : "All degrees"}</option>
                 <option value="Bachelor">Bachelor</option>
@@ -299,7 +305,7 @@ export default function ProgrammesClient({
               <select
                 value={maxTuition || ""}
                 onChange={(e) => setMaxTuition(e.target.value ? Number(e.target.value) : undefined)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-amber/40"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-border-subtle text-sm text-text-primary focus:outline-none focus:border-brand/40"
               >
                 <option value="">{locale === "ar" ? "أي سعر" : "Any price"}</option>
                 {TUITION_RANGES.map((r) => (
@@ -310,7 +316,7 @@ export default function ProgrammesClient({
             {activeFilters > 0 && (
               <button
                 onClick={clearFilters}
-                className="col-span-2 sm:col-span-4 text-xs text-text-muted hover:text-amber flex items-center gap-1 justify-center"
+                className="col-span-2 sm:col-span-4 text-xs text-text-muted hover:text-brand flex items-center gap-1 justify-center"
               >
                 <X className="w-3 h-3" /> {locale === "ar" ? "امسح الفلتر" : "Clear all filters"}
               </button>
@@ -320,15 +326,15 @@ export default function ProgrammesClient({
         )}
         </AnimatePresence>
 
-        {/* Results count */}
-        <p className="text-sm text-text-muted mb-4">
+        {/* Results count, also the heading for the result cards */}
+        <h2 className="font-sans text-sm font-normal text-text-muted mb-4" aria-live="polite">
           {locale === "ar"
             ? `${filtered.length} برنامج`
             : `${filtered.length} programme${filtered.length !== 1 ? "s" : ""}`}
           {activeFilters > 0 || search
             ? (locale === "ar" ? " (بعد الفلتر)" : " (filtered)")
             : ""}
-        </p>
+        </h2>
 
         {/* Programme grid */}
         {filtered.length > 0 ? (
@@ -348,7 +354,7 @@ export default function ProgrammesClient({
                 ? "جرب تغيّر الفلتر أو تدور بكلمات تانية."
                 : "Try adjusting your filters or search terms."}
             </p>
-            <button onClick={clearFilters} className="text-sm text-amber hover:underline">
+            <button onClick={clearFilters} className="text-sm text-brand hover:underline">
               {locale === "ar" ? "امسح الفلتر" : "Clear filters"}
             </button>
           </div>

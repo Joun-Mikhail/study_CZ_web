@@ -4,12 +4,12 @@ import Link from "@/components/locale-link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
-import { fieldToSlug, cityToSlug, degreeToSlug } from "@/lib/seo-utils";
+import { fieldToSlug, cityToSlug, degreeToSlug, studyPageIndexable } from "@/lib/seo-utils";
+import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR } from "@/i18n/ar-metadata";
 import {
   GraduationCap,
   MapPin,
   TrendingDown,
-  FileX,
   ArrowRight,
 } from "lucide-react";
 
@@ -19,14 +19,16 @@ type Props = {
 };
 
 export function SeoCrosslinks({ locale, exclude }: Props) {
-  const cities = [...new Set(universitiesV2.map((u) => u.city))];
+  const ar = locale === "ar";
 
-  const popularFields = PROGRAMME_FIELDS.slice(0, 6).filter(
-    (f) => !(exclude?.type === "field" && exclude.value === f)
+  // Every field and city hub that has programmes, so each one is linked from
+  // every other study page; empty (noindexed) hubs are left out.
+  const fields = PROGRAMME_FIELDS.filter(
+    (f) => studyPageIndexable(fieldToSlug(f)) && !(exclude?.type === "field" && exclude.value === f)
   );
 
-  const popularCities = cities.slice(0, 5).filter(
-    (c) => !(exclude?.type === "city" && exclude.value === c)
+  const cities = [...new Set(universitiesV2.map((u) => u.city))].filter(
+    (c) => studyPageIndexable(cityToSlug(c)) && !(exclude?.type === "city" && exclude.value === c)
   );
 
   return (
@@ -42,30 +44,14 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
             <GlassCard className="flex items-center gap-3 py-3" hoverEffect="border">
               <TrendingDown className="w-5 h-5 text-success shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">
+                <p className="text-sm font-medium text-text-primary group-hover:text-brand transition-colors">
                   {locale === "ar" ? "أرخص البرامج" : "Cheapest Programmes"}
                 </p>
                 <p className="text-xs text-text-muted">
                   {locale === "ar" ? "مرتب حسب الرسوم" : "Sorted by tuition"}
                 </p>
               </div>
-              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors" />
-            </GlassCard>
-          </Link>
-        ) : null}
-        {exclude?.type !== "intent" || exclude.value !== "no-exam" ? (
-          <Link href="/study/no-entrance-exam" className="group">
-            <GlassCard className="flex items-center gap-3 py-3" hoverEffect="border">
-              <FileX className="w-5 h-5 text-accent shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-text-primary group-hover:text-amber transition-colors">
-                  {locale === "ar" ? "بدون امتحان قبول" : "No Entrance Exam"}
-                </p>
-                <p className="text-xs text-text-muted">
-                  {locale === "ar" ? "تقديم بالمستندات فقط" : "Document-based admission"}
-                </p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors" />
+              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors" />
             </GlassCard>
           </Link>
         ) : null}
@@ -83,10 +69,10 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
               <Link
                 key={d}
                 href={`/study/${degreeToSlug(d)}`}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
               >
                 <GraduationCap className="w-3 h-3" />
-                {d}
+                {ar ? DEGREE_VALUE_AR[d] : d}
               </Link>
             ))}
         </div>
@@ -98,14 +84,14 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
           {locale === "ar" ? "حسب المجال" : "By Field"}
         </h3>
         <div className="flex flex-wrap gap-2">
-          {popularFields.map((f) => (
+          {fields.map((f) => (
             <Link
               key={f}
               href={`/study/${fieldToSlug(f)}`}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
             >
               <GraduationCap className="w-3 h-3" />
-              {f}
+              {ar ? FIELD_AR[f] ?? f : f}
             </Link>
           ))}
         </div>
@@ -117,14 +103,14 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
           {locale === "ar" ? "حسب المدينة" : "By City"}
         </h3>
         <div className="flex flex-wrap gap-2">
-          {popularCities.map((c) => (
+          {cities.map((c) => (
             <Link
               key={c}
               href={`/study/${cityToSlug(c)}`}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
             >
               <MapPin className="w-3 h-3" />
-              {c}
+              {ar ? CITY_AR[c] ?? c : c}
             </Link>
           ))}
         </div>

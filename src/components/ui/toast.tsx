@@ -55,7 +55,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             >
               {t.type === "success" && <CheckCircle2 className="w-4 h-4 text-success shrink-0" />}
               {t.type === "info" && <AlertCircle className="w-4 h-4 text-info shrink-0" />}
-              {t.type === "error" && <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />}
+              {t.type === "error" && <AlertCircle className="w-4 h-4 text-error shrink-0" />}
               <span className="text-text-primary">{t.message}</span>
               <button
                 onClick={() => dismiss(t.id)}

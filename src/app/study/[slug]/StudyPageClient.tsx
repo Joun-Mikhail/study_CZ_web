@@ -8,13 +8,15 @@ import { Footer } from "@/components/footer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { FadeIn } from "@/components/ui/fade-in";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { programmes, filterProgrammes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme } from "@/data/types";
 import { SeoCrosslinks } from "@/components/seo-crosslinks";
+import { EmailSignup, followProps } from "@/components/email-signup";
+import { programmeLabel } from "@/lib/programme-label";
 import {
   GraduationCap,
   Euro,
@@ -28,52 +30,65 @@ import {
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { cityImage } from "@/data/images";
 import { motion } from "framer-motion";
+import { CardPhoto, PhotoPill, PhotoTag, cityName, photoForUniversity, yearsLabel } from "@/components/card-photo";
+import { DEGREE_VALUE_AR, LANGUAGE_AR } from "@/i18n/ar-metadata";
+import { MedicineGuide } from "./MedicineGuide";
 
 function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" | "ar"; index: number }) {
   const uni = universitiesV2.find((u) => u.id === prog.universityId);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4 }}
+      className="card-lift group h-full rounded-2xl"
     >
-      <GlassCard className="group relative card-shine overflow-hidden" hoverEffect="border">
-        <div className="absolute top-0 end-0 w-16 h-16 pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-          <svg viewBox="0 0 64 64" fill="none" className="w-full h-full">
-            <circle cx="48" cy="16" r="40" stroke="currentColor" strokeWidth="0.5" className="text-amber" />
-          </svg>
-        </div>
+      <GlassCard className="relative overflow-hidden h-full">
+        <CardPhoto
+          id={photoForUniversity(prog.universityId)}
+          className="-mx-6 -mt-6 mb-4"
+          top={
+            <>
+              <PhotoPill>{locale === "ar" ? DEGREE_VALUE_AR[prog.degree] ?? prog.degree : prog.degree}</PhotoPill>
+              <PhotoPill>
+                <Euro className="w-3 h-3" aria-hidden="true" />
+                <span dir="ltr">{prog.tuitionEurPerYear.toLocaleString("en-US")}</span>
+                {locale === "ar" ? " في السنة" : " per year"}
+              </PhotoPill>
+            </>
+          }
+          bottom={
+            uni && (
+              <PhotoTag>
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                {cityName(uni.city, locale)}
+              </PhotoTag>
+            )
+          }
+        />
 
         <div className="flex items-start justify-between gap-3">
           <Link href={`/programmes/${prog.id}`} className="flex-1 min-w-0">
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-amber transition-colors duration-300">
+            <h3 className="text-base font-semibold text-text-primary group-hover:text-brand transition-colors duration-300">
               {prog.name[locale] || prog.name.en}
             </h3>
-            <p className="text-xs text-text-secondary mt-0.5">
-              {uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
+            <p className="text-xs text-text-secondary mt-0.5" dir="auto">
+              {(locale === "ar" && uni?.nameAr?.split(" (")[0]) || uni?.name} {prog.faculty ? `· ${prog.faculty}` : ""}
             </p>
           </Link>
           <SaveProgrammeButton programmeId={prog.id} locale={locale} />
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-3">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
-            {prog.degree}
-          </span>
-          <span className="px-2 py-0.5 rounded-full bg-white/5 text-text-secondary text-[11px] border border-border-subtle">
-            {prog.language}
-          </span>
-        </div>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
-          <span className="inline-flex items-center gap-1">
-            <Euro className="w-3 h-3 text-amber/70" />
-            €{prog.tuitionEurPerYear.toLocaleString()} {locale === "ar" ? "في السنة" : "per year"}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-3 text-xs text-text-secondary">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
+            {locale === "ar" ? LANGUAGE_AR[prog.language] ?? prog.language : prog.language}
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3 h-3 text-text-muted" />
-            {prog.durationYears} {locale === "ar" ? "سنوات" : prog.durationYears === 1 ? "year" : "years"}
+            {yearsLabel(prog.durationYears, locale)}
           </span>
           {prog.entranceExam && (
             <span className="inline-flex items-center gap-1">
@@ -83,22 +98,18 @@ function ProgrammeRow({ prog, locale, index }: { prog: Programme; locale: "en" |
           )}
         </div>
         {prog.applicationDeadline && (
-          <p className="text-xs font-medium text-amber mt-2 inline-flex items-center gap-1">
+          <p className="text-xs font-medium text-brand mt-2 inline-flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {locale === "ar" ? "آخر موعد:" : "Deadline:"} {prog.applicationDeadline}
           </p>
         )}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-subtle">
-          <VerifiedBadge
-            date={prog.verification.lastVerified}
-            sourceUrl={prog.verification.sourceUrl}
-            label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-          />
+          <ProgrammeSourceBadge programme={prog} locale={locale} />
           <Link
             href={`/programmes/${prog.id}`}
-            className="text-xs text-amber hover:underline inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
+            className="text-xs font-medium text-brand hover:underline inline-flex items-center gap-1"
           >
-            {locale === "ar" ? "التفاصيل" : "Details"} <ArrowRight className="w-3 h-3" />
+            {locale === "ar" ? "التفاصيل" : "Details"} <ArrowRight className="w-3 h-3 rtl:rotate-180" aria-hidden="true" />
           </Link>
         </div>
       </GlassCard>
@@ -145,8 +156,8 @@ export default function StudyPageClient({ type, value, slug }: Props) {
   const description =
     type === "field"
       ? locale === "ar"
-        ? `${filtered.length} برنامج موثّق في ${valueAr} باللغة الإنجليزية في الجامعات التشيكية.`
-        : `${filtered.length} verified ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
+        ? `${filtered.length} برنامج في ${valueAr} باللغة الإنجليزية في الجامعات التشيكية.`
+        : `${filtered.length} ${value} programme${filtered.length !== 1 ? "s" : ""} taught in English at Czech universities.`
       : type === "degree"
       ? locale === "ar"
         ? `${filtered.length} برنامج ${valueAr} باللغة الإنجليزية.`
@@ -178,20 +189,24 @@ export default function StudyPageClient({ type, value, slug }: Props) {
         />
 
         <FadeIn>
-          <div className="relative w-full h-[140px] sm:h-[180px] rounded-2xl overflow-hidden mb-6">
-            <Image
-              src="/images/university-campus.jpg"
-              alt={heading}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 800px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-midnight/10" />
-            <div className="absolute inset-0 noise-overlay opacity-[0.03]" />
-            <div className="absolute -bottom-6 start-1/4 w-32 h-16 bg-amber/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-4 start-4 z-10">
+          <div className={`relative w-full ${type === "city" ? "h-[200px] sm:h-[280px]" : "h-[140px] sm:h-[180px]"} rounded-2xl overflow-hidden mb-6`}>
+            {type === "city" && cityImage(value) ? (
+              <SiteImage id={cityImage(value)!} sizes="(max-width: 768px) 100vw, 800px" priority />
+            ) : (
+              <Image
+                src="/images/study/lecture-hall.jpg"
+                alt=""
+                fill
+                loading="eager"
+                fetchPriority="high"
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/40 to-ink/10" />
+            <div className="absolute bottom-4 start-4 end-4 sm:end-auto z-10 rounded-xl bg-ink px-4 py-3 shadow-lg">
               <h1 className="text-2xl sm:text-3xl font-bold text-white">{heading}</h1>
-              <p className="text-xs text-white/70 mt-1">{description}</p>
+              <p className="text-xs text-white/80 mt-1">{description}</p>
             </div>
           </div>
         </FadeIn>
@@ -199,7 +214,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
         {/* Quick stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
           <GlassCard className="text-center py-3">
-            <div className="text-2xl font-bold text-amber">{filtered.length}</div>
+            <div className="text-2xl font-bold text-brand">{filtered.length}</div>
             <div className="text-xs text-text-muted">
               {locale === "ar" ? "برامج" : "Programmes"}
             </div>
@@ -212,7 +227,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
           </GlassCard>
           {tuitionRange && (
             <GlassCard className="text-center py-3 col-span-2 sm:col-span-1">
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-lg font-bold text-text-primary" dir="ltr">
                 €{tuitionRange.min.toLocaleString()} – €{tuitionRange.max.toLocaleString()}
               </div>
               <div className="text-xs text-text-muted">
@@ -222,16 +237,18 @@ export default function StudyPageClient({ type, value, slug }: Props) {
           )}
         </div>
 
+        {type === "field" && value === "Medicine" && <MedicineGuide locale={locale} />}
+
         {/* Universities in this scope */}
         {unisInScope.length > 0 && (
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-text-primary mb-3">
               {type === "city"
                 ? locale === "ar"
-                  ? `جامعات في ${value}`
+                  ? `جامعات في ${valueAr}`
                   : `Universities in ${value}`
                 : locale === "ar"
-                ? `جامعات تقدم ${value}`
+                ? `جامعات تقدم ${valueAr}`
                 : `Universities offering ${value}`}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -239,7 +256,7 @@ export default function StudyPageClient({ type, value, slug }: Props) {
                 <Link
                   key={u.id}
                   href={`/university/${u.id}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-amber hover:border-amber/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-border-subtle text-xs text-text-secondary hover:text-brand hover:border-brand/30 transition-colors"
                 >
                   <Building2 className="w-3 h-3" />
                   {u.name}
@@ -269,6 +286,15 @@ export default function StudyPageClient({ type, value, slug }: Props) {
                 : "No programmes in this category yet. Our database is growing."}
             </p>
           </div>
+        )}
+        {filtered.length > 0 && (
+          <EmailSignup
+            source="deadline"
+            variant="field"
+            placement="study-page"
+            className="mt-6 max-w-2xl mx-auto"
+            {...followProps(filtered, (p) => programmeLabel(p, locale))}
+          />
         )}
 
         <SeoCrosslinks locale={locale} exclude={{ type, value }} />

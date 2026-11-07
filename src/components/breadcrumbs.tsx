@@ -8,9 +8,13 @@ const SITE_URL = "https://studyczechia.com";
 
 type Crumb = { label: string; href?: string };
 
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+/** Arabic for the fixed labels that server pages pass in English. */
+const AR_LABELS: Record<string, string> = { Programmes: "البرامج", Universities: "الجامعات", Compare: "المقارنة" };
+
+export function Breadcrumbs({ items: rawItems }: { items: Crumb[] }) {
   const { locale } = useTranslation();
   const base = locale === "ar" ? `${SITE_URL}/ar` : SITE_URL;
+  const items = locale === "ar" ? rawItems.map((item) => ({ ...item, label: AR_LABELS[item.label] ?? item.label })) : rawItems;
   const homeLabel = locale === "ar" ? "الرئيسية" : "Home";
   const jsonLdItems = [
     { name: homeLabel, url: `${base}/` },
@@ -23,13 +27,14 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // The current page has no href but must still end the trail; Google allows the last ListItem to omit `item`.
     itemListElement: jsonLdItems
-      .filter((item) => item.url)
+      .filter((item, i, all) => item.url || i === all.length - 1)
       .map((item, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: item.name,
-        item: item.url,
+        ...(item.url && { item: item.url }),
       })),
   };
 

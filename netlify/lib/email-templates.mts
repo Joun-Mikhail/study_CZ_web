@@ -144,6 +144,7 @@ export function sanitizeAnswers(raw: unknown): FormData | null {
     appliedBefore: pick("appliedBefore"),
     englishCert: pick("englishCert"),
     czechPrep: pick("czechPrep"),
+    helpStyle: pick("helpStyle"),
   };
 }
 

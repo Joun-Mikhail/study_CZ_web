@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Preparatory & Language Year",
-  description: "Complete guide to preparatory and language year programs in the Czech Republic. Providers, pricing, visa info, and enrollment steps for international students.",
+  title: "Free Study in Czechia: Czech Language Preparatory Year",
+  description: "Public Czech universities are free when you study in Czech. Guide to the preparatory language year: providers, prices, visa and enrolment steps.",
   alternates: { canonical: "/preparatory-year" },
 };
 

@@ -55,7 +55,7 @@ export default function WelcomeClient() {
           <GlassCard>
             {state === "checking" && (
               <div className="flex flex-col items-center text-center gap-4 py-6" role="status">
-                <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+                <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
                 <p className="text-sm text-text-secondary">{t.checking}</p>
               </div>
             )}
@@ -74,7 +74,7 @@ export default function WelcomeClient() {
 
             {(state === "not-paid" || state === "unavailable" || state === "no-session") && (
               <div className="space-y-4 text-center">
-                <AlertCircle className="w-12 h-12 text-amber mx-auto" aria-hidden="true" />
+                <AlertCircle className="w-12 h-12 text-brand mx-auto" aria-hidden="true" />
                 <h1 className="text-2xl font-bold text-text-primary">{t[state].title}</h1>
                 <p className="text-sm text-text-secondary leading-relaxed">{t[state].body}</p>
                 {help}

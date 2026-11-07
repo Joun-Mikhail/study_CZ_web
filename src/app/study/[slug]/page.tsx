@@ -7,7 +7,10 @@ import {
   slugToField,
   slugToCity,
   slugToDegree,
+  noindexUnless,
+  studyPageIndexable,
 } from "@/lib/seo-utils";
+import { medicineRows } from "@/lib/medicine-guide";
 import StudyPageClient from "./StudyPageClient";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -18,13 +21,25 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const robots = noindexUnless(studyPageIndexable(slug));
 
   const field = slugToField(slug);
+  if (field === "Medicine") {
+    const rows = medicineRows();
+    const from = Math.min(...rows.map((r) => r.programme.tuitionEurPerYear));
+    return {
+      title: "Study Medicine in Czech Republic in English: Fees & Exams",
+      description: `General Medicine and Dentistry in English at Czech universities: ${rows.length} programmes from €${from.toLocaleString("en-US")} a year, entrance exam subjects and official fee sources.`,
+      alternates: { canonical: `/study/${slug}` },
+      ...robots,
+    };
+  }
   if (field) {
     return {
       title: `Study ${field} in Czech Republic`,
-      description: `Explore verified English-taught ${field} programmes at Czech universities. Compare tuition, deadlines, and entry requirements.`,
+      description: `Explore English-taught ${field} programmes at Czech universities. Compare tuition, deadlines, and entry requirements.`,
       alternates: { canonical: `/study/${slug}` },
+      ...robots,
     };
   }
 
@@ -34,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `Study in ${city}, Czech Republic`,
       description: `Discover English-taught programmes at universities in ${city}, Czech Republic. Verified tuition fees, deadlines, and application info.`,
       alternates: { canonical: `/study/${slug}` },
+      ...robots,
     };
   }
 
@@ -41,8 +57,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (degree) {
     return {
       title: `${degree} Programmes in Czech Republic`,
-      description: `Browse verified English-taught ${degree}'s degree programmes at Czech universities. Compare tuition, deadlines, and application requirements.`,
+      description: `Browse English-taught ${degree}'s degree programmes at Czech universities. Compare tuition, deadlines, and application requirements.`,
       alternates: { canonical: `/study/${slug}` },
+      ...robots,
     };
   }
 

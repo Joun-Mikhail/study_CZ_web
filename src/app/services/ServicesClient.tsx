@@ -1,12 +1,15 @@
 ﻿"use client";
 
 import { useState } from "react";
+import { SiteImage } from "@/components/site-image";
+import type { ImageId } from "@/data/images";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import Link from "@/components/locale-link";
 import { PAYMENT_LINKS, FACEBOOK_GROUP_URL, whatsappWithContext, COMMUNITY_SIZE, COMMUNITY_SIZE_AR, FOUNDER_NAME, FOUNDER_NAME_AR, REFUND_COPY } from "@/config/contact";
 import { price, priceOf, fullPackageTotal, eur, czk, OFFER_ACTIVE, type PriceKey } from "@/config/pricing";
 import { OfferBadge, PriceTag } from "@/components/launch-offer";
@@ -72,30 +75,31 @@ export default function ServicesClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-clip">
       <Navbar />
       <Breadcrumb />
 
-      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8">
         {/* SECTION 1: Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative rounded-3xl py-4 overflow-hidden">
-          {/* Hero background image */}
-          <div className="absolute inset-0 z-0">
+        <section className="surface-ink max-w-4xl mx-auto text-center mb-8 sm:mb-16 relative rounded-3xl px-5 py-10 sm:px-12 sm:py-14 overflow-hidden">
+          {/* Photo band above the text: text on a photo can't be contrast-checked, text on the solid navy can. */}
+          <div aria-hidden="true" className="relative -mx-5 -mt-10 sm:-mx-12 sm:-mt-14 mb-8 h-32 sm:h-44 overflow-hidden">
             <Image
-              src="/images/students-group.jpg"
-              alt="International students celebrating together"
+              src="/images/study/karolinum-graduation.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/75 to-midnight/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/20 to-ink" />
           </div>
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 mb-5">
             <OfferBadge locale={locale} />
           </div>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-5 relative z-10"
@@ -103,24 +107,24 @@ export default function ServicesClient() {
             {t.hero.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-white/80 leading-relaxed max-w-2xl mx-auto mb-8 relative z-10"
+            className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 relative z-10"
           >
             {t.hero.subtitle}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 relative z-10"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 sm:mb-8 relative z-10"
           >
             <MagneticButton
               variant="primary"
               size="lg"
-              href="#paid-services"
+              href="#prices"
               onClick={() => {
                 document.getElementById("paid-services")?.scrollIntoView({ behavior: "smooth" });
               }}
@@ -135,7 +139,7 @@ export default function ServicesClient() {
 
           {/* Trust bar */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 relative z-10"
@@ -148,7 +152,7 @@ export default function ServicesClient() {
                   key={i}
                   className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-surface/60 border border-border-subtle"
                 >
-                  <Icon className="w-4 h-4 text-amber shrink-0" />
+                  <Icon className="w-4 h-4 text-brand shrink-0" />
                   <span className="text-xs text-text-secondary leading-tight">{item}</span>
                 </div>
               );
@@ -156,15 +160,17 @@ export default function ServicesClient() {
           </motion.div>
         </section>
 
+        <PriceLadder locale={locale} />
+
         {/* SECTION 2: Free vs Personal framing */}
         <section className="max-w-2xl mx-auto mb-16">
           <motion.div
             initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
+            className="motion-safe-fallback relative rounded-2xl border border-brand/20 bg-brand/[0.03] px-6 sm:px-8 py-7"
           >
-            <div className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none">&ldquo;</div>
+            <div className="absolute top-4 start-4 text-4xl text-brand/20 font-serif leading-none select-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-4">{t.framing.title}</h2>
             {t.framing.paragraphs.map((p, i) => (
               <p key={i} className="text-sm text-text-secondary leading-relaxed mb-3 last:mb-0">
@@ -193,11 +199,11 @@ export default function ServicesClient() {
                   transition={{ delay: i * 0.15 }}
                   className="motion-safe-fallback relative flex items-start gap-4 sm:gap-6 mb-8 last:mb-0"
                 >
-                  <div className="relative z-10 w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center shrink-0">
-                    <StepIcon className="w-5 h-5 text-amber" />
+                  <div className="relative z-10 w-12 h-12 rounded-full bg-brand/10 border border-brand/30 flex items-center justify-center shrink-0">
+                    <StepIcon className="w-5 h-5 text-brand" />
                   </div>
                   <div className="pt-1">
-                    <p className="text-xs text-amber font-medium mb-1">{step.label}</p>
+                    <p className="text-xs text-brand font-medium mb-1">{step.label}</p>
                     <h3 className="font-semibold text-text-primary mb-1">{step.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
                   </div>
@@ -279,15 +285,15 @@ export default function ServicesClient() {
             {t.transparency.subtitle}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="rounded-2xl border border-amber/30 bg-amber/[0.04] p-6">
+            <div className="rounded-2xl border border-brand/30 bg-brand/[0.04] p-6">
               <h3 className="flex items-center gap-2 font-semibold text-text-primary mb-4">
-                <CheckCircle2 className="w-5 h-5 text-amber" />
+                <CheckCircle2 className="w-5 h-5 text-brand" />
                 {t.transparency.includedTitle}
               </h3>
               <ul className="space-y-2">
                 {t.transparency.included.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -322,7 +328,7 @@ export default function ServicesClient() {
             className="motion-safe-fallback"
           >
             <GlassCard hoverEffect="border" className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start">
-              <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-amber/20 shadow-xl">
+              <div className="w-[220px] h-[220px] rounded-2xl bg-white/5 border border-border-subtle flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-2 ring-brand/20 shadow-xl">
                 <Image
                   src="/images/john.jpg"
                   alt={`${FOUNDER_NAME}, founder of Study Czechia`}
@@ -333,7 +339,7 @@ export default function ServicesClient() {
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = "none";
-                    target.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="w-16 h-16 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg></div>';
+                    target.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="w-16 h-16 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg></div>';
                   }}
                 />
               </div>
@@ -359,9 +365,11 @@ export default function ServicesClient() {
             <table className="w-full text-sm">
               <thead>
                 <tr>
-                  <th className="text-start p-3 text-text-muted font-medium"></th>
+                  <th className="text-start p-3 text-text-muted font-medium">
+                    <span className="sr-only">{t.comparison.aspectHeader}</span>
+                  </th>
                   <th className="text-start p-3 text-text-secondary font-medium">{t.comparison.agencyHeader}</th>
-                  <th className="text-start p-3 text-amber font-semibold bg-amber/[0.04] rounded-t-xl border-t border-x border-amber/20">
+                  <th className="text-start p-3 text-brand font-semibold bg-brand/[0.04] rounded-t-xl border-t border-x border-brand/20">
                     {t.comparison.usHeader}
                   </th>
                 </tr>
@@ -371,7 +379,7 @@ export default function ServicesClient() {
                   <tr key={i} className="border-t border-border-subtle">
                     <td className="p-3 text-text-secondary font-medium">{row.label}</td>
                     <td className="p-3 text-text-muted">{row.agency}</td>
-                    <td className="p-3 text-text-primary bg-amber/[0.04] border-x border-amber/20 last:rounded-b-xl last:border-b">
+                    <td className="p-3 text-text-primary bg-brand/[0.04] border-x border-brand/20 last:rounded-b-xl last:border-b">
                       {row.us}
                     </td>
                   </tr>
@@ -390,8 +398,8 @@ export default function ServicesClient() {
                     <p className="text-xs text-text-muted mb-1">{t.comparison.agencyHeader}</p>
                     <p className="text-sm text-text-secondary">{row.agency}</p>
                   </div>
-                  <div className="bg-amber/[0.04] rounded-lg p-2 border border-amber/20">
-                    <p className="text-xs text-amber mb-1">{t.comparison.usHeader}</p>
+                  <div className="bg-brand/[0.04] rounded-lg p-2 border border-brand/20">
+                    <p className="text-xs text-brand mb-1">{t.comparison.usHeader}</p>
                     <p className="text-sm text-text-primary">{row.us}</p>
                   </div>
                 </div>
@@ -406,9 +414,14 @@ export default function ServicesClient() {
 
         {/* Scam warning */}
         <section className="max-w-4xl mx-auto mb-16">
-          <div className="flex items-start gap-3 rounded-2xl border border-amber/25 bg-amber/[0.06] px-5 py-4">
-            <ShieldAlert className="w-5 h-5 text-amber shrink-0 mt-0.5" />
-            <p className="text-sm text-text-secondary leading-relaxed">{t.scamWarning}</p>
+          <div className="flex items-start gap-3 rounded-2xl border border-brand/25 bg-brand/[0.06] px-5 py-4">
+            <ShieldAlert className="w-5 h-5 text-brand shrink-0 mt-0.5" />
+            <p className="text-sm text-text-secondary leading-relaxed">
+              {t.scamWarning}{" "}
+              <Link href="/questions-to-ask" className="font-medium text-brand hover:underline">
+                {t.agencyQuestions}
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -472,6 +485,15 @@ export default function ServicesClient() {
   );
 }
 
+/** A photo and colour per service, as static class strings. */
+const SERVICE_LOOK: Record<string, { photo: ImageId; fill: string; border: string }> = {
+  documentReview: { photo: "study-paperwork", fill: "bg-gold", border: "border-t-gold" },
+  consultation: { photo: "study-laptop-notes", fill: "bg-sky", border: "border-t-sky" },
+  interviewPrep: { photo: "study-class-hijab", fill: "bg-violet", border: "border-t-violet" },
+  arrivalSupport: { photo: "study-travel-map", fill: "bg-teal", border: "border-t-teal" },
+  fullPackage: { photo: "study-graduates-walking", fill: "bg-coral", border: "border-t-coral" },
+};
+
 function ServiceCard({
   svc,
   t,
@@ -486,6 +508,7 @@ function ServiceCard({
   const content = t.services[svc.key];
   const Icon = svc.icon;
   const TriggerIcon = svc.triggerIcon;
+  const look = SERVICE_LOOK[svc.key];
 
   return (
     <motion.div
@@ -493,32 +516,38 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="motion-safe-fallback"
+      className="motion-safe-fallback scroll-mt-24"
+      id={`svc-${svc.key}`}
     >
       <div
         className={cn(
-          "relative rounded-2xl border bg-surface/80 backdrop-blur-sm p-6 h-full flex flex-col transition-shadow hover:shadow-lg",
+          "card-lift relative rounded-2xl border border-t-4 bg-surface p-6 pt-0 h-full flex flex-col transition-shadow hover:shadow-lg",
+          look.border,
           svc.featured
-            ? "border-amber/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
+            ? "border-brand/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
             : "border-border-subtle"
         )}
       >
         {svc.featured && (
-          <div className="absolute -top-3 start-4 px-3 py-1 rounded-full bg-amber text-midnight text-xs font-semibold">
+          <div className="absolute -top-3 start-4 z-10 px-3 py-1 rounded-full bg-[#c8102e] text-white text-xs font-semibold shadow">
             {t.bestValue}
           </div>
         )}
 
+        <div className="relative -mx-6 mb-5 h-40 overflow-hidden rounded-t-xl">
+          <SiteImage id={look.photo} sizes="(max-width: 768px) 100vw, 420px" whenNear decorative />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent" />
+        </div>
         <div className="flex items-start gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-white/5 border border-border-subtle flex items-center justify-center shrink-0">
-            <Icon className="w-5 h-5 text-amber" />
+          <div className={`-mt-11 w-12 h-12 rounded-xl ${look.fill} text-white ring-4 ring-surface shadow-md flex items-center justify-center shrink-0 relative`}>
+            <Icon className="w-5 h-5" aria-hidden="true" />
           </div>
           <div>
             <h3 className="font-semibold text-text-primary">{content.title}</h3>
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               {svc.key === "fullPackage" ? (
                 <>
-                  <span className="text-2xl font-bold text-amber" data-price-current data-price-regular-value={eur(fullPackageTotal(false), locale)}>
+                  <span className="text-2xl font-bold text-brand" data-price-current data-price-regular-value={eur(fullPackageTotal(false), locale)}>
                     {eur(fullPackageTotal(), locale)}
                   </span>
                   {OFFER_ACTIVE && (
@@ -526,7 +555,7 @@ function ServiceCard({
                   )}
                 </>
               ) : (
-                <PriceTag k={svc.priceKey} locale={locale} className="text-2xl font-bold text-amber" />
+                <PriceTag k={svc.priceKey} locale={locale} className="text-2xl font-bold text-brand" />
               )}
               <span className="text-xs text-text-muted">
                 {svc.key === "fullPackage" ? t.twoStepsNote : czk(priceOf(svc.priceKey))}
@@ -535,17 +564,22 @@ function ServiceCard({
           </div>
         </div>
 
-        <p className="text-xs text-text-muted italic mb-3">{content.fearTrigger}</p>
+        <p className="text-xs text-text-secondary italic mb-3">{content.stuckLine}</p>
         <p className="text-sm text-text-secondary leading-relaxed mb-4">{content.description}</p>
 
+        <details className="group mb-4 flex-1">
+          <summary className="cursor-pointer list-none text-sm font-medium text-brand hover:underline mb-2">
+            {locale === "ar" ? `إيه اللي هتاخده (${content.included.length})` : `What's included (${content.included.length})`}
+          </summary>
         <ul className="space-y-1.5 mb-4 flex-1">
           {content.included.map((item, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
               <span className="text-xs">{item}</span>
             </li>
           ))}
         </ul>
+        </details>
 
         {svc.key === "fullPackage" && "paymentStructure" in content && (
           <div className="rounded-xl bg-white/[0.03] border border-border-subtle p-3 mb-4">
@@ -560,8 +594,8 @@ function ServiceCard({
           <p className="text-xs text-text-muted leading-relaxed mb-4">{content.bundledNote}</p>
         )}
 
-        <div className="flex items-start gap-2 rounded-lg bg-amber/[0.04] border border-amber/15 px-3 py-2 mb-4">
-          <TriggerIcon className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 rounded-lg bg-brand/[0.04] border border-brand/15 px-3 py-2 mb-4">
+          <TriggerIcon className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
           <p className="text-xs text-text-secondary leading-relaxed">{content.triggerLine}</p>
         </div>
 
@@ -576,6 +610,101 @@ function ServiceCard({
         <p className="text-center text-xs text-text-muted mt-2">{content.postButton}</p>
       </div>
     </motion.div>
+  );
+}
+
+// ─── Price ladder ───────────────────────────────────────────────────────────
+
+const LADDER_ORDER: (typeof services)[number]["key"][] = ["consultation", "documentReview", "arrivalSupport", "interviewPrep", "fullPackage"];
+
+const LADDER_COPY = {
+  en: {
+    title: "Prices",
+    subtitle: "Pick the one that fits where you are. Details for each are below.",
+    details: "Details",
+    names: {
+      consultation: "30-minute call",
+      documentReview: "Document review",
+      arrivalSupport: "Arrival plan",
+      interviewPrep: "Embassy mock interview",
+      fullPackage: "Full Journey",
+    },
+    bestFor: {
+      consultation: "You're stuck on one question and want a clear answer.",
+      documentReview: "Your documents are ready and you want them checked before you submit.",
+      arrivalSupport: "You have your visa and you're about to land.",
+      interviewPrep: "Your embassy interview is coming up.",
+      fullPackage: "You want someone with you from choosing a university to the visa.",
+    },
+    buy: "Book",
+    interviewBuy: "See how it works",
+  },
+  ar: {
+    title: "الأسعار",
+    subtitle: "اختار اللي يناسب المرحلة اللي أنت فيها. التفاصيل تحت.",
+    details: "التفاصيل",
+    names: {
+      consultation: "مكالمة 30 دقيقة",
+      documentReview: "مراجعة الأوراق",
+      arrivalSupport: "خطة الوصول",
+      interviewPrep: "مقابلة السفارة التجريبية",
+      fullPackage: "المرافقة الكاملة",
+    },
+    bestFor: {
+      consultation: "واقف عند سؤال واحد وعايز إجابة واضحة.",
+      documentReview: "أوراقك جاهزة وعايز حد يراجعها قبل ما تقدم.",
+      arrivalSupport: "خدت الفيزا وقربت تسافر.",
+      interviewPrep: "مقابلة السفارة قربت.",
+      fullPackage: "عايز حد معاك من اختيار الجامعة لحد الفيزا.",
+    },
+    buy: "احجز",
+    interviewBuy: "شوف التفاصيل",
+  },
+} as const;
+
+function PriceLadder({ locale }: { locale: "en" | "ar" }) {
+  const c = LADDER_COPY[locale];
+  return (
+    <section id="prices" className="max-w-3xl mx-auto mb-12 sm:mb-16 scroll-mt-24">
+      <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-1">{c.title}</h2>
+      <p className="text-sm text-text-secondary text-center mb-5">{c.subtitle}</p>
+      <ol className="space-y-2.5">
+        {LADDER_ORDER.map((key) => {
+          const svc = services.find((s) => s.key === key)!;
+          const isFull = key === "fullPackage";
+          return (
+            <li
+              key={key}
+              className={cn(
+                "rounded-2xl border bg-surface/70 px-4 py-3 grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 items-center",
+                isFull ? "border-brand/40" : "border-border-subtle"
+              )}
+            >
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-text-primary">{c.names[key]}</p>
+                <p className="text-xs text-text-secondary leading-snug mt-0.5">{c.bestFor[key]}</p>
+              </div>
+              <div className="text-end">
+                <PriceTag k={svc.priceKey} locale={locale} className="text-lg font-bold text-brand" regularClassName="text-xs" />
+                {isFull && (
+                  <p className="text-[11px] text-text-secondary leading-tight">
+                    {locale === "ar" ? `+ ${price("fullPackageStep2", "ar")} بعد القبول بس` : `+ ${price("fullPackageStep2")} only after acceptance`}
+                  </p>
+                )}
+              </div>
+              <div className="col-span-2 flex items-center gap-3 mt-1.5">
+                <MagneticButton variant="primary" size="sm" href={svc.paymentLink} className="flex-1">
+                  {key === "interviewPrep" ? c.interviewBuy : c.buy}
+                </MagneticButton>
+                <a href={`#svc-${key}`} className="text-xs text-brand hover:underline shrink-0">
+                  {c.details}
+                </a>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
   );
 }
 
@@ -640,7 +769,7 @@ const en = {
   services: {
     consultation: {
       title: "Ask Me Anything: 30 Minutes",
-      fearTrigger: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
+      stuckLine: "Stuck on one question you can't get a straight answer to? Ask me in a 30-minute call, and I'll tell you what I'd do in your place.",
       description:
         "A focused call about YOUR specific situation. Not generic advice. I'll look at what you're dealing with and tell you exactly what to do next. Most students book this when they're stuck on something specific, like which university to pick, whether their documents look right, or what to expect at the embassy.",
       included: [
@@ -651,14 +780,14 @@ const en = {
         "Credited in full toward any larger service if you upgrade later",
       ],
       triggerLine:
-        "One wrong assumption about your visa documents can delay your application by 6 months. A 30-minute call can prevent that.",
+        "Not sure about one thing? Asking is usually faster than searching.",
       cta: `Book a Call (${price("consultation")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.consultation}`,
     },
     documentReview: {
       title: "Document Check: Before You Submit",
-      fearTrigger:
-        "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
+      stuckLine:
+        "Stuck on the apostille or the translations? Send me your documents and I'll check every page before you submit.",
       description:
         `You send me everything you're planning to submit: university application, visa documents, translations, bank statements. I go through every page the way the embassy officer will and tell you what's wrong, what's missing, and what could get flagged. A ${price("documentReview")} review can save you from a rejection that costs you an entire semester.`,
       included: [
@@ -669,15 +798,15 @@ const en = {
         "One follow-up round: fix the issues, send back, I confirm you're good",
       ],
       triggerLine:
-        "The embassy doesn't tell you what's wrong, they just say 'rejected.' You won't know which document killed your application unless someone checks before you submit.",
+        "It's much easier to fix a document before you submit it than after.",
       cta: `Get My Documents Reviewed (${price("documentReview")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.documentReview}`,
     },
     interviewPrep: {
-      title: "Embassy Interview Prep: Don't Walk In Unprepared",
-      fearTrigger: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
+      title: "Embassy interview: let's practise it first",
+      stuckLine: "Nervous about the embassy interview? Let's practise it together with the questions embassies ask, so nothing on the day surprises you.",
       description:
-        "I've coached dozens of students through embassy interviews in Cairo, Amman, Beirut, and other consulates. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
+        "Embassy interviews follow a pattern. I know what they ask, what trips people up, and which answers actually work. We'll do a full mock interview together. I'll ask you the actual questions in the same order with the same follow-ups. Then I'll tell you exactly where you're weak and how to fix it. You'll walk into that interview knowing what's coming.",
       included: [
         "45-minute mock interview session (video call)",
         "Real questions from real embassy interviews (updated regularly)",
@@ -687,14 +816,14 @@ const en = {
         "WhatsApp support until your interview date",
       ],
       triggerLine:
-        "Last year, a student was rejected because he couldn't explain his study plan clearly. His grades were perfect. His documents were perfect. He just wasn't ready for question 6.",
+        "Interview questions usually centre on your study plan: why this programme, why Czechia, how you'll pay. That's exactly what we practise.",
       cta: `See How It Works (${price("interviewPrep")}) →`,
       postButton: REFUND_COPY.en.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "Landed in Czechia? I've Got You.",
-      fearTrigger:
-        "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
+      stuckLine:
+        "The first two weeks are a lot: foreign police, bank, insurance, transport, a SIM card, mostly in Czech. I'll give you a checklist for your city and answer your questions while you settle in.",
       description:
         "You just landed. You don't speak Czech. Every sign is confusing. You need to register at the foreign police within 3 days but you don't know where it is or what to bring. Your university sent you 4 emails in Czech and you have no idea what they say. I've been through all of this. I live here. I'll give you a complete first-week plan and be available on WhatsApp to answer every question you're afraid to ask.",
       included: [
@@ -707,13 +836,13 @@ const en = {
         "14 days of WhatsApp support, ask me anything, anytime",
       ],
       triggerLine:
-        "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
+        "You have 3 working days after arrival to report your address to the foreign police. I'll tell you where to go and what to bring.",
       cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
       postButton: `🔒 Secure payment via Stripe · ${REFUND_COPY.en.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "Full Journey: From Zero to Visa",
-      fearTrigger:
+      stuckLine:
         "For students who don't want to figure it out alone. I'll be with you from your first question to your first day in Czechia.",
       description:
         "This is everything. We start from wherever you are, even if you haven't picked a country yet, and I walk you through every step until you have your visa and a plan for your first week. You're not buying a service. You're getting someone who's been through this, speaks your language, lives here, and will answer your WhatsApp at midnight when you're panicking about a deadline. Agencies often charge €1,500–€3,000. I'm in Brno, 20 minutes from the foreign police office.",
@@ -730,7 +859,7 @@ const en = {
         '"Your First 90 Days in Czechia" course, included free',
       ],
       triggerLine:
-        "Students who go through this process alone spend an average of 3 months longer figuring things out, and many apply to the wrong program or miss a deadline they didn't know existed.",
+        "For when several things need work at once and you'd rather have one person with you for all of it.",
       cta: `Start My Application (${price("fullPackageStep1")})`,
       postButton: `🔒 Secure payment via Stripe · Also via InstaPay 🇪🇬 · ${REFUND_COPY.en.perService.fullPackage}`,
       paymentStructure: {
@@ -776,6 +905,7 @@ const en = {
   },
   comparison: {
     title: "Why Students Choose Us Over Traditional Agencies",
+    aspectHeader: "What you get",
     agencyHeader: "Typical Agency",
     usHeader: "Study Czechia",
     rows: [
@@ -801,6 +931,7 @@ const en = {
   },
   scamWarning:
     "We never ask for payment through unofficial WhatsApp numbers or DMs claiming to be us. All paid services are booked through this website only.",
+  agencyQuestions: "Before you pay anyone, us included, ask these 8 questions",
   faq: {
     title: "Common Questions",
     items: [
@@ -916,7 +1047,7 @@ const ar: typeof en = {
   services: {
     consultation: {
       title: "اسألني أي حاجة: 30 دقيقة",
-      fearTrigger: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
+      stuckLine: "واقف عند سؤال مش لاقيله إجابة واضحة؟ اسألني في مكالمة 30 دقيقة، وهقولك أنا كنت هعمل إيه مكانك.",
       description: "مكالمة مركزة عن وضعك أنت تحديدًا. مش نصايح عامة. هبص على وضعك وهقولك بالظبط تعمل إيه. معظم الطلاب بيحجزوا لما بيكونوا واقفين عند حاجة معينة.",
       included: [
         "مكالمة فيديو أو صوت 30 دقيقة (اختيارك)",
@@ -925,13 +1056,13 @@ const ar: typeof en = {
         "48 ساعة متابعة على واتساب لأسئلة سريعة",
         "بتتحسب بالكامل لو حجزت خدمة أكبر بعدين",
       ],
-      triggerLine: "افتراض غلط واحد عن أوراق الفيزا ممكن يأخر طلبك 6 شهور. مكالمة 30 دقيقة ممكن تمنع ده.",
+      triggerLine: "مش متأكد من حاجة واحدة؟ السؤال غالبًا أسرع من البحث.",
       cta: `احجز مكالمة (${price("consultation", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.consultation}`,
     },
     documentReview: {
       title: "مراجعة الأوراق: قبل ما تقدم",
-      fearTrigger: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
+      stuckLine: "واقف عند الأبوستيل أو الترجمة؟ ابعتلي أوراقك وأنا أراجع كل صفحة قبل ما تقدم.",
       description: `ابعتلي كل حاجة ناوي تقدمها. طلب الجامعة، أوراق الفيزا، الترجمات، كشف الحساب. براجع كل صفحة زي ما موظف السفارة هيعمل. مراجعة بـ ${price("documentReview", "ar")} ممكن تنقذك من رفض بيكلفك فصل كامل.`,
       included: [
         "مراجعة كاملة لكل الأوراق",
@@ -940,14 +1071,14 @@ const ar: typeof en = {
         "توجيه خاص للترجمات والابوستيل والتنسيق",
         "جولة متابعة: صلح المشاكل، ابعت تاني، بأكدلك إن كله تمام",
       ],
-      triggerLine: 'السفارة مش بتقولك إيه الغلط. بس بتقول "مرفوض." مش هتعرف أي ورقة وقعت طلبك غير لما حد يراجع قبل ما تقدم.',
+      triggerLine: 'تصليح الورقة قبل ما تقدمها أسهل بكتير من بعدها.',
       cta: `راجع أوراقي (${price("documentReview", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.documentReview}`,
     },
     interviewPrep: {
-      title: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير",
-      fearTrigger: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
-      description: "دربت عشرات الطلاب على مقابلات السفارة في القاهرة وعمان وبيروت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
+      title: "مقابلة السفارة: نتدرب عليها الأول",
+      stuckLine: "قلقان من مقابلة السفارة؟ يلا نتدرب عليها مع بعض بالأسئلة اللي السفارات بتسألها، عشان مافيش حاجة تفاجئك يومها.",
+      description: "مقابلات السفارة ليها نمط ثابت. بعرف الأسئلة والفخاخ والإجابات الصح. هنعمل مقابلة تجريبية كاملة مع بعض. هتدخل المقابلة وأنت عارف ايه الجاي.",
       included: [
         "جلسة مقابلة تجريبية 45 دقيقة (فيديو)",
         "أسئلة حقيقية من مقابلات سفارة حقيقية",
@@ -956,13 +1087,13 @@ const ar: typeof en = {
         "تدريب خاص على نقاط ضعفك أنت",
         "دعم واتساب لحد موعد مقابلتك",
       ],
-      triggerLine: "السنة اللي فاتت، طالب اترفض عشان ماعرفش يشرح خطته الدراسية بوضوح. درجاته كانت ممتازة. أوراقه كانت كاملة. بس ماكانش جاهز للسؤال رقم 6.",
+      triggerLine: "أسئلة المقابلة غالبًا بتدور حوالين خطتك الدراسية: ليه البرنامج ده، ليه التشيك، وهتصرف إزاي. وده بالظبط اللي هنتدرب عليه.",
       cta: `شوف التفاصيل (${price("interviewPrep", "ar")}) →`,
       postButton: REFUND_COPY.ar.perService.interviewPrep,
     },
     arrivalSupport: {
       title: "وصلت التشيك؟ أنا معاك.",
-      fearTrigger: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
+      stuckLine: "أول أسبوعين فيهم حاجات كتير: شرطة الأجانب، البنك، التأمين، المواصلات، الشريحة، ومعظمها بالتشيكي. هديك قائمة لمدينتك وهرد على أسئلتك وأنت بتستقر.",
       description: "لسه واصل. مش بتتكلم تشيكي. كل لافتة محيرة. أنا عديت كل ده. أنا ساكن هنا. هديك خطة كاملة لأول أسبوع وهكون متاح على واتساب أجاوب على كل سؤال.",
       included: [
         `قائمة "أول أسبوعين" مخصصة لمدينتك`,
@@ -973,13 +1104,13 @@ const ar: typeof en = {
         "تحقق من التأمين الصحي",
         "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
       ],
-      triggerLine: "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      triggerLine: "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
       cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · ${REFUND_COPY.ar.perService.arrivalSupport}`,
     },
     fullPackage: {
       title: "الرحلة الكاملة: من الصفر للفيزا",
-      fearTrigger: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
+      stuckLine: "للطلاب اللي مش عايزين يعملوها لوحدهم. هكون معاك من أول سؤال لأول يوم في التشيك.",
       description: "ده كل حاجة. بنبدأ من أي مكان أنت فيه، حتى لو لسه مااخترتش بلد، وبمشي معاك كل خطوة لحد ما تاخد الفيزا. مش بتشتري خدمة. بتجيب شخص عدى التجربة، بيتكلم لغتك وساكن هنا. المكاتب غالبًا بتاخد 1,500€–3,000€. أنا في برنو، 20 دقيقة من شرطة الأجانب.",
       included: [
         "اختيار الجامعة والتخصص (حسب درجاتك وميزانيتك وأهدافك)",
@@ -993,7 +1124,7 @@ const ar: typeof en = {
         "30 يوم دعم بعد وصولك التشيك",
         `كورس "أول 90 يوم في التشيك". مجانًا`,
       ],
-      triggerLine: "الطلاب اللي بيعملوا العملية لوحدهم بياخدوا في المتوسط 3 شهور أكتر. وكتير بيقدموا على البرنامج الغلط أو بيفوتهم موعد ماكانوش يعرفوا بيه.",
+      triggerLine: "لما يكون في كذا حاجة محتاجة شغل في نفس الوقت، وتحب يكون معاك شخص واحد في كل ده.",
       cta: `ابدأ طلبي (${price("fullPackageStep1", "ar")})`,
       postButton: `🔒 دفع آمن عبر Stripe · متاح كمان بـ InstaPay 🇪🇬 · ${REFUND_COPY.ar.perService.fullPackage}`,
       paymentStructure: {
@@ -1039,6 +1170,7 @@ const ar: typeof en = {
   },
   comparison: {
     title: "ليه الطلاب بيختارونا عن المكاتب التقليدية",
+    aspectHeader: "اللي بتاخده",
     agencyHeader: "وكالة عادية",
     usHeader: "Study Czechia",
     rows: [
@@ -1063,6 +1195,7 @@ const ar: typeof en = {
     cta: "شوف المجتمع على فيسبوك →",
   },
   scamWarning: "إحنا مش بنطلب فلوس على أي رقم واتساب غير رسمي أو رسايل خاصة بتدعي إنها منّا. كل الخدمات المدفوعة بتتحجز من الموقع ده بس.",
+  agencyQuestions: "قبل ما تدفع لأي حد، حتى لينا، اسأل الـ8 أسئلة دول",
   faq: {
     title: "أسئلة شائعة",
     items: [

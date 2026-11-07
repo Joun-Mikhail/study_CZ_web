@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { track } from "@/components/umami";
+import { track, trackToolStarted } from "@/components/umami";
 import { useMemo, useState, useRef } from "react";
 import { useTranslation } from "@/i18n/context";
 import { Navbar } from "@/components/navbar";
@@ -8,9 +8,13 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { VerifiedBadge } from "@/components/ui/verified-badge";
+import { ProgrammeSourceBadge } from "@/components/ui/programme-source-badge";
 import { EmailSignup } from "@/components/email-signup";
-import { filterProgrammes } from "@/data/programmes";
+import { HelpLink } from "@/components/help-sheet";
+import { buttonClasses } from "@/components/ui/magnetic-button";
+import Link from "@/components/locale-link";
+import { addProgrammeToJourney } from "@/lib/journey-store";
+import { filterProgrammes, programmes } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import type { Programme, City } from "@/data/types";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,9 +28,14 @@ import {
   Clock,
   GraduationCap,
   ShieldCheck,
+  CheckCircle2,
+  Bookmark,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CITY_AR } from "@/i18n/ar-metadata";
 import Image from "next/image";
+import { SiteImage } from "@/components/site-image";
+import { cityImage } from "@/data/images";
 
 type BudgetBucket = "low" | "mid" | "high" | "any";
 const budgetRanges: Record<Exclude<BudgetBucket, "any">, [number, number]> = {
@@ -60,7 +69,13 @@ const fieldLabels: { key: string; en: string; ar: string }[] = [
   { key: "Chemistry", en: "Chemistry", ar: "الكيمياء" },
   { key: "Social Sciences", en: "Social Sciences", ar: "العلوم الاجتماعية" },
   { key: "International Relations", en: "International Relations", ar: "العلاقات الدولية" },
+  { key: "Agriculture", en: "Agriculture", ar: "الزراعة" },
+  { key: "Development Studies", en: "Development Studies", ar: "دراسات التنمية" },
+  { key: "Psychology", en: "Psychology", ar: "علم النفس" },
 ];
+
+/** A matcher choice can cover more than one data field. */
+const FIELD_MATCHES: Record<string, string[]> = { IT: ["IT", "Computer Science"] };
 
 type MatchResult = {
   programme: Programme;
@@ -82,10 +97,12 @@ function computeMatches(
     const [, hi] = budgetRanges[budget];
     if (hi !== Infinity) hardFilters.maxTuition = hi;
   }
-  if (field !== "any") hardFilters.field = field;
   if (city !== "any") hardFilters.city = city;
 
-  const eligible = filterProgrammes(hardFilters, universitiesV2);
+  const fields = FIELD_MATCHES[field] ?? [field];
+  const eligible = filterProgrammes(hardFilters, universitiesV2).filter(
+    (p) => field === "any" || fields.some((f) => p.field === f || p.subfield === f)
+  );
 
   return eligible
     .map((prog) => {
@@ -96,14 +113,15 @@ function computeMatches(
       const reasons: { en: string; ar: string }[] = [];
 
       if (city !== "any") {
-        reasons.push({ en: `Located in ${city}`, ar: `في ${city}` });
+        reasons.push({ en: `Located in ${city}`, ar: `في ${CITY_AR[city] ?? city}` });
       }
 
       if (field !== "any") {
         score += 30;
+        const label = fieldLabels.find((f) => f.key === field);
         reasons.push({
-          en: `Matches your field: ${field}`,
-          ar: `يطابق مجالك: ${field}`,
+          en: `Matches your field: ${label?.en ?? field}`,
+          ar: `يطابق مجالك: ${label?.ar ?? field}`,
         });
       }
 
@@ -190,7 +208,7 @@ export default function MatcherPage() {
             label={t.matcher.anyCity}
           />
           {cityOptions.map((c) => (
-            <OptionCard key={c} active={city === c} onClick={() => setCity(c)} label={c} />
+            <OptionCard key={c} active={city === c} onClick={() => setCity(c)} label={locale === "ar" ? CITY_AR[c] ?? c : c} />
           ))}
         </div>
       ),
@@ -254,13 +272,15 @@ export default function MatcherPage() {
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative w-full h-[130px] sm:h-[170px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-architecture.jpg"
-              alt="Prague river and bridge view"
+              src="/images/study/library-hall.jpg"
+              alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         </div>
         <div className="max-w-2xl mx-auto text-center mb-10">
@@ -268,6 +288,11 @@ export default function MatcherPage() {
             {t.matcher.title}
           </h1>
           <p className="text-text-secondary leading-relaxed">{t.matcher.subtitle}</p>
+          <p className="text-xs text-text-muted mt-2">
+            {locale === "ar"
+              ? `بيدور في ${programmes.length} برنامج موجودين على الموقع.`
+              : `Searches the ${programmes.length} programmes listed on this site.`}
+          </p>
         </div>
 
         <div className="flex justify-center gap-2 mb-8">
@@ -276,7 +301,7 @@ export default function MatcherPage() {
               key={i}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                i === step ? "w-8 bg-amber" : "w-1.5 bg-border-subtle"
+                i === step ? "w-8 bg-brand" : "w-1.5 bg-border-subtle"
               )}
             />
           ))}
@@ -287,7 +312,7 @@ export default function MatcherPage() {
             {step < steps.length ? (
               <motion.div
                 key={step}
-                initial={{ opacity: 0, x: 24 }}
+                initial={{ x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -24 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -312,9 +337,10 @@ export default function MatcherPage() {
                     variant="primary"
                     onClick={() => {
                       if (!canGoNext) return;
+                      trackToolStarted("matcher");
                       if (step === steps.length - 1 && !completed.current) {
                         completed.current = true; // count a double tap once
-                        track("matcher_completed", { field: field || "any" });
+                        track("tool_completed", { tool: "matcher", field: field || "any" });
                       }
                       // Clamp: a double tap during the animation must not skip a question.
                       setStep((s) => Math.min(step + 1, s + 1, steps.length));
@@ -329,7 +355,7 @@ export default function MatcherPage() {
             ) : (
               <motion.div
                 key="results"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
@@ -351,7 +377,7 @@ export default function MatcherPage() {
                     {results.map((match, i) => (
                       <motion.div
                         key={match.programme.id}
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={{ y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.06, duration: 0.4 }}
                       >
@@ -361,9 +387,11 @@ export default function MatcherPage() {
                   </div>
                 )}
 
+                {results.length > 0 && <MatcherPlan ids={results.slice(0, 5).map((m) => m.programme.id)} locale={locale} />}
+
                 <GlassCard hoverEffect="border" className="text-center mb-4" href="/eligibility">
-                  <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center mx-auto mb-3">
-                    <Sparkles className="w-5 h-5 text-amber" />
+                  <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-5 h-5 text-brand" />
                   </div>
                   <h3 className="font-semibold text-text-primary mb-1">
                     {locale === "ar"
@@ -375,7 +403,7 @@ export default function MatcherPage() {
                       ? "جاوب على كام سؤال في دقيقتين وشوف لو درجاتك وأوراقك ووقتك كويسين."
                       : "Take a 2-minute eligibility check to see if your grades, documents, and timeline are on track."}
                   </p>
-                  <span className="text-sm font-medium text-amber">
+                  <span className="text-sm font-medium text-brand">
                     {locale === "ar" ? "شوف لو تقدر تقدم (ببلاش) →" : "Check My Eligibility (Free) →"}
                   </span>
                 </GlassCard>
@@ -394,6 +422,39 @@ export default function MatcherPage() {
             )}
           </AnimatePresence>
         </div>
+
+        <section aria-labelledby="how-matcher-works" className="max-w-2xl mx-auto mt-16">
+          <h2 id="how-matcher-works" className="text-lg font-semibold text-text-primary mb-3">
+            {locale === "ar" ? "المطابق بيشتغل إزاي" : "How the matcher works"}
+          </h2>
+          <ul className="space-y-2 text-sm text-text-secondary leading-relaxed list-disc ps-5">
+            {(locale === "ar"
+              ? [
+                  "أربع أسئلة: المدينة، والمجال، وميزانية الرسوم في السنة، ولغة الدراسة.",
+                  "بيشيل البرامج اللي في مدن تانية، أو باللغة التانية، أو رسومها أعلى من حد ميزانيتك، وبيسيب المجال اللي اخترته بس. لو اخترت إن مفيش تفضيل في سؤال، الفلتر بتاعه مش بيتطبق.",
+                  "الباقي بيترتب حسب قرب الرسوم السنوية من نص ميزانيتك، وبعدين الأرخص الأول.",
+                  "كل نتيجة فيها لينك لصفحة البرنامج، وبتوضح الرسوم جاية منين.",
+                ]
+              : [
+                  "Four questions: city, field, yearly tuition budget and teaching language.",
+                  "It drops programmes in other cities, in the other language or above the top of your budget, and keeps only the field you picked. Choosing no preference for a question skips that filter.",
+                  "The rest are ordered by how close the yearly fee is to the middle of your budget, then cheapest first.",
+                  "Each result links to its programme page and shows where the fee comes from.",
+                ]
+            ).map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-text-secondary leading-relaxed mt-3">
+            {locale === "ar"
+              ? `بيدور في ${programmes.length} برنامج موجودين على الموقع بس، مش كل البرامج في التشيك. عشان تتأكد من درجاتك وأوراقك، جرّب `
+              : `It searches only the ${programmes.length} programmes listed on this site, not every programme in Czechia. To check your grades and documents, use the `}
+            <Link href="/eligibility" className="font-medium text-brand hover:underline">
+              {locale === "ar" ? "فحص الأهلية" : "eligibility check"}
+            </Link>
+            .
+          </p>
+        </section>
       </main>
 
       <Footer />
@@ -411,13 +472,20 @@ function MatchCard({
   rank: number;
 }) {
   const { programme: prog, universityName, city, reasons } = match;
+  const photo = cityImage(city);
 
   return (
-    <GlassCard hoverEffect="glow" href={`/programmes/${prog.id}`}>
+    <GlassCard hoverEffect="glow" href={`/programmes/${prog.id}`} className="overflow-hidden">
+      {photo && (
+        <div className="relative -mx-6 -mt-6 mb-4 h-28 sm:h-32">
+          <SiteImage id={photo} sizes="(max-width: 672px) 100vw, 672px" decorative />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" aria-hidden="true" />
+        </div>
+      )}
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber/10 text-amber text-xs font-bold border border-amber/20 shrink-0">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand/10 text-brand text-xs font-bold border border-brand/20 shrink-0">
               {rank}
             </span>
             <h3 className="font-semibold text-text-primary text-sm truncate">
@@ -429,7 +497,7 @@ function MatchCard({
           )}
         </div>
         <div className="flex gap-1.5 shrink-0">
-          <span className="px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[11px] font-medium border border-amber/20">
+          <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[11px] font-medium border border-brand/20">
             {prog.degree}
           </span>
         </div>
@@ -438,13 +506,13 @@ function MatchCard({
       <div className="flex items-center gap-2 text-xs text-text-secondary ms-8 mb-2">
         <span className="inline-flex items-center gap-1">
           <MapPin className="w-3 h-3 text-text-muted" />
-          {universityName}, {city}
+          {universityName}{locale === "ar" ? "، " : ", "}{locale === "ar" ? CITY_AR[city] ?? city : city}
         </span>
       </div>
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-secondary ms-8 mb-3">
         <span className="inline-flex items-center gap-1">
-          <Euro className="w-3 h-3 text-amber/70" />
+          <Euro className="w-3 h-3 text-brand/70" />
           €{prog.tuitionEurPerYear.toLocaleString()}/{locale === "ar" ? "سنة" : "yr"}
         </span>
         <span className="inline-flex items-center gap-1">
@@ -470,12 +538,8 @@ function MatchCard({
       </div>
 
       <div className="ms-8 flex items-center justify-between">
-        <VerifiedBadge
-          date={prog.verification.lastVerified}
-          sourceUrl={prog.verification.sourceUrl}
-          label={locale === "ar" ? "تم التحقق:" : "Verified:"}
-        />
-        <span className="inline-flex items-center gap-1 text-xs text-amber">
+        <ProgrammeSourceBadge programme={prog} locale={locale} />
+        <span className="inline-flex items-center gap-1 text-xs text-brand">
           <ExternalLink className="w-3 h-3" />
           {locale === "ar" ? "التفاصيل" : "Details"}
         </span>
@@ -499,11 +563,45 @@ function OptionCard({
       className={cn(
         "px-4 py-3 rounded-xl text-sm text-start border transition-colors",
         active
-          ? "bg-amber/10 border-amber/50 text-text-primary font-medium"
-          : "bg-surface border-border-subtle text-text-secondary hover:border-amber/30 hover:text-text-primary"
+          ? "bg-brand/10 border-brand/50 text-text-primary font-medium"
+          : "bg-surface border-border-subtle text-text-secondary hover:border-brand/30 hover:text-text-primary"
       )}
     >
       {label}
     </button>
+  );
+}
+
+/** Keep the results, and one quiet offer: picking between them together. */
+function MatcherPlan({ ids, locale }: { ids: string[]; locale: "en" | "ar" }) {
+  const [saved, setSaved] = useState(false);
+  const ar = locale === "ar";
+  return (
+    <div className="mb-6 space-y-3" data-source="matcher">
+      {saved ? (
+        <Link href="/my-journey" className={buttonClasses("secondary", "md", "w-full")}>
+          <CheckCircle2 className="w-4 h-4 text-success" aria-hidden="true" />
+          {ar ? "اتحفظوا. افتح رحلتي" : "Saved. Open My Journey"}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className={buttonClasses("secondary", "md", "w-full")}
+          onClick={() => {
+            ids.forEach((id) => addProgrammeToJourney(id));
+            setSaved(true);
+            track("plan_saved", { tool: "matcher" });
+          }}
+        >
+          <Bookmark className="w-4 h-4" aria-hidden="true" />
+          {ar ? "احفظهم في رحلتي" : "Save these to My Journey"}
+        </button>
+      )}
+      <p className="text-center text-sm text-text-secondary">
+        <HelpLink service="consultation" source="matcher" className="font-medium text-brand hover:underline">
+          {ar ? "محتار بينهم؟ يلا نختار مع بعض في 30 دقيقة." : "Not sure between these? Let's pick together in 30 minutes."}
+        </HelpLink>
+      </p>
+    </div>
   );
 }

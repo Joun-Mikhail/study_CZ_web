@@ -1,4 +1,5 @@
 import type { Programme } from "@/data/types";
+import type { StageSlug } from "@/data/stages";
 
 export type ChecklistItem = {
   id: string;
@@ -18,6 +19,11 @@ export type JourneyData = {
   name: string;
   savedProgrammes: SavedProgramme[];
   eligibilityDone: boolean;
+  eligibility?: SavedEligibility;
+  /** Where the visitor says they are. */
+  stage?: StageSlug;
+  /** Monthly budget from the cost of living calculator. */
+  budget?: { city: string; monthlyCzk: number; savedAt: string };
   updatedAt: string;
 };
 
@@ -120,4 +126,35 @@ export function getDaysUntilDeadline(deadline: string | undefined): number | nul
   const now = new Date();
   const diff = d.getTime() - now.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * The eligibility answers, without name, WhatsApp or email. My Journey
+ * recomputes the verdict and risks from them with eligibility-logic, so the
+ * plan always matches the current scoring.
+ */
+export type SavedEligibility = { answers: Record<string, string>; savedAt: string };
+
+export function saveEligibilityToJourney(answers: Record<string, string>): JourneyData {
+  const data = loadJourney() || initJourney();
+  const { firstName: _n, whatsapp: _w, email: _e, ...rest } = answers;
+  void _n; void _w; void _e;
+  data.eligibility = { answers: rest, savedAt: new Date().toISOString() };
+  data.eligibilityDone = true;
+  saveJourney(data);
+  return data;
+}
+
+export function setJourneyStage(stage: StageSlug): JourneyData {
+  const data = loadJourney() || initJourney();
+  data.stage = stage;
+  saveJourney(data);
+  return data;
+}
+
+export function saveBudgetToJourney(city: string, monthlyCzk: number): JourneyData {
+  const data = loadJourney() || initJourney();
+  data.budget = { city, monthlyCzk, savedAt: new Date().toISOString() };
+  saveJourney(data);
+  return data;
 }

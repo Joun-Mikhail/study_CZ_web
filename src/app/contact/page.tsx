@@ -88,22 +88,23 @@ export default function ContactPage() {
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 1024px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
         </div>
 
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl sm:text-4xl font-bold text-text-primary mb-3"
           >
             {t.contact.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-text-secondary leading-relaxed"
@@ -119,7 +120,7 @@ export default function ContactPage() {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.1 }}
               >
@@ -128,7 +129,7 @@ export default function ContactPage() {
                     <div className={`w-10 h-10 rounded-xl ${ch.bgColor} flex items-center justify-center`}>
                       <Icon className={`w-5 h-5 ${ch.color}`} />
                     </div>
-                    <h3 className="text-lg font-semibold text-text-primary">{ch.title}</h3>
+                    <h2 className="text-lg font-semibold text-text-primary">{ch.title}</h2>
                   </div>
 
                   <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1">
@@ -150,7 +151,7 @@ export default function ContactPage() {
                     href={ch.href}
                     target={ch.external ? "_blank" : undefined}
                     rel={ch.external ? "noreferrer" : undefined}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-hover text-white text-sm font-medium transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-bg text-sm font-medium transition-colors"
                   >
                     {ch.cta}
                   </a>
@@ -162,15 +163,15 @@ export default function ContactPage() {
 
         {/* Contact form */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="max-w-2xl mx-auto"
         >
           <GlassCard hoverEffect="border">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center">
-                <Send className="w-5 h-5 text-amber" />
+              <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
+                <Send className="w-5 h-5 text-brand" />
               </div>
               <h2 className="text-xl font-semibold text-text-primary">{t.contact.formTitle}</h2>
             </div>
@@ -188,7 +189,7 @@ export default function ContactPage() {
               </div>
             ) : formState === "error" ? (
               <div className="text-center py-8">
-                <AlertCircle className="w-12 h-12 text-amber mx-auto mb-4" />
+                <AlertCircle className="w-12 h-12 text-brand mx-auto mb-4" />
                 <p className="text-text-primary font-medium mb-2">{t.contact.formError}</p>
                 <button
                   onClick={() => setFormState("idle")}
@@ -204,20 +205,22 @@ export default function ContactPage() {
                     <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formName}</label>
                     <input
                       type="text"
+                      aria-label={t.contact.formName}
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors"
                     />
                   </div>
                   <div>
                     <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formEmail}</label>
                     <input
                       type="email"
+                      aria-label={t.contact.formEmail}
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors"
                     />
                   </div>
                 </div>
@@ -226,9 +229,10 @@ export default function ContactPage() {
                   <label className="block text-sm text-text-secondary mb-1.5">{t.contact.formSubject}</label>
                   <select
                     required
+                    aria-label={t.contact.formSubject}
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm focus:outline-none focus:border-amber/50 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary text-sm focus:outline-none focus:border-brand/50 transition-colors"
                   >
                     <option value="" disabled>{t.contact.formSubject}</option>
                     {t.contact.formSubjectOptions.map((opt) => (
@@ -245,14 +249,14 @@ export default function ContactPage() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={t.contact.formMessagePlaceholder}
-                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-amber/50 transition-colors resize-none"
+                    className="w-full px-3 py-2.5 rounded-xl border border-border-subtle bg-transparent text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-brand/50 transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber hover:bg-amber-hover text-white font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand hover:bg-brand-hover text-bg font-medium text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   {formState === "sending" ? t.contact.formSubmitting : t.contact.formSubmit}

@@ -60,8 +60,8 @@ export default function LearnDashboard() {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+        <main id="main-content" className="pt-32 pb-20 px-4 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
         </main>
         <Footer />
       </div>
@@ -73,15 +73,15 @@ export default function LearnDashboard() {
     return (
       <div className="relative min-h-screen">
         <Navbar />
-        <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
-              <div className="w-16 h-16 rounded-2xl bg-amber/10 flex items-center justify-center mx-auto mb-4">
-                <Lock className="w-8 h-8 text-amber" />
+              <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                <Lock className="w-8 h-8 text-brand" />
               </div>
               <h1 className="text-2xl font-bold text-text-primary mb-2">{t.gate.title}</h1>
               <p className="text-text-secondary text-sm">{t.gate.subtitle}</p>
@@ -128,15 +128,15 @@ export default function LearnDashboard() {
   return (
     <div className="relative min-h-screen">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main id="main-content" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <div className="flex items-center gap-2 text-amber text-sm font-medium mb-2">
+            <div className="flex items-center gap-2 text-brand text-sm font-medium mb-2">
               <GraduationCap className="w-4 h-4" />
               {t.dashboard.badge}
             </div>
@@ -146,7 +146,7 @@ export default function LearnDashboard() {
 
           {/* Progress overview bar */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="mb-8"
@@ -156,14 +156,14 @@ export default function LearnDashboard() {
                 <div className="flex-1 w-full">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-text-primary">{t.dashboard.progress}</span>
-                    <span className="text-sm font-bold text-amber">{overallPercent}%</span>
+                    <span className="text-sm font-bold text-brand">{overallPercent}%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-midnight/50 overflow-hidden">
+                  <div className="w-full h-2.5 rounded-full bg-bg/50 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${overallPercent}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400"
+                      className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400"
                     />
                   </div>
                   <p className="text-xs text-text-muted mt-1.5">
@@ -196,7 +196,7 @@ export default function LearnDashboard() {
               return (
                 <motion.div
                   key={mod.id}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + mi * 0.05 }}
                 >
@@ -206,21 +206,21 @@ export default function LearnDashboard() {
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                          isModuleComplete ? "bg-green-500/10" : "bg-amber/10"
+                          isModuleComplete ? "bg-green-500/10" : "bg-brand/10"
                         )}>
                           {isModuleComplete ? (
-                            <CheckCircle2 className="w-5 h-5 text-green-400" />
+                            <CheckCircle2 className="w-5 h-5 text-success" />
                           ) : (
-                            <Icon className="w-5 h-5 text-amber" />
+                            <Icon className="w-5 h-5 text-brand" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
-                            <span className="text-xs text-amber font-medium">
+                            <span className="text-xs text-brand font-medium">
                               {t.dashboard.moduleLabel} {mi + 1}
                             </span>
                             {quizScore !== null && quizScore >= 70 && (
-                              <span className="inline-flex items-center gap-1 text-xs text-green-400">
+                              <span className="inline-flex items-center gap-1 text-xs text-success">
                                 <Trophy className="w-3 h-3" />
                                 {quizScore}%
                               </span>
@@ -230,11 +230,11 @@ export default function LearnDashboard() {
                             {isAr ? mod.title.ar : mod.title.en}
                           </h2>
                         </div>
-                        <div className="text-right shrink-0">
+                        <div className="text-end shrink-0">
                           <span className="text-xs text-text-muted">{modProgress}%</span>
-                          <div className="w-16 h-1.5 rounded-full bg-midnight/50 mt-1 overflow-hidden">
+                          <div className="w-16 h-1.5 rounded-full bg-bg/50 mt-1 overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-amber to-orange-400 transition-all duration-300"
+                              className="h-full rounded-full bg-gradient-to-r from-brand to-orange-400 transition-all duration-300"
                               style={{ width: `${modProgress}%` }}
                             />
                           </div>
@@ -255,7 +255,7 @@ export default function LearnDashboard() {
                             <div className={cn(
                               "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-medium",
                               completed
-                                ? "bg-green-500/10 text-green-400"
+                                ? "bg-green-500/10 text-success"
                                 : "bg-surface text-text-muted"
                             )}>
                               {completed ? <CheckCircle2 className="w-4 h-4" /> : li + 1}
@@ -273,14 +273,14 @@ export default function LearnDashboard() {
                                   {lesson.duration}
                                 </span>
                                 {lesson.isFree && (
-                                  <span className="text-xs text-green-400 font-medium">{t.dashboard.free}</span>
+                                  <span className="text-xs text-success font-medium">{t.dashboard.free}</span>
                                 )}
                                 {!lesson.hasVideo && (
                                   <span className="text-xs text-text-muted/70 italic">{t.dashboard.comingSoon}</span>
                                 )}
                               </div>
                             </div>
-                            <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors shrink-0" />
+                            <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors shrink-0" />
                           </Link>
                         );
                       })}
@@ -288,18 +288,18 @@ export default function LearnDashboard() {
                       {/* Quiz link */}
                       <Link
                         href={`/courses/learn/${mod.id}/quiz`}
-                        className="flex items-center gap-3 px-5 py-3 hover:bg-surface-hover/50 transition-colors group bg-amber/[0.02]"
+                        className="flex items-center gap-3 px-5 py-3 hover:bg-surface-hover/50 transition-colors group bg-brand/[0.02]"
                       >
                         <div className={cn(
                           "w-7 h-7 rounded-lg flex items-center justify-center shrink-0",
                           quizScore !== null && quizScore >= 70
                             ? "bg-green-500/10"
-                            : "bg-amber/10"
+                            : "bg-brand/10"
                         )}>
                           {quizScore !== null && quizScore >= 70 ? (
-                            <Award className="w-4 h-4 text-green-400" />
+                            <Award className="w-4 h-4 text-success" />
                           ) : (
-                            <Trophy className="w-4 h-4 text-amber" />
+                            <Trophy className="w-4 h-4 text-brand" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -311,7 +311,7 @@ export default function LearnDashboard() {
                             {quizScore !== null && ` · ${t.dashboard.bestScore}: ${quizScore}%`}
                           </p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-amber transition-colors shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-brand transition-colors shrink-0" />
                       </Link>
                     </div>
                   </GlassCard>

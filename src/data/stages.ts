@@ -1,5 +1,5 @@
 import { price } from "@/config/pricing";
-import { PAYMENT_LINKS } from "@/config/contact";
+import type { HelpService } from "@/data/help-services";
 
 export type Bilingual = { en: string; ar: string };
 
@@ -9,16 +9,18 @@ export type StageLink = { href: string; label: Bilingual };
 
 export type StagePaidService = {
   title: Bilingual;
-  fearTrigger: Bilingual;
+  stuckLine: Bilingual;
   cta: Bilingual;
   postButton: Bilingual;
-  href: string;
+  service: HelpService;
 };
 
 export type StageConfig = {
   slug: StageSlug;
   h1: Bilingual;
   intro: Bilingual;
+  /** English meta description, where the intro is too short for a search snippet (Arabic ones live in AR_PAGE_META). */
+  metaDescription?: string;
   tools: StageLink[];
   qaIds: string[];
   paidService: StagePaidService | null;
@@ -39,6 +41,8 @@ export const stages: Record<StageSlug, StageConfig> = {
       en: "Free tools and honest numbers to help you decide — no sign-up.",
       ar: "أدوات مجانية وأرقام حقيقية تساعدك تقرر — بدون تسجيل.",
     },
+    metaDescription:
+      "Is studying in Czechia realistic for you? Free tools, no sign-up: living costs, the full cost of a degree, scholarships, the preparatory year and agency questions.",
     tools: [
       { href: "/cost-of-living", label: { en: "Cost of Living", ar: "تكاليف المعيشة" } },
       { href: "/what-it-costs", label: { en: "What Studying in Czechia Actually Costs", ar: "التكاليف" } },
@@ -71,7 +75,6 @@ export const stages: Record<StageSlug, StageConfig> = {
       { href: "/programmes", label: { en: "Programmes", ar: "البرامج" } },
       { href: "/programmes/compare", label: { en: "Compare Programmes", ar: "مقارنة البرامج" } },
       { href: "/study/cheapest-programmes", label: { en: "Cheapest Programmes", ar: "أرخص البرامج" } },
-      { href: "/study/no-entrance-exam", label: { en: "No Entrance Exam", ar: "بدون امتحان قبول" } },
       { href: "/deadlines", label: { en: "Deadline Tracker", ar: "متتبع المواعيد" } },
       { href: "/my-journey", label: { en: "My Journey", ar: "رحلتي" } },
     ],
@@ -85,16 +88,16 @@ export const stages: Record<StageSlug, StageConfig> = {
     ],
     paidService: {
       title: { en: "Ask Me Anything: 30 Minutes", ar: "اسألني أي حاجة: 30 دقيقة" },
-      fearTrigger: {
-        en: "The answer that takes you 3 weeks of forum scrolling takes me 3 minutes.",
-        ar: "الإجابة اللي بتاخد منك 3 أسابيع بحث في المنتديات بتاخد مني 3 دقايق.",
+      stuckLine: {
+        en: "Stuck on one question you can't get a straight answer to? Ask me in a 30-minute call, and I'll tell you what I'd do in your place.",
+        ar: "واقف عند سؤال مش لاقيله إجابة واضحة؟ اسألني في مكالمة 30 دقيقة، وهقولك أنا كنت هعمل إيه مكانك.",
       },
       cta: { en: `Book a Call (${price("consultation")})`, ar: `احجز مكالمة (${price("consultation", "ar")})` },
       postButton: {
         en: "🔒 Secure payment via Stripe · Full refund if the call doesn't happen",
         ar: "🔒 دفع آمن عبر Stripe · استرداد كامل لو المكالمة ماتمتش",
       },
-      href: PAYMENT_LINKS.consultation,
+      service: "consultation",
     },
   },
 
@@ -119,16 +122,16 @@ export const stages: Record<StageSlug, StageConfig> = {
     ],
     paidService: {
       title: { en: "Document Check: Before You Submit", ar: "مراجعة الأوراق: قبل ما تقدم" },
-      fearTrigger: {
-        en: "I've seen students rejected for a missing apostille, a wrong date format, or a translation that used the wrong legal term. Don't be that student.",
-        ar: "شفت طلاب اترفضوا بسبب ابوستيل ناقص، أو تاريخ بصيغة غلط، أو ترجمة استخدمت مصطلح قانوني غلط. ماتكونش الطالب ده.",
+      stuckLine: {
+        en: "Stuck on the apostille or the translations? Send me your documents and I'll check every page before you submit.",
+        ar: "واقف عند الأبوستيل أو الترجمة؟ ابعتلي أوراقك وأنا أراجع كل صفحة قبل ما تقدم.",
       },
       cta: { en: `Get My Documents Reviewed (${price("documentReview")})`, ar: `راجع أوراقي (${price("documentReview", "ar")})` },
       postButton: {
         en: "🔒 Secure payment via Stripe · Send documents via WhatsApp or email",
         ar: "🔒 دفع آمن عبر Stripe · ابعت الأوراق على واتساب أو إيميل",
       },
-      href: PAYMENT_LINKS.documentReview,
+      service: "documentReview",
     },
   },
 
@@ -155,14 +158,14 @@ export const stages: Record<StageSlug, StageConfig> = {
       "embassy-booking-appointment",
     ],
     paidService: {
-      title: { en: "Embassy Interview Prep: Don't Walk In Unprepared", ar: "تجهيز مقابلة السفارة: ماتروحش من غير تحضير" },
-      fearTrigger: {
-        en: "The interview lasts 10 minutes. The wrong answer lasts 6 months.",
-        ar: "المقابلة بتاخد 10 دقايق. الإجابة الغلط بتكلفك 6 شهور.",
+      title: { en: "Embassy interview: let's practise it first", ar: "مقابلة السفارة: نتدرب عليها الأول" },
+      stuckLine: {
+        en: "Nervous about the embassy interview? Let's practise it together with the questions embassies ask, so nothing on the day surprises you.",
+        ar: "قلقان من مقابلة السفارة؟ يلا نتدرب عليها مع بعض بالأسئلة اللي السفارات بتسألها، عشان مافيش حاجة تفاجئك يومها.",
       },
       cta: { en: `Book My Mock Interview — ${price("interviewPrep")}`, ar: `احجز مقابلة تجريبية — ${price("interviewPrep", "ar")}` },
       postButton: { en: "", ar: "" },
-      href: PAYMENT_LINKS.interviewPrep,
+      service: "interviewPrep",
     },
   },
 
@@ -180,13 +183,13 @@ export const stages: Record<StageSlug, StageConfig> = {
     qaIds: [],
     paidService: {
       title: { en: "Landed in Czechia? I've Got You.", ar: "وصلت التشيك؟ أنا معاك." },
-      fearTrigger: {
-        en: "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
-        ar: "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
+      stuckLine: {
+        en: "The first two weeks are a lot: foreign police, bank, insurance, transport, a SIM card, mostly in Czech. I'll give you a checklist for your city and answer your questions while you settle in.",
+        ar: "أول أسبوعين فيهم حاجات كتير: شرطة الأجانب، البنك، التأمين، المواصلات، الشريحة، ومعظمها بالتشيكي. هديك قائمة لمدينتك وهرد على أسئلتك وأنت بتستقر.",
       },
       cta: { en: `Get My Arrival Plan (${price("arrivalSupport")})`, ar: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})` },
       postButton: { en: "🔒 Secure payment via Stripe", ar: "🔒 دفع آمن عبر Stripe" },
-      href: PAYMENT_LINKS.arrivalSupport,
+      service: "arrivalSupport",
     },
   },
 };

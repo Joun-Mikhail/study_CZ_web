@@ -1,6 +1,7 @@
-import { PROGRAMME_FIELDS } from "@/data/programmes";
+import type { Metadata } from "next";
+import { PROGRAMME_FIELDS, filterProgrammes, getProgrammesByUniversity } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
-import type { City } from "@/data/types";
+import type { City, Programme } from "@/data/types";
 
 export function slugify(str: string): string {
   return str
@@ -58,4 +59,34 @@ export function slugToDegree(slug: string): string | undefined {
 
 export function getAllDegreeSlugs(): string[] {
   return DEGREE_LEVELS.map(degreeToSlug);
+}
+
+/** The programmes a /study/<slug>/ page lists (the same filter StudyPageClient applies). */
+export function studyPageProgrammes(slug: string): Programme[] {
+  const uniLookup = universitiesV2.map((u) => ({ id: u.id, city: u.city, type: u.type, name: u.name }));
+  const field = slugToField(slug);
+  if (field) return filterProgrammes({ field }, uniLookup);
+  const city = slugToCity(slug);
+  if (city) return filterProgrammes({ city }, uniLookup);
+  const degree = slugToDegree(slug);
+  if (degree) return filterProgrammes({ degree }, uniLookup);
+  return [];
+}
+
+// A field, city or university with no programmes yet renders an empty
+// template ("No programmes in this category yet", "Coming soon"). Search
+// engines read those as soft 404s, so they stay reachable for visitors but
+// carry noindex and are left out of the sitemap until programmes are added.
+const NOINDEX: Metadata["robots"] = { index: false, follow: true };
+
+export function studyPageIndexable(slug: string): boolean {
+  return studyPageProgrammes(slug).length > 0;
+}
+
+export function universityPageIndexable(id: string): boolean {
+  return getProgrammesByUniversity(id).length > 0;
+}
+
+export function noindexUnless(indexable: boolean): Pick<Metadata, "robots"> {
+  return indexable ? {} : { robots: NOINDEX };
 }

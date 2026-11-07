@@ -76,7 +76,10 @@ export function WhatsAppFloat() {
   if (pathname.includes("/admin")) return null;
   const path = stripLocale(pathname).replace(/\/$/, "") || "/";
 
+  // Inside its own landmark, so every bit of the page belongs to one
+  // (axe "region"); the button itself is fixed to the corner as before.
   return (
+    <aside aria-label="WhatsApp">
     <a
       ref={ref}
       href={whatsappWithContext(topicFor(path))}
@@ -92,5 +95,6 @@ export function WhatsAppFloat() {
     >
       <MessageCircle className="w-7 h-7 text-white" aria-hidden="true" />
     </a>
+    </aside>
   );
 }

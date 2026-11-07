@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Scholarships & Funding",
-  description: "Explore scholarship opportunities and funding options for studying in the Czech Republic.",
+  title: "Scholarships in Czechia for International Students",
+  description: "Scholarships and funding for studying in the Czech Republic: Czech government scholarships, university scholarships and other options for international students.",
   alternates: { canonical: "/scholarships" },
 };
 

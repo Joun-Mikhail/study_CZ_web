@@ -4,12 +4,13 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "vse",
     name: "Prague University of Economics and Business (VŠE)",
+    nameAr: "جامعة براغ للاقتصاد والأعمال (VŠE)",
     nameLocal: "Vysoká škola ekonomická v Praze",
     city: "Prague",
     type: "public",
     founded: 1953,
     website: "https://www.vse.cz/english/",
-    admissionsUrl: "https://www.vse.cz/english/admissions/",
+    admissionsUrl: "https://admissions.vse.cz/",
     blurb: {
       en: "Central Europe's top-ranked business school, EQUIS/AMBA accredited, in the heart of Prague.",
       ar: "من أفضل كليات إدارة الأعمال في وسط أوروبا، معتمدة دوليًا (EQUIS/AMBA)، في قلب براغ.",
@@ -21,10 +22,37 @@ export const universitiesV2: UniversityV2[] = [
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
+    admissions: {
+      checkedOn: "2026-11-02",
+      facts: [
+        {
+          en: "Applications for the 2027/28 academic year open on 1 November 2026, through the e-application.",
+          ar: "يبدأ التقديم للعام الدراسي 2027/2028 في 1 نوفمبر 2026 عبر نظام الطلب الإلكتروني.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "The application fee for all bachelor's and master's programmes is 100 EUR, paid through the university's information system after you register the e-application, and it is not refundable.",
+          ar: "رسوم الطلب لجميع برامج البكالوريوس والماجستير 100 يورو، تُدفع عبر نظام المعلومات الجامعي بعد تسجيل الطلب الإلكتروني، ولا تُسترد.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "To be admitted you must pass the entrance exams, whose requirements depend on the programme.",
+          ar: "يُشترط للقبول اجتياز امتحانات القبول، وتختلف متطلباتها حسب البرنامج.",
+          sourceUrl: "https://admissions.vse.cz/admission-procedure/",
+        },
+        {
+          en: "VŠE assesses your foreign education as part of the admission process; separate recognition (nostrification) is needed only if VŠE has doubts about the level, extent or content of that education.",
+          ar: "تقيّم الجامعة شهاداتك الأجنبية ضمن إجراءات القبول، ولا يُطلب الاعتراف المنفصل بها (المعادلة) إلا إذا كانت لدى الجامعة شكوك في مستوى تلك الدراسة أو نطاقها أو محتواها.",
+          sourceUrl: "https://www.vse.cz/english/study-at-vse/assessing-foreign-education-in-the-admissions-process/",
+        },
+      ],
+    },
   },
   {
     id: "cuni",
     name: "Charles University",
+    nameAr: "جامعة تشارلز (جامعة كارلوفا)",
+    searchName: "Univerzita Karlova",
     nameLocal: "Univerzita Karlova",
     city: "Prague",
     type: "public",
@@ -46,12 +74,14 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "ctu",
     name: "Czech Technical University in Prague (CTU)",
+    nameAr: "الجامعة التقنية التشيكية في براغ (ČVUT)",
+    searchName: "ČVUT",
     nameLocal: "České vysoké učení technické v Praze",
     city: "Prague",
     type: "public",
     founded: 1707,
     website: "https://www.cvut.cz/en",
-    admissionsUrl: "https://www.cvut.cz/en/admissions",
+    admissionsUrl: "https://www.cvut.cz/en/why-study-at-ctu",
     blurb: {
       en: "Established 1707, a leading technical university for engineering, robotics, and architecture.",
       ar: "تأسست 1707، من أفضل الجامعات التقنية في الهندسة والروبوتات والعمارة.",
@@ -67,6 +97,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "czu",
     name: "Czech University of Life Sciences Prague (CZU)",
+    nameAr: "جامعة التشيك لعلوم الحياة في براغ",
+    searchName: "ČZU",
     nameLocal: "Česká zemědělská univerzita v Praze",
     city: "Prague",
     type: "public",
@@ -88,6 +120,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "muni",
     name: "Masaryk University",
+    nameAr: "جامعة ماساريك في برنو",
+    searchName: "MUNI",
     nameLocal: "Masarykova univerzita",
     city: "Brno",
     type: "public",
@@ -105,16 +139,43 @@ export const universitiesV2: UniversityV2[] = [
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
+    admissions: {
+      checkedOn: "2026-11-01",
+      facts: [
+        {
+          en: "You apply online through MUNI's e-application, which also lets you track the status of your application.",
+          ar: "يُقدَّم الطلب إلكترونيًا عبر نظام الطلب الإلكتروني في الجامعة، ويمكنك من خلاله متابعة حالة طلبك.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "Application deadlines differ from faculty to faculty, and some faculties also take applications for a February start.",
+          ar: "تختلف مواعيد التقديم من كلية إلى أخرى، وبعض الكليات تقبل طلبات للبدء في فبراير أيضًا.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "Each faculty runs its own admission: Medicine holds written tests in chemistry, biology and physics, while some other faculties use an online interview or an assessment of your motivation and language skills.",
+          ar: "لكل كلية إجراءات قبول خاصة بها: كلية الطب تعقد اختبارات كتابية في الكيمياء والأحياء والفيزياء، بينما تعتمد كليات أخرى على مقابلة عبر الإنترنت أو تقييم دوافعك ومهاراتك اللغوية.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/how-to-apply",
+        },
+        {
+          en: "If you finished secondary school abroad, you must prove it: either the faculty verifies your certificate, or you get general recognition from a Czech Regional Authority.",
+          ar: "إذا أنهيت الدراسة الثانوية خارج التشيك فعليك إثبات ذلك: إما أن تتحقق الكلية من شهادتك، أو تحصل على اعتراف عام بها من إحدى السلطات الإقليمية التشيكية.",
+          sourceUrl: "https://www.muni.cz/en/admissions/bachelors-and-masters-studies/verification-of-the-condition-for-admission",
+        },
+      ],
+    },
   },
   {
     id: "but",
-    name: "Brno University of Technology (BUT)",
+    name: "Brno University of Technology (VUT / BUT)",
+    nameAr: "جامعة برنو التقنية (VUT)",
+    searchName: "VUT Brno",
     nameLocal: "Vysoké učení technické v Brně",
     city: "Brno",
     type: "public",
     founded: 1899,
     website: "https://www.vutbr.cz/en/",
-    admissionsUrl: "https://www.vutbr.cz/en/admission",
+    admissionsUrl: "https://www.vut.cz/en/study-options/degree-studies-en",
     blurb: {
       en: "120+ years of technical excellence with strong industry ties in Brno.",
       ar: "أكثر من 120 سنة من التميز التقني وعلاقات قوية مع الصناعة في برنو.",
@@ -130,12 +191,14 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "mendelu",
     name: "Mendel University in Brno",
+    nameAr: "جامعة مندل في برنو",
+    searchName: "MENDELU",
     nameLocal: "Mendelova univerzita v Brně",
     city: "Brno",
     type: "public",
     founded: 1919,
     website: "https://mendelu.cz/en/",
-    admissionsUrl: "https://mendelu.cz/en/admission/",
+    admissionsUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
     blurb: {
       en: "Named after Gregor Mendel, sustainability and green-tech focused, on a serene green campus.",
       ar: "سميت على مندل مؤسس علم الوراثة، متخصصة في الاستدامة والتكنولوجيا الخضراء.",
@@ -147,16 +210,43 @@ export const universitiesV2: UniversityV2[] = [
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
+    admissions: {
+      checkedOn: "2026-11-02",
+      facts: [
+        {
+          en: "Admission requirements differ for each faculty. You apply online and pay a non-refundable application fee.",
+          ar: "تختلف شروط القبول من كلية إلى أخرى. يُقدَّم الطلب إلكترونيًا مع دفع رسوم طلب غير قابلة للاسترداد.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "You provide certified copies of your certificates and transcript, proof of English proficiency and a copy of your passport, and you take an entrance exam.",
+          ar: "تقدّم نسخًا مصدّقة من شهاداتك وكشف الدرجات، وما يثبت إتقانك للغة الإنجليزية، ونسخة من جواز سفرك، ثم تؤدي امتحان قبول.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "Deadlines and the tuition fee for each programme are shown in the faculty's application form; you can also ask the faculty's international studies officer.",
+          ar: "تظهر المواعيد النهائية والرسوم الدراسية لكل برنامج في استمارة التقديم الخاصة بالكلية، ويمكنك أيضًا سؤال مسؤول الدراسات الدولية في الكلية.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+        {
+          en: "Programmes taught in Czech are free of charge within the standard length of study; the condition is passing the entrance exam in Czech.",
+          ar: "البرامج التي تُدرَّس بالتشيكية مجانية خلال المدة النظامية للدراسة، بشرط اجتياز امتحان القبول باللغة التشيكية.",
+          sourceUrl: "https://mendelu.cz/en/admissions/degree-programmes/",
+        },
+      ],
+    },
   },
   {
     id: "upol",
     name: "Palacký University Olomouc",
+    nameAr: "جامعة بالاتسكي في أولوموتس",
+    searchName: "UPOL",
     nameLocal: "Univerzita Palackého v Olomouci",
     city: "Olomouc",
     type: "public",
     founded: 1573,
     website: "https://www.upol.cz/en/",
-    admissionsUrl: "https://www.upol.cz/en/applicants/",
+    admissionsUrl: "https://international.upol.cz/en/admissions-office/",
     blurb: {
       en: "Established 1573, over 450 years of tradition in a picturesque, affordable university city.",
       ar: "تأسست عام 1573، أكثر من 450 سنة من التقاليد الأكاديمية في مدينة جميلة واقتصادية.",
@@ -172,6 +262,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "tbu",
     name: "Tomas Bata University in Zlín",
+    nameAr: "جامعة توماس باتا في زلين",
+    searchName: "UTB",
     nameLocal: "Univerzita Tomáše Bati ve Zlíně",
     city: "Zlín",
     type: "public",
@@ -193,18 +285,19 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni-plzen",
     name: "Charles University — Faculty of Medicine in Plzeň",
+    nameAr: "جامعة تشارلز: كلية الطب في بلزن",
     nameLocal: "Univerzita Karlova — Lékařská fakulta v Plzni",
     city: "Plzeň",
     type: "public",
     founded: 1348,
     website: "https://www.lfp.cuni.cz/en/",
     blurb: {
-      en: "One of Charles University's medical faculties, requiring B2-level Czech alongside the entrance exam.",
-      ar: "واحدة من كليات طب جامعة تشارلز، بتتطلب مستوى B2 تشيكي بالإضافة لامتحان القبول.",
+      en: "One of Charles University's medical faculties. General Medicine and Dentistry are taught in English as well as in Czech; the Czech-taught programmes require B2-level Czech.",
+      ar: "واحدة من كليات طب جامعة تشارلز. الطب العام وطب الأسنان بيتدرّسوا بالإنجليزي كمان؛ البرامج اللي بالتشيكي بتتطلب مستوى B2 تشيكي.",
     },
     fields: ["Medicine"],
     verification: {
-      lastVerified: "2026-08-27",
+      lastVerified: "2026-10-12",
       sourceUrl: "https://www.lfp.cuni.cz/en/",
       sourceType: "official",
       verifiedBy: "studyczechia",
@@ -213,19 +306,41 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "cuni-hradec",
     name: "Charles University — Faculty of Medicine in Hradec Králové",
+    nameAr: "جامعة تشارلز: كلية الطب في هراديتس كرالوفيه",
     nameLocal: "Univerzita Karlova — Lékařská fakulta v Hradci Králové",
     city: "Hradec Králové",
     type: "public",
     founded: 1348,
     website: "https://www.lfhk.cuni.cz/en/",
     blurb: {
-      en: "One of Charles University's medical faculties, requiring C1-level Czech alongside the entrance exam.",
-      ar: "واحدة من كليات طب جامعة تشارلز، بتتطلب مستوى C1 تشيكي بالإضافة لامتحان القبول.",
+      en: "One of Charles University's medical faculties. General Medicine and Dentistry are taught in English as well as in Czech; the Czech-taught programmes require C1-level Czech.",
+      ar: "واحدة من كليات طب جامعة تشارلز. الطب العام وطب الأسنان بيتدرّسوا بالإنجليزي كمان؛ البرامج اللي بالتشيكي بتتطلب مستوى C1 تشيكي.",
     },
     fields: ["Medicine"],
     verification: {
-      lastVerified: "2026-08-27",
+      lastVerified: "2026-10-12",
       sourceUrl: "https://www.lfhk.cuni.cz/en/",
+      sourceType: "official",
+      verifiedBy: "studyczechia",
+    },
+  },
+  {
+    id: "cuni-faf",
+    name: "Charles University — Faculty of Pharmacy in Hradec Králové",
+    nameAr: "جامعة تشارلز: كلية الصيدلة في هراديتس كرالوفيه",
+    nameLocal: "Univerzita Karlova — Farmaceutická fakulta v Hradci Králové",
+    city: "Hradec Králové",
+    type: "public",
+    founded: 1348,
+    website: "https://www.faf.cuni.cz/en/",
+    blurb: {
+      en: "Charles University's Faculty of Pharmacy. It teaches the five-year Pharmacy programme in English as well as in Czech.",
+      ar: "كلية الصيدلة بجامعة تشارلز. بتدرّس برنامج الصيدلة (5 سنين) بالإنجليزي وبالتشيكي.",
+    },
+    fields: ["Pharmacy"],
+    verification: {
+      lastVerified: "2026-10-12",
+      sourceUrl: "https://www.faf.cuni.cz/en/admission/undergraduate/pharmacy/",
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
@@ -233,6 +348,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "osu",
     name: "University of Ostrava",
+    nameAr: "جامعة أوسترافا",
     nameLocal: "Ostravská univerzita",
     city: "Ostrava",
     type: "public",
@@ -254,6 +370,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "tul",
     name: "Technical University of Liberec",
+    nameAr: "الجامعة التقنية في ليبيريتس",
     nameLocal: "Technická univerzita v Liberci",
     city: "Liberec",
     type: "public",
@@ -274,11 +391,13 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uct",
     name: "University of Chemistry and Technology Prague",
+    nameAr: "جامعة الكيمياء والتكنولوجيا في براغ",
+    searchName: "VŠCHT",
     nameLocal: "Vysoká škola chemicko-technologická v Praze",
     city: "Prague",
     type: "public",
     founded: 1952,
-    website: "https://www.vscht.cz/EN/",
+    website: "https://www.vscht.cz/?jazyk=en",
     blurb: {
       en: "Specialist technical university strong in chemistry, technology and applied sciences with industry partnerships.",
       ar: "جامعة تقنية متخصصة في الكيمياء والعلوم التطبيقية، وعندها شراكات قوية مع الصناعة.",
@@ -286,7 +405,7 @@ export const universitiesV2: UniversityV2[] = [
     fields: ["Chemistry", "Biochemistry", "Food Science", "Engineering"],
     verification: {
       lastVerified: "2026-08-27",
-      sourceUrl: "https://www.vscht.cz/EN/",
+      sourceUrl: "https://www.vscht.cz/?jazyk=en",
       sourceType: "official",
       verifiedBy: "studyczechia",
     },
@@ -294,6 +413,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "ujep",
     name: "Jan Evangelista Purkyně University",
+    nameAr: "جامعة يان إيفانجليستا بوركينيه في أوستي ناد لابم",
     nameLocal: "Univerzita Jana Evangelisty Purkyně",
     city: "Ústí nad Labem",
     type: "public",
@@ -314,6 +434,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "upce",
     name: "University of Pardubice",
+    nameAr: "جامعة باردوبيتسه",
     nameLocal: "Univerzita Pardubice",
     city: "Pardubice",
     type: "public",
@@ -334,6 +455,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "jcu",
     name: "University of South Bohemia",
+    nameAr: "جامعة جنوب بوهيميا في تشيسكي بوديوفيتسه",
     nameLocal: "Jihočeská univerzita v Českých Budějovicích",
     city: "České Budějovice",
     type: "public",
@@ -354,6 +476,8 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "vsb",
     name: "VSB - Technical University of Ostrava",
+    nameAr: "الجامعة التقنية في أوسترافا (VŠB)",
+    searchName: "VŠB",
     nameLocal: "Vysoká škola báňská – Technická univerzita Ostrava",
     city: "Ostrava",
     type: "public",
@@ -437,6 +561,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "slu",
     name: "Silesian University in Opava",
+    nameAr: "جامعة سيليزيا في أوبافا",
     nameLocal: "Slezská univerzita v Opavě",
     city: "Opava",
     type: "public",
@@ -457,6 +582,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uhk",
     name: "University of Hradec Králové",
+    nameAr: "جامعة هراديتس كرالوفيه",
     nameLocal: "Univerzita Hradec Králové",
     city: "Hradec Králové",
     type: "public",
@@ -686,6 +812,7 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "uvb",
     name: "University of Veterinary Science Brno",
+    nameAr: "جامعة العلوم البيطرية في برنو",
     nameLocal: "Veterinární univerzita Brno",
     city: "Brno",
     type: "public",
@@ -730,7 +857,7 @@ export const universitiesV2: UniversityV2[] = [
     city: "Prague",
     type: "public",
     founded: 1885,
-    website: "https://www.umprum.cz/web/en/",
+    website: "https://www.umprum.cz/en/",
     blurb: {
       en: "A top public art and design school founded in 1885, known for architecture, fashion, graphic design, and fine arts.",
       ar: "مدرسة فنون وتصميم حكومية من الأفضل، تأسست 1885، معروفة بالعمارة والأزياء والتصميم الجرافيكي.",
@@ -786,11 +913,14 @@ export const universitiesV2: UniversityV2[] = [
   {
     id: "zcu",
     name: "University of West Bohemia",
+    nameAr: "جامعة غرب بوهيميا في بلزن",
+    searchName: "ZČU",
     nameLocal: "Západočeská univerzita v Plzni",
     city: "Plzeň",
     type: "public",
     founded: 1991,
     website: "https://www.zcu.cz/en/",
+    admissionsUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/index.html",
     blurb: {
       en: "A public university in Plzeň offering a broad range of programmes in engineering, sciences, humanities, and design.",
       ar: "جامعة حكومية في بلزن بتقدم برامج متنوعة في الهندسة والعلوم والإنسانيات والتصميم.",
@@ -801,6 +931,26 @@ export const universitiesV2: UniversityV2[] = [
       sourceUrl: "https://studyin.gov.cz/plan-your-studies/universities/",
       sourceType: "official",
       verifiedBy: "studyczechia",
+    },
+    admissions: {
+      checkedOn: "2026-11-01",
+      facts: [
+        {
+          en: "Most faculties prefer an online application through UWB's e-application, with the application fee receipt attached; check your faculty for any extra requirements.",
+          ar: "تفضّل معظم الكليات التقديم الإلكتروني عبر نظام الطلب الإلكتروني في الجامعة مع إرفاق إيصال دفع رسوم الطلب، وتحقّق من كليتك لمعرفة أي متطلبات إضافية.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/applying-to-uwb.html",
+        },
+        {
+          en: "Each faculty sets its own entrance exam dates, and some faculties admit students without an entrance exam, using their own criteria.",
+          ar: "تحدد كل كلية مواعيد امتحانات القبول الخاصة بها، وبعض الكليات تقبل الطلاب دون امتحان قبول وفق معايير تضعها.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Bachelor-and-master-studies/applying-to-uwb.html",
+        },
+        {
+          en: "If your previous university education is from abroad and needs recognition for admission, follow the admission procedure published for your study programme.",
+          ar: "إذا كانت دراستك الجامعية السابقة من خارج التشيك وتحتاج إلى الاعتراف بها لأغراض القبول، فاتبع إجراءات القبول المنشورة لبرنامجك الدراسي.",
+          sourceUrl: "https://www.zcu.cz/en/Admission/Nostrification/index.html",
+        },
+      ],
     },
   },
 ];

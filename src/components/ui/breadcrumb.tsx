@@ -41,9 +41,18 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   learn: { en: "Course Dashboard", ar: "لوحة الكورس" },
   quiz: { en: "Quiz", ar: "الاختبار" },
   verify: { en: "Verify Certificate", ar: "التحقق من الشهادة" },
+  "for-parents": { en: "For Parents", ar: "لأولياء الأمور" },
+  recognition: { en: "Degree Recognition", ar: "معادلة الشهادات" },
+  egypt: { en: "Egypt", ar: "مصر" },
+  jordan: { en: "Jordan", ar: "الأردن" },
+  "saudi-arabia": { en: "Saudi Arabia", ar: "السعودية" },
+  "student-visa-egypt": { en: "Student Visa from Egypt", ar: "تأشيرة الدراسة من مصر" },
 };
 
 const SITE_URL = "https://studyczechia.com";
+
+// /stage/<slug>/ pages exist, /stage/ itself does not.
+const NO_PAGE = new Set(["stage"]);
 
 export function Breadcrumb() {
   const pathname = usePathname();
@@ -56,11 +65,17 @@ export function Breadcrumb() {
   const segments = path.split("/").filter(Boolean);
   if (segments.length === 0) return null;
 
+  // One crumb per path level, except levels that group pages but have no
+  // page of their own: a crumb there would link to a 404.
+  const crumbs = segments
+    .map((segment, i) => ({ segment, href: "/" + segments.slice(0, i + 1).join("/") }))
+    .filter((c, i) => i === segments.length - 1 || !NO_PAGE.has(c.segment));
+
   const breadcrumbItems = [
     { name: locale === "ar" ? "الرئيسية" : "Home", url: `${base}/` },
-    ...segments.map((segment, i) => ({
+    ...crumbs.map(({ segment, href }) => ({
       name: pathNames[segment]?.[locale] || segment.replace(/-/g, " "),
-      url: `${base}/${segments.slice(0, i + 1).join("/")}/`,
+      url: `${base}${href}/`,
     })),
   ];
 
@@ -76,7 +91,7 @@ export function Breadcrumb() {
   };
 
   return (
-    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+    <nav aria-label="Breadcrumb" className="breadcrumb-bar max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-24 pb-2">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -88,18 +103,19 @@ export function Breadcrumb() {
             <span>{locale === "ar" ? "الرئيسية" : "Home"}</span>
           </Link>
         </li>
-        {segments.map((segment, i) => {
-          const href = "/" + segments.slice(0, i + 1).join("/");
+        {crumbs.map(({ segment, href }, i) => {
           const name = pathNames[segment]?.[locale] || segment.replace(/-/g, " ");
-          const isLast = i === segments.length - 1;
+          const isLast = i === crumbs.length - 1;
+          // Known labels are already cased; only raw slugs get title case.
+          const caseClass = pathNames[segment] ? "" : " capitalize";
 
           return (
             <li key={href} className="flex items-center gap-1.5">
-              <ChevronRight className="w-3 h-3 text-text-muted/50" />
+              <ChevronRight className="w-3 h-3 text-text-muted/50 rtl:rotate-180" />
               {isLast ? (
-                <span className="text-text-secondary font-medium capitalize">{name}</span>
+                <span className={`text-text-secondary font-medium${caseClass}`}>{name}</span>
               ) : (
-                <Link href={href} className="hover:text-text-secondary transition-colors capitalize">
+                <Link href={href} className={`hover:text-text-secondary transition-colors${caseClass}`}>
                   {name}
                 </Link>
               )}

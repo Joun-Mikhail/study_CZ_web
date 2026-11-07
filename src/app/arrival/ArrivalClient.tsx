@@ -33,24 +33,25 @@ export default function ArrivalClient() {
         <div className="max-w-3xl mx-auto mb-10">
           <div className="relative w-full h-[180px] sm:h-[240px] rounded-2xl overflow-hidden">
             <Image
-              src="/images/prague-bridge.jpg"
-              alt="Prague, Czechia"
+              src="/images/study/travel-map.jpg"
+              alt=""
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-midnight/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent" />
           </div>
         </div>
 
         {/* Hero */}
         <section className="max-w-3xl mx-auto text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-amber font-medium mb-4">{t.hero.subtitle}</p>
+            <p className="text-lg text-brand font-medium mb-4">{t.hero.subtitle}</p>
             <p className="text-text-secondary leading-relaxed max-w-2xl mx-auto">
               {t.hero.body}
             </p>
@@ -59,7 +60,7 @@ export default function ArrivalClient() {
 
         {/* Free: what registration is + the deadline */}
         <section className="max-w-3xl mx-auto mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <h2 className="text-2xl font-bold text-text-primary mb-6 text-center">
               {t.free.heading}
             </h2>
@@ -68,8 +69,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -82,8 +83,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -96,8 +97,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <Navigation className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <Navigation className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div>
@@ -110,8 +111,8 @@ export default function ArrivalClient() {
               <GlassCard hoverEffect="border">
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-amber/10 border border-amber/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-amber" />
+                    <div className="w-10 h-10 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-brand" />
                     </div>
                   </div>
                   <div className="min-w-0 flex-1">
@@ -119,7 +120,7 @@ export default function ArrivalClient() {
                     <ul className="text-sm text-text-secondary space-y-1.5">
                       {t.free.whatToBring.items.map((item, i) => (
                         <li key={i} className="flex gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                           <span className="leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -130,8 +131,8 @@ export default function ArrivalClient() {
               </GlassCard>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-amber/20 bg-amber/5 p-5 flex gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber shrink-0 mt-0.5" />
+            <div className="mt-6 rounded-2xl border border-brand/20 bg-brand/5 p-5 flex gap-3">
+              <AlertTriangle className="w-5 h-5 text-brand shrink-0 mt-0.5" />
               <p className="text-sm text-text-secondary leading-relaxed">{t.free.warning}</p>
             </div>
           </motion.div>
@@ -139,18 +140,18 @@ export default function ArrivalClient() {
 
         {/* Paid: arrival plan, copy sourced from the Services page */}
         <section className="max-w-3xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <motion.div initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <GlassCard hoverEffect="glow" className="text-center">
-              <ShieldAlert className="w-8 h-8 text-amber mx-auto mb-3" />
+              <ShieldAlert className="w-8 h-8 text-brand mx-auto mb-3" />
               <h2 className="text-xl font-bold text-text-primary mb-2">{t.paid.title}</h2>
-              <p className="text-sm text-amber font-medium mb-3">{t.paid.fearTrigger}</p>
+              <p className="text-sm text-brand font-medium mb-3">{t.paid.stuckLine}</p>
               <p className="text-sm text-text-secondary leading-relaxed mb-5 text-start">
                 {t.paid.description}
               </p>
               <ul className="text-sm text-text-secondary text-start space-y-2 mb-6 max-w-md mx-auto">
                 {t.paid.included.map((item, i) => (
                   <li key={i} className="flex gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -165,7 +166,7 @@ export default function ArrivalClient() {
                   href={whatsappWithContext("arrival support")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-success hover:text-success transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   {t.paid.whatsapp}
@@ -217,12 +218,12 @@ const en = {
       note: "The registration form itself is provided at the office — you don't need to bring it filled out. Just bring a pen.",
     },
     warning:
-      "A student last semester missed his foreign police deadline because nobody told him it was 3 working days, not 3 calendar days. He spent 2 months fixing it.",
+      "You have 3 working days after arrival to report your address to the foreign police: working days, not calendar days. Dorms and hotels usually do it for you.",
   },
   paid: {
     title: "Landed in Czechia? I've Got You.",
-    fearTrigger:
-      "Your first 2 weeks will be overwhelming. Bank account, foreign police, insurance, transport, phone, and everything is in Czech.",
+    stuckLine:
+      "The first two weeks are a lot: foreign police, bank, insurance, transport, a SIM card, mostly in Czech. I'll give you a checklist for your city and answer your questions while you settle in.",
     description:
       "You just landed. You don't speak Czech. Every sign is confusing. You need to register at the foreign police within 3 days but you don't know where it is or what to bring. Your university sent you 4 emails in Czech and you have no idea what they say. I've been through all of this. I live here. I'll give you a complete first-week plan and be available on WhatsApp to answer every question you're afraid to ask.",
     included: [
@@ -235,7 +236,7 @@ const en = {
       "14 days of WhatsApp support, ask me anything, anytime",
     ],
     triggerLine:
-      "A student last semester missed his foreign police deadline because nobody told him it was 3 business days, not 3 calendar days. He spent 2 months fixing it.",
+      "You have 3 working days after arrival to report your address to the foreign police. I'll tell you where to go and what to bring.",
     cta: `Get My Arrival Plan (${price("arrivalSupport")})`,
     postButton: "🔒 Secure payment via Stripe",
     whatsapp: "Ask on WhatsApp instead",
@@ -279,12 +280,12 @@ const ar = {
       note: "استمارة التسجيل نفسها موجودة في المكتب — مش لازم تجيبها معبأة. بس جيب معاك قلم.",
     },
     warning:
-      "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
   },
   paid: {
     title: "وصلت التشيك؟ أنا معاك.",
-    fearTrigger:
-      "أول أسبوعين هيكونوا صعبين. حساب بنكي، شرطة الأجانب، تأمين، مواصلات، موبايل. وكل حاجة بالتشيكي.",
+    stuckLine:
+      "أول أسبوعين فيهم حاجات كتير: شرطة الأجانب، البنك، التأمين، المواصلات، الشريحة، ومعظمها بالتشيكي. هديك قائمة لمدينتك وهرد على أسئلتك وأنت بتستقر.",
     description:
       "لسه واصل. مش بتتكلم تشيكي. كل لافتة محيرة. أنا عديت كل ده. أنا ساكن هنا. هديك خطة كاملة لأول أسبوع وهكون متاح على واتساب أجاوب على كل سؤال.",
     included: [
@@ -297,7 +298,7 @@ const ar = {
       "14 يوم دعم واتساب. اسأل أي حاجة، في أي وقت",
     ],
     triggerLine:
-      "طالب الفصل اللي فات فاته موعد شرطة الأجانب عشان ماحدش قاله إنه 3 أيام عمل، مش 3 أيام عادية. قعد شهرين يصلحها.",
+      "قدامك 3 أيام عمل بعد وصولك تبلّغ شرطة الأجانب بعنوانك (أيام عمل، مش أيام عادية). السكن الجامعي والفنادق غالبًا بيعملوها بدالك.",
     cta: `احصل على خطة وصولي (${price("arrivalSupport", "ar")})`,
     postButton: "🔒 دفع آمن عبر Stripe",
     whatsapp: "اسأل على واتساب بدل ده",

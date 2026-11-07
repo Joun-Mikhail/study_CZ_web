@@ -34,6 +34,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FounderCard } from "@/components/founder-card";
 
 const DELIVERY_DATE = "January 1, 2027";
 const DELIVERY_DATE_AR = "1 يناير 2027";
@@ -63,7 +64,7 @@ export default function CoursesClient() {
           <div className="max-w-3xl mx-auto mb-4">
             <a
               href={localizeHref("/courses/learn", locale)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium hover:bg-green-500/15 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-success text-sm font-medium hover:bg-green-500/15 transition-colors"
             >
               <PlayCircle className="w-4 h-4" />
               {locale === "ar" ? "عندك الكورس بالفعل — روح للوحة التحكم" : "You already have the course — Go to Dashboard →"}
@@ -72,31 +73,32 @@ export default function CoursesClient() {
         )}
 
         {/* Hero */}
-        <section className="max-w-3xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl py-2">
-          {/* Background image */}
-          <div className="absolute inset-0 z-0">
+        <section className="surface-ink max-w-4xl mx-auto text-center mb-16 relative overflow-hidden rounded-3xl px-5 py-10 sm:px-12 sm:py-14">
+          {/* Photo band above the text: text on a photo can't be contrast-checked, text on the solid navy can. */}
+          <div aria-hidden="true" className="relative -mx-5 -mt-10 sm:-mx-12 sm:-mt-14 mb-8 h-32 sm:h-44 overflow-hidden">
             <Image
               src="/images/prague-scenic.jpg"
               alt=""
               fill
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-midnight/85 via-midnight/80 to-midnight/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/20 to-ink" />
           </div>
-          <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-amber/[0.06] rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 mb-3">
             <OfferBadge locale={locale} />
           </div>
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 text-amber text-sm font-medium mb-6 relative z-10"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-sm font-medium mb-6 relative z-10"
           >
             {t.badge}
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4 relative z-10"
@@ -104,7 +106,7 @@ export default function CoursesClient() {
             {t.title}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-6 relative z-10"
@@ -112,7 +114,7 @@ export default function CoursesClient() {
             {t.subtitle}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10"
@@ -132,9 +134,9 @@ export default function CoursesClient() {
             initial={{ y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="motion-safe-fallback relative rounded-2xl border border-amber/20 bg-amber/[0.03] px-6 sm:px-8 py-7"
+            className="motion-safe-fallback relative rounded-2xl border border-brand/20 bg-brand/[0.03] px-6 sm:px-8 py-7"
           >
-            <div aria-hidden="true" className="absolute top-4 start-4 text-4xl text-amber/20 font-serif leading-none select-none pointer-events-none">&ldquo;</div>
+            <div aria-hidden="true" className="absolute top-4 start-4 text-4xl text-brand/20 font-serif leading-none select-none pointer-events-none">&ldquo;</div>
             <h2 className="text-lg font-semibold text-text-primary mb-3">{t.notTextbook.title}</h2>
             <p className="text-sm text-text-secondary leading-relaxed">{t.notTextbook.body}</p>
           </motion.div>
@@ -149,7 +151,7 @@ export default function CoursesClient() {
               const Icon = icons[i] ?? BookOpen;
               return (
                 <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-surface/60 border border-border-subtle">
-                  <Icon className="w-4 h-4 text-amber shrink-0 mt-0.5" />
+                  <Icon className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                   <span className="text-sm text-text-secondary">{item}</span>
                 </div>
               );
@@ -167,11 +169,11 @@ export default function CoursesClient() {
                 key={i}
                 className="flex items-start gap-4 rounded-xl border border-border-subtle bg-surface/60 p-5"
               >
-                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-sm font-bold text-amber">{i < 5 ? i : "+"}</span>
+                <div className="w-10 h-10 rounded-lg bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-sm font-bold text-brand">{i < 5 ? i : "+"}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-xs text-amber font-medium">{item.module}</span>
+                  <span className="text-xs text-brand font-medium">{item.module}</span>
                   <h3 className="text-sm font-semibold text-text-primary mt-0.5">{item.title}</h3>
                   <p className="text-xs text-text-secondary leading-relaxed mt-1">{item.description}</p>
                 </div>
@@ -197,11 +199,11 @@ export default function CoursesClient() {
                     onClick={() => setOpenModule(openModule === i ? null : i)}
                     className="w-full flex items-center gap-3 px-5 py-4 text-start"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-4 h-4 text-amber" />
+                    <div className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-4 h-4 text-brand" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <span className="text-xs text-amber font-medium">{t.moduleLabel} {i + 1}</span>
+                      <span className="text-xs text-brand font-medium">{t.moduleLabel} {i + 1}</span>
                       <p className="text-sm font-medium text-text-primary">{mod.title}</p>
                     </div>
                     <ChevronDown
@@ -223,13 +225,13 @@ export default function CoursesClient() {
                         <ul className="space-y-1.5">
                           {mod.topics.map((topic, j) => (
                             <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-amber shrink-0 mt-0.5" />
+                              <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0 mt-0.5" />
                               <span className="text-xs">{topic}</span>
                             </li>
                           ))}
                         </ul>
                         {mod.trigger && (
-                          <div className="mt-3 px-3 py-2 rounded-lg bg-amber/[0.04] border border-amber/15">
+                          <div className="mt-3 px-3 py-2 rounded-lg bg-brand/[0.04] border border-brand/15">
                             <p className="text-xs text-text-secondary italic">{mod.trigger}</p>
                           </div>
                         )}
@@ -252,20 +254,20 @@ export default function CoursesClient() {
                 hoverEffect={i === 1 ? "glow" : "border"}
                 className={cn(
                   "flex flex-col",
-                  i === 1 && "border-amber/40 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
+                  i === 1 && "shadow-[0_0_30px_rgba(245,158,11,0.1)]"
                 )}
               >
                 {i === 1 && (
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber text-midnight text-xs font-semibold mb-2 self-start">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-brand text-bg text-xs font-semibold mb-2 self-start">
                     {t.bestValue}
                   </span>
                 )}
                 <h3 className="font-semibold text-text-primary mb-1">{b.name}</h3>
-                <p className="text-2xl font-bold text-amber mb-1 flex items-baseline gap-2">
+                <p className="text-2xl font-bold text-brand mb-1 flex items-baseline gap-2">
                   <span data-price-current data-price-regular-value={b.regular}>{b.price}</span>
                   {OFFER_ACTIVE && <s data-launch-offer className="text-sm font-normal text-text-muted">{b.regular}</s>}
                 </p>
-                {b.save && <p className="text-xs text-green-400 mb-2">{b.save}</p>}
+                {b.save && <p className="text-xs text-success mb-2">{b.save}</p>}
                 <p className="text-xs text-text-muted mb-4 flex-1">{b.desc}</p>
                 <MagneticButton
                   variant={i === 1 ? "primary" : "secondary"}
@@ -283,7 +285,7 @@ export default function CoursesClient() {
         {/* Delivery guarantee */}
         <section className="max-w-2xl mx-auto mb-16">
           <div className="rounded-2xl border border-green-500/20 bg-green-500/[0.04] p-6 flex items-start gap-4">
-            <ShieldCheck className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
+            <ShieldCheck className="w-6 h-6 text-success shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-text-primary mb-1">{t.guarantee.title.replace("[DATE]", locale === "ar" ? DELIVERY_DATE_AR : DELIVERY_DATE)}</h3>
               <p className="text-sm text-text-secondary leading-relaxed">{t.guarantee.body}</p>
@@ -329,8 +331,8 @@ export default function CoursesClient() {
           <h2 className="text-xl font-semibold text-text-primary text-center mb-6">{t.previewTitle}</h2>
           <GlassCard hoverEffect="glow">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center shrink-0">
-                <PlayCircle className="w-5 h-5 text-amber" />
+              <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center shrink-0">
+                <PlayCircle className="w-5 h-5 text-brand" />
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary">{t.previewLesson}</h3>
@@ -363,6 +365,8 @@ export default function CoursesClient() {
             </div>
           </GlassCard>
         </section>
+
+        <FounderCard topic="the First 90 Days course" className="max-w-xl mx-auto mb-12" />
 
         {/* Bottom CTA */}
         <section className="max-w-xl mx-auto text-center">

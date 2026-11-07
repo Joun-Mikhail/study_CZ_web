@@ -282,6 +282,20 @@ export const qaEntries: QaEntry[] = [
     },
   },
 
+  // Agencies. Kept under "university", not "scams": listing them there would imply they are scams.
+  {
+    id: "university-agencies-top-edu-msm",
+    category: "university",
+    q: {
+      en: "How does Study Czechia compare to agencies like Top Edu or MSM Academy?",
+      ar: "Study Czechia بيختلف إزاي عن وكالات زي توب اديو (Top Edu) أو MSM Academy؟",
+    },
+    a: {
+      en: "Study Czechia is independent and has no connection to Top Edu, MSM Academy or any other agency. The guides, deadline tracker and tools on this site are free to use; personal help (document review, interview preparation, application support) is optional and its prices are listed on the site. We make no claims about other agencies' services. Whichever one you consider, ask them the eight questions on our Questions to Ask page and compare the answers in writing.",
+      ar: "Study Czechia مستقل وملوش أي علاقة بتوب اديو (Top Edu) أو MSM Academy أو أي وكالة تانية. الأدلة ومتتبع المواعيد والأدوات اللي على الموقع مجانية، والمساعدة الشخصية (مراجعة الأوراق، التحضير للمقابلة، المساعدة في التقديم) اختيارية وأسعارها مكتوبة على الموقع. إحنا مش بنقول أي حاجة عن خدمات الوكالات التانية. أي وكالة بتفكر فيها، اسألها الـ 8 أسئلة اللي في صفحة «أسئلة قبل ما تدفع» وقارن الإجابات مكتوبة.",
+    },
+  },
+
   // Housing
   {
     id: "housing-priority-system",
