@@ -27,9 +27,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const v2 = universitiesV2.find((u) => u.id === id);
   // "Brno University of Technology (VUT / BUT)" + "VUT Brno" -> "Brno University of Technology (VUT Brno)"
   const name = v2?.searchName ? `${uni.name.split(" (")[0]} (${v2.searchName})` : uni.name;
+  // The blurb, then the local name, city and what the page covers. Search
+  // results cut descriptions at about 160 characters, so shorten the tail step
+  // by step rather than let the snippet end mid-sentence.
+  const blurb = uni.blurb?.en || `Learn about ${uni.name}.`;
+  const tail = `${uni.city}, Czech Republic: English programmes, tuition and how to apply.`;
+  const description =
+    [
+      v2?.nameLocal ? `${blurb} ${v2.nameLocal}, ${tail}` : "",
+      `${blurb} ${tail}`,
+      `${blurb} ${uni.city}, Czech Republic: programmes, fees, admission.`,
+    ].find((d) => d && d.length <= 160) ?? blurb;
   return {
     title: `${name}: Programmes, Fees and Admission`,
-    description: `${uni.blurb?.en || `Learn about ${uni.name}.`} ${v2?.nameLocal ? `${v2.nameLocal}, ` : ""}${uni.city}, Czech Republic: English programmes, tuition and how to apply.`,
+    description,
     alternates: { canonical: `/university/${id}` },
     ...noindexUnless(universityPageIndexable(id)),
   };

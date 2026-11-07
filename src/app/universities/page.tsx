@@ -8,7 +8,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Czech Universities: English Programmes, Fees and Deadlines",
-  description: "Czech universities such as Charles University, VUT Brno and ČVUT: search English-taught programmes by field, city, degree and tuition, with fees from official university pages.",
+  description: "Czech universities like Charles University, VUT Brno and ČVUT: search English-taught programmes by field, city, degree and tuition, with fees from university pages.",
   alternates: { canonical: "/universities" },
 };
 
