@@ -23,7 +23,6 @@ export const BROKEN_SOURCES = new Set([
   "https://www.cvut.cz/en/admissions",
   "https://fit.cvut.cz/en/study/bachelor-programs",
   "https://www.vscht.cz/EN/study/programs",
-  "https://www.vsb.cz/en/study/study-programmes/",
 ]);
 
 /** Academic years a verified fee may apply to; a fee checked for an older year is only pending. */
