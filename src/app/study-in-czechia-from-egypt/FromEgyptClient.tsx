@@ -29,6 +29,7 @@ const SUPERLEG = n(OFFICIAL.superlegalisationCairoEgp.value);
 const DORM_FROM = n(Math.min(...DORM_PRICES.map((d) => d.double[0])));
 const MSMT_NOSTRIFICATION =
   "https://msmt.gov.cz/vzdelavani/uznavani-zahranicniho-a-ceskeho-studia/uznani-zahranicniho-vzdelani-s-vyjimkou-vs";
+const STUDYIN_HOW_TO_APPLY = "https://studyin.gov.cz/plan-your-studies/how-to-apply/";
 /** Both read 2026-11-08. The embassy page was last updated in 2018, and the answer says so. */
 const DZS_SCHOLARSHIPS = "https://www.dzs.cz/en/program/study-opportunities-foreigners-cr";
 const EMBASSY_SCHOLARSHIPS = "https://mzv.gov.cz/cairo/en/culture/education/czech_governmental_scholarships_for_the.html";
@@ -114,6 +115,40 @@ const en = {
   ] as Step[],
   parents: "Parents: what it costs, how safe it is and how paying for help works.",
   parentsLink: "For parents",
+  timelineTitle: "When to do what, for a September start",
+  timelineNote: "The official advice is to start 6 to 9 months before your studies begin. Some universities use other dates, so check your programme.",
+  timeline: [
+    {
+      when: "By December",
+      what: "Start legalising your Thanaweya Amma and choose your programmes.",
+      href: "/thanaweya-amma-czech-university",
+      label: "Thanaweya Amma guide",
+    },
+    {
+      when: "By the end of February",
+      what: "Apply. Most Czech universities close applications at the end of February, and every programme has an entrance exam.",
+      href: "/deadlines",
+      label: "Deadline tracker",
+    },
+    {
+      when: "As soon as you're accepted",
+      what: "Prepare your visa documents, then email the Czech Embassy in Cairo for an appointment. A valid request gets a confirmation within 15 days.",
+      href: "/student-visa-egypt",
+      label: "Student visa from Egypt",
+    },
+    {
+      when: "By the end of June",
+      what: "Hand in your visa application. The Ministry of the Interior can take up to 60 days to decide, so this leaves time before September.",
+      href: "/student-visa-egypt",
+      label: "Student visa from Egypt",
+    },
+    {
+      when: "September",
+      what: "Arrive, then register with the foreign police and sort out your bank account, SIM card and insurance.",
+      href: "/arrival",
+      label: "Arrival guide",
+    },
+  ],
   factsTitle: "Key numbers for Egyptian students",
   facts: {
     free: { label: "Tuition, taught in Czech at a public university", value: "Free" },
@@ -259,6 +294,40 @@ const ar: typeof en = {
   ],
   parents: "لأولياء الأمور: التكلفة، والأمان، وطريقة الدفع مقابل المساعدة.",
   parentsLink: "لأولياء الأمور",
+  timelineTitle: "تعمل إيه وإمتى، لو هتبدأ الدراسة في سبتمبر",
+  timelineNote: "النصيحة الرسمية إنك تبدأ قبل الدراسة بـ 6 إلى 9 أشهر. بعض الجامعات مواعيدها مختلفة، فراجع برنامجك.",
+  timeline: [
+    {
+      when: "في ديسمبر",
+      what: "ابدأ توثيق الثانوية العامة واختار البرامج.",
+      href: "/thanaweya-amma-czech-university",
+      label: "دليل الثانوية العامة",
+    },
+    {
+      when: "قبل آخر فبراير",
+      what: "قدم. أغلب الجامعات التشيكية بتقفل التقديم آخر فبراير، وكل برنامج له امتحان قبول.",
+      href: "/deadlines",
+      label: "مواعيد التقديم",
+    },
+    {
+      when: "أول ما تتقبل",
+      what: "جهز أوراق الفيزا، وبعدها ابعت إيميل للسفارة التشيكية بالقاهرة تطلب موعد. الطلب الصحيح بيتأكد خلال 15 يوم.",
+      href: "/student-visa-egypt",
+      label: "تأشيرة الدراسة من مصر",
+    },
+    {
+      when: "قبل آخر يونيو",
+      what: "قدم طلب الفيزا. وزارة الداخلية ممكن تاخد لحد 60 يوم عشان تقرر، فكده هيفضل وقت قبل سبتمبر.",
+      href: "/student-visa-egypt",
+      label: "تأشيرة الدراسة من مصر",
+    },
+    {
+      when: "سبتمبر",
+      what: "اوصل، وبعدها سجل في شرطة الأجانب وخلص الحساب البنكي وشريحة الموبايل والتأمين.",
+      href: "/arrival",
+      label: "دليل الوصول",
+    },
+  ],
   factsTitle: "أرقام مهمة للطلاب المصريين",
   facts: {
     free: { label: "المصاريف للدراسة بالتشيكية في جامعة حكومية", value: "مجانًا" },
@@ -370,6 +439,32 @@ export default function FromEgyptClient({ costs }: { costs: Costs }) {
               ))}
             </dl>
           </GlassCard>
+
+          <section aria-labelledby="egypt-timeline" className="mb-8">
+            <h2 id="egypt-timeline" className="text-xl font-bold text-text-primary mb-1">{t.timelineTitle}</h2>
+            <p className="text-sm text-text-secondary leading-relaxed mb-3">
+              {t.timelineNote}{" "}
+              <a href={STUDYIN_HOW_TO_APPLY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-0.5 font-medium text-brand hover:underline">
+                {t.source}
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
+            </p>
+            <GlassCard>
+              <ol className="space-y-3">
+                {t.timeline.map((row) => (
+                  <li key={row.when}>
+                    <p className="text-base font-semibold text-text-primary">{row.when}</p>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      {row.what}{" "}
+                      <Link href={row.href} className="font-medium text-brand hover:underline">
+                        {row.label}
+                      </Link>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </GlassCard>
+          </section>
 
           <ol className="space-y-4 mb-8">
             {t.steps.map((s, i) => (
