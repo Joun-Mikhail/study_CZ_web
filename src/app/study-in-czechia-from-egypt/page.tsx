@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { englishTuition, livingByCity, medicineTuition } from "@/lib/study-costs";
+import { degreeTotalEur, englishTuition, livingByCity, medicineTuition, OFFICIAL } from "@/lib/study-costs";
+import { formatDate } from "@/lib/medicine-guide";
 import FromEgyptClient from "./FromEgyptClient";
 
 export const metadata: Metadata = {
@@ -12,11 +13,17 @@ export const metadata: Metadata = {
 export default function FromEgyptPage() {
   // Worked out here so the programme data stays out of the page's JavaScript.
   const monthly = (key: string) => livingByCity().find((c) => c.key === key)!.monthlyCzk;
+  const bachelorMedian = englishTuition().bachelor.median;
+  const checkedOn = (iso: string) => ({ en: formatDate(iso, "en"), ar: formatDate(iso, "ar") });
   const costs = {
-    bachelorMedian: englishTuition().bachelor.median,
+    bachelorMedian,
     medicine: medicineTuition(),
     brno: monthly("brno"),
     prague: monthly("prague"),
+    firstYearEnglish: degreeTotalEur(bachelorMedian, 1, "brno"),
+    firstYearCzech: degreeTotalEur(0, 1, "brno"),
+    checkedFees: checkedOn(OFFICIAL.visaFeeCairoEgp.checked),
+    checkedFunds: checkedOn(OFFICIAL.proofOfFundsYearCzk.checked),
   };
   return <FromEgyptClient costs={costs} />;
 }
