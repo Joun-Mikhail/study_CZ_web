@@ -160,6 +160,15 @@ export default function ApplicationGuidePage() {
                 >
                   <h2 className="text-xl font-semibold text-text-primary mb-3">{step.title[locale]}</h2>
                   <p className="text-text-secondary leading-relaxed mb-4">{step.body[locale]}</p>
+                  {step.id === guideSteps[0].id && (
+                    <p className="text-sm mb-4">
+                      <Link href="/study-in-czechia-from-egypt" className="font-medium text-brand hover:underline">
+                        {locale === "ar"
+                          ? "بتقدّم من مصر؟ الدراسة في التشيك للمصريين خطوة بخطوة ←"
+                          : "Applying from Egypt? Studying in Czechia from Egypt, step by step →"}
+                      </Link>
+                    </p>
+                  )}
                   {step.id === "visa-apply" && (
                     <p className="text-sm mb-4">
                       <Link href="/student-visa-egypt" className="font-medium text-brand hover:underline">

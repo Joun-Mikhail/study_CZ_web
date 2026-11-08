@@ -130,7 +130,7 @@ export const SITE_PAGES: SitePage[] = [
     path: "/study-in-czechia-from-egypt/",
     title: "Study in Czechia from Egypt: Costs, Visa and Admission Guide",
     description:
-      "For Egyptian students: what it costs, the student visa in Cairo, Thanaweya Amma recognition and every step from applying to your first week in Czechia.",
+      "For Egyptian students: what studying in the Czech Republic costs, the student visa in Cairo, Thanaweya Amma recognition and every step from applying to arrival.",
     keywords: {
       en: ["Egypt", "Egyptian", "Thanaweya Amma", "steps", "how to apply", "Cairo"],
       ar: ["مصر", "المصريين", "الثانوية العامة", "خطوات", "إزاي أقدم", "القاهرة"],
