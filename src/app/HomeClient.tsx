@@ -119,6 +119,15 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
                 </Link>
               </div>
               <p className="mt-4 text-sm text-white/70">{c.heroNote}</p>
+              <p className="mt-3 text-sm text-white/90">
+                {c.fromEgyptLead}{" "}
+                <Link
+                  href="/study-in-czechia-from-egypt"
+                  className="font-semibold text-white underline underline-offset-4 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  {c.fromEgyptLink}
+                </Link>
+              </p>
             </div>
             <HeroCollage facts={facts} ar={ar} />
           </div>
@@ -279,6 +288,8 @@ const HOME_COPY = {
     heroCta: "Can I study in Czechia? 5-minute check",
     heroSecondary: "Browse programmes",
     heroNote: "Free, no sign-up.",
+    fromEgyptLead: "From Egypt?",
+    fromEgyptLink: "Studying in Czechia from Egypt, step by step",
     startHere: "Start here",
     open: "Start",
     guideTitle: "Application Guide",
@@ -307,6 +318,8 @@ const HOME_COPY = {
     heroCta: "أقدر أدرس في التشيك؟ اختبار 5 دقايق",
     heroSecondary: "تصفح البرامج",
     heroNote: "مجاني ومن غير تسجيل.",
+    fromEgyptLead: "من مصر؟",
+    fromEgyptLink: "الدراسة في التشيك من مصر خطوة بخطوة",
     startHere: "ابدأ من هنا",
     open: "ابدأ",
     guideTitle: "دليل التقديم",
