@@ -11,6 +11,7 @@ import { GraduationCap, Clock, Landmark, Languages, Globe2, Trophy } from "lucid
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { CardPhoto } from "@/components/card-photo";
+import Link from "@/components/locale-link";
 import type { ImageId } from "@/data/images";
 
 /** Header photo (decorative) and icon for each scholarship route. */
@@ -55,6 +56,11 @@ export default function Page() {
             {locale === "ar"
               ? "اكتشف طرق المنح الشائعة ونصائح للتقديم. من طلاب عدّوا التجربة فعلًا."
               : "Find common scholarship routes and tips for applying. From students who've been through it."}
+          </p>
+          <p className="text-sm mt-3">
+            <Link href="/study-in-czechia-from-egypt/#egypt-faq" className="font-medium text-brand hover:underline">
+              {locale === "ar" ? "من مصر؟ إزاي المنح بتمشي للطلاب المصريين ←" : "From Egypt? How scholarships work for Egyptian students →"}
+            </Link>
           </p>
         </motion.div>
 

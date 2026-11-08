@@ -10,10 +10,17 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { OFFICIAL } from "@/lib/study-costs";
 import { DORM_PRICES } from "@/data/dorm-prices";
 
-// A hub for students applying from Egypt. It adds no new facts: every step
-// repeats what the linked page already says (and sources) and sends the
-// reader there.
+// A hub for students applying from Egypt. Every step repeats what the linked
+// page already says (and sources) and sends the reader there. The scholarship
+// answer is the one fact only this page has, so it links its own sources.
 type Step = { title: string; body: string; links: { href: string; label: string }[] };
+type Costs = {
+  bachelorMedian: number;
+  medicine: { min: number; max: number } | null;
+  brno: [number, number];
+  prague: [number, number];
+};
+type Faq = { q: string; a: string; href: string; label: string; sources?: { url: string; label: string }[] };
 
 const n = (v: number) => v.toLocaleString("en-US");
 const VISA_FEE = n(OFFICIAL.visaFeeCairoEgp.value);
@@ -22,6 +29,9 @@ const SUPERLEG = n(OFFICIAL.superlegalisationCairoEgp.value);
 const DORM_FROM = n(Math.min(...DORM_PRICES.map((d) => d.double[0])));
 const MSMT_NOSTRIFICATION =
   "https://msmt.gov.cz/vzdelavani/uznavani-zahranicniho-a-ceskeho-studia/uznani-zahranicniho-vzdelani-s-vyjimkou-vs";
+/** Both read 2026-11-08. The embassy page was last updated in 2018, and the answer says so. */
+const DZS_SCHOLARSHIPS = "https://www.dzs.cz/en/program/study-opportunities-foreigners-cr";
+const EMBASSY_SCHOLARSHIPS = "https://mzv.gov.cz/cairo/en/culture/education/czech_governmental_scholarships_for_the.html";
 
 /** Key figures, each repeated from the page or data file that sources it. */
 const FACTS = [
@@ -36,7 +46,7 @@ const FACTS = [
 const en = {
   title: "Study in Czechia from Egypt: the whole path",
   subtitle:
-    "Eight steps from your Thanaweya Amma to your first week in Czechia. Each one links to the full guide, built from official university, embassy and ministry pages.",
+    "Eight steps from your Thanaweya Amma to your first week in the Czech Republic. Each one links to the full guide, built from official university, embassy and ministry pages.",
   steps: [
     {
       title: "Check that you can apply",
@@ -116,12 +126,40 @@ const en = {
   source: "Source",
   details: "Details",
   faqTitle: "Questions Egyptian students ask",
+  cost: (c: Costs): Faq => ({
+    q: "How much does it cost to study in the Czech Republic from Egypt?",
+    a: `Taught in Czech at a public university, tuition is free. Taught in English, half of the bachelor's programmes on this site cost €${n(c.bachelorMedian)} a year or less${c.medicine ? `, and General Medicine costs €${n(c.medicine.min)} to €${n(c.medicine.max)} a year` : ""}. Students report living costs of ${n(c.brno[0])} to ${n(c.brno[1])} CZK a month in Brno and ${n(c.prague[0])} to ${n(c.prague[1])} CZK in Prague.`,
+    href: "/what-it-costs",
+    label: "What it costs",
+  }),
   faq: [
     {
       q: "Can Egyptians study in Czechia for free?",
       a: "Yes, if the degree is taught in Czech at a public university, for every nationality. Degrees taught in English charge tuition.",
       href: "/what-it-costs",
       label: "What it costs",
+    },
+    {
+      q: "Do Egyptians need a visa to study in the Czech Republic?",
+      a: "Yes. You apply in person at the Czech Embassy in Cairo for a long-term visa for study. Nobody can apply or speak for you.",
+      href: "/student-visa-egypt",
+      label: "Student visa from Egypt",
+    },
+    {
+      q: "Do I need IELTS to study in Czechia?",
+      a: "For degrees taught in English, most programmes ask for IELTS 5.5 to 6.5 or an equivalent test, so check your programme's admission page. For degrees taught in Czech you need the language, usually at B2.",
+      href: "/eligibility",
+      label: "Eligibility check",
+    },
+    {
+      q: "Are there scholarships for Egyptian students?",
+      a: "Egypt is on the list for Czech intergovernmental scholarships, but you can't apply to them directly: the Egyptian authorities nominate the candidates. The Czech Embassy in Cairo says applications go through Egypt's Ministry of Higher Education, which also has the deadlines. That embassy page dates from 2018, so ask the ministry about the current round. Egypt is not on the list for the Czech development scholarships.",
+      href: "/scholarships",
+      label: "All scholarship routes",
+      sources: [
+        { url: DZS_SCHOLARSHIPS, label: "DZS" },
+        { url: EMBASSY_SCHOLARSHIPS, label: "Czech Embassy in Cairo" },
+      ],
     },
     {
       q: "Is the Thanaweya Amma accepted by Czech universities?",
@@ -147,11 +185,11 @@ const en = {
       href: "/recognition/egypt",
       label: "Recognition in Egypt",
     },
-  ],
+  ] as Faq[],
 };
 
 const ar: typeof en = {
-  title: "الدراسة في التشيك من مصر: الطريق كامل",
+  title: "الدراسة في التشيك للمصريين: الطريق كامل",
   subtitle:
     "ثماني خطوات من الثانوية العامة حتى أول أسبوع في التشيك. كل خطوة توصلك إلى الدليل الكامل، المبني على صفحات الجامعات والسفارة والوزارات الرسمية.",
   steps: [
@@ -233,12 +271,40 @@ const ar: typeof en = {
   source: "المصدر",
   details: "التفاصيل",
   faqTitle: "أسئلة الطلاب المصريين",
+  cost: (c: Costs): Faq => ({
+    q: "الدراسة في التشيك من مصر بتتكلف قد إيه؟",
+    a: `الدراسة بالتشيكية في جامعة حكومية مجانية. بالإنجليزية، نص برامج البكالوريوس على الموقع رسومها ${n(c.bachelorMedian)}€ في السنة أو أقل${c.medicine ? `، والطب العام من ${n(c.medicine.min)}€ لـ${n(c.medicine.max)}€ في السنة` : ""}. المعيشة حسب كلام الطلبة من ${n(c.brno[0])} لـ${n(c.brno[1])} كرونة في الشهر في برنو، ومن ${n(c.prague[0])} لـ${n(c.prague[1])} كرونة في براغ.`,
+    href: "/what-it-costs",
+    label: "التكاليف الحقيقية",
+  }),
   faq: [
     {
       q: "هل يقدر المصري يدرس في التشيك مجانًا؟",
       a: "أيوه، لو الدراسة بالتشيكية في جامعة حكومية، وده لكل الجنسيات. الدراسة بالإنجليزية بمصاريف.",
       href: "/what-it-costs",
       label: "التكاليف الحقيقية",
+    },
+    {
+      q: "هل المصريين محتاجين فيزا للدراسة في التشيك؟",
+      a: "أيوه. لازم تقدم بنفسك في السفارة التشيكية بالقاهرة على فيزا طويلة الأمد للدراسة، ومحدش يقدر يقدم أو يتكلم بالنيابة عنك.",
+      href: "/student-visa-egypt",
+      label: "تأشيرة الدراسة من مصر",
+    },
+    {
+      q: "محتاج IELTS عشان أدرس في التشيك؟",
+      a: "للدراسة بالإنجليزية، معظم البرامج بتطلب IELTS من 5.5 لـ6.5 أو امتحان يعادله، فراجع صفحة القبول بتاعة برنامجك. للدراسة بالتشيكية لازم تعرف اللغة، وعادة بمستوى B2.",
+      href: "/eligibility",
+      label: "أقدر أقدم؟",
+    },
+    {
+      q: "هل فيه منح دراسية للطلاب المصريين في التشيك؟",
+      a: "مصر ضمن قائمة المنح الحكومية التشيكية بين الدولتين، بس مش بتقدم عليها مباشرة: الجهات المصرية هي اللي بترشح الطلاب. والسفارة التشيكية في القاهرة بتقول إن الطلبات بتعدي الأول على وزارة التعليم العالي المصرية، وهي اللي عندها المواعيد. صفحة السفارة دي من 2018، فاسأل الوزارة عن الدورة الحالية. مصر مش ضمن قائمة منح التنمية التشيكية.",
+      href: "/scholarships",
+      label: "كل طرق المنح",
+      sources: [
+        { url: DZS_SCHOLARSHIPS, label: "DZS" },
+        { url: EMBASSY_SCHOLARSHIPS, label: "السفارة التشيكية بالقاهرة" },
+      ],
     },
     {
       q: "هل الجامعات التشيكية بتقبل الثانوية العامة المصرية؟",
@@ -267,9 +333,11 @@ const ar: typeof en = {
   ],
 };
 
-export default function FromEgyptClient() {
+export default function FromEgyptClient({ costs }: { costs: Costs }) {
   const { locale } = useTranslation();
   const t = locale === "ar" ? ar : en;
+  const [free, ...rest] = t.faq;
+  const faq = [free, t.cost(costs), ...rest];
 
   return (
     <div className="relative min-h-screen">
@@ -339,7 +407,7 @@ export default function FromEgyptClient() {
           <section aria-labelledby="egypt-faq" className="mb-8">
             <h2 id="egypt-faq" className="text-xl font-bold text-text-primary mb-3">{t.faqTitle}</h2>
             <div className="space-y-3">
-              {t.faq.map((item) => (
+              {faq.map((item) => (
                 <GlassCard key={item.q}>
                   <h3 className="text-base font-semibold text-text-primary">{item.q}</h3>
                   <p className="text-sm text-text-secondary leading-relaxed mt-1">
@@ -347,6 +415,15 @@ export default function FromEgyptClient() {
                     <Link href={item.href} className="font-medium text-brand hover:underline">
                       {item.label}
                     </Link>
+                    {item.sources?.map((s) => (
+                      <span key={s.url}>
+                        {" · "}
+                        <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-0.5 font-medium text-brand hover:underline">
+                          {s.label}
+                          <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                        </a>
+                      </span>
+                    ))}
                   </p>
                 </GlassCard>
               ))}
