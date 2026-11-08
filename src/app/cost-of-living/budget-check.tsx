@@ -23,7 +23,7 @@ const COPY = {
     cheaper: (city: string, total: string) => `Look at ${city}: a realistic month starts around ${total}.`,
     prep: "A preparatory year, then a Czech-taught degree, which is tuition-free at public universities",
     scholarships: "Scholarships",
-    work: "Part-time work: see the calculator below",
+    work: "Part-time work: see what student jobs pay",
     call: "Want to go through your numbers together? A 30-minute call.",
     covered: (city: string) => `Your budget covers a realistic month in ${city}.`,
     save: "Save my budget to My Journey",
@@ -36,7 +36,7 @@ const COPY = {
     cheaper: (city: string, total: string) => `بص على ${city}: الشهر الواقعي بيبدأ من حوالي ${total}.`,
     prep: "سنة تحضيرية وبعدها دراسة بالتشيكي، ودي ببلاش في الجامعات الحكومية",
     scholarships: "المنح",
-    work: "شغل بارت تايم: شوف الحاسبة تحت",
+    work: "شغل بارت تايم: شوف الوظايف بتدفع كام",
     call: "عايز نراجع أرقامك مع بعض؟ مكالمة 30 دقيقة.",
     covered: (city: string) => `ميزانيتك بتغطي شهر واقعي في ${city}.`,
     save: "احفظ ميزانيتي في رحلتي",
@@ -51,11 +51,14 @@ export function BudgetCheck({
   totalMin,
   locale,
   onCity,
+  cityTotals,
 }: {
   city: CityKey;
   totalMin: number;
   locale: "en" | "ar";
   onCity: (c: CityKey) => void;
+  /** The month as currently set up for each city; falls back to the static ranges. */
+  cityTotals?: Record<CityKey, number>;
 }) {
   const c = COPY[locale];
   const [value, setValue] = useState("");
@@ -65,7 +68,7 @@ export function BudgetCheck({
   const cityName = cities.find((x) => x.key === city)?.label[locale] ?? city;
   const gap = totalMin - budget;
   const cheapest = cities
-    .map((x) => ({ ...x, min: totalRange(x.key)[0] }))
+    .map((x) => ({ ...x, min: cityTotals?.[x.key] ?? totalRange(x.key)[0] }))
     .filter((x) => x.key !== city && x.min < totalMin)
     .sort((a, b) => a.min - b.min)[0];
 
@@ -117,7 +120,7 @@ export function BudgetCheck({
                   <Link href="/scholarships" className="text-brand hover:underline">{c.scholarships}</Link>
                 </li>
                 <li>
-                  <a href="#work-calculator" className="text-brand hover:underline">{c.work}</a>
+                  <a href="#earn" className="text-brand hover:underline">{c.work}</a>
                 </li>
               </ul>
               <HelpLink service="consultation" source="cost-of-living:gap" className="inline-block text-sm text-text-secondary hover:text-brand underline underline-offset-2">

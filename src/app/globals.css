@@ -517,3 +517,130 @@ html:not(.hydrated) [style*="opacity: 0"] {
 .step-num::before {
   content: attr(data-n);
 }
+
+/* ------------------------------------------------------------------------
+ * Cost of living (src/components/living/*)
+ * Chart colours: validated with the dataviz palette checker (lightness band,
+ * colour-blind separation) on the light surface and, separately, on the dark
+ * surface. Order is fixed: housing, food, transport, bills, fun, personal.
+ * ---------------------------------------------------------------------- */
+:root {
+  --viz-1: #2d64a5;
+  --viz-2: #f59e0b;
+  --viz-3: #0d9488;
+  --viz-4: #f97316;
+  --viz-5: #7c3aed;
+  --viz-6: #e11d48;
+  /* Text on each segment colour, AA in this theme. */
+  --viz-1-text: #ffffff;
+  --viz-2-text: #0b1f3a;
+  --viz-3-text: #000000;
+  --viz-4-text: #0b1f3a;
+  --viz-5-text: #ffffff;
+  --viz-6-text: #ffffff;
+  --receipt: #fffdf7;
+  --receipt-ink: #1f2937;
+  --receipt-rule: rgba(31, 41, 55, 0.28);
+}
+[data-theme="dark"] {
+  --viz-1: #5b8fd4;
+  --viz-2: #bb800a;
+  --viz-3: #0fa394;
+  --viz-4: #e06a1c;
+  --viz-5: #9a76f0;
+  --viz-6: #f0506e;
+  --viz-1-text: #0b1220;
+  --viz-2-text: #0b1220;
+  --viz-3-text: #0b1220;
+  --viz-4-text: #0b1220;
+  --viz-5-text: #0b1220;
+  --viz-6-text: #0b1220;
+  --receipt: #18233a;
+  --receipt-ink: #f1f5f9;
+  --receipt-rule: rgba(241, 245, 249, 0.3);
+}
+
+/* Native range input, restyled (thumb, track, filled part, focus). The page
+   sets --fill (0–100%) inline; WebKit has no "progress" pseudo-element. */
+.range {
+  --track: 0.5rem;
+  --thumb: 1.5rem;
+  --fill-color: var(--color-brand);
+  --track-color: var(--color-bg-muted);
+  --dir: to right;
+  appearance: none;
+  inline-size: 100%;
+  block-size: 2.75rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+[dir="rtl"] .range { --dir: to left; }
+.range::-webkit-slider-runnable-track {
+  block-size: var(--track);
+  border-radius: 999px;
+  background: linear-gradient(var(--dir), var(--fill-color) var(--fill, 50%), var(--track-color) var(--fill, 50%));
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  inline-size: var(--thumb);
+  block-size: var(--thumb);
+  margin-block-start: calc((var(--track) - var(--thumb)) / 2);
+  border-radius: 50%;
+  border: 3px solid var(--color-surface);
+  background: var(--fill-color);
+  box-shadow: 0 1px 4px rgba(11, 31, 58, 0.35);
+}
+.range::-moz-range-track {
+  block-size: var(--track);
+  border-radius: 999px;
+  background: var(--track-color);
+}
+.range::-moz-range-progress {
+  block-size: var(--track);
+  border-radius: 999px;
+  background: var(--fill-color);
+}
+.range::-moz-range-thumb {
+  inline-size: var(--thumb);
+  block-size: var(--thumb);
+  border-radius: 50%;
+  border: 3px solid var(--color-surface);
+  background: var(--fill-color);
+}
+.range:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* The till receipt beside the basket. */
+.receipt {
+  background: var(--receipt);
+  color: var(--receipt-ink);
+  --color-text-primary: var(--receipt-ink);
+  -webkit-mask: radial-gradient(circle 6px at 50% 0, #0000 98%, #000) 50% 0 / 18px 51% repeat-x,
+    radial-gradient(circle 6px at 50% 100%, #0000 98%, #000) 50% 100% / 18px 51% repeat-x;
+  mask: radial-gradient(circle 6px at 50% 0, #0000 98%, #000) 50% 0 / 18px 51% repeat-x,
+    radial-gradient(circle 6px at 50% 100%, #0000 98%, #000) 50% 100% / 18px 51% repeat-x;
+}
+.receipt-rule { border-top: 2px dashed var(--receipt-rule); }
+
+/* Bars and meters grow from their start edge; content is never hidden. */
+.grow-x {
+  transform-origin: left center;
+  transition: transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+[dir="rtl"] .grow-x { transform-origin: right center; }
+.seg { transition: flex-grow 450ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+@media (prefers-reduced-motion: no-preference) {
+  .pop { animation: pop-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+}
+@keyframes pop-in {
+  from { transform: scale(0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grow-x, .seg { transition: none; }
+}
