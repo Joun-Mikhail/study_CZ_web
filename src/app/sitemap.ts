@@ -71,7 +71,7 @@ const STATIC_ROUTES: { route: string; priority: number; sources: string[] }[] = 
   { route: "/universities", priority: 0.8, sources: ["src/app/universities", "src/data/universities-v2.ts"] },
   { route: "/programmes", priority: 0.9, sources: ["src/app/programmes/page.tsx", "src/app/programmes/ProgrammesClient.tsx", "src/data/programmes.ts"] },
   { route: "/scholarships", priority: 0.8, sources: ["src/app/scholarships"] },
-  { route: "/cost-of-living", priority: 0.8, sources: ["src/app/cost-of-living", "src/data/costs.ts"] },
+  { route: "/cost-of-living", priority: 0.8, sources: ["src/app/cost-of-living", "src/data/costs.ts", "src/data/dorm-prices.ts", "src/data/living", "src/lib/living-calc.ts"] },
   { route: "/application-guide", priority: 0.8, sources: ["src/app/application-guide", "src/data/guide.ts"] },
   { route: "/qa", priority: 0.8, sources: ["src/app/qa", "src/data/qa.ts"] },
   { route: "/university-matcher", priority: 0.8, sources: ["src/app/university-matcher", "src/data/programmes.ts"] },

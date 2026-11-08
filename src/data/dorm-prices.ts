@@ -4,9 +4,12 @@
  * state them. Each entry keeps its source, the date the list is valid from,
  * and the date we checked it.
  */
+import type { CityKey } from "@/data/costs";
+
 export type DormPriceList = {
   id: string;
   university: { en: string; ar: string };
+  cityKey: CityKey;
   city: { en: string; ar: string };
   /** Lowest and highest nightly price per bed, by room type. Omitted when the list has none. */
   single?: [number, number];
@@ -21,6 +24,7 @@ export const DORM_PRICES: DormPriceList[] = [
   {
     id: "cuni",
     university: { en: "Charles University", ar: "جامعة تشارلز" },
+    cityKey: "prague",
     city: { en: "Prague", ar: "براغ" },
     single: [156, 444],
     double: [126, 310],
@@ -35,6 +39,7 @@ export const DORM_PRICES: DormPriceList[] = [
   {
     id: "ctu",
     university: { en: "Czech Technical University (ČVUT)", ar: "جامعة التشيك التقنية (ČVUT)" },
+    cityKey: "prague",
     city: { en: "Prague", ar: "براغ" },
     single: [144, 280],
     double: [118, 254],
@@ -49,6 +54,7 @@ export const DORM_PRICES: DormPriceList[] = [
   {
     id: "muni",
     university: { en: "Masaryk University", ar: "جامعة ماساريك" },
+    cityKey: "brno",
     city: { en: "Brno", ar: "برنو" },
     single: [195, 323],
     double: [170, 255],
@@ -63,6 +69,7 @@ export const DORM_PRICES: DormPriceList[] = [
   {
     id: "but",
     university: { en: "Brno University of Technology (VUT)", ar: "جامعة برنو التقنية (VUT)" },
+    cityKey: "brno",
     city: { en: "Brno", ar: "برنو" },
     double: [164, 164],
     validFrom: { en: "current price list", ar: "قائمة الأسعار الحالية" },
@@ -72,6 +79,21 @@ export const DORM_PRICES: DormPriceList[] = [
     },
     sourceUrl: "https://www.kam.vutbr.cz/english/?p=PPV",
     checkedOn: "2026-11-07",
+  },
+  {
+    id: "vsb",
+    university: { en: "VŠB – Technical University of Ostrava", ar: "جامعة VŠB التقنية في أوسترافا" },
+    cityKey: "ostrava",
+    city: { en: "Ostrava", ar: "أوسترافا" },
+    single: [180, 250],
+    double: [120, 175],
+    validFrom: { en: "1 July 2026", ar: "1 يوليو 2026" },
+    conditions: {
+      en: "Long-term stays for the whole academic year. Basic rate when the room is full; it is higher if a bed stays empty.",
+      ar: "إقامة طويلة للعام الدراسي كله. السعر الأساسي عندما تكون الغرفة ممتلئة، ويرتفع إذا بقي سرير فارغًا.",
+    },
+    sourceUrl: "https://www.vsb.cz/ubytovani/en/student/pricelist/long-termaccommodation/",
+    checkedOn: "2026-11-08",
   },
 ];
 

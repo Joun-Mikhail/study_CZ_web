@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Cost of Living in Czechia for Students",
-  description: "Monthly student living costs in Prague, Brno and other Czech cities: rent, food, transport and more, from a student who lives in Czechia.",
+  description: "A student month in Prague, Brno and Ostrava, priced from official dorm and transport price lists, supermarket prices and university canteens.",
   alternates: { canonical: "/cost-of-living" },
 };
 

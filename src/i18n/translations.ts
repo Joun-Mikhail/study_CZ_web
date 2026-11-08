@@ -223,10 +223,11 @@ export const translations = {
     },
     cost: {
       title: "Cost of Living",
-      subtitle: "Compare estimated monthly costs across Prague, Brno, and Ostrava so you can budget before you arrive.",
+      subtitle:
+        "What a student month costs in Prague, Brno and Ostrava, priced from official dorm and transport price lists, real supermarket prices and university canteens. Every figure links to its source.",
       disclaimer:
-        "These are community-reported estimates, not official statistics. Confirm current numbers with your university before finalizing your budget.",
-      totalLabel: "Estimated monthly total",
+        "Prices change, so open the sources before you finalise your budget. The grocery quantities are our assumption, and health insurance is the one figure students report rather than an official price.",
+      totalLabel: "A month, from budget to balanced",
       cityGuideTitle: "City guide",
       housingLabel: "Housing",
       transportLabel: "Transport",
@@ -575,10 +576,11 @@ export const translations = {
     },
     cost: {
       title: "تكاليف المعيشة",
-      subtitle: "قارن التكاليف الشهرية التقريبية بين براغ وبرنو وأوسترافا عشان تحسب ميزانيتك قبل ما توصل.",
+      subtitle:
+        "تكلفة شهر الطالب في براغ وبرنو وأوسترافا، محسوبة من قوائم أسعار السكن الجامعي والمواصلات الرسمية، وأسعار سوبرماركت حقيقية، ومطاعم الجامعات. كل رقم معاه رابط مصدره.",
       disclaimer:
-        "الأرقام دي تقديرات من المجتمع مش إحصائيات رسمية. تأكد من الأرقام الحالية مع جامعتك قبل ما تحدد ميزانيتك النهائية.",
-      totalLabel: "الإجمالي الشهري التقريبي",
+        "الأسعار بتتغير، فافتح المصادر قبل ما تحدد ميزانيتك النهائية. كميات البقالة افتراض مننا، والتأمين الصحي هو الرقم الوحيد اللي من كلام الطلاب مش سعر رسمي.",
+      totalLabel: "الشهر، من الاقتصادي للمتوازن",
       cityGuideTitle: "دليل المدينة",
       housingLabel: "السكن",
       transportLabel: "المواصلات",

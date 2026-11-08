@@ -15,8 +15,8 @@ const range = ([lo, hi]: [number, number]) => (lo === hi ? n(lo) : `${n(lo)}–$
 const en = {
   title: "Student housing in Czechia: university dorm prices",
   subtitle:
-    "What a bed in a university dormitory costs in Prague and Brno, copied from each university's own price list. Prices are per bed per night, including VAT.",
-  checked: "Checked against the official price lists on 7 November 2026. Prices change, so open the source before you book.",
+    "What a bed in a university dormitory costs in Prague, Brno and Ostrava, copied from each university's own price list. Prices are per bed per night, including VAT.",
+  checked: "Checked against the official price lists on 7 and 8 November 2026. Prices change, so open the source before you book.",
   single: "Single room",
   double: "Bed in a double room",
   perNight: "CZK a night",
@@ -25,7 +25,7 @@ const en = {
   validFrom: "Valid from",
   source: "Official price list",
   privateTitle: "Renting privately",
-  privateBody: "Private flats and rooms are not covered here because there is no official price list. Our cost-of-living page shows the ranges students report.",
+  privateBody: "Private flats and rooms are not covered here because there is no official price list. Our cost-of-living page prices a whole student month from these dorm lists.",
   privateLink: "Cost of living",
   nextTitle: "Next steps",
   links: [
@@ -38,8 +38,8 @@ const en = {
 const ar: typeof en = {
   title: "السكن الطلابي في التشيك: أسعار السكن الجامعي",
   subtitle:
-    "كم يكلف السرير في السكن الجامعي في براغ وبرنو، منقولًا من قائمة أسعار كل جامعة. الأسعار للسرير في الليلة، شاملة ضريبة القيمة المضافة.",
-  checked: "راجعنا الأسعار على القوائم الرسمية بتاريخ 7 نوفمبر 2026. الأسعار تتغير، لذا افتح المصدر قبل الحجز.",
+    "كم يكلف السرير في السكن الجامعي في براغ وبرنو وأوسترافا، منقولًا من قائمة أسعار كل جامعة. الأسعار للسرير في الليلة، شاملة ضريبة القيمة المضافة.",
+  checked: "راجعنا الأسعار على القوائم الرسمية بتاريخ 7 و8 نوفمبر 2026. الأسعار تتغير، لذا افتح المصدر قبل الحجز.",
   single: "غرفة فردية",
   double: "سرير في غرفة مزدوجة",
   perNight: "كرونة في الليلة",
@@ -48,7 +48,7 @@ const ar: typeof en = {
   validFrom: "سارية من",
   source: "قائمة الأسعار الرسمية",
   privateTitle: "الإيجار الخاص",
-  privateBody: "الشقق والغرف الخاصة غير مشمولة هنا لأنه لا توجد قائمة أسعار رسمية لها. صفحة تكاليف المعيشة عندنا فيها النطاقات التي يذكرها الطلاب.",
+  privateBody: "الشقق والغرف الخاصة غير مشمولة هنا لأنه لا توجد قائمة أسعار رسمية لها. صفحة تكاليف المعيشة عندنا تحسب شهر الطالب كاملًا من قوائم السكن هذه.",
   privateLink: "تكاليف المعيشة",
   nextTitle: "الخطوات التالية",
   links: [

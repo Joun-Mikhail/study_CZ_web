@@ -10,5 +10,6 @@ describe("dorm prices", () => {
     expect(d.sourceUrl).toMatch(/^https:\/\//);
     expect(d.checkedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(d.university.ar && d.city.ar && d.validFrom.ar && d.conditions.ar).toBeTruthy();
+    expect(["prague", "brno", "ostrava"]).toContain(d.cityKey);
   });
 });

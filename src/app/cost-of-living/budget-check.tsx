@@ -7,7 +7,8 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { HelpLink } from "@/components/help-sheet";
 import { buttonClasses } from "@/components/ui/magnetic-button";
 import { track } from "@/components/umami";
-import { cities, totalRange, type CityKey } from "@/data/costs";
+import { cities, type CityKey } from "@/data/costs";
+import { monthRange } from "@/lib/living-calc";
 import { saveBudgetToJourney } from "@/lib/journey-store";
 
 /**
@@ -19,26 +20,26 @@ const COPY = {
   en: {
     label: "Your monthly budget (CZK)",
     hint: "Optional. It stays in your browser.",
-    gap: (gap: string, city: string) => `Your budget is about ${gap} a month short of the lower end of a realistic month in ${city}. Ways to close it:`,
-    cheaper: (city: string, total: string) => `Look at ${city}: a realistic month starts around ${total}.`,
+    gap: (gap: string, city: string) => `Your budget is about ${gap} a month short of a budget month in ${city}. Ways to close it:`,
+    cheaper: (city: string, total: string) => `Look at ${city}: a budget month there is about ${total}.`,
     prep: "A preparatory year, then a Czech-taught degree, which is tuition-free at public universities",
     scholarships: "Scholarships",
     work: "Part-time work: see the calculator below",
     call: "Want to go through your numbers together? A 30-minute call.",
-    covered: (city: string) => `Your budget covers a realistic month in ${city}.`,
+    covered: (city: string) => `Your budget covers a budget month in ${city}.`,
     save: "Save my budget to My Journey",
     saved: "Saved. Open My Journey",
   },
   ar: {
     label: "ميزانيتك في الشهر (بالكرونة)",
     hint: "اختياري، ومتخزن في المتصفح بتاعك بس.",
-    gap: (gap: string, city: string) => `ميزانيتك ناقصة حوالي ${gap} في الشهر عن أقل تكلفة واقعية في ${city}. ودي طرق تسد الفرق:`,
-    cheaper: (city: string, total: string) => `بص على ${city}: الشهر الواقعي بيبدأ من حوالي ${total}.`,
+    gap: (gap: string, city: string) => `ميزانيتك ناقصة حوالي ${gap} في الشهر عن الشهر الاقتصادي في ${city}. ودي طرق تسد الفرق:`,
+    cheaper: (city: string, total: string) => `بص على ${city}: الشهر الاقتصادي هناك حوالي ${total}.`,
     prep: "سنة تحضيرية وبعدها دراسة بالتشيكي، ودي ببلاش في الجامعات الحكومية",
     scholarships: "المنح",
     work: "شغل بارت تايم: شوف الحاسبة تحت",
     call: "عايز نراجع أرقامك مع بعض؟ مكالمة 30 دقيقة.",
-    covered: (city: string) => `ميزانيتك بتغطي شهر واقعي في ${city}.`,
+    covered: (city: string) => `ميزانيتك بتغطي الشهر الاقتصادي في ${city}.`,
     save: "احفظ ميزانيتي في رحلتي",
     saved: "اتحفظت. افتح رحلتي",
   },
@@ -65,7 +66,7 @@ export function BudgetCheck({
   const cityName = cities.find((x) => x.key === city)?.label[locale] ?? city;
   const gap = totalMin - budget;
   const cheapest = cities
-    .map((x) => ({ ...x, min: totalRange(x.key)[0] }))
+    .map((x) => ({ ...x, min: monthRange(x.key)[0] }))
     .filter((x) => x.key !== city && x.min < totalMin)
     .sort((a, b) => a.min - b.min)[0];
 
