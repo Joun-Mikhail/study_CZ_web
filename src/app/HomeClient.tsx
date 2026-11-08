@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer";
 import { StageRouter } from "@/components/stage-router";
 import { CityStrip, type CityCard } from "@/components/city-strip";
 import { PopularGuides } from "@/components/popular-guides";
+import { HomeStudyOverview } from "@/components/home-study-overview";
 import { JourneyGlobe } from "@/components/journey-globe";
 import { SiteImage } from "@/components/site-image";
 import { EligibilityArt, MatcherArt, CostArt, GuideArt } from "@/components/illustrations";
@@ -161,6 +162,8 @@ export default function HomeClient({ facts }: { facts: HomeFacts }) {
             ))}
           </div>
         </section>
+
+        <HomeStudyOverview />
 
         {/* ── Popular guides: links from the home page help them rank ── */}
         <PopularGuides />
