@@ -29,6 +29,7 @@ const en: GuideCopy = {
     { text: "Nostrification costs 3,000 CZK and is decided within 30 days of a complete application.", source: "msmt" },
     { text: "Start 6 to 9 months before your studies begin.", source: "studyin" },
     { text: "Having your future Czech degree recognised back in Egypt is a separate process.", link: { href: "/recognition/egypt", label: "Recognition in Egypt" } },
+    { text: "This is one step of studying in Czechia from Egypt.", link: { href: "/study-in-czechia-from-egypt", label: "See every step" } },
   ],
   sections: [
     {
@@ -102,6 +103,7 @@ const ar: GuideCopy = {
     { text: "رسوم المعادلة 3,000 كرونة، ويصدر القرار خلال 30 يومًا من تقديم طلب مكتمل.", source: "msmt" },
     { text: "ابدأ قبل بداية الدراسة بـ 6 إلى 9 أشهر.", source: "studyin" },
     { text: "معادلة شهادتك الجامعية التشيكية لاحقًا في مصر إجراء منفصل.", link: { href: "/recognition/egypt", label: "المعادلة في مصر" } },
+    { text: "هذه خطوة من خطوات الدراسة في التشيك من مصر.", link: { href: "/study-in-czechia-from-egypt", label: "كل الخطوات" } },
   ],
   sections: [
     {

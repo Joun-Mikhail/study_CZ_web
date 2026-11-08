@@ -6,15 +6,35 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { OFFICIAL } from "@/lib/study-costs";
+import { DORM_PRICES } from "@/data/dorm-prices";
 
 // A hub for students applying from Egypt. It adds no new facts: every step
 // repeats what the linked page already says (and sources) and sends the
 // reader there.
 type Step = { title: string; body: string; links: { href: string; label: string }[] };
 
+const n = (v: number) => v.toLocaleString("en-US");
+const VISA_FEE = n(OFFICIAL.visaFeeCairoEgp.value);
+const FUNDS = n(OFFICIAL.proofOfFundsYearCzk.value);
+const SUPERLEG = n(OFFICIAL.superlegalisationCairoEgp.value);
+const DORM_FROM = n(Math.min(...DORM_PRICES.map((d) => d.double[0])));
+const MSMT_NOSTRIFICATION =
+  "https://msmt.gov.cz/vzdelavani/uznavani-zahranicniho-a-ceskeho-studia/uznani-zahranicniho-vzdelani-s-vyjimkou-vs";
+
+/** Key figures, each repeated from the page or data file that sources it. */
+const FACTS = [
+  { key: "free", url: OFFICIAL.czechFree.url },
+  { key: "visa", url: OFFICIAL.visaFeeCairoEgp.url },
+  { key: "funds", url: OFFICIAL.proofOfFundsYearCzk.url },
+  { key: "superleg", url: OFFICIAL.superlegalisationCairoEgp.url },
+  { key: "nostrification", url: MSMT_NOSTRIFICATION },
+  { key: "dorm", href: "/student-housing" },
+] as const;
+
 const en = {
-  title: "Studying in Czechia from Egypt: the whole path",
+  title: "Study in Czechia from Egypt: the whole path",
   subtitle:
     "Eight steps from your Thanaweya Amma to your first week in Czechia. Each one links to the full guide, built from official university, embassy and ministry pages.",
   steps: [
@@ -84,6 +104,50 @@ const en = {
   ] as Step[],
   parents: "Parents: what it costs, how safe it is and how paying for help works.",
   parentsLink: "For parents",
+  factsTitle: "Key numbers for Egyptian students",
+  facts: {
+    free: { label: "Tuition, taught in Czech at a public university", value: "Free" },
+    visa: { label: "Student visa fee at the Czech Embassy in Cairo", value: `${VISA_FEE} EGP` },
+    funds: { label: "Money to show for one year of study", value: `${FUNDS} CZK` },
+    superleg: { label: "Superlegalisation, per document", value: `${SUPERLEG} EGP` },
+    nostrification: { label: "Nostrification of Thanaweya Amma", value: "3,000 CZK, 30 days" },
+    dorm: { label: "Bed in a university dorm, from", value: `${DORM_FROM} CZK a night` },
+  } as Record<(typeof FACTS)[number]["key"], { label: string; value: string }>,
+  source: "Source",
+  details: "Details",
+  faqTitle: "Questions Egyptian students ask",
+  faq: [
+    {
+      q: "Can Egyptians study in Czechia for free?",
+      a: "Yes, if the degree is taught in Czech at a public university, for every nationality. Degrees taught in English charge tuition.",
+      href: "/what-it-costs",
+      label: "What it costs",
+    },
+    {
+      q: "Is the Thanaweya Amma accepted by Czech universities?",
+      a: "Yes, once it is legalised in Egypt and at the Czech Embassy in Cairo, then recognised by the faculty or by nostrification at a Czech regional authority.",
+      href: "/thanaweya-amma-czech-university",
+      label: "Thanaweya Amma guide",
+    },
+    {
+      q: "How much money do I need for the Czech student visa?",
+      a: `You must show at least ${FUNDS} CZK for one year, and the visa fee in Cairo is ${VISA_FEE} EGP.`,
+      href: "/student-visa-egypt",
+      label: "Student visa from Egypt",
+    },
+    {
+      q: "Can I work while I study in Czechia?",
+      a: "Full-time students of an accredited university programme have free access to the Czech labour market, with no separate work permit.",
+      href: "/work-while-studying",
+      label: "Working while studying",
+    },
+    {
+      q: "Will my Czech degree be recognised in Egypt?",
+      a: "Egypt's Supreme Council of Universities decides. Check its conditions before you choose a university.",
+      href: "/recognition/egypt",
+      label: "Recognition in Egypt",
+    },
+  ],
 };
 
 const ar: typeof en = {
@@ -157,6 +221,50 @@ const ar: typeof en = {
   ],
   parents: "لأولياء الأمور: التكلفة، والأمان، وطريقة الدفع مقابل المساعدة.",
   parentsLink: "لأولياء الأمور",
+  factsTitle: "أرقام مهمة للطلاب المصريين",
+  facts: {
+    free: { label: "المصاريف للدراسة بالتشيكية في جامعة حكومية", value: "مجانًا" },
+    visa: { label: "رسوم فيزا الدراسة في السفارة التشيكية بالقاهرة", value: `${VISA_FEE} جنيه` },
+    funds: { label: "المبلغ المطلوب إثباته لسنة دراسية", value: `${FUNDS} كرونة` },
+    superleg: { label: "التصديق في السفارة، للمستند الواحد", value: `${SUPERLEG} جنيه` },
+    nostrification: { label: "معادلة الثانوية العامة (نوستريفيكيشن)", value: "3,000 كرونة، 30 يوم" },
+    dorm: { label: "سرير في السكن الجامعي، يبدأ من", value: `${DORM_FROM} كرونة في الليلة` },
+  },
+  source: "المصدر",
+  details: "التفاصيل",
+  faqTitle: "أسئلة الطلاب المصريين",
+  faq: [
+    {
+      q: "هل يقدر المصري يدرس في التشيك مجانًا؟",
+      a: "أيوه، لو الدراسة بالتشيكية في جامعة حكومية، وده لكل الجنسيات. الدراسة بالإنجليزية بمصاريف.",
+      href: "/what-it-costs",
+      label: "التكاليف الحقيقية",
+    },
+    {
+      q: "هل الجامعات التشيكية بتقبل الثانوية العامة المصرية؟",
+      a: "أيوه، بعد ما تتوثق في مصر وفي السفارة التشيكية بالقاهرة، وبعدها تتعادل عن طريق الكلية أو بالنوستريفيكيشن في مكتب الإقليم.",
+      href: "/thanaweya-amma-czech-university",
+      label: "دليل الثانوية العامة",
+    },
+    {
+      q: "محتاج فلوس قد إيه لفيزا الدراسة في التشيك؟",
+      a: `لازم تثبت ${FUNDS} كرونة على الأقل لسنة دراسية، ورسوم الفيزا في القاهرة ${VISA_FEE} جنيه.`,
+      href: "/student-visa-egypt",
+      label: "تأشيرة الدراسة من مصر",
+    },
+    {
+      q: "أقدر أشتغل وأنا بدرس في التشيك؟",
+      a: "طلاب الدوام الكامل في برنامج جامعي معتمد ليهم حرية الشغل في التشيك من غير تصريح عمل منفصل.",
+      href: "/work-while-studying",
+      label: "الشغل أثناء الدراسة",
+    },
+    {
+      q: "هل شهادتي التشيكية هتتعادل في مصر؟",
+      a: "المجلس الأعلى للجامعات هو اللي بيقرر. اعرف شروطه قبل ما تختار الجامعة.",
+      href: "/recognition/egypt",
+      label: "المعادلة في مصر",
+    },
+  ],
 };
 
 export default function FromEgyptClient() {
@@ -171,6 +279,30 @@ export default function FromEgyptClient() {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.title}</h1>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">{t.subtitle}</p>
+          <GlassCard className="mb-8">
+            <h2 className="text-lg font-semibold text-text-primary mb-3">{t.factsTitle}</h2>
+            <dl className="grid gap-3 sm:grid-cols-2">
+              {FACTS.map((f) => (
+                <div key={f.key}>
+                  <dt className="text-sm text-text-muted">{t.facts[f.key].label}</dt>
+                  <dd className="text-base font-semibold text-text-primary">
+                    <bdi>{t.facts[f.key].value}</bdi>{" "}
+                    {"url" in f ? (
+                      <a href={f.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-0.5 text-xs font-medium text-brand hover:underline">
+                        {t.source}
+                        <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <Link href={f.href} className="text-xs font-medium text-brand hover:underline">
+                        {t.details}
+                      </Link>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </GlassCard>
+
           <ol className="space-y-4 mb-8">
             {t.steps.map((s, i) => (
               <li key={s.title}>
@@ -203,6 +335,23 @@ export default function FromEgyptClient() {
               </li>
             ))}
           </ol>
+
+          <section aria-labelledby="egypt-faq" className="mb-8">
+            <h2 id="egypt-faq" className="text-xl font-bold text-text-primary mb-3">{t.faqTitle}</h2>
+            <div className="space-y-3">
+              {t.faq.map((item) => (
+                <GlassCard key={item.q}>
+                  <h3 className="text-base font-semibold text-text-primary">{item.q}</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed mt-1">
+                    {item.a}{" "}
+                    <Link href={item.href} className="font-medium text-brand hover:underline">
+                      {item.label}
+                    </Link>
+                  </p>
+                </GlassCard>
+              ))}
+            </div>
+          </section>
           <p className="text-sm text-text-secondary">
             {t.parents}{" "}
             <Link href="/for-parents" className="text-brand font-medium hover:underline">

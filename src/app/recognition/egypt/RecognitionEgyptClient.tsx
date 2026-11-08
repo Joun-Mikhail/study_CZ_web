@@ -17,6 +17,7 @@ const en: GuideCopy = {
     { text: "It decides case by case, after you graduate and apply with your documents. Nobody can promise the result in advance, including us.", source: "scuFaq" },
     { text: "The SCU requires the university to be recognised by the education ministry of its own country. In Czechia, that is the Ministry of Education's register of universities.", source: "scuFaq" },
     { text: "For practical (scientific) subjects, the SCU requires full-time study.", source: "scuFaq" },
+    { text: "This is one step of studying in Czechia from Egypt.", link: { href: "/study-in-czechia-from-egypt", label: "See every step" } },
   ],
   sections: [
     {
@@ -83,6 +84,7 @@ const ar: GuideCopy = {
     { text: "تتم المعادلة حالة بحالة، بعد التخرج وتقديم الطلب بالمستندات. لا أحد يستطيع أن يضمن النتيجة مسبقًا، ونحن منهم.", source: "scuFaq" },
     { text: "يشترط المجلس أن تكون الجامعة معترفًا بها من وزارة التعليم العالي في بلدها. في التشيك، المرجع هو سجل الجامعات لدى وزارة التعليم.", source: "scuFaq" },
     { text: "في التخصصات العملية يشترط المجلس أن تكون الدراسة بانتظام كامل (Full Time).", source: "scuFaq" },
+    { text: "هذه خطوة من خطوات الدراسة في التشيك من مصر.", link: { href: "/study-in-czechia-from-egypt", label: "كل الخطوات" } },
   ],
   sections: [
     {

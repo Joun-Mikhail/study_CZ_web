@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import FromEgyptClient from "./FromEgyptClient";
 
 export const metadata: Metadata = {
-  title: "Study in Czechia from Egypt: The Whole Path, Step by Step",
+  title: "Study in Czechia from Egypt: Costs, Visa and Admission Guide",
   description:
-    "For Egyptian students: from Thanaweya Amma to your first week in Czechia. Eligibility, Czech or English, deadlines, costs, the Cairo visa and degree recognition.",
+    "For Egyptian students: what it costs, the student visa in Cairo, Thanaweya Amma recognition and every step from applying to your first week in Czechia.",
   alternates: { canonical: "/study-in-czechia-from-egypt" },
 };
 

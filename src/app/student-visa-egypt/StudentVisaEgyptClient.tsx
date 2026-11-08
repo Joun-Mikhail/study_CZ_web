@@ -25,6 +25,7 @@ const en: GuideCopy = {
     { text: "For one year of study you must show at least 115,810 CZK.", source: "fundsInterior" },
     { text: "The fee is 6,412 EGP (valid from 1 November 2026).", source: "fees" },
     { text: "The Czech Ministry of the Interior decides, and it can take up to 60 days.", source: "studyVisa" },
+    { text: "This is one step of studying in Czechia from Egypt.", link: { href: "/study-in-czechia-from-egypt", label: "See every step" } },
   ],
   sections: [
     {
@@ -110,6 +111,7 @@ const ar: GuideCopy = {
     { text: "لسنة دراسية كاملة يجب أن تُثبت امتلاكك 115,810 كرونة تشيكية على الأقل.", source: "fundsInterior" },
     { text: "رسوم التأشيرة 6,412 جنيهًا مصريًا (سارية من 1 نوفمبر 2026).", source: "fees" },
     { text: "وزارة الداخلية التشيكية هي التي تقرر، وقد يستغرق ذلك حتى 60 يومًا.", source: "studyVisa" },
+    { text: "هذه خطوة من خطوات الدراسة في التشيك من مصر.", link: { href: "/study-in-czechia-from-egypt", label: "كل الخطوات" } },
   ],
   sections: [
     {
