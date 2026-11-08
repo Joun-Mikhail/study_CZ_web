@@ -92,9 +92,9 @@ export function PhotoCredits({ className }: { className?: string }) {
             <a href={img.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-brand">
               {img.alt[locale]}
             </a>
-            {" Â· "}
+            {" · "}
             {img.credit}
-            {" Â· "}
+            {" · "}
             {img.licenseUrl ? (
               <a href={img.licenseUrl} target="_blank" rel="noopener noreferrer license" className="underline underline-offset-2 hover:text-brand">
                 {img.license}
