@@ -20,12 +20,8 @@ export const DIRECTORY_SOURCES = new Set(["https://studyin.gov.cz/plan-your-stud
  * Remove an entry once its programmes point to a working fee page.
  */
 export const BROKEN_SOURCES = new Set([
-  "https://www.vse.cz/english/admissions/bachelor-programs/",
-  "https://www.vse.cz/english/admissions/master-programs/",
   "https://www.cvut.cz/en/admissions",
   "https://fit.cvut.cz/en/study/bachelor-programs",
-  "https://www.vutbr.cz/en/admission",
-  "https://www.fit.vut.cz/study/program/.en",
   "https://www.vscht.cz/EN/study/programs",
 ]);
 

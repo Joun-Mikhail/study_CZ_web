@@ -92,6 +92,8 @@ export function EligibilityRequirements({ locale }: { locale: "en" | "ar" }) {
         </li>
         <li>
           {ar ? "شهادة الثانوية العامة المصرية لازم تتوثق الأول. التفاصيل في " : "An Egyptian thanaweya amma certificate has to be legalised first. See "}
+          <Go href="/thanaweya-amma-czech-university/">{ar ? "دليل الثانوية العامة" : "the Thanaweya Amma guide"}</Go>
+          {ar ? "، و" : ", "}
           <Go href="/recognition/egypt/">{ar ? "دليل المعادلة لمصر" : "the Egypt recognition guide"}</Go>
           {ar ? " و" : " and "}
           <Go href="/qa/#docs-nostrification">{ar ? "أسئلة النوستريفيكيشن" : "the nostrification questions"}</Go>.

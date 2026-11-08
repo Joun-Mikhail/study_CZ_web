@@ -1,14 +1,10 @@
 "use client";
 
 const STORAGE_KEY = "studycz_course";
-const ACCESS_KEY = "studycz_access";
-
-// Valid access codes — in production you'd verify against a backend
-// For now, you manually give these codes to students after Stripe payment
-const VALID_CODES = [
-  "CZECH2024", "PRAGUE90", "STUDY-CZ-VIP",
-  "FIRST90DAYS", "CZECHIA2025", "WELCOME-CZ",
-];
+/** Signed access token issued by the course API after a verified purchase. */
+const TOKEN_KEY = "studycz_course_token";
+/** Old client-side flag from the hard-coded-code era; cleared on sight. */
+const LEGACY_ACCESS_KEY = "studycz_access";
 
 export type CourseProgress = {
   completedLessons: string[]; // "moduleId/lessonId"
@@ -20,29 +16,51 @@ function getDefault(): CourseProgress {
   return { completedLessons: [], quizScores: {}, lastVisited: null };
 }
 
-export function hasAccess(): boolean {
-  if (typeof window === "undefined") return false;
+export function getAccessToken(): string | null {
+  if (typeof window === "undefined") return null;
   try {
-    return localStorage.getItem(ACCESS_KEY) === "true";
+    localStorage.removeItem(LEGACY_ACCESS_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   } catch {
-    return false;
+    return null;
   }
 }
 
-export function validateCode(code: string): boolean {
-  const normalized = code.trim().toUpperCase();
-  if (VALID_CODES.includes(normalized)) {
-    try {
-      localStorage.setItem(ACCESS_KEY, "true");
-    } catch {}
-    return true;
-  }
-  return false;
+export function setAccessToken(token: string): void {
+  try {
+    localStorage.setItem(TOKEN_KEY, token);
+  } catch {}
+}
+
+/**
+ * Whether this browser holds an access token. The token is only checked by
+ * the course API when a paid lesson is loaded, so this is a hint for the UI,
+ * not a lock: paid content never ships in the site itself.
+ */
+export function hasAccess(): boolean {
+  return Boolean(getAccessToken());
+}
+
+/**
+ * Personal access links look like /courses/learn/?access=<token>. Store the
+ * token and remove it from the address bar so it isn't shared by accident.
+ */
+export function captureAccessFromUrl(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("access");
+    if (!token) return;
+    setAccessToken(token);
+    url.searchParams.delete("access");
+    window.history.replaceState(null, "", url.pathname + url.search + url.hash);
+  } catch {}
 }
 
 export function revokeAccess(): void {
   try {
-    localStorage.removeItem(ACCESS_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(LEGACY_ACCESS_KEY);
   } catch {}
 }
 

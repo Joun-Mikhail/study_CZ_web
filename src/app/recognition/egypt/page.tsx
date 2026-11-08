@@ -4,7 +4,7 @@ import RecognitionEgyptClient from "./RecognitionEgyptClient";
 export const metadata: Metadata = {
   title: "Is a Czech Degree Recognised in Egypt? Equivalency Step by Step",
   description:
-    "How Egypt's Supreme Council of Universities makes a Czech degree equivalent: conditions, legalisation, documents, fees and where to send them. From official sources only, with the date checked.",
+    "How Egypt's Supreme Council of Universities makes a Czech degree equivalent: conditions, legalisation, documents, fees and where to send them, from official sources.",
   alternates: { canonical: "/recognition/egypt" },
 };
 
