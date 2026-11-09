@@ -13,7 +13,7 @@ import { cityGuides } from "@/data/city-guides";
 import { OFFICIAL } from "@/data/official-figures";
 import { JOB_BY_ID, type JobRoleId } from "@/data/living/jobs";
 import { WEEKS_PER_MONTH, DEPOSIT_RULE } from "@/data/living/work-rules";
-import { numbeoValue } from "@/data/living/city-costs";
+import { flatRent } from "@/data/living/city-costs";
 import { studentMonth, roundEstimate, fmtCzk, maxDeposit, LIFESTYLE_PRESETS, type Lifestyle, type MonthSettings } from "@/lib/living-calc";
 import { trackToolStarted } from "@/components/umami";
 import { LivingHero } from "@/components/living/living-hero";
@@ -91,7 +91,7 @@ export default function CostOfLivingPage() {
     [settings],
   );
   const guide = cityGuides[city];
-  const rent = Math.round(numbeoValue(city, "rentOutside")?.avg ?? 0);
+  const rent = flatRent(city, "outside");
 
   const chooseCity = (k: CityKey) => {
     trackToolStarted("cost-of-living");

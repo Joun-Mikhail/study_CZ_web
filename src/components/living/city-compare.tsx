@@ -4,7 +4,7 @@ import { MapPinned } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { cities, type CityKey } from "@/data/costs";
 import { SiteImage } from "@/components/site-image";
-import { dormNightly, DORM_NIGHTS_PER_MONTH, STUDENT_TRANSPORT, numbeoValue } from "@/data/living/city-costs";
+import { dormNightly, DORM_NIGHTS_PER_MONTH, STUDENT_TRANSPORT, CANTEEN_MEAL, RENT_MAP, flatRent } from "@/data/living/city-costs";
 import { fmtCzk, roundEstimate, studentMonth, type MonthSettings } from "@/lib/living-calc";
 import { BasisTag } from "./controls";
 import { CITY_PHOTO } from "./student-month";
@@ -21,15 +21,13 @@ const COPY = {
     rows: {
       dormShared: "Dorm bed, shared room",
       dormOwn: "Dorm, own room",
-      flat: "One-bedroom flat, outside centre",
-      meal: "Meal, inexpensive restaurant",
-      coffee: "Cappuccino",
+      flat: "Furnished one-room flat, outside centre",
+      meal: "Lunch at the university canteen",
       pass: "Student transport pass",
     },
     from: "from",
     perMonth: "a month",
     official: "Official",
-    numbeo: "Numbeo",
     choose: (c: string) => `Use ${c}`,
     why: "Why can Prague come out cheapest? These totals use the cheapest bed on each university's official list, and the lowest dorm prices we found are in Prague (ČVUT). If you rent a flat instead, Prague is the most expensive of the three: switch \"Where you live\" above to see it.",
   },
@@ -41,15 +39,13 @@ const COPY = {
     rows: {
       dormShared: "سرير في سكن جامعي، غرفة مشتركة",
       dormOwn: "سكن جامعي، غرفة خاصة",
-      flat: "شقة بغرفة نوم خارج المركز",
-      meal: "وجبة في مطعم بسيط",
-      coffee: "كابتشينو",
+      flat: "شقة مفروشة بغرفة واحدة خارج المركز",
+      meal: "غداء في مطعم الجامعة",
       pass: "اشتراك المواصلات للطلاب",
     },
     from: "من",
     perMonth: "في الشهر",
     official: "رسمي",
-    numbeo: "Numbeo",
     choose: (c: string) => `اختر ${c}`,
     why: "لماذا قد تظهر براغ الأرخص؟ هذه المجاميع تستخدم أرخص سرير في قائمة كل جامعة، وأقل أسعار السكن الجامعي التي وجدناها في براغ (ČVUT). أما إذا استأجرت شقة، فبراغ هي الأغلى بين المدن الثلاث: غيّر «مكان السكن» أعلاه لترى ذلك.",
   },
@@ -74,15 +70,17 @@ export function CityCompare({ locale, settings, city, onCity }: { locale: Locale
 
       <ul className="mt-6 grid gap-4 md:grid-cols-3">
         {cities.map((c) => {
-          const meal = numbeoValue(c.key, "mealInexpensive");
-          const coffee = numbeoValue(c.key, "cappuccino");
-          const flat = numbeoValue(c.key, "rentOutside");
-          const rows: { label: string; value: string; kind: "official" | "numbeo"; range?: string }[] = [
+          const rent = RENT_MAP.cities[c.key].outside;
+          const rows: { label: string; value: string; kind: "official"; range?: string }[] = [
             { label: t.rows.dormShared, value: `${t.from} ${iso(fmtCzk(dorm[c.key].double[0] * DORM_NIGHTS_PER_MONTH))}`, kind: "official" },
             { label: t.rows.dormOwn, value: `${t.from} ${iso(fmtCzk(dorm[c.key].single[0] * DORM_NIGHTS_PER_MONTH))}`, kind: "official" },
-            ...(flat ? [{ label: t.rows.flat, value: iso(fmtCzk(roundEstimate(flat.avg))), kind: "numbeo" as const, range: flat.range ? `${flat.range[0].toLocaleString("en-US")}–${flat.range[1].toLocaleString("en-US")}` : undefined }] : []),
-            ...(meal ? [{ label: t.rows.meal, value: iso(fmtCzk(meal.avg)), kind: "numbeo" as const, range: meal.range ? `${meal.range[0]}–${meal.range[1]}` : undefined }] : []),
-            ...(coffee ? [{ label: t.rows.coffee, value: iso(fmtCzk(coffee.avg)), kind: "numbeo" as const, range: coffee.range ? `${coffee.range[0]}–${coffee.range[1]}` : undefined }] : []),
+            {
+              label: t.rows.flat,
+              value: iso(fmtCzk(roundEstimate(flatRent(c.key, "outside")))),
+              kind: "official",
+              range: `${flatRent(c.key, "outside", rent.lowest).toLocaleString("en-US")}–${flatRent(c.key, "outside", rent.highest).toLocaleString("en-US")}`,
+            },
+            { label: t.rows.meal, value: iso(fmtCzk(CANTEEN_MEAL[c.key].mealCzk)), kind: "official" },
             { label: t.rows.pass, value: iso(fmtCzk(STUDENT_TRANSPORT[c.key].monthlyCzk)), kind: "official" },
           ];
           const active = c.key === city;
@@ -109,7 +107,7 @@ export function CityCompare({ locale, settings, city, onCity }: { locale: Locale
                     <div key={r.label} className="flex items-start justify-between gap-3">
                       <dt className="text-text-secondary">
                         {r.label}
-                        <span className="ms-1.5 align-middle"><BasisTag kind={r.kind}>{r.kind === "official" ? t.official : t.numbeo}</BasisTag></span>
+                        <span className="ms-1.5 align-middle"><BasisTag kind={r.kind}>{t.official}</BasisTag></span>
                       </dt>
                       <dd className="text-end">
                         <span className="block font-semibold text-text-primary tabular-nums whitespace-nowrap">{r.value}</span>

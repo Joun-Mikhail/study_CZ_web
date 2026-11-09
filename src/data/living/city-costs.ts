@@ -2,19 +2,19 @@ import type { CityKey } from "@/data/costs";
 import { DORM_PRICES, NIGHTS_PER_MONTH } from "@/data/dorm-prices";
 
 /**
- * City-level prices for the student-month simulator. Two kinds, never mixed:
+ * City-level prices for the student-month simulator. Every figure comes from
+ * the body that sets or measures it, with the date we checked it:
  *
- * 1. Official prices: student transport passes and university dorm beds,
- *    from the operator's own price list, with the date we checked it.
- * 2. Crowd-sourced estimates from Numbeo (numbeo.com): averages of prices
- *    that visitors report. They are city-wide guides, not offers you can buy.
- *    Numbeo limits automated access, so these figures were read from its
- *    public city pages as listed in search results on NUMBEO_READ_ON; each
- *    city keeps the month Numbeo's page showed.
+ * - student transport passes and university dorm beds: the operator's price list;
+ * - university canteen lunches: the university's own menu or notice;
+ * - the phone plan: the operator's price list;
+ * - private flat rent: the Ministry of Finance rent map (cenová mapa nájemného);
+ * - utilities in a rented flat: the Czech Statistical Office household budget survey.
+ *
+ * Health insurance is the one figure without an official price (see below).
  */
 
 export const CITY_COSTS_CHECKED_ON = "2026-11-08";
-export const NUMBEO_READ_ON = "2026-11-08";
 
 export type Sourced<T> = T & { url: string; checkedOn: string };
 
@@ -87,82 +87,96 @@ export function dormNightly(): Record<CityKey, DormRange> {
 
 export const DORM_NIGHTS_PER_MONTH = NIGHTS_PER_MONTH;
 
-export type NumbeoItem = "mealInexpensive" | "cappuccino" | "fitness" | "cinema" | "rentCentre" | "rentOutside" | "utilities85" | "mobilePlan" | "internet";
-
-export type NumbeoCity = {
-  /** Month the Numbeo page was titled with when read. */
-  pageMonth: string;
-  url: string;
-  /** Average and, where Numbeo showed one, its range. Missing items are null. */
-  items: Record<NumbeoItem, { avg: number; range?: [number, number] } | null>;
-};
-
-export const NUMBEO: Record<CityKey, NumbeoCity> = {
+/** Student price of a hot lunch at a university canteen (menza), CZK. A student card is needed; guests pay more. */
+export const CANTEEN_MEAL: Record<CityKey, Sourced<{ mealCzk: number; operator: { en: string; ar: string }; note: { en: string; ar: string } }>> = {
   prague: {
-    pageMonth: "November 2026",
-    url: "https://www.numbeo.com/cost-of-living/in/Prague",
-    items: {
-      mealInexpensive: { avg: 246.69, range: [180, 380] },
-      cappuccino: { avg: 79.3, range: [50, 90] },
-      fitness: { avg: 1490, range: [1000, 2490] },
-      cinema: { avg: 290, range: [240, 350] },
-      rentCentre: { avg: 26100, range: [18000, 36900] },
-      rentOutside: { avg: 21187.29, range: [17000, 27000] },
-      utilities85: { avg: 6178.04 },
-      mobilePlan: { avg: 504.89 },
-      internet: null,
+    mealCzk: 88,
+    operator: { en: "Charles University canteens", ar: "مطاعم جامعة تشارلز" },
+    note: {
+      en: "Cheapest student main dish on the menu for 9 November 2026; the others cost up to 105 Kč. Soup is extra.",
+      ar: "أرخص طبق رئيسي للطلاب في قائمة 9 نوفمبر 2026، والباقي حتى 105 كرونات. الشوربة بسعر إضافي.",
     },
+    url: "https://kam-septim-fe.is.cuni.cz/menu?canteen=1&date=2026-11-09&view=day",
+    checkedOn: CITY_COSTS_CHECKED_ON,
   },
   brno: {
-    pageMonth: "September 2026",
-    url: "https://www.numbeo.com/cost-of-living/in/Brno",
-    items: {
-      mealInexpensive: { avg: 200, range: [180, 300] },
-      cappuccino: { avg: 76, range: [60, 90] },
-      fitness: { avg: 1185, range: [400, 1590] },
-      cinema: { avg: 280, range: [250, 309] },
-      rentCentre: { avg: 21326.67, range: [18000, 25000] },
-      rentOutside: { avg: 17400 },
-      utilities85: { avg: 6445, range: [5500, 8500] },
-      mobilePlan: { avg: 496, range: [300, 750] },
-      internet: { avg: 413, range: [300, 500] },
+    mealCzk: 85,
+    operator: { en: "Masaryk University canteens", ar: "مطاعم جامعة ماساريك" },
+    note: {
+      en: "The student menu price, unchanged from the spring 2026 semester. Soup is sold separately.",
+      ar: "سعر وجبة الطلاب، بدون تغيير منذ فصل ربيع 2026. الشوربة تُباع منفصلة.",
     },
+    url: "https://www.skm.muni.cz/en/news/changes-to-the-student-dining-offer",
+    checkedOn: CITY_COSTS_CHECKED_ON,
   },
   ostrava: {
-    pageMonth: "July 2026",
-    url: "https://www.numbeo.com/cost-of-living/in/Ostrava",
-    items: {
-      mealInexpensive: { avg: 230, range: [160, 260] },
-      cappuccino: { avg: 69.11, range: [50, 85] },
-      fitness: { avg: 1198, range: [800, 1600] },
-      cinema: { avg: 200, range: [173, 240] },
-      rentCentre: { avg: 15033 },
-      rentOutside: { avg: 11414 },
-      utilities85: null,
-      mobilePlan: null,
-      internet: null,
+    mealCzk: 40,
+    operator: { en: "VŠB – Technical University of Ostrava canteen", ar: "مطعم جامعة أوسترافا التقنية (VŠB)" },
+    note: {
+      en: "VŠB's own page says “approximately 40 CZK” and gives no date; current prices are shown only after logging in, so expect more.",
+      ar: "صفحة الجامعة نفسها تقول «حوالي 40 كرونة» بدون تاريخ، والأسعار الحالية تظهر بعد تسجيل الدخول بس، فتوقّع أكتر.",
     },
+    url: "https://www.vsb.cz/en/study/study-at-vsb-tuo/catering",
+    checkedOn: CITY_COSTS_CHECKED_ON,
   },
+};
+
+/** A prepaid mobile plan from the operator's own price list (PDF dated 29 April 2026). The same price applies everywhere in Czechia. */
+export const PHONE_PLAN: Sourced<{ monthlyCzk: number; operator: string; plan: string; includes: { en: string; ar: string } }> = {
+  monthlyCzk: 350,
+  operator: "Kaktus (T-Mobile)",
+  plan: "NEŘEŠTO za 350",
+  includes: { en: "10 GB, then unlimited at 2 Mb/s; 100 minutes or texts", ar: "10 جيجا ثم غير محدود بسرعة 2 ميجابت؛ 100 دقيقة أو رسالة" },
+  url: "https://www.mujkaktus.cz/cenik",
+  checkedOn: CITY_COSTS_CHECKED_ON,
 };
 
 /**
- * Where a city has no Numbeo figure, the simulator borrows another city's and
- * says so. Mobile and internet tariffs are sold nationally, so Brno's figure
- * is a fair stand-in; utilities depend on the flat, so the borrowed figure is
- * flagged as a rough guide.
+ * Private rent from the Ministry of Finance rent map (cenová mapa nájemného,
+ * Act 151/1997 and Decree 456/2024), August 2026 release, built on offers up to
+ * 30 June 2026. Figures are CZK per m² a month for the "reference flat" of size
+ * category 1 (1+kk or 1+1): unfurnished, older than five years, rent only,
+ * without energy or water. The map adds 30 Kč/m² for a furnished flat, and gives
+ * the median size of a rented 1+kk/1+1 in each region.
+ *
+ * "Centre" is the historic-centre cadastral area. "Outside centre" is the median
+ * of the reference rents of all the city's cadastral areas.
  */
-export const NUMBEO_FALLBACK: Partial<Record<CityKey, Partial<Record<NumbeoItem, CityKey>>>> = {
-  prague: { internet: "brno" },
-  ostrava: { utilities85: "brno", mobilePlan: "brno", internet: "brno" },
+export const RENT_MAP = {
+  url: "https://mf.gov.cz/assets/attachments/2026-08-15_Cenova-mapa.xlsx",
+  page: "https://mf.gov.cz/cenova-mapa-najemneho",
+  release: { en: "August 2026", ar: "أغسطس 2026" },
+  furnishedPerM2: 30,
+  checkedOn: CITY_COSTS_CHECKED_ON,
+  cities: {
+    prague: { sizeM2: 35, centre: { area: "Nové Město", perM2: 496 }, outside: { perM2: 424, areas: 112, lowest: 314, highest: 624 } },
+    brno: { sizeM2: 34, centre: { area: "Město Brno", perM2: 402 }, outside: { perM2: 368.5, areas: 48, lowest: 296, highest: 425 } },
+    ostrava: { sizeM2: 36, centre: { area: "Moravská Ostrava", perM2: 245 }, outside: { perM2: 224, areas: 39, lowest: 176, highest: 287 } },
+  } satisfies Record<CityKey, { sizeM2: number; centre: { area: string; perM2: number }; outside: { perM2: number; areas: number; lowest: number; highest: number } }>,
 };
 
-export function numbeoValue(city: CityKey, item: NumbeoItem): { avg: number; range?: [number, number]; from: CityKey } | null {
-  const own = NUMBEO[city].items[item];
-  if (own) return { ...own, from: city };
-  const alt = NUMBEO_FALLBACK[city]?.[item];
-  const borrowed = alt ? NUMBEO[alt].items[item] : null;
-  return borrowed && alt ? { ...borrowed, from: alt } : null;
+/** Monthly rent for a furnished one-room flat (1+kk or 1+1) of the region's median size. */
+export function flatRent(city: CityKey, where: "centre" | "outside", perM2 = RENT_MAP.cities[city][where].perM2): number {
+  const c = RENT_MAP.cities[city];
+  return Math.round((perM2 + RENT_MAP.furnishedPerM2) * c.sizeM2);
 }
+
+/**
+ * Energy, water and other housing services per person in a rented flat, from
+ * the Czech Statistical Office's household budget survey for 2024 (published
+ * 29 August 2025), table 2, "pronajatý" column: 04.5 electricity, gas and other
+ * fuels plus 04.4 water and other services. A national average, not a bill.
+ */
+export const RENTED_FLAT_UTILITIES = {
+  energyYearCzk: 15955,
+  waterServicesYearCzk: 2341,
+  year: 2024,
+  url: "https://csu.gov.cz/docs/107508/b82bf8e4-01a0-8649-8adb-f1c514269ff3/16006625.pdf?version=1.1",
+  checkedOn: CITY_COSTS_CHECKED_ON,
+};
+
+export const rentedFlatUtilitiesMonthly = () =>
+  Math.round((RENTED_FLAT_UTILITIES.energyYearCzk + RENTED_FLAT_UTILITIES.waterServicesYearCzk) / 12);
 
 /**
  * Health insurance: non-EU students need private comprehensive insurance; the

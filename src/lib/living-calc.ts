@@ -12,9 +12,11 @@ import {
   STUDENT_TRANSPORT,
   dormNightly,
   DORM_NIGHTS_PER_MONTH,
-  numbeoValue,
   INSURANCE_MONTHLY_CZK,
-  type NumbeoItem,
+  CANTEEN_MEAL,
+  PHONE_PLAN,
+  flatRent,
+  rentedFlatUtilitiesMonthly,
 } from "@/data/living/city-costs";
 
 const toHal = (czk: number) => Math.round(czk * 100);
@@ -178,51 +180,40 @@ export type Housing = "dormDouble" | "dormSingle" | "flatOutside" | "flatCentre"
 export type MonthSettings = {
   housing: Housing;
   groceries: keyof typeof BASKET_PRESETS;
-  mealsOutPerWeek: number;
-  coffeesPerWeek: number;
-  gym: boolean;
-  cinemaPerMonth: number;
-  /** The visitor's own amounts, not data: clothes, toiletries, a night out. */
+  /** Lunches at the university canteen a week, at the student price. */
+  canteenMealsPerWeek: number;
+  /** The visitor's own amounts, not data: clothes, toiletries, coffee, sport, a night out. */
   personalCzk: number;
   travelCzk: number;
   /** Share of the month kept aside for surprises. */
   bufferShare: number;
-  /**
-   * Share of Numbeo's utilities figure (an 85 m² flat) a smaller flat uses.
-   * An assumption the visitor can change; the page says so.
-   */
-  utilitiesShare: number;
 };
 
 /** Starting points for each lifestyle. Illustrative choices, clearly labelled on the page. */
 export const LIFESTYLE_PRESETS: Record<Lifestyle, MonthSettings> = {
   budget: {
-    housing: "dormDouble", groceries: "budgetWeek", mealsOutPerWeek: 1, coffeesPerWeek: 1,
-    gym: false, cinemaPerMonth: 1, personalCzk: 500, travelCzk: 0, bufferShare: 0.05, utilitiesShare: 0.5,
+    housing: "dormDouble", groceries: "budgetWeek", canteenMealsPerWeek: 1,
+    personalCzk: 500, travelCzk: 0, bufferShare: 0.05,
   },
   balanced: {
-    housing: "dormSingle", groceries: "cookingWeek", mealsOutPerWeek: 2, coffeesPerWeek: 3,
-    gym: true, cinemaPerMonth: 2, personalCzk: 1000, travelCzk: 500, bufferShare: 0.1, utilitiesShare: 0.5,
+    housing: "dormSingle", groceries: "cookingWeek", canteenMealsPerWeek: 2,
+    personalCzk: 1000, travelCzk: 500, bufferShare: 0.1,
   },
   comfortable: {
-    housing: "flatOutside", groceries: "comfortWeek", mealsOutPerWeek: 4, coffeesPerWeek: 5,
-    gym: true, cinemaPerMonth: 3, personalCzk: 2000, travelCzk: 1500, bufferShare: 0.1, utilitiesShare: 0.5,
+    housing: "flatOutside", groceries: "comfortWeek", canteenMealsPerWeek: 4,
+    personalCzk: 2000, travelCzk: 1500, bufferShare: 0.1,
   },
 };
 
-export type LineGroup = "housing" | "food" | "transport" | "bills" | "fun" | "personal";
+export type LineGroup = "housing" | "food" | "transport" | "bills" | "personal";
 
 export type MonthLine = {
-  id: "housing" | "utilities" | "groceries" | "eatingOut" | "coffee" | "transport" | "phone" | "internet" | "insurance" | "gym" | "cinema" | "personal" | "travel" | "buffer";
+  id: "housing" | "utilities" | "groceries" | "canteen" | "transport" | "phone" | "insurance" | "personal" | "travel" | "buffer";
   group: LineGroup;
   amountCzk: number;
   /** Where the number comes from. */
-  basis: "official" | "retailer" | "numbeo" | "estimate" | "yours";
-  /** Numbeo figure borrowed from another city. */
-  borrowedFrom?: CityKey;
+  basis: "official" | "retailer" | "statistics" | "estimate" | "yours";
 };
-
-const nb = (city: CityKey, item: NumbeoItem) => numbeoValue(city, item);
 
 export function housingMonthly(city: CityKey, housing: Housing): { amountCzk: number; basis: MonthLine["basis"] } {
   const dorm = dormNightly()[city];
@@ -232,9 +223,9 @@ export function housingMonthly(city: CityKey, housing: Housing): { amountCzk: nu
     case "dormSingle":
       return { amountCzk: dorm.single[0] * DORM_NIGHTS_PER_MONTH, basis: "official" };
     case "flatOutside":
-      return { amountCzk: Math.round(nb(city, "rentOutside")?.avg ?? 0), basis: "numbeo" };
+      return { amountCzk: flatRent(city, "outside"), basis: "official" };
     case "flatCentre":
-      return { amountCzk: Math.round(nb(city, "rentCentre")?.avg ?? 0), basis: "numbeo" };
+      return { amountCzk: flatRent(city, "centre"), basis: "official" };
   }
 }
 
@@ -248,35 +239,18 @@ export function studentMonth(city: CityKey, s: MonthSettings): { lines: MonthLin
   const h = housingMonthly(city, s.housing);
   lines.push({ id: "housing", group: "housing", amountCzk: r10(h.amountCzk), basis: h.basis });
 
-  if (!isDorm(s.housing)) {
-    const u = nb(city, "utilities85");
-    // Numbeo's figure is for an 85 m² flat; a one-bedroom is roughly half that,
-    // so the visitor picks the share (default 50 %, shown as an assumption).
-    if (u && s.utilitiesShare > 0) lines.push({ id: "utilities", group: "bills", amountCzk: r10(u.avg * s.utilitiesShare), basis: "numbeo", borrowedFrom: u.from !== city ? u.from : undefined });
-    const net = nb(city, "internet");
-    if (net) lines.push({ id: "internet", group: "bills", amountCzk: r10(net.avg), basis: "numbeo", borrowedFrom: net.from !== city ? net.from : undefined });
-  }
+  // The rent map's figures exclude energy and water, so a private flat adds them.
+  if (!isDorm(s.housing)) lines.push({ id: "utilities", group: "bills", amountCzk: r10(rentedFlatUtilitiesMonthly()), basis: "statistics" });
 
   lines.push({ id: "groceries", group: "food", amountCzk: r10(basketTotal(BASKET_PRESETS[s.groceries]) * WEEKS_PER_MONTH), basis: "retailer" });
 
-  const meal = nb(city, "mealInexpensive");
-  if (meal && s.mealsOutPerWeek > 0) lines.push({ id: "eatingOut", group: "food", amountCzk: r10(meal.avg * s.mealsOutPerWeek * WEEKS_PER_MONTH), basis: "numbeo" });
-
-  const coffee = nb(city, "cappuccino");
-  if (coffee && s.coffeesPerWeek > 0) lines.push({ id: "coffee", group: "food", amountCzk: r10(coffee.avg * s.coffeesPerWeek * WEEKS_PER_MONTH), basis: "numbeo" });
+  if (s.canteenMealsPerWeek > 0) lines.push({ id: "canteen", group: "food", amountCzk: r10(CANTEEN_MEAL[city].mealCzk * s.canteenMealsPerWeek * WEEKS_PER_MONTH), basis: "official" });
 
   lines.push({ id: "transport", group: "transport", amountCzk: STUDENT_TRANSPORT[city].monthlyCzk, basis: "official" });
 
-  const phone = nb(city, "mobilePlan");
-  if (phone) lines.push({ id: "phone", group: "bills", amountCzk: r10(phone.avg), basis: "numbeo", borrowedFrom: phone.from !== city ? phone.from : undefined });
+  lines.push({ id: "phone", group: "bills", amountCzk: PHONE_PLAN.monthlyCzk, basis: "official" });
 
   lines.push({ id: "insurance", group: "bills", amountCzk: Math.round((INSURANCE_MONTHLY_CZK[0] + INSURANCE_MONTHLY_CZK[1]) / 2), basis: "estimate" });
-
-  const gym = nb(city, "fitness");
-  if (s.gym && gym) lines.push({ id: "gym", group: "fun", amountCzk: r10(gym.avg), basis: "numbeo" });
-
-  const cinema = nb(city, "cinema");
-  if (cinema && s.cinemaPerMonth > 0) lines.push({ id: "cinema", group: "fun", amountCzk: r10(cinema.avg * s.cinemaPerMonth), basis: "numbeo" });
 
   if (s.personalCzk > 0) lines.push({ id: "personal", group: "personal", amountCzk: Math.round(s.personalCzk), basis: "yours" });
   if (s.travelCzk > 0) lines.push({ id: "travel", group: "transport", amountCzk: Math.round(s.travelCzk), basis: "yours" });
@@ -288,7 +262,7 @@ export function studentMonth(city: CityKey, s: MonthSettings): { lines: MonthLin
 }
 
 export function groupTotals(lines: MonthLine[]): { group: LineGroup; amountCzk: number }[] {
-  const order: LineGroup[] = ["housing", "food", "transport", "bills", "fun", "personal"];
+  const order: LineGroup[] = ["housing", "food", "transport", "bills", "personal"];
   return order
     .map((group) => ({ group, amountCzk: lines.filter((l) => l.group === group).reduce((s, l) => s + l.amountCzk, 0) }))
     .filter((g) => g.amountCzk > 0);
