@@ -35,7 +35,7 @@ const t = {
   en: {
     title: "What studying in Czechia costs in 2027",
     subtitle:
-      "Tuition from the programmes on this site, visa costs from the embassy's own pages, and living costs from students who live here. Each figure says where it comes from.",
+      "Tuition from the programmes on this site, visa costs from the embassy's own pages, and living costs priced from official dorm and transport price lists, supermarket prices and university canteens. Each figure says where it comes from.",
     checked: "Official figures checked on 18 October 2026. Fees change, so open the source before you pay.",
     source: "Source",
     tuitionTitle: "Tuition per year",
@@ -51,7 +51,7 @@ const t = {
     medicineGuide: "Medicine fees and exams",
     livingTitle: "Living costs per month",
     livingNote:
-      "Dorm room, food, transport with the student discount, health insurance, phone and small extras. These are averages reported by students, not official figures: your own costs depend on your housing.",
+      "From a budget month to a balanced one: a dorm bed, groceries, canteen lunches, the student transport pass, health insurance, phone and toiletries. Dorm, transport, food and phone prices come from official price lists and real shop prices; health insurance is the one figure students report. Every source is on the cost-of-living page.",
     calculatorLink: "Work out your own budget",
     visaTitle: "Visa and one-off costs",
     proof: "Money you must show for a one-year visa",
@@ -78,7 +78,7 @@ const t = {
     perYear: "a year",
     shortTitle: "The short answer",
     short: (a: { median: string; medicine: string | null; brno: string; prague: string; proof: string; matched: number; count: number }) =>
-      `A degree taught in Czech at a public university is free. In English, half of the bachelor's programmes on this site cost ${a.median} a year or less${a.medicine ? `, and General Medicine costs ${a.medicine}` : ""}. ${a.matched} of the ${a.count} English-taught fees on this site are verified so far. Students report living costs of ${a.brno} a month in Brno and ${a.prague} in Prague. For a one-year visa you must show ${a.proof}.`,
+      `A degree taught in Czech at a public university is free. In English, half of the bachelor's programmes on this site cost ${a.median} a year or less${a.medicine ? `, and General Medicine costs ${a.medicine}` : ""}. ${a.matched} of the ${a.count} English-taught fees on this site are verified so far. A student month costs ${a.brno} in Brno and ${a.prague} in Prague, from a budget month to a balanced one. For a one-year visa you must show ${a.proof}.`,
     appFeesTitle: (intake: string) => `Medicine application fees for ${intake}`,
     appFeesNote: (checked: string) => `As each faculty publishes them, checked on ${checked}. Other programmes set their own fee.`,
     appFeesLink: "Medicine admission dates",
@@ -92,7 +92,7 @@ const t = {
       prepLink: "Preparatory year guide",
       livingQ: "Is living in Czechia expensive?",
       livingA: (a: { cities: string }) =>
-        `Students report ${a.cities} a month for a dorm room, food, transport, health insurance and phone. These are averages from students, not official figures, and your housing makes the biggest difference.`,
+        `A student month costs ${a.cities}, from a budget month to a balanced one, for a dorm bed, food, transport, health insurance and phone. The figures come from official dorm and transport price lists and real shop prices; housing makes the biggest difference.`,
       workQ: "Can I work while I study?",
       workA:
         "Yes, if you study an accredited university programme full-time: you then have free access to the Czech labour market and need only a valid residence permit, not a separate work permit. To stay and work after you graduate, you need a new residence permit for that purpose.",
@@ -106,7 +106,7 @@ const t = {
   ar: {
     title: "تكاليف الدراسة في التشيك 2027",
     subtitle:
-      "الرسوم الدراسية من البرامج الموجودة على الموقع، وتكاليف الفيزا من صفحات السفارة نفسها، وتكاليف المعيشة من طلاب عايشين هنا. كل رقم مكتوب جنبه مصدره.",
+      "الرسوم الدراسية من البرامج الموجودة على الموقع، وتكاليف الفيزا من صفحات السفارة نفسها، وتكاليف المعيشة محسوبة من قوائم أسعار السكن الجامعي والمواصلات الرسمية وأسعار السوبرماركت ومطاعم الجامعات. كل رقم مكتوب جنبه مصدره.",
     checked: "راجعنا الأرقام الرسمية يوم 18 أكتوبر 2026. الرسوم بتتغير، فافتح المصدر قبل ما تدفع.",
     source: "المصدر",
     tuitionTitle: "الرسوم الدراسية في السنة",
@@ -122,7 +122,7 @@ const t = {
     medicineGuide: "مصاريف الطب وامتحاناته",
     livingTitle: "تكاليف المعيشة في الشهر",
     livingNote:
-      "غرفة في السكن الجامعي، أكل، مواصلات بخصم الطلبة، تأمين صحي، موبايل ومصاريف صغيرة. دي متوسطات من الطلبة، مش أرقام رسمية: مصاريفك الفعلية بتعتمد على سكنك.",
+      "من الشهر الاقتصادي للشهر المتوازن: سرير في السكن الجامعي، وبقالة، وغدا في مطعم الجامعة، واشتراك المواصلات للطلبة، وتأمين صحي، وموبايل، وأدوات نظافة. أسعار السكن والمواصلات والأكل والموبايل من قوائم أسعار رسمية وأسعار محلات حقيقية، والتأمين الصحي هو الرقم الوحيد اللي من كلام الطلبة. كل المصادر في صفحة تكاليف المعيشة.",
     calculatorLink: "احسب ميزانيتك بنفسك",
     visaTitle: "الفيزا والمصاريف اللي بتدفعها مرة واحدة",
     proof: "المبلغ اللي لازم تثبته لفيزا سنة",
@@ -149,7 +149,7 @@ const t = {
     perYear: "في السنة",
     shortTitle: "الخلاصة",
     short: (a: { median: string; medicine: string | null; brno: string; prague: string; proof: string; matched: number; count: number }) =>
-      `الدراسة بالتشيكي في جامعة حكومية مجانية. بالإنجليزي، نص برامج البكالوريوس على الموقع رسومها ${a.median} في السنة أو أقل${a.medicine ? `، والطب العام من ${a.medicine}` : ""}. واتأكدنا من ${a.matched} من أصل ${a.count} رسوم للبرامج بالإنجليزي على الموقع لحد دلوقتي. المعيشة حسب كلام الطلبة ${a.brno} في الشهر في برنو، و${a.prague} في براغ. وعشان فيزا سنة لازم تثبت ${a.proof}.`,
+      `الدراسة بالتشيكي في جامعة حكومية مجانية. بالإنجليزي، نص برامج البكالوريوس على الموقع رسومها ${a.median} في السنة أو أقل${a.medicine ? `، والطب العام من ${a.medicine}` : ""}. واتأكدنا من ${a.matched} من أصل ${a.count} رسوم للبرامج بالإنجليزي على الموقع لحد دلوقتي. شهر الطالب بيتكلف ${a.brno} في برنو، و${a.prague} في براغ، من الشهر الاقتصادي للمتوازن. وعشان فيزا سنة لازم تثبت ${a.proof}.`,
     appFeesTitle: (intake: string) => `رسوم التقديم على الطب لسنة ${intake}`,
     appFeesNote: (checked: string) => `زي ما كل كلية بتنشرها، وراجعناها يوم ${checked}. باقي البرامج كل واحد له رسومه.`,
     appFeesLink: "مواعيد القبول في الطب",
@@ -163,7 +163,7 @@ const t = {
       prepLink: "دليل السنة التحضيرية",
       livingQ: "هل المعيشة في التشيك غالية؟",
       livingA: (a: { cities: string }) =>
-        `الطلبة بيصرفوا ${a.cities} في الشهر على السكن الجامعي والأكل والمواصلات والتأمين الصحي والموبايل. دي متوسطات من الطلبة مش أرقام رسمية، وأكتر حاجة بتفرق هي السكن.`,
+        `شهر الطالب بيتكلف ${a.cities}، من الشهر الاقتصادي للمتوازن، على السكن الجامعي والأكل والمواصلات والتأمين الصحي والموبايل. الأرقام من قوائم أسعار السكن والمواصلات الرسمية وأسعار محلات حقيقية، وأكتر حاجة بتفرق هي السكن.`,
       workQ: "أقدر أشتغل وأنا بدرس؟",
       workA:
         "أيوه، لو بتدرس برنامج جامعي معتمد بانتظام كامل: ساعتها من حقك تشتغل في التشيك وكل اللي محتاجه تصريح إقامة ساري، من غير تصريح عمل منفصل. ولو عايز تفضل تشتغل بعد التخرج، محتاج تصريح إقامة جديد للغرض ده.",
@@ -356,7 +356,7 @@ export default function WhatItCostsClient() {
               ))}
               <p className="text-xs text-text-muted mt-3">
                 {c.livingNote}{" "}
-                <Link href="/cost-of-living" className="text-brand underline underline-offset-2">
+                <Link href="/cost-of-living/" className="text-brand underline underline-offset-2">
                   {c.calculatorLink}
                 </Link>
               </p>

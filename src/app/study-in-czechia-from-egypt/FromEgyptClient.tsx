@@ -163,7 +163,7 @@ const en = {
   faqTitle: "Questions Egyptian students ask",
   cost: (c: Costs): Faq => ({
     q: "How much does it cost to study in the Czech Republic from Egypt?",
-    a: `Taught in Czech at a public university, tuition is free. Taught in English, half of the bachelor's programmes on this site cost €${n(c.bachelorMedian)} a year or less${c.medicine ? `, and General Medicine costs €${n(c.medicine.min)} to €${n(c.medicine.max)} a year` : ""}. Students report living costs of ${n(c.brno[0])} to ${n(c.brno[1])} CZK a month in Brno and ${n(c.prague[0])} to ${n(c.prague[1])} CZK in Prague.`,
+    a: `Taught in Czech at a public university, tuition is free. Taught in English, half of the bachelor's programmes on this site cost €${n(c.bachelorMedian)} a year or less${c.medicine ? `, and General Medicine costs €${n(c.medicine.min)} to €${n(c.medicine.max)} a year` : ""}. A student month costs ${n(c.brno[0])} to ${n(c.brno[1])} CZK in Brno and ${n(c.prague[0])} to ${n(c.prague[1])} CZK in Prague, from a budget month to a balanced one, priced from official dorm and transport price lists.`,
     href: "/what-it-costs",
     label: "What it costs",
   }),
@@ -342,7 +342,7 @@ const ar: typeof en = {
   faqTitle: "أسئلة الطلاب المصريين",
   cost: (c: Costs): Faq => ({
     q: "الدراسة في التشيك من مصر بتتكلف قد إيه؟",
-    a: `الدراسة بالتشيكية في جامعة حكومية مجانية. بالإنجليزية، نص برامج البكالوريوس على الموقع رسومها ${n(c.bachelorMedian)}€ في السنة أو أقل${c.medicine ? `، والطب العام من ${n(c.medicine.min)}€ لـ${n(c.medicine.max)}€ في السنة` : ""}. المعيشة حسب كلام الطلبة من ${n(c.brno[0])} لـ${n(c.brno[1])} كرونة في الشهر في برنو، ومن ${n(c.prague[0])} لـ${n(c.prague[1])} كرونة في براغ.`,
+    a: `الدراسة بالتشيكية في جامعة حكومية مجانية. بالإنجليزية، نص برامج البكالوريوس على الموقع رسومها ${n(c.bachelorMedian)}€ في السنة أو أقل${c.medicine ? `، والطب العام من ${n(c.medicine.min)}€ لـ${n(c.medicine.max)}€ في السنة` : ""}. شهر الطالب بيتكلف من ${n(c.brno[0])} لـ${n(c.brno[1])} كرونة في برنو، ومن ${n(c.prague[0])} لـ${n(c.prague[1])} كرونة في براغ، من الشهر الاقتصادي للمتوازن، محسوب من قوائم أسعار السكن والمواصلات الرسمية.`,
     href: "/what-it-costs",
     label: "التكاليف الحقيقية",
   }),

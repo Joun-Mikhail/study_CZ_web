@@ -1,5 +1,6 @@
 import { programmes } from "@/data/programmes";
-import { cities, oneTimeCosts, totalRange, type CityKey } from "@/data/costs";
+import { cities, oneTimeCosts, type CityKey } from "@/data/costs";
+import { monthRange } from "@/lib/living-calc";
 import { MEDICAL_DEGREES, feeRange, medicineRows } from "@/lib/medicine-guide";
 
 /** Same rough rate the rest of the site uses (see czk() in src/config/pricing.ts). */
@@ -63,16 +64,20 @@ export function medicineTuition() {
   return feeRange(medicineRows(), "General Medicine");
 }
 
-/** Monthly living cost per city (CZK), the same community-reported figures as the cost-of-living calculator. */
+/**
+ * Monthly living cost per city (CZK): the budget and balanced months from
+ * studentMonth() in src/lib/living-calc.ts, the same figures as the
+ * cost-of-living page, priced from the sources in src/data/living.
+ */
 export function livingByCity(): { key: CityKey; label: { en: string; ar: string }; monthlyCzk: [number, number] }[] {
-  return cities.map((c) => ({ key: c.key, label: c.label, monthlyCzk: totalRange(c.key) }));
+  return cities.map((c) => ({ key: c.key, label: c.label, monthlyCzk: monthRange(c.key) }));
 }
 
 export const accommodationDepositCzk = oneTimeCosts.accommodationDeposit;
 
 /** Tuition plus living for a whole degree, in EUR, as a [low, high] range. Fees assumed unchanged. */
 export function degreeTotalEur(tuitionPerYearEur: number, years: number, city: CityKey): [number, number] {
-  const [lowCzk, highCzk] = totalRange(city);
+  const [lowCzk, highCzk] = monthRange(city);
   const tuition = tuitionPerYearEur * years;
   return [tuition + toEur(lowCzk * 12 * years), tuition + toEur(highCzk * 12 * years)];
 }
