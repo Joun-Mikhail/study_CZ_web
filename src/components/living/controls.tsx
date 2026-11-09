@@ -151,12 +151,12 @@ export function Stepper({
 }
 
 /** Small label that says what kind of number this is. */
-export function BasisTag({ kind, children }: { kind: "official" | "retailer" | "numbeo" | "estimate" | "yours" | "ad"; children: ReactNode }) {
+export function BasisTag({ kind, children }: { kind: "official" | "retailer" | "statistics" | "estimate" | "yours" | "ad"; children: ReactNode }) {
   const styles: Record<typeof kind, string> = {
     official: "bg-teal-soft text-teal-ink",
     retailer: "bg-sky-soft text-sky-ink",
     ad: "bg-sky-soft text-sky-ink",
-    numbeo: "bg-violet-soft text-violet-ink",
+    statistics: "bg-violet-soft text-violet-ink",
     estimate: "bg-gold-soft text-gold-ink",
     yours: "bg-bg-muted text-text-secondary",
   };

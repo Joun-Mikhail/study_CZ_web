@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ExternalLink, Clock, Database, AlertTriangle } from "lucide-react";
 import { GROCERY_CHECKED_ON } from "@/data/living/groceries";
 import { JOBS_CHECKED_ON } from "@/data/living/jobs";
-import { CITY_COSTS_CHECKED_ON, NUMBEO, NUMBEO_READ_ON, STUDENT_TRANSPORT, OSTRAVA_DORM } from "@/data/living/city-costs";
+import { CITY_COSTS_CHECKED_ON, STUDENT_TRANSPORT, OSTRAVA_DORM, CANTEEN_MEAL, PHONE_PLAN, RENT_MAP, RENTED_FLAT_UTILITIES } from "@/data/living/city-costs";
 import { DORM_PRICES } from "@/data/dorm-prices";
 import { RULES_CHECKED_ON, FX } from "@/data/living/work-rules";
 import { daysSince, STALE_AFTER_DAYS } from "@/lib/living-calc";
@@ -22,7 +22,9 @@ const COPY = {
       jobs: "Job ads and pay",
       housing: "University dorm prices",
       transport: "Student transport passes",
-      numbeo: "City estimates (crowd-sourced)",
+      canteens: "University canteens",
+      flats: "Private flats: rent and utilities",
+      phone: "Mobile plan",
       rules: "Minimum wage, contracts, tax",
       fx: "Exchange rate",
     },
@@ -30,7 +32,9 @@ const COPY = {
     jobsBody: "Pracomat.cz's daily summary of live ads for each job and city, plus single ads on JenPráce.cz, Pracomat.cz and Jobs.cz.",
     housingBody: "Each university's own price list, per bed per night, × 30 nights.",
     transportBody: "Each operator's price list for students.",
-    numbeoBody: (m: string) => `Numbeo city pages (${m}). Averages of prices that visitors report, used for rent, eating out, coffee, gym, cinema, phone and utilities.`,
+    canteensBody: "The student price of a lunch, from each university's own menu or notice.",
+    flatsBody: (release: string, year: number) => `Rent: the Ministry of Finance rent map (${release}) for a furnished one-room flat (1+kk or 1+1) of the region's median size, without energy or water. Utilities: the Czech Statistical Office's ${year} average per person in a rented flat.`,
+    phoneBody: (plan: string) => `The operator's own price list: prepaid plan ${plan}.`,
     rulesBody: "MPSV, ČSSZ, the Labour Code and the Income Tax Act.",
     fxBody: (r: string, d: string) => `Czech National Bank rate of ${d}: 1 EUR = ${r} CZK. Euro figures are for orientation only.`,
     checked: "Checked",
@@ -50,7 +54,9 @@ const COPY = {
       jobs: "إعلانات الوظائف والأجور",
       housing: "أسعار السكن الجامعي",
       transport: "اشتراكات المواصلات للطلاب",
-      numbeo: "تقديرات المدن (يجمعها المستخدمون)",
+      canteens: "مطاعم الجامعات",
+      flats: "الشقق الخاصة: الإيجار والمرافق",
+      phone: "باقة الموبايل",
       rules: "الحد الأدنى للأجور والعقود والضريبة",
       fx: "سعر الصرف",
     },
@@ -58,7 +64,9 @@ const COPY = {
     jobsBody: "ملخص Pracomat.cz اليومي للإعلانات المنشورة لكل وظيفة ومدينة، إضافة إلى إعلانات منفردة على JenPráce.cz وPracomat.cz وJobs.cz.",
     housingBody: "قائمة أسعار كل جامعة، للسرير في الليلة × 30 ليلة.",
     transportBody: "قائمة أسعار الطلاب لدى كل شركة نقل.",
-    numbeoBody: (m: string) => `صفحات المدن على Numbeo (${m}). متوسطات لأسعار يذكرها الزوار، نستخدمها للإيجار والأكل في الخارج والقهوة والجيم والسينما والموبايل والمرافق.`,
+    canteensBody: "سعر وجبة الغداء للطلاب، من قائمة أو إعلان كل جامعة.",
+    flatsBody: (release: string, year: number) => `الإيجار: خريطة الإيجارات الصادرة عن وزارة المالية (${release}) لشقة مفروشة بغرفة واحدة (\u20681+kk\u2069 أو \u20681+1\u2069) بالمساحة الوسيطة في الإقليم، بدون الطاقة والمياه. المرافق: متوسط مكتب الإحصاء التشيكي لعام ${year} للفرد في شقة مستأجرة.`,
+    phoneBody: (plan: string) => `قائمة أسعار الشركة نفسها: الباقة المدفوعة مسبقًا ${plan}.`,
     rulesBody: "وزارة العمل MPSV، وإدارة الضمان الاجتماعي ČSSZ، وقانون العمل، وقانون ضريبة الدخل.",
     fxBody: (r: string, d: string) => `سعر البنك الوطني التشيكي بتاريخ ${d}: 1 يورو = ${r} كرونة. أرقام اليورو للتوضيح فقط.`,
     checked: "تاريخ المراجعة",
@@ -73,7 +81,7 @@ const COPY = {
 
 export function SourcesPanel({ locale }: { locale: Locale }) {
   const t = COPY[locale];
-  const oldest = [GROCERY_CHECKED_ON, JOBS_CHECKED_ON, CITY_COSTS_CHECKED_ON, NUMBEO_READ_ON].sort()[0];
+  const oldest = [GROCERY_CHECKED_ON, JOBS_CHECKED_ON, CITY_COSTS_CHECKED_ON].sort()[0];
   // Computed after hydration so the static HTML and the first client render match.
   const [age, setAge] = useState<number | null>(null);
   useEffect(() => {
@@ -81,7 +89,6 @@ export function SourcesPanel({ locale }: { locale: Locale }) {
     setAge(daysSince(oldest, new Date()));
   }, [oldest]);
 
-  const months = Array.from(new Set(Object.values(NUMBEO).map((n) => n.pageMonth))).join(", ");
   const groups: { key: keyof typeof t.groups; body: string; date: string; links: { label: string; url: string }[] }[] = [
     { key: "groceries", body: t.groceriesBody, date: GROCERY_CHECKED_ON, links: [{ label: "Rohlik.cz", url: "https://www.rohlik.cz/" }] },
     { key: "jobs", body: t.jobsBody, date: JOBS_CHECKED_ON, links: [{ label: "Pracomat.cz", url: "https://www.pracomat.cz/" }, { label: "JenPráce.cz", url: "https://www.jenprace.cz/brigady/brno" }, { label: "Jobs.cz", url: "https://www.jobs.cz/" }] },
@@ -92,7 +99,17 @@ export function SourcesPanel({ locale }: { locale: Locale }) {
       links: [...DORM_PRICES.map((d) => ({ label: d.university[locale], url: d.sourceUrl })), { label: OSTRAVA_DORM.university[locale], url: OSTRAVA_DORM.url }],
     },
     { key: "transport", body: t.transportBody, date: CITY_COSTS_CHECKED_ON, links: Object.values(STUDENT_TRANSPORT).map((s) => ({ label: s.operator, url: s.url })) },
-    { key: "numbeo", body: t.numbeoBody(months), date: NUMBEO_READ_ON, links: Object.entries(NUMBEO).map(([k, v]) => ({ label: `Numbeo: ${k[0].toUpperCase()}${k.slice(1)}`, url: v.url })) },
+    { key: "canteens", body: t.canteensBody, date: CITY_COSTS_CHECKED_ON, links: Object.values(CANTEEN_MEAL).map((c) => ({ label: c.operator[locale], url: c.url })) },
+    {
+      key: "flats",
+      body: t.flatsBody(RENT_MAP.release[locale], RENTED_FLAT_UTILITIES.year),
+      date: CITY_COSTS_CHECKED_ON,
+      links: [
+        { label: locale === "ar" ? "وزارة المالية: خريطة الإيجارات" : "Ministry of Finance: rent map", url: RENT_MAP.page },
+        { label: locale === "ar" ? "مكتب الإحصاء التشيكي (ČSÚ)" : "Czech Statistical Office (ČSÚ)", url: RENTED_FLAT_UTILITIES.url },
+      ],
+    },
+    { key: "phone", body: t.phoneBody(PHONE_PLAN.plan), date: PHONE_PLAN.checkedOn, links: [{ label: PHONE_PLAN.operator, url: PHONE_PLAN.url }] },
     {
       key: "rules",
       body: t.rulesBody,

@@ -1,6 +1,6 @@
 import { GROCERIES, BASKET_PRESETS, GROCERY_BY_ID, GROCERY_CHECKED_ON } from "@/data/living/groceries";
 import { JOB_ROLES, UNPRICED_ROLES, JOBS_CHECKED_ON } from "@/data/living/jobs";
-import { STUDENT_TRANSPORT, NUMBEO, OSTRAVA_DORM, dormNightly } from "@/data/living/city-costs";
+import { STUDENT_TRANSPORT, OSTRAVA_DORM, CANTEEN_MEAL, PHONE_PLAN, RENT_MAP, RENTED_FLAT_UTILITIES, dormNightly } from "@/data/living/city-costs";
 import { MIN_WAGE_2026, DPP, INCOME_TAX, FX } from "@/data/living/work-rules";
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -123,15 +123,24 @@ describe("city and rules data", () => {
     https(OSTRAVA_DORM.url);
   });
 
-  it("Numbeo ranges contain their averages", () => {
-    for (const [city, c] of Object.entries(NUMBEO)) {
+  it("canteen, phone, rent and utilities figures are dated, linked and sane", () => {
+    for (const [city, c] of Object.entries(CANTEEN_MEAL)) {
       https(c.url);
-      for (const [item, v] of Object.entries(c.items)) {
-        if (!v?.range) continue;
-        expect(v.avg, `${city}.${item}`).toBeGreaterThanOrEqual(v.range[0]);
-        expect(v.avg, `${city}.${item}`).toBeLessThanOrEqual(v.range[1]);
-      }
+      expect(c.checkedOn, city).toMatch(ISO);
+      expect(c.mealCzk, city).toBeGreaterThan(0);
+      expect(c.operator.ar && c.note.ar, city).toBeTruthy();
     }
+    https(PHONE_PLAN.url);
+    expect(PHONE_PLAN.monthlyCzk).toBeGreaterThan(0);
+    https(RENT_MAP.url);
+    https(RENT_MAP.page);
+    for (const [city, r] of Object.entries(RENT_MAP.cities)) {
+      expect(r.outside.lowest, city).toBeLessThanOrEqual(r.outside.perM2);
+      expect(r.outside.perM2, city).toBeLessThanOrEqual(r.outside.highest);
+      expect(r.sizeM2, city).toBeGreaterThan(20);
+    }
+    https(RENTED_FLAT_UTILITIES.url);
+    expect(RENTED_FLAT_UTILITIES.energyYearCzk).toBeGreaterThan(RENTED_FLAT_UTILITIES.waterServicesYearCzk);
   });
 
   it("rules match the official 2026 figures", () => {

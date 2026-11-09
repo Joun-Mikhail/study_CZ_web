@@ -23,7 +23,7 @@ import {
   LIFESTYLE_PRESETS,
 } from "@/lib/living-calc";
 import { BASKET_PRESETS, GROCERY_BY_ID } from "@/data/living/groceries";
-import { STUDENT_TRANSPORT, dormNightly } from "@/data/living/city-costs";
+import { STUDENT_TRANSPORT, CANTEEN_MEAL, PHONE_PLAN, dormNightly, flatRent } from "@/data/living/city-costs";
 import { WEEKS_PER_MONTH } from "@/data/living/work-rules";
 
 describe("basket arithmetic", () => {
@@ -167,27 +167,43 @@ describe("the student month", () => {
     }
   });
 
-  it("adds utilities and internet only for a private flat, and marks borrowed figures", () => {
+  it("adds utilities only for a private flat, from the ČSÚ rented-flat average", () => {
     const dorm = studentMonth("ostrava", { ...LIFESTYLE_PRESETS.budget });
     expect(dorm.lines.some((l) => l.id === "utilities")).toBe(false);
     const flat = studentMonth("ostrava", { ...LIFESTYLE_PRESETS.comfortable });
-    expect(flat.lines.find((l) => l.id === "utilities")?.borrowedFrom).toBe("brno");
-    expect(flat.lines.find((l) => l.id === "phone")?.borrowedFrom).toBe("brno");
+    // (15,955 + 2,341) / 12 = 1,524.67 → 1,525 → 1,530 to the nearest 10
+    expect(flat.lines.find((l) => l.id === "utilities")).toEqual({ id: "utilities", group: "bills", amountCzk: 1530, basis: "statistics" });
   });
 
-  it("utilities follow the chosen share of Numbeo's 85 m² figure", () => {
-    const half = studentMonth("brno", { ...LIFESTYLE_PRESETS.comfortable, utilitiesShare: 0.5 });
-    const full = studentMonth("brno", { ...LIFESTYLE_PRESETS.comfortable, utilitiesShare: 1 });
-    expect(half.lines.find((l) => l.id === "utilities")!.amountCzk).toBe(3220); // 6,445 × 0.5 → nearest 10
-    expect(full.lines.find((l) => l.id === "utilities")!.amountCzk).toBe(6450);
+  it("prices a private flat from the rent map: furnished one-room flat of the region's median size", () => {
+    // Prague, Nové Město: (496 + 30 furnished) × 35 m²
+    expect(housingMonthly("prague", "flatCentre")).toEqual({ amountCzk: 18410, basis: "official" });
+    // Brno, median of the city's areas: (368.5 + 30) × 34 m²
+    expect(flatRent("brno", "outside")).toBe(13549);
+    for (const city of ["prague", "brno", "ostrava"] as const) {
+      expect(flatRent(city, "centre"), city).toBeGreaterThan(flatRent(city, "outside"));
+    }
+  });
+
+  it("uses only official, retailer, statistical, estimated or the visitor's own figures", () => {
+    for (const city of ["prague", "brno", "ostrava"] as const) {
+      for (const life of ["budget", "balanced", "comfortable"] as const) {
+        for (const l of studentMonth(city, LIFESTYLE_PRESETS[life]).lines) {
+          expect(["official", "retailer", "statistics", "estimate", "yours"], l.id).toContain(l.basis);
+        }
+      }
+    }
+    const phone = studentMonth("ostrava", LIFESTYLE_PRESETS.budget).lines.find((l) => l.id === "phone")!;
+    expect(phone).toMatchObject({ amountCzk: PHONE_PLAN.monthlyCzk, basis: "official" });
   });
 
   it("changing one habit changes the total by exactly that line", () => {
     const base = LIFESTYLE_PRESETS.balanced;
     const a = studentMonth("brno", { ...base, bufferShare: 0 });
-    const b = studentMonth("brno", { ...base, bufferShare: 0, gym: false });
-    const gym = a.lines.find((l) => l.id === "gym")!.amountCzk;
-    expect(a.totalCzk - b.totalCzk).toBe(gym);
+    const b = studentMonth("brno", { ...base, bufferShare: 0, canteenMealsPerWeek: 0 });
+    const canteen = a.lines.find((l) => l.id === "canteen")!.amountCzk;
+    expect(canteen).toBe(Math.round((CANTEEN_MEAL.brno.mealCzk * base.canteenMealsPerWeek * WEEKS_PER_MONTH) / 10) * 10);
+    expect(a.totalCzk - b.totalCzk).toBe(canteen);
   });
 });
 
