@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/ui/glass-card";
+import { FounderCard } from "@/components/founder-card";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { OFFICIAL } from "@/lib/study-costs";
 import { DORM_PRICES } from "@/data/dorm-prices";
@@ -19,7 +20,12 @@ type Costs = {
   medicine: { min: number; max: number } | null;
   brno: [number, number];
   prague: [number, number];
+  firstYearEnglish: [number, number];
+  firstYearCzech: [number, number];
+  checkedFees: { en: string; ar: string };
+  checkedFunds: { en: string; ar: string };
 };
+type Short = { text: string; href: string; label: string };
 type Faq = { q: string; a: string; href: string; label: string; sources?: { url: string; label: string }[] };
 
 const n = (v: number) => v.toLocaleString("en-US");
@@ -48,10 +54,33 @@ const en = {
   title: "Study in Czechia from Egypt: the whole path",
   subtitle:
     "Eight steps from your Thanaweya Amma to your first week in the Czech Republic. Each one links to the full guide, built from official university, embassy and ministry pages.",
+  shortTitle: "The short answer",
+  short: (c: Costs): Short[] => [
+    {
+      text: "Yes, you can apply with the Thanaweya Amma, once it is legalised in Egypt and at the Czech Embassy in Cairo, then recognised by the faculty or by nostrification.",
+      href: "/thanaweya-amma-czech-university",
+      label: "Thanaweya Amma guide",
+    },
+    {
+      text: `A first year in Brno comes to about €${n(c.firstYearEnglish[0])} to €${n(c.firstYearEnglish[1])} on a typical English-taught bachelor's: €${n(c.bachelorMedian)} tuition plus the living costs students report. Taught in Czech at a public university, tuition is free, so it comes to about €${n(c.firstYearCzech[0])} to €${n(c.firstYearCzech[1])}. Visa and legalisation fees come on top.`,
+      href: "/what-it-costs",
+      label: "What it costs",
+    },
+    {
+      text: "Most Czech universities close applications at the end of February, so for a September start, begin by December.",
+      href: "/deadlines",
+      label: "Deadline tracker",
+    },
+  ],
+  parentsTop: "Paying for it as a parent? See the cost and safety, and whether the degree will count in Egypt.",
+  recognitionLink: "Recognition in Egypt",
+  checkedNote: (c: Costs) =>
+    `Checked against official pages: visa and legalisation fees on ${c.checkedFees.en} (the visa fee is valid from ${OFFICIAL.visaFeeCairoEgp.validFrom.en}), proof of funds on ${c.checkedFunds.en}. Fees can change, so open the source before you pay.`,
+  founderTopic: "studying in Czechia from Egypt",
   steps: [
     {
       title: "Check that you can apply",
-      body: "Your Thanaweya Amma certificate has to be legalised first, then recognised in Czechia: by nostrification, or within a university's admission procedure.",
+      body: `Your Thanaweya Amma has to be legalised in Egypt, then superlegalised at the Czech Embassy in Cairo: originals only, ${SUPERLEG} EGP per document, requests on Sundays from 9:00 to 11:30, usually about a week. Then it is recognised in Czechia: by the faculty, which is faster but counts only for its own admission, or by nostrification at a regional authority, which counts everywhere but is slower.`,
       links: [
         { href: "/thanaweya-amma-czech-university", label: "Thanaweya Amma step by step" },
         { href: "/eligibility", label: "Eligibility check" },
@@ -96,7 +125,7 @@ const en = {
     },
     {
       title: "Get the student visa in Cairo",
-      body: "Documents, proof of funds, booking the appointment at the Czech Embassy in Cairo by email, the fee and the waiting time.",
+      body: "Book by email only; a valid request is confirmed within 15 days. You apply in person with your acceptance letter, proof of accommodation, bank statements for the last 6 months and a criminal record extract translated into Czech and superlegalised: Arabic or English versions aren't accepted. The Ministry of the Interior can take up to 60 days to decide.",
       links: [
         { href: "/student-visa-egypt", label: "Student visa from Egypt" },
         { href: "/interview-prep", label: "Embassy interview practice" },
@@ -104,7 +133,7 @@ const en = {
     },
     {
       title: "Make sure your degree will count in Egypt",
-      body: "Check the Supreme Council of Universities' conditions before you choose a university, not after you graduate.",
+      body: "Only Egypt's Supreme Council of Universities can make your degree equivalent. It decides case by case after you graduate, so nobody can promise the result. Before you choose, check that the university is on the Czech Ministry of Education's register. For practical subjects such as medicine, engineering and sciences, the Council requires full-time study.",
       links: [{ href: "/recognition/egypt", label: "Recognition in Egypt" }],
     },
     {
@@ -227,10 +256,33 @@ const ar: typeof en = {
   title: "الدراسة في التشيك للمصريين: الطريق كامل",
   subtitle:
     "ثماني خطوات من الثانوية العامة حتى أول أسبوع في التشيك. كل خطوة توصلك إلى الدليل الكامل، المبني على صفحات الجامعات والسفارة والوزارات الرسمية.",
+  shortTitle: "الإجابة السريعة",
+  short: (c: Costs): Short[] => [
+    {
+      text: "أيوه، تقدر تقدم بالثانوية العامة، بعد ما تتوثق في مصر وفي السفارة التشيكية بالقاهرة، وبعدها تتعادل عن طريق الكلية أو بالنوستريفيكيشن.",
+      href: "/thanaweya-amma-czech-university",
+      label: "دليل الثانوية العامة",
+    },
+    {
+      text: `أول سنة في برنو بتوصل تقريبًا من ${n(c.firstYearEnglish[0])}€ لـ${n(c.firstYearEnglish[1])}€ في بكالوريوس متوسط بالإنجليزية: ${n(c.bachelorMedian)}€ مصاريف دراسية مع المعيشة حسب كلام الطلبة. بالتشيكية في جامعة حكومية الدراسة مجانية، فبتوصل تقريبًا من ${n(c.firstYearCzech[0])}€ لـ${n(c.firstYearCzech[1])}€. ورسوم الفيزا والتصديق غير كده.`,
+      href: "/what-it-costs",
+      label: "التكاليف الحقيقية",
+    },
+    {
+      text: "أغلب الجامعات التشيكية بتقفل التقديم آخر فبراير، فلو هتبدأ في سبتمبر، ابدأ من ديسمبر.",
+      href: "/deadlines",
+      label: "مواعيد التقديم",
+    },
+  ],
+  parentsTop: "ولي أمر وهتدفع المصاريف؟ اعرف التكلفة والأمان، وهل الشهادة هتتعادل في مصر.",
+  recognitionLink: "المعادلة في مصر",
+  checkedNote: (c: Costs) =>
+    `راجعناها على الصفحات الرسمية: رسوم الفيزا والتصديق يوم ${c.checkedFees.ar} (رسوم الفيزا سارية من ${OFFICIAL.visaFeeCairoEgp.validFrom.ar})، والمبلغ المطلوب إثباته يوم ${c.checkedFunds.ar}. الرسوم ممكن تتغير، فافتح المصدر قبل ما تدفع.`,
+  founderTopic: "الدراسة في التشيك من مصر",
   steps: [
     {
       title: "تأكد أنك تقدر تقدم",
-      body: "شهادة الثانوية العامة لازم تتوثق الأول، وبعدها تتعادل في التشيك: إما بالنوستريفيكيشن، أو داخل إجراءات القبول في الجامعة.",
+      body: `شهادة الثانوية العامة لازم تتوثق في مصر، وبعدها تتصدق في السفارة التشيكية بالقاهرة: الأصول بس، و${SUPERLEG} جنيه للمستند، والطلبات يوم الأحد من 9:00 لـ11:30، وبتاخد حوالي أسبوع. وبعدها تتعادل في التشيك: عن طريق الكلية، وده أسرع بس بينفع للقبول فيها بس، أو بالنوستريفيكيشن في مكتب الإقليم، وده بينفع في كل مكان بس أبطأ.`,
       links: [
         { href: "/thanaweya-amma-czech-university", label: "الثانوية العامة خطوة بخطوة" },
         { href: "/eligibility", label: "أقدر أقدم؟" },
@@ -275,7 +327,7 @@ const ar: typeof en = {
     },
     {
       title: "فيزا الدراسة من القاهرة",
-      body: "الأوراق، وإثبات المبلغ، وحجز الموعد في السفارة التشيكية بالقاهرة بالإيميل، والرسوم ومدة الانتظار.",
+      body: "الحجز بالإيميل بس، والطلب الصحيح بيتأكد خلال 15 يوم. بتقدم بنفسك ومعاك خطاب القبول، وإثبات السكن، وكشف حساب آخر 6 شهور، وصحيفة الحالة الجنائية مترجمة للتشيكية ومصدقة من السفارة: النسخة العربية أو الإنجليزية مش مقبولة. وزارة الداخلية ممكن تاخد لحد 60 يوم عشان تقرر.",
       links: [
         { href: "/student-visa-egypt", label: "تأشيرة الدراسة من مصر" },
         { href: "/interview-prep", label: "تدريب على مقابلة السفارة" },
@@ -283,7 +335,7 @@ const ar: typeof en = {
     },
     {
       title: "اتأكد إن شهادتك هتتعادل في مصر",
-      body: "اعرف شروط المجلس الأعلى للجامعات قبل ما تختار الجامعة، مش بعد التخرج.",
+      body: "المجلس الأعلى للجامعات في مصر هو الوحيد اللي يقدر يعادل شهادتك. بيقرر كل حالة لوحدها بعد التخرج، فمحدش يقدر يوعدك بالنتيجة. قبل ما تختار، اتأكد إن الجامعة موجودة في سجل وزارة التعليم التشيكية. وللتخصصات العملية زي الطب والهندسة والعلوم، المجلس بيشترط الدراسة بدوام كامل.",
       links: [{ href: "/recognition/egypt", label: "المعادلة في مصر" }],
     },
     {
@@ -417,6 +469,29 @@ export default function FromEgyptClient({ costs }: { costs: Costs }) {
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.title}</h1>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">{t.subtitle}</p>
           <GlassCard className="mb-8">
+            <h2 className="text-lg font-semibold text-text-primary mb-3">{t.shortTitle}</h2>
+            <ul className="space-y-3">
+              {t.short(costs).map((item) => (
+                <li key={item.href} className="text-sm text-text-secondary leading-relaxed">
+                  {item.text}{" "}
+                  <Link href={item.href} className="font-medium text-brand hover:underline">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-text-secondary leading-relaxed mt-3">
+              {t.parentsTop}{" "}
+              <Link href="/for-parents" className="font-medium text-brand hover:underline">
+                {t.parentsLink}
+              </Link>
+              {" · "}
+              <Link href="/recognition/egypt" className="font-medium text-brand hover:underline">
+                {t.recognitionLink}
+              </Link>
+            </p>
+          </GlassCard>
+          <GlassCard className="mb-8">
             <h2 className="text-lg font-semibold text-text-primary mb-3">{t.factsTitle}</h2>
             <dl className="grid gap-3 sm:grid-cols-2">
               {FACTS.map((f) => (
@@ -438,6 +513,7 @@ export default function FromEgyptClient({ costs }: { costs: Costs }) {
                 </div>
               ))}
             </dl>
+            <p className="text-xs text-text-muted leading-relaxed mt-3">{t.checkedNote(costs)}</p>
           </GlassCard>
 
           <section aria-labelledby="egypt-timeline" className="mb-8">
@@ -524,6 +600,7 @@ export default function FromEgyptClient({ costs }: { costs: Costs }) {
               ))}
             </div>
           </section>
+          <FounderCard topic={t.founderTopic} className="mb-8" />
           <p className="text-sm text-text-secondary">
             {t.parents}{" "}
             <Link href="/for-parents" className="text-brand font-medium hover:underline">
