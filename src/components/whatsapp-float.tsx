@@ -26,7 +26,12 @@ function topicFor(path: string): string {
  * One floating WhatsApp button on every page. It fades out while any link,
  * button or form field is underneath it, so it never covers a buy button or
  * a call to action.
+ *
+ * It decides only when scrolling has stopped and keeps its last state while
+ * the page moves. Checking on every scroll frame made it flash on and off on
+ * pages with many buttons in a column (the cost-of-living basket).
  */
+const SETTLE_MS = 200;
 export function WhatsAppFloat() {
   const pathname = usePathname() || "/";
   const { locale } = useTranslation();
@@ -61,14 +66,29 @@ export function WhatsAppFloat() {
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(check);
     };
+    // While the page scrolls, keep the current state; check once it settles.
+    let settle = 0;
+    let scrolling = false;
+    const onScroll = () => {
+      scrolling = true;
+      window.clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        scrolling = false;
+        schedule();
+      }, SETTLE_MS);
+    };
     schedule();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    const timer = window.setInterval(schedule, 1500); // content that appears without scrolling
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    // Content that appears without scrolling (an opened menu, a new card).
+    const timer = window.setInterval(() => {
+      if (!scrolling) schedule();
+    }, 1500);
     return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       window.clearInterval(timer);
+      window.clearTimeout(settle);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [pathname]);

@@ -116,7 +116,10 @@ export function Stepper({
   labelDec,
   labelInc,
   display,
+  incClassName = "bg-brand text-bg hover:bg-brand-hover",
 }: {
+  /** Colour of the + button (defaults to brand blue). Keep text/background at AA. */
+  incClassName?: string;
   value: number;
   onDec: () => void;
   onInc: () => void;
@@ -142,7 +145,7 @@ export function Stepper({
         type="button"
         onClick={onInc}
         aria-label={labelInc}
-        className="grid h-10 w-10 place-items-center rounded-full bg-brand text-bg hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        className={`grid h-10 w-10 place-items-center rounded-full hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${incClassName}`}
       >
         <Plus className="h-4 w-4" aria-hidden="true" />
       </button>
