@@ -62,7 +62,7 @@ const en = {
       label: "Thanaweya Amma guide",
     },
     {
-      text: `A first year in Brno comes to about €${n(c.firstYearEnglish[0])} to €${n(c.firstYearEnglish[1])} on a typical English-taught bachelor's: €${n(c.bachelorMedian)} tuition plus the living costs students report. Taught in Czech at a public university, tuition is free, so it comes to about €${n(c.firstYearCzech[0])} to €${n(c.firstYearCzech[1])}. Visa and legalisation fees come on top.`,
+      text: `A first year in Brno comes to about €${n(c.firstYearEnglish[0])} to €${n(c.firstYearEnglish[1])} on a typical English-taught bachelor's: €${n(c.bachelorMedian)} tuition plus a budget to balanced student month from our cost-of-living calculator. Taught in Czech at a public university, tuition is free, so it comes to about €${n(c.firstYearCzech[0])} to €${n(c.firstYearCzech[1])}. Visa and legalisation fees come on top.`,
       href: "/what-it-costs",
       label: "What it costs",
     },
@@ -192,7 +192,7 @@ const en = {
   faqTitle: "Questions Egyptian students ask",
   cost: (c: Costs): Faq => ({
     q: "How much does it cost to study in the Czech Republic from Egypt?",
-    a: `Taught in Czech at a public university, tuition is free. Taught in English, half of the bachelor's programmes on this site cost €${n(c.bachelorMedian)} a year or less${c.medicine ? `, and General Medicine costs €${n(c.medicine.min)} to €${n(c.medicine.max)} a year` : ""}. Students report living costs of ${n(c.brno[0])} to ${n(c.brno[1])} CZK a month in Brno and ${n(c.prague[0])} to ${n(c.prague[1])} CZK in Prague.`,
+    a: `Taught in Czech at a public university, tuition is free. Taught in English, half of the bachelor's programmes on this site cost €${n(c.bachelorMedian)} a year or less${c.medicine ? `, and General Medicine costs €${n(c.medicine.min)} to €${n(c.medicine.max)} a year` : ""}. A student month costs ${n(c.brno[0])} to ${n(c.brno[1])} CZK in Brno and ${n(c.prague[0])} to ${n(c.prague[1])} CZK in Prague, from a budget month to a balanced one.`,
     href: "/what-it-costs",
     label: "What it costs",
   }),
@@ -264,7 +264,7 @@ const ar: typeof en = {
       label: "دليل الثانوية العامة",
     },
     {
-      text: `أول سنة في برنو بتوصل تقريبًا من ${n(c.firstYearEnglish[0])}€ لـ${n(c.firstYearEnglish[1])}€ في بكالوريوس متوسط بالإنجليزية: ${n(c.bachelorMedian)}€ مصاريف دراسية مع المعيشة حسب كلام الطلبة. بالتشيكية في جامعة حكومية الدراسة مجانية، فبتوصل تقريبًا من ${n(c.firstYearCzech[0])}€ لـ${n(c.firstYearCzech[1])}€. ورسوم الفيزا والتصديق غير كده.`,
+      text: `أول سنة في برنو بتوصل تقريبًا من ${n(c.firstYearEnglish[0])}€ لـ${n(c.firstYearEnglish[1])}€ في بكالوريوس متوسط بالإنجليزية: ${n(c.bachelorMedian)}€ مصاريف دراسية مع شهر طالب من الاقتصادي للمتوازن حسب حاسبة تكاليف المعيشة عندنا. بالتشيكية في جامعة حكومية الدراسة مجانية، فبتوصل تقريبًا من ${n(c.firstYearCzech[0])}€ لـ${n(c.firstYearCzech[1])}€. ورسوم الفيزا والتصديق غير كده.`,
       href: "/what-it-costs",
       label: "التكاليف الحقيقية",
     },
@@ -394,7 +394,7 @@ const ar: typeof en = {
   faqTitle: "أسئلة الطلاب المصريين",
   cost: (c: Costs): Faq => ({
     q: "الدراسة في التشيك من مصر بتتكلف قد إيه؟",
-    a: `الدراسة بالتشيكية في جامعة حكومية مجانية. بالإنجليزية، نص برامج البكالوريوس على الموقع رسومها ${n(c.bachelorMedian)}€ في السنة أو أقل${c.medicine ? `، والطب العام من ${n(c.medicine.min)}€ لـ${n(c.medicine.max)}€ في السنة` : ""}. المعيشة حسب كلام الطلبة من ${n(c.brno[0])} لـ${n(c.brno[1])} كرونة في الشهر في برنو، ومن ${n(c.prague[0])} لـ${n(c.prague[1])} كرونة في براغ.`,
+    a: `الدراسة بالتشيكية في جامعة حكومية مجانية. بالإنجليزية، نص برامج البكالوريوس على الموقع رسومها ${n(c.bachelorMedian)}€ في السنة أو أقل${c.medicine ? `، والطب العام من ${n(c.medicine.min)}€ لـ${n(c.medicine.max)}€ في السنة` : ""}. شهر الطالب بيتكلف من ${n(c.brno[0])} لـ${n(c.brno[1])} كرونة في برنو، ومن ${n(c.prague[0])} لـ${n(c.prague[1])} كرونة في براغ، من الشهر الاقتصادي للمتوازن.`,
     href: "/what-it-costs",
     label: "التكاليف الحقيقية",
   }),

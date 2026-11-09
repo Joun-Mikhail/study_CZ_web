@@ -3,7 +3,7 @@ import { MEDICINE_ADMISSIONS } from "@/data/medicine-admissions";
 import { programmes } from "@/data/programmes";
 import { feeVerified } from "@/lib/fee-source";
 import { formatMoney } from "@/lib/medicine-guide";
-import { OFFICIAL, englishTuition } from "@/lib/study-costs";
+import { OFFICIAL, englishTuition, livingByCity } from "@/lib/study-costs";
 import { renderAt } from "./render";
 
 const tuition = englishTuition();
@@ -22,6 +22,18 @@ describe("what it costs", () => {
       expect(short).toContain(formatMoney(OFFICIAL.proofOfFundsYearCzk.value, "CZK", locale));
       expect(short).toContain(`${verified}`);
       expect(short).toContain(`${tuition.all.count}`);
+    });
+
+    it(`shows the student-month range for every city and links to the calculator (${locale})`, () => {
+      const { container } = renderAt(<WhatItCostsClient />, path);
+      const text = container.textContent ?? "";
+      const short = container.querySelector("#cost-short-answer")?.parentElement?.textContent ?? "";
+      for (const city of livingByCity()) {
+        const [lo, hi] = city.monthlyCzk.map((v) => v.toLocaleString("en-US"));
+        expect(text, city.key).toContain(`${lo} – ${hi}`);
+        if (city.key !== "ostrava") expect(short, city.key).toContain(`${lo} – ${hi}`);
+      }
+      expect(container.querySelectorAll('a[href*="/cost-of-living"]').length).toBeGreaterThan(0);
     });
 
     it(`lists the published medicine application fees with their sources (${locale})`, () => {
