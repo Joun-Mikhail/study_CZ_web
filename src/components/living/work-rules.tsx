@@ -91,7 +91,7 @@ const SOURCES = [
 export function WorkRules({ locale }: { locale: Locale }) {
   const t = COPY[locale];
   return (
-    <section aria-labelledby="rules-title" className="rounded-[28px] border border-border-subtle bg-bg-subtle p-5 sm:p-8">
+    <section aria-labelledby="rules-title" className="rounded-[28px] border border-gold/30 bg-gradient-to-br from-gold-soft via-surface to-teal-soft p-5 sm:p-8">
       <h2 id="rules-title" className="text-xl sm:text-2xl font-bold text-text-primary">{t.title}</h2>
       <p className="mt-3 max-w-3xl flex gap-2 text-text-secondary leading-relaxed">
         <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-success" aria-hidden="true" />

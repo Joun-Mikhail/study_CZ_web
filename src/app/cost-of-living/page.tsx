@@ -135,7 +135,7 @@ export default function CostOfLivingPage() {
 
           <WorkRules locale={locale} />
 
-          <div className="space-y-8">
+          <div className="space-y-8 rounded-[28px] border border-violet/25 bg-gradient-to-br from-violet-soft via-surface to-rose-soft p-4 sm:p-8">
             <StudentMonth
               locale={locale}
               city={city}
@@ -156,7 +156,7 @@ export default function CostOfLivingPage() {
             />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 rounded-[28px] border border-sky/25 bg-gradient-to-br from-sky-soft via-surface to-violet-soft p-4 sm:p-8">
             <CityCompare locale={locale} settings={settings} city={city} onCity={chooseCity} />
 
             <GlassCard>

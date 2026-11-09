@@ -119,6 +119,18 @@ const COPY = {
   },
 };
 
+/** One colour per job, on the card's top edge only (no text on it). */
+const ROLE_STRIPE: Record<JobRoleId, string> = {
+  waiter: "border-border-subtle border-t-coral",
+  barista: "border-border-subtle border-t-gold",
+  supermarket: "border-border-subtle border-t-teal",
+  warehouse: "border-border-subtle border-t-sky",
+  fastFood: "border-border-subtle border-t-rose",
+  catering: "border-border-subtle border-t-violet",
+  reception: "border-border-subtle border-t-[var(--color-brand-light)]",
+  cleaning: "border-border-subtle border-t-teal-ink",
+};
+
 export type EarningsState = {
   hoursPerShift: number;
   shiftsPerWeek: number;
@@ -164,7 +176,7 @@ export function EarningsSimulator({
   const belowMin = wage < MIN_WAGE_2026.hourlyCzk;
 
   return (
-    <section id="earn" aria-labelledby="earn-title" className="scroll-mt-24">
+    <section id="earn" aria-labelledby="earn-title" className="scroll-mt-24 rounded-[28px] border border-teal/25 bg-gradient-to-br from-teal-soft via-surface to-sky-soft p-4 sm:p-8">
       <p className="inline-flex items-center gap-2 rounded-full bg-teal-soft px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-ink">
         <Briefcase className="h-4 w-4" aria-hidden="true" />
         {t.eyebrow}
@@ -199,7 +211,7 @@ export function EarningsSimulator({
           const monthlyAd = shownAds.find((a) => a.monthlyCzk && !a.hourlyCzk);
           const active = j.id === roleId;
           return (
-            <li key={j.id} className={cn("flex flex-col rounded-2xl border bg-surface p-4", active ? "border-teal ring-2 ring-teal/30" : "border-border-subtle")}>
+            <li key={j.id} className={cn("flex flex-col rounded-2xl border border-t-4 bg-surface p-4", ROLE_STRIPE[j.id], active ? "ring-2 ring-teal/40" : "")}>
               <button
                 type="button"
                 onClick={() => {

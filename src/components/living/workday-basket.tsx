@@ -110,7 +110,7 @@ const COPY = {
     add: (n: string) => `أضف ${n}`,
     remove: (n: string) => `احذف وحدة من ${n}`,
     view: "صفحة المنتج",
-    personalOffer: (p: string) => `ظهر لبعض الزوار سعر ${p}. نحن نستخدم السعر العادي.`,
+    personalOffer: (p: string) => `ظهر لبعض الزوار سعر ${p} بخصم شخصي، ونحن نستخدم السعر العادي.`,
     fitTitle: "سلة تناسب هذه الوردية",
     fitBody: (name: string, total: string, hours: string) => `«${name}» تكلف ${total}، أي حوالي ${hours} ساعة عمل.`,
     fitAction: "استخدم هذه السلة",
@@ -131,6 +131,14 @@ const TILE: Record<GroceryCategory, string> = {
   grains: "bg-gold-soft",
   produce: "bg-teal-soft",
   pantry: "bg-violet-soft",
+};
+/** Each aisle keeps one colour on its cards, + button, badge and filter chip. Text stays on AA pairs (ink on soft, white on ink). */
+const CAT: Record<GroceryCategory, { card: string; picked: string; solid: string; dot: string }> = {
+  protein: { card: "border-coral/35 from-coral-soft/70", picked: "border-coral-ink ring-2 ring-coral/30", solid: "bg-coral-ink text-white dark:text-bg", dot: "bg-coral" },
+  dairy: { card: "border-sky/35 from-sky-soft/70", picked: "border-sky-ink ring-2 ring-sky/30", solid: "bg-sky-ink text-white dark:text-bg", dot: "bg-sky" },
+  grains: { card: "border-gold/40 from-gold-soft/70", picked: "border-gold-ink ring-2 ring-gold/30", solid: "bg-gold-ink text-white dark:text-bg", dot: "bg-gold" },
+  produce: { card: "border-teal/35 from-teal-soft/70", picked: "border-teal-ink ring-2 ring-teal/30", solid: "bg-teal-ink text-white dark:text-bg", dot: "bg-teal" },
+  pantry: { card: "border-violet/35 from-violet-soft/70", picked: "border-violet-ink ring-2 ring-violet/30", solid: "bg-violet-ink text-white dark:text-bg", dot: "bg-violet" },
 };
 
 const pct = (x: number) => `${Math.round(x * 100)}%`;
@@ -405,10 +413,13 @@ export function WorkdayBasket({
                   aria-pressed={category === c}
                   onClick={() => setCategory(c)}
                   className={cn(
-                    "shrink-0 min-h-9 rounded-lg px-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-brand",
-                    category === c ? "bg-text-primary text-bg" : "bg-surface/70 text-text-secondary hover:text-text-primary",
+                    "inline-flex shrink-0 min-h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-brand",
+                    category === c
+                      ? c === "all" ? "bg-text-primary text-bg" : CAT[c].solid
+                      : "bg-surface/80 text-text-secondary hover:text-text-primary",
                   )}
                 >
+                  {c !== "all" && category !== c && <span className={cn("h-2.5 w-2.5 rounded-full", CAT[c].dot)} aria-hidden="true" />}
                   {c === "all" ? t.all : t.categories[c]}
                 </button>
               ))}
@@ -422,15 +433,16 @@ export function WorkdayBasket({
                   <li
                     key={g.id}
                     className={cn(
-                      "flex flex-col rounded-2xl border bg-surface p-3 transition-[border-color,box-shadow]",
-                      q > 0 ? "border-brand/60 shadow-[0_8px_20px_-14px_rgba(17,69,126,0.6)]" : "border-border-subtle",
+                      "flex flex-col rounded-2xl border bg-surface bg-gradient-to-b to-surface to-60% p-3 transition-[border-color,box-shadow]",
+                      CAT[g.category].card,
+                      q > 0 && cn(CAT[g.category].picked, "shadow-[0_10px_24px_-16px_rgba(11,31,58,0.55)]"),
                     )}
                   >
                     <div className="flex gap-3">
                       <div className={cn("relative grid h-20 w-20 shrink-0 place-items-center rounded-xl", TILE[g.category])}>
                         <GroceryArt id={g.id} className={cn("h-16 w-16", q > 0 && "pop")} key={q > 0 ? "in" : "out"} />
                         {q > 0 && (
-                          <span className="absolute -top-1.5 -end-1.5 grid min-h-6 min-w-6 place-items-center rounded-full bg-brand px-1 text-xs font-bold text-bg tabular-nums">
+                          <span className={`absolute -top-1.5 -end-1.5 grid min-h-6 min-w-6 place-items-center rounded-full px-1 text-xs font-bold tabular-nums ${CAT[g.category].solid}`}>
                             {qtyLabel(g.id, q)}
                           </span>
                         )}
@@ -452,7 +464,7 @@ export function WorkdayBasket({
                     {g.offerSeen && (
                       <p className="mt-1 flex items-start gap-1 text-[11px] leading-snug text-gold-ink">
                         <Tag className="mt-0.5 h-3 w-3 shrink-0" aria-hidden="true" />
-                        {t.personalOffer(iso(`${g.offerSeen.priceCzk.toFixed(2)} CZK (${g.offerSeen.label})`))}
+                        {t.personalOffer(iso(locale === "ar" ? `${g.offerSeen.priceCzk.toFixed(2)} CZK` : `${g.offerSeen.priceCzk.toFixed(2)} CZK (${g.offerSeen.label})`))}
                       </p>
                     )}
                     <div className="mt-auto flex items-center justify-between gap-2 pt-3">
@@ -476,6 +488,7 @@ export function WorkdayBasket({
                         labelDec={t.remove(g.name[locale])}
                         labelInc={t.add(g.name[locale])}
                         display={q > 0 ? qtyLabel(g.id, q) : "0"}
+                        incClassName={CAT[g.category].solid}
                       />
                     </div>
                   </li>
@@ -492,7 +505,7 @@ export function WorkdayBasket({
 
         {/* Phones: keep the running total in view while scrolling the products. */}
         <div className="sticky bottom-3 z-20 mt-4 lg:hidden" aria-hidden="true">
-          <div className="flex items-center justify-between gap-3 rounded-2xl bg-ink px-4 py-3 text-white shadow-lg">
+          <div className="me-[4.5rem] flex items-center justify-between gap-3 rounded-2xl bg-ink px-4 py-3 text-white shadow-lg">
             <span className="text-sm font-semibold tabular-nums">
               {t.mobileBar(iso(fmtCzk(r.basketCzk)), iso(fmtCzk(r.earnedCzk)))}
             </span>
