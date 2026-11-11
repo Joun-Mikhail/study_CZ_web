@@ -48,7 +48,7 @@ const COPY = {
     about: "Who is behind this guide?",
     corrections: "Suggest a correction",
     identity: "We are an independent student guide, separate from the official national programme:",
-    official: "Study in Czechia (studyin.cz)",
+    official: "Study in Czechia (studyin.gov.cz)",
   },
   ar: {
     title: "الدراسة في التشيك: الأساسيات",
@@ -92,7 +92,7 @@ const COPY = {
     about: "من يقف وراء هذا الدليل؟",
     corrections: "اقترح تصحيحًا",
     identity: "نحن دليل طلابي مستقل ولسنا تابعين للبرنامج الوطني الرسمي:",
-    official: "Study in Czechia (studyin.cz)",
+    official: "Study in Czechia (studyin.gov.cz)",
   },
 };
 
@@ -128,7 +128,7 @@ export function HomeStudyOverview() {
           <li><Link href="/contact/" className={linkClass}>{c.corrections}</Link></li>
         </ul>
         <p className="mt-4 text-sm text-text-secondary leading-relaxed">
-          {c.identity}{" "}<a href="https://www.studyin.cz/" className={linkClass} lang="en" dir="ltr">{c.official}</a>.
+          {c.identity}{" "}<a href="https://studyin.gov.cz/" className={linkClass} lang="en" dir="ltr">{c.official}</a>.
         </p>
       </aside>
     </section>

@@ -23,7 +23,7 @@ const sections = {
       blocks: [
         {
           heading: "1. Who we are",
-          body: "Study Czechia (studyczechia.com) is an independent, student-built information platform run by its founder, John, a student in Brno, Czech Republic. It is not affiliated with any Czech embassy, government ministry or university, or with the official Study in Czechia programme (studyin.cz). Content is for guidance only and is not legal, immigration or financial advice.",
+          body: "Study Czechia (studyczechia.com) is an independent, student-built information platform run by its founder, John, a student in Brno, Czech Republic. It is not affiliated with any Czech embassy, government ministry or university, or with the official Study in Czechia programme (studyin.gov.cz). Content is for guidance only and is not legal, immigration or financial advice.",
         },
         {
           heading: "2. No guarantees",
@@ -67,7 +67,7 @@ const sections = {
       blocks: [
         {
           heading: "1. من نحن",
-          body: "Study Czechia (studyczechia.com) منصة معلومات مستقلة أنشأها طالب، ويديرها مؤسسها جون، وهو طالب في برنو، جمهورية التشيك. المنصة غير تابعة لأي سفارة تشيكية أو وزارة حكومية أو جامعة، ولا لبرنامج Study in Czechia الرسمي (studyin.cz). المحتوى للاسترشاد فقط، وليس استشارة قانونية أو استشارة هجرة أو استشارة مالية.",
+          body: "Study Czechia (studyczechia.com) منصة معلومات مستقلة أنشأها طالب، ويديرها مؤسسها جون، وهو طالب في برنو، جمهورية التشيك. المنصة غير تابعة لأي سفارة تشيكية أو وزارة حكومية أو جامعة، ولا لبرنامج Study in Czechia الرسمي (studyin.gov.cz). المحتوى للاسترشاد فقط، وليس استشارة قانونية أو استشارة هجرة أو استشارة مالية.",
         },
         {
           heading: "2. لا ضمانات",

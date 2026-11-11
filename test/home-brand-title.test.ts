@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { AR_PAGE_META } from "@/i18n/ar-metadata";
 
 // People search for the brand ("Study Czechia"). The official programme is
-// called "Study in Czechia" (studyin.cz), so a homepage title that only says
+// called "Study in Czechia" (studyin.gov.cz), so a homepage title that only says
 // "Study in Czechia" competes for its name instead of ours.
 describe("homepage titles name the brand", () => {
   it("English homepage title starts with Study Czechia", () => {

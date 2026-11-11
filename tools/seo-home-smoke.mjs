@@ -48,7 +48,7 @@ try {
     for (const path of ["programmes/", "preparatory-year/", "application-guide/", "deadlines/", "what-it-costs/", "scholarships/", "study-in-czechia-from-egypt/#egypt-timeline", "student-visa-egypt/", "about/", "contact/"]) {
       assert.equal(await overview.locator(`a[href="${route}${path}"]`).count(), 1, `Missing localized overview link ${route}${path}`);
     }
-    assert.equal(await overview.locator('a[href="https://www.studyin.cz/"]').count(), 1);
+    assert.equal(await overview.locator('a[href="https://studyin.gov.cz/"]').count(), 1);
     await overview.locator("a").first().focus();
     await page.keyboard.press("Tab");
     assert(await overview.locator("a").nth(1).evaluate((a) => a === document.activeElement), "Overview links must remain keyboard reachable in document order");

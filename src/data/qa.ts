@@ -97,7 +97,7 @@ export const qaEntries: QaEntry[] = [
       ar: "الفيزا الطويلة بتخليك تقيم في التشيك أكتر من 90 يوم، وصالحة لسنة بالكتير، ولدخول واحد بس. تصريح الإقامة الطويل ده كارت بيومتري بيتعمل وانت موجود في البلد (عادة بعد الفيزا الطويلة)، وصالح لسنتين، وبيسمحلك تدخل وتخرج بحرية.",
     },
     source: {
-      url: "https://www.mvcr.cz/mvcren/article/third-country-nationals-general-information.aspx",
+      url: "https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/",
       label: { en: "Czech Ministry of Interior", ar: "وزارة الداخلية التشيكية" },
     },
   },
@@ -347,7 +347,7 @@ export const qaEntries: QaEntry[] = [
       ar: "الطلاب اللي عندهم إقامة بغرض \"دراسة\" عندهم حق الوصول الحر لسوق العمل التشيكي، مش محتاج تصريح عمل ومفيش حد ساعات ثابت. تأكد من نوع إقامتك، لأن أغراض الإقامة التانية ممكن يكون عليها قيود. أجور المستوى المبتدئ (زي شغل المطاعم) بتبدأ من 120–180 كرونة تشيكية في الساعة. الشغل في تخصصك بيدفع حسب المجال، راجع مواقع زي Indeed أو Salary Explorer. الإنجليزي وحده ممكن يديك شغل، لكن التشيكي غالبًا بيفتحلك فرص وأجور أحسن.",
     },
     source: {
-      url: "https://www.mvcr.cz/mvcren/article/employment-and-doing-business.aspx",
+      url: "https://ipc.gov.cz/en/life-in-the-czech-republic/free-access-to-the-labour-market/",
       label: { en: "Czech Ministry of Interior", ar: "وزارة الداخلية التشيكية" },
     },
   },

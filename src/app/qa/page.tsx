@@ -138,7 +138,7 @@ export default function QaPage() {
             <VerifiedBadge
               date="2026-08-27"
               label={locale === "ar" ? "آخر مراجعة:" : "Last reviewed:"}
-              sourceUrl="https://www.mvcr.cz/mvcren/article/third-country-nationals-general-information.aspx"
+              sourceUrl="https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/"
             />
           </div>
         </div>

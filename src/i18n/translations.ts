@@ -87,7 +87,7 @@ export const translations = {
       correctionError: "Could not send. Try again later.",
     },
     footer: {
-      tagline: "Built by students, for students. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.cz).",
+      tagline: "Built by students, for students. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.gov.cz).",
       rights: "All content is community-sourced and provided for guidance only. Always verify with official sources.",
       exploreLabel: "Explore",
       resourcesLabel: "Resources",
@@ -439,7 +439,7 @@ export const translations = {
       correctionError: "مقدرش يتبعت. جرب تاني بعدين.",
     },
     footer: {
-      tagline: "من طلاب، لطلاب. مش تابعين لأي سفارة أو جامعة، ولا لبرنامج Study in Czechia الرسمي (studyin.cz).",
+      tagline: "من طلاب، لطلاب. مش تابعين لأي سفارة أو جامعة، ولا لبرنامج Study in Czechia الرسمي (studyin.gov.cz).",
       rights: "كل المعلومات من المجتمع ولغرض الاسترشاد بس. دايما تأكد من المصادر الرسمية.",
       exploreLabel: "تصفح",
       resourcesLabel: "مصادر",

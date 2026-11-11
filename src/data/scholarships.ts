@@ -31,7 +31,7 @@ export const scholarships: Scholarship[] = [
       en: "Deadlines vary by sending country and agreement. Check the DZS page each year.",
       ar: "المواعيد بتختلف حسب البلد والاتفاقية. تابع صفحة DZS كل سنة.",
     },
-    link: "https://www.studyin.cz/",
+    link: "https://studyin.gov.cz/scholarships/",
   },
 
   {
@@ -56,7 +56,7 @@ export const scholarships: Scholarship[] = [
       en: "Application deadlines depend on the university and programme. Check each university's admissions page.",
       ar: "مواعيد التقديم حسب الجامعة والبرنامج. راجع صفحة القبول لكل جامعة.",
     },
-    link: "https://www.studyin.cz/",
+    link: "https://studyin.gov.cz/plan-your-studies/learn-czech-study-tuition-free/",
   },
 
   {
@@ -94,6 +94,6 @@ export const scholarships: Scholarship[] = [
       en: "Deadlines and application procedures are set by each university.",
       ar: "المواعيد وإجراءات التقديم بتحددها كل جامعة.",
     },
-    link: "https://www.studyin.cz/",
+    link: "https://studyin.gov.cz/scholarships/",
   },
 ];
