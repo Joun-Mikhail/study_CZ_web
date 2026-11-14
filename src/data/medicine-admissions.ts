@@ -91,5 +91,5 @@ export const MEDICINE_GUIDE_SOURCES = {
   muniAdmission: "https://www.med.muni.cz/en/admissions/admission-information",
   hkAdmission: "https://www.lfhk.cuni.cz/LFHKEN-181.html",
   upolAdmission: "https://www.lf.upol.cz/en/studyat-our-faculty/general-medicine-mudr/",
-  fundsInterior: "https://frs.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
+  fundsInterior: "https://ipc.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
 } as const;

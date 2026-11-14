@@ -8,7 +8,7 @@ const SOURCES = {
   appointment: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/long_term_visa/make_an_appointment/index.html",
   fees: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_and_visa_fees/index.html",
   legalisation: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_services_1/legalization_of_documents/index.html",
-  fundsInterior: "https://frs.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
+  fundsInterior: "https://ipc.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
   fundsForeign: "https://mzv.gov.cz/jnp/en/information_for_aliens/supporting_documents_overview/financial_means.html",
 } as const;
 

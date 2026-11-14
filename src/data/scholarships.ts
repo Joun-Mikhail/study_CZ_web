@@ -94,6 +94,6 @@ export const scholarships: Scholarship[] = [
       en: "Deadlines and application procedures are set by each university.",
       ar: "المواعيد وإجراءات التقديم بتحددها كل جامعة.",
     },
-    link: "https://studyin.gov.cz/scholarships/",
+    link: "https://studyin.gov.cz/plan-your-studies/scholarships-and-finances/",
   },
 ];

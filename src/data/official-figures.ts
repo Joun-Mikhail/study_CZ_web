@@ -10,7 +10,7 @@ export const OFFICIAL = {
   },
   proofOfFundsYearCzk: {
     value: 115810,
-    url: "https://frs.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
+    url: "https://ipc.gov.cz/en/forms-and-documents/documents/proof-of-funds-for-the-residence-finances/",
     checked: "2026-10-18",
   },
   visaFeeCairoEgp: {

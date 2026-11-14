@@ -12,9 +12,11 @@ import { AUTHORITIES, MOVED_EXAMPLES, OFFICIAL_PORTAL, OFFICIAL_TOPICS } from "@
 export type FeeCounts = { total: number; verified: number };
 
 const en = {
-  title: "Official sources for studying in Czechia",
+  title: "Official sources for studying in Czechia: an independent guide to them",
   subtitle:
     "Study Czechia is an independent guide. These are the official pages behind it: where each topic lives on the official portal, which authority decides what, and how we check what we publish.",
+  independent:
+    "This is not an official website. Study Czechia is run by a student and is not affiliated with, endorsed by or acting for any Czech ministry, embassy, university, DZS or the official Study in Czechia programme. The links below lead to their websites, which are the only authoritative sources.",
   checked: "Every link on this page opened correctly when we checked it on 11 November 2026.",
   movedTitle: "The official Study in Czechia portal is now at studyin.gov.cz",
   movedBody:
@@ -41,9 +43,11 @@ const en = {
 };
 
 const ar: typeof en = {
-  title: "المصادر الرسمية للدراسة في التشيك",
+  title: "المصادر الرسمية للدراسة في التشيك: دليل مستقل إليها",
   subtitle:
     "Study Czechia دليل مستقل. هذه هي الصفحات الرسمية التي يعتمد عليها: أين يوجد كل موضوع على البوابة الرسمية، وأي جهة تقرر ماذا، وكيف نراجع ما ننشره.",
+  independent:
+    "هذا ليس موقعًا رسميًا. Study Czechia يديره طالب، وهو غير تابع لأي وزارة تشيكية أو سفارة أو جامعة أو للوكالة DZS أو لبرنامج Study in Czechia الرسمي، ولا يمثل أيًّا منها ولا يحظى بتزكيتها. الروابط التالية تقود إلى مواقع تلك الجهات، وهي وحدها المصادر المعتمدة.",
   checked: "كل رابط في هذه الصفحة كان يعمل عندما راجعناه بتاريخ 11 نوفمبر 2026.",
   movedTitle: "البوابة الرسمية Study in Czechia أصبحت على studyin.gov.cz",
   movedBody:
@@ -84,6 +88,9 @@ export default function SourcesClient({ counts }: { counts: FeeCounts }) {
           <header className="mb-8">
             <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{t.title}</h1>
             <p className="text-lg text-text-secondary leading-relaxed mb-4">{t.subtitle}</p>
+            <p role="note" className="mb-4 rounded-xl border border-border-subtle bg-bg-subtle p-4 text-sm font-medium leading-relaxed text-text-primary">
+              {t.independent}
+            </p>
             <p className="flex items-start gap-2 text-sm text-text-muted">
               <CalendarCheck className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
               {t.checked}

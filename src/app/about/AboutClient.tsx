@@ -53,8 +53,8 @@ const t = {
       "Important claims on this site are marked with a \"Last verified\" date and linked to their official source. When our information conflicts with an official source, follow the official source, and tell us so we can correct it.",
     officialSourcesTitle: "Official sources we reference",
     officialSources: [
-      { name: "Czech Ministry of Interior", url: "https://www.mvcr.cz/mvcren/" },
-      { name: "Czech Ministry of Education", url: "https://www.msmt.cz/?lang=2" },
+      { name: "Czech Ministry of Interior", url: "https://ipc.gov.cz/en/" },
+      { name: "Czech Ministry of Education", url: "https://msmt.gov.cz/en" },
       { name: "Study in the Czech Republic", url: "https://studyin.gov.cz/" },
     ],
     contactTitle: "Contact",
@@ -96,8 +96,8 @@ const t = {
       "المعلومات المهمة على الموقع متعلم عليها بتاريخ \"آخر تحقق\" ومربوطة بمصدرها الرسمي. لو معلوماتنا اتعارضت مع مصدر رسمي، اتبع المصدر الرسمي، وقولنا عشان نصلحها.",
     officialSourcesTitle: "المصادر الرسمية اللي بنرجعلها",
     officialSources: [
-      { name: "وزارة الداخلية التشيكية", url: "https://www.mvcr.cz/mvcren/" },
-      { name: "وزارة التعليم التشيكية", url: "https://www.msmt.cz/?lang=2" },
+      { name: "وزارة الداخلية التشيكية", url: "https://ipc.gov.cz/en/" },
+      { name: "وزارة التعليم التشيكية", url: "https://msmt.gov.cz/en" },
       { name: "الدراسة في التشيك", url: "https://studyin.gov.cz/" },
     ],
     contactTitle: "تواصل",
