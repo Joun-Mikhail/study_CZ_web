@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { CardPhoto } from "@/components/card-photo";
 import Link from "@/components/locale-link";
+import { ApplicantGuides } from "@/components/applicant-guides";
 import type { ImageId } from "@/data/images";
 
 /** Header photo (decorative) and icon for each scholarship route. */
@@ -109,6 +110,7 @@ export default function Page() {
             </motion.div>
           ))}
         </div>
+        <ApplicantGuides context="scholarships" />
       </main>
       <Footer />
     </div>

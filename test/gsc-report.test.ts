@@ -29,6 +29,8 @@ describe("gsc-report", () => {
   it("separates brand from non-brand and lists near misses", () => {
     expect(s.brand).toEqual({ clicks: 8, impressions: 46 });
     expect(s.nonBrand).toEqual({ clicks: 1, impressions: 72 });
+    expect(s.arabic).toEqual({ clicks: 1, impressions: 60, ctr: 1.7 });
+    expect(s.other).toEqual({ clicks: 8, impressions: 58, ctr: 13.8 });
     expect(s.nearMisses.map((q: { key: string }) => q.key)).toEqual(["study czechia", "study in czechia, from egypt"]);
   });
 });

@@ -20,18 +20,18 @@ export const scholarships: Scholarship[] = [
       ar: "وزارة التعليم عبر DZS",
     },
     eligibility: {
-      en: "Citizens of eligible developing countries nominated through bilateral agreements. Check the official DZS list.",
-      ar: "لمواطني بعض دول العالم الثالث حسب اتفاقيات ثنائية. شوف قائمة DZS الرسمية.",
+      en: "Only citizens of the countries the ministry lists each year. For 2027/2028 these are Bosnia and Herzegovina, Georgia, Ukraine, Belarus, Ethiopia, Gabon, Mauritania, Zambia, Bangladesh, Cambodia, Palestine, Guatemala and Honduras. Egypt, Jordan and Saudi Arabia are not on that list. Egyptian students have a separate route, the intergovernmental scholarships, where Egypt's Ministry of Higher Education nominates the candidates (see the Egypt guide below).",
+      ar: "لمواطني الدول اللي الوزارة بتحددها كل سنة بس. لسنة 2027/2028 هي: البوسنة والهرسك، جورجيا، أوكرانيا، بيلاروسيا، إثيوبيا، الجابون، موريتانيا، زامبيا، بنجلاديش، كمبوديا، فلسطين، جواتيمالا، وهندوراس. مصر والأردن والسعودية مش في القائمة دي. الطلاب المصريين ليهم طريق تاني: منح الاتفاقية بين الحكومتين، ووزارة التعليم العالي المصرية هي اللي بترشح (شوف دليل مصر تحت).",
     },
     coverage: {
-      en: "Typically covers tuition at public universities and a living stipend for the study period. Exact coverage varies by agreement.",
-      ar: "عادة بتغطي رسوم الدراسة في الجامعات الحكومية ومخصص شهري للمعيشة طوال فترة الدراسة. التفصيل بيختلف حسب الاتفاقية.",
+      en: "For 2027/2028: selected two-year Master's and Doctoral programmes at public universities. There is no legal claim to an award.",
+      ar: "لسنة 2027/2028: برامج ماجستير (سنتين) ودكتوراه مختارة في الجامعات الحكومية. المنحة مش حق مضمون لأي متقدم.",
     },
     deadline: {
-      en: "Deadlines vary by sending country and agreement. Check the DZS page each year.",
-      ar: "المواعيد بتختلف حسب البلد والاتفاقية. تابع صفحة DZS كل سنة.",
+      en: "Applications for 2027/2028 were open from 21 August to 30 September 2026. Checked on the ministry's page on 14 November 2026.",
+      ar: "التقديم لسنة 2027/2028 كان من 21 أغسطس لحد 30 سبتمبر 2026. راجعنا صفحة الوزارة يوم 14 نوفمبر 2026.",
     },
-    link: "https://studyin.gov.cz/scholarships/",
+    link: "https://msmt.gov.cz/en/scholarships/government-scholarships-developing-countries",
   },
 
   {

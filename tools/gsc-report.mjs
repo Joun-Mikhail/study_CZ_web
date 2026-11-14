@@ -88,7 +88,16 @@ export function summarize(queries) {
   const sum = (rows, f) => rows.reduce((n, r) => n + r[f], 0);
   const brand = queries.filter((q) => BRAND.test(q.key));
   const nonBrand = queries.filter((q) => !BRAND.test(q.key));
+  // Arabic-script queries are the Arabic audience, whatever country they search from.
+  const arabic = queries.filter((q) => /[\u0600-\u06FF]/.test(q.key));
+  const totals = (rows) => {
+    const impressions = sum(rows, "impressions");
+    const clicks = sum(rows, "clicks");
+    return { clicks, impressions, ctr: impressions ? Math.round((clicks / impressions) * 1000) / 10 : 0 };
+  };
   return {
+    arabic: totals(arabic),
+    other: totals(queries.filter((q) => !/[\u0600-\u06FF]/.test(q.key))),
     tracked,
     nearMisses,
     brand: { clicks: sum(brand, "clicks"), impressions: sum(brand, "impressions") },
@@ -112,8 +121,8 @@ function main() {
   const pos = (p) => (p ? p.toFixed(1) : "–");
 
   console.log(`\nTracked keywords (${label})`);
-  console.log("pos     impr  clicks  keyword");
-  for (const t of s.tracked) console.log(`${pos(t.position).padStart(5)} ${String(t.impressions).padStart(6)} ${String(t.clicks).padStart(7)}  ${t.keyword}`);
+  console.log("pos     impr  clicks    ctr  keyword");
+  for (const t of s.tracked) console.log(`${pos(t.position).padStart(5)} ${String(t.impressions).padStart(6)} ${String(t.clicks).padStart(7)} ${(t.impressions ? `${t.ctr}%` : "–").padStart(6)}  ${t.keyword}`);
   console.log("\n'–' means no impressions in this export: Google did not show the site for that exact query.");
 
   console.log("\nClosest to page one (position 8–20, by impressions)");
@@ -122,6 +131,8 @@ function main() {
 
   console.log(`\nBrand queries:     ${s.brand.clicks} clicks, ${s.brand.impressions} impressions`);
   console.log(`Non-brand queries: ${s.nonBrand.clicks} clicks, ${s.nonBrand.impressions} impressions`);
+  console.log(`Arabic queries:    ${s.arabic.clicks} clicks, ${s.arabic.impressions} impressions, ${s.arabic.ctr}% CTR`);
+  console.log(`Other queries:     ${s.other.clicks} clicks, ${s.other.impressions} impressions, ${s.other.ctr}% CTR`);
 
   for (const [file, title] of [["Countries.csv", "Top countries"], ["Devices.csv", "Devices"], ["Pages.csv", "Top pages"]]) {
     const rows = read(file);
