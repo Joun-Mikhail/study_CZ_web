@@ -12,6 +12,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { SaveProgrammeButton } from "@/components/ui/save-programme-button";
 import { EmailSignup, followProps } from "@/components/email-signup";
 import UniversityCorrectionForm from "./UniversityCorrectionForm";
+import { ApplicantGuides } from "@/components/applicant-guides";
 import {
   Globe, Mail, BookOpen, GraduationCap, Euro, Clock, FileText,
   ExternalLink, ArrowRight, MapPin, Calendar, Building2, Sparkles, Compass,
@@ -461,6 +462,7 @@ export default function UniversityDetailClient({ uni, links }: { uni: University
       )}
 
       <FadeIn delay={0.35}>
+        <ApplicantGuides className="mb-10" />
         <UniversityCorrectionForm uniId={uni.id} />
       </FadeIn>
     </div>

@@ -9,6 +9,7 @@ import { universityImage } from "@/data/images";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import ProgrammeDetailClient from "./ProgrammeDetailClient";
+import { ApplicantGuides } from "@/components/applicant-guides";
 import { programmeTitle } from "@/lib/programme-title";
 import { programmeJsonLd } from "@/lib/programme-schema";
 import { programmeHubs, relatedProgrammes } from "@/lib/related-programmes";
@@ -73,6 +74,7 @@ export default async function ProgrammePage({ params }: Props) {
           related={relatedProgrammes(prog)}
           hubs={programmeHubs(prog)}
         />
+        <ApplicantGuides />
       </main>
       <Footer />
     </div>
