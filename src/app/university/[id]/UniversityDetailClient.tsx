@@ -462,7 +462,7 @@ export default function UniversityDetailClient({ uni, links }: { uni: University
       )}
 
       <FadeIn delay={0.35}>
-        <ApplicantGuides className="mb-10" />
+        <ApplicantGuides context="university" className="mb-10" />
         <UniversityCorrectionForm uniId={uni.id} />
       </FadeIn>
     </div>

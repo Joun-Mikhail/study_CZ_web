@@ -74,7 +74,7 @@ export default async function ProgrammePage({ params }: Props) {
           related={relatedProgrammes(prog)}
           hubs={programmeHubs(prog)}
         />
-        <ApplicantGuides />
+        <ApplicantGuides context="programme" degree={prog.degree} />
       </main>
       <Footer />
     </div>

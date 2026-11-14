@@ -6,7 +6,6 @@ import { PROGRAMME_FIELDS } from "@/data/programmes";
 import { universitiesV2 } from "@/data/universities-v2";
 import { fieldToSlug, cityToSlug, degreeToSlug, studyPageIndexable } from "@/lib/seo-utils";
 import { CITY_AR, DEGREE_VALUE_AR, FIELD_AR } from "@/i18n/ar-metadata";
-import { ApplicantGuides } from "@/components/applicant-guides";
 import {
   GraduationCap,
   MapPin,
@@ -116,8 +115,6 @@ export function SeoCrosslinks({ locale, exclude }: Props) {
           ))}
         </div>
       </div>
-
-      <ApplicantGuides />
     </div>
   );
 }

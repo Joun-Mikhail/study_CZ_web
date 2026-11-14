@@ -110,7 +110,7 @@ export default function Page() {
             </motion.div>
           ))}
         </div>
-        <ApplicantGuides />
+        <ApplicantGuides context="scholarships" />
       </main>
       <Footer />
     </div>
