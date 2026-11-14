@@ -109,7 +109,7 @@ export function WhatsAppFloat() {
       aria-hidden={covering || undefined}
       tabIndex={covering ? -1 : undefined}
       className={cn(
-        "fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-[opacity,box-shadow] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366]",
+        "print:hidden fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-xl transition-[opacity,box-shadow] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366]",
         covering && "opacity-0 pointer-events-none"
       )}
     >

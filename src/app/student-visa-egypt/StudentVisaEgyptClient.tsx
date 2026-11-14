@@ -3,7 +3,7 @@
 import { RecognitionGuide, type GuideCopy } from "../recognition/RecognitionGuide";
 
 /** Every fact on this page comes from one of these official pages. */
-const SOURCES = {
+export const SOURCES = {
   studyVisa: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/long_term_visa/study_long_term_visa_to_the_czech/index.html",
   appointment: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/long_term_visa/make_an_appointment/index.html",
   fees: "https://mzv.gov.cz/cairo/en/visa_and_consular_information/consular_and_visa_fees/index.html",
@@ -12,9 +12,9 @@ const SOURCES = {
   fundsForeign: "https://mzv.gov.cz/jnp/en/information_for_aliens/supporting_documents_overview/financial_means.html",
 } as const;
 
-const CHECKED = { en: "18 October 2026", ar: "18 أكتوبر 2026" };
+export const CHECKED = { en: "18 October 2026", ar: "18 أكتوبر 2026" };
 
-const en: GuideCopy = {
+export const en: GuideCopy = {
   title: "Czech student visa from Egypt",
   subtitle: "How to apply for a long-term study visa at the Czech Embassy in Cairo, step by step, from official sources only.",
   checked: `Checked against the official pages on ${CHECKED.en}. Rules and fees can change, so open the source links before you act.`,
@@ -25,6 +25,7 @@ const en: GuideCopy = {
     { text: "For one year of study you must show at least 115,810 CZK.", source: "fundsInterior" },
     { text: "The fee is 6,412 EGP (valid from 1 November 2026).", source: "fees" },
     { text: "The Czech Ministry of the Interior decides, and it can take up to 60 days.", source: "studyVisa" },
+    { text: "Prefer a list you can tick off and print?", link: { href: "/student-visa-egypt/checklist", label: "Open the visa checklist" } },
     { text: "This is one step of studying in Czechia from Egypt.", link: { href: "/study-in-czechia-from-egypt", label: "See every step" } },
   ],
   sections: [
@@ -100,7 +101,7 @@ const en: GuideCopy = {
   source: "Source",
 };
 
-const ar: GuideCopy = {
+export const ar: GuideCopy = {
   title: "تأشيرة الدراسة في التشيك من مصر",
   subtitle: "كيف تقدّم على تأشيرة الدراسة طويلة الأجل في السفارة التشيكية بالقاهرة، خطوة بخطوة، من المصادر الرسمية فقط.",
   checked: `راجعنا هذه المعلومات على الصفحات الرسمية بتاريخ ${CHECKED.ar}. القواعد والرسوم قد تتغير، لذا افتح روابط المصادر قبل أي خطوة.`,
@@ -111,6 +112,7 @@ const ar: GuideCopy = {
     { text: "لسنة دراسية كاملة يجب أن تُثبت امتلاكك 115,810 كرونة تشيكية على الأقل.", source: "fundsInterior" },
     { text: "رسوم التأشيرة 6,412 جنيهًا مصريًا (سارية من 1 نوفمبر 2026).", source: "fees" },
     { text: "وزارة الداخلية التشيكية هي التي تقرر، وقد يستغرق ذلك حتى 60 يومًا.", source: "studyVisa" },
+    { text: "تفضّل قائمة تعلّم عليها وتطبعها؟", link: { href: "/student-visa-egypt/checklist", label: "افتح قائمة مستندات الفيزا" } },
     { text: "هذه خطوة من خطوات الدراسة في التشيك من مصر.", link: { href: "/study-in-czechia-from-egypt", label: "كل الخطوات" } },
   ],
   sections: [
