@@ -50,6 +50,7 @@ const pathNames: Record<string, { en: string; ar: string }> = {
   "thanaweya-amma-czech-university": { en: "Thanaweya Amma", ar: "الثانوية العامة" },
   "work-while-studying": { en: "Working While Studying", ar: "العمل أثناء الدراسة" },
   "student-housing": { en: "Student Housing", ar: "السكن الطلابي" },
+  checklist: { en: "Checklist", ar: "قائمة المستندات" },
   "official-sources": { en: "Official Sources", ar: "المصادر الرسمية" },
   "study-in-czechia-from-egypt": { en: "Studying from Egypt", ar: "الدراسة من مصر" },
 };

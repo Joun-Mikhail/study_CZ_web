@@ -177,6 +177,16 @@ export const SITE_PAGES: SitePage[] = [
     },
   },
   {
+    path: "/student-visa-egypt/checklist/",
+    title: "Czech Student Visa from Egypt: Printable Document Checklist",
+    description:
+      "A checklist you can tick off and print for the Czech study visa at the Cairo embassy: documents, the money to show, the appointment email and the day itself. Official sources.",
+    keywords: {
+      en: ["checklist", "visa documents", "print", "embassy", "Cairo", "papers"],
+      ar: ["قائمة", "مستندات", "أوراق الفيزا", "طباعة", "السفارة", "القاهرة"],
+    },
+  },
+  {
     path: "/student-visa-egypt/",
     title: "Czech Student Visa from Egypt: Documents, 115,810 CZK, Appointment",
     description:
