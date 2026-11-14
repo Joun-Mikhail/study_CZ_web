@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useTranslation } from "@/i18n/context";
+import { useTranslation } from "@/i18n/context";import Link from "@/components/locale-link";
 import { PhotoCredits } from "@/components/site-image";
 import { Navbar } from "@/components/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -28,7 +28,7 @@ const t = {
     notOfficialBadges: [
       "Not affiliated with Czech embassies",
       "Not affiliated with Czech universities",
-      "Not affiliated with the official Study in Czechia programme (studyin.cz)",
+      "Not affiliated with the official Study in Czechia programme (studyin.gov.cz)",
       "Not a government website",
     ],
     storyTitle: "How it started",
@@ -53,9 +53,9 @@ const t = {
       "Important claims on this site are marked with a \"Last verified\" date and linked to their official source. When our information conflicts with an official source, follow the official source, and tell us so we can correct it.",
     officialSourcesTitle: "Official sources we reference",
     officialSources: [
-      { name: "Czech Ministry of Interior", url: "https://www.mvcr.cz/mvcren/" },
-      { name: "Czech Ministry of Education", url: "https://www.msmt.cz/?lang=2" },
-      { name: "Study in the Czech Republic", url: "https://www.studyin.cz/" },
+      { name: "Czech Ministry of Interior", url: "https://ipc.gov.cz/en/" },
+      { name: "Czech Ministry of Education", url: "https://msmt.gov.cz/en" },
+      { name: "Study in the Czech Republic", url: "https://studyin.gov.cz/" },
     ],
     contactTitle: "Contact",
     contactBody: "Questions, corrections, or feedback. We read everything.",
@@ -71,7 +71,7 @@ const t = {
     notOfficialBadges: [
       "مش تابعين للسفارات التشيكية",
       "مش تابعين للجامعات التشيكية",
-      "مش تابعين لبرنامج Study in Czechia الرسمي (studyin.cz)",
+      "مش تابعين لبرنامج Study in Czechia الرسمي (studyin.gov.cz)",
       "مش موقع حكومي",
     ],
     storyTitle: "إزاي بدأ",
@@ -96,9 +96,9 @@ const t = {
       "المعلومات المهمة على الموقع متعلم عليها بتاريخ \"آخر تحقق\" ومربوطة بمصدرها الرسمي. لو معلوماتنا اتعارضت مع مصدر رسمي، اتبع المصدر الرسمي، وقولنا عشان نصلحها.",
     officialSourcesTitle: "المصادر الرسمية اللي بنرجعلها",
     officialSources: [
-      { name: "وزارة الداخلية التشيكية", url: "https://www.mvcr.cz/mvcren/" },
-      { name: "وزارة التعليم التشيكية", url: "https://www.msmt.cz/?lang=2" },
-      { name: "الدراسة في التشيك", url: "https://www.studyin.cz/" },
+      { name: "وزارة الداخلية التشيكية", url: "https://ipc.gov.cz/en/" },
+      { name: "وزارة التعليم التشيكية", url: "https://msmt.gov.cz/en" },
+      { name: "الدراسة في التشيك", url: "https://studyin.gov.cz/" },
     ],
     contactTitle: "تواصل",
     contactBody: "أسئلة، تصحيحات، أو ملاحظات. بنقرأ كل حاجة.",
@@ -238,6 +238,11 @@ export default function AboutClient() {
                 </li>
               ))}
             </ul>
+            <p className="mt-3 text-sm">
+              <Link href="/official-sources/" className="font-medium text-brand hover:underline">
+                {locale === "ar" ? "كل المصادر الرسمية حسب الموضوع" : "All official sources, by topic"}
+              </Link>
+            </p>
           </GlassCard>
 
           {/* Contact */}

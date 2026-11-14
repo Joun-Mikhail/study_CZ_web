@@ -157,6 +157,16 @@ export const SITE_PAGES: SitePage[] = [
     },
   },
   {
+    path: "/official-sources/",
+    title: "Official Sources for Studying in Czechia, Checked and Linked",
+    description:
+      "Where the official Study in Czechia pages live now (studyin.gov.cz), which authority decides admission, fees and visas, and how Study Czechia checks its facts.",
+    keywords: {
+      en: ["official", "sources", "studyin.cz", "studyin.gov.cz", "ministry", "embassy", "DZS", "verification", "broken link"],
+      ar: ["رسمي", "مصادر", "وزارة", "سفارة", "البوابة الرسمية", "توثيق"],
+    },
+  },
+  {
     path: "/student-housing/",
     title: "Student Housing in Czechia: University Dorm Prices in Prague and Brno",
     description:

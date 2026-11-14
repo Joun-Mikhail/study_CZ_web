@@ -365,8 +365,8 @@ If you plan to study in Brno, you have excellent local options:
 
 ## Useful Links | روابط مفيدة
 
-- **Study in Czechia Portal (Language Courses):** [portal.studyin.cz](https://portal.studyin.cz/en/find-your-study-programme/language-courses/)
-- **Study in Czechia — Language Preparation:** [studyin.cz/plan-your-studies/language-preparation](https://www.studyin.cz/plan-your-studies/language-preparation/)
+- **Study in Czechia: Find Your Programme:** [studyin.gov.cz](https://studyin.gov.cz/plan-your-studies/find-your-programme/)
+- **Study in Czechia: Learn Czech, Study Tuition-Free:** [studyin.gov.cz](https://studyin.gov.cz/plan-your-studies/learn-czech-study-tuition-free/)
 - **Charles University ÚJOP:** [ujop.cuni.cz](https://ujop.cuni.cz/UJOPEN-1.html)
 - **Masaryk University Czech Courses:** [muni.cz/language-courses](https://www.muni.cz/en/admissions/bachelors-and-masters-studies/language-courses/czech-language-courses)
 - **VUT Brno Czech Courses:** [lli.vutbr.cz](https://www.lli.vutbr.cz/english)

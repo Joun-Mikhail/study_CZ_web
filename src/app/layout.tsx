@@ -60,7 +60,7 @@ const ORG_ID = `${SITE_URL}/#organization`;
 export const metadata: Metadata = {
   title: {
     // Starts with the brand so a search for "Study Czechia" finds this site,
-    // not the official "Study in Czechia" programme (studyin.cz) it is often confused with.
+    // not the official "Study in Czechia" programme (studyin.gov.cz) it is often confused with.
     default: "Study Czechia: Your Guide to Studying in the Czech Republic",
     template: "%s | Study Czechia",
   },
@@ -128,7 +128,7 @@ export default function RootLayout({
                   "Free guides, university matching, cost-of-living tools, and expert support for Arabic-speaking students studying in the Czech Republic.",
                 // Same wording as the footer: the name is close to the official programme's.
                 disambiguatingDescription:
-                  "Independent, student-run guide. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.cz).",
+                  "Independent, student-run guide. Not affiliated with any Czech embassy, university, or the official Study in Czechia programme (studyin.gov.cz).",
                 areaServed: { "@type": "Country", name: "Czech Republic" },
                 knowsLanguage: ["en", "ar"],
                 // The community the footer links to.

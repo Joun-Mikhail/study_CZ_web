@@ -297,7 +297,7 @@ export default function WhyCzechiaClient({ mapCities }: { mapCities: MapCity[] }
           <VerifiedBadge
             date="2026-09-15"
             label={locale === "ar" ? "آخر تحديث:" : "Last updated:"}
-            sourceUrl="https://www.studyin.cz/"
+            sourceUrl="https://studyin.gov.cz/plan-your-studies/why-czechia/"
             className="mt-1"
           />
         </motion.div>
